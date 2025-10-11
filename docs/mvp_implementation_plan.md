@@ -79,13 +79,13 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Test with REAL OpenAI API (integration test)
 - Commit: `feat: integrate LLM validation into endpoint` ✅
 
-**Task 8: Error handling**
+**Task 8: Error handling** ✅ DONE
 - TDD: Write tests - API errors handled, empty input rejected, timeouts handled
 - Handle LLM API errors (rate limits, timeouts, invalid keys)
 - Validate input (non-empty citations)
 - Return appropriate error messages
 - Log all errors (ERROR level)
-- Commit: `feat: comprehensive error handling with logging`
+- Commit: `feat: comprehensive error handling with logging` ✅
 
 ### Phase 4: Frontend Integration
 **Task 9: Connect frontend to API**
