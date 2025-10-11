@@ -87,8 +87,11 @@ function App() {
       <header className="header">
         <div className="header-content">
           <div className="logo">
-            <span className="logo-icon">✓</span>
-            <h1 className="logo-text">CitationCheck</h1>
+            <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="10" fill="currentColor"/>
+              <path d="M7 12L10.5 15.5L17 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <h1 className="logo-text">Citation Format Checker</h1>
           </div>
         </div>
       </header>
@@ -213,7 +216,7 @@ function App() {
       {/* Benefits Section */}
       <section className="benefits">
         <div className="benefits-content">
-          <h3 className="benefits-title">Why students choose CitationCheck</h3>
+          <h3 className="benefits-title">Why students choose Citation Format Checker</h3>
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon">⚡</div>
@@ -243,7 +246,7 @@ function App() {
       {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
-          <p className="footer-text">© 2025 CitationCheck. All rights reserved.</p>
+          <p className="footer-text">© 2025 Citation Format Checker. All rights reserved.</p>
         </div>
       </footer>
     </div>
