@@ -12,7 +12,9 @@ function App() {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        // Disable underline from StarterKit to avoid duplicate
+      }),
       Underline,
       Placeholder.configure({
         placeholder: `Example:
@@ -23,7 +25,7 @@ Brown, A. (2022). Writing in APA style. Academic Press.`,
         emptyEditorClass: 'is-editor-empty',
       }),
     ],
-    content: '',
+    content: '<p></p>',
     editorProps: {
       attributes: {
         class: 'citation-editor',
