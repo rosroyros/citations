@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
+import Placeholder from '@tiptap/extension-placeholder'
 import './App.css'
 
 function App() {
@@ -13,8 +14,14 @@ function App() {
     extensions: [
       StarterKit,
       Underline,
+      Placeholder.configure({
+        placeholder: `Example:
+
+Smith, J., & Jones, M. (2023). Understanding research methods. Journal of Academic Studies, 45(2), 123-145. https://doi.org/10.1234/example
+
+Brown, A. (2022). Writing in APA style. Academic Press.`,
+      }),
     ],
-    content: '<p>Paste your citations here...</p>',
     editorProps: {
       attributes: {
         class: 'citation-editor',

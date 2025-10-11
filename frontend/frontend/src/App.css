@@ -178,6 +178,15 @@ textarea {
   text-decoration: underline;
 }
 
+.citation-editor .tiptap p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
 .error {
   max-width: 900px;
   margin: 2rem auto;
