@@ -178,7 +178,16 @@ textarea {
   text-decoration: underline;
 }
 
-.citation-editor .tiptap p.is-editor-empty:first-child::before {
+/* Placeholder styling */
+.citation-editor.is-editor-empty::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  pointer-events: none;
+  position: absolute;
+  white-space: pre-wrap;
+}
+
+.citation-editor .ProseMirror.is-editor-empty:first-child::before {
   color: #9ca3af;
   content: attr(data-placeholder);
   float: left;

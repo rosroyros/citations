@@ -20,8 +20,10 @@ function App() {
 Smith, J., & Jones, M. (2023). Understanding research methods. Journal of Academic Studies, 45(2), 123-145. https://doi.org/10.1234/example
 
 Brown, A. (2022). Writing in APA style. Academic Press.`,
+        emptyEditorClass: 'is-editor-empty',
       }),
     ],
+    content: '',
     editorProps: {
       attributes: {
         class: 'citation-editor',
