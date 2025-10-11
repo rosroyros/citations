@@ -63,7 +63,7 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Commit: `feat: prompt management with citation formatting` ✅
 
 ### Phase 3: Backend API
-**Task 6: Create validation endpoint**
+**Task 6: Create validation endpoint** ✅ DONE
 - TDD: Write test - POST /api/validate accepts JSON, returns 200, parses citations
 - Implement POST /api/validate endpoint
 - Accept JSON: { "citations": "text", "style": "apa7" }
@@ -71,13 +71,13 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Log: received citations count, parsing results
 - Commit: `feat: validation endpoint with citation parsing`
 
-**Task 7: Connect to LLM provider**
+**Task 7: Connect to LLM provider** ✅ DONE
 - TDD: Write test - endpoint calls LLM, returns structured errors for known bad citation
 - Call OpenAI API with prompt + citations
 - Parse LLM response into structured format
 - Log: LLM request/response, parsing steps
 - Test with REAL OpenAI API (integration test)
-- Commit: `feat: integrate LLM validation into endpoint`
+- Commit: `feat: integrate LLM validation into endpoint` ✅
 
 **Task 8: Error handling**
 - TDD: Write tests - API errors handled, empty input rejected, timeouts handled
