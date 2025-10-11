@@ -120,6 +120,12 @@ async def validate_citations(request: ValidationRequest):
 
         return ValidationResponse(results=validation_results["results"])
 
+    except ValueError as e:
+        # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
+        logger.error(f"Validation failed with user error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
     except Exception as e:
-        logger.error(f"Validation failed: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Validation error: {str(e)}")
+        # Unexpected errors
+        logger.error(f"Unexpected validation error: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")

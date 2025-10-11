@@ -2,7 +2,7 @@ import os
 import re
 import time
 from typing import Dict, Any, List
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, APIError, APITimeoutError, RateLimitError, AuthenticationError
 from backend.providers.base import CitationValidator
 from backend.prompt_manager import PromptManager
 from backend.logger import setup_logger
@@ -60,7 +60,8 @@ class OpenAIProvider(CitationValidator):
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.1,
-                max_tokens=2000
+                max_tokens=2000,
+                timeout=30.0  # 30 second timeout
             )
 
             api_time = time.time() - api_start
@@ -82,8 +83,24 @@ class OpenAIProvider(CitationValidator):
                 "results": results
             }
 
-        except Exception as e:
+        except AuthenticationError as e:
+            logger.error(f"OpenAI authentication failed: {str(e)}", exc_info=True)
+            raise ValueError("Invalid OpenAI API key. Please check your configuration.") from e
+
+        except RateLimitError as e:
+            logger.error(f"OpenAI rate limit exceeded: {str(e)}", exc_info=True)
+            raise ValueError("OpenAI rate limit exceeded. Please try again later.") from e
+
+        except APITimeoutError as e:
+            logger.error(f"OpenAI API timeout: {str(e)}", exc_info=True)
+            raise ValueError("Request timed out. The citation text may be too long or the service is slow.") from e
+
+        except APIError as e:
             logger.error(f"OpenAI API error: {str(e)}", exc_info=True)
+            raise ValueError(f"OpenAI API error: {str(e)}") from e
+
+        except Exception as e:
+            logger.error(f"Unexpected error during validation: {str(e)}", exc_info=True)
             raise
 
     def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:

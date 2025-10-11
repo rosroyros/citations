@@ -35,3 +35,27 @@ def test_validate_endpoint_returns_results():
     assert "results" in data
     assert isinstance(data["results"], list)
     assert len(data["results"]) >= 1  # LLM should detect at least one citation
+
+
+# ===== Error Handling Tests =====
+
+def test_empty_input_rejected():
+    """Test that empty citations are rejected with 400 error."""
+    payload = {
+        "citations": "",
+        "style": "apa7"
+    }
+    response = client.post("/api/validate", json=payload)
+    assert response.status_code == 400
+    assert "empty" in response.json()["detail"].lower()
+
+
+def test_whitespace_only_input_rejected():
+    """Test that whitespace-only citations are rejected."""
+    payload = {
+        "citations": "   \n\n   \t   ",
+        "style": "apa7"
+    }
+    response = client.post("/api/validate", json=payload)
+    assert response.status_code == 400
+    assert "empty" in response.json()["detail"].lower()
