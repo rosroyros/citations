@@ -103,12 +103,12 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Format errors (❌ indicator, what's wrong, should be)
 - Commit: `feat: display validation results with error formatting` ✅
 
-**Task 11: Error state handling**
+**Task 11: Error state handling** ✅ DONE
 - TDD: Write test - API errors display user-friendly messages
 - Display API errors to user
 - Handle empty input
 - Log: user-facing errors
-- Commit: `feat: user-friendly error handling in UI`
+- Commit: `feat: user-friendly error handling in UI` ✅
 
 **Task 12: Add basic styling**
 - TDD: N/A (visual polish)
