@@ -40,3 +40,49 @@
 .read-the-docs {
   color: #888;
 }
+
+textarea {
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  padding: 0.75rem;
+}
+
+.citation-editor {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.75rem;
+  min-height: 200px;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+  text-align: left;
+  outline: none;
+}
+
+.citation-editor:focus {
+  border-color: #646cff;
+}
+
+.citation-editor p {
+  margin: 0.5em 0;
+}
+
+.citation-editor em {
+  font-style: italic;
+}
+
+.citation-editor strong {
+  font-weight: bold;
+}
+
+.citation-editor u {
+  text-decoration: underline;
+}
+
+.original-citation p {
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-align: left;
+}

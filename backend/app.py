@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+from html.parser import HTMLParser
 from backend.logger import setup_logger
 from backend.providers.openai_provider import OpenAIProvider
 
@@ -14,6 +15,57 @@ logger = setup_logger("citation_validator")
 
 # Initialize LLM provider
 llm_provider = OpenAIProvider()
+
+
+class HTMLToTextConverter(HTMLParser):
+    """Convert HTML to text while preserving formatting indicators."""
+
+    def __init__(self):
+        super().__init__()
+        self.text = []
+        self.in_italic = False
+        self.in_bold = False
+        self.in_underline = False
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ['em', 'i']:
+            self.in_italic = True
+            self.text.append('[ITALIC]')
+        elif tag in ['strong', 'b']:
+            self.in_bold = True
+            self.text.append('[BOLD]')
+        elif tag == 'u':
+            self.in_underline = True
+            self.text.append('[UNDERLINE]')
+        elif tag == 'p':
+            if self.text and self.text[-1] != '\n':
+                self.text.append('\n')
+
+    def handle_endtag(self, tag):
+        if tag in ['em', 'i']:
+            self.in_italic = False
+            self.text.append('[/ITALIC]')
+        elif tag in ['strong', 'b']:
+            self.in_bold = False
+            self.text.append('[/BOLD]')
+        elif tag == 'u':
+            self.in_underline = False
+            self.text.append('[/UNDERLINE]')
+        elif tag == 'p':
+            self.text.append('\n')
+
+    def handle_data(self, data):
+        self.text.append(data)
+
+    def get_text(self):
+        return ''.join(self.text).strip()
+
+
+def html_to_text_with_formatting(html: str) -> str:
+    """Convert HTML citations to text with formatting markers."""
+    converter = HTMLToTextConverter()
+    converter.feed(html)
+    return converter.get_text()
 
 
 @asynccontextmanager
@@ -101,18 +153,23 @@ async def validate_citations(request: ValidationRequest):
         ValidationResponse with validation results and errors
     """
     logger.info(f"Validation request received for style: {request.style}")
-    logger.debug(f"Citations text length: {len(request.citations)} characters")
+    logger.debug(f"Citations length: {len(request.citations)} characters")
 
     # Validate input
     if not request.citations or not request.citations.strip():
         logger.warning("Empty citations submitted")
         raise HTTPException(status_code=400, detail="Citations cannot be empty")
 
+    # Convert HTML to text with formatting markers
+    citations_text = html_to_text_with_formatting(request.citations)
+    logger.debug(f"Converted HTML to text: {len(citations_text)} characters")
+    logger.debug(f"Citation text preview: {citations_text[:200]}...")
+
     try:
         # Call LLM provider for validation
         logger.info("Calling LLM provider for validation")
         validation_results = await llm_provider.validate_citations(
-            citations=request.citations,
+            citations=citations_text,
             style=request.style
         )
 

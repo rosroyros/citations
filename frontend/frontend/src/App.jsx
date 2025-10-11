@@ -1,16 +1,37 @@
 import { useState } from 'react'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+import Underline from '@tiptap/extension-underline'
 import './App.css'
 
 function App() {
-  const [citations, setCitations] = useState('')
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
 
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Underline,
+    ],
+    content: '<p>Paste your citations here...</p>',
+    editorProps: {
+      attributes: {
+        class: 'citation-editor',
+      },
+    },
+  })
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    console.log('Form submitted with citations:', citations)
+    if (!editor) return
+
+    const htmlContent = editor.getHTML()
+    const textContent = editor.getText()
+
+    console.log('Form submitted with citations:', textContent)
+    console.log('HTML content:', htmlContent)
 
     setLoading(true)
     setError(null)
@@ -25,7 +46,7 @@ function App() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          citations: citations,
+          citations: htmlContent,
           style: 'apa7',
         }),
       })
@@ -67,18 +88,11 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="citations">Enter citations (one per line):</label>
-          <textarea
-            id="citations"
-            value={citations}
-            onChange={(e) => setCitations(e.target.value)}
-            rows={10}
-            placeholder="Paste your citations here..."
-            disabled={loading}
-          />
+          <label>Enter citations (formatting preserved):</label>
+          <EditorContent editor={editor} />
         </div>
 
-        <button type="submit" disabled={loading || !citations.trim()}>
+        <button type="submit" disabled={loading || !editor || editor.isEmpty}>
           {loading ? 'Validating...' : 'Validate Citations'}
         </button>
       </form>
