@@ -151,3 +151,116 @@ describe('App - Validation Results Display', () => {
     global.fetch.mockRestore()
   })
 })
+
+describe('App - Error Handling', () => {
+  it('displays user-friendly error message when API returns error', async () => {
+    // Mock API error response
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: false,
+        status: 500,
+        json: () => Promise.resolve({ error: 'Internal server error occurred' }),
+      })
+    )
+
+    render(<App />)
+
+    const textarea = screen.getByRole('textbox', { name: /citations/i })
+    const submitButton = screen.getByRole('button', { name: /validate/i })
+
+    await userEvent.type(textarea, 'Test citation')
+    await userEvent.click(submitButton)
+
+    // Wait for error message to appear
+    await waitFor(() => {
+      expect(screen.getByText(/error:/i)).toBeInTheDocument()
+      expect(screen.getByText(/internal server error occurred/i)).toBeInTheDocument()
+    })
+
+    // Cleanup
+    global.fetch.mockRestore()
+  })
+
+  it('displays error message when network request fails', async () => {
+    // Mock network failure
+    global.fetch = vi.fn(() => Promise.reject(new Error('Network error')))
+
+    render(<App />)
+
+    const textarea = screen.getByRole('textbox', { name: /citations/i })
+    const submitButton = screen.getByRole('button', { name: /validate/i })
+
+    await userEvent.type(textarea, 'Test citation')
+    await userEvent.click(submitButton)
+
+    // Wait for error message to appear
+    await waitFor(() => {
+      expect(screen.getByText(/error:/i)).toBeInTheDocument()
+      expect(screen.getByText(/network error/i)).toBeInTheDocument()
+    })
+
+    // Cleanup
+    global.fetch.mockRestore()
+  })
+
+  it('disables submit button when input is empty', () => {
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /validate/i })
+
+    // Button should be disabled with empty input
+    expect(submitButton).toBeDisabled()
+  })
+
+  it('enables submit button when input has text', async () => {
+    render(<App />)
+
+    const textarea = screen.getByRole('textbox', { name: /citations/i })
+    const submitButton = screen.getByRole('button', { name: /validate/i })
+
+    // Initially disabled
+    expect(submitButton).toBeDisabled()
+
+    // Type something
+    await userEvent.type(textarea, 'Test citation')
+
+    // Should be enabled now
+    expect(submitButton).not.toBeDisabled()
+  })
+
+  it('clears previous error when new submission is made', async () => {
+    // First request fails
+    global.fetch = vi.fn(() => Promise.reject(new Error('First error')))
+
+    render(<App />)
+
+    const textarea = screen.getByRole('textbox', { name: /citations/i })
+    const submitButton = screen.getByRole('button', { name: /validate/i })
+
+    await userEvent.type(textarea, 'Test citation')
+    await userEvent.click(submitButton)
+
+    // Wait for first error
+    await waitFor(() => {
+      expect(screen.getByText(/first error/i)).toBeInTheDocument()
+    })
+
+    // Second request succeeds
+    global.fetch.mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ results: [] }),
+      })
+    )
+
+    await userEvent.click(submitButton)
+
+    // Wait for error to clear
+    await waitFor(() => {
+      expect(screen.queryByText(/first error/i)).not.toBeInTheDocument()
+    })
+
+    // Cleanup
+    global.fetch.mockRestore()
+  })
+})

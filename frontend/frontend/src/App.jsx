@@ -34,7 +34,8 @@ function App() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.error || 'Validation failed')
+        // FastAPI uses 'detail', but support both 'detail' and 'error' keys
+        throw new Error(errorData.detail || errorData.error || 'Validation failed')
       }
 
       const data = await response.json()
@@ -43,7 +44,17 @@ function App() {
       setResults(data)
     } catch (err) {
       console.error('API call error:', err)
-      setError(err.message)
+
+      // User-friendly error messages
+      let userMessage = err.message
+      if (err.message.includes('fetch')) {
+        userMessage = 'Unable to connect to the validation service. Please check if the backend is running.'
+      } else if (err.message.includes('Network')) {
+        userMessage = 'Network error occurred. Please check your connection and try again.'
+      }
+
+      console.log('Displaying user-facing error:', userMessage)
+      setError(userMessage)
     } finally {
       setLoading(false)
     }
