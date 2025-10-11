@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from backend.logger import setup_logger
 
 # Initialize logger
@@ -42,6 +43,17 @@ async def log_requests(request, call_next):
     return response
 
 
+class ValidationRequest(BaseModel):
+    """Request model for citation validation."""
+    citations: str
+    style: str
+
+
+class ValidationResponse(BaseModel):
+    """Response model for citation validation."""
+    citations: list[str]
+
+
 @app.get("/health")
 async def health_check():
     """
@@ -52,3 +64,30 @@ async def health_check():
     """
     logger.debug("Health check endpoint called")
     return {"status": "ok"}
+
+
+@app.post("/api/validate", response_model=ValidationResponse)
+async def validate_citations(request: ValidationRequest):
+    """
+    Validate citations against APA 7th edition rules.
+
+    Args:
+        request: ValidationRequest with citations text and style
+
+    Returns:
+        ValidationResponse with parsed citations
+    """
+    logger.info(f"Validation request received for style: {request.style}")
+    logger.debug(f"Citations text length: {len(request.citations)} characters")
+
+    # Parse citations by splitting on double newlines
+    parsed_citations = [
+        citation.strip()
+        for citation in request.citations.split("\n\n")
+        if citation.strip()
+    ]
+
+    logger.info(f"Parsed {len(parsed_citations)} citation(s)")
+    logger.debug(f"Citations: {parsed_citations}")
+
+    return ValidationResponse(citations=parsed_citations)
