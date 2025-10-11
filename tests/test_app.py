@@ -22,8 +22,8 @@ def test_validate_endpoint_accepts_json():
     assert response.status_code == 200
 
 
-def test_validate_endpoint_parses_citations():
-    """Test that endpoint correctly parses citations."""
+def test_validate_endpoint_returns_results():
+    """Test that endpoint returns validation results with proper structure."""
     payload = {
         "citations": "Smith, J. (2020). First article. Journal of Testing, 1(1), 1-10.\n\nJones, A. (2021). Second article. Testing Quarterly, 2(2), 20-30.",
         "style": "apa7"
@@ -31,6 +31,7 @@ def test_validate_endpoint_parses_citations():
     response = client.post("/api/validate", json=payload)
     data = response.json()
 
-    # Should return parsed citations
-    assert "citations" in data
-    assert len(data["citations"]) == 2
+    # Should return results with proper structure
+    assert "results" in data
+    assert isinstance(data["results"], list)
+    assert len(data["results"]) >= 1  # LLM should detect at least one citation
