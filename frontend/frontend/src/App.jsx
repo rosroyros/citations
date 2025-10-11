@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
-import Placeholder from '@tiptap/extension-placeholder'
 import './App.css'
 
 function App() {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
+  const [hasPlaceholder, setHasPlaceholder] = useState(true)
 
   const editor = useEditor({
     extensions: [
@@ -16,20 +16,22 @@ function App() {
         // Disable underline from StarterKit to avoid duplicate
       }),
       Underline,
-      Placeholder.configure({
-        placeholder: `Example:
-
-Smith, J., & Jones, M. (2023). Understanding research methods. Journal of Academic Studies, 45(2), 123-145. https://doi.org/10.1234/example
-
-Brown, A. (2022). Writing in APA style. Academic Press.`,
-        emptyEditorClass: 'is-editor-empty',
-      }),
     ],
-    content: '<p></p>',
+    content: `<p style="color: #9ca3af;">Example:</p>
+<p style="color: #9ca3af;"></p>
+<p style="color: #9ca3af;">Smith, J., & Jones, M. (2023). Understanding research methods. Journal of Academic Studies, 45(2), 123-145. https://doi.org/10.1234/example</p>
+<p style="color: #9ca3af;"></p>
+<p style="color: #9ca3af;">Brown, A. (2022). Writing in APA style. Academic Press.</p>`,
     editorProps: {
       attributes: {
         class: 'citation-editor',
       },
+    },
+    onFocus: ({ editor }) => {
+      if (hasPlaceholder) {
+        editor.commands.setContent('')
+        setHasPlaceholder(false)
+      }
     },
   })
 
@@ -134,7 +136,7 @@ Brown, A. (2022). Writing in APA style. Academic Press.`,
             </p>
           </div>
 
-          <button type="submit" disabled={loading || !editor || editor.isEmpty}>
+          <button type="submit" disabled={loading || !editor || hasPlaceholder}>
             {loading ? 'Validating...' : 'Check My Citations'}
           </button>
 
