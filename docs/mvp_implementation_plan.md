@@ -23,37 +23,37 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 ## Implementation Tasks
 
 ### Phase 1: Project Setup
-**Task 1: Initialize project structure**
+**Task 1: Initialize project structure** ✅ DONE
 - TDD: N/A (infrastructure setup)
 - Create venv, requirements.txt
 - Set up Git repo with initial commit
 - Create folder structure (backend/, frontend/, tests/)
 - Add verbose logging setup (Python logging module configured)
-- Commit: `init: project structure with venv and logging`
+- Commit: `init: project structure with venv and logging` ✅
 
-**Task 2: Backend foundation**
+**Task 2: Backend foundation** ✅ DONE
 - TDD: Write test first - test health check endpoint returns 200
 - Choose framework (Flask or FastAPI - recommend FastAPI for speed)
 - Implement health check endpoint that passes test
 - Add CORS for frontend communication
 - Add logging for all requests (INFO level)
-- Commit: `feat: basic API with health check endpoint and request logging`
+- Commit: `feat: basic API with health check endpoint and request logging` ✅
 
-**Task 3: Frontend foundation**
+**Task 3: Frontend foundation** ✅ DONE
 - TDD: Write test - component renders textarea and button
 - Initialize React app (Vite recommended)
 - Implement basic UI (paste textarea + submit button)
 - Add console logging for user actions
-- Commit: `feat: basic React UI with citation input form`
+- Commit: `feat: basic React UI with citation input form` ✅
 
 ### Phase 2: LLM Integration Layer
-**Task 4: Create LLM provider abstraction**
+**Task 4: Create LLM provider abstraction** ✅ DONE
 - TDD: Write test - provider interface has validate_citations method, returns expected structure
 - Define provider interface/abstract class
 - Implement OpenAI provider (note: can mock OpenAI API in tests to avoid costs)
 - Add config for API keys (.env file)
 - Add verbose logging: API calls, token usage, response times
-- Commit: `feat: LLM provider abstraction with OpenAI implementation`
+- Commit: `feat: LLM provider abstraction with OpenAI implementation` ✅
 
 **Task 5: Prompt management**
 - TDD: Write test - prompt loader returns correct text, formats citations correctly
