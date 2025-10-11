@@ -88,13 +88,13 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Commit: `feat: comprehensive error handling with logging` ✅
 
 ### Phase 4: Frontend Integration
-**Task 9: Connect frontend to API**
+**Task 9: Connect frontend to API** ✅ DONE
 - TDD: Write test - form submission calls API endpoint
 - Add form submission handler
 - Call backend /api/validate endpoint
 - Display loading state during validation
 - Log: API calls, responses
-- Commit: `feat: connect frontend to validation API`
+- Commit: `feat: connect frontend to validation API` ✅
 
 **Task 10: Display validation results**
 - TDD: Write test - results component displays errors correctly
