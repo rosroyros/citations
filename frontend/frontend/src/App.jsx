@@ -142,7 +142,28 @@ function App() {
 
       {results && (
         <div className="results">
-          <h2>Validation Results</h2>
+          <div className="results-summary">
+            <h2>Validation Results</h2>
+            <div className="summary-stats">
+              <div className="summary-stat">
+                <span className="stat-number">{results.results.length}</span>
+                <span className="stat-label">Citations Checked</span>
+              </div>
+              <div className="summary-stat">
+                <span className="stat-number">
+                  {results.results.filter(r => r.errors.length === 0).length}
+                </span>
+                <span className="stat-label">Perfect</span>
+              </div>
+              <div className="summary-stat">
+                <span className="stat-number">
+                  {results.results.filter(r => r.errors.length > 0).length}
+                </span>
+                <span className="stat-label">Need Fixes</span>
+              </div>
+            </div>
+          </div>
+
           {results.results.map((result) => (
             <div key={result.citation_number} className="citation-result">
               <h3>
@@ -152,7 +173,10 @@ function App() {
 
               <div className="original-citation">
                 <strong>Original:</strong>
-                <p>{result.original}</p>
+                <div
+                  className="citation-html"
+                  dangerouslySetInnerHTML={{ __html: result.original }}
+                />
               </div>
 
               <div className="source-type">
