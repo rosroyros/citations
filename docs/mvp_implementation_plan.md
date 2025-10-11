@@ -55,12 +55,12 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Add verbose logging: API calls, token usage, response times
 - Commit: `feat: LLM provider abstraction with OpenAI implementation` ✅
 
-**Task 5: Prompt management**
+**Task 5: Prompt management** ✅ DONE
 - TDD: Write test - prompt loader returns correct text, formats citations correctly
 - Load validation prompt from file (use draft_validator_prompt.md)
 - Create function to format citations as input to prompt
 - Log prompt construction (DEBUG level)
-- Commit: `feat: prompt management with citation formatting`
+- Commit: `feat: prompt management with citation formatting` ✅
 
 ### Phase 3: Backend API
 **Task 6: Create validation endpoint**
