@@ -1,10 +1,11 @@
 # Development Workflow
 
 ## Core Principles
-- **One task at a time**: Mark as in_progress ’ complete ’ next task
-- **Test-driven development**: Write test ’ implement ’ verify ’ commit
+- **One task at a time**: Mark as in_progress ï¿½ complete ï¿½ next task
+- **Test-driven development**: Write test ï¿½ implement ï¿½ verify ï¿½ commit
 - **Meaningful commits**: One commit per logical change, easy to revert
 - **No long-lived branches**: Direct commits to main with clear messages
+- **ALWAYS mark tasks as completed**: Immediately after finishing each task, mark it as completed in the todo list. Never batch completions.
 
 ## Task Flow
 1. Mark current task as `in_progress` in todo list
@@ -12,8 +13,12 @@
 3. Implement until tests pass
 4. Verify in logs/output that it works
 5. Commit with clear message
-6. Mark task as `completed`
-7. Move to next task
+6. **IMMEDIATELY update implementation plan (docs/mvp_implementation_plan.md) with âœ… DONE**
+7. Mark task as `completed` in todo list
+8. Commit the plan update
+9. Move to next task
+
+**CRITICAL**: Step 6 is NON-NEGOTIABLE. Never skip updating the implementation plan document.
 
 ## Git Commit Format
 ```
@@ -39,7 +44,7 @@ Examples:
 ## Testing
 - **Unit tests**: Core validation logic
 - **Integration tests**: API endpoints with real functionality (no mocking internal code)
-- **E2E tests**: Full flow (input ’ LLM ’ output)
+- **E2E tests**: Full flow (input ï¿½ LLM ï¿½ output)
 - **Run tests before commit**: `python3 -m pytest`
 - **Mock only external services**: External APIs can be mocked in tests to avoid costs/rate limits
 
