@@ -81,7 +81,46 @@ function App() {
       {results && (
         <div className="results">
           <h2>Validation Results</h2>
-          <pre>{JSON.stringify(results, null, 2)}</pre>
+          {results.results.map((result) => (
+            <div key={result.citation_number} className="citation-result">
+              <h3>
+                Citation #{result.citation_number}
+                {result.errors.length === 0 ? ' ✅' : ' ❌'}
+              </h3>
+
+              <div className="original-citation">
+                <strong>Original:</strong>
+                <p>{result.original}</p>
+              </div>
+
+              <div className="source-type">
+                <em>Source type: {result.source_type}</em>
+              </div>
+
+              {result.errors.length === 0 ? (
+                <div className="no-errors">
+                  <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
+                </div>
+              ) : (
+                <div className="errors-list">
+                  <strong>Errors found:</strong>
+                  {result.errors.map((error, index) => (
+                    <div key={index} className="error-item">
+                      <div className="error-component">
+                        <strong>❌ {error.component}:</strong>
+                      </div>
+                      <div className="error-problem">
+                        <em>Problem:</em> {error.problem}
+                      </div>
+                      <div className="error-correction">
+                        <em>Correction:</em> {error.correction}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>
