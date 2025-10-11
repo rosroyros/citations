@@ -1,28 +1,101 @@
 .app {
   min-height: 100vh;
-  padding: 2rem 1rem;
 }
 
-.app-header {
-  max-width: 900px;
-  margin: 0 auto 3rem;
+/* Header */
+.header {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-icon {
+  width: 2rem;
+  height: 2rem;
+  background: #9333ea;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+/* Hero Section */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
   text-align: center;
 }
 
-.app-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.75rem;
-  color: #1f2937;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.app-header p {
-  font-size: 1.125rem;
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
   color: #6b7280;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.hero-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+}
+
+.stat-icon {
+  font-size: 1.25rem;
+}
+
+.stat-text {
+  font-weight: 600;
+  color: #92400e;
+  font-size: 1rem;
+}
+
+/* Input Section */
+.input-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem 5rem;
 }
 
 form {
-  max-width: 900px;
-  margin: 0 auto;
   background: white;
   border-radius: 1rem;
   padding: 2rem;
@@ -36,6 +109,13 @@ form label {
   margin-bottom: 0.75rem;
   text-align: left;
   font-size: 1rem;
+}
+
+.input-helper {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  text-align: left;
 }
 
 button[type="submit"] {
@@ -261,18 +341,101 @@ textarea {
   font-weight: 500;
 }
 
+/* Benefits Section */
+.benefits {
+  background: white;
+  padding: 5rem 2rem;
+}
+
+.benefits-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefits-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 3rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.benefit-icon {
+  width: 4rem;
+  height: 4rem;
+  background: #f3e8ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+}
+
+.benefit-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.75rem;
+}
+
+.benefit-text {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Footer */
+.footer {
+  background: #1f2937;
+  color: white;
+  padding: 3rem 2rem;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-text {
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
 /* Responsive */
-@media (max-width: 640px) {
-  .app {
-    padding: 1rem 0.5rem;
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
   }
 
-  .app-header h1 {
-    font-size: 1.875rem;
+  .hero-subtitle {
+    font-size: 1.125rem;
   }
 
-  .app-header p {
-    font-size: 1rem;
+  .header-content,
+  .hero,
+  .input-section,
+  .benefits,
+  .footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   form {

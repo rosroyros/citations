@@ -83,29 +83,56 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app-header">
-        <h1>Citation Validator</h1>
-        <p>Validate your APA 7th edition citations</p>
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Enter citations (formatting preserved):</label>
-          <EditorContent editor={editor} />
+      {/* Header */}
+      <header className="header">
+        <div className="header-content">
+          <div className="logo">
+            <span className="logo-icon">✓</span>
+            <h1 className="logo-text">CitationCheck</h1>
+          </div>
         </div>
+      </header>
 
-        <button type="submit" disabled={loading || !editor || editor.isEmpty}>
-          {loading ? 'Validating...' : 'Validate Citations'}
-        </button>
-
-        {/* Feature Pills */}
-        <div className="feature-pills">
-          <span className="feature-pill">✓ Capitalization check</span>
-          <span className="feature-pill">✓ Italics validation</span>
-          <span className="feature-pill">✓ DOI formatting</span>
-          <span className="feature-pill">✓ Punctuation rules</span>
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <h2 className="hero-title">
+            Stop spending 5 minutes fixing every citation
+          </h2>
+          <p className="hero-subtitle">
+            Citation generators create errors. We catch them. Get instant validation for your APA references and save hours of manual checking.
+          </p>
+          <div className="hero-stat">
+            <span className="stat-icon">⚠️</span>
+            <span className="stat-text">90.9% of papers contain formatting errors</span>
+          </div>
         </div>
-      </form>
+      </section>
+
+      {/* Input Section */}
+      <section className="input-section">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Paste your citations below (APA 7th edition)</label>
+            <EditorContent editor={editor} />
+            <p className="input-helper">
+              Paste one or multiple citations. We'll check each one.
+            </p>
+          </div>
+
+          <button type="submit" disabled={loading || !editor || editor.isEmpty}>
+            {loading ? 'Validating...' : 'Check My Citations'}
+          </button>
+
+          {/* Feature Pills */}
+          <div className="feature-pills">
+            <span className="feature-pill">✓ Capitalization check</span>
+            <span className="feature-pill">✓ Italics validation</span>
+            <span className="feature-pill">✓ DOI formatting</span>
+            <span className="feature-pill">✓ Punctuation rules</span>
+          </div>
+        </form>
+      </section>
 
       {error && (
         <div className="error">
@@ -158,6 +185,43 @@ function App() {
           ))}
         </div>
       )}
+
+      {/* Benefits Section */}
+      <section className="benefits">
+        <div className="benefits-content">
+          <h3 className="benefits-title">Why students choose CitationCheck</h3>
+          <div className="benefits-grid">
+            <div className="benefit-card">
+              <div className="benefit-icon">⚡</div>
+              <h4 className="benefit-title">Save hours</h4>
+              <p className="benefit-text">
+                Stop manually checking every citation. Get instant validation in seconds.
+              </p>
+            </div>
+            <div className="benefit-card">
+              <div className="benefit-icon">🎯</div>
+              <h4 className="benefit-title">Catch generator errors</h4>
+              <p className="benefit-text">
+                EasyBib, Zotero, and others make mistakes. We find them before your professor does.
+              </p>
+            </div>
+            <div className="benefit-card">
+              <div className="benefit-icon">✅</div>
+              <h4 className="benefit-title">Never lose points</h4>
+              <p className="benefit-text">
+                Submit with confidence. No more losing grades on formatting mistakes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="footer-content">
+          <p className="footer-text">© 2025 CitationCheck. All rights reserved.</p>
+        </div>
+      </footer>
     </div>
   )
 }
