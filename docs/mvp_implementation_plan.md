@@ -110,12 +110,12 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Log: user-facing errors
 - Commit: `feat: user-friendly error handling in UI` ✅
 
-**Task 12: Add basic styling**
+**Task 12: Add basic styling** ✅ DONE
 - TDD: N/A (visual polish)
 - Implement mockup design (colors, layout, responsive)
 - Add feature pills from mockup
 - Improve readability of error messages
-- Commit: `style: implement mockup design`
+- Commit: `style: implement mockup design` ✅
 
 ### Phase 5: Final Testing & Sample Data
 **Task 13: Create comprehensive test fixtures**
