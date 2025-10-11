@@ -96,12 +96,12 @@ Build a local web app where users paste citations, submit them to an LLM for APA
 - Log: API calls, responses
 - Commit: `feat: connect frontend to validation API` ✅
 
-**Task 10: Display validation results**
+**Task 10: Display validation results** ✅ DONE
 - TDD: Write test - results component displays errors correctly
 - Parse API response
 - Show original citations with errors listed below each
 - Format errors (❌ indicator, what's wrong, should be)
-- Commit: `feat: display validation results with error formatting`
+- Commit: `feat: display validation results with error formatting` ✅
 
 **Task 11: Error state handling**
 - TDD: Write test - API errors display user-friendly messages
