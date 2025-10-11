@@ -83,8 +83,10 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Citation Validator</h1>
-      <p>Validate your APA 7th edition citations</p>
+      <div className="app-header">
+        <h1>Citation Validator</h1>
+        <p>Validate your APA 7th edition citations</p>
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -95,6 +97,14 @@ function App() {
         <button type="submit" disabled={loading || !editor || editor.isEmpty}>
           {loading ? 'Validating...' : 'Validate Citations'}
         </button>
+
+        {/* Feature Pills */}
+        <div className="feature-pills">
+          <span className="feature-pill">✓ Capitalization check</span>
+          <span className="feature-pill">✓ Italics validation</span>
+          <span className="feature-pill">✓ DOI formatting</span>
+          <span className="feature-pill">✓ Punctuation rules</span>
+        </div>
       </form>
 
       {error && (
