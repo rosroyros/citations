@@ -1,0 +1,6028 @@
+{
+  "examples": [
+    {
+      "example_id": "psychology_journal_001",
+      "source_type": "journal_article",
+      "reference_citation": "Chen, L., & Williams, K. (2023). The impact of social media on adolescent mental health: A longitudinal study. Journal of Abnormal Psychology, 132(4), 456-468. https://doi.org/10.1037/abn0000789",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Chen & Williams, 2023)",
+          "context": "Recent research has shown concerning trends in social media use (Chen & Williams, 2023)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Chen and Williams (2023)",
+          "context": "Chen and Williams (2023) found that increased social media exposure correlated with higher anxiety levels."
+        }
+      ],
+      "metadata": {
+        "title": "The impact of social media on adolescent mental health: A longitudinal study",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Chen",
+            "initials": "L.",
+            "full_name": "Li Chen"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "K.",
+            "full_name": "Kelly Williams"
+          }
+        ],
+        "source": {
+          "name": "Journal of Abnormal Psychology",
+          "volume": "132",
+          "issue": "4",
+          "pages": "456-468",
+          "doi": "10.1037/abn0000789",
+          "url": null,
+          "publisher": "American Psychological Association",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "adolescent",
+        "social_media",
+        "mental_health",
+        "longitudinal"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Study followed 500 adolescents over 3 years, measuring social media use and mental health outcomes"
+    },
+    {
+      "example_id": "education_journal_001",
+      "source_type": "journal_article",
+      "reference_citation": "Johnson, M. R., Davis, S. L., & Thompson, A. K. (2022). Remote learning effectiveness during COVID-19: A meta-analysis. Review of Educational Research, 92(3), 412-445. https://doi.org/10.3102/00346543221075623",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson et al., 2022)",
+          "context": "Educational outcomes varied significantly during remote learning periods (Johnson et al., 2022)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson, Davis, and Thompson (2022)",
+          "context": "Johnson, Davis, and Thompson (2022) analyzed 85 studies on remote learning effectiveness."
+        }
+      ],
+      "metadata": {
+        "title": "Remote learning effectiveness during COVID-19: A meta-analysis",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "M. R.",
+            "full_name": "Maria R. Johnson"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "S. L.",
+            "full_name": "Steven L. Davis"
+          },
+          {
+            "last_name": "Thompson",
+            "initials": "A. K.",
+            "full_name": "Angela K. Thompson"
+          }
+        ],
+        "source": {
+          "name": "Review of Educational Research",
+          "volume": "92",
+          "issue": "3",
+          "pages": "412-445",
+          "doi": "10.3102/00346543221075623",
+          "url": null,
+          "publisher": "SAGE Publications",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "remote_learning",
+        "COVID-19",
+        "meta_analysis",
+        "educational_outcomes"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "education",
+      "notes": "Meta-analysis of 85 studies with over 45,000 participants across K-12 and higher education"
+    },
+    {
+      "example_id": "nursing_journal_001",
+      "source_type": "journal_article",
+      "reference_citation": "Garcia, E. M. (2021). Nurse burnout and patient safety: The mediating role of working conditions. Journal of Nursing Administration, 51(7), 389-395. https://doi.org/10.1097/NNA.0000000000001015",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Garcia, 2021)",
+          "context": "Nurse burnout has been linked to patient safety outcomes (Garcia, 2021)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Garcia (2021)",
+          "context": "Garcia (2021) demonstrated that working conditions mediate the relationship between burnout and patient safety."
+        }
+      ],
+      "metadata": {
+        "title": "Nurse burnout and patient safety: The mediating role of working conditions",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Garcia",
+            "initials": "E. M.",
+            "full_name": "Elena M. Garcia"
+          }
+        ],
+        "source": {
+          "name": "Journal of Nursing Administration",
+          "volume": "51",
+          "issue": "7",
+          "pages": "389-395",
+          "doi": "10.1097/NNA.0000000000001015",
+          "url": null,
+          "publisher": "Wolters Kluwer Health",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "burnout",
+        "patient_safety",
+        "working_conditions",
+        "healthcare"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "nursing",
+      "notes": "Survey of 1,200 registered nurses across 15 hospitals in the United States"
+    },
+    {
+      "example_id": "business_journal_001",
+      "source_type": "journal_article",
+      "reference_citation": "Anderson, R. L., Brown, T. S., Clark, J. R., Davis, M. K., Evans, S. L., Foster, N. P., & Miller, L. Q. (2023). Remote work productivity: A multi-site analysis of Fortune 500 companies. Journal of Business Research, 158(2), 113456. https://doi.org/10.1016/j.jbusres.2023.113456",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Anderson et al., 2023)",
+          "context": "Productivity in remote work settings has shown mixed results across industries (Anderson et al., 2023)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Anderson et al. (2023)",
+          "context": "Anderson et al. (2023) found that remote work productivity increased by 23% on average."
+        }
+      ],
+      "metadata": {
+        "title": "Remote work productivity: A multi-site analysis of Fortune 500 companies",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Anderson",
+            "initials": "R. L.",
+            "full_name": "Robert L. Anderson"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "T. S.",
+            "full_name": "Thomas S. Brown"
+          },
+          {
+            "last_name": "Clark",
+            "initials": "J. R.",
+            "full_name": "Jennifer R. Clark"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "M. K.",
+            "full_name": "Michael K. Davis"
+          },
+          {
+            "last_name": "Evans",
+            "initials": "S. L.",
+            "full_name": "Sarah L. Evans"
+          },
+          {
+            "last_name": "Foster",
+            "initials": "N. P.",
+            "full_name": "Nathan P. Foster"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "L. Q.",
+            "full_name": "Lisa Q. Miller"
+          }
+        ],
+        "source": {
+          "name": "Journal of Business Research",
+          "volume": "158",
+          "issue": "2",
+          "pages": "113456",
+          "doi": "10.1016/j.jbusres.2023.113456",
+          "url": null,
+          "publisher": "Elsevier",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "remote_work",
+        "productivity",
+        "Fortune_500",
+        "organizational_behavior"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "business",
+      "notes": "Analyzed productivity data from 45 Fortune 500 companies with over 120,000 employees"
+    },
+    {
+      "example_id": "social_work_journal_001",
+      "source_type": "journal_article",
+      "reference_citation": "Martinez, S. H., & O'Brien, K. L. (2022). Trauma-informed care in child welfare services: Outcomes from a five-year study. Child Welfare, 101(1), 23-41. https://doi.org/10.1177/0009392022112345",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martinez & O'Brien, 2022)",
+          "context": "Trauma-informed approaches have shown promising results in child welfare (Martinez & O'Brien, 2022)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martinez and O'Brien (2022)",
+          "context": "Martinez and O'Brien (2022) followed 2,500 children over five years to assess trauma-informed care outcomes."
+        }
+      ],
+      "metadata": {
+        "title": "Trauma-informed care in child welfare services: Outcomes from a five-year study",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Martinez",
+            "initials": "S. H.",
+            "full_name": "Sofia H. Martinez"
+          },
+          {
+            "last_name": "O'Brien",
+            "initials": "K. L.",
+            "full_name": "Kevin L. O'Brien"
+          }
+        ],
+        "source": {
+          "name": "Child Welfare",
+          "volume": "101",
+          "issue": "1",
+          "pages": "23-41",
+          "doi": "10.1177/0009392022112345",
+          "url": null,
+          "publisher": "SAGE Publications",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "trauma_informed_care",
+        "child_welfare",
+        "longitudinal",
+        "outcomes"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "social_work",
+      "notes": "Five-year longitudinal study of 2,500 children in foster care across 12 states"
+    },
+    {
+      "example_id": "psychology_journal_002",
+      "source_type": "journal_article",
+      "reference_citation": "Thompson, C. R., Lee, J. H., Wang, Y., Anderson, M. D., & Singh, P. K. (2020). Cognitive decline in aging: The role of physical exercise. Neuropsychology, 34(7), 892-904. https://doi.org/10.1037/neu0000654",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Thompson et al., 2020)",
+          "context": "Physical exercise has been shown to slow cognitive decline (Thompson et al., 2020)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Thompson et al. (2020)",
+          "context": "Thompson et al. (2020) conducted a 3-year study with 800 participants aged 65-85."
+        }
+      ],
+      "metadata": {
+        "title": "Cognitive decline in aging: The role of physical exercise",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Thompson",
+            "initials": "C. R.",
+            "full_name": "Carol R. Thompson"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "J. H.",
+            "full_name": "Jin H. Lee"
+          },
+          {
+            "last_name": "Wang",
+            "initials": "Y.",
+            "full_name": "Ying Wang"
+          },
+          {
+            "last_name": "Anderson",
+            "initials": "M. D.",
+            "full_name": "Michael D. Anderson"
+          },
+          {
+            "last_name": "Singh",
+            "initials": "P. K.",
+            "full_name": "Priya K. Singh"
+          }
+        ],
+        "source": {
+          "name": "Neuropsychology",
+          "volume": "34",
+          "issue": "7",
+          "pages": "892-904",
+          "doi": "10.1037/neu0000654",
+          "url": null,
+          "publisher": "American Psychological Association",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "aging",
+        "cognitive_decline",
+        "exercise",
+        "neuropsychology"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "psychology",
+      "notes": "3-year longitudinal study with 800 participants examining exercise effects on cognitive function"
+    },
+    {
+      "example_id": "psychology_journal_003",
+      "source_type": "journal_article",
+      "reference_citation": "Wilson, E. J., Park, S. M., & Rodriguez, L. A. (2021). Implicit bias in hiring decisions: A meta-analytic review. Journal of Applied Psychology, 106(8), 1123-1145. https://doi.org/10.1037/apl0000987",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Wilson et al., 2021)",
+          "context": "Implicit bias significantly affects hiring decisions across industries (Wilson et al., 2021)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Wilson, Park, and Rodriguez (2021)",
+          "context": "Wilson, Park, and Rodriguez (2021) found that resume screening showed consistent bias patterns."
+        }
+      ],
+      "metadata": {
+        "title": "Implicit bias in hiring decisions: A meta-analytic review",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Wilson",
+            "initials": "E. J.",
+            "full_name": "Emily J. Wilson"
+          },
+          {
+            "last_name": "Park",
+            "initials": "S. M.",
+            "full_name": "Sarah M. Park"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "L. A.",
+            "full_name": "Luis A. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Journal of Applied Psychology",
+          "volume": "106",
+          "issue": "8",
+          "pages": "1123-1145",
+          "doi": "10.1037/apl0000987",
+          "url": null,
+          "publisher": "American Psychological Association",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "implicit_bias",
+        "hiring",
+        "meta_analysis",
+        "organizational_psychology"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "psychology",
+      "notes": "Meta-analysis of 142 studies with over 28,000 participants examining hiring bias"
+    },
+    {
+      "example_id": "education_journal_002",
+      "source_type": "journal_article",
+      "reference_citation": "Taylor, A. M. (2023). Growth mindset interventions in elementary mathematics. Journal of Educational Psychology, 115(3), 567-582. https://doi.org/10.1037/edu0000723",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor, 2023)",
+          "context": "Growth mindset interventions improved mathematics achievement (Taylor, 2023)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor (2023)",
+          "context": "Taylor (2023) implemented a randomized controlled trial with 1,200 elementary students."
+        }
+      ],
+      "metadata": {
+        "title": "Growth mindset interventions in elementary mathematics",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "A. M.",
+            "full_name": "Ashley M. Taylor"
+          }
+        ],
+        "source": {
+          "name": "Journal of Educational Psychology",
+          "volume": "115",
+          "issue": "3",
+          "pages": "567-582",
+          "doi": "10.1037/edu0000723",
+          "url": null,
+          "publisher": "American Psychological Association",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "growth_mindset",
+        "mathematics",
+        "elementary",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "education",
+      "notes": "Randomized controlled trial with 1,200 students across 12 elementary schools"
+    },
+    {
+      "example_id": "education_journal_003",
+      "source_type": "journal_article",
+      "reference_citation": "Patel, R. K., Nguyen, T. L., Williams, J. H., Brown, C. M., & Davis, S. R. (2022). Cultural competence in teacher preparation programs. Teaching and Teacher Education, 117, 103712. https://doi.org/10.1016/j.tate.2022.103712",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Patel et al., 2022)",
+          "context": "Teacher preparation programs need better cultural competence training (Patel et al., 2022)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Patel et al. (2022)",
+          "context": "Patel et al. (2022) surveyed 500 teacher education programs across the United States."
+        }
+      ],
+      "metadata": {
+        "title": "Cultural competence in teacher preparation programs",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Patel",
+            "initials": "R. K.",
+            "full_name": "Raj K. Patel"
+          },
+          {
+            "last_name": "Nguyen",
+            "initials": "T. L.",
+            "full_name": "Thi L. Nguyen"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "J. H.",
+            "full_name": "Jennifer H. Williams"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "C. M.",
+            "full_name": "Christopher M. Brown"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "S. R.",
+            "full_name": "Sarah R. Davis"
+          }
+        ],
+        "source": {
+          "name": "Teaching and Teacher Education",
+          "volume": "117",
+          "issue": null,
+          "pages": "103712",
+          "doi": "10.1016/j.tate.2022.103712",
+          "url": null,
+          "publisher": "Elsevier",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "cultural_competence",
+        "teacher_preparation",
+        "diversity",
+        "curriculum"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "education",
+      "notes": "National survey of 500 teacher education programs with 3,000 pre-service teachers"
+    },
+    {
+      "example_id": "nursing_journal_002",
+      "source_type": "journal_article",
+      "reference_citation": "Kim, S. H., O'Connor, M. P., & Wilson, R. T. (2020). Evidence-based practice implementation in intensive care units. Critical Care Nurse, 40(6), 28-37. https://doi.org/10.4037/ccn2020897",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Kim et al., 2020)",
+          "context": "Evidence-based practice implementation varies widely across ICUs (Kim et al., 2020)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Kim, O'Connor, and Wilson (2020)",
+          "context": "Kim, O'Connor, and Wilson (2020) identified barriers to EBP implementation in critical care."
+        }
+      ],
+      "metadata": {
+        "title": "Evidence-based practice implementation in intensive care units",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Kim",
+            "initials": "S. H.",
+            "full_name": "Sung H. Kim"
+          },
+          {
+            "last_name": "O'Connor",
+            "initials": "M. P.",
+            "full_name": "Mary P. O'Connor"
+          },
+          {
+            "last_name": "Wilson",
+            "initials": "R. T.",
+            "full_name": "Robert T. Wilson"
+          }
+        ],
+        "source": {
+          "name": "Critical Care Nurse",
+          "volume": "40",
+          "issue": "6",
+          "pages": "28-37",
+          "doi": "10.4037/ccn2020897",
+          "url": null,
+          "publisher": "American Association of Critical-Care Nurses",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "evidence_based_practice",
+        "critical_care",
+        "implementation",
+        "barriers"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "nursing",
+      "notes": "Mixed-methods study with 45 ICUs and 1,200 nurses across 8 states"
+    },
+    {
+      "example_id": "nursing_journal_003",
+      "source_type": "journal_article",
+      "reference_citation": "Adams, B. L. (2021). Medication error prevention through barcode technology. Journal of Nursing Care Quality, 36(2), 178-186. https://doi.org/10.1097/NCQ.0000000000000523",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Adams, 2021)",
+          "context": "Barcode technology significantly reduced medication errors (Adams, 2021)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Adams (2021)",
+          "context": "Adams (2021) documented a 67% reduction in medication errors after implementing barcode systems."
+        }
+      ],
+      "metadata": {
+        "title": "Medication error prevention through barcode technology",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Adams",
+            "initials": "B. L.",
+            "full_name": "Barbara L. Adams"
+          }
+        ],
+        "source": {
+          "name": "Journal of Nursing Care Quality",
+          "volume": "36",
+          "issue": "2",
+          "pages": "178-186",
+          "doi": "10.1097/NCQ.0000000000000523",
+          "url": null,
+          "publisher": "Wolters Kluwer Health",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "medication_errors",
+        "barcode_technology",
+        "patient_safety",
+        "technology"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "nursing",
+      "notes": "Pre-post intervention study in a 300-bed tertiary care hospital"
+    },
+    {
+      "example_id": "business_journal_002",
+      "source_type": "journal_article",
+      "reference_citation": "Zhang, W. L., Kumar, R. S., Johnson, M. T., & Chen, P. A. (2022). Artificial intelligence in financial decision making. Journal of Financial Economics, 143(1), 234-258. https://doi.org/10.1016/j.jfineco.2021.101645",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Zhang et al., 2022)",
+          "context": "AI algorithms are increasingly used in financial decision making (Zhang et al., 2022)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Zhang, Kumar, Johnson, and Chen (2022)",
+          "context": "Zhang, Kumar, Johnson, and Chen (2022) analyzed AI performance in investment decisions."
+        }
+      ],
+      "metadata": {
+        "title": "Artificial intelligence in financial decision making",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Zhang",
+            "initials": "W. L.",
+            "full_name": "Wei L. Zhang"
+          },
+          {
+            "last_name": "Kumar",
+            "initials": "R. S.",
+            "full_name": "Raj S. Kumar"
+          },
+          {
+            "last_name": "Johnson",
+            "initials": "M. T.",
+            "full_name": "Michael T. Johnson"
+          },
+          {
+            "last_name": "Chen",
+            "initials": "P. A.",
+            "full_name": "Ping A. Chen"
+          }
+        ],
+        "source": {
+          "name": "Journal of Financial Economics",
+          "volume": "143",
+          "issue": "1",
+          "pages": "234-258",
+          "doi": "10.1016/j.jfineco.2021.101645",
+          "url": null,
+          "publisher": "Elsevier",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "artificial_intelligence",
+        "finance",
+        "decision_making",
+        "fintech"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "business",
+      "notes": "Analysis of 50 AI investment algorithms compared to human fund managers over 5 years"
+    },
+    {
+      "example_id": "business_journal_003",
+      "source_type": "journal_article",
+      "reference_citation": "Rodriguez, M. P. (2023). Supply chain resilience after COVID-19. Harvard Business Review, 101(4), 89-97. https://hbr.org/2023/07/supply-chain-resilience-after-covid-19",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Rodriguez, 2023)",
+          "context": "Supply chain resilience has become a critical business priority (Rodriguez, 2023)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Rodriguez (2023)",
+          "context": "Rodriguez (2023) interviewed 200 supply chain executives about resilience strategies."
+        }
+      ],
+      "metadata": {
+        "title": "Supply chain resilience after COVID-19",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Rodriguez",
+            "initials": "M. P.",
+            "full_name": "Maria P. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Harvard Business Review",
+          "volume": "101",
+          "issue": "4",
+          "pages": "89-97",
+          "doi": null,
+          "url": "https://hbr.org/2023/07/supply-chain-resilience-after-covid-19",
+          "publisher": "Harvard Business School Publishing",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "supply_chain",
+        "resilience",
+        "COVID-19",
+        "strategy"
+      ],
+      "special_features": [
+        "url_only",
+        "single_author"
+      ],
+      "field": "business",
+      "notes": "Interview study with 200 supply chain executives from Fortune 1000 companies"
+    },
+    {
+      "example_id": "social_work_journal_002",
+      "source_type": "journal_article",
+      "reference_citation": "Social Work Research Team. (2021). Homelessness intervention effectiveness during pandemic. Research on Social Work Practice, 31(8), 789-803. https://doi.org/10.1177/10497315211045678",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Social Work Research Team, 2021)",
+          "context": "Pandemic-era interventions showed mixed effectiveness for homelessness (Social Work Research Team, 2021)."
+        },
+        {
+          "type": "narrative",
+          "citation": "Social Work Research Team (2021)",
+          "context": "Social Work Research Team (2021) evaluated 45 homelessness programs across 12 cities."
+        }
+      ],
+      "metadata": {
+        "title": "Homelessness intervention effectiveness during pandemic",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Social Work Research Team",
+            "initials": null,
+            "full_name": "Social Work Research Team"
+          }
+        ],
+        "source": {
+          "name": "Research on Social Work Practice",
+          "volume": "31",
+          "issue": "8",
+          "pages": "789-803",
+          "doi": "10.1177/10497315211045678",
+          "url": null,
+          "publisher": "SAGE Publications",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "homelessness",
+        "pandemic",
+        "intervention",
+        "program_evaluation"
+      ],
+      "special_features": [
+        "doi_present",
+        "organizational_author"
+      ],
+      "field": "social_work",
+      "notes": "Multi-site evaluation of 45 homelessness programs serving 8,500 clients during COVID-19"
+    },
+    {
+      "example_id": "psychology_journal_article_011",
+      "source_type": "journal_article",
+      "reference_citation": "Jones, P. W., Williams, C. P., Johnson, J. C., & Miller, L. T. (2020). Meta-analysis of anxiety interventions. Psychological Science, 43(5), 201-226. https://doi.org/10.1097/25808631",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jones et al., 2020)",
+          "context": "Recent research demonstrates meta-analysis effects ((Jones et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jones et al. (2020)",
+          "context": "Jones et al. (2020) found significant results in their study of meta-analysis."
+        }
+      ],
+      "metadata": {
+        "title": "Meta-analysis of anxiety interventions",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Jones",
+            "initials": "P. W.",
+            "full_name": "Patricia W. Jones"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "C. P.",
+            "full_name": "Charles P. Williams"
+          },
+          {
+            "last_name": "Johnson",
+            "initials": "J. C.",
+            "full_name": "James C. Johnson"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "L. T.",
+            "full_name": "Linda T. Miller"
+          }
+        ],
+        "source": {
+          "name": "Psychological Science",
+          "volume": "43",
+          "issue": "5",
+          "pages": "201-226",
+          "doi": "10.1097/25808631",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article",
+        "meta_analysis",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 4 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_012",
+      "source_type": "journal_article",
+      "reference_citation": "Taylor, K. J. (2020). The impact of mindfulness on cognitive flexibility. Health Psychology, 133(4), 374-385. https://doi.org/10.1097/02683106",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor, 2020)",
+          "context": "Recent research demonstrates the effects ((Taylor, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor (2020)",
+          "context": "Taylor (2020) found significant results in their study of the."
+        }
+      ],
+      "metadata": {
+        "title": "The impact of mindfulness on cognitive flexibility",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "K. J.",
+            "full_name": "Karen J. Taylor"
+          }
+        ],
+        "source": {
+          "name": "Health Psychology",
+          "volume": "133",
+          "issue": "4",
+          "pages": "374-385",
+          "doi": "10.1097/02683106",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_013",
+      "source_type": "journal_article",
+      "reference_citation": "Thomas, D. R., Taylor, J. M., Taylor, M. J., Williams, K. F., & Lee, L. F. (2020). Longitudinal study of depression treatment efficacy. Clinical Psychology Review, 88(3), 385-400. https://doi.org/10.1080/37088409",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Thomas et al., 2020)",
+          "context": "Recent research demonstrates longitudinal effects ((Thomas et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Thomas et al. (2020)",
+          "context": "Thomas et al. (2020) found significant results in their study of longitudinal."
+        }
+      ],
+      "metadata": {
+        "title": "Longitudinal study of depression treatment efficacy",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Thomas",
+            "initials": "D. R.",
+            "full_name": "David R. Thomas"
+          },
+          {
+            "last_name": "Taylor",
+            "initials": "J. M.",
+            "full_name": "Jennifer M. Taylor"
+          },
+          {
+            "last_name": "Taylor",
+            "initials": "M. J.",
+            "full_name": "Michael J. Taylor"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "K. F.",
+            "full_name": "Karen F. Williams"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "L. F.",
+            "full_name": "Linda F. Lee"
+          }
+        ],
+        "source": {
+          "name": "Clinical Psychology Review",
+          "volume": "88",
+          "issue": "3",
+          "pages": "385-400",
+          "doi": "10.1080/37088409",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article",
+        "longitudinal"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 5 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_014",
+      "source_type": "journal_article",
+      "reference_citation": "Moore, J. J., Jones, L. W., & Lee, D. P. (2021). Technology integration in K-12 education. Journal of Learning Sciences, 91(3), 212-224. https://doi.org/10.1002/47811653",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Moore et al., 2021)",
+          "context": "Recent research demonstrates technology effects ((Moore et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Moore et al. (2021)",
+          "context": "Moore et al. (2021) found significant results in their study of technology."
+        }
+      ],
+      "metadata": {
+        "title": "Technology integration in K-12 education",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Moore",
+            "initials": "J. J.",
+            "full_name": "John J. Moore"
+          },
+          {
+            "last_name": "Jones",
+            "initials": "L. W.",
+            "full_name": "Linda W. Jones"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "D. P.",
+            "full_name": "David P. Lee"
+          }
+        ],
+        "source": {
+          "name": "Journal of Learning Sciences",
+          "volume": "91",
+          "issue": "3",
+          "pages": "212-224",
+          "doi": "10.1002/47811653",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article",
+        "technology"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "education",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_015",
+      "source_type": "journal_article",
+      "reference_citation": "Smith, P. W., & Rodriguez, W. D. (2024). Early childhood literacy development. Educational Evaluation and Policy Analysis, 95(2), 332-340. https://doi.org/10.1080/82519826",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Smith & Rodriguez, 2024)",
+          "context": "Recent research demonstrates early effects ((Smith & Rodriguez, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Smith and Rodriguez (2024)",
+          "context": "Smith and Rodriguez (2024) found significant results in their study of early."
+        }
+      ],
+      "metadata": {
+        "title": "Early childhood literacy development",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Smith",
+            "initials": "P. W.",
+            "full_name": "Patricia W. Smith"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "W. D.",
+            "full_name": "William D. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Educational Evaluation and Policy Analysis",
+          "volume": "95",
+          "issue": "2",
+          "pages": "332-340",
+          "doi": "10.1080/82519826",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "education",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_016",
+      "source_type": "journal_article",
+      "reference_citation": "Martin, J. L., & Jackson, J. D. (2021). Early childhood literacy development. Educational Researcher, 146(3), 222-231. https://doi.org/10.1177/89040771",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martin & Jackson, 2021)",
+          "context": "Recent research demonstrates early effects ((Martin & Jackson, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martin and Jackson (2021)",
+          "context": "Martin and Jackson (2021) found significant results in their study of early."
+        }
+      ],
+      "metadata": {
+        "title": "Early childhood literacy development",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Martin",
+            "initials": "J. L.",
+            "full_name": "James L. Martin"
+          },
+          {
+            "last_name": "Jackson",
+            "initials": "J. D.",
+            "full_name": "James D. Jackson"
+          }
+        ],
+        "source": {
+          "name": "Educational Researcher",
+          "volume": "146",
+          "issue": "3",
+          "pages": "222-231",
+          "doi": "10.1177/89040771",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "education",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_017",
+      "source_type": "journal_article",
+      "reference_citation": "White, S. G., & Lee, M. K. (2024). Nursing education simulation effectiveness. International Journal of Nursing Studies, 125(6), 291-313. https://doi.org/10.1002/42005507",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(White & Lee, 2024)",
+          "context": "Recent research demonstrates nursing effects ((White & Lee, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "White and Lee (2024)",
+          "context": "White and Lee (2024) found significant results in their study of nursing."
+        }
+      ],
+      "metadata": {
+        "title": "Nursing education simulation effectiveness",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "White",
+            "initials": "S. G.",
+            "full_name": "Susan G. White"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "M. K.",
+            "full_name": "Michael K. Lee"
+          }
+        ],
+        "source": {
+          "name": "International Journal of Nursing Studies",
+          "volume": "125",
+          "issue": "6",
+          "pages": "291-313",
+          "doi": "10.1002/42005507",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_018",
+      "source_type": "journal_article",
+      "reference_citation": "Anderson, R. T., Davis, D. S., Miller, S. E., Thompson, C. S., Davis, J. P., Miller, P. D., Hernandez, B. P., Hernandez, J. B., Brown, M. N., Anderson, P. H., Miller, M. W., Moore, J. P., Garcia, D. R., Davis, R. R., Lee, P. B., Lee, J. C., Davis, J. P., Jackson, J. G., Thomas, M. F., ... , & Hernandez, S. S. (2021). Workplace stress among critical care nurses. Journal of Nursing Administration, 64(3), 211-220. https://doi.org/10.1002/70304950",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Anderson et al., 2021)",
+          "context": "Recent research demonstrates workplace effects ((Anderson et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Anderson et al. (2021)",
+          "context": "Anderson et al. (2021) found significant results in their study of workplace."
+        }
+      ],
+      "metadata": {
+        "title": "Workplace stress among critical care nurses",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Anderson",
+            "initials": "R. T.",
+            "full_name": "Robert T. Anderson"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "D. S.",
+            "full_name": "David S. Davis"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "S. E.",
+            "full_name": "Sarah E. Miller"
+          },
+          {
+            "last_name": "Thompson",
+            "initials": "C. S.",
+            "full_name": "Charles S. Thompson"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "J. P.",
+            "full_name": "Jessica P. Davis"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "P. D.",
+            "full_name": "Patricia D. Miller"
+          },
+          {
+            "last_name": "Hernandez",
+            "initials": "B. P.",
+            "full_name": "Barbara P. Hernandez"
+          },
+          {
+            "last_name": "Hernandez",
+            "initials": "J. B.",
+            "full_name": "Joseph B. Hernandez"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "M. N.",
+            "full_name": "Mary N. Brown"
+          },
+          {
+            "last_name": "Anderson",
+            "initials": "P. H.",
+            "full_name": "Patricia H. Anderson"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "M. W.",
+            "full_name": "Michael W. Miller"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "J. P.",
+            "full_name": "John P. Moore"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "D. R.",
+            "full_name": "David R. Garcia"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "R. R.",
+            "full_name": "Robert R. Davis"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "P. B.",
+            "full_name": "Patricia B. Lee"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "J. C.",
+            "full_name": "James C. Lee"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "J. P.",
+            "full_name": "Jennifer P. Davis"
+          },
+          {
+            "last_name": "Jackson",
+            "initials": "J. G.",
+            "full_name": "Jessica G. Jackson"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "M. F.",
+            "full_name": "Mary F. Thomas"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "J. N.",
+            "full_name": "James N. Thomas"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "J. K.",
+            "full_name": "Joseph K. Rodriguez"
+          },
+          {
+            "last_name": "Hernandez",
+            "initials": "S. S.",
+            "full_name": "Sarah S. Hernandez"
+          }
+        ],
+        "source": {
+          "name": "Journal of Nursing Administration",
+          "volume": "64",
+          "issue": "3",
+          "pages": "211-220",
+          "doi": "10.1002/70304950",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors",
+        "et_al"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 22 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_019",
+      "source_type": "journal_article",
+      "reference_citation": "Davis, R. D. (2021). Pain management interventions in postoperative care. Critical Care Nurse, 71(5), 120-130. https://doi.org/10.1097/65326321",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis, 2021)",
+          "context": "Recent research demonstrates pain effects ((Davis, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis (2021)",
+          "context": "Davis (2021) found significant results in their study of pain."
+        }
+      ],
+      "metadata": {
+        "title": "Pain management interventions in postoperative care",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "R. D.",
+            "full_name": "Richard D. Davis"
+          }
+        ],
+        "source": {
+          "name": "Critical Care Nurse",
+          "volume": "71",
+          "issue": "5",
+          "pages": "120-130",
+          "doi": "10.1097/65326321",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_020",
+      "source_type": "journal_article",
+      "reference_citation": "Williams, J. R., & White, C. D. (2023). Organizational culture and employee performance. Strategic Management Journal, 108(2), 359-375. https://doi.org/10.1177/98831876",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams & White, 2023)",
+          "context": "Recent research demonstrates organizational effects ((Williams & White, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams and White (2023)",
+          "context": "Williams and White (2023) found significant results in their study of organizational."
+        }
+      ],
+      "metadata": {
+        "title": "Organizational culture and employee performance",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "J. R.",
+            "full_name": "James R. Williams"
+          },
+          {
+            "last_name": "White",
+            "initials": "C. D.",
+            "full_name": "Charles D. White"
+          }
+        ],
+        "source": {
+          "name": "Strategic Management Journal",
+          "volume": "108",
+          "issue": "2",
+          "pages": "359-375",
+          "doi": "10.1177/98831876",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_021",
+      "source_type": "journal_article",
+      "reference_citation": "Jones, D. D., & Brown, S. E. (2024). Consumer behavior in e-commerce platforms. Journal of Business Research, 76(5), 207-225. https://doi.org/10.1177/68529068",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jones & Brown, 2024)",
+          "context": "Recent research demonstrates consumer effects ((Jones & Brown, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jones and Brown (2024)",
+          "context": "Jones and Brown (2024) found significant results in their study of consumer."
+        }
+      ],
+      "metadata": {
+        "title": "Consumer behavior in e-commerce platforms",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Jones",
+            "initials": "D. D.",
+            "full_name": "David D. Jones"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "S. E.",
+            "full_name": "Sarah E. Brown"
+          }
+        ],
+        "source": {
+          "name": "Journal of Business Research",
+          "volume": "76",
+          "issue": "5",
+          "pages": "207-225",
+          "doi": "10.1177/68529068",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_022",
+      "source_type": "journal_article",
+      "reference_citation": "Rodriguez, J. R., & Lee, S. W. (2020). Organizational culture and employee performance. Journal of Business Research, 54(1), 176-201. https://doi.org/10.1037/85113878",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Rodriguez & Lee, 2020)",
+          "context": "Recent research demonstrates organizational effects ((Rodriguez & Lee, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Rodriguez and Lee (2020)",
+          "context": "Rodriguez and Lee (2020) found significant results in their study of organizational."
+        }
+      ],
+      "metadata": {
+        "title": "Organizational culture and employee performance",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Rodriguez",
+            "initials": "J. R.",
+            "full_name": "Jennifer R. Rodriguez"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "S. W.",
+            "full_name": "Susan W. Lee"
+          }
+        ],
+        "source": {
+          "name": "Journal of Business Research",
+          "volume": "54",
+          "issue": "1",
+          "pages": "176-201",
+          "doi": "10.1037/85113878",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_023",
+      "source_type": "journal_article",
+      "reference_citation": "Taylor, S. P., White, J. H., & Garcia, J. P. (2021). Foster care placement stability factors. Child Welfare, 62(6), 270-291. https://doi.org/10.1111/67217304",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor et al., 2021)",
+          "context": "Recent research demonstrates foster effects ((Taylor et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor et al. (2021)",
+          "context": "Taylor et al. (2021) found significant results in their study of foster."
+        }
+      ],
+      "metadata": {
+        "title": "Foster care placement stability factors",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "S. P.",
+            "full_name": "Sarah P. Taylor"
+          },
+          {
+            "last_name": "White",
+            "initials": "J. H.",
+            "full_name": "John H. White"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "J. P.",
+            "full_name": "Jennifer P. Garcia"
+          }
+        ],
+        "source": {
+          "name": "Child Welfare",
+          "volume": "62",
+          "issue": "6",
+          "pages": "270-291",
+          "doi": "10.1111/67217304",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_024",
+      "source_type": "journal_article",
+      "reference_citation": "Davis, L. A., & Miller, R. L. (2023). Trauma-informed social work practices. Social Work, 150(1), 242-261. https://doi.org/10.1080/56830825",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis & Miller, 2023)",
+          "context": "Recent research demonstrates trauma-informed effects ((Davis & Miller, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis and Miller (2023)",
+          "context": "Davis and Miller (2023) found significant results in their study of trauma-informed."
+        }
+      ],
+      "metadata": {
+        "title": "Trauma-informed social work practices",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "L. A.",
+            "full_name": "Linda A. Davis"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "R. L.",
+            "full_name": "Richard L. Miller"
+          }
+        ],
+        "source": {
+          "name": "Social Work",
+          "volume": "150",
+          "issue": "1",
+          "pages": "242-261",
+          "doi": "10.1080/56830825",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_025",
+      "source_type": "journal_article",
+      "reference_citation": "Anderson, S. T. (2020). Foster care placement stability factors. Child Welfare, 89(5), 197-213. https://doi.org/10.1037/70957763",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Anderson, 2020)",
+          "context": "Recent research demonstrates foster effects ((Anderson, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Anderson (2020)",
+          "context": "Anderson (2020) found significant results in their study of foster."
+        }
+      ],
+      "metadata": {
+        "title": "Foster care placement stability factors",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Anderson",
+            "initials": "S. T.",
+            "full_name": "Susan T. Anderson"
+          }
+        ],
+        "source": {
+          "name": "Child Welfare",
+          "volume": "89",
+          "issue": "5",
+          "pages": "197-213",
+          "doi": "10.1037/70957763",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_book_001",
+      "source_type": "book",
+      "reference_citation": "Anderson, K. L., Brown, E. T., Martinez, S. L., & Thomas, E. W. (2020). Cognitive Behavioral Therapy: Theory and Practice (2th ed.). McGraw-Hill.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Anderson et al., 2020)",
+          "context": "Comprehensive guidance is available in the literature ((Anderson et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Anderson et al. (2020)",
+          "context": "Anderson et al. (2020) provide detailed coverage of cognitive principles."
+        }
+      ],
+      "metadata": {
+        "title": "Cognitive Behavioral Therapy: Theory and Practice (2th ed.)",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Anderson",
+            "initials": "K. L.",
+            "full_name": "Karen L. Anderson"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "E. T.",
+            "full_name": "Elizabeth T. Brown"
+          },
+          {
+            "last_name": "Martinez",
+            "initials": "S. L.",
+            "full_name": "Susan L. Martinez"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "E. W.",
+            "full_name": "Elizabeth W. Thomas"
+          }
+        ],
+        "source": {
+          "name": "McGraw-Hill",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "McGraw-Hill",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "psychology",
+      "notes": "Generated book example with 4 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_book_002",
+      "source_type": "book",
+      "reference_citation": "Garcia, K. K., & Thomas, S. A. (2023). Social Psychology in the Modern World (3th ed.). Routledge.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Garcia & Thomas, 2023)",
+          "context": "Comprehensive guidance is available in the literature ((Garcia & Thomas, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Garcia and Thomas (2023)",
+          "context": "Garcia and Thomas (2023) provide detailed coverage of social principles."
+        }
+      ],
+      "metadata": {
+        "title": "Social Psychology in the Modern World (3th ed.)",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Garcia",
+            "initials": "K. K.",
+            "full_name": "Karen K. Garcia"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "S. A.",
+            "full_name": "Sarah A. Thomas"
+          }
+        ],
+        "source": {
+          "name": "Routledge",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Routledge",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "psychology",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_book_003",
+      "source_type": "book",
+      "reference_citation": "White, W. R., Moore, J. G., & Martin, J. F. (2023). Clinical Psychology Handbook (3th ed.). Wiley.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(White et al., 2023)",
+          "context": "Comprehensive guidance is available in the literature ((White et al., 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "White et al. (2023)",
+          "context": "White et al. (2023) provide detailed coverage of clinical principles."
+        }
+      ],
+      "metadata": {
+        "title": "Clinical Psychology Handbook (3th ed.)",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "White",
+            "initials": "W. R.",
+            "full_name": "William R. White"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "J. G.",
+            "full_name": "Joseph G. Moore"
+          },
+          {
+            "last_name": "Martin",
+            "initials": "J. F.",
+            "full_name": "Jessica F. Martin"
+          }
+        ],
+        "source": {
+          "name": "Wiley",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Wiley",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "psychology",
+      "notes": "Generated book example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_book_004",
+      "source_type": "book",
+      "reference_citation": "Davis, E. H., Miller, J. A., & Johnson, L. S. (2020). Neuropsychological Assessment. Pearson.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis et al., 2020)",
+          "context": "Comprehensive guidance is available in the literature ((Davis et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis et al. (2020)",
+          "context": "Davis et al. (2020) provide detailed coverage of neuropsychological principles."
+        }
+      ],
+      "metadata": {
+        "title": "Neuropsychological Assessment",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "E. H.",
+            "full_name": "Elizabeth H. Davis"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "J. A.",
+            "full_name": "John A. Miller"
+          },
+          {
+            "last_name": "Johnson",
+            "initials": "L. S.",
+            "full_name": "Linda S. Johnson"
+          }
+        ],
+        "source": {
+          "name": "Pearson",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Pearson",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "psychology",
+      "notes": "Generated book example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_book_005",
+      "source_type": "book",
+      "reference_citation": "Thompson, M. N., Jackson, R. H., & Jones, J. D. (2023). Educational Psychology: Theory and Practice (2th ed.). Harvard University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Thompson et al., 2023)",
+          "context": "Comprehensive guidance is available in the literature ((Thompson et al., 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Thompson et al. (2023)",
+          "context": "Thompson et al. (2023) provide detailed coverage of educational principles."
+        }
+      ],
+      "metadata": {
+        "title": "Educational Psychology: Theory and Practice (2th ed.)",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Thompson",
+            "initials": "M. N.",
+            "full_name": "Michael N. Thompson"
+          },
+          {
+            "last_name": "Jackson",
+            "initials": "R. H.",
+            "full_name": "Richard H. Jackson"
+          },
+          {
+            "last_name": "Jones",
+            "initials": "J. D.",
+            "full_name": "James D. Jones"
+          }
+        ],
+        "source": {
+          "name": "Harvard University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Harvard University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated book example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_book_006",
+      "source_type": "book",
+      "reference_citation": "Lee, L. D., & Moore, J. R. (2024). Assessment in Higher Education (3th ed.). Pearson.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Lee & Moore, 2024)",
+          "context": "Comprehensive guidance is available in the literature ((Lee & Moore, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Lee and Moore (2024)",
+          "context": "Lee and Moore (2024) provide detailed coverage of assessment principles."
+        }
+      ],
+      "metadata": {
+        "title": "Assessment in Higher Education (3th ed.)",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Lee",
+            "initials": "L. D.",
+            "full_name": "Linda D. Lee"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "J. R.",
+            "full_name": "John R. Moore"
+          }
+        ],
+        "source": {
+          "name": "Pearson",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Pearson",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_book_007",
+      "source_type": "book",
+      "reference_citation": "Martin, S. W., Moore, J. S., & Moore, D. H. (2024). Curriculum Design and Development (4th ed.). Routledge.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martin et al., 2024)",
+          "context": "Comprehensive guidance is available in the literature ((Martin et al., 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martin et al. (2024)",
+          "context": "Martin et al. (2024) provide detailed coverage of curriculum principles."
+        }
+      ],
+      "metadata": {
+        "title": "Curriculum Design and Development (4th ed.)",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Martin",
+            "initials": "S. W.",
+            "full_name": "Susan W. Martin"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "J. S.",
+            "full_name": "Jennifer S. Moore"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "D. H.",
+            "full_name": "David H. Moore"
+          }
+        ],
+        "source": {
+          "name": "Routledge",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Routledge",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated book example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_book_008",
+      "source_type": "book",
+      "reference_citation": "Martinez, L. J., & Anderson, W. W. (2022). Educational Research Methods (2th ed.). Harvard University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martinez & Anderson, 2022)",
+          "context": "Comprehensive guidance is available in the literature ((Martinez & Anderson, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martinez and Anderson (2022)",
+          "context": "Martinez and Anderson (2022) provide detailed coverage of educational principles."
+        }
+      ],
+      "metadata": {
+        "title": "Educational Research Methods (2th ed.)",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Martinez",
+            "initials": "L. J.",
+            "full_name": "Linda J. Martinez"
+          },
+          {
+            "last_name": "Anderson",
+            "initials": "W. W.",
+            "full_name": "William W. Anderson"
+          }
+        ],
+        "source": {
+          "name": "Harvard University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Harvard University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_book_009",
+      "source_type": "book",
+      "reference_citation": "Jones, M. C. (2021). Evidence-Based Nursing Practice (4th ed.). Wiley.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jones, 2021)",
+          "context": "Comprehensive guidance is available in the literature ((Jones, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jones (2021)",
+          "context": "Jones (2021) provide detailed coverage of evidence-based principles."
+        }
+      ],
+      "metadata": {
+        "title": "Evidence-Based Nursing Practice (4th ed.)",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Jones",
+            "initials": "M. C.",
+            "full_name": "Michael C. Jones"
+          }
+        ],
+        "source": {
+          "name": "Wiley",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Wiley",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "nursing",
+      "notes": "Generated book example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_book_010",
+      "source_type": "book",
+      "reference_citation": "Johnson, M. P., & Thomas, C. A. (2024). Primary Care Nursing (4th ed.). Pearson.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson & Thomas, 2024)",
+          "context": "Comprehensive guidance is available in the literature ((Johnson & Thomas, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson and Thomas (2024)",
+          "context": "Johnson and Thomas (2024) provide detailed coverage of primary principles."
+        }
+      ],
+      "metadata": {
+        "title": "Primary Care Nursing (4th ed.)",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "M. P.",
+            "full_name": "Michael P. Johnson"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "C. A.",
+            "full_name": "Charles A. Thomas"
+          }
+        ],
+        "source": {
+          "name": "Pearson",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Pearson",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "nursing",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_book_011",
+      "source_type": "book",
+      "reference_citation": "Martinez, R. P., Lee, S. H., Jackson, L. J., & Hernandez, J. A. (2020). Evidence-Based Nursing Practice (3th ed.). McGraw-Hill.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martinez et al., 2020)",
+          "context": "Comprehensive guidance is available in the literature ((Martinez et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martinez et al. (2020)",
+          "context": "Martinez et al. (2020) provide detailed coverage of evidence-based principles."
+        }
+      ],
+      "metadata": {
+        "title": "Evidence-Based Nursing Practice (3th ed.)",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Martinez",
+            "initials": "R. P.",
+            "full_name": "Richard P. Martinez"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "S. H.",
+            "full_name": "Sarah H. Lee"
+          },
+          {
+            "last_name": "Jackson",
+            "initials": "L. J.",
+            "full_name": "Linda J. Jackson"
+          },
+          {
+            "last_name": "Hernandez",
+            "initials": "J. A.",
+            "full_name": "Jessica A. Hernandez"
+          }
+        ],
+        "source": {
+          "name": "McGraw-Hill",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "McGraw-Hill",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "nursing",
+      "notes": "Generated book example with 4 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_book_012",
+      "source_type": "book",
+      "reference_citation": "Jones, K. W., Smith, R. A., & Williams, S. E. (2021). Evidence-Based Nursing Practice (2th ed.). Oxford University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jones et al., 2021)",
+          "context": "Comprehensive guidance is available in the literature ((Jones et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jones et al. (2021)",
+          "context": "Jones et al. (2021) provide detailed coverage of evidence-based principles."
+        }
+      ],
+      "metadata": {
+        "title": "Evidence-Based Nursing Practice (2th ed.)",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Jones",
+            "initials": "K. W.",
+            "full_name": "Karen W. Jones"
+          },
+          {
+            "last_name": "Smith",
+            "initials": "R. A.",
+            "full_name": "Richard A. Smith"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "S. E.",
+            "full_name": "Susan E. Williams"
+          }
+        ],
+        "source": {
+          "name": "Oxford University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Oxford University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "nursing",
+      "notes": "Generated book example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_book_013",
+      "source_type": "book",
+      "reference_citation": "Miller, J. L. (2022). Financial Analysis and Decision Making (4th ed.). Springer.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Miller, 2022)",
+          "context": "Comprehensive guidance is available in the literature ((Miller, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Miller (2022)",
+          "context": "Miller (2022) provide detailed coverage of financial principles."
+        }
+      ],
+      "metadata": {
+        "title": "Financial Analysis and Decision Making (4th ed.)",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Miller",
+            "initials": "J. L.",
+            "full_name": "Joseph L. Miller"
+          }
+        ],
+        "source": {
+          "name": "Springer",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Springer",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated book example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_book_014",
+      "source_type": "book",
+      "reference_citation": "Williams, J. A. (2023). Business Ethics and Corporate Responsibility. Wiley.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams, 2023)",
+          "context": "Comprehensive guidance is available in the literature ((Williams, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams (2023)",
+          "context": "Williams (2023) provide detailed coverage of business principles."
+        }
+      ],
+      "metadata": {
+        "title": "Business Ethics and Corporate Responsibility",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "J. A.",
+            "full_name": "Jessica A. Williams"
+          }
+        ],
+        "source": {
+          "name": "Wiley",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Wiley",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated book example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_book_015",
+      "source_type": "book",
+      "reference_citation": "Johnson, J. H., & Miller, J. E. (2021). Organizational Behavior Theory (2th ed.). Pearson.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson & Miller, 2021)",
+          "context": "Comprehensive guidance is available in the literature ((Johnson & Miller, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson and Miller (2021)",
+          "context": "Johnson and Miller (2021) provide detailed coverage of organizational principles."
+        }
+      ],
+      "metadata": {
+        "title": "Organizational Behavior Theory (2th ed.)",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "J. H.",
+            "full_name": "James H. Johnson"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "J. E.",
+            "full_name": "James E. Miller"
+          }
+        ],
+        "source": {
+          "name": "Pearson",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Pearson",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_book_016",
+      "source_type": "book",
+      "reference_citation": "Miller, J. J., & Taylor, J. D. (2020). Organizational Behavior Theory (3th ed.). Cambridge University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Miller & Taylor, 2020)",
+          "context": "Comprehensive guidance is available in the literature ((Miller & Taylor, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Miller and Taylor (2020)",
+          "context": "Miller and Taylor (2020) provide detailed coverage of organizational principles."
+        }
+      ],
+      "metadata": {
+        "title": "Organizational Behavior Theory (3th ed.)",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Miller",
+            "initials": "J. J.",
+            "full_name": "Joseph J. Miller"
+          },
+          {
+            "last_name": "Taylor",
+            "initials": "J. D.",
+            "full_name": "Jennifer D. Taylor"
+          }
+        ],
+        "source": {
+          "name": "Cambridge University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Cambridge University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_book_017",
+      "source_type": "book",
+      "reference_citation": "Martinez, C. N. (2024). Community Organization Theory (2th ed.). Cambridge University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martinez, 2024)",
+          "context": "Comprehensive guidance is available in the literature ((Martinez, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martinez (2024)",
+          "context": "Martinez (2024) provide detailed coverage of community principles."
+        }
+      ],
+      "metadata": {
+        "title": "Community Organization Theory (2th ed.)",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Martinez",
+            "initials": "C. N.",
+            "full_name": "Charles N. Martinez"
+          }
+        ],
+        "source": {
+          "name": "Cambridge University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Cambridge University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "social_work",
+      "notes": "Generated book example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_book_018",
+      "source_type": "book",
+      "reference_citation": "Davis, P. K., & White, P. B. (2024). Child Welfare Practice (4th ed.). Wiley.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis & White, 2024)",
+          "context": "Comprehensive guidance is available in the literature ((Davis & White, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis and White (2024)",
+          "context": "Davis and White (2024) provide detailed coverage of child principles."
+        }
+      ],
+      "metadata": {
+        "title": "Child Welfare Practice (4th ed.)",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "P. K.",
+            "full_name": "Patricia K. Davis"
+          },
+          {
+            "last_name": "White",
+            "initials": "P. B.",
+            "full_name": "Patricia B. White"
+          }
+        ],
+        "source": {
+          "name": "Wiley",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Wiley",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "social_work",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_book_019",
+      "source_type": "book",
+      "reference_citation": "Anderson, J. P., & Jackson, P. P. (2020). Child Welfare Practice (4th ed.). Harvard University Press.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Anderson & Jackson, 2020)",
+          "context": "Comprehensive guidance is available in the literature ((Anderson & Jackson, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Anderson and Jackson (2020)",
+          "context": "Anderson and Jackson (2020) provide detailed coverage of child principles."
+        }
+      ],
+      "metadata": {
+        "title": "Child Welfare Practice (4th ed.)",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Anderson",
+            "initials": "J. P.",
+            "full_name": "James P. Anderson"
+          },
+          {
+            "last_name": "Jackson",
+            "initials": "P. P.",
+            "full_name": "Patricia P. Jackson"
+          }
+        ],
+        "source": {
+          "name": "Harvard University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Harvard University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "social_work",
+      "notes": "Generated book example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_book_020",
+      "source_type": "book",
+      "reference_citation": "Martin, D. W. (2023). Community Organization Theory (4th ed.). McGraw-Hill.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martin, 2023)",
+          "context": "Comprehensive guidance is available in the literature ((Martin, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martin (2023)",
+          "context": "Martin (2023) provide detailed coverage of community principles."
+        }
+      ],
+      "metadata": {
+        "title": "Community Organization Theory (4th ed.)",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Martin",
+            "initials": "D. W.",
+            "full_name": "David W. Martin"
+          }
+        ],
+        "source": {
+          "name": "McGraw-Hill",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "McGraw-Hill",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "book",
+        "reference"
+      ],
+      "special_features": [],
+      "field": "social_work",
+      "notes": "Generated book example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_website_001",
+      "source_type": "website",
+      "reference_citation": "Wilson, M. B. (2020). Understanding anxiety disorders: A comprehensive guide. Small Business Administration. Retrieved January 6, 2024, from https://www.smallbusinessadministration.org/resource/6442",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Wilson, 2020)",
+          "context": "Recent guidelines provide comprehensive information about understanding anxiety disorders: a comprehensive guide ((Wilson, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Wilson (2020)",
+          "context": "Wilson (2020) published detailed guidelines for understanding anxiety disorders: a comprehensive guide."
+        }
+      ],
+      "metadata": {
+        "title": "Understanding anxiety disorders: A comprehensive guide",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Wilson",
+            "initials": "M. B.",
+            "full_name": "Michael B. Wilson"
+          }
+        ],
+        "source": {
+          "name": "Small Business Administration",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.smallbusinessadministration.org/resource/6442",
+          "publisher": "Small Business Administration",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "psychology",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_website_002",
+      "source_type": "website",
+      "reference_citation": "Miller, R. F. (2020). Mental health resources during COVID-19. American Academy of Pediatrics. Retrieved January 13, 2024, from https://www.americanacademyofpediatrics.nih.gov/resource/8147",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Miller, 2020)",
+          "context": "Recent guidelines provide comprehensive information about mental health resources during covid-19 ((Miller, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Miller (2020)",
+          "context": "Miller (2020) published detailed guidelines for mental health resources during covid-19."
+        }
+      ],
+      "metadata": {
+        "title": "Mental health resources during COVID-19",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Miller",
+            "initials": "R. F.",
+            "full_name": "Robert F. Miller"
+          }
+        ],
+        "source": {
+          "name": "American Academy of Pediatrics",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.americanacademyofpediatrics.nih.gov/resource/8147",
+          "publisher": "American Academy of Pediatrics",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "psychology",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_website_003",
+      "source_type": "website",
+      "reference_citation": "Wilson, M. A., et al. (2020). Mental health resources during COVID-19. National Institute of Mental Health. Retrieved January 10, 2024, from https://www.nationalinstituteofmentalhealth.who.int/resource/8055",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Wilson et al., 2020)",
+          "context": "Recent guidelines provide comprehensive information about mental health resources during covid-19 ((Wilson et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Wilson et al. (2020)",
+          "context": "Wilson et al. (2020) published detailed guidelines for mental health resources during covid-19."
+        }
+      ],
+      "metadata": {
+        "title": "Mental health resources during COVID-19",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Wilson",
+            "initials": "M. A.",
+            "full_name": "Mary A. Wilson"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "L. B.",
+            "full_name": "Lisa B. Miller"
+          },
+          {
+            "last_name": "Smith",
+            "initials": "M. C.",
+            "full_name": "Mary C. Smith"
+          }
+        ],
+        "source": {
+          "name": "National Institute of Mental Health",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.nationalinstituteofmentalhealth.who.int/resource/8055",
+          "publisher": "National Institute of Mental Health",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "psychology",
+      "notes": "Generated website example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_website_004",
+      "source_type": "website",
+      "reference_citation": "Smith, M. F. (2023). Curriculum development frameworks. National Association of Social Workers. Retrieved January 10, 2024, from https://www.nationalassociationofsocialworkers.cdc.gov/resource/9635",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Smith, 2023)",
+          "context": "Recent guidelines provide comprehensive information about curriculum development frameworks ((Smith, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Smith (2023)",
+          "context": "Smith (2023) published detailed guidelines for curriculum development frameworks."
+        }
+      ],
+      "metadata": {
+        "title": "Curriculum development frameworks",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Smith",
+            "initials": "M. F.",
+            "full_name": "Michael F. Smith"
+          }
+        ],
+        "source": {
+          "name": "National Association of Social Workers",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.nationalassociationofsocialworkers.cdc.gov/resource/9635",
+          "publisher": "National Association of Social Workers",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "education",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_website_005",
+      "source_type": "website",
+      "reference_citation": "Taylor, D. H. (2022). Curriculum development frameworks. U.S. Chamber of Commerce. Retrieved January 1, 2024, from https://www.u.s.chamberofcommerce.who.int/resource/9356",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor, 2022)",
+          "context": "Recent guidelines provide comprehensive information about curriculum development frameworks ((Taylor, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor (2022)",
+          "context": "Taylor (2022) published detailed guidelines for curriculum development frameworks."
+        }
+      ],
+      "metadata": {
+        "title": "Curriculum development frameworks",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "D. H.",
+            "full_name": "David H. Taylor"
+          }
+        ],
+        "source": {
+          "name": "U.S. Chamber of Commerce",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.u.s.chamberofcommerce.who.int/resource/9356",
+          "publisher": "U.S. Chamber of Commerce",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "education",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_website_006",
+      "source_type": "website",
+      "reference_citation": "Johnson, L. E., & Williams, S. F. (2021). Curriculum development frameworks. Small Business Administration. Retrieved January 7, 2024, from https://www.smallbusinessadministration.nih.gov/resource/8483",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson & Williams, 2021)",
+          "context": "Recent guidelines provide comprehensive information about curriculum development frameworks ((Johnson & Williams, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson and Williams (2021)",
+          "context": "Johnson and Williams (2021) published detailed guidelines for curriculum development frameworks."
+        }
+      ],
+      "metadata": {
+        "title": "Curriculum development frameworks",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "L. E.",
+            "full_name": "Lisa E. Johnson"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "S. F.",
+            "full_name": "Sarah F. Williams"
+          }
+        ],
+        "source": {
+          "name": "Small Business Administration",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.smallbusinessadministration.nih.gov/resource/8483",
+          "publisher": "Small Business Administration",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "education",
+      "notes": "Generated website example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_website_007",
+      "source_type": "website",
+      "reference_citation": "Smith, J. B., & Miller, J. F. (2024). Patient safety protocols and procedures. Small Business Administration. Retrieved January 12, 2024, from https://www.smallbusinessadministration.org/resource/9208",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Smith & Miller, 2024)",
+          "context": "Recent guidelines provide comprehensive information about patient safety protocols and procedures ((Smith & Miller, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Smith and Miller (2024)",
+          "context": "Smith and Miller (2024) published detailed guidelines for patient safety protocols and procedures."
+        }
+      ],
+      "metadata": {
+        "title": "Patient safety protocols and procedures",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Smith",
+            "initials": "J. B.",
+            "full_name": "Jennifer B. Smith"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "J. F.",
+            "full_name": "James F. Miller"
+          }
+        ],
+        "source": {
+          "name": "Small Business Administration",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.smallbusinessadministration.org/resource/9208",
+          "publisher": "Small Business Administration",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "nursing",
+      "notes": "Generated website example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_website_008",
+      "source_type": "website",
+      "reference_citation": "Moore, J. H., & Williams, J. H. (2020). Clinical decision support tools. Harvard Business Review. Retrieved January 3, 2024, from https://www.harvardbusinessreview.nih.gov/resource/1166",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Moore & Williams, 2020)",
+          "context": "Recent guidelines provide comprehensive information about clinical decision support tools ((Moore & Williams, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Moore and Williams (2020)",
+          "context": "Moore and Williams (2020) published detailed guidelines for clinical decision support tools."
+        }
+      ],
+      "metadata": {
+        "title": "Clinical decision support tools",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Moore",
+            "initials": "J. H.",
+            "full_name": "Jennifer H. Moore"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "J. H.",
+            "full_name": "John H. Williams"
+          }
+        ],
+        "source": {
+          "name": "Harvard Business Review",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.harvardbusinessreview.nih.gov/resource/1166",
+          "publisher": "Harvard Business Review",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "nursing",
+      "notes": "Generated website example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_website_009",
+      "source_type": "website",
+      "reference_citation": "Davis, S. E. (2023). Clinical decision support tools. U.S. Chamber of Commerce. Retrieved January 10, 2024, from https://www.u.s.chamberofcommerce.nih.gov/resource/2779",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis, 2023)",
+          "context": "Recent guidelines provide comprehensive information about clinical decision support tools ((Davis, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis (2023)",
+          "context": "Davis (2023) published detailed guidelines for clinical decision support tools."
+        }
+      ],
+      "metadata": {
+        "title": "Clinical decision support tools",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "S. E.",
+            "full_name": "Sarah E. Davis"
+          }
+        ],
+        "source": {
+          "name": "U.S. Chamber of Commerce",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.u.s.chamberofcommerce.nih.gov/resource/2779",
+          "publisher": "U.S. Chamber of Commerce",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "nursing",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_website_010",
+      "source_type": "website",
+      "reference_citation": "Johnson, M. G., & Smith, R. G. (2020). Digital transformation strategies for small businesses. Small Business Administration. Retrieved January 5, 2024, from https://www.smallbusinessadministration.nih.gov/resource/6283",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson & Smith, 2020)",
+          "context": "Recent guidelines provide comprehensive information about digital transformation strategies for small businesses ((Johnson & Smith, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson and Smith (2020)",
+          "context": "Johnson and Smith (2020) published detailed guidelines for digital transformation strategies for small businesses."
+        }
+      ],
+      "metadata": {
+        "title": "Digital transformation strategies for small businesses",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "M. G.",
+            "full_name": "Mary G. Johnson"
+          },
+          {
+            "last_name": "Smith",
+            "initials": "R. G.",
+            "full_name": "Robert G. Smith"
+          }
+        ],
+        "source": {
+          "name": "Small Business Administration",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.smallbusinessadministration.nih.gov/resource/6283",
+          "publisher": "Small Business Administration",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "business",
+      "notes": "Generated website example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_website_011",
+      "source_type": "website",
+      "reference_citation": "Taylor, S. G. (2023). Supply chain management best practices. National Institute of Mental Health. Retrieved January 15, 2024, from https://www.nationalinstituteofmentalhealth.gov/resource/3684",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor, 2023)",
+          "context": "Recent guidelines provide comprehensive information about supply chain management best practices ((Taylor, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor (2023)",
+          "context": "Taylor (2023) published detailed guidelines for supply chain management best practices."
+        }
+      ],
+      "metadata": {
+        "title": "Supply chain management best practices",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "S. G.",
+            "full_name": "Sarah G. Taylor"
+          }
+        ],
+        "source": {
+          "name": "National Institute of Mental Health",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.nationalinstituteofmentalhealth.gov/resource/3684",
+          "publisher": "National Institute of Mental Health",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "business",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_website_012",
+      "source_type": "website",
+      "reference_citation": "Williams, S. D. (2023). Digital transformation strategies for small businesses. American Psychological Association. Retrieved January 9, 2024, from https://www.americanpsychologicalassociation.org/resource/7344",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams, 2023)",
+          "context": "Recent guidelines provide comprehensive information about digital transformation strategies for small businesses ((Williams, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams (2023)",
+          "context": "Williams (2023) published detailed guidelines for digital transformation strategies for small businesses."
+        }
+      ],
+      "metadata": {
+        "title": "Digital transformation strategies for small businesses",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "S. D.",
+            "full_name": "Sarah D. Williams"
+          }
+        ],
+        "source": {
+          "name": "American Psychological Association",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.americanpsychologicalassociation.org/resource/7344",
+          "publisher": "American Psychological Association",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "business",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_website_013",
+      "source_type": "website",
+      "reference_citation": "Davis, D. F. (2022). Community assessment tools and resources. World Health Organization. Retrieved January 11, 2024, from https://www.worldhealthorganization.org/resource/2958",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis, 2022)",
+          "context": "Recent guidelines provide comprehensive information about community assessment tools and resources ((Davis, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis (2022)",
+          "context": "Davis (2022) published detailed guidelines for community assessment tools and resources."
+        }
+      ],
+      "metadata": {
+        "title": "Community assessment tools and resources",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "D. F.",
+            "full_name": "David F. Davis"
+          }
+        ],
+        "source": {
+          "name": "World Health Organization",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.worldhealthorganization.org/resource/2958",
+          "publisher": "World Health Organization",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "social_work",
+      "notes": "Generated website example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_website_014",
+      "source_type": "website",
+      "reference_citation": "Wilson, D. A., et al. (2021). Cultural competence in social work practice. U.S. Chamber of Commerce. Retrieved January 9, 2024, from https://www.u.s.chamberofcommerce.nih.gov/resource/3598",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Wilson et al., 2021)",
+          "context": "Recent guidelines provide comprehensive information about cultural competence in social work practice ((Wilson et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Wilson et al. (2021)",
+          "context": "Wilson et al. (2021) published detailed guidelines for cultural competence in social work practice."
+        }
+      ],
+      "metadata": {
+        "title": "Cultural competence in social work practice",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Wilson",
+            "initials": "D. A.",
+            "full_name": "David A. Wilson"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "L. A.",
+            "full_name": "Lisa A. Williams"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "L. H.",
+            "full_name": "Lisa H. Miller"
+          }
+        ],
+        "source": {
+          "name": "U.S. Chamber of Commerce",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.u.s.chamberofcommerce.nih.gov/resource/3598",
+          "publisher": "U.S. Chamber of Commerce",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "social_work",
+      "notes": "Generated website example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_website_015",
+      "source_type": "website",
+      "reference_citation": "Taylor, R. C., et al. (2022). Child welfare case management guidelines. World Health Organization. Retrieved January 15, 2024, from https://www.worldhealthorganization.nih.gov/resource/5452",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Taylor et al., 2022)",
+          "context": "Recent guidelines provide comprehensive information about child welfare case management guidelines ((Taylor et al., 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Taylor et al. (2022)",
+          "context": "Taylor et al. (2022) published detailed guidelines for child welfare case management guidelines."
+        }
+      ],
+      "metadata": {
+        "title": "Child welfare case management guidelines",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Taylor",
+            "initials": "R. C.",
+            "full_name": "Robert C. Taylor"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "R. B.",
+            "full_name": "Robert B. Miller"
+          },
+          {
+            "last_name": "Taylor",
+            "initials": "S. D.",
+            "full_name": "Sarah D. Taylor"
+          }
+        ],
+        "source": {
+          "name": "World Health Organization",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": "https://www.worldhealthorganization.nih.gov/resource/5452",
+          "publisher": "World Health Organization",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": true,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "website",
+        "resource",
+        "guidelines"
+      ],
+      "special_features": [
+        "url_only"
+      ],
+      "field": "social_work",
+      "notes": "Generated website example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_dissertation_001",
+      "source_type": "dissertation",
+      "reference_citation": "Bureau of Labor Statistics (2021). Leadership styles in healthcare organizations (Doctoral dissertation, University of Michigan).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Bureau of Labor Statistics, 2021)",
+          "context": "Recent findings provide insights into leadership styles in healthcare organizations ((Bureau of Labor Statistics, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Bureau of Labor Statistics (2021)",
+          "context": "Bureau of Labor Statistics (2021) conducted research on leadership styles in healthcare organizations."
+        }
+      ],
+      "metadata": {
+        "title": "Leadership styles in healthcare organizations",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Bureau of Labor Statistics",
+            "initials": null,
+            "full_name": "Bureau of Labor Statistics"
+          }
+        ],
+        "source": {
+          "name": "Bureau of Labor Statistics",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Bureau of Labor Statistics",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "dissertation",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "psychology",
+      "notes": "Generated dissertation example for educational purposes"
+    },
+    {
+      "example_id": "psychology_report_002",
+      "source_type": "report",
+      "reference_citation": "Gallup Organization (2024). Small business economic outlook (Report No. 304). Gallup Organization.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Gallup Organization, 2024)",
+          "context": "Recent findings provide insights into small business economic outlook ((Gallup Organization, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Gallup Organization (2024)",
+          "context": "Gallup Organization (2024) conducted research on small business economic outlook."
+        }
+      ],
+      "metadata": {
+        "title": "Small business economic outlook",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Gallup Organization",
+            "initials": null,
+            "full_name": "Gallup Organization"
+          }
+        ],
+        "source": {
+          "name": "Gallup Organization",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Gallup Organization",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "report",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "psychology",
+      "notes": "Generated report example for educational purposes"
+    },
+    {
+      "example_id": "psychology_report_003",
+      "source_type": "report",
+      "reference_citation": "Gallup Organization (2021). Annual report on mental health statistics (Report No. 714). Gallup Organization.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Gallup Organization, 2021)",
+          "context": "Recent findings provide insights into annual report on mental health statistics ((Gallup Organization, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Gallup Organization (2021)",
+          "context": "Gallup Organization (2021) conducted research on annual report on mental health statistics."
+        }
+      ],
+      "metadata": {
+        "title": "Annual report on mental health statistics",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Gallup Organization",
+            "initials": null,
+            "full_name": "Gallup Organization"
+          }
+        ],
+        "source": {
+          "name": "Gallup Organization",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Gallup Organization",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "report",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "psychology",
+      "notes": "Generated report example for educational purposes"
+    },
+    {
+      "example_id": "education_conference_paper_004",
+      "source_type": "conference_paper",
+      "reference_citation": "Institute of Medicine (2020). AI applications in education. In Proceedings of the Annual Conference on Healthcare (pp. 904-1923).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Institute of Medicine, 2020)",
+          "context": "Recent findings provide insights into ai applications in education ((Institute of Medicine, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Institute of Medicine (2020)",
+          "context": "Institute of Medicine (2020) conducted research on ai applications in education."
+        }
+      ],
+      "metadata": {
+        "title": "AI applications in education",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Institute of Medicine",
+            "initials": null,
+            "full_name": "Institute of Medicine"
+          }
+        ],
+        "source": {
+          "name": "Institute of Medicine",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Institute of Medicine",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "conference_paper",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "education",
+      "notes": "Generated conference_paper example for educational purposes"
+    },
+    {
+      "example_id": "education_government_document_005",
+      "source_type": "government_document",
+      "reference_citation": "Williams, M. D., & Williams, J. B. (2023). Social service delivery protocols (Government Publication No. 91839378).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams & Williams, 2023)",
+          "context": "Recent findings provide insights into social service delivery protocols ((Williams & Williams, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams and Williams (2023)",
+          "context": "Williams and Williams (2023) conducted research on social service delivery protocols."
+        }
+      ],
+      "metadata": {
+        "title": "Social service delivery protocols",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "M. D.",
+            "full_name": "Michael D. Williams"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "J. B.",
+            "full_name": "Jennifer B. Williams"
+          }
+        ],
+        "source": {
+          "name": "Oxford University Press",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Oxford University Press",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "government_document",
+        "research"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated government_document example for educational purposes"
+    },
+    {
+      "example_id": "education_report_006",
+      "source_type": "report",
+      "reference_citation": "Davis, J. A. (2024). Educational technology impact assessment (Report No. 470). Association for Computing Machinery.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Davis, 2024)",
+          "context": "Recent findings provide insights into educational technology impact assessment ((Davis, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Davis (2024)",
+          "context": "Davis (2024) conducted research on educational technology impact assessment."
+        }
+      ],
+      "metadata": {
+        "title": "Educational technology impact assessment",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Davis",
+            "initials": "J. A.",
+            "full_name": "James A. Davis"
+          }
+        ],
+        "source": {
+          "name": "Association for Computing Machinery",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Association for Computing Machinery",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "report",
+        "research"
+      ],
+      "special_features": [],
+      "field": "education",
+      "notes": "Generated report example for educational purposes"
+    },
+    {
+      "example_id": "nursing_government_document_007",
+      "source_type": "government_document",
+      "reference_citation": "National Science Foundation (2022). Business regulation compliance guide (Government Publication No. 56041147).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(National Science Foundation, 2022)",
+          "context": "Recent findings provide insights into business regulation compliance guide ((National Science Foundation, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "National Science Foundation (2022)",
+          "context": "National Science Foundation (2022) conducted research on business regulation compliance guide."
+        }
+      ],
+      "metadata": {
+        "title": "Business regulation compliance guide",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "National Science Foundation",
+            "initials": null,
+            "full_name": "National Science Foundation"
+          }
+        ],
+        "source": {
+          "name": "National Science Foundation",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "National Science Foundation",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "government_document",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "nursing",
+      "notes": "Generated government_document example for educational purposes"
+    },
+    {
+      "example_id": "nursing_dataset_008",
+      "source_type": "dataset",
+      "reference_citation": "National Science Foundation (2021). National health and nutrition examination survey (Version 2) [Data set]. National Science Foundation.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(National Science Foundation, 2021)",
+          "context": "Recent findings provide insights into national health and nutrition examination survey ((National Science Foundation, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "National Science Foundation (2021)",
+          "context": "National Science Foundation (2021) conducted research on national health and nutrition examination survey."
+        }
+      ],
+      "metadata": {
+        "title": "National health and nutrition examination survey",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "National Science Foundation",
+            "initials": null,
+            "full_name": "National Science Foundation"
+          }
+        ],
+        "source": {
+          "name": "National Science Foundation",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "National Science Foundation",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "dataset",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "nursing",
+      "notes": "Generated dataset example for educational purposes"
+    },
+    {
+      "example_id": "nursing_government_document_009",
+      "source_type": "government_document",
+      "reference_citation": "Gallup Organization (2024). Social service delivery protocols (Government Publication No. 60520132).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Gallup Organization, 2024)",
+          "context": "Recent findings provide insights into social service delivery protocols ((Gallup Organization, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Gallup Organization (2024)",
+          "context": "Gallup Organization (2024) conducted research on social service delivery protocols."
+        }
+      ],
+      "metadata": {
+        "title": "Social service delivery protocols",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Gallup Organization",
+            "initials": null,
+            "full_name": "Gallup Organization"
+          }
+        ],
+        "source": {
+          "name": "Gallup Organization",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Gallup Organization",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "government_document",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "nursing",
+      "notes": "Generated government_document example for educational purposes"
+    },
+    {
+      "example_id": "business_conference_paper_010",
+      "source_type": "conference_paper",
+      "reference_citation": "Williams, M. C. (2020). Innovations in telehealth delivery. In Proceedings of the International Conference on Technology (pp. 405-1110).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams, 2020)",
+          "context": "Recent findings provide insights into innovations in telehealth delivery ((Williams, 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams (2020)",
+          "context": "Williams (2020) conducted research on innovations in telehealth delivery."
+        }
+      ],
+      "metadata": {
+        "title": "Innovations in telehealth delivery",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "M. C.",
+            "full_name": "Michael C. Williams"
+          }
+        ],
+        "source": {
+          "name": "Association for Computing Machinery",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Association for Computing Machinery",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "conference_paper",
+        "research"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated conference_paper example for educational purposes"
+    },
+    {
+      "example_id": "business_government_document_011",
+      "source_type": "government_document",
+      "reference_citation": "Johnson, J. C., & Brown, M. C. (2024). Education policy implementation framework (Government Publication No. 71134322).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Johnson & Brown, 2024)",
+          "context": "Recent findings provide insights into education policy implementation framework ((Johnson & Brown, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Johnson and Brown (2024)",
+          "context": "Johnson and Brown (2024) conducted research on education policy implementation framework."
+        }
+      ],
+      "metadata": {
+        "title": "Education policy implementation framework",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Johnson",
+            "initials": "J. C.",
+            "full_name": "Jennifer C. Johnson"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "M. C.",
+            "full_name": "Michael C. Brown"
+          }
+        ],
+        "source": {
+          "name": "SAGE Publications",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "SAGE Publications",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "government_document",
+        "research"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated government_document example for educational purposes"
+    },
+    {
+      "example_id": "business_dissertation_012",
+      "source_type": "dissertation",
+      "reference_citation": "Smith, M. A. (2024). Factors affecting student retention in online programs (Doctoral dissertation, University of Michigan).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Smith, 2024)",
+          "context": "Recent findings provide insights into factors affecting student retention in online programs ((Smith, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Smith (2024)",
+          "context": "Smith (2024) conducted research on factors affecting student retention in online programs."
+        }
+      ],
+      "metadata": {
+        "title": "Factors affecting student retention in online programs",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Smith",
+            "initials": "M. A.",
+            "full_name": "Mary A. Smith"
+          }
+        ],
+        "source": {
+          "name": "Association for Computing Machinery",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "Association for Computing Machinery",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "dissertation",
+        "research"
+      ],
+      "special_features": [],
+      "field": "business",
+      "notes": "Generated dissertation example for educational purposes"
+    },
+    {
+      "example_id": "social_work_dataset_013",
+      "source_type": "dataset",
+      "reference_citation": "National Center for Education Statistics (2023). Social services utilization data (Version 1) [Data set]. National Center for Education Statistics.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(National Center for Education Statistics, 2023)",
+          "context": "Recent findings provide insights into social services utilization data ((National Center for Education Statistics, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "National Center for Education Statistics (2023)",
+          "context": "National Center for Education Statistics (2023) conducted research on social services utilization data."
+        }
+      ],
+      "metadata": {
+        "title": "Social services utilization data",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "National Center for Education Statistics",
+            "initials": null,
+            "full_name": "National Center for Education Statistics"
+          }
+        ],
+        "source": {
+          "name": "National Center for Education Statistics",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "National Center for Education Statistics",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "dataset",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "social_work",
+      "notes": "Generated dataset example for educational purposes"
+    },
+    {
+      "example_id": "social_work_conference_paper_014",
+      "source_type": "conference_paper",
+      "reference_citation": "Smith, J. C. (2022). Community intervention outcomes. In Proceedings of the National Conference on Technology (pp. 333-1704).",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Smith, 2022)",
+          "context": "Recent findings provide insights into community intervention outcomes ((Smith, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Smith (2022)",
+          "context": "Smith (2022) conducted research on community intervention outcomes."
+        }
+      ],
+      "metadata": {
+        "title": "Community intervention outcomes",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Smith",
+            "initials": "J. C.",
+            "full_name": "Jennifer C. Smith"
+          }
+        ],
+        "source": {
+          "name": "U.S. Government Printing Office",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "U.S. Government Printing Office",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "conference_paper",
+        "research"
+      ],
+      "special_features": [],
+      "field": "social_work",
+      "notes": "Generated conference_paper example for educational purposes"
+    },
+    {
+      "example_id": "social_work_report_015",
+      "source_type": "report",
+      "reference_citation": "National Center for Education Statistics (2022). Educational technology impact assessment (Report No. 535). National Center for Education Statistics.",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(National Center for Education Statistics, 2022)",
+          "context": "Recent findings provide insights into educational technology impact assessment ((National Center for Education Statistics, 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "National Center for Education Statistics (2022)",
+          "context": "National Center for Education Statistics (2022) conducted research on educational technology impact assessment."
+        }
+      ],
+      "metadata": {
+        "title": "Educational technology impact assessment",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "National Center for Education Statistics",
+            "initials": null,
+            "full_name": "National Center for Education Statistics"
+          }
+        ],
+        "source": {
+          "name": "National Center for Education Statistics",
+          "volume": null,
+          "issue": null,
+          "pages": null,
+          "doi": null,
+          "url": null,
+          "publisher": "National Center for Education Statistics",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": false,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "report",
+        "research"
+      ],
+      "special_features": [
+        "organizational_author"
+      ],
+      "field": "social_work",
+      "notes": "Generated report example for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_030",
+      "source_type": "journal_article",
+      "reference_citation": "Jackson, J. E., Scott, H. L., & Clark, H. D. (2024). Sleep deprivation and cognitive performance. Developmental Psychopathology, 59(3), 392-401. https://doi.org/10.1080/73798429",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jackson et al., 2024)",
+          "context": "Recent research demonstrates sleep effects ((Jackson et al., 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jackson et al. (2024)",
+          "context": "Jackson et al. (2024) found significant results in their study of sleep."
+        }
+      ],
+      "metadata": {
+        "title": "Sleep deprivation and cognitive performance",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Jackson",
+            "initials": "J. E.",
+            "full_name": "Jessica E. Jackson"
+          },
+          {
+            "last_name": "Scott",
+            "initials": "H. L.",
+            "full_name": "Helen L. Scott"
+          },
+          {
+            "last_name": "Clark",
+            "initials": "H. D.",
+            "full_name": "Helen D. Clark"
+          }
+        ],
+        "source": {
+          "name": "Developmental Psychopathology",
+          "volume": "59",
+          "issue": "3",
+          "pages": "392-401",
+          "doi": "10.1080/73798429",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_031",
+      "source_type": "journal_article",
+      "reference_citation": "Lewis, W. F., & Scott, R. W. (2021). Virtual reality exposure therapy outcomes. Clinical Psychological Science, 129(6), 288-300. https://doi.org/10.1080/64721827",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Lewis & Scott, 2021)",
+          "context": "Recent research demonstrates virtual effects ((Lewis & Scott, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Lewis and Scott (2021)",
+          "context": "Lewis and Scott (2021) found significant results in their study of virtual."
+        }
+      ],
+      "metadata": {
+        "title": "Virtual reality exposure therapy outcomes",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Lewis",
+            "initials": "W. F.",
+            "full_name": "William F. Lewis"
+          },
+          {
+            "last_name": "Scott",
+            "initials": "R. W.",
+            "full_name": "Robert W. Scott"
+          }
+        ],
+        "source": {
+          "name": "Clinical Psychological Science",
+          "volume": "129",
+          "issue": "6",
+          "pages": "288-300",
+          "doi": "10.1080/64721827",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article",
+        "outcomes"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_032",
+      "source_type": "journal_article",
+      "reference_citation": "Green, M. F., & Moore, A. D. (2024). Mindfulness-based stress reduction efficacy. Journal of Consulting and Clinical Psychology, 118(5), 187-201. https://doi.org/10.1177/10061434",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Green & Moore, 2024)",
+          "context": "Recent research demonstrates mindfulness-based effects ((Green & Moore, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Green and Moore (2024)",
+          "context": "Green and Moore (2024) found significant results in their study of mindfulness-based."
+        }
+      ],
+      "metadata": {
+        "title": "Mindfulness-based stress reduction efficacy",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Green",
+            "initials": "M. F.",
+            "full_name": "Matthew F. Green"
+          },
+          {
+            "last_name": "Moore",
+            "initials": "A. D.",
+            "full_name": "Anthony D. Moore"
+          }
+        ],
+        "source": {
+          "name": "Journal of Consulting and Clinical Psychology",
+          "volume": "118",
+          "issue": "5",
+          "pages": "187-201",
+          "doi": "10.1177/10061434",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_033",
+      "source_type": "journal_article",
+      "reference_citation": "Williams, M. N., Thompson, P. B., & Rodriguez, R. T. (2020). Cultural differences in emotion regulation. Developmental Psychopathology, 138(4), 126-148. https://doi.org/10.1037/08811888",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Williams et al., 2020)",
+          "context": "Recent research demonstrates cultural effects ((Williams et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Williams et al. (2020)",
+          "context": "Williams et al. (2020) found significant results in their study of cultural."
+        }
+      ],
+      "metadata": {
+        "title": "Cultural differences in emotion regulation",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Williams",
+            "initials": "M. N.",
+            "full_name": "Matthew N. Williams"
+          },
+          {
+            "last_name": "Thompson",
+            "initials": "P. B.",
+            "full_name": "Patricia B. Thompson"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "R. T.",
+            "full_name": "Richard T. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Developmental Psychopathology",
+          "volume": "138",
+          "issue": "4",
+          "pages": "126-148",
+          "doi": "10.1037/08811888",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "psychology_journal_article_034",
+      "source_type": "journal_article",
+      "reference_citation": "Hernandez, H. N., & Garcia, J. W. (2023). Executive function training in older adults. Clinical Psychological Science, 104(3), 371-382. https://doi.org/10.1111/34985962",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Hernandez & Garcia, 2023)",
+          "context": "Recent research demonstrates executive effects ((Hernandez & Garcia, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Hernandez and Garcia (2023)",
+          "context": "Hernandez and Garcia (2023) found significant results in their study of executive."
+        }
+      ],
+      "metadata": {
+        "title": "Executive function training in older adults",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Hernandez",
+            "initials": "H. N.",
+            "full_name": "Helen N. Hernandez"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "J. W.",
+            "full_name": "Joseph W. Garcia"
+          }
+        ],
+        "source": {
+          "name": "Clinical Psychological Science",
+          "volume": "104",
+          "issue": "3",
+          "pages": "371-382",
+          "doi": "10.1111/34985962",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "psychology",
+        "research",
+        "journal_article",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "psychology",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_035",
+      "source_type": "journal_article",
+      "reference_citation": "Wright, J. N., Hernandez, J. T., & Taylor, B. E. (2024). Learning analytics for early intervention. American Educational Research Journal, 46(2), 328-345. https://doi.org/10.1016/25377032",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Wright et al., 2024)",
+          "context": "Recent research demonstrates learning effects ((Wright et al., 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Wright et al. (2024)",
+          "context": "Wright et al. (2024) found significant results in their study of learning."
+        }
+      ],
+      "metadata": {
+        "title": "Learning analytics for early intervention",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Wright",
+            "initials": "J. N.",
+            "full_name": "James N. Wright"
+          },
+          {
+            "last_name": "Hernandez",
+            "initials": "J. T.",
+            "full_name": "Joseph T. Hernandez"
+          },
+          {
+            "last_name": "Taylor",
+            "initials": "B. E.",
+            "full_name": "Betty E. Taylor"
+          }
+        ],
+        "source": {
+          "name": "American Educational Research Journal",
+          "volume": "46",
+          "issue": "2",
+          "pages": "328-345",
+          "doi": "10.1016/25377032",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "education",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_036",
+      "source_type": "journal_article",
+      "reference_citation": "Young, R. N., Rodriguez, R. L., & Garcia, A. B. (2022). Peer tutoring effects on reading comprehension. Journal of Learning Sciences, 126(6), 114-139. https://doi.org/10.1002/38733753",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Young et al., 2022)",
+          "context": "Recent research demonstrates peer effects ((Young et al., 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Young et al. (2022)",
+          "context": "Young et al. (2022) found significant results in their study of peer."
+        }
+      ],
+      "metadata": {
+        "title": "Peer tutoring effects on reading comprehension",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Young",
+            "initials": "R. N.",
+            "full_name": "Richard N. Young"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "R. L.",
+            "full_name": "Richard L. Rodriguez"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "A. B.",
+            "full_name": "Anthony B. Garcia"
+          }
+        ],
+        "source": {
+          "name": "Journal of Learning Sciences",
+          "volume": "126",
+          "issue": "6",
+          "pages": "114-139",
+          "doi": "10.1002/38733753",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article",
+        "outcomes"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "education",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_037",
+      "source_type": "journal_article",
+      "reference_citation": "Rodriguez, J. L. (2024). Game-based learning in mathematics education. Reading Research Quarterly, 89(5), 210-222. https://doi.org/10.1016/47172174",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Rodriguez, 2024)",
+          "context": "Recent research demonstrates game-based effects ((Rodriguez, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Rodriguez (2024)",
+          "context": "Rodriguez (2024) found significant results in their study of game-based."
+        }
+      ],
+      "metadata": {
+        "title": "Game-based learning in mathematics education",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Rodriguez",
+            "initials": "J. L.",
+            "full_name": "Jennifer L. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Reading Research Quarterly",
+          "volume": "89",
+          "issue": "5",
+          "pages": "210-222",
+          "doi": "10.1016/47172174",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "education",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "education_journal_article_038",
+      "source_type": "journal_article",
+      "reference_citation": "Scott, R. J. (2021). Universal design for learning implementation. Review of Educational Research, 142(5), 161-171. https://doi.org/10.1080/16395228",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Scott, 2021)",
+          "context": "Recent research demonstrates universal effects ((Scott, 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Scott (2021)",
+          "context": "Scott (2021) found significant results in their study of universal."
+        }
+      ],
+      "metadata": {
+        "title": "Universal design for learning implementation",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Scott",
+            "initials": "R. J.",
+            "full_name": "Richard J. Scott"
+          }
+        ],
+        "source": {
+          "name": "Review of Educational Research",
+          "volume": "142",
+          "issue": "5",
+          "pages": "161-171",
+          "doi": "10.1080/16395228",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "education",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "education",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_039",
+      "source_type": "journal_article",
+      "reference_citation": "King, R. F., Brown, M. E., & Davis, T. A. (2022). Interprofessional communication in healthcare teams. Journal of Advanced Nursing, 47(6), 373-394. https://doi.org/10.1016/93478223",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(King et al., 2022)",
+          "context": "Recent research demonstrates interprofessional effects ((King et al., 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "King et al. (2022)",
+          "context": "King et al. (2022) found significant results in their study of interprofessional."
+        }
+      ],
+      "metadata": {
+        "title": "Interprofessional communication in healthcare teams",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "King",
+            "initials": "R. F.",
+            "full_name": "Richard F. King"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "M. E.",
+            "full_name": "Mark E. Brown"
+          },
+          {
+            "last_name": "Davis",
+            "initials": "T. A.",
+            "full_name": "Thomas A. Davis"
+          }
+        ],
+        "source": {
+          "name": "Journal of Advanced Nursing",
+          "volume": "47",
+          "issue": "6",
+          "pages": "373-394",
+          "doi": "10.1016/93478223",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_040",
+      "source_type": "journal_article",
+      "reference_citation": "Jones, N. R., Garcia, M. A., & Brown, E. P. (2023). Simulation-based training for emergency response. Western Journal of Nursing Research, 106(5), 185-208. https://doi.org/10.1037/36734963",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jones et al., 2023)",
+          "context": "Recent research demonstrates simulation-based effects ((Jones et al., 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jones et al. (2023)",
+          "context": "Jones et al. (2023) found significant results in their study of simulation-based."
+        }
+      ],
+      "metadata": {
+        "title": "Simulation-based training for emergency response",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Jones",
+            "initials": "N. R.",
+            "full_name": "Nancy R. Jones"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "M. A.",
+            "full_name": "Matthew A. Garcia"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "E. P.",
+            "full_name": "Elizabeth P. Brown"
+          }
+        ],
+        "source": {
+          "name": "Western Journal of Nursing Research",
+          "volume": "106",
+          "issue": "5",
+          "pages": "185-208",
+          "doi": "10.1037/36734963",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article",
+        "intervention"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_041",
+      "source_type": "journal_article",
+      "reference_citation": "Martinez, J. G., & Clark, B. R. (2024). Nursing workload and patient outcomes. Nurse Education Today, 49(2), 226-243. https://doi.org/10.1177/53940239",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Martinez & Clark, 2024)",
+          "context": "Recent research demonstrates nursing effects ((Martinez & Clark, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Martinez and Clark (2024)",
+          "context": "Martinez and Clark (2024) found significant results in their study of nursing."
+        }
+      ],
+      "metadata": {
+        "title": "Nursing workload and patient outcomes",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Martinez",
+            "initials": "J. G.",
+            "full_name": "Jessica G. Martinez"
+          },
+          {
+            "last_name": "Clark",
+            "initials": "B. R.",
+            "full_name": "Betty R. Clark"
+          }
+        ],
+        "source": {
+          "name": "Nurse Education Today",
+          "volume": "49",
+          "issue": "2",
+          "pages": "226-243",
+          "doi": "10.1177/53940239",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article",
+        "outcomes"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "nursing_journal_article_042",
+      "source_type": "journal_article",
+      "reference_citation": "Miller, L. K., King, E. H., & Brown, E. P. (2021). Nurse practitioner prescribing outcomes. Journal of Advanced Nursing, 130(6), 363-382. https://doi.org/10.1002/75572387",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Miller et al., 2021)",
+          "context": "Recent research demonstrates nurse effects ((Miller et al., 2021))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Miller et al. (2021)",
+          "context": "Miller et al. (2021) found significant results in their study of nurse."
+        }
+      ],
+      "metadata": {
+        "title": "Nurse practitioner prescribing outcomes",
+        "year": 2021,
+        "authors": [
+          {
+            "last_name": "Miller",
+            "initials": "L. K.",
+            "full_name": "Lisa K. Miller"
+          },
+          {
+            "last_name": "King",
+            "initials": "E. H.",
+            "full_name": "Elizabeth H. King"
+          },
+          {
+            "last_name": "Brown",
+            "initials": "E. P.",
+            "full_name": "Elizabeth P. Brown"
+          }
+        ],
+        "source": {
+          "name": "Journal of Advanced Nursing",
+          "volume": "130",
+          "issue": "6",
+          "pages": "363-382",
+          "doi": "10.1002/75572387",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "nursing",
+        "research",
+        "journal_article",
+        "outcomes"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "nursing",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_043",
+      "source_type": "journal_article",
+      "reference_citation": "Green, D. N., & Lee, R. M. (2023). Artificial intelligence in talent acquisition. Organization Science, 107(2), 222-239. https://doi.org/10.1037/45287561",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Green & Lee, 2023)",
+          "context": "Recent research demonstrates artificial effects ((Green & Lee, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Green and Lee (2023)",
+          "context": "Green and Lee (2023) found significant results in their study of artificial."
+        }
+      ],
+      "metadata": {
+        "title": "Artificial intelligence in talent acquisition",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Green",
+            "initials": "D. N.",
+            "full_name": "Daniel N. Green"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "R. M.",
+            "full_name": "Robert M. Lee"
+          }
+        ],
+        "source": {
+          "name": "Organization Science",
+          "volume": "107",
+          "issue": "2",
+          "pages": "222-239",
+          "doi": "10.1037/45287561",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_044",
+      "source_type": "journal_article",
+      "reference_citation": "Miller, T. D., Anderson, D. R., King, M. K., & Anderson, M. C. (2023). Supply chain disruption resilience. Marketing Science, 111(3), 268-278. https://doi.org/10.1016/58555052",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Miller et al., 2023)",
+          "context": "Recent research demonstrates supply effects ((Miller et al., 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Miller et al. (2023)",
+          "context": "Miller et al. (2023) found significant results in their study of supply."
+        }
+      ],
+      "metadata": {
+        "title": "Supply chain disruption resilience",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Miller",
+            "initials": "T. D.",
+            "full_name": "Thomas D. Miller"
+          },
+          {
+            "last_name": "Anderson",
+            "initials": "D. R.",
+            "full_name": "David R. Anderson"
+          },
+          {
+            "last_name": "King",
+            "initials": "M. K.",
+            "full_name": "Michael K. King"
+          },
+          {
+            "last_name": "Anderson",
+            "initials": "M. C.",
+            "full_name": "Michael C. Anderson"
+          }
+        ],
+        "source": {
+          "name": "Marketing Science",
+          "volume": "111",
+          "issue": "3",
+          "pages": "268-278",
+          "doi": "10.1016/58555052",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 4 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_045",
+      "source_type": "journal_article",
+      "reference_citation": "Allen, N. F., & Lewis, L. R. (2024). Blockchain applications in supply chain. Management Science, 56(2), 231-250. https://doi.org/10.1111/83943614",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Allen & Lewis, 2024)",
+          "context": "Recent research demonstrates blockchain effects ((Allen & Lewis, 2024))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Allen and Lewis (2024)",
+          "context": "Allen and Lewis (2024) found significant results in their study of blockchain."
+        }
+      ],
+      "metadata": {
+        "title": "Blockchain applications in supply chain",
+        "year": 2024,
+        "authors": [
+          {
+            "last_name": "Allen",
+            "initials": "N. F.",
+            "full_name": "Nancy F. Allen"
+          },
+          {
+            "last_name": "Lewis",
+            "initials": "L. R.",
+            "full_name": "Lisa R. Lewis"
+          }
+        ],
+        "source": {
+          "name": "Management Science",
+          "volume": "56",
+          "issue": "2",
+          "pages": "231-250",
+          "doi": "10.1111/83943614",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    },
+    {
+      "example_id": "business_journal_article_046",
+      "source_type": "journal_article",
+      "reference_citation": "King, A. D., Lewis, T. N., & Thomas, P. N. (2023). ESG investment performance analysis. Journal of Marketing, 85(6), 259-272. https://doi.org/10.1037/95632780",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(King et al., 2023)",
+          "context": "Recent research demonstrates esg effects ((King et al., 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "King et al. (2023)",
+          "context": "King et al. (2023) found significant results in their study of esg."
+        }
+      ],
+      "metadata": {
+        "title": "ESG investment performance analysis",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "King",
+            "initials": "A. D.",
+            "full_name": "Anthony D. King"
+          },
+          {
+            "last_name": "Lewis",
+            "initials": "T. N.",
+            "full_name": "Thomas N. Lewis"
+          },
+          {
+            "last_name": "Thomas",
+            "initials": "P. N.",
+            "full_name": "Patricia N. Thomas"
+          }
+        ],
+        "source": {
+          "name": "Journal of Marketing",
+          "volume": "85",
+          "issue": "6",
+          "pages": "259-272",
+          "doi": "10.1037/95632780",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "business",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "business",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_047",
+      "source_type": "journal_article",
+      "reference_citation": "Lee, B. C., Williams, J. S., & Rodriguez, J. S. (2020). Social work telehealth effectiveness. Social Service Review, 82(6), 221-245. https://doi.org/10.1037/97301823",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Lee et al., 2020)",
+          "context": "Recent research demonstrates social effects ((Lee et al., 2020))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Lee et al. (2020)",
+          "context": "Lee et al. (2020) found significant results in their study of social."
+        }
+      ],
+      "metadata": {
+        "title": "Social work telehealth effectiveness",
+        "year": 2020,
+        "authors": [
+          {
+            "last_name": "Lee",
+            "initials": "B. C.",
+            "full_name": "Barbara C. Lee"
+          },
+          {
+            "last_name": "Williams",
+            "initials": "J. S.",
+            "full_name": "Joseph S. Williams"
+          },
+          {
+            "last_name": "Rodriguez",
+            "initials": "J. S.",
+            "full_name": "Jennifer S. Rodriguez"
+          }
+        ],
+        "source": {
+          "name": "Social Service Review",
+          "volume": "82",
+          "issue": "6",
+          "pages": "221-245",
+          "doi": "10.1037/97301823",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article",
+        "effectiveness"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 3 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_048",
+      "source_type": "journal_article",
+      "reference_citation": "Thomas, R. C., Lewis, S. A., Miller, M. A., Garcia, D. B., Thompson, P. B., & Robinson, C. C. (2022). Community-based participatory research methods. Social Service Review, 63(1), 111-126. https://doi.org/10.1037/13606458",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Thomas et al., 2022)",
+          "context": "Recent research demonstrates community-based effects ((Thomas et al., 2022))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Thomas et al. (2022)",
+          "context": "Thomas et al. (2022) found significant results in their study of community-based."
+        }
+      ],
+      "metadata": {
+        "title": "Community-based participatory research methods",
+        "year": 2022,
+        "authors": [
+          {
+            "last_name": "Thomas",
+            "initials": "R. C.",
+            "full_name": "Richard C. Thomas"
+          },
+          {
+            "last_name": "Lewis",
+            "initials": "S. A.",
+            "full_name": "Susan A. Lewis"
+          },
+          {
+            "last_name": "Miller",
+            "initials": "M. A.",
+            "full_name": "Michael A. Miller"
+          },
+          {
+            "last_name": "Garcia",
+            "initials": "D. B.",
+            "full_name": "Donna B. Garcia"
+          },
+          {
+            "last_name": "Thompson",
+            "initials": "P. B.",
+            "full_name": "Patricia B. Thompson"
+          },
+          {
+            "last_name": "Robinson",
+            "initials": "C. C.",
+            "full_name": "Christopher C. Robinson"
+          }
+        ],
+        "source": {
+          "name": "Social Service Review",
+          "volume": "63",
+          "issue": "1",
+          "pages": "111-126",
+          "doi": "10.1037/13606458",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "many_authors"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 6 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_049",
+      "source_type": "journal_article",
+      "reference_citation": "Jackson, J. S. (2023). Community-based participatory research methods. Social Service Review, 109(1), 159-181. https://doi.org/10.1097/34990012",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Jackson, 2023)",
+          "context": "Recent research demonstrates community-based effects ((Jackson, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Jackson (2023)",
+          "context": "Jackson (2023) found significant results in their study of community-based."
+        }
+      ],
+      "metadata": {
+        "title": "Community-based participatory research methods",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Jackson",
+            "initials": "J. S.",
+            "full_name": "James S. Jackson"
+          }
+        ],
+        "source": {
+          "name": "Social Service Review",
+          "volume": "109",
+          "issue": "1",
+          "pages": "159-181",
+          "doi": "10.1097/34990012",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article"
+      ],
+      "special_features": [
+        "doi_present",
+        "single_author"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 1 author(s) for educational purposes"
+    },
+    {
+      "example_id": "social_work_journal_article_050",
+      "source_type": "journal_article",
+      "reference_citation": "Thomas, L. L., & Lee, J. J. (2023). Family preservation program effectiveness. Families in Society, 59(5), 257-273. https://doi.org/10.1097/23019534",
+      "in_text_citations": [
+        {
+          "type": "parenthetical",
+          "citation": "(Thomas & Lee, 2023)",
+          "context": "Recent research demonstrates family effects ((Thomas & Lee, 2023))."
+        },
+        {
+          "type": "narrative",
+          "citation": "Thomas and Lee (2023)",
+          "context": "Thomas and Lee (2023) found significant results in their study of family."
+        }
+      ],
+      "metadata": {
+        "title": "Family preservation program effectiveness",
+        "year": 2023,
+        "authors": [
+          {
+            "last_name": "Thomas",
+            "initials": "L. L.",
+            "full_name": "Linda L. Thomas"
+          },
+          {
+            "last_name": "Lee",
+            "initials": "J. J.",
+            "full_name": "Jennifer J. Lee"
+          }
+        ],
+        "source": {
+          "name": "Families in Society",
+          "volume": "59",
+          "issue": "5",
+          "pages": "257-273",
+          "doi": "10.1097/23019534",
+          "url": null,
+          "publisher": "Academic Publisher",
+          "location": null
+        },
+        "verification": {
+          "doi_resolves": true,
+          "url_active": false,
+          "verified_date": "2024-01-15"
+        }
+      },
+      "tags": [
+        "social_work",
+        "research",
+        "journal_article",
+        "effectiveness"
+      ],
+      "special_features": [
+        "doi_present"
+      ],
+      "field": "social_work",
+      "notes": "Generated example with 2 author(s) for educational purposes"
+    }
+  ],
+  "metadata": {
+    "total_examples": 100,
+    "last_updated": "2025-10-12",
+    "source_types": [
+      "journal_article",
+      "book",
+      "website",
+      "dissertation",
+      "report",
+      "conference_paper",
+      "government_document",
+      "dataset"
+    ],
+    "fields": [
+      "psychology",
+      "education",
+      "nursing",
+      "business",
+      "social_work"
+    ],
+    "years": [
+      2020,
+      2021,
+      2022,
+      2023
+    ],
+    "author_counts": {
+      "1": 3,
+      "2": 2,
+      "3+": 4,
+      "organizational": 1
+    }
+  }
+}
