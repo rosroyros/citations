@@ -51,9 +51,9 @@ function App() {
     setResults(null)
 
     try {
-      console.log('Calling API: http://localhost:8000/api/validate')
+      console.log('Calling API: /api/validate')
 
-      const response = await fetch('http://localhost:8000/api/validate', {
+      const response = await fetch('/api/validate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

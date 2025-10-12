@@ -36,6 +36,23 @@ Examples:
 - **Python 3**: Use `python3` for all commands
 - **Dependencies**: Keep `requirements.txt` updated
 
+### Production Environment
+- **VPS Access**: `ssh deploy@178.156.161.140`
+- **App Directory**: `/opt/citations`
+- **Backend Service**: systemd service `citations-backend`
+- **Frontend**: Nginx serving React build from `/opt/citations/frontend/frontend/dist`
+
+### Deployment Process
+1. Test locally: `python3 -m pytest`
+2. Push to GitHub: `git push origin main`
+3. SSH to VPS: `ssh deploy@178.156.161.140`
+4. Deploy: `cd /opt/citations && ./deployment/scripts/deploy.sh`
+
+### Deployment Commands Clarification
+- **Agent commands** (`/deploy`, `/restart-backend`) are for me to execute via SSH
+- **Manual deployment**: Run `./deployment/scripts/deploy.sh` directly on VPS
+- Both approaches accomplish the same thing - updating production
+
 ## Logging
 - **Verbose logging throughout**: Use Python logging module
 - **Log levels**: DEBUG for detailed flow, INFO for key steps, ERROR for issues
