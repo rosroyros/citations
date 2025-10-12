@@ -1,0 +1,395 @@
+{
+  "citation_rules": {
+    "version": "APA 7th Edition",
+    "last_updated": "2025-10-12",
+    "categories": {
+      "page_number_formatting": [
+        {
+          "rule_id": "PNF-001",
+          "source": "APA 7th Edition Manual, Section 8.25",
+          "description": "Use en dashes (–) for page ranges in references and in-text citations",
+          "examples": [
+            "pp. 21–27",
+            "pp. 100–115",
+            "pp. 2–9"
+          ],
+          "changed_from_apa6": "No change - en dash usage remains consistent",
+          "required_elements": ["en_dash", "page_range"],
+          "common_errors": [
+            "Using hyphens (-) instead of en dashes (–)",
+            "Using spaces around the dash",
+            "Using em dashes (—) instead of en dashes"
+          ]
+        },
+        {
+          "rule_id": "PNF-002",
+          "source": "APA 7th Edition Manual, Section 8.25",
+          "description": "Format single page numbers with 'p.' prefix and no dash",
+          "examples": [
+            "p. 25",
+            "p. 102",
+            "p. 8"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["single_page_prefix", "page_number"],
+          "common_errors": [
+            "Using 'pp.' for single pages",
+            "Omitting the period after 'p'",
+            "Using 'page' instead of 'p.'"
+          ]
+        },
+        {
+          "rule_id": "PNF-003",
+          "source": "APA 7th Edition Manual, Section 9.16",
+          "description": "Use article numbers when page numbers are not available for online journal articles",
+          "examples": [
+            "Article 15",
+            "Article 3",
+            "Article 42"
+          ],
+          "changed_from_apa6": "Clarified preference for article numbers over omitting page information",
+          "required_elements": ["article_number"],
+          "common_errors": [
+            "Using 'p.' or 'pp.' with article numbers",
+            "Creating fake page ranges",
+            "Omitting location information when article numbers are available"
+          ]
+        },
+        {
+          "rule_id": "PNF-004",
+          "source": "APA 7th Edition Manual, Section 10.5",
+          "description": "Format chapter page ranges with 'pp.' prefix in edited book references",
+          "examples": [
+            "pp. 45–67",
+            "pp. 112–128",
+            "pp. 3–19"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["chapter_range_prefix", "page_range"],
+          "common_errors": [
+            "Using 'p.' for chapter ranges",
+            "Forgetting to include page numbers for chapters",
+            "Using chapter numbers instead of page ranges"
+          ]
+        },
+        {
+          "rule_id": "PNF-005",
+          "source": "APA 7th Edition Manual, Section 8.25",
+          "description": "Use paragraph numbers with 'para.' prefix for direct quotes from online sources without page numbers",
+          "examples": [
+            "para. 4",
+            "para. 15",
+            "para. 2"
+          ],
+          "changed_from_apa6": "Clarified usage for web sources and online materials",
+          "required_elements": ["paragraph_prefix", "paragraph_number"],
+          "common_errors": [
+            "Using 'p.' with paragraph numbers",
+            "Omitting the period after 'para'",
+            "Using section headings instead of paragraph numbers when available"
+          ]
+        }
+      ],
+      "in_text_citations": [
+        {
+          "rule_id": "ITC-001",
+          "source": "APA 7th Edition Manual, Section 8.10",
+          "description": "Parenthetical citations place author and year in parentheses, separated by comma",
+          "examples": [
+            "(Smith, 2020)",
+            "(Johnson & Williams, 2019)",
+            "(American Psychological Association, 2021)"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["author", "year", "parentheses", "comma_separator"],
+          "common_errors": [
+            "Omitting the comma between author and year",
+            "Using incorrect punctuation",
+            "Including middle initials unless needed for clarity"
+          ]
+        },
+        {
+          "rule_id": "ITC-002",
+          "source": "APA 7th Edition Manual, Section 8.11",
+          "description": "Narrative citations integrate author into sentence text with year in parentheses",
+          "examples": [
+            "Smith (2020) argued that...",
+            "According to Johnson and Williams (2019),...",
+            "The American Psychological Association (2021) states..."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["author_in_text", "year_in_parentheses"],
+          "common_errors": [
+            "Putting both author and year in parentheses",
+            "Omitting the year parentheses",
+            "Using 'according to' redundantly with narrative format"
+          ]
+        },
+        {
+          "rule_id": "ITC-003",
+          "source": "APA 7th Edition Manual, Section 8.25",
+          "description": "Direct quotes require author, year, and page number separated by commas",
+          "examples": [
+            "(Smith, 2020, p. 25)",
+            "Johnson (2019) stated, \"quote\" (p. 42)",
+            "(Brown, 2021, pp. 15–16)"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["author", "year", "page_number", "commas"],
+          "common_errors": [
+            "Omitting page numbers for direct quotes",
+            "Using semicolons instead of commas",
+            "Forgetting quotation marks around the quoted material"
+          ]
+        },
+        {
+          "rule_id": "ITC-004",
+          "source": "APA 7th Edition Manual, Section 8.24",
+          "description": "Paraphrased content requires author and year, but page numbers are optional",
+          "examples": [
+            "(Smith, 2020)",
+            "Smith (2020) explained that...",
+            "(Smith, 2020, p. 15) [when emphasizing specific location]"
+          ],
+          "changed_from_apa6": "Made page numbers optional for paraphrases",
+          "required_elements": ["author", "year"],
+          "common_errors": [
+            "Including page numbers when not emphasizing specific location",
+            "Omitting year for paraphrases",
+            "Treating paraphrases as direct quotes"
+          ]
+        },
+        {
+          "rule_id": "ITC-005",
+          "source": "APA 7th Edition Manual, Section 8.17",
+          "description": "Multiple authors (2) use ampersand in parentheses, 'and' in narrative",
+          "examples": [
+            "(Johnson & Williams, 2019)",
+            "Johnson and Williams (2019) found..."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["two_authors", "ampersand_or_and", "year"],
+          "common_errors": [
+            "Using 'and' in parenthetical citations",
+            "Using '&' in narrative citations",
+            "Inconsistent formatting between citation types"
+          ]
+        },
+        {
+          "rule_id": "ITC-006",
+          "source": "APA 7th Edition Manual, Section 8.18",
+          "description": "Organization authors use full name in first citation, abbreviations thereafter",
+          "examples": [
+            "First: (American Psychological Association [APA], 2021)",
+            "Subsequent: (APA, 2021)"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["organization_name", "abbreviation_brackets", "year"],
+          "common_errors": [
+            "Using abbreviation without defining it first",
+            "Creating unnecessary abbreviations",
+            "Inconsistent abbreviation usage"
+          ]
+        },
+        {
+          "rule_id": "ITC-007",
+          "source": "APA 7th Edition Manual, Section 8.14",
+          "description": "Anonymous works use 'Anonymous' as author with year in parentheses",
+          "examples": [
+            "(Anonymous, 2020)",
+            "Anonymous (2020) argued that..."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["anonymous_author", "year"],
+          "common_errors": [
+            "Omitting author designation",
+            "Using 'Anon.' instead of 'Anonymous'",
+            "Treating anonymous works as having no author"
+          ]
+        },
+        {
+          "rule_id": "ITC-008",
+          "source": "APA 7th Edition Manual, Section 8.6",
+          "description": "Secondary sources use 'as cited in' format with original and secondary authors",
+          "examples": [
+            "(Smith, 2018, as cited in Johnson, 2020)",
+            "Smith's study (as cited in Johnson, 2020) showed..."
+          ],
+          "changed_from_apa6": "Clarified to use secondary source in reference list",
+          "required_elements": ["original_author", "original_year", "secondary_author", "secondary_year"],
+          "common_errors": [
+            "Citing original source directly without reading it",
+            "Omitting 'as cited in' phrase",
+            "Including original source in reference list"
+          ]
+        },
+        {
+          "rule_id": "ITC-009",
+          "source": "APA 7th Edition Manual, Section 8.12",
+          "description": "Multiple works in same citation separated by semicolons in alphabetical order",
+          "examples": [
+            "(Johnson, 2019; Smith, 2020; Williams, 2018)",
+            "Several studies (Brown, 2021; Davis, 2020) have found..."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["multiple_authors", "multiple_years", "semicolons", "alphabetical_order"],
+          "common_errors": [
+            "Using commas instead of semicolons",
+            "Not ordering alphabetically",
+            "Including duplicate citations"
+          ]
+        },
+        {
+          "rule_id": "ITC-010",
+          "source": "APA 7th Edition Manual, Section 8.25",
+          "description": "Direct quotes with page numbers use comma before page information",
+          "examples": [
+            "(Smith, 2020, p. 25)",
+            "Smith (2020) stated, \"quote\" (p. 25)",
+            "(Brown, 2021, pp. 15–16)"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["author", "year", "comma", "page_number"],
+          "common_errors": [
+            "Omitting comma before page number",
+            "Using colon instead of comma",
+            "Forgetting page numbers for direct quotes"
+          ]
+        }
+      ],
+      "reference_list_formatting": [
+        {
+          "rule_id": "RLF-001",
+          "source": "APA 7th Edition Manual, Section 9.44",
+          "description": "Alphabetical ordering by first author's surname, then by year",
+          "examples": [
+            "Brown, J. (2019)",
+            "Brown, J. (2020)",
+            "Johnson, A. (2018)"
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["alphabetical_order", "author_surname", "chronological_for_same_author"],
+          "common_errors": [
+            "Ordering by first name instead of surname",
+            "Not maintaining chronological order for same author",
+            "Ignoring spaces in surnames"
+          ]
+        },
+        {
+          "rule_id": "RLF-002",
+          "source": "APA 7th Edition Manual, Section 9.44",
+          "description": "Hanging indent format: first line flush left, subsequent lines indented 0.5 inches",
+          "examples": [
+            "Smith, J. (2020). Title of work. Publisher.\n    Additional information about the source."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["first_line_flush", "subsequent_lines_indented"],
+          "common_errors": [
+            "Using block paragraphs instead of hanging indent",
+            "Inconsistent indentation amounts",
+            "First line indentation instead of hanging"
+          ]
+        },
+        {
+          "rule_id": "RLF-003",
+          "source": "APA 7th Edition Manual, Section 9.46",
+          "description": "Multiple works by same author ordered by year, earliest first",
+          "examples": [
+            "Johnson, A. (2018). Title one.\nJohnson, A. (2019). Title two.\nJohnson, A. (2020). Title three."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["same_author", "chronological_order", "earliest_first"],
+          "common_errors": [
+            "Ordering by title instead of year",
+            "Mixing authors when should be grouped",
+            "Using descending year order"
+          ]
+        },
+        {
+          "rule_id": "RLF-004",
+          "source": "APA 7th Edition Manual, Section 9.47",
+          "description": "Same author, same year distinguished by lowercase letters (a, b, c) after year",
+          "examples": [
+            "Smith, J. (2020a). First work.\nSmith, J. (2020b). Second work."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["same_author_year", "lowercase_suffix", "alphabetical_by_title"],
+          "common_errors": [
+            "Using uppercase letters instead of lowercase",
+            "Not ordering suffixes alphabetically by title",
+            "Forgetting to include the suffix in in-text citations"
+          ]
+        },
+        {
+          "rule_id": "RLF-005",
+          "source": "APA 7th Edition Manual, Section 9.8",
+          "description": "Use 'et al.' for 3 or more authors in reference list (all names listed in APA 6)",
+          "examples": [
+            "Johnson, A., Smith, B., & Williams, C. (2020).",
+            "Brown, D., et al. (2019)."
+          ],
+          "changed_from_apa6": "MAJOR CHANGE: Now uses et al. in reference list for 3+ authors (APA 6 listed up to 7 authors)",
+          "required_elements": ["up_to_20_authors", "et_al_for_3plus"],
+          "common_errors": [
+            "Listing all authors when should use et al.",
+            "Using et al. for only 2 authors",
+            "Forgetting period after 'al.'"
+          ]
+        },
+        {
+          "rule_id": "RLF-006",
+          "source": "APA 7th Edition Manual, Section 9.44",
+          "description": "Double spacing within and between reference list entries",
+          "examples": [
+            "All reference entries should be double-spaced with no extra spacing between entries"
+          ],
+          "changed_from_apa6": "Clarified spacing requirements",
+          "required_elements": ["double_spacing"],
+          "common_errors": [
+            "Using single spacing",
+            "Adding extra blank lines between entries",
+            "Inconsistent spacing throughout"
+          ]
+        },
+        {
+          "rule_id": "RLF-007",
+          "source": "APA 7th Edition Manual, Section 9.8",
+          "description": "Author name inversion: surname first, followed by initials with periods",
+          "examples": [
+            "Smith, J. D.",
+            "Johnson, A. B.",
+            "Williams, C."
+          ],
+          "changed_from_apa6": "No change",
+          "required_elements": ["surname_first", "comma_separator", "initials_with_periods"],
+          "common_errors": [
+            "Using first name before surname",
+            "Forgetting periods after initials",
+            "Including middle names instead of initials"
+          ]
+        },
+        {
+          "rule_id": "RLF-008",
+          "source": "APA 7th Edition Manual, Section 9.44",
+          "description": "Double spacing between reference list entries (consistent with APA formatting)",
+          "examples": [
+            "Reference entries are double-spaced with consistent spacing between all entries"
+          ],
+          "changed_from_apa6": "Clarified spacing consistency",
+          "required_elements": ["consistent_spacing_between_entries"],
+          "common_errors": [
+            "Using inconsistent spacing",
+            "Adding extra space after certain entry types",
+            "Mixing single and double spacing"
+          ]
+        }
+      ]
+    },
+    "total_rules": 23,
+    "summary": {
+      "page_number_formatting": 5,
+      "in_text_citations": 10,
+      "reference_list_formatting": 8
+    }
+  }
+}

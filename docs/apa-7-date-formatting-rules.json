@@ -1,0 +1,132 @@
+[
+  {
+    "rule_id": "basic_year_format",
+    "source": "APA Manual Section 9.2, p. 266",
+    "description": "In APA 7, the publication year for most sources is placed in parentheses following the author name. The year is followed by a period. This format applies to journal articles, books, and most other standard reference types. The year should be the actual publication year, not the copyright year when they differ. For edited books, use the year of publication of the specific edition you are citing. This format has remained consistent from APA 6 with minor clarification about copyright vs publication year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2023). Research methods in psychology."
+      },
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B., & Williams, C. (2022). Statistical analysis for social sciences."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. 2023. Research methods in psychology."
+      },
+      {
+        "type": "incorrect",
+        "citation": "(Smith, J. 2023). Research methods in psychology."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["author", "opening_parenthesis", "year", "closing_parenthesis", "period"],
+    "common_errors": ["missing parentheses around year", "incorrect punctuation after year", "using copyright year instead of publication year"]
+  },
+  {
+    "rule_id": "no_date_format",
+    "source": "APA Manual Section 9.4, p. 267",
+    "description": "When no publication date is available, use (n.d.) in place of the year in parentheses. This abbreviation stands for 'no date' and is used for sources that lack any publication date information. This applies to web pages with no date, undated manuscripts, or archival materials without clear dating. The (n.d.) appears in the same position as the year would and is followed by a period. This format is unchanged from APA 6, but APA 7 provides clearer guidance on when to use (n.d.) versus seeking approximate dates.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Ancient Writing Institute. (n.d.). Cuneiform tablet translations."
+      },
+      {
+        "type": "correct",
+        "citation": "Author, A. (n.d.). Untitled manuscript."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Ancient Writing Institute. (no date). Cuneiform tablet translations."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Ancient Writing Institute. n.d. Cuneiform tablet translations."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["author", "opening_parenthesis", "n.d.", "closing_parenthesis", "period"],
+    "common_errors": ["using 'no date' instead of 'n.d.'", "missing parentheses around n.d.", "placing n.d. in wrong position"]
+  },
+  {
+    "rule_id": "in_press_format",
+    "source": "APA Manual Section 9.5, p. 268",
+    "description": "For works accepted for publication but not yet published, use (in press) instead of the year. This format is used for journal articles that have been accepted but not yet published, books under contract, or similar forthcoming works. The phrase 'in press' appears in parentheses exactly as it would for a year, followed by a period. In APA 7, this usage is clarified to apply only to works that have been formally accepted for publication, not works merely submitted or under review. This represents a minor change from APA 6.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Thompson, R. K. (in press). Neural mechanisms of memory consolidation."
+      },
+      {
+        "type": "correct",
+        "citation": "Brown, L. M., Davis, J. P., & Wilson, S. T. (in press). Advanced statistical modeling techniques."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Thompson, R. K. (in-press). Neural mechanisms of memory consolidation."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Thompson, R. K. in press. Neural mechanisms of memory consolidation."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["author", "opening_parenthesis", "in press", "closing_parenthesis", "period"],
+    "common_errors": ["using hyphen in 'in-press'", "missing parentheses", "applying to unsubmitted works"]
+  },
+  {
+    "rule_id": "specific_date_format",
+    "source": "APA Manual Section 9.13, p. 284",
+    "description": "For sources that require more specific dating than just the year, use Year, Month Day format. This applies to newspapers, magazines, blog posts, social media posts, and some online sources where the specific date is important for locating the source. The month should be spelled out, followed by the day number without ordinal suffixes. This format replaces the APA 6 practice of including (Year, Month Day) for these source types, simplifying the reference format while maintaining specificity.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, M. (2023, October 15). New research findings announced. The Daily Chronicle."
+      },
+      {
+        "type": "correct",
+        "citation": "TechBlog. (2022, November 3). Latest software update released."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. (2023, Oct 15). New research findings announced. The Daily Chronicle."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. (2023, October 15th). New research findings announced. The Daily Chronicle."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["author", "opening_parenthesis", "year", "comma", "spelled_out_month", "day_number", "closing_parenthesis", "period"],
+    "common_errors": ["abbreviating month names", "using ordinal suffixes (1st, 2nd, 3rd)", "missing comma after year"]
+  },
+  {
+    "rule_id": "date_range_format",
+    "source": "APA Manual Section 9.28, p. 290",
+    "description": "For historical works or multi-volume publications spanning multiple years, use en dash to indicate date ranges. This format is used for classical works with uncertain dating spans, multi-volume works published over several years, or historical documents covering extended periods. The en dash (not hyphen) connects the years without spaces. When specific centuries are involved, include both start and end years. APA 7 clarifies this usage compared to APA 6, providing more explicit guidance on when date ranges are appropriate.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Shakespeare, W. (1599–1601). Hamlet."
+      },
+      {
+        "type": "correct",
+        "citation": "Ancient Historian. (200–150 BCE). Roman conquest chronicles."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Shakespeare, W. (1599-1601). Hamlet."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Shakespeare, W. (1599 – 1601). Hamlet."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["author", "opening_parenthesis", "start_year", "en_dash", "end_year", "closing_parenthesis", "period"],
+    "common_errors": ["using hyphen instead of en dash", "adding spaces around dash", "applying to inappropriate source types"]
+  }
+]

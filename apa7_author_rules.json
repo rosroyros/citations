@@ -1,0 +1,392 @@
+[
+  {
+    "rule_id": "single_author_format",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "In APA 7th edition, single authors are formatted with last name followed by a comma and first and middle initials. The initials should be separated by periods but not spaces. This format applies to all reference types including journal articles, books, and webpages. The author's name should be inverted (last name first) in the reference list only. This rule ensures consistency across all citation formats and makes alphabetical ordering more efficient in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, M. K."
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, R. A."
+      },
+      {
+        "type": "incorrect",
+        "citation": "M. K. Johnson"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, M.K."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["last_name", "comma", "first_initial", "period", "middle_initial", "period"],
+    "common_errors": ["Not inverting name (first name first)", "Omitting comma after last name", "Adding spaces between initials"]
+  },
+  {
+    "rule_id": "two_authors_format",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with two authors, both names should be inverted (last name first) and separated by an ampersand (&) rather than the word 'and'. Each author's name follows the single author format (Last name, initials). The ampersand should be preceded by a comma. This format is used in both reference lists and parenthetical citations, but narrative citations use 'and' instead of '&'. This rule distinguishes APA from other citation styles and maintains consistency across multi-author works.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, J. D., & Brown, A. M."
+      },
+      {
+        "type": "correct",
+        "citation": "Garcia, L. P., & Martinez, R. T."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. D. and Brown, A. M."
+      },
+      {
+        "type": "incorrect",
+        "citation": "J. D. Smith & A. M. Brown"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["author1_last", "author1_initials", "comma", "ampersand", "author2_last", "author2_initials"],
+    "common_errors": ["Using 'and' instead of '&'", "Not inverting second author's name", "Missing comma before ampersand"]
+  },
+  {
+    "rule_id": "three_to_twenty_authors",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with three to twenty authors, list all authors in the reference list. Each author's name should be inverted (last name first) with initials. Authors should be separated by commas, with an ampersand (&) before the final author's name. This represents a significant change from APA 6th edition, which used 'et al.' for works with seven or more authors. This rule ensures proper attribution to all contributors while maintaining readability for moderately sized author groups.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P."
+      },
+      {
+        "type": "correct",
+        "citation": "Chen, X., Rodriguez, M., Johnson, L., Kim, S., & Patel, R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, K. L., et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, K. L., Williams, J. M., Davis, S. R. and Thompson, B. P."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["all_authors_inverted", "commas_between_authors", "ampersand_before_last"],
+    "common_errors": ["Using 'et al.' prematurely", "Using 'and' instead of '&'", "Not listing all authors"]
+  },
+  {
+    "rule_id": "twenty_plus_authors_etal",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with 21 or more authors, list the first 19 authors, insert an ellipsis (...), then list the final author. The ellipsis replaces authors 20 through the second-to-last author. All listed authors follow the standard inverted format. This rule prevents extremely long citation lists while still providing key attribution information. The ellipsis should not be italicized or bracketed. This change from APA 6th edition's 7+ author rule provides more comprehensive author listing.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z."
+      },
+      {
+        "type": "correct",
+        "citation": "Johnson, M. K., Williams, R. A., Brown, L. D., Davis, S. M., ... Smith, T. R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author1, A. A., et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author1, A. A., Author2, B. B., ... Author20, T. T., LastAuthor, Z. Z."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["first_19_authors", "ellipsis", "final_author"],
+    "common_errors": ["Using 'et al.' instead of ellipsis format", "Listing too many authors", "Omitting the final author"]
+  },
+  {
+    "rule_id": "organization_as_author",
+    "source": "APA Manual Section 9.11, p. 288",
+    "description": "When an organization, corporation, or government agency is the author, use the full official name of the organization. Do not invert organizational names or use initials unless the organization is commonly known by its abbreviation (like APA or NIH). The organization name should be written out completely in the first mention, with abbreviations in brackets if they will be used subsequently. This rule ensures proper attribution for corporate and institutional authors while maintaining clarity for readers.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "American Psychological Association"
+      },
+      {
+        "type": "correct",
+        "citation": "National Institute of Mental Health"
+      },
+      {
+        "type": "incorrect",
+        "citation": "APA"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Association, American Psychological"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["full_organization_name"],
+    "common_errors": ["Using abbreviations instead of full names", "Inverting organizational names", "Using acronyms without explanation"]
+  },
+  {
+    "rule_id": "government_author_format",
+    "source": "APA Manual Section 9.11, p. 288",
+    "description": "Government authors should include the specific agency or department as the author. When parent departments are relevant to identification, they can be included in the publisher position instead of the author position. Use the most specific agency name as the author. For example, use 'National Institute of Mental Health' rather than 'U.S. Department of Health and Human Services, National Institute of Mental Health.' This rule provides clear attribution while avoiding unnecessarily long author names.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Centers for Disease Control and Prevention"
+      },
+      {
+        "type": "correct",
+        "citation": "U.S. Census Bureau"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Department of Commerce, U.S. Census Bureau"
+      },
+      {
+        "type": "incorrect",
+        "citation": "CDC"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["specific_agency_name"],
+    "common_errors": ["Including parent departments in author position", "Using acronyms without full names", "Not being specific enough"]
+  },
+  {
+    "rule_id": "anonymous_author_handling",
+    "source": "APA Manual Section 9.12, p. 289",
+    "description": "When no author is listed and the work cannot be attributed to a specific organization, move the title to the author position, followed by the date. Do not use 'Anonymous' as the author unless the work is actually signed 'Anonymous.' For works truly signed 'Anonymous,' treat 'Anonymous' as the author name. This rule ensures that readers can identify works by their titles when authorship is unknown while maintaining the standard reference format structure.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Merriam-Webster's collegiate dictionary. (2003)."
+      },
+      {
+        "type": "correct",
+        "citation": "Anonymous. (2018). The art of invisibility."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anonymous. (2003). Merriam-Webster's collegiate dictionary."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Unknown author. (2018). The art of invisibility."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["title_as_author_or_anonymous", "date"],
+    "common_errors": ["Using 'Anonymous' when author is unknown", "Leaving author position empty", "Not moving title to author position"]
+  },
+  {
+    "rule_id": "author_titles_suffixes",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "Author titles, suffixes, and credentials (like Jr., Sr., II, III, Ph.D., M.D.) should be included in the reference list. Suffixes like Jr., Sr., II, and III follow the initials, separated by commas. Academic and professional credentials are generally omitted from reference list entries but may be included in special circumstances. Titles like Dr., Professor, or military ranks are not included in reference list citations. This rule provides complete identification when needed while avoiding unnecessary credential inflation.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "King, M. L., Jr."
+      },
+      {
+        "type": "correct",
+        "citation": "Davis, J. H., III"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Dr. Davis, J. H., III"
+      },
+      {
+        "type": "incorrect",
+        "citation": "King, M. L. Jr., Ph.D."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["name", "comma", "suffix"],
+    "common_errors": ["Including professional titles", "Incorrect comma placement with suffixes", "Adding unnecessary credentials"]
+  },
+  {
+    "rule_id": "authors_same_surname",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "When authors share the same surname, include their first initials even when there are multiple authors. This prevents confusion between different authors with identical last names. The standard format remains the same (Last name, initials), but this rule ensures that all authors are properly distinguished. This is particularly important in reference list ordering and when readers need to distinguish between works by different authors with common surnames.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B., & Johnson, C. D."
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. R., Smith, M. K., & Brown, L. P."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. B., & C. D."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A., & Johnson, C."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["full_initials_for_all_authors"],
+    "common_errors": ["Omitting initials for subsequent authors with same surname", "Using inconsistent initial formats"]
+  },
+  {
+    "rule_id": "double_surname_handling",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Authors with double surnames (like Hernandez Lopez or Van der Wiel) should maintain both parts of the surname in the reference list. Treat the double surname as a single unit with a comma after the complete surname. Do not insert commas between parts of compound surnames unless that is the person's preferred usage. This rule respects cultural naming conventions and ensures accurate identification of authors with complex surnames.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Hernandez Lopez, M. R."
+      },
+      {
+        "type": "correct",
+        "citation": "Van der Wiel, J. H."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Hernandez, Lopez, M. R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Lopez Hernandez, M. R."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["complete_double_surname", "comma", "initials"],
+    "common_errors": ["Splitting double surnames", "Incorrectly ordering name parts", "Adding unnecessary commas"]
+  },
+  {
+    "rule_id": "hyphenated_names",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Hyphenated surnames should be treated as a single unit with the hyphen maintained in the reference list. The entire hyphenated surname comes before the comma, followed by initials. Do not separate hyphenated names with commas or treat them as multiple surnames. This rule preserves the author's intended name format and ensures accurate alphabetical ordering in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith-Johnson, K. L."
+      },
+      {
+        "type": "correct",
+        "citation": "Garcia-Martinez, R. P."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, Johnson, K. L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith Johnson, K. L."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["hyphenated_surname", "comma", "initials"],
+    "common_errors": ["Removing hyphens", "Treating hyphenated names as separate surnames", "Incorrect comma placement"]
+  },
+  {
+    "rule_id": "compound_names_prefixes",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Surnames with prefixes (like de, van, von, del, la, le) should be treated according to the author's preference and cultural conventions. Common prefixes like 'van' or 'de' are typically treated as part of the surname and included before the comma. The prefix and surname should remain together as a single unit. This rule respects various cultural naming traditions while maintaining consistency in reference list formatting.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "De Vries, H. M."
+      },
+      {
+        "type": "correct",
+        "citation": "Van Gogh, V. W."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Vries, De H. M."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Gogh, Van V. W."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["prefix_and_surname", "comma", "initials"],
+    "common_errors": ["Separating prefixes from surnames", "Incorrect alphabetical treatment", "Not respecting cultural conventions"]
+  },
+  {
+    "rule_id": "missing_author_information",
+    "source": "APA Manual Section 9.4, p. 284",
+    "description": "When author information is incomplete, use available information and follow specific rules for missing elements. If only initials are available, use them without periods. If no author can be identified, move the title to the author position. For edited volumes with no author, use the editor(s) with '(Ed.)' after the name. This rule ensures that references can be created even with incomplete author information while maintaining APA format consistency.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "SJ (Ed.). (2020). The complete guide."
+      },
+      {
+        "type": "correct",
+        "citation": "Annual report of the company. (2019)."
+      },
+      {
+        "type": "incorrect",
+        "citation": "S.J. (Ed.). (2020). The complete guide."
+      },
+      {
+        "type": "incorrect",
+        "citation": "[Unknown author]. (2019). Annual report of the company."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["available_initials_or_title", "editor_designation_if_applicable"],
+    "common_errors": ["Using periods with initials only", "Leaving author position empty", "Not using proper editor designation"]
+  },
+  {
+    "rule_id": "author_initials_formatting",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Author initials should include periods after each initial with no spaces between initials. Use all initials provided by the author, including middle initials. Do not use spaces between initials (J.R. not J. R.). Initials should be followed by periods unless only initials are available without periods in the source. This formatting ensures consistency and readability in reference lists while properly representing author names.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Robertson, M.J.L."
+      },
+      {
+        "type": "correct",
+        "citation": "Anderson, S.A."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Robertson, M. J. L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, SA"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["initials_with_periods", "no_spaces_between_initials"],
+    "common_errors": ["Adding spaces between initials", "Omitting periods after initials", "Not using all available initials"]
+  },
+  {
+    "rule_id": "author_name_order",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "In reference lists, author names should be alphabetized by the last name of the first author. When the first author is identical, alphabetize by the second author's last name, and so on. For works by the same author in the same year, use suffixes (a, b, c) after the year, alphabetized by title. Author order in multi-author works should reflect the order of authorship on the original publication. This rule ensures logical organization and easy location of sources in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B. (2020a). First title. Johnson, A. B. (2020b). Second title."
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J., Brown, K., & Davis, L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. B. (2020b). First title. Johnson, A. B. (2020a). Second title."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Brown, K., Smith, J., & Davis, L."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["alphabetical_order", "original_authorship_order", "year_suffixes_for_same_author_same_year"],
+    "common_errors": ["Alphabetizing by first name", "Changing original author order", "Incorrect year suffix ordering"]
+  }
+]

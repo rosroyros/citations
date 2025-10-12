@@ -1,0 +1,774 @@
+# Citation Format Checker - Requirements Document
+## Part 2: Citation Rules Knowledge Base
+
+**Document Version:** 1.0  
+**Last Updated:** October 2025
+
+---
+
+## 1. KNOWLEDGE BASE PURPOSE
+
+### 1.1 Function
+The Citation Rules Knowledge Base serves as the **single source of truth** for all citation formatting information across the site. It will be used to:
+
+1. Generate consistent content across all page types
+2. Power the citation checker validation logic
+3. Provide structured data for templates
+4. Enable automated content updates when rules change
+5. Ensure accuracy and compliance with APA standards
+
+### 1.2 Data Structure Philosophy
+
+**Structured Format:**
+- Machine-readable (JSON/YAML/database)
+- Human-readable for editing
+- Versioned for tracking changes
+- Extensible for future citation styles
+
+**Single Source, Multiple Uses:**
+```
+Knowledge Base
+    ↓
+    ├→ Content Generation (page text)
+    ├→ Validation Logic (checker tool)
+    ├→ Example Generation (formatted citations)
+    └→ Error Detection (what's wrong)
+```
+
+---
+
+## 2. KNOWLEDGE BASE STRUCTURE
+
+### 2.1 Top-Level Organization
+
+```yaml
+citation_styles:
+  - apa_7:
+      version: "7th edition"
+      publication_year: 2019
+      source_types: [...]
+      formatting_rules: [...]
+      common_errors: [...]
+      
+  - apa_6:  # For comparison only
+      version: "6th edition"
+      publication_year: 2009
+      key_differences: [...]
+      
+  - mla_9:  # For comparison only
+      version: "9th edition"
+      publication_year: 2021
+      key_differences: [...]
+      
+  - chicago_17:  # For comparison only
+      version: "17th edition"
+      publication_year: 2017
+      key_differences: [...]
+```
+
+### 2.2 Source Type Data Structure
+
+For **each source type**, include the following complete structure:
+
+```yaml
+source_type_id: "journal_article"
+display_name: "Journal Article"
+description: "An article published in a scholarly, peer-reviewed journal"
+category: "textual_works"
+subcategory: "periodicals"
+common_disciplines: ["psychology", "education", "social_sciences", "health_sciences"]
+
+reference_format:
+  template: "Author, A. A., & Author, B. B. (Year). Title of article. Title of Journal, volume(issue), pages. https://doi.org/xxxxx"
+  
+  elements:
+    - element_id: "authors"
+      label: "Author Names"
+      format: "Last name, First initial., Middle initial."
+      required: true
+      rules:
+        - rule_id: "author_listing"
+          description: "List up to 20 authors with full names"
+          detail: "For 1-20 authors, list all authors' names in the format: Last name, First initial., & Last name, First initial."
+          apa_manual_reference: "Section 9.8, p. 285-286"
+          
+        - rule_id: "author_21_plus"
+          description: "For 21+ authors, list first 19, ellipsis, then final author"
+          detail: "List the first 19 authors, insert an ellipsis (but no ampersand), then add the final author's name"
+          apa_manual_reference: "Section 9.8, p. 286"
+          
+        - rule_id: "author_separator"
+          description: "Use ampersand (&) before final author name"
+          detail: "In reference lists, use '&' not 'and' before the last author"
+          apa_manual_reference: "Section 9.8"
+          
+      capitalization: "Standard name capitalization; surnames may be all caps in some cultures"
+      punctuation: "Comma after each author's initials; period after final author group"
+      italics: false
+      
+    - element_id: "date"
+      label: "Publication Date"
+      format: "(Year)"
+      required: true
+      rules:
+        - rule_id: "year_format"
+          description: "Use four-digit year in parentheses"
+          detail: "Include only the year for journal articles, in parentheses, immediately after author names"
+          apa_manual_reference: "Section 9.9, p. 286"
+          
+        - rule_id: "no_date"
+          description: "Use (n.d.) when date unavailable"
+          detail: "When publication date is unknown, use the abbreviation (n.d.) meaning 'no date'"
+          apa_manual_reference: "Section 9.9, p. 287"
+          
+        - rule_id: "advance_online"
+          description: "For advance online publication, use year of online posting"
+          detail: "If article published online before print, use online publication year"
+          apa_manual_reference: "Section 9.9, p. 287"
+          
+      position: "After author names, in parentheses"
+      punctuation: "Period after closing parenthesis"
+      italics: false
+      
+    - element_id: "article_title"
+      label: "Article Title"
+      format: "Sentence case"
+      required: true
+      rules:
+        - rule_id: "sentence_case"
+          description: "Use sentence case for article titles"
+          detail: "Capitalize only the first word, the first word after a colon or dash, and proper nouns"
+          apa_manual_reference: "Section 9.19, p. 165-166"
+          example_correct: "The impact of social media on adolescent development"
+          example_incorrect: "The Impact of Social Media on Adolescent Development"
+          
+        - rule_id: "proper_nouns"
+          description: "Always capitalize proper nouns"
+          detail: "Maintain capitalization for proper nouns, place names, brand names, and acronyms"
+          apa_manual_reference: "Section 6.14, p. 165"
+          example_correct: "Therapy outcomes in New York City hospitals"
+          
+        - rule_id: "subtitle_capitalization"
+          description: "Capitalize first word after colon"
+          detail: "The first word after a colon or dash in a title is always capitalized"
+          apa_manual_reference: "Section 6.14, p. 165"
+          example_correct: "Learning disabilities: Understanding the research"
+          
+      capitalization: "Sentence case only"
+      punctuation: "Period at end (before journal name)"
+      italics: false
+      quotation_marks: false
+      
+    - element_id: "journal_title"
+      label: "Journal Name"
+      format: "Title Case, Italicized"
+      required: true
+      rules:
+        - rule_id: "title_case_journal"
+          description: "Use title case for journal names"
+          detail: "Capitalize all major words in the journal name"
+          apa_manual_reference: "Section 9.25, p. 295"
+          example_correct: "Journal of Experimental Psychology"
+          example_incorrect: "Journal of experimental psychology"
+          
+        - rule_id: "italicize_journal"
+          description: "Italicize the journal name"
+          detail: "The entire journal name should be in italics"
+          apa_manual_reference: "Section 9.25, p. 295"
+          
+        - rule_id: "no_abbreviations"
+          description: "Do not abbreviate journal names"
+          detail: "Use the full journal title as it appears on the publication"
+          apa_manual_reference: "Section 9.25"
+          
+      capitalization: "Title case"
+      punctuation: "Comma after journal name"
+      italics: true
+      
+    - element_id: "volume"
+      label: "Volume Number"
+      format: "Number only, italicized"
+      required: true
+      rules:
+        - rule_id: "italicize_volume"
+          description: "Italicize the volume number"
+          detail: "The volume number appears in italics immediately after the journal name"
+          apa_manual_reference: "Section 9.25, p. 295"
+          
+        - rule_id: "no_volume_label"
+          description: "Do not include 'vol.' or 'v.' before the number"
+          detail: "Just the number itself, no label or abbreviation"
+          apa_manual_reference: "Section 9.25, p. 295"
+          example_correct: "15"
+          example_incorrect: "vol. 15" or "v. 15"
+          
+      capitalization: "N/A"
+      punctuation: "No punctuation after volume (issue follows immediately)"
+      italics: true
+      
+    - element_id: "issue"
+      label: "Issue Number"
+      format: "(Number) - in parentheses, not italicized"
+      required: true  # Changed in APA 7
+      rules:
+        - rule_id: "always_include_issue"
+          description: "Always include issue number for journal articles (APA 7 change)"
+          detail: "APA 7th edition requires issue numbers for all journal articles, even if paginated continuously"
+          apa_manual_reference: "Section 9.25, p. 295"
+          apa_6_difference: "APA 6 only required issue if each issue started at page 1"
+          
+        - rule_id: "parentheses_not_italics"
+          description: "Place issue number in parentheses, do not italicize"
+          detail: "Issue appears in parentheses immediately after volume; parentheses are not italicized"
+          apa_manual_reference: "Section 9.25, p. 295"
+          example_correct: "15(4)"
+          example_incorrect: "*15(4)*" or "15 (4)"
+          
+      capitalization: "N/A"
+      punctuation: "Comma after closing parenthesis"
+      italics: false
+      
+    - element_id: "pages"
+      label: "Page Numbers"
+      format: "Start–End (en dash, no pp. prefix)"
+      required: true (or article number)
+      rules:
+        - rule_id: "page_range_format"
+          description: "Use en dash between page numbers, no spaces"
+          detail: "Format as 45–67, using an en dash (–) not a hyphen (-)"
+          apa_manual_reference: "Section 9.25, p. 295"
+          example_correct: "123–145"
+          example_incorrect: "123-145" or "123 - 145"
+          
+        - rule_id: "no_pp_prefix"
+          description: "Do not use 'pp.' before page numbers (APA 7 change)"
+          detail: "The pp. abbreviation is no longer used for journal articles in APA 7"
+          apa_manual_reference: "Section 9.25, p. 295"
+          apa_6_difference: "APA 6 used 'pp. 123-145'"
+          example_correct: "123–145"
+          example_incorrect: "pp. 123–145"
+          
+        - rule_id: "article_number"
+          description: "If article number instead of pages, use article number"
+          detail: "Some online journals use article numbers (e.g., Article 1234) instead of page ranges"
+          apa_manual_reference: "Section 9.25, p. 295"
+          example_correct: "Article 1234"
+          
+      capitalization: "N/A"
+      punctuation: "Period after page numbers"
+      italics: false
+      
+    - element_id: "doi"
+      label: "Digital Object Identifier (DOI)"
+      format: "https://doi.org/xxxxx"
+      required: "if available (strongly preferred)"
+      rules:
+        - rule_id: "doi_as_url"
+          description: "Format DOI as a complete URL with https:// protocol"
+          detail: "DOIs should be presented as active URLs starting with https://doi.org/"
+          apa_manual_reference: "Section 9.34, p. 299"
+          apa_6_difference: "APA 6 used 'doi:' or 'http://dx.doi.org/'"
+          example_correct: "https://doi.org/10.1037/amp0000151"
+          example_incorrect: "doi:10.1037/amp0000151" or "DOI: 10.1037/amp0000151"
+          
+        - rule_id: "no_retrieval_statement"
+          description: "Do not include 'Retrieved from' before DOI"
+          detail: "DOIs do not require retrieval dates or 'Retrieved from' statements"
+          apa_manual_reference: "Section 9.34, p. 299"
+          apa_6_difference: "APA 6 sometimes used 'Retrieved from'"
+          example_correct: "https://doi.org/10.1037/amp0000151"
+          example_incorrect: "Retrieved from https://doi.org/10.1037/amp0000151"
+          
+        - rule_id: "no_period_after_doi"
+          description: "Do not place period after DOI"
+          detail: "DOIs are the final element and should not be followed by a period"
+          apa_manual_reference: "Section 9.34, p. 299"
+          example_correct: "https://doi.org/10.1037/amp0000151"
+          example_incorrect: "https://doi.org/10.1037/amp0000151."
+          
+        - rule_id: "doi_preferred_over_url"
+          description: "Always use DOI if available, not URL"
+          detail: "DOIs are preferred over URLs because they are permanent identifiers"
+          apa_manual_reference: "Section 9.34, p. 299"
+          
+      capitalization: "N/A (preserve DOI exactly as assigned)"
+      punctuation: "No punctuation after DOI"
+      italics: false
+      when_to_omit: "Only if DOI is not available"
+
+in_text_citation:
+  parenthetical:
+    format: "(Author, Year)"
+    rules:
+      - "Use last name(s) and year in parentheses"
+      - "Place at end of sentence before period"
+      - "Use '&' between two authors"
+      - "Use 'et al.' for three or more authors"
+    examples:
+      one_author: "(Smith, 2020)"
+      two_authors: "(Smith & Jones, 2020)"
+      three_plus: "(Smith et al., 2020)"
+      with_page: "(Smith, 2020, p. 45)"
+      
+  narrative:
+    format: "Author (Year)"
+    rules:
+      - "Author name(s) in sentence, year in parentheses"
+      - "Use 'and' (not '&') when authors in narrative"
+      - "Use 'et al.' for three or more authors"
+    examples:
+      one_author: "Smith (2020) found that..."
+      two_authors: "Smith and Jones (2020) found that..."
+      three_plus: "Smith et al. (2020) found that..."
+      
+  special_cases:
+    - case: "Multiple works by same author in same year"
+      format: "(Smith, 2020a, 2020b)"
+      explanation: "Add lowercase letters after year to distinguish"
+      
+    - case: "Secondary source"
+      format: "(Smith, 2018, as cited in Jones, 2020)"
+      explanation: "Only Jones (2020) appears in reference list"
+
+common_errors:
+  - error_id: "article_title_italicized"
+    error_name: "Article title italicized"
+    frequency: "Very common"
+    severity: "high"
+    description: "Article titles should not be italicized; only journal name should be"
+    why_it_happens: "Confusion with book titles, which are italicized"
+    how_to_fix: "Remove italics from article title; ensure journal name is italicized"
+    example_wrong: "Smith, J. (2020). *The study of behavior*. Journal of Psychology, 15(2), 45-67."
+    example_correct: "Smith, J. (2020). The study of behavior. Journal of Psychology, 15(2), 45-67."
+    affected_source_types: ["journal_article", "magazine_article", "newspaper_article"]
+    related_errors: ["book_title_not_italicized", "journal_name_not_italicized"]
+    
+  - error_id: "title_case_article_title"
+    error_name: "Title case used for article title"
+    frequency: "Extremely common"
+    severity: "high"
+    description: "Article titles should use sentence case, not title case"
+    why_it_happens: "Databases and Google Scholar display titles in title case"
+    how_to_fix: "Convert to sentence case: capitalize only first word, first word after colon, and proper nouns"
+    example_wrong: "Smith, J. (2020). The Study of Behavior in Modern Society. Journal of Psychology, 15(2), 45-67."
+    example_correct: "Smith, J. (2020). The study of behavior in modern society. Journal of Psychology, 15(2), 45-67."
+    checking_tip: "Look for capitalized words mid-title that aren't proper nouns"
+    
+  - error_id: "journal_name_not_italicized"
+    error_name: "Journal name not italicized"
+    frequency: "Common"
+    severity: "high"
+    description: "Journal name and volume number must be italicized"
+    how_to_fix: "Italicize the entire journal name and the volume number (but not issue)"
+    example_wrong: "Smith, J. (2020). The study of behavior. Journal of Psychology, 15(2), 45-67."
+    example_correct: "Smith, J. (2020). The study of behavior. *Journal of Psychology*, *15*(2), 45-67."
+    
+  - error_id: "missing_issue_number"
+    error_name: "Missing issue number"
+    frequency: "Very common"
+    severity: "medium"
+    description: "APA 7 requires issue numbers for all journal articles"
+    why_it_happens: "In APA 6, issue was optional for continuously paginated journals"
+    how_to_fix: "Add issue number in parentheses after volume number"
+    example_wrong: "Smith, J. (2020). The study of behavior. Journal of Psychology, 15, 45-67."
+    example_correct: "Smith, J. (2020). The study of behavior. Journal of Psychology, 15(2), 45-67."
+    apa_6_vs_7: "New requirement in APA 7"
+    
+  - error_id: "old_doi_format"
+    error_name: "Old DOI format used"
+    frequency: "Common"
+    severity: "medium"
+    description: "DOIs should be formatted as URLs with https:// protocol"
+    why_it_happens: "APA 6 used different format; old citations still circulating"
+    how_to_fix: "Convert to https://doi.org/ format; remove 'doi:' label"
+    example_wrong: "doi:10.1037/amp0000151" or "http://dx.doi.org/10.1037/amp0000151"
+    example_correct: "https://doi.org/10.1037/amp0000151"
+    apa_6_vs_7: "Format changed in APA 7"
+    
+  - error_id: "pp_before_pages"
+    error_name: "'pp.' used before page numbers"
+    frequency: "Common"
+    severity: "low"
+    description: "The 'pp.' abbreviation is not used for journal articles in APA 7"
+    why_it_happens: "Holdover from APA 6; used for book chapters"
+    how_to_fix: "Remove 'pp.' and just list page numbers"
+    example_wrong: "Journal of Psychology, 15(2), pp. 45-67."
+    example_correct: "Journal of Psychology, 15(2), 45-67."
+    apa_6_vs_7: "Changed in APA 7"
+    note: "pp. is still used for book chapters"
+
+apa_6_vs_7_changes:
+  - change_id: "issue_always_required"
+    element: "Issue number"
+    apa_6_rule: "Include issue number only if each issue begins with page 1"
+    apa_7_rule: "Always include issue number for all journal articles"
+    rationale: "Simplifies format and aids retrieval"
+    example_apa_6: "Journal of Psychology, 15, 45-67."
+    example_apa_7: "Journal of Psychology, 15(2), 45-67."
+    
+  - change_id: "no_pp_prefix"
+    element: "Page numbers"
+    apa_6_rule: "Use 'pp.' before page range"
+    apa_7_rule: "No 'pp.' prefix for journal articles"
+    example_apa_6: "pp. 45-67"
+    example_apa_7: "45-67"
+    
+  - change_id: "doi_as_url"
+    element: "DOI format"
+    apa_6_rule: "doi:10.xxxx or http://dx.doi.org/10.xxxx"
+    apa_7_rule: "https://doi.org/10.xxxx"
+    rationale: "Creates clickable links and aligns with current web standards"
+    example_apa_6: "doi:10.1037/amp0000151"
+    example_apa_7: "https://doi.org/10.1037/amp0000151"
+
+validation_checklist:
+  - item: "Author names in correct format (Last, F. M.)"
+    error_to_check: "First names spelled out, incorrect order"
+    
+  - item: "Ampersand (&) before last author in reference list"
+    error_to_check: "Using 'and' instead of '&'"
+    
+  - item: "Year in parentheses after author names"
+    error_to_check: "Missing parentheses, wrong position"
+    
+  - item: "Article title in sentence case"
+    error_to_check: "Title case used, proper nouns not capitalized"
+    
+  - item: "Article title NOT italicized"
+    error_to_check: "Article title in italics"
+    
+  - item: "Journal name in title case"
+    error_to_check: "Sentence case or all lowercase"
+    
+  - item: "Journal name italicized"
+    error_to_check: "Journal name not italicized"
+    
+  - item: "Volume number italicized"
+    error_to_check: "Volume not italicized"
+    
+  - item: "Issue number in parentheses, NOT italicized"
+    error_to_check: "Issue italicized, missing parentheses"
+    
+  - item: "Issue number present (required in APA 7)"
+    error_to_check: "Missing issue number"
+    
+  - item: "Page numbers without 'pp.' prefix"
+    error_to_check: "'pp.' included before pages"
+    
+  - item: "DOI as https://doi.org/ format"
+    error_to_check: "Old format (doi: or dx.doi.org), 'Retrieved from'"
+    
+  - item: "No period after DOI"
+    error_to_check: "Period at end of DOI"
+    
+  - item: "Proper punctuation throughout (periods, commas)"
+    error_to_check: "Missing or extra punctuation"
+
+related_source_types:
+  - source_type: "magazine_article"
+    relationship: "Similar format but includes month/day; no issue usually"
+    
+  - source_type: "newspaper_article"
+    relationship: "Similar format but includes full date; uses 'p.' or 'pp.' for pages"
+    
+  - source_type: "preprint"
+    relationship: "Similar but no volume/issue; includes preprint server info"
+```
+
+---
+
+## 3. KNOWLEDGE BASE COVERAGE REQUIREMENTS
+
+### 3.1 Complete Source Type List
+
+The knowledge base must include **full documentation** (as detailed above) for the following source types:
+
+**Textual Works (30 types):**
+1. Journal article (with DOI)
+2. Journal article (without DOI)
+3. Journal article (advance online publication)
+4. Journal article (with article number instead of pages)
+5. Magazine article
+6. Newspaper article
+7. Blog post
+8. Book (authored, print)
+9. Book (authored, ebook)
+10. Book (edited)
+11. Book chapter
+12. E-book chapter
+13. Encyclopedia entry (print)
+14. Encyclopedia entry (online)
+15. Dictionary entry (print)
+16. Dictionary entry (online)
+17. Anthology chapter
+18. Foreword/introduction/preface
+19. Entry in reference work
+20. Translated work
+21. Republished work
+22. Multivolume work
+23. Monograph
+24. Brochure
+25. Pamphlet
+26. Annual report
+27. Newsletter article
+28. Trade publication article
+29. Religious text
+30. Classical work
+
+**Academic Sources (15 types):**
+31. Dissertation (published in database)
+32. Dissertation (unpublished)
+33. Master's thesis (published)
+34. Master's thesis (unpublished)
+35. Conference paper (published proceedings)
+36. Conference presentation (unpublished)
+37. Conference poster
+38. Working paper
+39. Technical report
+40. Research report
+41. White paper
+42. Policy brief
+43. Abstract (conference)
+44. Abstract (journal)
+45. Preprint (arXiv, bioRxiv, etc.)
+
+**Gray Literature (12 types):**
+46. Government report (federal)
+47. Government report (state/local)
+48. Government document
+49. Congressional testimony
+50. Policy document
+51. NGO report
+52. Think tank publication
+53. Press release
+54. Fact sheet
+55. Issue brief
+56. Data brief
+57. Testimony
+
+**Online Content (20 types):**
+58. Webpage (organizational)
+59. Webpage (individual author)
+60. Website (general reference)
+61. Online news article
+62. Wikipedia page
+63. Wiki (other)
+64. Social media post (Twitter/X)
+65. Social media post (Facebook)
+66. Social media post (Instagram)
+67. Social media post (LinkedIn)
+68. Social media post (TikTok)
+69. Social media post (Reddit)
+70. YouTube video
+71. Vimeo video
+72. Podcast episode
+73. Blog comment
+74. Online forum post
+75. Email message
+76. Online lecture/webinar
+77. Online course material
+
+**Audiovisual Media (15 types):**
+78. Film/Movie
+79. TV episode
+80. TV series
+81. Documentary
+82. TED Talk
+83. Webinar recording
+84. Streaming video
+85. Music recording (single)
+86. Music recording (album)
+87. Audiobook
+88. Radio broadcast
+89. Podcast series
+90. Speech/lecture recording
+91. Interview (broadcast)
+92. Photograph
+
+**Data & Software (8 types):**
+93. Dataset
+94. Software/app
+95. Computer program
+96. Mobile app
+97. Database
+98. Raw data
+99. Code repository (GitHub)
+100. API documentation
+
+**Legal & Special (10 types):**
+101. Court case
+102. Legal statute
+103. Patent
+104. Standard
+105. Personal communication
+106. Interview (unpublished)
+107. Lecture notes (unpublished)
+108. Class handout
+109. Archival material
+110. Manuscript (unpublished)
+
+### 3.2 Common Elements Library
+
+Create reusable element definitions for:
+- Author formats (individual, corporate, no author, et al.)
+- Date formats (year, year-month-day, n.d., in press)
+- Title capitalization rules
+- Volume/issue patterns
+- Page number formats
+- DOI/URL standards
+- Retrieval statements
+
+### 3.3 Error Taxonomy
+
+Document **at least 200 distinct errors** with:
+- Error ID (unique identifier)
+- Error name (display name)
+- Frequency rating (very common, common, occasional, rare)
+- Severity (high, medium, low)
+- Description
+- Why it happens
+- How to fix
+- Example (wrong)
+- Example (correct)
+- Affected source types
+- Related errors
+- Checking tips
+
+---
+
+## 4. DATA COLLECTION REQUIREMENTS
+
+### 4.1 Official APA Sources to Reference
+
+**Primary Documentation:**
+1. **APA Style Website** (apastyle.org)
+   - Download all reference examples
+   - Capture FAQ responses
+   - Note all formatting rules
+   
+2. **APA Publication Manual, 7th Edition**
+   - Chapter 9 (Works Credited in Text)
+   - Chapter 10 (Reference List)
+   - All reference examples (100+ examples in manual)
+
+**Citation Format:**
+Every rule must include:
+- Section number from manual
+- Page number
+- Direct quote (if helpful)
+- Paraphrased explanation
+
+**Example:**
+```yaml
+rule_source:
+  manual: "Publication Manual of the American Psychological Association, 7th edition"
+  section: "9.25"
+  page: "295"
+  quote: "Include the issue number for all journal articles, regardless of whether the journal is paginated by issue or continuously across issues within a volume."
+```
+
+### 4.2 Real Example Collection
+
+**Requirements:**
+- Collect 500+ real citations from academic databases
+- Ensure diversity across:
+  - Fields (psychology, education, health sciences, business, etc.)
+  - Publication years (2020-2024 preferred)
+  - Author counts (1, 2, 3+, 21+)
+  - Journals (high-impact and specialized)
+
+**Sources for Examples:**
+1. **Google Scholar** - General academic sources
+2. **PubMed** - Health/medical sciences
+3. **PsycInfo** - Psychology
+4. **ERIC** - Education
+5. **arXiv** - STEM preprints
+6. **SSRN** - Social sciences
+
+**Example Data to Capture:**
+```yaml
+example_id: "journal_001"
+source_type: "journal_article"
+citation_text: "Shrout, P. E., & Rodgers, J. L. (2018). Psychology, science, and knowledge construction: Broadening perspectives from the replication crisis. Annual Review of Psychology, 69(1), 487-510. https://doi.org/10.1146/annurev-psych-122216-011845"
+source_database: "Google Scholar"
+doi: "10.1146/annurev-psych-122216-011845"
+field: "psychology"
+author_count: 2
+has_doi: true
+special_features: []
+use_cases: ["basic_example", "two_authors", "with_doi"]
+```
+
+---
+
+## 5. IMPLEMENTATION REQUIREMENTS
+
+### 5.1 Knowledge Base System Must Support
+
+**Core Functionality:**
+- Store structured data for all 110+ source types
+- Query by source type, element, error, etc.
+- Version control (track changes over time)
+- Export to various formats (JSON, YAML, Markdown)
+- Update propagation (changing a rule updates all related content)
+
+**Content Generation:**
+- Template variables (e.g., `{source_type}`, `{element}`)
+- Rule injection (pull specific rules into content)
+- Example generation (format according to rules)
+- Error explanation generation
+
+**Validation:**
+- Check citation format against rules
+- Identify specific errors
+- Generate fix suggestions
+- Provide rule references
+
+### 5.2 Update Workflow
+
+**When APA Rules Change:**
+1. Update knowledge base entry
+2. Flag all affected pages
+3. Regenerate affected content
+4. Review and approve changes
+5. Deploy updates
+
+**Frequency:**
+- Major updates: As APA releases new editions
+- Minor updates: Quarterly review for clarifications
+- Example refreshes: Annual (add newer publications)
+
+---
+
+## 6. QUALITY ASSURANCE
+
+### 6.1 Validation Requirements
+
+**Every Entry Must Have:**
+- Official APA manual reference
+- At least 2 real examples
+- Common error examples
+- Validation checklist items
+- Related source types
+
+**Accuracy Checks:**
+- Cross-reference with official APA website
+- Verify examples against original sources
+- Test validation rules with correct and incorrect citations
+- Review by APA-knowledgeable expert
+
+### 6.2 Completeness Metrics
+
+**Knowledge Base Completion:**
+- [ ] All 110 source types documented
+- [ ] All elements for each source type defined
+- [ ] 200+ errors catalogued
+- [ ] 500+ real examples collected
+- [ ] All APA 6 vs 7 changes documented
+- [ ] Validation checklist for each source type
+
+---
+
+## NEXT: Part 3 - Mega Guide Page Templates
+
+The next document will detail the specific content structure and requirements for the 15 mega guide pages.

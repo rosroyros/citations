@@ -1,0 +1,1025 @@
+# Citation Format Checker - Requirements Document
+## Part 3: Mega Guide Page Templates
+
+**Document Version:** 1.0  
+**Last Updated:** October 2025
+
+---
+
+## 1. MEGA GUIDE OVERVIEW
+
+### 1.1 Purpose
+Mega guides are comprehensive, authoritative resources (5,000-8,000 words) that serve as:
+- Hub pages for topical clusters
+- Entry points from organic search
+- Link attractors for SEO
+- Complete references users bookmark
+
+### 1.2 Characteristics
+- **Length:** 5,000-8,000 words
+- **Reading Time:** 20-30 minutes
+- **Examples:** 10-15 minimum
+- **Internal Links:** 20-30 to related pages
+- **Update Frequency:** Quarterly review
+- **Priority:** Phase 1 (create first)
+
+---
+
+## 2. MEGA GUIDE TEMPLATE STRUCTURE
+
+### 2.1 Required Page Sections (All Mega Guides)
+
+Every mega guide must include these sections in this order:
+
+```markdown
+1. Hero Section
+2. Table of Contents (auto-generated)
+3. TL;DR / Quick Summary Box
+4. Introduction (why this matters)
+5. [Main Content Sections - 8-12 H2 sections]
+6. Comprehensive Examples Section
+7. Common Errors Section
+8. Validation Checklist
+9. APA 6 vs 7 Comparison (if relevant)
+10. FAQ Section (8-12 questions)
+11. Related Resources
+12. Conclusion / Next Steps
+```
+
+### 2.2 Section-by-Section Requirements
+
+#### **HERO SECTION**
+
+```markdown
+# [H1: Main Title - 50-60 characters, keyword-optimized]
+
+**[Subtitle: 120-150 characters describing value proposition]**
+
+[2-3 sentence summary of what this guide covers and why it matters]
+
+[PRIMARY CTA BUTTON: Check Your Citations Now]
+
+---
+**Quick Stats:**
+- Reading time: [X] minutes
+- [X] examples included
+- Last updated: [Date]
+```
+
+**Example:**
+```markdown
+# Complete Guide to Checking APA Citations
+
+**Learn how to validate your APA citations, catch common errors, and ensure formatting accuracy before submission**
+
+This comprehensive guide walks you through the complete process of checking APA 7th edition citations, from individual elements to entire reference lists. You'll learn what to check, how to check it, and how to fix the most common errors that affect 90.9% of academic papers.
+
+[Check Your Citations Now]
+
+---
+**Quick Stats:**
+- Reading time: 25 minutes
+- 15 examples included
+- Last updated: October 2025
+```
+
+#### **TABLE OF CONTENTS**
+
+Auto-generated from H2 headers, with jump links:
+
+```markdown
+## Table of Contents
+
+1. [Why Citation Validation Matters](#why-validation-matters)
+2. [The Complete Validation Process](#validation-process)
+3. [Element-by-Element Checking](#element-checking)
+4. [Common Error Patterns](#error-patterns)
+...
+```
+
+**Requirements:**
+- Clickable anchor links
+- Updates automatically when headers change
+- Sticky on scroll (implementation preference)
+
+#### **TL;DR BOX**
+
+Highlighted section (different background color) with key takeaways:
+
+```markdown
+## TL;DR - Key Takeaways
+
+✓ **90.9% of papers** contain 3+ citation formatting errors
+✓ **Manual checking takes** 3-5 minutes per citation
+✓ **Most common errors:** Capitalization, italics, punctuation, DOI format
+✓ **Validation process:** Check elements → Check list → Cross-check references
+✓ **Best practice:** Use automated checker + manual review
+
+[Skip to Validation Checklist](#checklist)
+```
+
+#### **MAIN CONTENT SECTIONS**
+
+Each H2 section should be 400-800 words and include:
+- Clear explanation of the topic
+- 2-3 examples illustrating key points
+- Internal links to related pages (2-3 per section)
+- Lists or tables where appropriate
+- At least one CTA every 2-3 sections
+
+**Section Structure Pattern:**
+```markdown
+## [H2: Section Title]
+
+[Opening paragraph: 2-3 sentences introducing this topic]
+
+### [H3: Subtopic if needed]
+
+[Content explaining this aspect]
+
+**Example:**
+[Example showing this concept]
+
+[Additional explanation]
+
+**Common Mistake:**
+[What people get wrong]
+
+**How to Check:**
+1. [Step one]
+2. [Step two]
+3. [Step three]
+
+**Related:** [Link to related page]
+
+---
+```
+
+#### **COMPREHENSIVE EXAMPLES SECTION**
+
+```markdown
+## Complete Examples
+
+This section provides [10-15] fully formatted examples across different scenarios.
+
+### Example 1: [Scenario Description]
+
+**Reference list format:**
+[Complete, properly formatted citation]
+
+**In-text citation (parenthetical):** [Citation]
+**In-text citation (narrative):** [Citation]
+
+**Key formatting notes:**
+- [Note about specific formatting element]
+- [Note about another element]
+
+**Common errors to avoid:**
+- ❌ [Common mistake]
+- ✅ [Correct format]
+
+---
+
+[Repeat for 10-15 examples]
+```
+
+**Example Coverage:**
+- Basic/standard cases
+- Multiple authors (2, 3+, 21+)
+- No author
+- No date
+- Special formatting cases
+- Different source types (if relevant to guide topic)
+
+#### **COMMON ERRORS SECTION**
+
+```markdown
+## Common Errors and How to Fix Them
+
+Based on research showing 90.9% of papers contain errors, here are the most frequent mistakes:
+
+### Error 1: [Error Name]
+
+**Frequency:** [Very Common / Common / Occasional]
+**Impact:** [High / Medium / Low]
+
+**The Problem:**
+[Explanation of what's wrong]
+
+**Why it happens:**
+[Common cause]
+
+**How to fix:**
+1. [Step]
+2. [Step]
+3. [Step]
+
+**Example:**
+❌ **Incorrect:** [Wrong citation]
+✅ **Correct:** [Right citation]
+
+**How to check for this:** [Checking tip]
+
+[Link to detailed error page]
+
+---
+
+[Repeat for 10-15 errors]
+```
+
+#### **VALIDATION CHECKLIST**
+
+```markdown
+## Complete Validation Checklist
+
+Use this checklist to systematically check your citations:
+
+### Reference List Format
+
+- [ ] Page title "References" (bold, centered)
+- [ ] Double-spaced throughout
+- [ ] Hanging indent (0.5 inches) for each entry
+- [ ] Alphabetical order by first author's last name
+- [ ] No extra line breaks between entries
+
+### Individual Citation Elements
+
+- [ ] Author names: Last, F. M. format
+- [ ] Ampersand (&) before last author
+- [ ] Year in parentheses
+- [ ] Article titles in sentence case
+- [ ] Article titles NOT italicized
+- [ ] Journal names in title case
+- [ ] Journal names italicized
+- [ ] Volume number italicized
+- [ ] Issue number in parentheses, not italicized
+- [ ] Page numbers without "pp." prefix
+- [ ] DOI as https://doi.org/ format
+- [ ] No period after DOI
+
+### Cross-Checking
+
+- [ ] Every in-text citation has matching reference
+- [ ] Every reference is cited in text
+- [ ] Years match between in-text and reference list
+- [ ] Spelling consistent between in-text and reference
+
+### Special Elements
+
+- [ ] Et al. used correctly (3+ authors)
+- [ ] Multiple works by same author have a, b, c suffixes
+- [ ] Retrieval dates only for dynamic content
+
+[Download Printable Checklist]
+
+[Run Automated Check]
+```
+
+#### **APA 6 VS 7 COMPARISON**
+
+```markdown
+## APA 6th vs 7th Edition: What Changed
+
+If you're transitioning from APA 6 to APA 7, here are the key changes:
+
+| Element | APA 6 | APA 7 | Why It Changed |
+|---------|-------|-------|----------------|
+| Issue number | Optional if continuous pagination | Always required | Aids retrieval |
+| Page numbers | pp. 45-67 | 45-67 | Simplification |
+| DOI format | doi:10.xxxx | https://doi.org/10.xxxx | Web standards |
+| Author limit | List up to 7, then et al. | List up to 20 | More inclusive |
+| Running head | Required on all pages | Not required for students | Simplification |
+| Location | City, State: Publisher | Just Publisher | Outdated info |
+
+**Most Common Transition Errors:**
+1. [Error from using old format]
+2. [Another common mistake]
+3. [Third mistake]
+
+**Quick Conversion Guide:**
+- If you have "pp." before pages → Remove it
+- If DOI starts with "doi:" → Change to "https://doi.org/"
+- If issue number missing → Add it (always required now)
+- If location before publisher → Remove location
+
+[See complete APA 7 changes guide]
+```
+
+#### **FAQ SECTION**
+
+```markdown
+## Frequently Asked Questions
+
+### [Question 1 in natural language]?
+
+[Concise answer, 50-150 words]
+
+**Related:** [Link to relevant page]
+
+---
+
+### [Question 2]?
+
+[Answer]
+
+---
+
+[Repeat for 8-12 questions]
+```
+
+**FAQ Requirements:**
+- Questions in natural language (how people actually search)
+- Concise answers
+- Schema markup for rich snippets (technical implementation)
+- Link to detailed page if answer is summary
+
+#### **RELATED RESOURCES SECTION**
+
+```markdown
+## Related Resources
+
+**Dive Deeper:**
+- [Link: Source-specific guide] - Learn how to cite [specific sources]
+- [Link: Validation guide] - Step-by-step validation process
+- [Link: Error guide] - Complete error reference
+
+**By Discipline:**
+- [Link: Psychology guide]
+- [Link: Nursing guide]
+- [Link: Education guide]
+
+**Tools:**
+- [Link: Citation Checker] - Validate your citations automatically
+- [Link: Checklist Download] - Printable validation checklist
+
+**Official Resources:**
+- [APA Style website](https://apastyle.apa.org)
+- [APA Style Blog](https://apastyle.apa.org/blog)
+```
+
+#### **CONCLUSION**
+
+```markdown
+## Next Steps
+
+Now that you understand [topic], here's what to do next:
+
+1. **[Action step 1]** - [Brief description]
+2. **[Action step 2]** - [Brief description]
+3. **[Action step 3]** - [Brief description]
+
+**Need help now?**
+[Check Your Citations] - Get instant validation
+
+**Keep learning:**
+[Browse all APA guides] - Explore our complete library
+```
+
+### 2.3 CTA Placement Strategy
+
+**CTAs must appear:**
+1. **Hero section** (top of page) - Primary CTA button
+2. **After section 3-4** (40% through content) - Inline CTA box
+3. **After common errors section** - "Check for these errors" CTA
+4. **Before FAQ** - "Validate your citations" CTA
+5. **End of page** - Final CTA button
+
+**CTA Variations:**
+- "Check Your Citations Now"
+- "Validate Your Reference List"
+- "Find Errors Automatically"
+- "Check for These Errors"
+- "Get Instant Validation"
+
+---
+
+## 3. SPECIFIC MEGA GUIDES TO CREATE
+
+### 3.1 Guide 1: Complete APA 7th Edition Citation Guide
+
+**URL:** `/guide/apa-7th-edition/`
+**Primary Keywords:** "APA 7th edition", "APA citation guide", "APA format"
+**Target Length:** 8,000 words
+
+**Unique Sections:**
+- Overview of APA 7th edition
+- When to use APA style
+- Basic principles of citation
+- General format requirements
+- In-text citation rules
+- Reference list requirements
+- Source types overview
+- Special cases and exceptions
+
+**Main Content Sections (H2s):**
+1. What is APA 7th Edition?
+2. Who Uses APA Style?
+3. Basic Citation Principles
+4. In-Text Citation Format
+5. Reference List Format
+6. General Formatting Rules
+7. Most Common Source Types
+8. Changes from APA 6 to APA 7
+9. Special Situations
+10. Common Formatting Questions
+
+**Examples to Include:** (15 examples)
+- Journal article (basic)
+- Book (basic)
+- Website
+- Multiple authors (2, 3+, 21+)
+- No author
+- No date
+- Secondary source
+- Multiple works same author/year
+
+---
+
+### 3.2 Guide 2: Complete Guide to Checking APA Citations
+
+**URL:** `/guide/check-apa-citations/`
+**Primary Keywords:** "check APA citations", "validate APA", "APA citation checker"
+**Target Length:** 6,000 words
+
+**Unique Sections:**
+- Why validation matters
+- The 90.9% error statistic
+- Complete checking process
+- Element-by-element validation
+- Automated vs manual checking
+- Common error patterns
+- Time-saving strategies
+
+**Main Content Sections (H2s):**
+1. Why Citation Validation Matters
+2. The Cost of Citation Errors
+3. Overview: The Complete Validation Process
+4. Step 1: Check Basic Format
+5. Step 2: Validate Individual Elements
+6. Step 3: Check Citation Consistency
+7. Step 4: Cross-Reference In-Text and Reference List
+8. Step 5: Final Quality Check
+9. Automated vs Manual Checking
+10. Time-Saving Validation Strategies
+11. Error Patterns to Watch For
+
+**Examples to Include:** (12 examples)
+- Before/after validation examples
+- Citations with multiple errors identified
+- Step-by-step fixing process
+- Common error combinations
+
+---
+
+### 3.3 Guide 3: APA Citation Errors - Complete Prevention Guide
+
+**URL:** `/guide/apa-citation-errors/`
+**Primary Keywords:** "APA citation errors", "common APA mistakes", "APA formatting errors"
+**Target Length:** 7,000 words
+
+**Unique Sections:**
+- Research on error rates (90.9% statistic)
+- Why errors happen
+- Psychological factors in citation errors
+- Error prevention strategies
+- Top 20 most common errors
+- Field-specific errors
+- How to learn from errors
+
+**Main Content Sections (H2s):**
+1. The Citation Error Crisis
+2. Why 90.9% of Papers Have Errors
+3. Understanding Error Patterns
+4. Top 20 Most Common Errors
+5. Capitalization Errors
+6. Italics and Formatting Errors
+7. Punctuation Errors
+8. DOI and URL Errors
+9. Author Formatting Errors
+10. Date and Page Number Errors
+11. Error Prevention Strategies
+12. Learning from Your Mistakes
+
+**Examples to Include:** (15+ examples)
+- Each of top 20 errors with example
+- Error combinations
+- Real-world error scenarios
+
+---
+
+### 3.4 Guide 4: How to Validate Your Reference List in APA Format
+
+**URL:** `/guide/validate-apa-reference-list/`
+**Primary Keywords:** "validate reference list", "check APA references", "reference list format"
+**Target Length:** 5,500 words
+
+**Main Content Sections (H2s):**
+1. Reference List Requirements
+2. Overall Format Checking
+3. Entry-by-Entry Validation
+4. Alphabetization and Order
+5. Hanging Indents and Spacing
+6. Cross-Checking with In-Text Citations
+7. Special Cases in Reference Lists
+8. Common Reference List Errors
+9. Automated Reference Validation
+10. Final Reference List Review
+
+---
+
+### 3.5 Guide 5: APA vs MLA vs Chicago - Citation Style Comparison
+
+**URL:** `/guide/citation-styles-compared/`
+**Primary Keywords:** "APA vs MLA", "citation style comparison", "APA MLA Chicago differences"
+**Target Length:** 6,500 words
+
+**Main Content Sections (H2s):**
+1. Overview of Citation Styles
+2. When to Use Each Style
+3. In-Text Citation Comparison
+4. Reference/Bibliography Comparison
+5. Formatting Differences
+6. Source Type Variations
+7. Key Differences Summary
+8. Choosing the Right Style
+9. Transitioning Between Styles
+10. Common Confusion Points
+
+**Unique Requirements:**
+- Side-by-side comparison tables
+- Same source cited in all three styles
+- Visual formatting differences
+- Discipline-by-discipline style usage
+
+---
+
+### 3.6 Guide 6: APA Citation Guide for Psychology Students
+
+**URL:** `/guide/apa-psychology-guide/`
+**Primary Keywords:** "APA psychology", "cite psychology sources", "psychology citations"
+**Target Length:** 5,000 words
+
+**Main Content Sections (H2s):**
+1. Why Psychology Uses APA
+2. Common Psychology Sources
+3. Citing Journal Articles (Primary Research)
+4. Citing Review Articles and Meta-Analyses
+5. Citing Books and Edited Volumes
+6. Citing Psychological Tests and Measures
+7. Citing DSM-5 and Diagnostic Manuals
+8. Citing Case Studies
+9. Psychology-Specific Challenges
+10. Common Errors in Psychology Papers
+
+**Unique Elements:**
+- Major psychology journals list
+- DSM-5 citation format
+- Psychological test citations
+- Case study citation format
+- Field-specific terminology
+
+---
+
+### 3.7 Guide 7: APA Citation Guide for Nursing Students
+
+**URL:** `/guide/apa-nursing-guide/`
+**Target Length:** 5,000 words
+
+**Main Content Sections (H2s):**
+1. APA in Nursing Research
+2. Common Nursing Sources
+3. Citing Clinical Guidelines
+4. Citing Evidence-Based Practice Resources
+5. Citing Patient Care Standards
+6. Citing Health Organization Reports
+7. Citing Medical Databases
+8. Citing Nursing Journals
+9. Nursing-Specific Citation Challenges
+10. Common Errors in Nursing Papers
+
+---
+
+### 3.8 Guide 8: APA Citation Guide for Education Research
+
+**URL:** `/guide/apa-education-guide/`
+**Target Length:** 5,000 words
+
+**Main Content Sections (H2s):**
+1. APA in Education Research
+2. Common Education Sources
+3. Citing Educational Research Journals
+4. Citing Policy Documents
+5. Citing Curriculum Materials
+6. Citing Educational Tests and Assessments
+7. Citing ERIC Documents
+8. Citing Government Education Reports
+9. Education-Specific Challenges
+10. Common Errors in Education Papers
+
+---
+
+### 3.9 Guide 9: APA 7th Edition Changes - What You Need to Know
+
+**URL:** `/guide/apa-7-changes/`
+**Target Length:** 5,000 words
+
+**Main Content Sections (H2s):**
+1. Overview of APA 7 Updates
+2. Major Formatting Changes
+3. Reference List Changes
+4. In-Text Citation Changes
+5. DOI and URL Format Updates
+6. Author Listing Changes
+7. Running Head Changes
+8. Removed Requirements
+9. New Requirements
+10. Transition Guide: Converting from APA 6
+11. Most Common Transition Errors
+
+**Unique Requirements:**
+- Complete APA 6 vs 7 comparison table
+- Conversion instructions for each element
+- Update checklist for old papers
+
+---
+
+### 3.10 Guide 10: APA Title Page Format Guide
+
+**URL:** `/guide/apa-title-page/`
+**Target Length:** 4,000 words
+
+**Main Content Sections (H2s):**
+1. Student vs Professional Title Pages
+2. Required Title Page Elements
+3. Title Formatting
+4. Author Information
+5. Institutional Affiliation
+6. Course Information (Student Papers)
+7. Author Note (Professional Papers)
+8. Running Head (When Required)
+9. Title Page Examples
+10. Common Title Page Errors
+
+---
+
+### 3.11 Guide 11: APA Reference List Format Guide
+
+**URL:** `/guide/apa-reference-list-format/`
+**Target Length:** 5,500 words
+
+**Main Content Sections (H2s):**
+1. Reference List Basics
+2. Page Setup and Formatting
+3. Alphabetization Rules
+4. Hanging Indents
+5. Spacing Requirements
+6. Entry Order and Organization
+7. Multiple Works by Same Author
+8. Works with No Author
+9. Reference List Examples
+10. Common Reference List Errors
+
+---
+
+### 3.12 Guide 12: APA In-Text Citation Complete Guide
+
+**URL:** `/guide/apa-in-text-citations/`
+**Target Length:** 6,000 words
+
+**Main Content Sections (H2s):**
+1. In-Text Citation Basics
+2. Parenthetical Citations
+3. Narrative Citations
+4. Citing with Page Numbers
+5. Multiple Authors (2, 3+, 21+)
+6. Multiple Works
+7. No Author Citations
+8. No Date Citations
+9. Secondary Sources
+10. Special In-Text Situations
+11. Common In-Text Citation Errors
+
+---
+
+### 3.13 Guide 13: How to Fix APA Citation Errors
+
+**URL:** `/guide/fix-apa-errors/`
+**Target Length:** 5,500 words
+
+**Main Content Sections (H2s):**
+1. Identifying Your Errors
+2. Error Triage: What to Fix First
+3. Fixing Capitalization Errors
+4. Fixing Italics Errors
+5. Fixing Punctuation Errors
+6. Fixing DOI/URL Errors
+7. Fixing Author Formatting
+8. Batch Fixing Multiple Errors
+9. Using Find & Replace for Fixes
+10. Prevention After Fixing
+
+---
+
+### 3.14 Guide 14: APA Citation Workflow - From Research to Submission
+
+**URL:** `/guide/apa-citation-workflow/`
+**Target Length:** 5,000 words
+
+**Main Content Sections (H2s):**
+1. Citation Planning Before Research
+2. Collecting Citation Information
+3. Creating Citations During Writing
+4. Organizing Your Sources
+5. First Draft Citation Strategy
+6. Citation Review Process
+7. Pre-Submission Validation
+8. Final Quality Check
+9. Tools and Systems
+10. Time Management for Citations
+
+---
+
+### 3.15 Guide 15: APA for Graduate Students - Thesis and Dissertation Guide
+
+**URL:** `/guide/apa-graduate-students/`
+**Target Length:** 6,000 words
+
+**Main Content Sections (H2s):**
+1. APA for Dissertations and Theses
+2. Institutional Requirements
+3. Extended Reference Lists
+4. Chapter-by-Chapter Citations
+5. Citing Your Own Work
+6. Unpublished Sources
+7. Extensive Literature Reviews
+8. Committee Expectations
+9. Common Graduate Student Errors
+10. Dissertation Defense Preparation
+
+---
+
+## 4. CONTENT GENERATION WORKFLOW
+
+### 4.1 Creating a New Mega Guide
+
+**Step 1: Research and Outline**
+- Define primary keywords
+- Identify target audience
+- List main sections (8-12 H2s)
+- Identify unique elements for this guide
+- Gather 15+ relevant examples
+
+**Step 2: Content Development**
+- Write hero section (H1, subtitle, summary)
+- Write TL;DR box
+- Write each H2 section (400-800 words each)
+- Create examples section (10-15 examples)
+- Create error section (10-15 errors)
+- Build validation checklist
+- Write FAQ (8-12 questions)
+- Add related resources
+
+**Step 3: Enhancement**
+- Add internal links (20-30 throughout)
+- Insert CTAs (5 placements)
+- Add visual elements (tables, lists)
+- Format examples with proper styling
+- Add metadata (reading time, update date)
+
+**Step 4: Quality Assurance**
+- Verify all rules against APA manual
+- Check example authenticity
+- Test all internal links
+- Verify CTA functionality
+- Proofread for tone consistency
+- Validate reading level
+- Check for completeness
+
+**Step 5: SEO Optimization**
+- Optimize title tag
+- Write meta description
+- Add schema markup
+- Optimize images (if any)
+- Check keyword density
+- Verify header hierarchy
+
+---
+
+## 5. MEGA GUIDE STANDARDS
+
+### 5.1 Writing Standards
+
+**Voice and Tone:**
+- Second person ("you") addressing reader directly
+- Active voice 80%+ of sentences
+- Conversational yet authoritative
+- Empathetic to citation struggles
+- Solution-focused
+
+**Structure:**
+- Clear hierarchy (H1 → H2 → H3)
+- Scannable (lists, tables, bold text)
+- Logical flow between sections
+- Smooth transitions
+- Consistent formatting
+
+**Quality Metrics:**
+- Flesch Reading Ease: 60-70 (standard)
+- Flesch-Kincaid Grade: 10-12
+- Passive voice: <20%
+- Sentence length: 15-20 words average
+- Paragraph length: 3-5 sentences average
+
+### 5.2 Example Standards
+
+**All Examples Must:**
+- Use real sources (from Google Scholar, PubMed, etc.)
+- Include publication dates 2020-2024
+- Show complete citation (not truncated)
+- Include both reference and in-text formats
+- Annotate key formatting elements
+- Be properly formatted according to APA 7
+
+**Example Format:**
+```markdown
+**Example [#]: [Description]**
+
+**Reference list format:**
+[Complete citation with proper formatting]
+
+**In-text citation (parenthetical):** (Author, Year)
+**In-text citation (narrative):** Author (Year)
+
+**Key formatting notes:**
+- [Element 1] is formatted as [description]
+- [Element 2] appears [location] and is [formatted how]
+- Note that [special consideration]
+
+**Common error:** [What people often get wrong]
+```
+
+### 5.3 Internal Linking Standards
+
+**Required Links:**
+- Link to related source type pages (5-10)
+- Link to related error pages (5-10)
+- Link to validation guides (3-5)
+- Link to other mega guides (2-4)
+- Link to checker tool (5 times)
+
+**Linking Best Practices:**
+- Natural anchor text (not "click here")
+- Contextually relevant placement
+- Open in same tab (internal links)
+- No broken links
+- Balanced distribution throughout content
+
+### 5.4 Update Requirements
+
+**Quarterly Review:**
+- Check for APA updates or clarifications
+- Update examples with more recent publications
+- Review and update statistics
+- Check competitor guides for gaps
+- Update related links
+
+**Update Indicators:**
+- "Last updated" date in hero section
+- Change log (internal tracking)
+- Version number (internal)
+
+---
+
+## 6. METADATA REQUIREMENTS
+
+### 6.1 YAML Front Matter Template
+
+```yaml
+---
+# Page Identification
+page_id: "mega_guide_check_citations"
+page_type: "mega_guide"
+title: "Complete Guide to Checking APA Citations"
+url: "/guide/check-apa-citations/"
+
+# SEO Metadata
+meta_title: "Complete Guide to Checking APA Citations | Step-by-Step Validation"
+meta_description: "Learn how to check APA citations for errors. Complete validation process, common mistakes, and automated checking tools. 90.9% of papers have citation errors - here's how to fix them."
+primary_keywords: ["check APA citations", "validate APA format", "APA citation checker"]
+secondary_keywords: ["APA validation", "citation errors", "fix APA citations"]
+
+# Content Metadata
+word_count: 6000
+reading_time: 25
+author: "Citation Checker Team"
+last_updated: "2024-10-15"
+published_date: "2024-06-01"
+
+# Categorization
+category: "mega_guides"
+topics: ["validation", "error checking", "quality assurance"]
+citation_style: "apa_7"
+
+# Related Content
+related_mega_guides:
+  - "/guide/apa-7th-edition/"
+  - "/guide/apa-citation-errors/"
+  - "/guide/validate-apa-reference-list/"
+
+related_source_types:
+  - "/how-to-cite-journal-article-apa/"
+  - "/how-to-cite-book-apa/"
+  - "/how-to-cite-website-apa/"
+
+related_validation:
+  - "/how-to-check-capitalization-apa/"
+  - "/how-to-check-italics-apa/"
+  - "/how-to-check-doi-apa/"
+
+related_errors:
+  - "/apa-title-case-error/"
+  - "/apa-missing-issue-number-error/"
+  - "/apa-doi-format-error/"
+
+# Content Features
+has_examples: true
+example_count: 12
+has_checklist: true
+has_faq: true
+has_comparison_table: true
+has_downloadable: false
+
+# CTA Configuration
+cta_count: 5
+cta_primary_text: "Check Your Citations Now"
+cta_primary_url: "/checker/"
+cta_secondary_text: "View All Guides"
+cta_secondary_url: "/guides/"
+
+# Schema.org Markup
+schema_type: "HowTo"
+schema_category: "Citation Validation"
+---
+```
+
+---
+
+## 7. QUALITY ASSURANCE CHECKLIST
+
+### 7.1 Pre-Publication Checklist
+
+**Content Completeness:**
+- [ ] All required sections present
+- [ ] 5,000-8,000 word count met
+- [ ] 10-15 examples included
+- [ ] 10-15 errors documented
+- [ ] 8-12 FAQ questions
+- [ ] Validation checklist complete
+- [ ] Hero section complete
+- [ ] Conclusion and next steps
+
+**Accuracy:**
+- [ ] All rules cite APA manual section
+- [ ] Examples verified against original sources
+- [ ] No contradictions with official APA guidance
+- [ ] Cross-referenced with knowledge base
+- [ ] Dates and statistics current
+
+**Formatting:**
+- [ ] Proper header hierarchy (H1 → H2 → H3)
+- [ ] Consistent markdown formatting
+- [ ] Examples properly formatted
+- [ ] Tables and lists formatted correctly
+- [ ] Italics shown correctly in examples
+- [ ] No orphaned headers
+
+**SEO:**
+- [ ] Primary keyword in H1
+- [ ] Keywords in first paragraph
+- [ ] Meta title 50-60 characters
+- [ ] Meta description 150-160 characters
+- [ ] Alt text for images (if any)
+- [ ] Schema markup configured
+
+**Links:**
+- [ ] 20-30 internal links
+- [ ] All links functional
+- [ ] Anchor text descriptive
+- [ ] Links contextually relevant
+- [ ] 5 CTA placements
+
+**User Experience:**
+- [ ] TOC generated
+- [ ] Reading time calculated
+- [ ] Related resources listed
+- [ ] Clear next steps
+- [ ] Mobile-friendly formatting
+- [ ] Accessible (WCAG compliance)
+
+---
+
+## NEXT: Part 4 - Source Type & Validation Templates
+
+The next document will detail page templates for:
+- Source type pages (100-150 pages)
+- Validation pages (50-100 pages)

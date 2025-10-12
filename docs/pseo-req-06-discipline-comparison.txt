@@ -1,0 +1,1119 @@
+# Citation Format Checker - Requirements Document
+## Part 6: Discipline & Comparison Page Templates
+
+**Document Version:** 1.0  
+**Last Updated:** October 2025
+
+---
+
+## 1. OVERVIEW
+
+This document covers three page types that extend our content reach:
+
+### 1.1 Discipline-Specific Pages (50-100 pages)
+**Purpose:** Field-specific citation guidance
+**Example:** "APA Citation Guide for Psychology Students"
+**Value:** Targets field-specific search queries
+
+### 1.2 Comparison Pages (100 pages)
+**Purpose:** Compare APA vs MLA vs Chicago for each source type
+**Example:** "How to Cite a Journal Article - APA vs MLA vs Chicago"
+**Value:** Captures comparison searches, shows breadth
+
+### 1.3 Specific Source Pages (1,000+ pages)
+**Purpose:** Target long-tail searches for specific publications/platforms
+**Example:** "How to Cite the New York Times in APA Format"
+**Value:** High-intent, low-competition keywords
+
+---
+
+## 2. DISCIPLINE-SPECIFIC PAGE TEMPLATE
+
+### 2.1 Purpose & Characteristics
+
+**Purpose:** Provide field-specific citation guidance
+**Length:** 2,500-3,500 words
+**Reading Time:** 10-15 minutes
+**Examples:** 8-12 field-relevant examples
+**Priority:** Phase 2-3
+
+### 2.2 Complete Structure
+
+```markdown
+1. Hero Section
+2. Why [Discipline] Uses APA
+3. Overview of Common Sources
+4. Most Cited Source Types (with examples)
+5. Field-Specific Journals List
+6. Discipline-Specific Citation Challenges
+7. Special Sources in This Field
+8. Common Student Errors
+9. Sample Reference List
+10. Discipline Resources
+```
+
+### 2.3 Section-by-Section Requirements
+
+#### **HERO SECTION**
+
+```markdown
+# APA Citation Guide for [Discipline] Students
+
+**[One sentence about APA usage in this field]**
+
+[2-3 sentences: Why this guide exists, what makes this field unique for citations, what this covers]
+
+[PRIMARY CTA: Check Your Citations]
+
+---
+
+**Quick Facts:**
+- **Citation style:** APA 7th edition
+- **Most common sources:** [Top 3-4 source types]
+- **Unique challenges:** [1-2 field-specific issues]
+- **Major journals:** [Number] covered
+
+**Who this is for:**
+- Undergraduate students
+- Graduate students
+- Early career researchers
+
+**Last Updated:** [Date]
+
+[Jump to Common Sources](#sources) | [Jump to Journals](#journals)
+```
+
+**Example:**
+```markdown
+# APA Citation Guide for Psychology Students
+
+**Psychology research relies heavily on APA format for citing empirical studies, theoretical works, and clinical resources.**
+
+This comprehensive guide covers all aspects of citing psychology sources in APA 7th edition. You'll learn how to cite journal articles, psychological tests, diagnostic manuals, case studies, and other sources specific to psychology research.
+
+[Check Your Psychology Citations]
+
+---
+
+**Quick Facts:**
+- **Citation style:** APA 7th edition (developed by American Psychological Association)
+- **Most common sources:** Journal articles, books, DSM-5, psychological tests
+- **Unique challenges:** Citing tests/measures, diagnostic criteria, case studies
+- **Major journals:** 50+ psychology journals covered
+
+**Who this is for:**
+- Psychology undergraduates
+- Master's and PhD students
+- Early career researchers
+- Clinical practitioners
+
+**Last Updated:** October 2025
+
+[Jump to Common Sources](#sources) | [Jump to Journals](#journals)
+```
+
+#### **WHY THIS FIELD USES APA**
+
+```markdown
+## Why [Discipline] Uses APA Style
+
+### Historical Context
+[Brief explanation of why this field adopted APA]
+
+### Advantages for [Discipline]
+- **[Advantage 1]:** [Explanation]
+- **[Advantage 2]:** [Explanation]
+- **[Advantage 3]:** [Explanation]
+
+### Standard in the Field
+[Statistics or evidence of APA dominance in this field]
+
+**Key journals using APA:**
+- [Journal 1]
+- [Journal 2]
+- [Journal 3]
+- [Many more - see complete list below]
+
+### Exceptions
+Some [discipline] subfields or journals use:
+- [Other style 1]: [When/where]
+- [Other style 2]: [When/where]
+
+**Always verify:** Check your course syllabus or journal guidelines
+```
+
+#### **OVERVIEW OF COMMON SOURCES**
+
+```markdown
+## Common Sources in [Discipline]
+
+### Primary Research Sources
+The backbone of [discipline] literature:
+
+1. **[Source Type 1]** - [Percentage or frequency]
+   - Why important: [Explanation]
+   - Example: [Brief example]
+   - [Link to detailed guide]
+
+2. **[Source Type 2]** - [Percentage or frequency]
+   - Why important: [Explanation]
+   - Example: [Brief example]
+   - [Link to detailed guide]
+
+[Continue for top 8-10 source types]
+
+### Secondary Sources
+Supporting literature:
+- [Source type]: [Usage context]
+- [Source type]: [Usage context]
+
+### Field-Specific Sources
+Unique to [discipline]:
+- [Unique source 1]: [Description]
+- [Unique source 2]: [Description]
+- [Unique source 3]: [Description]
+```
+
+#### **MOST CITED SOURCE TYPES**
+
+```markdown
+## How to Cite [Discipline] Sources
+
+### 1. [Most Common Source Type in This Field]
+
+**Why this matters in [discipline]:**
+[Explanation of why this source type is important in the field]
+
+**Basic format:**
+```
+[Template]
+```
+
+**Field-specific notes:**
+- [Note about how this field uses this source]
+- [Special consideration]
+
+**Example:**
+[Real example from this discipline]
+
+**In-text citation:**
+- Parenthetical: [Example]
+- Narrative: [Example]
+
+**Common errors in [discipline]:**
+- [Field-specific error]
+- [Another field-specific error]
+
+[Link to complete guide]
+
+---
+
+### 2. [Second Most Common Source]
+
+[Same structure]
+
+---
+
+[Continue for 6-8 most common source types in this field]
+```
+
+**Example for Psychology:**
+```markdown
+## How to Cite Psychology Sources
+
+### 1. Empirical Journal Articles
+
+**Why this matters in psychology:**
+Empirical research articles are the foundation of psychological science. These peer-reviewed studies present original research with methods, results, and discussion sections. Psychology students cite these more than any other source type.
+
+**Basic format:**
+```
+Author, A. A., & Author, B. B. (Year). Title of article. Title of Journal, volume(issue), pages. https://doi.org/xxxxx
+```
+
+**Psychology-specific notes:**
+- Many psychology journals require DOIs
+- Pay attention to participant information in titles (e.g., "in adolescents")
+- Sample size sometimes mentioned in title
+
+**Example:**
+Shrout, P. E., & Rodgers, J. L. (2018). Psychology, science, and knowledge construction: Broadening perspectives from the replication crisis. *Annual Review of Psychology*, *69*(1), 487-510. https://doi.org/10.1146/annurev-psych-122216-011845
+
+**In-text citation:**
+- Parenthetical: (Shrout & Rodgers, 2018)
+- Narrative: Shrout and Rodgers (2018)
+
+**Common errors in psychology:**
+- Forgetting issue number (required in APA 7)
+- Not including DOI when available
+- Using title case instead of sentence case for article title
+
+[Complete Guide to Citing Journal Articles]
+
+---
+
+### 2. Books and Edited Volumes
+
+**Why this matters in psychology:**
+Theoretical works, textbooks, and edited handbooks provide foundational knowledge and comprehensive reviews. Classic psychology texts remain highly cited decades after publication.
+
+**Basic format:**
+```
+Author, A. A. (Year). Title of book. Publisher.
+```
+
+**Psychology-specific notes:**
+- Many classic psychology books are reprinted - note original publication year
+- Edited handbooks are common - cite specific chapters
+- Treatment manuals and assessment guides follow book format
+
+**Example:**
+Kahneman, D. (2011). *Thinking, fast and slow*. Farrar, Straus and Giroux.
+
+**In-text citation:**
+- Parenthetical: (Kahneman, 2011)
+- Narrative: Kahneman (2011)
+
+[Complete Guide to Citing Books]
+
+---
+
+### 3. DSM-5 and Diagnostic Manuals
+
+**Why this matters in psychology:**
+The Diagnostic and Statistical Manual of Mental Disorders (DSM-5) is essential for clinical psychology. Citations must specify the edition and section.
+
+**Basic format:**
+```
+American Psychiatric Association. (2013). Diagnostic and statistical manual of mental disorders (5th ed.). https://doi.org/10.1176/appi.books.9780890425596
+```
+
+**Psychology-specific notes:**
+- Always cite the full manual, not individual disorder entries
+- Include edition in parentheses
+- DSM-5-TR (text revision, 2022) is newest version
+- First in-text citation includes abbreviation: (American Psychiatric Association [APA], 2013)
+
+**Example:**
+American Psychiatric Association. (2022). *Diagnostic and statistical manual of mental disorders* (5th ed., text rev.). https://doi.org/10.1176/appi.books.9780890425787
+
+**In-text citation:**
+- First: (American Psychiatric Association [APA], 2022)
+- Subsequent: (APA, 2022)
+- Specific disorder: (APA, 2022, p. 189)
+
+---
+
+### 4. Psychological Tests and Measures
+
+**Why this matters in psychology:**
+Standardized tests and measurement scales require special citation formats. Include test name, version, and publisher.
+
+**Basic format:**
+```
+Author, A. A. (Year). Name of test [Test/Scale/Inventory]. Publisher. URL
+```
+
+**Psychology-specific notes:**
+- Cite the test manual, not the test itself
+- Include version number if applicable
+- For unpublished measures, cite the article describing development
+
+**Example:**
+Beck, A. T., Steer, R. A., & Brown, G. K. (1996). *Beck Depression Inventory–II* [Database record]. APA PsycTests. https://doi.org/10.1037/t00742-000
+
+**In-text citation:**
+- Parenthetical: (Beck et al., 1996)
+- Narrative: Beck et al. (1996)
+
+**Common errors:**
+- Citing the test itself instead of the manual
+- Forgetting version number (BDI-II vs BDI)
+- Not including database information
+
+---
+
+[Continue for other common sources]
+```
+
+#### **FIELD-SPECIFIC JOURNALS LIST**
+
+```markdown
+## Major [Discipline] Journals
+
+### Top Tier Journals
+The most prestigious and highly-cited journals in [discipline]:
+
+**[Journal Category 1]:**
+- *[Journal Name 1]* - [Brief description]
+- *[Journal Name 2]* - [Brief description]
+- *[Journal Name 3]* - [Brief description]
+
+**[Journal Category 2]:**
+- *[Journal Name 4]* - [Brief description]
+- *[Journal Name 5]* - [Brief description]
+
+[Continue for 30-50 major journals organized by category]
+
+### Formatting Notes
+- All journal names in italics
+- Use full journal name (no abbreviations)
+- Title case for journal names
+- Include issue numbers (required in APA 7)
+
+### Journal Search Tips
+- [Tip about finding articles in this field]
+- [Database recommendation]
+- [How to verify journal information]
+```
+
+**Example for Psychology:**
+```markdown
+## Major Psychology Journals
+
+### Top Tier General Psychology Journals
+The most prestigious and highly-cited journals in psychology:
+
+**General Psychology:**
+- *Psychological Bulletin* - Review articles and meta-analyses
+- *Psychological Review* - Theoretical contributions
+- *American Psychologist* - Broad interest articles
+- *Annual Review of Psychology* - Comprehensive reviews
+- *Psychological Science* - High-impact empirical research
+
+**Cognitive Psychology:**
+- *Journal of Experimental Psychology: General*
+- *Cognition* - Cognitive science research
+- *Cognitive Psychology* - Cognitive processes
+- *Memory & Cognition* - Memory research
+- *Journal of Memory and Language* - Language and memory
+
+**Social Psychology:**
+- *Journal of Personality and Social Psychology*
+- *Personality and Social Psychology Bulletin*
+- *Journal of Experimental Social Psychology*
+- *Social Psychological and Personality Science*
+
+**Clinical Psychology:**
+- *Journal of Consulting and Clinical Psychology*
+- *Clinical Psychology Review*
+- *Behavior Therapy*
+- *Journal of Abnormal Psychology*
+
+**Developmental Psychology:**
+- *Developmental Psychology*
+- *Child Development*
+- *Developmental Science*
+- *Journal of Experimental Child Psychology*
+
+**[Continue for comprehensive list of 50+ journals]**
+
+### Formatting Notes
+- All journal names in italics: *Journal of Experimental Psychology*
+- Use full journal name, no abbreviations
+- Title case for journal names
+- Include issue numbers (required in APA 7)
+- Always include DOI when available
+
+### Journal Search Tips
+- Use PsycInfo database for psychology-specific searches
+- PubMed indexes many psychology journals (especially clinical)
+- Google Scholar good for finding full text
+- Check university library for subscriptions
+```
+
+#### **DISCIPLINE-SPECIFIC CHALLENGES**
+
+```markdown
+## Citation Challenges in [Discipline]
+
+### Challenge 1: [Specific Challenge]
+
+**The problem:**
+[Description of what makes this difficult in this field]
+
+**Why it happens:**
+[Explanation]
+
+**Solution:**
+[How to handle it]
+
+**Example:**
+[Example showing the challenge and solution]
+
+---
+
+### Challenge 2: [Another Challenge]
+
+[Same structure]
+
+---
+
+[Cover 5-8 field-specific challenges]
+
+### Quick Reference Table
+
+| Challenge | What to Do | Example | Common Error |
+|-----------|-----------|---------|--------------|
+| [Challenge 1] | [Solution] | [Brief example] | [Error] |
+| [Challenge 2] | [Solution] | [Brief example] | [Error] |
+```
+
+**Example for Psychology:**
+```markdown
+## Citation Challenges in Psychology
+
+### Challenge 1: Citing Psychological Tests
+
+**The problem:**
+Students often confuse citing the test itself vs. citing the test manual vs. citing research that uses the test. Each requires different formats.
+
+**Why it happens:**
+Tests are instruments, not publications. The citation depends on how you're using the test information.
+
+**Solution:**
+- If discussing the test generally → Cite the test manual
+- If reporting test results → Cite the manual and note in methods
+- If discussing test development → Cite the article describing development
+- If test in database → Cite database record
+
+**Example:**
+Citing test manual:
+Beck, A. T., Steer, R. A., & Brown, G. K. (1996). *Beck Depression Inventory–II*. Psychological Corporation.
+
+Citing database record:
+Beck, A. T., Steer, R. A., & Brown, G. K. (1996). *Beck Depression Inventory–II* [Database record]. APA PsycTests. https://doi.org/10.1037/t00742-000
+
+---
+
+### Challenge 2: Multiple Authors and Et Al.
+
+**The problem:**
+Psychology research often has 5-10 authors. Knowing when to use "et al." is confusing, especially after APA 7 changes.
+
+**Why it happens:**
+APA 6 and APA 7 have different rules. Many students learned the old way.
+
+**Solution:**
+APA 7 rule (simplified):
+- 1-2 authors: List all names every time
+- 3+ authors: Use "First Author et al." from first citation
+
+**Examples:**
+Two authors (always list both):
+(Smith & Jones, 2020)
+
+Three or more authors (use et al. every time):
+First citation: (Johnson et al., 2020)
+Subsequent: (Johnson et al., 2020)
+
+---
+
+### Challenge 3: Citing Case Studies
+
+**The problem:**
+Case studies in clinical psychology may have confidentiality concerns. How to cite without identifying the patient?
+
+**Solution:**
+- Published case studies: Cite as you would any article
+- Unpublished cases: Cite as personal communication (not in reference list)
+- Your own cases: Don't cite, describe in methods without identifiers
+
+**Example:**
+Published case study:
+Schacter, D. L. (1996). *Searching for memory: The brain, the mind, and the past*. Basic Books.
+
+---
+
+[Continue for other challenges]
+```
+
+#### **SPECIAL SOURCES SECTION**
+
+```markdown
+## Special Sources in [Discipline]
+
+### [Unique Source Type 1]
+
+**What it is:**
+[Description]
+
+**When to cite:**
+[Context where this is used]
+
+**How to cite:**
+```
+[Format template]
+```
+
+**Example:**
+[Real example]
+
+**Special notes:**
+- [Note 1]
+- [Note 2]
+
+---
+
+### [Unique Source Type 2]
+
+[Same structure]
+
+---
+
+[Cover 3-5 unique sources for this discipline]
+```
+
+#### **COMMON STUDENT ERRORS**
+
+```markdown
+## Common [Discipline] Student Errors
+
+### Error 1: [Most Common Field-Specific Error]
+
+**What students do wrong:**
+[Description]
+
+**Why this is a problem in [discipline]:**
+[Field-specific explanation]
+
+**How to fix:**
+[Solution]
+
+**Example:**
+❌ Incorrect: [Example]
+✅ Correct: [Example]
+
+---
+
+### Error 2: [Second Common Error]
+
+[Same structure]
+
+---
+
+[Cover 8-10 errors common among students in this field]
+```
+
+#### **SAMPLE REFERENCE LIST**
+
+```markdown
+## Sample [Discipline] Reference List
+
+This example shows a properly formatted reference list for a [discipline] paper:
+
+**Paper topic:** [Example topic relevant to field]
+
+---
+
+**References**
+
+[Include 15-20 properly formatted references representing diverse source types common in the field]
+
+---
+
+**What to notice:**
+- [Formatting point 1]
+- [Formatting point 2]
+- [Formatting point 3]
+- [Field-specific observation]
+
+**Common sources included:**
+- [X] journal articles
+- [X] books
+- [X] field-specific sources
+- [X] online sources
+```
+
+#### **DISCIPLINE RESOURCES**
+
+```markdown
+## [Discipline] Citation Resources
+
+### Official Resources
+- **[Discipline] Style Guidelines** - [If any field-specific guidelines] → [Link]
+- **[Professional Organization]** - [Resources they provide] → [Link]
+
+### Databases
+- **[Primary Database]** - [Description] → [Link]
+- **[Secondary Database]** - [Description] → [Link]
+
+### Writing Centers
+- **[University/Organization] Writing Resources** → [Link]
+
+### Related Guides
+- **Complete APA Guide** → [Internal link]
+- **Citation Checker** → [Tool link]
+
+### Field-Specific Help
+- **[Discipline] Citation FAQ** → [Link if exists]
+- **Common [Discipline] Sources Guide** → [Internal link if exists]
+
+[CTA: Check Your [Discipline] Citations]
+```
+
+---
+
+## 3. COMPARISON PAGE TEMPLATE
+
+### 3.1 Purpose & Characteristics
+
+**Purpose:** Compare citation formats across styles
+**Length:** 2,000-2,500 words
+**Examples:** Same source cited in 3 styles
+**Priority:** Phase 3
+
+### 3.2 Complete Structure
+
+```markdown
+1. Hero Section
+2. Quick Comparison Table
+3. Style Overview (Brief)
+4. Reference Format Comparison
+5. In-Text Citation Comparison
+6. Key Differences Summary
+7. When to Use Each Style
+8. Examples (Same Source, 3 Styles)
+9. Common Confusion Points
+10. Style Selection Guide
+```
+
+### 3.3 Section-by-Section Requirements
+
+#### **HERO SECTION**
+
+```markdown
+# How to Cite a [Source Type] - APA vs MLA vs Chicago
+
+**Compare citation formats for [source type] across the three most common academic styles.**
+
+[2-3 sentences about why this comparison matters, who needs it]
+
+[PRIMARY CTA: Check Your Citation]
+
+---
+
+**Style Comparison:**
+| Style | Used In | Format Type |
+|-------|---------|-------------|
+| APA | Social sciences, psychology, education | Author-date |
+| MLA | Humanities, literature, arts | Author-page |
+| Chicago | History, some humanities | Notes or author-date |
+
+**Jump to:**
+[APA Format](#apa) | [MLA Format](#mla) | [Chicago Format](#chicago)
+```
+
+#### **QUICK COMPARISON TABLE**
+
+```markdown
+## Quick Reference Comparison
+
+| Element | APA 7 | MLA 9 | Chicago 17 |
+|---------|-------|-------|------------|
+| **Author format** | [Format] | [Format] | [Format] |
+| **Date placement** | [Where] | [Where] | [Where] |
+| **Title format** | [Format] | [Format] | [Format] |
+| **Italics** | [What] | [What] | [What] |
+| **Page numbers** | [Format] | [Format] | [Format] |
+| **URL/DOI** | [Format] | [Format] | [Format] |
+
+[Full comparison below]
+```
+
+#### **REFERENCE FORMAT SECTIONS**
+
+```markdown
+## APA Format for [Source Type]
+
+**Template:**
+```
+[APA format template]
+```
+
+**Key features:**
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+
+**Example:**
+[Real example in APA]
+
+**In-text citation:**
+- Parenthetical: [Example]
+- Narrative: [Example]
+
+---
+
+## MLA Format for [Source Type]
+
+**Template:**
+```
+[MLA format template]
+```
+
+**Key features:**
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+
+**Example:**
+[Same source as above, in MLA]
+
+**In-text citation:**
+- [Example]
+
+---
+
+## Chicago Format for [Source Type]
+
+**Template (Author-Date):**
+```
+[Chicago author-date template]
+```
+
+**Template (Notes-Bibliography):**
+```
+[Chicago notes template]
+```
+
+**Key features:**
+- [Feature 1]
+- [Feature 2]
+
+**Example (Author-Date):**
+[Same source, Chicago author-date]
+
+**Example (Notes-Bibliography):**
+[Same source, Chicago notes]
+
+**Citation:**
+- Footnote: [Example]
+- Parenthetical: [Example]
+```
+
+#### **KEY DIFFERENCES SUMMARY**
+
+```markdown
+## Key Differences Summary
+
+### Author Names
+- **APA:** Last, F. M. (all authors up to 20)
+- **MLA:** Last, First Middle (first author reversed, others normal order)
+- **Chicago:** Last, First Middle (author-date); First Middle Last (notes)
+
+### Date Placement
+- **APA:** After author in parentheses (Year)
+- **MLA:** End of citation
+- **Chicago:** After author (author-date); in publication info (notes)
+
+### Title Capitalization
+- **APA:** Sentence case for articles/chapters
+- **MLA:** Title case for everything
+- **Chicago:** Sentence case for articles; title case for books
+
+[Continue for all major differences]
+
+### What's Most Different?
+1. [Biggest difference]
+2. [Second biggest]
+3. [Third biggest]
+```
+
+#### **WHEN TO USE EACH STYLE**
+
+```markdown
+## When to Use Each Style
+
+### Use APA When:
+- ✓ Writing for psychology, education, social sciences
+- ✓ Submitting to journals in these fields
+- ✓ Your professor requires it
+- ✓ You need author-date citations
+
+**Typical courses:**
+[List of course types]
+
+---
+
+### Use MLA When:
+- ✓ Writing for humanities, literature, arts
+- ✓ Analyzing texts or cultural works
+- ✓ Your professor requires it
+- ✓ You need simple parenthetical citations
+
+**Typical courses:**
+[List of course types]
+
+---
+
+### Use Chicago When:
+- ✓ Writing for history
+- ✓ Some business and fine arts courses
+- ✓ You need footnotes/endnotes
+- ✓ Publishing with certain presses
+
+**Typical courses:**
+[List of course types]
+
+**Not sure?** Always check your assignment guidelines or ask your professor.
+```
+
+---
+
+## 4. SPECIFIC SOURCE PAGE TEMPLATE
+
+### 4.1 Purpose & Characteristics
+
+**Purpose:** Target long-tail searches for specific publications
+**Length:** 800-1,500 words
+**Format:** Streamlined version of source type pages
+**Priority:** Phase 3-4 (ongoing)
+
+### 4.2 Complete Structure (Abbreviated)
+
+```markdown
+# How to Cite [Specific Source] in APA Format
+
+**[One sentence about this specific source]**
+
+[CTA: Check Your Citation]
+
+## Quick Reference
+[Template and example]
+
+## About [Specific Source]
+[Brief context about the publication/platform]
+
+## Basic Format
+[Detailed format for this source]
+
+## Examples
+[3-5 examples of citing this specific source]
+
+## Common Mistakes
+[3-5 errors specific to this source]
+
+## Related Sources
+[Links to similar sources and parent guide]
+```
+
+### 4.3 Example for New York Times
+
+```markdown
+# How to Cite the New York Times in APA Format
+
+**The New York Times is cited as a newspaper article, with specific formatting for online vs print versions.**
+
+[Check Your Citation]
+
+## Quick Reference
+
+**Online article:**
+```
+Author, A. A. (Year, Month Day). Title of article. *The New York Times*. URL
+```
+
+**Print article:**
+```
+Author, A. A. (Year, Month Day). Title of article. *The New York Times*, p. XX.
+```
+
+## About The New York Times
+
+The New York Times is a daily newspaper published in New York City. Founded in 1851, it's one of the most widely-read newspapers in the United States. Most students access NYT articles online through the website or database subscriptions.
+
+## Format for Online Articles
+
+[Detailed instructions]
+
+## Format for Print Articles
+
+[Detailed instructions]
+
+## Examples
+
+**Example 1: Online article with author**
+Patel, J. K. (2020, March 15). How the virus got out. *The New York Times*. https://www.nytimes.com/2020/03/15/world/...
+
+**Example 2: Online article, no author**
+[Example]
+
+**Example 3: Print article**
+[Example]
+
+## Common Mistakes
+
+1. **Using "Retrieved from" before URL**
+   - Not needed for newspapers in APA 7
+   
+2. **Not italicizing newspaper name**
+   - The New York Times should be in italics
+
+3. **Forgetting full date**
+   - Newspapers need Month Day, Year format
+
+## Related Sources
+- [How to Cite Newspaper Articles](/how-to-cite-newspaper-article-apa/)
+- [How to Cite Washington Post](/cite-washington-post-apa/)
+- [How to Cite Wall Street Journal](/cite-wall-street-journal-apa/)
+```
+
+---
+
+## 5. PRIORITY LISTS
+
+### 5.1 Priority Disciplines (First 30)
+
+**High-Use Fields (15 pages):**
+1. Psychology
+2. Nursing
+3. Education
+4. Social Work
+5. Business
+6. Communications
+7. Public Health
+8. Sociology
+9. Anthropology
+10. Criminology/Criminal Justice
+11. Political Science
+12. Economics
+13. Counseling
+14. Marketing
+15. Management
+
+**Health Sciences (10 pages):**
+16. Occupational Therapy
+17. Physical Therapy
+18. Speech Pathology
+19. Kinesiology
+20. Nutrition/Dietetics
+21. Public Health (specialized)
+22. Health Administration
+23. Epidemiology
+24. Sports Medicine
+25. Rehabilitation Sciences
+
+**Other Fields (5 pages):**
+26. Library Science
+27. Information Science
+28. Urban Planning
+29. Public Administration
+30. Environmental Science
+
+### 5.2 Priority Specific Sources (First 100)
+
+**Major Newspapers (10):**
+1. New York Times
+2. Wall Street Journal
+3. Washington Post
+4. Los Angeles Times
+5. Chicago Tribune
+6. USA Today
+7. The Guardian
+8. Financial Times
+9. Boston Globe
+10. The Atlantic
+
+**Government Sources (20):**
+11-20: CDC, NIH, FDA, EPA, WHO, UN, Department of Education, etc.
+
+**Social Platforms (15):**
+21-35: YouTube, Facebook, Instagram, Twitter/X, TikTok, LinkedIn, Reddit, etc.
+
+**Academic Platforms (10):**
+36-45: Google Scholar, JSTOR, PubMed, arXiv, ResearchGate, etc.
+
+**Reference Sources (10):**
+46-55: Wikipedia, Britannica, Dictionary.com, Merriam-Webster, etc.
+
+**Major Publications (35):**
+56-90: Time, Forbes, Harvard Business Review, Nature, Science, JAMA, etc.
+
+**Universities/Institutions (10):**
+91-100: Harvard, MIT, Stanford reports, etc.
+
+---
+
+## 6. METADATA TEMPLATES
+
+### 6.1 Discipline Page Metadata
+
+```yaml
+---
+page_id: "discipline_psychology"
+page_type: "discipline"
+title: "APA Citation Guide for Psychology Students"
+url: "/apa-psychology-guide/"
+
+meta_title: "APA Citation Guide for Psychology | Students & Researchers"
+meta_description: "Complete APA citation guide for psychology. Learn to cite journal articles, psychological tests, DSM-5, and more. 50+ major journals covered."
+
+word_count: 3000
+discipline: "psychology"
+subdisciplines: ["clinical", "cognitive", "social", "developmental"]
+
+related_sources:
+  - "/how-to-cite-journal-article-apa/"
+  - "/how-to-cite-psychological-test-apa/"
+  
+major_journals_count: 52
+example_count: 12
+---
+```
+
+### 6.2 Comparison Page Metadata
+
+```yaml
+---
+page_id: "compare_journal_article"
+page_type: "comparison"
+title: "How to Cite a Journal Article - APA vs MLA vs Chicago"
+url: "/cite-journal-comparison/"
+
+meta_title: "Cite Journal Article: APA vs MLA vs Chicago | Style Comparison"
+meta_description: "Compare journal article citation formats in APA, MLA, and Chicago. Side-by-side examples and key differences explained."
+
+word_count: 2200
+styles_compared: ["apa_7", "mla_9", "chicago_17"]
+source_type: "journal_article"
+
+related_comparisons:
+  - "/cite-book-comparison/"
+  - "/cite-website-comparison/"
+---
+```
+
+### 6.3 Specific Source Metadata
+
+```yaml
+---
+page_id: "specific_nytimes"
+page_type: "specific_source"
+title: "How to Cite the New York Times in APA Format"
+url: "/cite-new-york-times-apa/"
+
+meta_title: "How to Cite New York Times in APA | NYT Citation Format"
+meta_description: "Learn to cite New York Times articles in APA format. Includes examples for online and print articles, common errors, and quick reference."
+
+word_count: 1200
+parent_source_type: "newspaper_article"
+parent_guide: "/how-to-cite-newspaper-article-apa/"
+publication: "The New York Times"
+publication_type: "newspaper"
+
+related_specific_sources:
+  - "/cite-washington-post-apa/"
+  - "/cite-wall-street-journal-apa/"
+---
+```
+
+---
+
+## NEXT: Part 7 - Real Examples Database
+
+The next document will detail:
+- Collecting 500+ real citations
+- Example database structure
+- Source requirements
+- Quality standards

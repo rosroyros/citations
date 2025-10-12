@@ -1,0 +1,1302 @@
+[
+  {
+    "error_id": "cap001",
+    "error_name": "Article Title Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for article titles instead of sentence case in reference list entries",
+    "wrong_example": "The Impact Of Social Media On Adolescent Mental Health: A Longitudinal Study",
+    "correct_example": "The impact of social media on adolescent mental health: A longitudinal study",
+    "explanation": "Students often apply title case to all titles, not realizing that article and chapter titles use sentence case in APA 7",
+    "fix_instructions": [
+      "Capitalize only the first word of the title in sentence case format",
+      "Capitalize the first word after a colon in the subtitle",
+      "Capitalize all proper nouns and proper adjectives throughout the title",
+      "Leave all other words lowercase including articles and prepositions"
+    ],
+    "affected_source_types": ["journal_article", "book_chapter", "conference_paper"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "APA Style blog and writing center observations"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.17, p. 167",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: articles/chapters = sentence case, books/journals = title case",
+      "Check each word individually for capitalization"
+    ]
+  },
+  {
+    "error_id": "cap002",
+    "error_name": "Journal Title Sentence Case Error",
+    "category": "capitalization",
+    "description": "Using sentence case for journal titles instead of title case in reference list entries",
+    "wrong_example": "Journal of clinical psychology",
+    "correct_example": "Journal of Clinical Psychology",
+    "explanation": "Students mistakenly apply article title rules to journal names, treating them as regular titles rather than proper names",
+    "fix_instructions": [
+      "Capitalize all major words in the journal title including verbs and adjectives",
+      "Capitalize the first and last words of the journal title",
+      "Keep articles, short prepositions, and conjunctions lowercase unless first/last",
+      "Italicize the entire journal title including subtitle and volume number"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "University writing center error logs"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.22, p. 172",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Think of journal names as proper nouns that need title case",
+      "Use a title case converter tool if unsure about capitalization"
+    ]
+  },
+  {
+    "error_id": "cap003",
+    "error_name": "Book Title Sentence Case Error",
+    "category": "capitalization",
+    "description": "Using sentence case for book titles instead of title case in reference list entries",
+    "wrong_example": "The psychology of learning and motivation",
+    "correct_example": "The Psychology of Learning and Motivation",
+    "explanation": "Students apply article title rules to books, not understanding that standalone works use title case",
+    "fix_instructions": [
+      "Capitalize all major words in the book title including verbs and adjectives",
+      "Capitalize first and last words of the book title without exception",
+      "Keep minor words lowercase unless they are first or last in title",
+      "Apply same rule to subtitle words following the colon"
+    ],
+    "affected_source_types": ["book", "edited_book"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Academic writing center statistics"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.19, p. 285",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Remember: standalone works = title case formatting always",
+      "Check publisher's website for official capitalization of the title"
+    ]
+  },
+  {
+    "error_id": "cap004",
+    "error_name": "Proper Noun Capitalization Error",
+    "category": "capitalization",
+    "description": "Failing to capitalize proper nouns in sentence case titles",
+    "wrong_example": "Research conducted at harvard university showed promising results",
+    "correct_example": "Research conducted at Harvard University showed promising results",
+    "explanation": "Students focus on sentence case rules but forget that proper nouns are always capitalized regardless of case rules",
+    "fix_instructions": [
+      "Identify all proper nouns in the title including names of people",
+      "Ensure names of places, organizations, and institutions are capitalized",
+      "Capitalize specific geographic names and locations mentioned",
+      "Maintain capitalization of brand names and historical events referenced"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Citation analysis studies from academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.15, p. 166",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Double-check all names and specific terms for proper noun status",
+      "When in doubt, capitalize if it might be a proper noun"
+    ]
+  },
+  {
+    "error_id": "cap005",
+    "error_name": "Subtitle Capitalization Error",
+    "category": "capitalization",
+    "description": "Not capitalizing the first word after a colon in both sentence and title case",
+    "wrong_example": "Social development in early childhood: theoretical perspectives",
+    "correct_example": "Social development in early childhood: Theoretical perspectives",
+    "explanation": "Students forget that subtitles are treated as separate sentences for capitalization purposes",
+    "fix_instructions": [
+      "Locate all colons in the title that separate main title from subtitle",
+      "Capitalize the first word immediately following each colon without exception",
+      "Apply sentence case or title case rules to remaining subtitle words appropriately",
+      "Ensure subtitle capitalization matches the type of title case being used"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Writing center error patterns from citation reviews"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.17, p. 167",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Always check words after colons for proper capitalization",
+      "Treat subtitles as separate sentences for capitalization rules"
+    ]
+  },
+  {
+    "error_id": "cap006",
+    "error_name": "Acronym Capitalization Error",
+    "category": "capitalization",
+    "description": "Incorrectly capitalizing or not capitalizing acronyms in titles",
+    "wrong_example": "The role of cdc guidelines in pandemic response",
+    "correct_example": "The role of CDC guidelines in pandemic response",
+    "explanation": "Students don't know when acronyms should be in all capitals versus following sentence case rules",
+    "fix_instructions": [
+      "Identify well-known acronyms like CDC, NASA, APA, FBI that are widely recognized",
+      "Keep these acronyms in all capitals regardless of sentence case rules",
+      "For lesser-known acronyms, follow standard usage or title case rules",
+      "Check if acronym is commonly written in all caps in professional contexts"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Academic writing surveys on acronym usage"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.16, p. 166",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Check if acronym is widely recognized in the field or general knowledge",
+      "When in doubt, use title case for lesser-known acronyms in sentence case"
+    ]
+  },
+  {
+    "error_id": "cap007",
+    "error_name": "Website Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for website names that should be in sentence case",
+    "wrong_example": "Pew Research Center: Internet, Science & Tech",
+    "correct_example": "Pew research center: Internet, science & tech",
+    "explanation": "Students treat website names like book titles, not realizing most use sentence case in APA 7",
+    "fix_instructions": [
+      "Use sentence case for most website titles in APA 7 citations",
+      "Capitalize first word and proper nouns only in website titles",
+      "Exception: use title case for standalone web works like online books",
+      "Check if the web content is a container or standalone work"
+    ],
+    "affected_source_types": ["website", "webpage"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Recent APA 7 adoption patterns in web citations"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.38, p. 298",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Check if website is a container or standalone work type",
+      "When in doubt, use sentence case for website titles in citations"
+    ]
+  },
+  {
+    "error_id": "cap008",
+    "error_name": "Report Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for report titles instead of sentence case",
+    "wrong_example": "The State of Mental Health in America: A 2023 Report",
+    "correct_example": "The state of mental health in America: A 2023 report",
+    "explanation": "Students apply book title rules to reports, not understanding reports use sentence case in APA 7",
+    "fix_instructions": [
+      "Use sentence case for report titles following APA 7 guidelines",
+      "Capitalize first word, words after colons, and proper nouns only",
+      "Treat reports like articles rather than books for capitalization",
+      "Check if report is part of larger series or standalone work"
+    ],
+    "affected_source_types": ["report", "technical_report"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Technical writing center data on report citations"
+    },
+    "rule_violated": "APA 7th Edition, Section 10.4, p. 329",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Remember: reports = sentence case like articles in periodicals",
+      "Check if report is part of a larger series or collection"
+    ]
+  },
+  {
+    "error_id": "cap009",
+    "error_name": "Conference Paper Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for conference paper titles instead of sentence case",
+    "wrong_example": "Artificial Intelligence in Psychological Assessment: Current Applications",
+    "correct_example": "Artificial intelligence in psychological assessment: Current applications",
+    "explanation": "Students treat conference papers like standalone works rather than parts of larger proceedings",
+    "fix_instructions": [
+      "Use sentence case for conference paper titles in reference lists",
+      "Capitalize first word, words after colons, and proper nouns only",
+      "Treat conference papers as articles within conference proceedings",
+      "Apply same capitalization rules as journal articles to conference papers"
+    ],
+    "affected_source_types": ["conference_paper"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Academic conference citation studies from multiple disciplines"
+    },
+    "rule_violated": "APA 7th Edition, Section 10.5, p. 335",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Think of conference papers as articles in a collection",
+      "Apply article title capitalization rules to conference papers"
+    ]
+  },
+  {
+    "error_id": "cap010",
+    "error_name": "Blog Post Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for blog post titles instead of sentence case",
+    "wrong_example": "Mindfulness Practices for Stress Reduction: A Beginner's Guide",
+    "correct_example": "Mindfulness practices for stress reduction: A beginner's guide",
+    "explanation": "Students apply book title rules to blog posts, not realizing they use sentence case like articles",
+    "fix_instructions": [
+      "Use sentence case for blog post titles in APA 7 citations",
+      "Capitalize first word, words after colons, and proper nouns only",
+      "Treat blog posts as articles within websites for capitalization",
+      "Apply same rules as journal articles to blog post titles"
+    ],
+    "affected_source_types": ["blog_post"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Digital writing research on blog citation patterns"
+    },
+    "rule_violated": "APA 7th Edition, Section 10.1, p. 316",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Remember: blog posts = articles = sentence case formatting",
+      "Check if blog post is standalone or part of larger website"
+    ]
+  },
+  {
+    "error_id": "cap011",
+    "error_name": "Chapter Title Case Error",
+    "category": "capitalization",
+    "description": "Using title case for chapter titles instead of sentence case",
+    "wrong_example": "The Role of Executive Function in Academic Achievement",
+    "correct_example": "The role of executive function in academic achievement",
+    "explanation": "Students treat chapters like standalone books rather than parts of larger works",
+    "fix_instructions": [
+      "Use sentence case for chapter titles following APA 7 guidelines",
+      "Capitalize first word, words after colons, and proper nouns only",
+      "Treat chapters as parts of larger books for capitalization rules",
+      "Apply same capitalization as journal articles to chapter titles"
+    ],
+    "affected_source_types": ["book_chapter"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Book citation analysis from academic publishing"
+    },
+    "rule_violated": "APA 7th Edition, Section 10.2, p. 321",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Think: chapter = part of larger work = sentence case formatting",
+      "Apply article title rules to chapters in edited books"
+    ]
+  },
+  {
+    "error_id": "cap012",
+    "error_name": "Inconsistent Capitalization",
+    "category": "capitalization",
+    "description": "Mixing capitalization rules within the same title or across similar sources",
+    "wrong_example": "The Impact of Social Media on Adolescent Mental Health: A longitudinal Study",
+    "correct_example": "The impact of social media on adolescent mental health: A longitudinal study",
+    "explanation": "Students partially apply rules but are inconsistent, mixing sentence and title case",
+    "fix_instructions": [
+      "Choose correct case type for the source type first",
+      "Apply rules consistently throughout the entire title without exception",
+      "Double-check all words against the chosen case rules",
+      "Review title for consistent application of capitalization throughout"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Writing center error statistics from multiple institutions"
+    },
+    "rule_violated": "APA 7th Edition, Sections 6.17, 6.22",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Determine source type first, then apply correct case rules consistently",
+      "Review the entire title for consistency after applying rules"
+    ]
+  },
+  {
+    "error_id": "cap013",
+    "error_name": "Major Words Not Capitalized in Title Case",
+    "category": "capitalization",
+    "description": "Failing to capitalize major words in title case titles",
+    "wrong_example": "The Psychology of Learning and motivation",
+    "correct_example": "The Psychology of Learning and Motivation",
+    "explanation": "Students know to use title case but miss some major words, especially verbs or adjectives",
+    "fix_instructions": [
+      "Identify all major words including nouns, verbs, adjectives, adverbs, pronouns",
+      "Ensure all major words are capitalized in title case formatting",
+      "Keep minor words like articles, short prepositions, conjunctions lowercase",
+      "Review each word to determine if it should be capitalized"
+    ],
+    "affected_source_types": ["book", "journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Title case error studies from writing center research"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.22, p. 172",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Review each word to determine if it's major or minor word type",
+      "When in doubt about a word, capitalize it in title case formatting"
+    ]
+  },
+  {
+    "error_id": "cap014",
+    "error_name": "Minor Words Capitalized in Title Case",
+    "category": "capitalization",
+    "description": "Incorrectly capitalizing minor words in title case titles",
+    "wrong_example": "The Role Of Social Media In Modern Society",
+    "correct_example": "The Role of Social Media in Modern Society",
+    "explanation": "Students capitalize all words in title case, not realizing minor words should stay lowercase",
+    "fix_instructions": [
+      "Identify minor words including articles (a, an, the) and short prepositions",
+      "Keep these words lowercase unless they're first or last word in title",
+      "Identify conjunctions like and, but, or that should stay lowercase",
+      "Exception: capitalize longer prepositions like between, through, during"
+    ],
+    "affected_source_types": ["book", "journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Title case error analysis from academic writing studies"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.22, p. 172",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Memorize the list of minor words to keep lowercase in title case",
+      "Check if preposition is short (4 letters or less) before capitalizing"
+    ]
+  },
+  {
+    "error_id": "cap015",
+    "error_name": "First Word Not Capitalized",
+    "category": "capitalization",
+    "description": "Failing to capitalize the first word of titles in sentence case",
+    "wrong_example": "the impact of social media on adolescent mental health",
+    "correct_example": "The impact of social media on adolescent mental health",
+    "explanation": "Students focus on sentence case rules but forget the basic rule to always capitalize the first word",
+    "fix_instructions": [
+      "Always capitalize the first word of any title without exception",
+      "This applies regardless of sentence case or title case formatting used",
+      "Check the very first character of the title for proper capitalization",
+      "Ensure first word is capitalized even if it's a minor word type"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Basic capitalization error studies from writing assessments"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.17, p. 167",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Double-check the first word of every title for capitalization",
+      "Remember: first word always capitalized regardless of word type"
+    ]
+  },
+  {
+    "error_id": "ita001",
+    "error_name": "Missing Italics for Journal Title",
+    "category": "italics",
+    "description": "Failing to italicize journal titles in reference list entries",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology. Journal of Clinical Psychology, 45(3), 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "explanation": "Students forget that journal names must be italicized in APA 7 reference lists",
+    "fix_instructions": [
+      "Identify the journal name in the citation format",
+      "Apply italics to the entire journal title including subtitle",
+      "Ensure volume number follows immediately after in italics format",
+      "Check that italics include both journal title and volume number"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Most common citation error in university writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Always italicize journal and book titles in reference lists",
+      "Use word processor's italics function for consistent formatting"
+    ]
+  },
+  {
+    "error_id": "ita002",
+    "error_name": "Missing Italics for Book Title",
+    "category": "italics",
+    "description": "Failing to italicize book titles in reference list entries",
+    "wrong_example": "Smith, J. D. (2019). The psychology of learning. New York, NY: Academic Press.",
+    "correct_example": "Smith, J. D. (2019). *The psychology of learning*. New York, NY: Academic Press.",
+    "explanation": "Students forget to italicize book titles, treating them like article titles",
+    "fix_instructions": [
+      "Identify the book title in the citation reference format",
+      "Apply italics to the entire book title including subtitle if present",
+      "Ensure italics cover the complete title from first to last word",
+      "Check that publisher information is not included in italics formatting"
+    ],
+    "affected_source_types": ["book", "edited_book"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Book citation error analysis from academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.19, p. 285",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: standalone works get italics formatting in references",
+      "Italicize entire title including subtitle and edition information"
+    ]
+  },
+  {
+    "error_id": "ita003",
+    "error_name": "Incorrect Italics for Article Title",
+    "category": "italics",
+    "description": "Italicizing article titles when they should not be italicized",
+    "wrong_example": "Johnson, M. K. (2020). *The study of psychology*. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "explanation": "Students apply italics to all titles, not understanding that article titles are not italicized",
+    "fix_instructions": [
+      "Remove italics from article and chapter titles in reference lists",
+      "Keep italics only for journal and book titles in citations",
+      "Article titles should be in plain text without any formatting",
+      "Ensure only container titles (journals, books) receive italics"
+    ],
+    "affected_source_types": ["journal_article", "book_chapter"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Citation formatting studies from writing center research"
+    },
+    "rule_violated": "APA 7th Edition, Sections 6.17, 9.2",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: articles = no italics, journals/books = italics formatting",
+      "Check if title is standalone work or part of larger container"
+    ]
+  },
+  {
+    "error_id": "ita004",
+    "error_name": "Volume Number Not Italicized",
+    "category": "italics",
+    "description": "Failing to italicize volume number along with journal title",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology, 45*, (3), 234-256.",
+    "explanation": "Students italicize journal title but not volume number, not realizing they should be italicized together",
+    "fix_instructions": [
+      "Include volume number in italics with journal title formatting",
+      "Place comma between journal title and volume number in italics",
+      "Ensure issue number in parentheses is not italicized with title",
+      "Check that italics extend to include the volume number only"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Journal citation formatting studies from multiple disciplines"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Italicize journal title AND volume number together as one unit",
+      "Think: Journal Title, Volume (Issue) - only first part italicized"
+    ]
+  },
+  {
+    "error_id": "ita005",
+    "error_name": "Issue Number Incorrectly Italicized",
+    "category": "italics",
+    "description": "Italicizing issue number when it should not be italicized",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology, 45 (3)*, 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology, 45*, (3), 234-256.",
+    "explanation": "Students italicize everything in parentheses, not realizing only journal title and volume get italics",
+    "fix_instructions": [
+      "Remove italics from issue number and surrounding parentheses",
+      "Keep italics only on journal title and volume number formatting",
+      "Issue number should be in plain text parentheses after italicized volume",
+      "Ensure italics stop before the opening parenthesis of issue number"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Journal citation error analysis from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Remember: Journal Title, Volume (Issue) - only first part italicized",
+      "Issue number stays in plain text parentheses format"
+    ]
+  },
+  {
+    "error_id": "ita006",
+    "error_name": "Page Range Incorrectly Italicized",
+    "category": "italics",
+    "description": "Italicizing page range numbers when they should not be italicized",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, *45*(3), *234-256*.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, *45*(3), 234-256.",
+    "explanation": "Students extend italics to entire citation, not knowing page numbers should be plain text",
+    "fix_instructions": [
+      "Remove italics from page range numbers in citations",
+      "Keep italics only on journal title and volume number formatting",
+      "Page numbers should be in plain text without any formatting",
+      "Ensure italics end before the page range begins"
+    ],
+    "affected_source_types": ["journal_article", "book_chapter"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Citation formatting error studies from academic research"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Page numbers are never italicized in APA 7 citations",
+      "Stop italics formatting at the issue number in journal references"
+    ]
+  },
+  {
+    "error_id": "ita007",
+    "error_name": "Edition Number Incorrectly Italicized",
+    "category": "italics",
+    "description": "Italicizing edition number when it should be in parentheses and plain text",
+    "wrong_example": "Smith, J. D. (2019). *The psychology of learning* (*2nd ed.*). New York, NY: Academic Press.",
+    "correct_example": "Smith, J. D. (2019). *The psychology of learning* (2nd ed.). New York, NY: Academic Press.",
+    "explanation": "Students include edition number in italics with book title, not realizing it should be separate",
+    "fix_instructions": [
+      "Remove italics from edition information in book citations",
+      "Place edition in parentheses after the italicized book title",
+      "Keep parentheses and edition text in plain text formatting",
+      "Ensure only the book title itself receives italics formatting"
+    ],
+    "affected_source_types": ["book"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Book citation error patterns from academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.19, p. 285",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Edition information goes in parentheses after italicized title",
+      "Only the book title gets italics, not edition information"
+    ]
+  },
+  {
+    "error_id": "ita008",
+    "error_name": "Website Title Incorrectly Italicized",
+    "category": "italics",
+    "description": "Italicizing website names when they should not be italicized",
+    "wrong_example": "Retrieved from *Pew Research Center* website",
+    "correct_example": "Retrieved from Pew Research Center website",
+    "explanation": "Students apply book italics rules to websites, not realizing website names are not italicized",
+    "fix_instructions": [
+      "Remove italics from website names in citations",
+      "Keep website names in plain text without formatting",
+      "Only italicize standalone web works like online books and reports",
+      "Check if web content is standalone or part of larger website"
+    ],
+    "affected_source_types": ["website", "webpage"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Web citation error studies from digital writing research"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.38, p. 298",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Website names are not italicized in APA 7 citations",
+      "Only standalone web works get italics formatting like books"
+    ]
+  },
+  {
+    "error_id": "ita009",
+    "error_name": "Report Title Incorrectly Italicized",
+    "category": "italics",
+    "description": "Not italicizing report titles when they should be italicized",
+    "wrong_example": "National Institute of Mental Health. (2020). The state of mental health in America. Washington, DC: Author.",
+    "correct_example": "National Institute of Mental Health. (2020). *The state of mental health in America*. Washington, DC: Author.",
+    "explanation": "Students treat reports like articles, not realizing standalone reports are italicized like books",
+    "fix_instructions": [
+      "Italicize standalone report titles in reference lists",
+      "Treat reports like books for italics formatting purposes",
+      "Keep report number and other information in plain text format",
+      "Check if report is part of series or standalone work"
+    ],
+    "affected_source_types": ["report", "technical_report"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Report citation analysis from government and academic sources"
+    },
+    "rule_violated": "APA 7th Edition, Section 10.4, p. 329",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Standalone reports = books = italics formatting rule applies",
+      "Check if report is part of series before applying italics"
+    ]
+  },
+  {
+    "error_id": "ita010",
+    "error_name": "Inconsistent Italics Usage",
+    "category": "italics",
+    "description": "Mixing italicized and non-italicized elements inconsistently",
+    "wrong_example": "*Journal of Clinical Psychology*, 45(3), 234-256. *New York, NY*: Academic Press.",
+    "correct_example": "*Journal of Clinical Psychology*, 45(3), 234-256. New York, NY: Academic Press.",
+    "explanation": "Students extend italics beyond appropriate boundaries or apply them inconsistently",
+    "fix_instructions": [
+      "Review italics boundaries carefully in citation formatting",
+      "Italicize only titles and volume numbers in reference lists",
+      "Keep all other elements like publisher location in plain text",
+      "Ensure italics start and stop at appropriate points"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Formatting consistency studies from writing center analysis"
+    },
+    "rule_violated": "APA 7th Edition, Sections 9.2, 9.19",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Be precise about where italics start and end in citations",
+      "Double-check italics boundaries against APA 7 guidelines"
+    ]
+  },
+  {
+    "error_id": "pun001",
+    "error_name": "Missing Period After Author Initials",
+    "category": "punctuation",
+    "description": "Forgetting periods after author initials in reference list entries",
+    "wrong_example": "Johnson, M K (2020). The study of psychology.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology.",
+    "explanation": "Students omit periods after initials, especially when multiple initials are present",
+    "fix_instructions": [
+      "Add period after each initial in author name formatting",
+      "Ensure all initials have periods following them consistently",
+      "Check that no initials are missing periods in reference lists",
+      "Verify spacing between initials with periods is correct"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Author formatting error studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.7, p. 166",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Every initial gets a period in APA 7 author formatting",
+      "Double-check all initials in author names for periods"
+    ]
+  },
+  {
+    "error_id": "pun002",
+    "error_name": "Extra Space Between Initials",
+    "category": "punctuation",
+    "description": "Adding spaces between author initials when there should be none",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology.",
+    "correct_example": "Johnson, M.K. (2020). The study of psychology.",
+    "explanation": "Students space initials like regular words, not realizing they should be compact",
+    "fix_instructions": [
+      "Remove spaces between initials in author name formatting",
+      "Keep initials together without spacing between them",
+      "Maintain periods after each initial without extra spacing",
+      "Check that initials appear as M.K. not M. K. in citations"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Author formatting error analysis from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.7, p. 166",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Initials are compact: M.K. not M. K. in APA formatting",
+      "No spaces between initials in reference list entries"
+    ]
+  },
+  {
+    "error_id": "pun003",
+    "error_name": "Missing Period After Year",
+    "category": "punctuation",
+    "description": "Forgetting period after publication year in parentheses",
+    "wrong_example": "Johnson, M. K. (2020) The study of psychology",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology",
+    "explanation": "Students focus on the year in parentheses but forget the period after closing parenthesis",
+    "fix_instructions": [
+      "Add period after closing parenthesis of year in citations",
+      "Ensure year is in parentheses followed by period consistently",
+      "Check that year information is complete with proper period",
+      "Verify spacing between year period and title is correct"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Most frequent punctuation error in citation analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.4, p. 284",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Year in parentheses always gets a period after in citations",
+      "Think: (Year). Title - period after year format"
+    ]
+  },
+  {
+    "error_id": "pun004",
+    "error_name": "Missing Period at End of Citation",
+    "category": "punctuation",
+    "description": "Forgetting final period at the end of reference list entries",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "explanation": "Students focus on internal punctuation but forget the citation must end with a period",
+    "fix_instructions": [
+      "Add period at the very end of the citation reference",
+      "Ensure citation ends with proper punctuation consistently",
+      "Check that no citation is missing final period in reference list",
+      "Verify that final period is not preceded by extra spacing"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Citation completion error studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.4, p. 284",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Every citation ends with a period in APA 7 reference lists",
+      "Double-check the very end of each citation for period"
+    ]
+  },
+  {
+    "error_id": "pun005",
+    "error_name": "Wrong Connector Between Authors",
+    "category": "punctuation",
+    "description": "Using 'and' instead of '&' in reference list author format",
+    "wrong_example": "Smith, J. D., and Brown, A. M. (2020). The study.",
+    "correct_example": "Smith, J. D., & Brown, A. M. (2020). The study.",
+    "explanation": "Students use narrative citation format in reference list, not knowing '&' is required",
+    "fix_instructions": [
+      "Replace 'and' with ampersand (&) in reference list citations",
+      "Ensure comma precedes the ampersand in author lists",
+      "Use '&' only in reference lists, not in-text citations",
+      "Check that all multi-author references use ampersand format"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Author connector error statistics from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Reference list = &, narrative citations = and format rule",
+      "Remember: ampersand in references only, not in-text"
+    ]
+  },
+  {
+    "error_id": "pun006",
+    "error_name": "Missing Comma Before Ampersand",
+    "category": "punctuation",
+    "description": "Forgetting comma before '&' when listing two authors",
+    "wrong_example": "Smith, J. D. & Brown, A. M. (2020). The study.",
+    "correct_example": "Smith, J. D., & Brown, A. M. (2020). The study.",
+    "explanation": "Students connect authors with '&' but forget the preceding comma",
+    "fix_instructions": [
+      "Add comma before ampersand in multi-author citations",
+      "Ensure proper comma + ampersand combination formatting",
+      "Check all multi-author citations for this pattern consistently",
+      "Verify spacing around comma and ampersand is correct"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Author punctuation error studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Always comma before &: Author, & Author format rule",
+      "Check second-to-last author for comma placement"
+    ]
+  },
+  {
+    "error_id": "pun007",
+    "error_name": "Extra Comma After Final Author",
+    "category": "punctuation",
+    "description": "Adding unnecessary comma after the last author before the year",
+    "wrong_example": "Smith, J. D., & Brown, A. M., (2020). The study.",
+    "correct_example": "Smith, J. D., & Brown, A. M. (2020). The study.",
+    "explanation": "Students apply comma rules too broadly, adding comma where none is needed",
+    "fix_instructions": [
+      "Remove comma after final author in citation formatting",
+      "Year should follow immediately after final author's initials",
+      "Ensure no extra punctuation between author and year",
+      "Check that author-year connection is direct without comma"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Author-year connection error studies from writing analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "No comma between last author and year in citations",
+      "Final author leads directly to year without punctuation"
+    ]
+  },
+  {
+    "error_id": "pun008",
+    "error_name": "Missing Comma in Page Range",
+    "category": "punctuation",
+    "description": "Not using comma before page range in journal citations",
+    "wrong_example": "*Journal of Clinical Psychology*, 45(3) 234-256.",
+    "correct_example": "*Journal of Clinical Psychology*, 45(3), 234-256.",
+    "explanation": "Students connect issue number to page range directly, forgetting the separating comma",
+    "fix_instructions": [
+      "Add comma after closing parenthesis of issue number",
+      "Ensure comma separates volume/issue from page range properly",
+      "Check journal citation structure for proper comma placement",
+      "Verify spacing around comma is correct and consistent"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Journal citation punctuation studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Volume (Issue), Page range - comma after issue format",
+      "Remember comma before page numbers in citations"
+    ]
+  },
+  {
+    "error_id": "pun009",
+    "error_name": "Incorrect Hyphen in Page Range",
+    "category": "punctuation",
+    "description": "Using en dash character instead of standard hyphen for page ranges in citations",
+    "wrong_example": "Journal of Psychology, 45(3) 234–256",
+    "correct_example": "Journal of Psychology, 45(3), 234-256",
+    "explanation": "Students use en dash instead of hyphen for page ranges",
+    "fix_instructions": [
+      "Replace dash with hyphen in page range formatting",
+      "Use standard hyphen (-) not en dash (–) for page ranges",
+      "Ensure consistent hyphen usage in all page ranges throughout",
+      "Check that hyphen is standard keyboard hyphen character"
+    ],
+    "affected_source_types": ["journal_article", "book_chapter"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Page range formatting studies from citation analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Use regular hyphen for page ranges in all citations",
+      "Avoid special dash characters like en dash or em dash"
+    ]
+  },
+  {
+    "error_id": "pun010",
+    "error_name": "Missing Comma After Title",
+    "category": "punctuation",
+    "description": "Forgetting comma after article title before journal information",
+    "wrong_example": "Johnson, M. K. (2020). The study of psychology *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology. *Journal of Clinical Psychology*, 45(3), 234-256.",
+    "explanation": "Students connect title directly to journal name, forgetting the period between them",
+    "fix_instructions": [
+      "Add period after article title in citation formatting",
+      "Ensure period separates title from journal information properly",
+      "Title should be complete sentence ending with period",
+      "Check spacing between title period and journal information"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Title-journal separation error studies from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.2, p. 295",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Title ends with period, then journal info in citations",
+      "Think: Title. Journal - period between elements"
+    ]
+  },
+  {
+    "error_id": "aut001",
+    "error_name": "Author Name Not Inverted",
+    "category": "author_formatting",
+    "description": "Using first name first format instead of last name first in reference list",
+    "wrong_example": "Mary K. Johnson (2020). The study of psychology.",
+    "correct_example": "Johnson, M. K. (2020). The study of psychology.",
+    "explanation": "Students use regular name format instead of APA's inverted format for reference lists",
+    "fix_instructions": [
+      "Move last name to beginning followed by comma in formatting",
+      "Convert first and middle names to initials with periods",
+      "Format as: Last, F. M. with proper punctuation",
+      "Ensure proper comma after last name and periods after initials"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Most common author formatting error in citations"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Reference list always: Last, F. M. formatting rule",
+      "In-text citations use different author name format"
+    ]
+  },
+  {
+    "error_id": "aut002",
+    "error_name": "Using 'et al.' Too Early",
+    "category": "author_formatting",
+    "description": "Using 'et al.' for works with fewer than 21 authors",
+    "wrong_example": "Smith, J. D., et al. (2020). The study.",
+    "correct_example": "Smith, J. D., Brown, A. M., Davis, L. K., & Wilson, R. T. (2020). The study.",
+    "explanation": "Students apply old APA 6 rules of 7+ authors, not knowing APA 7 lists up to 20 authors",
+    "fix_instructions": [
+      "List all authors if there are 20 or fewer in reference list",
+      "Use 'et al.' only for 21 or more authors in citations",
+      "For 21+ authors, list first 19, ellipsis, then final author",
+      "Check total author count before applying et al. formatting"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "APA 7 transition error studies from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "APA 7: list up to 20 authors in reference lists",
+      "APA 6: et al. for 7+ authors (old rule to forget)"
+    ]
+  },
+  {
+    "error_id": "aut003",
+    "error_name": "Incorrect Organization Author Format",
+    "category": "author_formatting",
+    "description": "Inverting organization names or using acronyms incorrectly",
+    "wrong_example": "Association, American Psychological (2020). The guide.",
+    "correct_example": "American Psychological Association (2020). The guide.",
+    "explanation": "Students treat organizations like personal authors, inverting names or using abbreviations",
+    "fix_instructions": [
+      "Use full organization name in normal order without inversion",
+      "Do not invert organizational names like personal author names",
+      "Use full name, not acronyms unless widely recognized like CDC",
+      "Check organization's preferred name format for citations"
+    ],
+    "affected_source_types": ["report", "government_document"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Organization author error studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.11, p. 288",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Organizations stay in normal order in citations",
+      "Use full names, not acronyms unless widely recognized"
+    ]
+  },
+  {
+    "error_id": "aut004",
+    "error_name": "Missing Author Information",
+    "category": "author_formatting",
+    "description": "Leaving author field empty or using 'Unknown Author' when no author is listed",
+    "wrong_example": "(2020). The study of psychology.",
+    "correct_example": "The study of psychology. (2020).",
+    "explanation": "Students don't know to move title to author position when no author is available",
+    "fix_instructions": [
+      "Move title to author position when no author is listed",
+      "Do not use 'Anonymous' unless work is actually signed 'Anonymous'",
+      "Follow title with year in parentheses in citation format",
+      "Ensure title is properly capitalized when moved to author position"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Missing author handling studies from citation analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.12, p. 289",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "No author = title becomes author in reference list",
+      "Never leave author position empty in citations"
+    ]
+  },
+  {
+    "error_id": "aut005",
+    "error_name": "Incorrect Double Surname Handling",
+    "category": "author_formatting",
+    "description": "Splitting double surnames with commas or treating parts separately",
+    "wrong_example": "Hernandez, Lopez, M. R.",
+    "correct_example": "Hernandez Lopez, M. R.",
+    "explanation": "Students treat double surnames like first and last names, adding unnecessary commas",
+    "fix_instructions": [
+      "Keep double surname as single unit without splitting",
+      "Place comma after complete double surname formatting",
+      "Do not split compound surnames with commas in citations",
+      "Research author's preferred name format if uncertain"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Name formatting complexity studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.7, p. 166",
+    "difficulty_to_fix": "difficult",
+    "prevention_tips": [
+      "Research author's preferred name format when uncertain",
+      "When in doubt, keep compound names together without splitting"
+    ]
+  },
+  {
+    "error_id": "aut006",
+    "error_name": "Incorrect Hyphenated Name Handling",
+    "category": "author_formatting",
+    "description": "Separating hyphenated surnames or removing hyphens incorrectly",
+    "wrong_example": "Smith, Johnson, K. L.",
+    "correct_example": "Smith-Johnson, K. L.",
+    "explanation": "Students treat hyphenated names as separate surnames instead of single units",
+    "fix_instructions": [
+      "Keep hyphen in surname as single unit formatting",
+      "Place comma after complete hyphenated surname",
+      "Do not separate hyphenated names with commas in citations",
+      "Treat hyphenated surname as one complete unit"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Hyphenated name error studies from academic writing analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.7, p. 166",
+    "difficulty_to_fix": "difficult",
+    "prevention_tips": [
+      "Keep hyphens in surnames for proper name formatting",
+      "Treat hyphenated name as one unit in citations"
+    ]
+  },
+  {
+    "error_id": "aut007",
+    "error_name": "Incorrect Prefix Handling",
+    "category": "author_formatting",
+    "description": "Separating prefixes (van, de, von) from surnames incorrectly",
+    "wrong_example": "Vries, De H. M.",
+    "correct_example": "De Vries, H. M.",
+    "explanation": "Students treat prefixes as separate elements rather than part of the surname",
+    "fix_instructions": [
+      "Keep prefix and surname together as unit formatting",
+      "Place comma after complete name including prefix",
+      "Respect cultural naming conventions for prefixes",
+      "Check author's preferred name format with prefixes"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "International name format studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 6.7, p. 166",
+    "difficulty_to_fix": "difficult",
+    "prevention_tips": [
+      "Research naming conventions for different cultures",
+      "When unsure, keep prefix with surname in formatting"
+    ]
+  },
+  {
+    "error_id": "aut008",
+    "error_name": "Incorrect Suffix Formatting",
+    "category": "author_formatting",
+    "description": "Improperly placing or formatting suffixes like Jr., Sr., II, III",
+    "wrong_example": "King Jr., M. L.",
+    "correct_example": "King, M. L., Jr.",
+    "explanation": "Students place suffixes before initials or format them incorrectly",
+    "fix_instructions": [
+      "Place suffix after initials, separated by comma in formatting",
+      "Format as: Last, F. M., Suffix with proper punctuation",
+      "Do not include titles like Dr. or credentials in citations",
+      "Check that suffix is properly placed after initials"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Suffix formatting error studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.8, p. 286",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Suffixes go after initials with comma in citations",
+      "Format: Last, F. M., Jr. with proper punctuation"
+    ]
+  },
+  {
+    "error_id": "doi001",
+    "error_name": "Missing DOI",
+    "category": "doi_url",
+    "description": "Omitting DOI from journal article citations when available",
+    "wrong_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256.",
+    "correct_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256. https://doi.org/10.1037/0000000",
+    "explanation": "Students forget to include DOI or don't know how to find it for journal articles",
+    "fix_instructions": [
+      "Search article title or authors in Crossref or Google Scholar",
+      "Add DOI at end of citation with https://doi.org/ prefix",
+      "Format as: https://doi.org/10.xxxx/xxxxxx with proper structure",
+      "Verify DOI works before including in citation"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "DOI omission statistics from academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Always search for DOI for journal articles in citations",
+      "Use Crossref metadata search if DOI is hard to find"
+    ]
+  },
+  {
+    "error_id": "doi002",
+    "error_name": "Incorrect DOI Format",
+    "category": "doi_url",
+    "description": "Using old DOI format without https://doi.org/ prefix",
+    "wrong_example": "doi:10.1037/0000000",
+    "correct_example": "https://doi.org/10.1037/0000000",
+    "explanation": "Students use old APA 6 DOI format instead of current APA 7 hyperlink format",
+    "fix_instructions": [
+      "Replace 'doi:' with 'https://doi.org/' in citation formatting",
+      "Ensure DOI is formatted as clickable hyperlink in references",
+      "Remove any remaining 'doi:' prefix from citations",
+      "Check that DOI link is properly formatted and clickable"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "APA 7 transition error studies from writing centers"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "APA 7 always uses https://doi.org/ format for DOIs",
+      "Make DOIs clickable hyperlinks in digital documents"
+    ]
+  },
+  {
+    "error_id": "doi003",
+    "error_name": "Retrieved Date with DOI",
+    "category": "doi_url",
+    "description": "Including retrieval date in citation when DOI is present and provides permanent access",
+    "wrong_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256. https://doi.org/10.1037/0000000 (Retrieved October 15, 2023)",
+    "correct_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256. https://doi.org/10.1037/0000000",
+    "explanation": "Students add retrieval dates out of habit, not knowing they're not needed with DOIs",
+    "fix_instructions": [
+      "Remove retrieval date when DOI is present in citations",
+      "DOIs provide permanent access, no retrieval date needed",
+      "Only include retrieval date for unarchived websites without DOIs",
+      "Check that DOI is working before removing retrieval date"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Retrieval date overuse studies from citation analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "DOI present = no retrieval date needed in citations",
+      "Only websites without dates need retrieval information"
+    ]
+  },
+  {
+    "error_id": "doi004",
+    "error_name": "Incorrect URL Formatting",
+    "category": "doi_url",
+    "description": "Using old 'Retrieved from' format instead of direct hyperlink",
+    "wrong_example": "Retrieved from https://example.com/article",
+    "correct_example": "https://example.com/article",
+    "explanation": "Students use old APA 6 format with 'Retrieved from' instead of direct URL link",
+    "fix_instructions": [
+      "Remove 'Retrieved from' prefix from citation formatting",
+      "Use URL as direct hyperlink without preceding text",
+      "Ensure URL is live and accessible when included",
+      "Check that URL formatting is correct and complete"
+    ],
+    "affected_source_types": ["website", "webpage"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "URL formatting transition studies from academic writing"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "APA 7 uses direct URLs, not 'Retrieved from' format",
+      "Make URLs clickable hyperlinks in digital documents"
+    ]
+  },
+  {
+    "error_id": "doi005",
+    "error_name": "Unnecessary Retrieval Date",
+    "category": "doi_url",
+    "description": "Including retrieval date for websites with publication dates",
+    "wrong_example": "Smith, J. (2020). The article. Retrieved October 15, 2023, from https://example.com",
+    "correct_example": "Smith, J. (2020). The article. https://example.com",
+    "explanation": "Students add retrieval dates unnecessarily when source has a clear publication date",
+    "fix_instructions": [
+      "Remove retrieval date when publication date is present",
+      "Only include retrieval date for content designed to change",
+      "Omit retrieval date for archived or dated content sources",
+      "Check if content is stable before including retrieval date"
+    ],
+    "affected_source_types": ["website", "webpage"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Retrieval date misuse studies from citation analysis"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Only include retrieval date for undated, changing content",
+      "Wikis and social media might need retrieval dates"
+    ]
+  },
+  {
+    "error_id": "doi006",
+    "error_name": "Broken or Non-working Links",
+    "category": "doi_url",
+    "description": "Including URLs or DOIs that don't work or lead to error pages",
+    "wrong_example": "https://doi.org/10.1037/incorrectdoi",
+    "correct_example": "https://doi.org/10.1037/0000000",
+    "explanation": "Students include incorrect DOIs/URLs without testing if they work",
+    "fix_instructions": [
+      "Test all URLs and DOIs before including in citations",
+      "Search for correct DOI if provided one doesn't work",
+      "Update broken links to working versions in references",
+      "Verify that links lead to intended content sources"
+    ],
+    "affected_source_types": ["all_source_types"],
+    "frequency": {
+      "estimated_frequency": "moderate",
+      "research_basis": "Link validation studies in academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "moderate",
+    "prevention_tips": [
+      "Always test links before finalizing citations in papers",
+      "Use DOI lookup tools if DOI doesn't work initially"
+    ]
+  },
+  {
+    "error_id": "doi007",
+    "error_name": "Database Name Included Unnecessarily",
+    "category": "doi_url",
+    "description": "Including database name in citation when DOI is available and provides sufficient access information",
+    "wrong_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256. https://doi.org/10.1037/0000000. In PsycINFO.",
+    "correct_example": "Johnson, M. K. (2020). The study. *Journal of Psychology*, 45(3), 234-256. https://doi.org/10.1037/0000000",
+    "explanation": "Students include database names out of habit, not knowing they're not needed with DOIs",
+    "fix_instructions": [
+      "Remove database name when DOI is present in citations",
+      "Only include database name for works without DOIs from databases",
+      "Focus on DOI as primary locator in reference lists",
+      "Check that DOI is working before removing database name"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Database citation studies from academic libraries"
+    },
+    "rule_violated": "APA 7th Edition, Section 9.16, p. 299",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "DOI present = no database name needed in citations",
+      "Database names only for works without DOIs available"
+    ]
+  }
+]

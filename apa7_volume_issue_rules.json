@@ -1,0 +1,102 @@
+{
+  "source": "APA 7th Edition Volume/Issue Formatting Rules",
+  "last_updated": "2025-10-12",
+  "rules": [
+    {
+      "rule_id": "journal_volume_italicized",
+      "apa_manual_reference": "Section 9.2, Pages 295-296",
+      "description": "Journal volume numbers must be italicized in APA 7th edition references. The volume number follows the journal title (which is also italicized) and is separated by a comma. The volume number represents the annual publication and is always included when available. This formatting distinguishes the volume from issue numbers and page ranges.",
+      "correct_examples": [
+        "Journal of Clinical Psychology, *78*, 123-145.",
+        "American Educational Research Journal, *59*, 45-67."
+      ],
+      "incorrect_examples": [
+        "Journal of Clinical Psychology, 78, 123-145.",
+        "American Educational Research Journal, '59', 45-67."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["volume_number"],
+      "optional_elements": []
+    },
+    {
+      "rule_id": "journal_issue_parentheses",
+      "apa_manual_reference": "Section 9.2, Pages 295-296",
+      "description": "Journal issue numbers are placed in parentheses and are not italicized in APA 7th edition. The issue number immediately follows the italicized volume number without any intervening space. Issue numbers are only included when each issue of the volume begins pagination from page 1, or when the journal uses issue-specific themes.",
+      "correct_examples": [
+        "Journal of Clinical Psychology, *78*(3), 123-145.",
+        "American Educational Research Journal, *59*(2), 45-67."
+      ],
+      "incorrect_examples": [
+        "Journal of Clinical Psychology, *78* (3), 123-145.",
+        "American Educational Research Journal, *78*, *3*, 45-67."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["issue_number_when_applicable"],
+      "optional_elements": ["issue_number"]
+    },
+    {
+      "rule_id": "volume_with_issue_format",
+      "apa_manual_reference": "Section 9.2, Pages 295-296",
+      "description": "When both volume and issue numbers are present, the format is: journal title (italicized), volume number (italicized) immediately followed by issue number in parentheses, then comma and page range. No space appears between the volume number and the opening parenthesis of the issue number. This format ensures clear visual distinction between volume and issue elements.",
+      "correct_examples": [
+        "Journal of Abnormal Psychology, *132*(4), 567-589.",
+        "Developmental Review, *42*(1), 12-34."
+      ],
+      "incorrect_examples": [
+        "Journal of Abnormal Psychology, *132* (4), 567-589.",
+        "Developmental Review, *42* (*1*), 12-34."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["volume_number", "issue_number", "page_range"],
+      "optional_elements": []
+    },
+    {
+      "rule_id": "volume_without_issue_format",
+      "apa_manual_reference": "Section 9.2, Page 296",
+      "description": "When only the volume number is available (most common case for journals), the format is: journal title (italicized), comma, space, volume number (italicized), comma, space, page range. Most journals use continuous pagination throughout a volume, making issue numbers unnecessary. The volume number alone provides sufficient identification.",
+      "correct_examples": [
+        "Psychological Bulletin, *148*, 123-156.",
+        "Journal of Memory and Language, *126*, 104732."
+      ],
+      "incorrect_examples": [
+        "Psychological Bulletin, *148*( ), 123-156.",
+        "Journal of Memory and Language, 126, 104732."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["volume_number", "page_range"],
+      "optional_elements": ["issue_number"]
+    },
+    {
+      "rule_id": "magazine_volume_issue_format",
+      "apa_manual_reference": "Section 9.3, Page 299",
+      "description": "Magazine citations in APA 7th edition follow different rules than scholarly journals. Volume numbers (if present) are italicized, but issue numbers are not placed in parentheses. Instead, the complete date is provided. If both volume and issue are present, they appear as: volume number (italicized), comma, space, issue number, comma, space. Magazine citations emphasize the date over volume/issue information.",
+      "correct_examples": [
+        "Time, *176*(12), 45-52.",
+        "National Geographic, *239*, 78-85."
+      ],
+      "incorrect_examples": [
+        "Time, *176*(12), (March 15, 2021), 45-52.",
+        "National Geographic, 239, 78-85."
+      ],
+      "changed_from_apa_6": true,
+      "required_elements": ["complete_date", "page_range"],
+      "optional_elements": ["volume_number", "issue_number"]
+    },
+    {
+      "rule_id": "newspaper_volume_issue_format",
+      "apa_manual_reference": "Section 9.4, Pages 300-301",
+      "description": "Newspaper citations in APA 7th edition typically do not include volume or issue numbers. Instead, they emphasize the complete date and section information. The format focuses on newspaper title (italicized), complete date, and page/section information. Volume/issue numbers are considered unnecessary for newspaper identification and are generally omitted unless specifically required by the publication.",
+      "correct_examples": [
+        "The New York Times, May 15, 2023, p. A1.",
+        "Washington Post, June 3, 2023, pp. B1-B2."
+      ],
+      "incorrect_examples": [
+        "The New York Times, *172*(45), May 15, 2023, p. A1.",
+        "Washington Post, *45*, June 3, 2023, pp. B1-B2."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["newspaper_title", "complete_date", "page_section"],
+      "optional_elements": ["volume_number", "issue_number"]
+    }
+  ]
+}

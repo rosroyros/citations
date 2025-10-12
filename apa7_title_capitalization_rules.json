@@ -1,0 +1,194 @@
+[
+  {
+    "rule_id": "article_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 6.17, p. 167",
+    "description": "Article titles in APA 7 references should use sentence case, meaning only the first word of the title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This applies to journal articles, magazine articles, and newspaper articles. The rule emphasizes natural language capitalization rather than the more formal title case used for book and journal titles. Subtitles are treated as separate sentences for capitalization purposes.",
+    "correct_examples": [
+      "The impact of social media on adolescent mental health: A longitudinal study",
+      "Psychological interventions for anxiety disorders during COVID-19"
+    ],
+    "incorrect_examples": [
+      "The Impact Of Social Media On Adolescent Mental Health: A Longitudinal Study",
+      "Psychological Interventions for Anxiety Disorders During COVID-19"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "First word after colon capitalized"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact page number and section reference"
+  },
+  {
+    "rule_id": "journal_periodical_title_case",
+    "apa_manual_reference": "APA 7th Edition, Section 6.22, p. 172",
+    "description": "Journal and periodical titles use title case in APA 7 references. All major words (nouns, pronouns, verbs, adjectives, adverbs) are capitalized, while minor words (articles, short prepositions, conjunctions) are lowercase unless they are the first or last word of the title or subtitle. This rule applies to journal names, magazine titles, and newspaper titles in reference list entries.",
+    "correct_examples": [
+      "Journal of Clinical Psychology",
+      "New England Journal of Medicine"
+    ],
+    "incorrect_examples": [
+      "Journal of clinical psychology",
+      "New england journal of medicine"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["Major words capitalized", "First and last words always capitalized", "Minor words lowercase (unless first/last)"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page numbers"
+  },
+  {
+    "rule_id": "book_title_case",
+    "apa_manual_reference": "APA 7th Edition, Section 9.19, p. 285",
+    "description": "Book titles in APA 7 references use title case capitalization. All major words including nouns, pronouns, verbs, adjectives, and adverbs are capitalized. Minor words such as articles (a, an, the), short prepositions (of, in, on, at), and coordinating conjunctions (and, but, or) are lowercase unless they appear as the first or last word of the title or subtitle. This applies to both entire books and edited collections.",
+    "correct_examples": [
+      "The Psychology of Learning and Motivation",
+      "Cognitive-Behavioral Therapy for Anxiety Disorders: A Comprehensive Guide"
+    ],
+    "incorrect_examples": [
+      "The psychology of learning and motivation",
+      "Cognitive-behavioral therapy for anxiety disorders: a comprehensive guide"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["Major words capitalized", "First/last words capitalized", "Minor words lowercase"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm page number and section reference"
+  },
+  {
+    "rule_id": "chapter_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 10.2, p. 321",
+    "description": "Chapter titles and other parts of larger works use sentence case in APA 7 references. Only the first word of the chapter title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This rule applies to chapters in edited books, sections of reports, and other components that are part of a larger work. The principle is to treat these as individual pieces within a larger container.",
+    "correct_examples": [
+      "The role of executive function in academic achievement",
+      "Social development in early childhood: Theoretical perspectives"
+    ],
+    "incorrect_examples": [
+      "The Role of Executive Function in Academic Achievement",
+      "Social Development in Early Childhood: Theoretical Perspectives"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "First word after colon capitalized"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page reference"
+  },
+  {
+    "rule_id": "heading_level_1_2_title_case",
+    "apa_manual_reference": "APA 7th Edition, Section 2.27, p. 48",
+    "description": "APA 7 headings for Levels 1 and 2 use title case capitalization. Level 1 headings are centered, bold, and use title case. Level 2 headings are flush left, bold, and use title case. Title case means capitalizing all major words including the first word, last word, and all principal words (nouns, pronouns, verbs, adjectives, adverbs). Minor words like articles, short prepositions, and conjunctions are lowercase unless they are first or last.",
+    "correct_examples": [
+      "Method",
+      "Participants and Setting"
+    ],
+    "incorrect_examples": [
+      "method",
+      "participants and setting"
+    ],
+    "changed_from_apa_6": true,
+    "required_elements": ["Title case capitalization", "Bold formatting", "Specific alignment per level"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm change from APA 6 and exact page number"
+  },
+  {
+    "rule_id": "heading_level_3_plus_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 2.27, p. 48",
+    "description": "APA 7 headings for Levels 3, 4, and 5 use sentence case capitalization. Level 3 headings are flush left, bold, italicized, and use sentence case. Level 4 headings are indented, bold, and use sentence case. Level 5 headings are indented, bold, italicized, and use sentence case. Sentence case means capitalizing only the first word and proper nouns, with the rest in lowercase.",
+    "correct_examples": [
+      "Research design and measures",
+      "Data analysis procedures"
+    ],
+    "incorrect_examples": [
+      "Research Design and Measures",
+      "Data Analysis Procedures"
+    ],
+    "changed_from_apa_6": true,
+    "required_elements": ["Sentence case capitalization", "Specific formatting per level (bold, italics, indent)"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm heading level changes from APA 6"
+  },
+  {
+    "rule_id": "website_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 9.38, p. 298",
+    "description": "Website titles generally use sentence case in APA 7 references. Capitalize only the first word of the website title, the first word of the subtitle (after a colon), and proper nouns. However, if the website title is also the name of a standalone work (like an online book or report), it may use title case. The rule distinguishes between websites as containers versus standalone web documents.",
+    "correct_examples": [
+      "Pew research center: Internet, science & tech",
+      "American psychological association: Psychology topics"
+    ],
+    "incorrect_examples": [
+      "Pew Research Center: Internet, Science & Tech",
+      "American Psychological Association: Psychology Topics"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "Special handling for standalone works"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm section and page number, verify exception rules"
+  },
+  {
+    "rule_id": "report_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 10.4, p. 329",
+    "description": "Report titles in APA 7 references use sentence case capitalization. Only the first word of the report title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This applies to technical reports, government reports, working papers, and other similar documents. The rule treats reports as articles or other works that are part of a larger series or organizational output.",
+    "correct_examples": [
+      "The state of mental health in America: A 2023 report",
+      "Educational outcomes in urban schools: Longitudinal data analysis"
+    ],
+    "incorrect_examples": [
+      "The State of Mental Health in America: A 2023 Report",
+      "Educational Outcomes in Urban Schools: Longitudinal Data Analysis"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "First word after colon capitalized"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page reference"
+  },
+  {
+    "rule_id": "conference_paper_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 10.5, p. 335",
+    "description": "Conference paper titles use sentence case in APA 7 references. Capitalize only the first word of the paper title, the first word of the subtitle (after a colon), and proper nouns. This applies to papers presented at conferences, symposia, and similar academic gatherings. The rule treats conference papers as articles or works within the larger conference proceedings.",
+    "correct_examples": [
+      "Artificial intelligence in psychological assessment: Current applications",
+      "Virtual reality therapy for phobia treatment: A meta-analysis"
+    ],
+    "incorrect_examples": [
+      "Artificial Intelligence in Psychological Assessment: Current Applications",
+      "Virtual Reality Therapy for Phobia Treatment: A Meta-Analysis"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "First word after colon capitalized"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page number"
+  },
+  {
+    "rule_id": "blog_post_title_sentence_case",
+    "apa_manual_reference": "APA 7th Edition, Section 10.1, p. 316",
+    "description": "Blog post titles use sentence case in APA 7 references. Only the first word of the blog post title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This treats blog posts similarly to articles or works within a larger website or publication. The rule maintains consistency with other web-based content that is part of a larger container.",
+    "correct_examples": [
+      "Mindfulness practices for stress reduction: A beginner's guide",
+      "The future of online education: Trends and predictions"
+    ],
+    "incorrect_examples": [
+      "Mindfulness Practices for Stress Reduction: A Beginner's Guide",
+      "The Future of Online Education: Trends and Predictions"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["First word capitalized", "Proper nouns capitalized", "First word after colon capitalized"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page reference"
+  },
+  {
+    "rule_id": "proper_nouns_always_capitalized",
+    "apa_manual_reference": "APA 7th Edition, Section 6.15, p. 166",
+    "description": "Proper nouns are always capitalized in APA 7 regardless of whether title case or sentence case is being used. This includes names of people, specific places, organizations, brand names, historical events, and other proper designations. When determining capitalization, always preserve the capitalization of proper nouns as they would normally appear. This rule applies across all title types and is consistent with standard English capitalization conventions.",
+    "correct_examples": [
+      "The impact of World War II on European society",
+      "Research conducted at Harvard University showed promising results"
+    ],
+    "incorrect_examples": [
+      "The impact of world war ii on european society",
+      "Research conducted at harvard university showed promising results"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["Names of people", "Geographic names", "Organization names", "Historical events"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page number"
+  },
+  {
+    "rule_id": "acronyms_and_initialisms",
+    "apa_manual_reference": "APA 7th Edition, Section 6.16, p. 166",
+    "description": "Acronyms and initialisms maintain their standard capitalization in APA 7 titles. Well-known acronyms like NASA, FBI, or APA appear in all capitals. Lesser-known or discipline-specific acronyms may appear in title case or sentence case depending on their standard usage. When an acronym is first mentioned, it should be spelled out followed by the acronym in parentheses. In subsequent mentions, the acronym alone can be used.",
+    "correct_examples": [
+      "The role of CDC guidelines in pandemic response",
+      "Research on PTSD treatment protocols"
+    ],
+    "incorrect_examples": [
+      "The role of cdc guidelines in pandemic response",
+      "Research on ptsd treatment protocols"
+    ],
+    "changed_from_apa_6": false,
+    "required_elements": ["Well-known acronyms in all caps", "Consistent with standard usage", "First mention spelled out"],
+    "notes": "NEEDS MANUAL VERIFICATION - Confirm exact section and page number, verify acronym rules"
+  }
+]

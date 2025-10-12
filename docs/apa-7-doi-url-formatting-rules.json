@@ -1,0 +1,184 @@
+[
+  {
+    "rule_id": "doi_format_https",
+    "source": "APA Manual Section 9.35, p. 299",
+    "description": "In APA 7, all DOIs should be presented as hyperlinks beginning with https://doi.org/ followed by the DOI number. This represents a significant change from APA 6, where DOIs were presented either as doi:10.xxxx/xxxxx or as full URLs beginning with http://dx.doi.org/. The new format ensures consistency and makes DOIs directly clickable in digital formats. When including a DOI in a reference, always format it as a live hyperlink without any additional punctuation or formatting. This applies to journal articles, books, and any other source that has a DOI assigned.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2023). Research methods. https://doi.org/10.1000/182"
+      },
+      {
+        "type": "incorrect",
+        "citation": "doi:10.1037/rmh0000000"
+      },
+      {
+        "type": "incorrect",
+        "citation": "http://dx.doi.org/10.1037/rmh0000000"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["https://doi.org/", "doi_number"],
+    "common_errors": ["using old doi: prefix", "using dx.doi.org prefix", "missing https://doi.org/ format"]
+  },
+  {
+    "rule_id": "doi_vs_url_preference",
+    "source": "APA Manual Section 9.34, p. 298",
+    "description": "APA 7 establishes a clear hierarchy for linking to online sources: always prefer DOI over URL when both are available. DOIs are considered permanent identifiers that provide more stable linking to scholarly content compared to URLs, which may change or become inaccessible. When a source has both a DOI and a URL, include only the DOI in your reference. This rule applies to journal articles, books, book chapters, and any other scholarly source that has been assigned a DOI. URLs should only be used when no DOI is available for the source. This preference system represents a clarification of APA 6 guidelines.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://doi.org/10.1000/xyz123"
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, B. (2022). Research methods in psychology. https://www.example.com/book"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://doi.org/10.1000/xyz123 https://www.publisher.com/book"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://www.publisher.com/book [when DOI is available]"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["doi_if_available", "url_only_if_no_doi"],
+    "common_errors": ["including both DOI and URL", "using URL when DOI is available", "not checking for DOI availability"]
+  },
+  {
+    "rule_id": "url_formatting_websites",
+    "source": "APA Manual Section 9.36, p. 300",
+    "description": "When including URLs for websites, online documents, or other sources without DOIs, present them as live hyperlinks without any special formatting or punctuation. APA 7 removes the 'Retrieved from' prefix that was required in APA 6 for most URLs. URLs should be presented in their simplest form, beginning with http:// or https://, and should be hyperlinks in digital documents. Do not add a period at the end of a URL unless it is part of the original URL. This simplification makes citations cleaner while maintaining functionality for digital access to sources.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "correct",
+        "citation": "Pew Research Center. (2023). Social media trends. https://www.pewresearch.org/internet/2023/01/12/social-media-use/"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved from https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Available at: https://www.pewresearch.org/internet/2023/01/12/social-media-use/"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["full_url"],
+    "common_errors": ["using 'Retrieved from' prefix", "adding 'Available at' prefix", "unnecessary punctuation"]
+  },
+  {
+    "rule_id": "retrieval_dates_usage",
+    "source": "APA Manual Section 9.16, p. 270",
+    "description": "Retrieval dates are only required in specific circumstances where the content of a source is designed to change over time and the page is not archived. This includes wikis, social media posts, and websites with continuously updated content. For most websites and online sources, retrieval dates are no longer needed. When a retrieval date is required, format it as 'Retrieved Month Day, Year,' followed by the URL. This represents a significant change from APA 6, where retrieval dates were more commonly used. The key principle is to include retrieval dates only when the reader needs to know when you accessed the source because the content may have changed.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Retrieved October 15, 2023, from https://en.wikipedia.org/wiki/Artificial_intelligence"
+      },
+      {
+        "type": "correct",
+        "citation": "Centers for Disease Control and Prevention. (2023). COVID data tracker. https://covid.cdc.gov/covid-data-tracker"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved October 15, 2023, from https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved 10/15/2023 from https://en.wikipedia.org/wiki/Artificial_intelligence"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["retrieved_date_only_for_unarchived_changing_content"],
+    "common_errors": ["using retrieval dates for static content", "incorrect date format", "missing comma after year"]
+  },
+  {
+    "rule_id": "hyperlink_formatting",
+    "source": "APA Manual Section 9.35, p. 299",
+    "description": "In APA 7, both DOIs and URLs should be presented as live, active hyperlinks in digital documents. The hyperlink text should be the full URL or DOI itself, not descriptive text like 'click here' or 'link'. In print publications, these links should appear in plain text but remain functional for readers who might type them into browsers. When formatting hyperlinks, avoid any special styling beyond the default blue underline that most applications use automatically. Do not break URLs or DOIs across lines; if necessary, insert a line break before a forward slash or at a period. This ensures readability and functionality.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "correct",
+        "citation": "National Institutes of Health. (2023). Health information. https://www.nih.gov/health-information"
+      },
+      {
+        "type": "incorrect",
+        "citation": "[link to article] https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Click here: https://www.nih.gov/health-information"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["active_hyperlink", "full_url_as_link_text"],
+    "common_errors": ["using descriptive link text", "breaking URLs incorrectly", "adding unnecessary formatting"]
+  },
+  {
+    "rule_id": "broken_inactive_links",
+    "source": "APA Manual Section 9.37, p. 301",
+    "description": "When a URL or DOI leads to a broken or inactive link, APA 7 provides several options for handling the citation. If the source is available through an archive like the Internet Archive, include the archived URL. If the source cannot be located, include as much information as possible and note that the resource is no longer available. For journal articles with broken DOIs, include the DOI but add a note indicating it's inactive. The principle is to provide enough information for readers to locate the source if possible, while acknowledging access limitations. This represents more detailed guidance than APA 6 provided for handling broken links.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Author, A. (2020). Article title. https://web.archive.org/web/20210101000000/https://original-url.com/article"
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2019). Research findings. [Resource no longer available]"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author, A. (2020). Article title. [Broken link]"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. (2019). Research findings. [URL not working]"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["alternative_access_information", "availability_note"],
+    "common_errors": ["vague broken link notes", "not seeking archived versions", "insufficient information for source location"]
+  },
+  {
+    "rule_id": "database_sources_formatting",
+    "source": "APA Manual Section 9.30, p. 292",
+    "description": "For sources from academic databases, APA 7 simplifies formatting by generally omitting database names and URLs. Most scholarly articles found in databases should be cited using their DOI rather than the database URL. Only include database information when the source is exclusive to that database and cannot be found elsewhere, such as with dissertations or some reports. This represents a major change from APA 6, where database names and retrieval information were commonly included. The principle is to provide the most direct and permanent path to the source, which is typically through the DOI rather than database-specific access information.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, M. (2023). Psychology research. https://doi.org/10.1000/xyz123"
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, R. (2022). Dissertation title. (Publication No. 1234567) [Doctoral dissertation, University Name]. ProQuest Dissertations & Theses Global."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, M. (2023). Psychology research. Retrieved from Academic Search Ultimate database."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Williams, R. (2022). Dissertation. Available from: https://www.proquest.com/dissertation"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["doi_preferred", "database_info_only_for_exclusive_content"],
+    "common_errors": ["including unnecessary database information", "using database URLs when DOI available", "missing database info for exclusive content"]
+  }
+]

@@ -1,0 +1,184 @@
+{
+  "punctuation_rules": [
+    {
+      "rule_id": "periods_author_initials_years",
+      "apa_manual_reference": "Section 9.8, pp. 286-287",
+      "description": "Periods must follow each author initial and the publication year in reference list entries. Author initials are separated by spaces but each initial receives a period. The publication year in parentheses also ends with a period. This punctuation creates clear separation between citation elements and maintains consistency across all reference types. Periods after initials are mandatory regardless of whether the author uses their full first name or prefers initials only.",
+      "correct_examples": [
+        "Smith, J. D. (2023). The psychology of learning.",
+        "Johnson, A. B., & Williams, C. D. (2022). Research methods in education."
+      ],
+      "incorrect_examples": [
+        "Smith, J D (2023). The psychology of learning.",
+        "Johnson, AB & Williams, CD (2022) Research methods in education"
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["periods_after_initials", "period_after_year"]
+    },
+    {
+      "rule_id": "commas_between_author_names",
+      "apa_manual_reference": "Section 9.8, pp. 284-285",
+      "description": "Commas separate author names in reference list entries. A comma follows the last name before the initials, and commas separate each author from the next. When listing multiple authors, use a comma after each author's complete name except the last one. This creates clear distinction between individual authors while maintaining readable flow. The comma after the last name is essential before listing initials.",
+      "correct_examples": [
+        "Brown, M. R., Davis, S. T., & Wilson, E. F.",
+        "Anderson, K. L., Martinez, R. G., Thompson, H. J., & Lee, P. Q."
+      ],
+      "incorrect_examples": [
+        "Brown M R, Davis S T & Wilson E F.",
+        "Anderson K L Martinez R G Thompson H J & Lee P Q"
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["comma_after_last_name", "commas_between_authors"]
+    },
+    {
+      "rule_id": "ampersand_before_last_author",
+      "apa_manual_reference": "Section 9.8, p. 285",
+      "description": "Use an ampersand (&) before the last author's name when listing multiple authors in reference list entries. The ampersand replaces 'and' and is preceded by a comma. This rule applies specifically to reference lists, not in-text citations where different formatting may be used. The ampersand creates visual consistency and professional appearance in academic citations.",
+      "correct_examples": [
+        "Taylor, J. R., Roberts, S. M., & Clark, B. N. (2021).",
+        "White, P. Q., Green, A. B., Harris, C. D., & Black, E. F. (2020)."
+      ],
+      "incorrect_examples": [
+        "Taylor, J. R., Roberts, S. M., and Clark, B. N. (2021).",
+        "White, P. Q., Green, A. B., Harris, C. D., Black, E. F. (2020)."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["ampersand_before_last_author"]
+    },
+    {
+      "rule_id": "comma_after_title_reference",
+      "apa_manual_reference": "Section 9.25, p. 303",
+      "description": "Place a comma after the article title and before the publication information in journal article references. The comma separates the title from the journal name, volume, issue, and page numbers. This punctuation creates clear distinction between the work's title and its publication details. The comma is essential for proper citation formatting and readability.",
+      "correct_examples": [
+        "The impact of social media on adolescent development, Journal of Psychology, 45(2), 123-145.",
+        "Climate change and renewable energy: A comprehensive review, Environmental Science, 12(4), 567-589."
+      ],
+      "incorrect_examples": [
+        "The impact of social media on adolescent development Journal of Psychology 45(2) 123-145.",
+        "Climate change and renewable energy: A comprehensive review. Environmental Science 12(4) 567-589."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["comma_after_title"]
+    },
+    {
+      "rule_id": "periods_end_references",
+      "apa_manual_reference": "Section 9.2, p. 284",
+      "description": "Every reference list entry must end with a period, except when the entry ends with a DOI or URL. The final period provides closure to the citation and maintains consistency across all reference types. This period comes after any parenthetical information, page numbers, or other concluding elements. When a DOI or URL is present, no period follows these elements.",
+      "correct_examples": [
+        "Smith, J. D. (2023). Understanding human behavior. New York, NY: Academic Press.",
+        "Johnson, A. B. (2022). Online learning effectiveness. Journal of Education, 15(3), 234-251. https://doi.org/10.1000/xyz123"
+      ],
+      "incorrect_examples": [
+        "Smith, J. D. (2023). Understanding human behavior. New York, NY: Academic Press",
+        "Johnson, A. B. (2022). Online learning effectiveness. Journal of Education, 15(3), 234-251."
+      ],
+      "changed_from_apa_6": true,
+      "required_elements": ["final_period_except_doi_url"]
+    },
+    {
+      "rule_id": "colons_article_titles",
+      "apa_manual_reference": "Section 6.22, p. 167",
+      "description": "Colons in article titles are preserved exactly as they appear in the original publication. When a title contains a colon followed by a subtitle, maintain this punctuation in the reference. The colon separates the main title from the subtitle and should be followed by a single space. This preserves the author's intended title structure and maintains accuracy in citation.",
+      "correct_examples": [
+        "Technology integration: Challenges and opportunities in modern classrooms",
+        "Climate change: Evidence, impacts, and solutions for coastal communities"
+      ],
+      "incorrect_examples": [
+        "Technology integration Challenges and opportunities in modern classrooms",
+        "Climate change Evidence, impacts, and solutions for coastal communities"
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["preserve_original_colons"]
+    },
+    {
+      "rule_id": "question_marks_article_titles",
+      "apa_manual_reference": "Section 6.22, p. 167",
+      "description": "Question marks at the end of article titles are preserved exactly as they appear in the original publication. When a title poses a question, maintain the question mark in the reference list entry. The question mark replaces the period that would typically end the title element. This preserves the author's intended interrogative tone and maintains citation accuracy.",
+      "correct_examples": [
+        "Are we ready for artificial intelligence in healthcare? Journal of Medical Ethics, 28(1), 45-67.",
+        "Does social media affect academic performance? Educational Psychology Review, 19(3), 234-251."
+      ],
+      "incorrect_examples": [
+        "Are we ready for artificial intelligence in healthcare. Journal of Medical Ethics, 28(1), 45-67.",
+        "Does social media affect academic performance. Educational Psychology Review, 19(3), 234-251."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["preserve_question_marks"]
+    },
+    {
+      "rule_id": "exclamation_points_article_titles",
+      "apa_manual_reference": "Section 6.22, p. 167",
+      "description": "Exclamation points at the end of article titles are preserved exactly as they appear in the original publication. When a title contains an exclamation point for emphasis or expression, maintain this punctuation in the reference list entry. The exclamation point replaces the period that would typically end the title element. This preserves the author's intended emphasis and maintains citation accuracy.",
+      "correct_examples": [
+        "Breakthrough in quantum computing! Science Today, 45(7), 123-145.",
+        "Revolutionary approach to cancer treatment! Medical Journal, 33(4), 567-589."
+      ],
+      "incorrect_examples": [
+        "Breakthrough in quantum computing. Science Today, 45(7), 123-145.",
+        "Revolutionary approach to cancer treatment. Medical Journal, 33(4), 567-589."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["preserve_exclamation_points"]
+    },
+    {
+      "rule_id": "brackets_descriptive_info",
+      "apa_manual_reference": "Section 9.30, pp. 310-311",
+      "description": "Use square brackets to provide descriptive information about the format or nature of a work when clarification is needed. Common uses include indicating format types like [Letter to the editor], [Special issue], [Abstract], or [Data set]. Brackets appear immediately after the title and before the period. This information helps readers understand the nature of the cited material.",
+      "correct_examples": [
+        "Understanding climate change [Special issue]. Environmental Review, 25(2).",
+        "Patient safety protocols [Data set]. Journal of Medicine, 42(3)."
+      ],
+      "incorrect_examples": [
+        "Understanding climate change (Special issue). Environmental Review, 25(2).",
+        "Patient safety protocols. Data set. Journal of Medicine, 42(3)."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["square_brackets_format_description"]
+    },
+    {
+      "rule_id": "parentheses_publication_info",
+      "apa_manual_reference": "Section 9.28, p. 307",
+      "description": "Parentheses enclose publication information including year, volume, issue, and page numbers for journal articles. The year appears in parentheses immediately after the author's name. Volume and issue information may also appear in parentheses depending on the reference type. Parentheses create clear visual separation between different types of publication information.",
+      "correct_examples": [
+        "Smith, J. D. (2023). The psychology of learning. Journal of Educational Psychology, 45(2), 123-145.",
+        "Johnson, A. B. (2022). Research methods. Annual Review of Psychology, 73, 234-251."
+      ],
+      "incorrect_examples": [
+        "Smith, J. D. 2023. The psychology of learning. Journal of Educational Psychology, 45.2, 123-145.",
+        "Johnson, A. B. 2022. Research methods. Annual Review of Psychology 73 234-251."
+      ],
+      "changed_from_apa_6": false,
+      "required_elements": ["parentheses_year", "parentheses_volume_issue"]
+    },
+    {
+      "rule_id": "semicolons_dois_urls",
+      "apa_manual_reference": "Section 9.35, p. 300",
+      "description": "When both a DOI and URL are provided for the same source, separate them with a semicolon. The semicolon creates clear distinction between these two access methods while maintaining their association with the source. This formatting helps readers choose their preferred access method and prevents confusion between different digital identifiers.",
+      "correct_examples": [
+        "Smith, J. D. (2023). Research methodology. https://doi.org/10.1000/xyz123; https://www.example.com/article",
+        "Johnson, A. B. (2022). Data analysis. https://doi.org/10.1000/abc456; https://research.org/paper"
+      ],
+      "incorrect_examples": [
+        "Smith, J. D. (2023). Research methodology. https://doi.org/10.1000/xyz123, https://www.example.com/article",
+        "Johnson, A. B. (2022). Data analysis. https://doi.org/10.1000/abc456 https://research.org/paper"
+      ],
+      "changed_from_apa_6": true,
+      "required_elements": ["semicolon_between_doi_url"]
+    },
+    {
+      "rule_id": "double_spacing_rules",
+      "apa_manual_reference": "Section 2.19, p. 45",
+      "description": "APA 7th edition recommends double-spacing throughout reference list entries, including within and between references. This includes spacing between lines of the same reference and between different references. Double spacing improves readability and provides consistency across academic documents. This change from APA 6 allows more flexibility in spacing while maintaining professional appearance.",
+      "correct_examples": [
+        "Smith, J. D. (2023). The psychology of learning.\n\nJournal of Educational Psychology, 45(2), 123-145.",
+        "Johnson, A. B. (2022). Research methods in education.\n\nAnnual Review of Psychology, 73, 234-251."
+      ],
+      "incorrect_examples": [
+        "Smith, J. D. (2023). The psychology of learning.Journal of Educational Psychology, 45(2), 123-145.",
+        "Johnson, A. B. (2022). Research methods in education.Annual Review of Psychology, 73, 234-251."
+      ],
+      "changed_from_apa_6": true,
+      "required_elements": ["double_spacing_within_references", "double_spacing_between_references"]
+    }
+  ]
+}

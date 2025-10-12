@@ -1,0 +1,895 @@
+# Citation Format Checker - Requirements Document
+## Part 4: Source Type Page Templates
+
+**Document Version:** 1.0  
+**Last Updated:** October 2025
+
+---
+
+## 1. SOURCE TYPE PAGE OVERVIEW
+
+### 1.1 Purpose
+Source type pages provide detailed, specific guidance for citing individual source types (journal articles, books, websites, etc.) in APA format.
+
+### 1.2 Characteristics
+- **Length:** 2,000-3,000 words
+- **Reading Time:** 8-12 minutes
+- **Examples:** 5-10 per page
+- **Internal Links:** 8-15 to related pages
+- **Update Frequency:** Annual review
+- **Priority:** Phase 1-2 (create 50 in Phase 1, rest in Phase 2)
+
+### 1.3 SEO Value
+These pages target high-volume, high-intent keywords:
+- "how to cite [source] in APA"
+- "APA [source] citation"
+- "[source] APA format"
+
+---
+
+## 2. SOURCE TYPE PAGE TEMPLATE
+
+### 2.1 Complete Page Structure
+
+```markdown
+1. Hero Section with Quick Reference Box
+2. Basic Format Explanation
+3. Required vs Optional Elements
+4. Reference List Examples (5-10 variations)
+5. In-Text Citation Guidelines
+6. Step-by-Step Instructions
+7. Common Errors Section (5-10 errors)
+8. Validation Checklist
+9. Special Cases (if applicable)
+10. APA 6 vs 7 Differences (if applicable)
+11. FAQ Section (5-8 questions)
+12. Related Sources Section
+```
+
+### 2.2 Section-by-Section Requirements
+
+#### **HERO SECTION**
+
+```markdown
+# How to Cite a [Source Type] in APA Format
+
+**[One-sentence description of this source type]**
+
+[2-3 sentence overview: what this source is, when to use this format, why proper citation matters]
+
+[PRIMARY CTA: Check Your Citation]
+
+---
+
+## Quick Reference
+
+**Reference List Format:**
+```
+[Template showing structure with placeholder elements]
+```
+
+**In-Text Citation:**
+- Parenthetical: ([Author], [Year])
+- Narrative: [Author] ([Year])
+
+**Key Points:**
+- [Element 1] is [formatting rule]
+- [Element 2] should be [formatting rule]
+- [Element 3] is [required/optional]
+
+**Last Updated:** [Date]
+**Reading Time:** [X] minutes
+
+[Jump to Examples](#examples) | [Jump to Common Errors](#errors) | [Check Your Citation](#cta)
+```
+
+**Example:**
+```markdown
+# How to Cite a Journal Article in APA Format
+
+**A journal article is a scholarly article published in an academic, peer-reviewed journal.**
+
+Journal articles are the most common source type in academic writing. Proper citation includes the author(s), publication year, article title, journal name, volume, issue, page numbers, and DOI when available. This guide provides complete formatting instructions with examples.
+
+[Check Your Citation]
+
+---
+
+## Quick Reference
+
+**Reference List Format:**
+```
+Author, A. A., & Author, B. B. (Year). Title of article. Title of Journal, volume(issue), pages. https://doi.org/xxxxx
+```
+
+**In-Text Citation:**
+- Parenthetical: (Smith, 2020)
+- Narrative: Smith (2020)
+
+**Key Points:**
+- Article title uses sentence case and is NOT italicized
+- Journal name uses title case and IS italicized
+- Volume number is italicized; issue number is not
+- DOI preferred over URL
+- Issue number required in APA 7 (change from APA 6)
+
+**Last Updated:** October 2025
+**Reading Time:** 10 minutes
+
+[Jump to Examples](#examples) | [Jump to Common Errors](#errors) | [Check Your Citation](#cta)
+```
+
+#### **BASIC FORMAT SECTION**
+
+```markdown
+## Basic Format
+
+### Reference List Format
+
+The general format for a [source type] in APA 7th edition is:
+
+```
+[Template with labeled elements]
+```
+
+**Element Breakdown:**
+
+1. **[Element 1 name]:** [Description]
+   - Format: [How to format]
+   - Punctuation: [What follows]
+   - Example: [Brief example]
+
+2. **[Element 2 name]:** [Description]
+   - Format: [How to format]
+   - Punctuation: [What follows]
+   - Example: [Brief example]
+
+[Continue for all elements]
+
+### In-Text Citation Format
+
+When citing a [source type] in the text of your paper:
+
+**Parenthetical citation:**
+- Format: ([Author], [Year])
+- Example: [Real example]
+- Use: [When to use this format]
+
+**Narrative citation:**
+- Format: [Author] ([Year])
+- Example: [Real example]
+- Use: [When to use this format]
+
+**With page numbers** (for quotes):
+- Format: ([Author], [Year], p. [X])
+- Example: [Real example]
+```
+
+**Example for Journal Articles:**
+```markdown
+## Basic Format
+
+### Reference List Format
+
+The general format for a journal article in APA 7th edition is:
+
+```
+Author, A. A., & Author, B. B. (Year). Title of article. Title of Journal, volume(issue), pages. https://doi.org/xxxxx
+```
+
+**Element Breakdown:**
+
+1. **Author(s):** List all authors up to 20
+   - Format: Last name, First initial., Middle initial.
+   - Punctuation: Comma after each author, ampersand (&) before last author, period after author group
+   - Example: Smith, J. K., & Jones, M. L.
+
+2. **Date:** Year of publication in parentheses
+   - Format: (Year)
+   - Punctuation: Period after closing parenthesis
+   - Example: (2020).
+
+3. **Article title:** Use sentence case
+   - Format: Capitalize only first word, first word after colon, and proper nouns
+   - Punctuation: Period at end
+   - Italics: NO - do not italicize article titles
+   - Example: The impact of social media on adolescent development.
+
+4. **Journal title:** Use title case
+   - Format: Capitalize all major words
+   - Punctuation: Comma after
+   - Italics: YES - italicize entire journal name
+   - Example: *Journal of Adolescent Psychology*,
+
+5. **Volume:** Number only
+   - Format: Just the number, no "vol." or "v." prefix
+   - Punctuation: No punctuation after volume
+   - Italics: YES - italicize volume number
+   - Example: *15*
+
+6. **Issue:** Number in parentheses
+   - Format: (Number)
+   - Punctuation: Comma after closing parenthesis
+   - Italics: NO - do not italicize issue number
+   - Example: (2),
+   - Note: Always required in APA 7 (change from APA 6)
+
+7. **Pages:** Page range with en dash
+   - Format: Start–End (no spaces, use en dash not hyphen)
+   - Punctuation: Period after page numbers
+   - Prefix: Do NOT use "pp." for journal articles
+   - Example: 145–167.
+
+8. **DOI:** Formatted as URL
+   - Format: https://doi.org/xxxxx
+   - Punctuation: No period after DOI
+   - When to include: Always if available (preferred over URL)
+   - Example: https://doi.org/10.1037/amp0000151
+
+### In-Text Citation Format
+
+When citing a journal article in the text of your paper:
+
+**Parenthetical citation:**
+- Format: (Author, Year)
+- Example: (Smith, 2020)
+- Use: At end of sentence containing cited information
+
+**Narrative citation:**
+- Format: Author (Year)
+- Example: Smith (2020) found that...
+- Use: When author name is part of your sentence
+
+**With page numbers** (for direct quotes):
+- Format: (Author, Year, p. X)
+- Example: (Smith, 2020, p. 156)
+```
+
+#### **REQUIRED VS OPTIONAL ELEMENTS**
+
+```markdown
+## Required vs Optional Elements
+
+### Always Required:
+- ✓ [Element 1]
+- ✓ [Element 2]
+- ✓ [Element 3]
+
+### Required When Available:
+- ◐ [Element 4] - Include if available
+- ◐ [Element 5] - Include if known
+
+### Optional:
+- ○ [Element 6] - Only include if [specific condition]
+
+### Never Include:
+- ✗ [Element 7] - Not used in APA 7
+- ✗ [Element 8] - Outdated format
+
+**Important Notes:**
+- [Specific guidance about when/how to use optional elements]
+- [Common confusion about what's required]
+```
+
+#### **REFERENCE LIST EXAMPLES SECTION**
+
+```markdown
+## Complete Examples
+
+This section provides [5-10] real examples showing different variations of [source type] citations.
+
+### Example 1: [Standard/Basic Case]
+
+**Scenario:** [Brief description of this example]
+
+**Reference list format:**
+[Complete, properly formatted citation]
+
+**In-text citation (parenthetical):** ([Author], [Year])
+**In-text citation (narrative):** [Author] ([Year])
+
+**Formatting notes:**
+- [Note about specific element]
+- [Note about another element]
+- [Why this format is used]
+
+---
+
+### Example 2: [Variation 1 - e.g., "Multiple Authors"]
+
+**Scenario:** [Description]
+
+**Reference list format:**
+[Complete citation]
+
+**In-text citation (parenthetical):** ([First Author] et al., [Year])
+**In-text citation (narrative):** [First Author] et al. ([Year])
+
+**Formatting notes:**
+- [How multiple authors are handled]
+- [When to use et al.]
+
+---
+
+### Example 3: [Variation 2 - e.g., "No DOI Available"]
+
+**Scenario:** [Description]
+
+**Reference list format:**
+[Complete citation]
+
+**Formatting notes:**
+- [What to do without DOI]
+- [URL guidelines if no DOI]
+
+---
+
+[Continue for 5-10 examples covering all major variations]
+
+### Example Variations Covered:
+- ✓ Standard format with DOI
+- ✓ Two authors
+- ✓ Three or more authors
+- ✓ No DOI available
+- ✓ [Source-specific variation]
+- ✓ [Another source-specific variation]
+```
+
+**Example Variation List for Journal Articles:**
+```markdown
+### Example Variations Covered:
+- ✓ Standard journal article with DOI
+- ✓ Two authors
+- ✓ Three to twenty authors
+- ✓ Twenty-one or more authors
+- ✓ No DOI available
+- ✓ Article with article number instead of page range
+- ✓ Advance online publication
+- ✓ Journal article in press
+- ✓ Journal article from database (no DOI)
+- ✓ Special issue or special section
+```
+
+#### **IN-TEXT CITATION GUIDELINES**
+
+```markdown
+## In-Text Citation Guidelines
+
+### Basic Rules
+
+**One author:**
+- Parenthetical: ([Last name], [Year])
+- Narrative: [Last name] ([Year])
+- Example: (Smith, 2020) or Smith (2020)
+
+**Two authors:**
+- Parenthetical: ([Author 1] & [Author 2], [Year])
+- Narrative: [Author 1] and [Author 2] ([Year])
+- Example: (Smith & Jones, 2020) or Smith and Jones (2020)
+- Note: Use "&" in parenthetical, "and" in narrative
+
+**Three or more authors:**
+- Parenthetical: ([First Author] et al., [Year])
+- Narrative: [First Author] et al. ([Year])
+- Example: (Smith et al., 2020) or Smith et al. (2020)
+- Note: Use "et al." from first citation (changed in APA 7)
+
+### Special Situations
+
+**No author:**
+- Use title in place of author
+- Parenthetical: (["Title"], [Year])
+- Example: ("Study Shows," 2020)
+- Note: Use quotation marks if title is not italicized in reference
+
+**No date:**
+- Use "n.d." instead of year
+- Example: (Smith, n.d.)
+
+**Direct quotes:**
+- Always include page number
+- Example: (Smith, 2020, p. 45)
+- Multiple pages: (Smith, 2020, pp. 45-47)
+
+**Paraphrasing:**
+- Page number optional but recommended
+- Example: (Smith, 2020) or (Smith, 2020, p. 45)
+
+### Multiple Citations
+
+**Same author, different years:**
+- List chronologically
+- Example: (Smith, 2018, 2020, 2022)
+
+**Same author, same year:**
+- Add lowercase letters
+- Example: (Smith, 2020a, 2020b)
+- Letters must match those in reference list
+
+**Different authors in one citation:**
+- List alphabetically, separate with semicolons
+- Example: (Jones, 2019; Smith, 2020; Williams, 2021)
+```
+
+#### **STEP-BY-STEP INSTRUCTIONS**
+
+```markdown
+## Step-by-Step: Creating Your Citation
+
+Follow these steps to create a properly formatted [source type] citation:
+
+### Step 1: Gather Required Information
+
+Locate and record the following information:
+
+- [ ] [Element 1] - Found: [Where to find it]
+- [ ] [Element 2] - Found: [Where to find it]
+- [ ] [Element 3] - Found: [Where to find it]
+- [ ] [Element 4] - Found: [Where to find it]
+
+**Tip:** [Helpful tip about finding information for this source type]
+
+### Step 2: Format Author Names
+
+- Write author names as: Last name, First initial., Middle initial.
+- List up to 20 authors with full names
+- Use "&" before the final author
+- If 21+ authors: List first 19, insert "...", then add final author
+
+**Example:** Smith, J. K., & Jones, M. L.
+
+### Step 3: Format the Date
+
+- Place year in parentheses: (Year)
+- Add period after closing parenthesis
+- If no date, use: (n.d.)
+
+**Example:** (2020).
+
+### Step 4: Format the [Source-Specific Element]
+
+[Specific instructions for key element of this source type]
+
+**Example:** [Example]
+
+### Step 5: Add [Another Key Element]
+
+[Instructions]
+
+### Step 6: Include DOI or URL (if applicable)
+
+- Always include DOI if available
+- Format as: https://doi.org/xxxxx
+- No period after DOI
+- If no DOI, include URL only if source is difficult to find
+
+### Step 7: Review and Validate
+
+Check your citation against this checklist:
+- [ ] [Key formatting point 1]
+- [ ] [Key formatting point 2]
+- [ ] [Key formatting point 3]
+- [ ] [Key formatting point 4]
+
+[CTA: Check Your Citation Automatically]
+```
+
+#### **COMMON ERRORS SECTION**
+
+```markdown
+## Common Errors When Citing [Source Type]
+
+Based on research and analysis, these are the most frequent errors:
+
+### Error 1: [Most Common Error]
+
+**Frequency:** Very Common (appears in XX% of citations)
+
+**The Problem:**
+[Clear explanation of what's wrong]
+
+**Why it happens:**
+[Common cause or misconception]
+
+**How to fix:**
+1. [Step]
+2. [Step]
+3. [Step]
+
+**Examples:**
+❌ **Incorrect:** [Wrong citation]
+✅ **Correct:** [Right citation]
+
+**How to check for this error:**
+[Quick checking tip]
+
+[Learn more: Link to detailed error page]
+
+---
+
+### Error 2: [Second Most Common Error]
+
+[Same structure as Error 1]
+
+---
+
+[Continue for 5-10 most common errors specific to this source type]
+
+---
+
+## Quick Error Reference Table
+
+| Error | Wrong | Correct | Why It Matters |
+|-------|-------|---------|----------------|
+| [Error 1] | [Example] | [Example] | [Impact] |
+| [Error 2] | [Example] | [Example] | [Impact] |
+| [Error 3] | [Example] | [Example] | [Impact] |
+
+[CTA: Find and Fix Errors in Your Citations]
+```
+
+#### **VALIDATION CHECKLIST**
+
+```markdown
+## [Source Type] Citation Checklist
+
+Use this checklist to validate your [source type] citations:
+
+### Author Element
+- [ ] Author names in format: Last, F. M.
+- [ ] All authors listed (up to 20)
+- [ ] Ampersand (&) before last author
+- [ ] Period after author group
+
+### Date Element
+- [ ] Year in parentheses
+- [ ] Period after closing parenthesis
+- [ ] "n.d." used if no date
+
+### [Source-Specific Elements]
+- [ ] [Element 1 check]
+- [ ] [Element 2 check]
+- [ ] [Element 3 check]
+- [ ] [Element 4 check]
+
+### DOI/URL
+- [ ] DOI included if available
+- [ ] DOI formatted as https://doi.org/xxxxx
+- [ ] No period after DOI
+- [ ] URL included only if no DOI and source is difficult to find
+
+### Overall Format
+- [ ] Proper punctuation throughout
+- [ ] Correct capitalization
+- [ ] Proper use of italics
+- [ ] No extra spaces
+
+### In-Text Citations
+- [ ] Author and year match reference list
+- [ ] Proper format (parenthetical or narrative)
+- [ ] Page numbers for quotes
+- [ ] Et al. used correctly for 3+ authors
+
+**Total Items:** [Number] | **Items Checked:** ___
+
+[CTA: Run Automated Check]
+```
+
+#### **SPECIAL CASES SECTION** (if applicable)
+
+```markdown
+## Special Cases and Exceptions
+
+### [Special Case 1]
+
+**When to use this format:**
+[Description of when this applies]
+
+**How it differs from standard format:**
+[Explanation of differences]
+
+**Example:**
+[Formatted example]
+
+**Additional notes:**
+[Any other relevant information]
+
+---
+
+### [Special Case 2]
+
+[Same structure]
+
+---
+
+[Include 3-5 special cases relevant to this source type]
+```
+
+#### **APA 6 VS 7 DIFFERENCES** (if applicable)
+
+```markdown
+## APA 6 vs APA 7: What Changed for [Source Type]
+
+If you're transitioning from APA 6 to APA 7, here are the key changes:
+
+| Element | APA 6 | APA 7 | Impact |
+|---------|-------|-------|--------|
+| [Element 1] | [Old format] | [New format] | [Why changed] |
+| [Element 2] | [Old format] | [New format] | [Why changed] |
+
+### Most Common Transition Errors:
+
+1. **[Error from using APA 6 format]**
+   - Old way: [Example]
+   - New way: [Example]
+   - How to fix: [Instructions]
+
+2. **[Another transition error]**
+   [Same structure]
+
+[Learn more: Complete APA 7 changes guide]
+```
+
+#### **FAQ SECTION**
+
+```markdown
+## Frequently Asked Questions
+
+### How do I cite a [source type] with no [common missing element]?
+
+[Concise answer with example]
+
+**Related:** [Link to relevant guide]
+
+---
+
+### Should I include [optional element] when citing [source type]?
+
+[Answer explaining when to include/exclude]
+
+---
+
+### What if the [source type] has [unusual situation]?
+
+[Answer with example]
+
+---
+
+[Continue for 5-8 common questions specific to this source type]
+
+---
+
+**Still have questions?** [Link to complete FAQ page or contact]
+```
+
+#### **RELATED SOURCES SECTION**
+
+```markdown
+## Related Citation Guides
+
+### Similar Source Types:
+- **[Related Source 1]** - [One-sentence description] → [Link]
+- **[Related Source 2]** - [One-sentence description] → [Link]
+- **[Related Source 3]** - [One-sentence description] → [Link]
+
+### Validation Guides:
+- **Check [Element] Formatting** → [Link]
+- **Validate Your Reference List** → [Link]
+
+### Common Errors:
+- **[Error Type] in [Source Type]** → [Link]
+- **[Another Error Type]** → [Link]
+
+### By Format:
+- **Compare: APA vs MLA vs Chicago** → [Link]
+
+### Need More Help?
+- **Complete APA Guide** → [Link]
+- **Citation Checker Tool** → [Link]
+```
+
+---
+
+## 3. CTA PLACEMENT FOR SOURCE TYPE PAGES
+
+### 3.1 Required CTA Locations
+
+**CTA 1: Hero Section**
+- Placement: Below quick reference box
+- Text: "Check Your Citation"
+- Style: Primary button
+
+**CTA 2: After Examples**
+- Placement: End of examples section
+- Text: "Validate Your Citations"
+- Style: Inline box with button
+
+**CTA 3: After Common Errors**
+- Placement: End of errors section
+- Text: "Find and Fix These Errors"
+- Style: Primary button
+
+**CTA 4: End of Page**
+- Placement: Before related resources
+- Text: "Check Your [Source Type] Citations Now"
+- Style: Prominent box with button
+
+### 3.2 CTA Copy Variations
+
+**For checking:**
+- "Check Your Citation"
+- "Validate Your [Source Type] Citations"
+- "Check for Formatting Errors"
+
+**For errors:**
+- "Find Errors in Your Citations"
+- "Detect Common Mistakes"
+- "Fix Citation Errors"
+
+**For learning:**
+- "See More Examples"
+- "Download Checklist"
+- "View Complete Guide"
+
+---
+
+## 4. PRIORITY SOURCE TYPES
+
+### 4.1 Phase 1 (First 30 pages - Months 1-2)
+
+**Highest Volume Sources:**
+1. Journal article
+2. Website
+3. Book (authored)
+4. Newspaper article
+5. Magazine article
+6. YouTube video
+7. Blog post
+8. E-book
+9. Book chapter
+10. Dissertation
+11. Government report
+12. Podcast episode
+13. Social media post (Twitter/X)
+14. Social media post (Facebook)
+15. TED Talk
+16. Film/movie
+17. TV episode
+18. Encyclopedia entry (online)
+19. Dictionary entry (online)
+20. Thesis
+21. Conference paper
+22. Webpage (organizational)
+23. Instagram post
+24. Dataset
+25. Working paper
+26. Technical report
+27. White paper
+28. Documentary
+29. Research report
+30. Press release
+
+### 4.2 Phase 2 (Next 50 pages - Months 3-4)
+
+**Important Academic Sources:**
+31-50: [Additional academic sources]
+
+**Common Online Sources:**
+51-70: [Additional online sources]
+
+**Audiovisual Sources:**
+71-80: [Additional multimedia sources]
+
+---
+
+## 5. METADATA REQUIREMENTS
+
+### 5.1 YAML Front Matter Template
+
+```yaml
+---
+# Page Identification
+page_id: "source_journal_article"
+page_type: "source_type"
+title: "How to Cite a Journal Article in APA Format"
+url: "/how-to-cite-journal-article-apa/"
+
+# SEO Metadata
+meta_title: "How to Cite a Journal Article in APA Format | Complete Guide"
+meta_description: "Learn how to cite journal articles in APA 7th edition. Includes examples, common errors, and validation checklist. Step-by-step instructions with DOI formatting."
+primary_keywords: ["cite journal article APA", "APA journal citation", "journal article format APA"]
+secondary_keywords: ["APA 7 journal", "journal citation format", "cite scholarly article"]
+
+# Content Metadata
+word_count: 2500
+reading_time: 10
+last_updated: "2024-10-15"
+published_date: "2024-06-01"
+
+# Categorization
+category: "source_types"
+subcategory: "textual_works"
+source_type_id: "journal_article"
+citation_style: "apa_7"
+disciplines: ["psychology", "education", "health_sciences", "social_sciences"]
+
+# Content Features
+example_count: 8
+error_count: 10
+has_checklist: true
+has_faq: true
+has_apa6_comparison: true
+has_special_cases: true
+
+# Related Content
+parent_guide: "/guide/apa-7th-edition/"
+related_sources:
+  - "/how-to-cite-magazine-article-apa/"
+  - "/how-to-cite-newspaper-article-apa/"
+  - "/how-to-cite-preprint-apa/"
+validation_guides:
+  - "/how-to-check-journal-citation-apa/"
+  - "/how-to-check-doi-formatting-apa/"
+error_pages:
+  - "/apa-title-case-error/"
+  - "/apa-article-title-italicized-error/"
+  - "/apa-missing-issue-number-error/"
+  - "/apa-doi-format-error/"
+
+# CTA Configuration
+cta_count: 4
+cta_text: "Check Your Journal Citation"
+cta_url: "/checker/"
+
+# Schema.org
+schema_type: "HowTo"
+schema_category: "Citation Format"
+schema_tool: "Citation Checker"
+---
+```
+
+---
+
+## 6. QUALITY ASSURANCE
+
+### 6.1 Source Type Page Checklist
+
+**Content Completeness:**
+- [ ] Hero section with quick reference
+- [ ] Basic format explanation
+- [ ] 5-10 complete examples
+- [ ] In-text citation guidelines
+- [ ] Step-by-step instructions
+- [ ] 5-10 common errors
+- [ ] Validation checklist
+- [ ] 5-8 FAQ questions
+- [ ] Related sources section
+- [ ] 2,000-3,000 words
+
+**Accuracy:**
+- [ ] All rules cite APA manual
+- [ ] Examples from real sources (2020-2024)
+- [ ] Cross-referenced with knowledge base
+- [ ] No contradictions with official APA
+
+**SEO:**
+- [ ] Primary keyword in H1
+- [ ] Keywords in first 100 words
+- [ ] Meta title optimized
+- [ ] Meta description compelling
+- [ ] Internal links (8-15)
+
+**User Experience:**
+- [ ] Quick reference box at top
+- [ ] Clear visual hierarchy
+- [ ] Scannable format
+- [ ] Examples properly formatted
+- [ ] 4 CTA placements
+
+---
+
+## NEXT: Part 5 - Validation & Error Page Templates
+
+The next document will detail templates for:
+- Validation pages (50-100 pages)
+- Error pages (200-300 pages)

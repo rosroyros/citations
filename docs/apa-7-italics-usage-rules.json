@@ -1,0 +1,210 @@
+[
+  {
+    "rule_id": "book_titles_reference_list",
+    "source": "APA Manual Section 9.28, p. 295",
+    "description": "Book titles in the reference list should be italicized and use sentence case (capitalize only the first word, proper nouns, and after colons). The italicization applies to complete books, edited books, textbooks, and monographs. This formatting helps distinguish book titles from article or chapter titles within the same reference. Book subtitles should also be italicized and separated from the main title by a colon. This rule remains consistent with APA 6, but APA 7 provides clearer examples for different book types including electronic books and reports.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, J. R. (2023). *Research methods in behavioral sciences*. Academic Press."
+      },
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B., & Williams, C. D. (2022). *Statistical analysis: Theory and practice* (2nd ed.). Sage Publications."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. R. (2023). Research methods in behavioral sciences. Academic Press."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. B., & Williams, C. D. (2022). *STATISTICAL ANALYSIS: THEORY AND PRACTICE* (2nd ed.). Sage Publications."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["book_title_italics", "sentence_case", "colon_before_subtitle"],
+    "common_errors": ["not italicizing book titles", "using title case instead of sentence case", "missing colon before subtitle"]
+  },
+  {
+    "rule_id": "journal_titles_reference_list",
+    "source": "APA Manual Section 9.28, p. 296",
+    "description": "Journal titles in the reference list must be italicized and use title case (capitalize major words). This rule applies to both print and electronic journals. The journal title should be followed by the volume number (also italicized) and issue number (in parentheses, not italicized). This formatting helps readers identify journal publications and distinguishes them from other source types. APA 7 maintains the same italicization rules as APA 6 but clarifies that journal titles should always be spelled out in full, not abbreviated.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Thompson, R. K. (2023). Neural mechanisms of memory consolidation. *Journal of Neuroscience Research*, 45(3), 234–251."
+      },
+      {
+        "type": "correct",
+        "citation": "Brown, L. M., Davis, J. P., & Wilson, S. T. (2022). Advanced statistical modeling. *American Journal of Psychology*, 134(2), 156–178."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Thompson, R. K. (2023). Neural mechanisms of memory consolidation. Journal of Neuroscience Research, 45(3), 234–251."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Brown, L. M., Davis, J. P., & Wilson, S. T. (2022). Advanced statistical modeling. *american journal of psychology*, 134(2), 156–178."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["journal_title_italics", "title_case", "volume_number_italics"],
+    "common_errors": ["not italicizing journal titles", "using sentence case instead of title case", "abbreviating journal names"]
+  },
+  {
+    "rule_id": "periodical_volume_numbers",
+    "source": "APA Manual Section 9.28, p. 296",
+    "description": "Volume numbers for periodicals (journals, magazines) should be italicized in the reference list. The volume number follows the italicized journal title and is separated by a comma. Issue numbers, when present, appear in parentheses immediately after the volume number and are not italicized. This formatting helps distinguish between the journal name, volume, and issue components. This rule is consistent with APA 6, but APA 7 provides clearer guidance for electronic journals and DOIs.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, *45*(2), 123–145."
+      },
+      {
+        "type": "correct",
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12*(4), 67–89."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, 45(2), 123–145."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12 (4)*, 67–89."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["volume_number_italics", "issue_number_parentheses"],
+    "common_errors": ["not italicizing volume numbers", "italicizing issue numbers", "missing comma after journal title"]
+  },
+  {
+    "rule_id": "webpage_website_titles",
+    "source": "APA Manual Section 9.32, p. 300",
+    "description": "Website and webpage titles should be italicized in the reference list and use sentence case. This applies to standalone websites, specific webpages, and online reports. The title should be followed by the site name and URL. This rule was updated in APA 7 to simplify web source formatting, eliminating the need to distinguish between website and document titles. Previously, APA 6 had more complex rules about when to italicize web content.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "National Science Foundation. (2023). *Research funding opportunities*. NSF Grants Website. https://www.nsf.gov/funding"
+      },
+      {
+        "type": "correct",
+        "citation": "American Psychological Association. (2022). *Psychology careers guide*. APA Website. https://www.apa.org/careers"
+      },
+      {
+        "type": "incorrect",
+        "citation": "National Science Foundation. (2023). Research funding opportunities. NSF Grants Website. https://www.nsf.gov/funding"
+      },
+      {
+        "type": "incorrect",
+        "citation": "American Psychological Association. (2022). *PSYCHOLOGY CAREERS GUIDE*. APA Website. https://www.apa.org/careers"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": ["webpage_title_italics", "sentence_case", "site_name", "url"],
+    "common_errors": ["not italicizing webpage titles", "using title case instead of sentence case", "missing site name"]
+  },
+  {
+    "rule_id": "foreign_language_words",
+    "source": "APA Manual Section 6.23, p. 159",
+    "description": "Foreign language words that are not commonly used in English should be italicized, especially when they appear in academic writing. This includes technical terms, phrases, or words from languages other than English that may be unfamiliar to readers. However, words that have been adopted into common English usage should not be italicized. This rule helps readers identify non-English terms and maintains clarity in academic writing. The formatting is consistent with APA 6 but with better examples.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The research examined *sang-froid* under extreme stress conditions."
+      },
+      {
+        "type": "correct",
+        "citation": "Participants demonstrated *schadenfreude* when observing others' failures."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The research examined sang-froid under extreme stress conditions."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Participants demonstrated déjà vu when observing familiar scenes."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["foreign_word_italics", "uncommon_term"],
+    "common_errors": ["italicizing commonly adopted foreign words", "not italicizing unfamiliar foreign terms", "overuse of foreign terms"]
+  },
+  {
+    "rule_id": "technical_terms_special_meaning",
+    "source": "APA Manual Section 6.22, p. 158",
+    "description": "Technical terms, letters, or words used as linguistic examples or with special meaning should be italicized. This includes terms being discussed as terms themselves, statistical symbols, and words used in a special or technical sense. The italics indicate to readers that the term is being referenced for its linguistic or symbolic properties rather than its meaning. This rule helps distinguish between ordinary usage and metalinguistic discussion of terms.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The term *operational definition* refers to how variables are measured in research."
+      },
+      {
+        "type": "correct",
+        "citation": "Participants were instructed to press the *space* bar when ready."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The term operational definition refers to how variables are measured in research."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The researcher defined *significant* as p < .05."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["term_italics", "special_meaning_context"],
+    "common_errors": ["italicizing terms used in normal context", "not italicizing terms being defined", "overusing italics for emphasis"]
+  },
+  {
+    "rule_id": "genera_species_names",
+    "source": "APA Manual Section 6.21, p. 158",
+    "description": "Genus and species names in biological contexts should be italicized. The genus name is capitalized and the species name is lowercase, both in italics. This formatting follows standard biological nomenclature and helps readers identify taxonomic names. When abbreviated, the genus name should be followed by a period and remain italicized. This rule applies to all biological sciences writing and is consistent with both APA 6 and scientific conventions.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The study examined *Homo sapiens* cognitive development patterns."
+      },
+      {
+        "type": "correct",
+        "citation": "Research on *Drosophila melanogaster* has revealed important genetic mechanisms."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The study examined Homo sapiens cognitive development patterns."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Research on *drosophila melanogaster* has revealed important genetic mechanisms."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["genus_species_italics", "genus_capitalized", "species_lowercase"],
+    "common_errors": ["not italicizing taxonomic names", "incorrect capitalization", "missing italics on abbreviated genus"]
+  },
+  {
+    "rule_id": "letters_words_linguistic_examples",
+    "source": "APA Manual Section 6.24, p. 160",
+    "description": "Letters, words, or phrases used as linguistic examples should be italicized. This includes individual letters being referenced as letters, words being used as words, and phrases being analyzed linguistically. The italics signal to readers that these elements are being discussed for their linguistic properties rather than their meaning. This formatting is particularly important in language studies, psychology research, and education research.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Participants were asked to identify words containing the letter *a*."
+      },
+      {
+        "type": "correct",
+        "citation": "The word *psychology* derives from Greek roots meaning 'study of the soul.'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Participants were asked to identify words containing the letter a."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The word psychology derives from Greek roots meaning 'study of the soul.'"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": ["linguistic_example_italics", "letter_word_as_example"],
+    "common_errors": ["not italicizing letters used as examples", "not italicizing words used as words", "confusing with emphasis italics"]
+  }
+]
