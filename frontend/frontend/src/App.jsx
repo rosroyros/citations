@@ -16,7 +16,7 @@ function App() {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Citation Format Checker",
-    "url": "https://citationchecker.app",
+    "url": "https://citationformatchecker.com",
     "description": "Free APA 7th edition citation validator. Catch formatting errors from citation generators instantly.",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
