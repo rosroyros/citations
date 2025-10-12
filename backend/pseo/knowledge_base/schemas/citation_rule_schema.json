@@ -25,7 +25,7 @@
     "description": {
       "type": "string",
       "minLength": 50,
-      "maxLength": 500,
+      "maxLength": 700,
       "description": "Clear explanation of the rule (100-150 words)"
     },
     "examples": {
