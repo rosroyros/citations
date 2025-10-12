@@ -13,12 +13,12 @@
 3. Implement until tests pass
 4. Verify in logs/output that it works
 5. Commit with clear message
-6. **IMMEDIATELY update implementation plan (docs/mvp_implementation_plan.md) with ✅ DONE**
+6. **IMMEDIATELY update the implementation plan with ✅ DONE**
 7. Mark task as `completed` in todo list
 8. Commit the plan update
 9. Move to next task
 
-**CRITICAL**: Step 6 is NON-NEGOTIABLE. Never skip updating the implementation plan document.
+**CRITICAL**: Step 6 is NON-NEGOTIABLE. Never skip updating the implementation plan.
 
 ## Git Commit Format
 ```
