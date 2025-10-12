@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "common_errors_schema.json",
+  "title": "Common Citation Errors Collection Schema",
+  "description": "Schema for collection of common APA citation errors",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "error_id",
+      "error_name",
+      "category",
+      "description",
+      "wrong_example",
+      "correct_example",
+      "fix_instructions"
+    ],
+    "properties": {
+      "error_id": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+$",
+        "description": "Unique identifier for the error"
+      },
+      "error_name": {
+        "type": "string",
+        "minLength": 5,
+        "description": "Name of the error"
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "capitalization",
+          "italics",
+          "punctuation",
+          "author_format",
+          "doi_url",
+          "general"
+        ],
+        "description": "Category of error"
+      },
+      "description": {
+        "type": "string",
+        "minLength": 20,
+        "description": "Description of what the error is"
+      },
+      "wrong_example": {
+        "type": "string",
+        "minLength": 5,
+        "description": "Example showing the error"
+      },
+      "correct_example": {
+        "type": "string",
+        "minLength": 5,
+        "description": "Corrected version"
+      },
+      "explanation": {
+        "type": "string",
+        "description": "Why students make this error"
+      },
+      "fix_instructions": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "description": "Step-by-step fix instructions"
+      },
+      "affected_source_types": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Which source types are affected"
+      },
+      "frequency": {
+        "type": "object",
+        "properties": {
+          "estimated_frequency": {
+            "type": "string",
+            "enum": ["very_common", "common", "moderate", "uncommon", "rare"]
+          },
+          "research_basis": {
+            "type": "string"
+          }
+        }
+      },
+      "rule_violated": {
+        "type": "string",
+        "description": "APA manual reference for rule"
+      },
+      "difficulty_to_fix": {
+        "type": "string",
+        "enum": ["easy", "moderate", "difficult"]
+      },
+      "prevention_tips": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Tips to prevent this error"
+      }
+    },
+    "additionalProperties": false
+  },
+  "minItems": 1
+}

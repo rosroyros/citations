@@ -35,9 +35,12 @@ class SchemaValidator:
         schemas = {}
         schema_files = {
             'citation_rule': 'citation_rule_schema.json',
+            'citation_rules': 'citation_rules_schema.json',
             'source_type': 'source_type_schema.json',
             'error': 'error_schema.json',
-            'example': 'example_schema.json'
+            'common_errors': 'common_errors_schema.json',
+            'example': 'example_schema.json',
+            'examples': 'examples_schema.json'
         }
 
         for schema_type, filename in schema_files.items():
@@ -186,10 +189,14 @@ class SchemaValidator:
 
         # Expected files and their types
         expected_files = {
-            'citation_rules.json': 'citation_rule',
+            'citation_rules.json': 'citation_rules',
+            'examples.json': 'examples'
+        }
+
+        # Optional files
+        optional_files = {
             'source_types.json': 'source_type',
-            'common_errors.json': 'error',
-            'examples.json': 'example'
+            'common_errors.json': 'common_errors'
         }
 
         for filename, data_type in expected_files.items():
@@ -204,9 +211,18 @@ class SchemaValidator:
                 all_results['details'][filename] = {
                     'file': str(file_path),
                     'valid': False,
-                    'errors': [f"Expected file not found: {filename}"]
+                    'errors': [f"Expected file not found: {filename}"],
+                    'warnings': []
                 }
                 all_results['valid'] = False
+
+        # Check optional files
+        for filename, data_type in optional_files.items():
+            file_path = kb_path / filename
+            if file_path.exists():
+                result = self.validate_file(str(file_path), data_type)
+                all_results['details'][filename] = result
+                # Optional files don't affect overall validity
 
         # Summary
         total_files = len(all_results['details'])

@@ -34,7 +34,8 @@
       "Not inverting name (first name first)",
       "Omitting comma after last name",
       "Adding spaces between initials"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "two_authors_format",
@@ -71,7 +72,8 @@
       "Using 'and' instead of '&'",
       "Not inverting second author's name",
       "Missing comma before ampersand"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "three_to_twenty_authors",
@@ -105,7 +107,8 @@
       "Using 'et al.' prematurely",
       "Using 'and' instead of '&'",
       "Not listing all authors"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "twenty_plus_authors_etal",
@@ -139,7 +142,8 @@
       "Using 'et al.' instead of ellipsis format",
       "Listing too many authors",
       "Omitting the final author"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "organization_as_author",
@@ -171,7 +175,8 @@
       "Using abbreviations instead of full names",
       "Inverting organizational names",
       "Using acronyms without explanation"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "government_author_format",
@@ -203,7 +208,8 @@
       "Including parent departments in author position",
       "Using acronyms without full names",
       "Not being specific enough"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "anonymous_author_handling",
@@ -236,7 +242,8 @@
       "Using 'Anonymous' when author is unknown",
       "Leaving author position empty",
       "Not moving title to author position"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "author_titles_suffixes",
@@ -270,7 +277,8 @@
       "Including professional titles",
       "Incorrect comma placement with suffixes",
       "Adding unnecessary credentials"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "authors_same_surname",
@@ -301,7 +309,8 @@
     "common_errors": [
       "Omitting initials for subsequent authors with same surname",
       "Using inconsistent initial formats"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "double_surname_handling",
@@ -335,7 +344,8 @@
       "Splitting double surnames",
       "Incorrectly ordering name parts",
       "Adding unnecessary commas"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "hyphenated_names",
@@ -369,7 +379,8 @@
       "Removing hyphens",
       "Treating hyphenated names as separate surnames",
       "Incorrect comma placement"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "compound_names_prefixes",
@@ -403,7 +414,8 @@
       "Separating prefixes from surnames",
       "Incorrect alphabetical treatment",
       "Not respecting cultural conventions"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "missing_author_information",
@@ -436,7 +448,8 @@
       "Using periods with initials only",
       "Leaving author position empty",
       "Not using proper editor designation"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "author_initials_formatting",
@@ -469,7 +482,8 @@
       "Adding spaces between initials",
       "Omitting periods after initials",
       "Not using all available initials"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "author_name_order",
@@ -503,7 +517,8 @@
       "Alphabetizing by first name",
       "Changing original author order",
       "Incorrect year suffix ordering"
-    ]
+    ],
+    "category": "author_formatting"
   },
   {
     "rule_id": "basic_year_format",
@@ -539,7 +554,8 @@
       "missing parentheses around year",
       "incorrect punctuation after year",
       "using copyright year instead of publication year"
-    ]
+    ],
+    "category": "date_formatting"
   },
   {
     "rule_id": "no_date_format",
@@ -575,7 +591,8 @@
       "using 'no date' instead of 'n.d.'",
       "missing parentheses around n.d.",
       "placing n.d. in wrong position"
-    ]
+    ],
+    "category": "date_formatting"
   },
   {
     "rule_id": "in_press_format",
@@ -611,7 +628,8 @@
       "using hyphen in 'in-press'",
       "missing parentheses",
       "applying to unsubmitted works"
-    ]
+    ],
+    "category": "date_formatting"
   },
   {
     "rule_id": "specific_date_format",
@@ -650,7 +668,8 @@
       "abbreviating month names",
       "using ordinal suffixes (1st, 2nd, 3rd)",
       "missing comma after year"
-    ]
+    ],
+    "category": "date_formatting"
   },
   {
     "rule_id": "date_range_format",
@@ -659,11 +678,11 @@
     "examples": [
       {
         "type": "correct",
-        "citation": "Shakespeare, W. (1599\u20131601). Hamlet."
+        "citation": "Shakespeare, W. (1599–1601). Hamlet."
       },
       {
         "type": "correct",
-        "citation": "Ancient Historian. (200\u2013150 BCE). Roman conquest chronicles."
+        "citation": "Ancient Historian. (200–150 BCE). Roman conquest chronicles."
       },
       {
         "type": "incorrect",
@@ -671,7 +690,7 @@
       },
       {
         "type": "incorrect",
-        "citation": "Shakespeare, W. (1599 \u2013 1601). Hamlet."
+        "citation": "Shakespeare, W. (1599 – 1601). Hamlet."
       }
     ],
     "changed_from_apa6": false,
@@ -688,7 +707,8 @@
       "using hyphen instead of en dash",
       "adding spaces around dash",
       "applying to inappropriate source types"
-    ]
+    ],
+    "category": "date_formatting"
   },
   {
     "rule_id": "article_title_sentence_case",
@@ -722,7 +742,8 @@
       "Capitalizing minor words (articles, prepositions, conjunctions)",
       "Not capitalizing first word of subtitle after colon",
       "Using title case instead of sentence case"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "journal_periodical_title_case",
@@ -756,7 +777,8 @@
       "Not capitalizing major words",
       "Lowercasing first or last words",
       "Using sentence case instead of title case"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "book_title_case",
@@ -790,7 +812,8 @@
       "Lowercasing major words (nouns, verbs, adjectives)",
       "Not capitalizing first and last words",
       "Using sentence case instead of title case"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "chapter_title_sentence_case",
@@ -824,7 +847,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "heading_level_1_2_title_case",
@@ -858,7 +882,8 @@
       "Using sentence case instead of title case",
       "Not capitalizing major words",
       "Lowercasing first or last words"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "heading_level_3_plus_sentence_case",
@@ -891,7 +916,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "website_title_sentence_case",
@@ -925,7 +951,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "report_title_sentence_case",
@@ -959,7 +986,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "conference_paper_title_sentence_case",
@@ -993,7 +1021,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "blog_post_title_sentence_case",
@@ -1027,7 +1056,8 @@
       "Using title case instead of sentence case",
       "Capitalizing minor words",
       "Not capitalizing proper nouns"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "proper_nouns_always_capitalized",
@@ -1062,7 +1092,8 @@
       "Lowercasing proper nouns",
       "Inconsistent proper noun capitalization",
       "Not recognizing proper nouns in titles"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "acronyms_and_initialisms",
@@ -1096,7 +1127,8 @@
       "Lowercasing well-known acronyms",
       "Inconsistent acronym capitalization",
       "Not capitalizing initialisms properly"
-    ]
+    ],
+    "category": "title_capitalization"
   },
   {
     "rule_id": "book_titles_reference_list",
@@ -1130,7 +1162,8 @@
       "Using title case instead of sentence case",
       "Not italicizing book titles",
       "Missing italics for subtitles"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "journal_titles_reference_list",
@@ -1139,19 +1172,19 @@
     "examples": [
       {
         "type": "correct",
-        "citation": ""
+        "citation": "Example not provided"
       },
       {
         "type": "correct",
-        "citation": ""
+        "citation": "Example not provided"
       },
       {
         "type": "incorrect",
-        "citation": ""
+        "citation": "Example not provided"
       },
       {
         "type": "incorrect",
-        "citation": ""
+        "citation": "Example not provided"
       }
     ],
     "changed_from_apa6": false,
@@ -1164,7 +1197,8 @@
       "Not italicizing journal titles",
       "Using sentence case instead of title case",
       "Lowercasing major words"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "periodical_volume_numbers",
@@ -1173,19 +1207,19 @@
     "examples": [
       {
         "type": "correct",
-        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, *45*(2), 123\u2013145."
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, *45*(2), 123–145."
       },
       {
         "type": "correct",
-        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12*(4), 67\u201389."
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12*(4), 67–89."
       },
       {
         "type": "incorrect",
-        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, 45(2), 123\u2013145."
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, 45(2), 123–145."
       },
       {
         "type": "incorrect",
-        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12 (4)*, 67\u201389."
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12 (4)*, 67–89."
       }
     ],
     "changed_from_apa6": false,
@@ -1197,7 +1231,8 @@
       "not italicizing volume numbers",
       "italicizing issue numbers",
       "missing comma after journal title"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "webpage_website_titles",
@@ -1232,7 +1267,8 @@
       "not italicizing webpage titles",
       "using title case instead of sentence case",
       "missing site name"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "foreign_language_words",
@@ -1253,7 +1289,7 @@
       },
       {
         "type": "incorrect",
-        "citation": "Participants demonstrated d\u00e9j\u00e0 vu when observing familiar scenes."
+        "citation": "Participants demonstrated déjà vu when observing familiar scenes."
       }
     ],
     "changed_from_apa6": false,
@@ -1265,7 +1301,8 @@
       "italicizing commonly adopted foreign words",
       "not italicizing unfamiliar foreign terms",
       "overuse of foreign terms"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "technical_terms_special_meaning",
@@ -1298,7 +1335,8 @@
       "italicizing terms used in normal context",
       "not italicizing terms being defined",
       "overusing italics for emphasis"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "genera_species_names",
@@ -1332,7 +1370,8 @@
       "not italicizing taxonomic names",
       "incorrect capitalization",
       "missing italics on abbreviated genus"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "letters_words_linguistic_examples",
@@ -1365,7 +1404,8 @@
       "not italicizing letters used as examples",
       "not italicizing words used as words",
       "confusing with emphasis italics"
-    ]
+    ],
+    "category": "italics_usage"
   },
   {
     "rule_id": "doi_format_https",
@@ -1398,7 +1438,8 @@
       "using old doi: prefix",
       "using dx.doi.org prefix",
       "missing https://doi.org/ format"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "doi_vs_url_preference",
@@ -1431,7 +1472,8 @@
       "including both DOI and URL",
       "using URL when DOI is available",
       "not checking for DOI availability"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "url_formatting_websites",
@@ -1463,7 +1505,8 @@
       "using 'Retrieved from' prefix",
       "adding 'Available at' prefix",
       "unnecessary punctuation"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "retrieval_dates_usage",
@@ -1495,7 +1538,8 @@
       "using retrieval dates for static content",
       "incorrect date format",
       "missing comma after year"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "hyperlink_formatting",
@@ -1528,7 +1572,8 @@
       "using descriptive link text",
       "breaking URLs incorrectly",
       "adding unnecessary formatting"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "broken_inactive_links",
@@ -1561,7 +1606,8 @@
       "vague broken link notes",
       "not seeking archived versions",
       "insufficient information for source location"
-    ]
+    ],
+    "category": "doi_url_formatting"
   },
   {
     "rule_id": "database_sources_formatting",
@@ -1594,6 +1640,7 @@
       "including unnecessary database information",
       "using database URLs when DOI available",
       "missing database info for exclusive content"
-    ]
+    ],
+    "category": "doi_url_formatting"
   }
 ]

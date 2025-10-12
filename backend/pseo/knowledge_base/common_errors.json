@@ -13,7 +13,11 @@
       "Capitalize all proper nouns and proper adjectives throughout the title",
       "Leave all other words lowercase including articles and prepositions"
     ],
-    "affected_source_types": ["journal_article", "book_chapter", "conference_paper"],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter",
+      "conference_paper"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "APA Style blog and writing center observations"
@@ -39,7 +43,9 @@
       "Keep articles, short prepositions, and conjunctions lowercase unless first/last",
       "Italicize the entire journal title including subtitle and volume number"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "University writing center error logs"
@@ -65,7 +71,10 @@
       "Keep minor words lowercase unless they are first or last in title",
       "Apply same rule to subtitle words following the colon"
     ],
-    "affected_source_types": ["book", "edited_book"],
+    "affected_source_types": [
+      "book",
+      "edited_book"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Academic writing center statistics"
@@ -91,7 +100,9 @@
       "Capitalize specific geographic names and locations mentioned",
       "Maintain capitalization of brand names and historical events referenced"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Citation analysis studies from academic libraries"
@@ -117,7 +128,9 @@
       "Apply sentence case or title case rules to remaining subtitle words appropriately",
       "Ensure subtitle capitalization matches the type of title case being used"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Writing center error patterns from citation reviews"
@@ -143,7 +156,9 @@
       "For lesser-known acronyms, follow standard usage or title case rules",
       "Check if acronym is commonly written in all caps in professional contexts"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Academic writing surveys on acronym usage"
@@ -169,7 +184,10 @@
       "Exception: use title case for standalone web works like online books",
       "Check if the web content is a container or standalone work"
     ],
-    "affected_source_types": ["website", "webpage"],
+    "affected_source_types": [
+      "website",
+      "webpage"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "Recent APA 7 adoption patterns in web citations"
@@ -195,7 +213,10 @@
       "Treat reports like articles rather than books for capitalization",
       "Check if report is part of larger series or standalone work"
     ],
-    "affected_source_types": ["report", "technical_report"],
+    "affected_source_types": [
+      "report",
+      "technical_report"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Technical writing center data on report citations"
@@ -221,7 +242,9 @@
       "Treat conference papers as articles within conference proceedings",
       "Apply same capitalization rules as journal articles to conference papers"
     ],
-    "affected_source_types": ["conference_paper"],
+    "affected_source_types": [
+      "conference_paper"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Academic conference citation studies from multiple disciplines"
@@ -247,7 +270,9 @@
       "Treat blog posts as articles within websites for capitalization",
       "Apply same rules as journal articles to blog post titles"
     ],
-    "affected_source_types": ["blog_post"],
+    "affected_source_types": [
+      "blog_post"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Digital writing research on blog citation patterns"
@@ -273,7 +298,9 @@
       "Treat chapters as parts of larger books for capitalization rules",
       "Apply same capitalization as journal articles to chapter titles"
     ],
-    "affected_source_types": ["book_chapter"],
+    "affected_source_types": [
+      "book_chapter"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Book citation analysis from academic publishing"
@@ -299,7 +326,9 @@
       "Double-check all words against the chosen case rules",
       "Review title for consistent application of capitalization throughout"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "Writing center error statistics from multiple institutions"
@@ -325,7 +354,10 @@
       "Keep minor words like articles, short prepositions, conjunctions lowercase",
       "Review each word to determine if it should be capitalized"
     ],
-    "affected_source_types": ["book", "journal_article"],
+    "affected_source_types": [
+      "book",
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Title case error studies from writing center research"
@@ -351,7 +383,10 @@
       "Identify conjunctions like and, but, or that should stay lowercase",
       "Exception: capitalize longer prepositions like between, through, during"
     ],
-    "affected_source_types": ["book", "journal_article"],
+    "affected_source_types": [
+      "book",
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Title case error analysis from academic writing studies"
@@ -377,7 +412,9 @@
       "Check the very first character of the title for proper capitalization",
       "Ensure first word is capitalized even if it's a minor word type"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Basic capitalization error studies from writing assessments"
@@ -403,7 +440,9 @@
       "Ensure volume number follows immediately after in italics format",
       "Check that italics include both journal title and volume number"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "Most common citation error in university writing centers"
@@ -429,7 +468,10 @@
       "Ensure italics cover the complete title from first to last word",
       "Check that publisher information is not included in italics formatting"
     ],
-    "affected_source_types": ["book", "edited_book"],
+    "affected_source_types": [
+      "book",
+      "edited_book"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Book citation error analysis from academic libraries"
@@ -455,7 +497,10 @@
       "Article titles should be in plain text without any formatting",
       "Ensure only container titles (journals, books) receive italics"
     ],
-    "affected_source_types": ["journal_article", "book_chapter"],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Citation formatting studies from writing center research"
@@ -481,7 +526,9 @@
       "Ensure issue number in parentheses is not italicized with title",
       "Check that italics extend to include the volume number only"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Journal citation formatting studies from multiple disciplines"
@@ -507,7 +554,9 @@
       "Issue number should be in plain text parentheses after italicized volume",
       "Ensure italics stop before the opening parenthesis of issue number"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Journal citation error analysis from writing centers"
@@ -533,7 +582,10 @@
       "Page numbers should be in plain text without any formatting",
       "Ensure italics end before the page range begins"
     ],
-    "affected_source_types": ["journal_article", "book_chapter"],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Citation formatting error studies from academic research"
@@ -559,7 +611,9 @@
       "Keep parentheses and edition text in plain text formatting",
       "Ensure only the book title itself receives italics formatting"
     ],
-    "affected_source_types": ["book"],
+    "affected_source_types": [
+      "book"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Book citation error patterns from academic libraries"
@@ -585,7 +639,10 @@
       "Only italicize standalone web works like online books and reports",
       "Check if web content is standalone or part of larger website"
     ],
-    "affected_source_types": ["website", "webpage"],
+    "affected_source_types": [
+      "website",
+      "webpage"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Web citation error studies from digital writing research"
@@ -611,7 +668,10 @@
       "Keep report number and other information in plain text format",
       "Check if report is part of series or standalone work"
     ],
-    "affected_source_types": ["report", "technical_report"],
+    "affected_source_types": [
+      "report",
+      "technical_report"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "Report citation analysis from government and academic sources"
@@ -637,7 +697,9 @@
       "Keep all other elements like publisher location in plain text",
       "Ensure italics start and stop at appropriate points"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Formatting consistency studies from writing center analysis"
@@ -663,7 +725,9 @@
       "Check that no initials are missing periods in reference lists",
       "Verify spacing between initials with periods is correct"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Author formatting error studies from academic writing"
@@ -689,7 +753,9 @@
       "Maintain periods after each initial without extra spacing",
       "Check that initials appear as M.K. not M. K. in citations"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Author formatting error analysis from writing centers"
@@ -715,7 +781,9 @@
       "Check that year information is complete with proper period",
       "Verify spacing between year period and title is correct"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "Most frequent punctuation error in citation analysis"
@@ -741,7 +809,9 @@
       "Check that no citation is missing final period in reference list",
       "Verify that final period is not preceded by extra spacing"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Citation completion error studies from academic writing"
@@ -767,7 +837,9 @@
       "Use '&' only in reference lists, not in-text citations",
       "Check that all multi-author references use ampersand format"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "Author connector error statistics from writing centers"
@@ -793,7 +865,9 @@
       "Check all multi-author citations for this pattern consistently",
       "Verify spacing around comma and ampersand is correct"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Author punctuation error studies from academic writing"
@@ -819,7 +893,9 @@
       "Ensure no extra punctuation between author and year",
       "Check that author-year connection is direct without comma"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Author-year connection error studies from writing analysis"
@@ -845,7 +921,9 @@
       "Check journal citation structure for proper comma placement",
       "Verify spacing around comma is correct and consistent"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Journal citation punctuation studies from academic writing"
@@ -871,7 +949,10 @@
       "Ensure consistent hyphen usage in all page ranges throughout",
       "Check that hyphen is standard keyboard hyphen character"
     ],
-    "affected_source_types": ["journal_article", "book_chapter"],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Page range formatting studies from citation analysis"
@@ -897,7 +978,9 @@
       "Title should be complete sentence ending with period",
       "Check spacing between title period and journal information"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Title-journal separation error studies from writing centers"
@@ -912,7 +995,7 @@
   {
     "error_id": "aut001",
     "error_name": "Author Name Not Inverted",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Using first name first format instead of last name first in reference list",
     "wrong_example": "Mary K. Johnson (2020). The study of psychology.",
     "correct_example": "Johnson, M. K. (2020). The study of psychology.",
@@ -923,7 +1006,9 @@
       "Format as: Last, F. M. with proper punctuation",
       "Ensure proper comma after last name and periods after initials"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "Most common author formatting error in citations"
@@ -938,7 +1023,7 @@
   {
     "error_id": "aut002",
     "error_name": "Using 'et al.' Too Early",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Using 'et al.' for works with fewer than 21 authors",
     "wrong_example": "Smith, J. D., et al. (2020). The study.",
     "correct_example": "Smith, J. D., Brown, A. M., Davis, L. K., & Wilson, R. T. (2020). The study.",
@@ -949,7 +1034,9 @@
       "For 21+ authors, list first 19, ellipsis, then final author",
       "Check total author count before applying et al. formatting"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "APA 7 transition error studies from writing centers"
@@ -964,7 +1051,7 @@
   {
     "error_id": "aut003",
     "error_name": "Incorrect Organization Author Format",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Inverting organization names or using acronyms incorrectly",
     "wrong_example": "Association, American Psychological (2020). The guide.",
     "correct_example": "American Psychological Association (2020). The guide.",
@@ -975,7 +1062,10 @@
       "Use full name, not acronyms unless widely recognized like CDC",
       "Check organization's preferred name format for citations"
     ],
-    "affected_source_types": ["report", "government_document"],
+    "affected_source_types": [
+      "report",
+      "government_document"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Organization author error studies from academic writing"
@@ -990,7 +1080,7 @@
   {
     "error_id": "aut004",
     "error_name": "Missing Author Information",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Leaving author field empty or using 'Unknown Author' when no author is listed",
     "wrong_example": "(2020). The study of psychology.",
     "correct_example": "The study of psychology. (2020).",
@@ -1001,7 +1091,9 @@
       "Follow title with year in parentheses in citation format",
       "Ensure title is properly capitalized when moved to author position"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Missing author handling studies from citation analysis"
@@ -1016,7 +1108,7 @@
   {
     "error_id": "aut005",
     "error_name": "Incorrect Double Surname Handling",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Splitting double surnames with commas or treating parts separately",
     "wrong_example": "Hernandez, Lopez, M. R.",
     "correct_example": "Hernandez Lopez, M. R.",
@@ -1027,7 +1119,9 @@
       "Do not split compound surnames with commas in citations",
       "Research author's preferred name format if uncertain"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "Name formatting complexity studies from academic writing"
@@ -1042,7 +1136,7 @@
   {
     "error_id": "aut006",
     "error_name": "Incorrect Hyphenated Name Handling",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Separating hyphenated surnames or removing hyphens incorrectly",
     "wrong_example": "Smith, Johnson, K. L.",
     "correct_example": "Smith-Johnson, K. L.",
@@ -1053,7 +1147,9 @@
       "Do not separate hyphenated names with commas in citations",
       "Treat hyphenated surname as one complete unit"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "Hyphenated name error studies from academic writing analysis"
@@ -1068,7 +1164,7 @@
   {
     "error_id": "aut007",
     "error_name": "Incorrect Prefix Handling",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Separating prefixes (van, de, von) from surnames incorrectly",
     "wrong_example": "Vries, De H. M.",
     "correct_example": "De Vries, H. M.",
@@ -1079,7 +1175,9 @@
       "Respect cultural naming conventions for prefixes",
       "Check author's preferred name format with prefixes"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "International name format studies from academic writing"
@@ -1094,7 +1192,7 @@
   {
     "error_id": "aut008",
     "error_name": "Incorrect Suffix Formatting",
-    "category": "author_formatting",
+    "category": "author_format",
     "description": "Improperly placing or formatting suffixes like Jr., Sr., II, III",
     "wrong_example": "King Jr., M. L.",
     "correct_example": "King, M. L., Jr.",
@@ -1105,7 +1203,9 @@
       "Do not include titles like Dr. or credentials in citations",
       "Check that suffix is properly placed after initials"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Suffix formatting error studies from academic writing"
@@ -1131,7 +1231,9 @@
       "Format as: https://doi.org/10.xxxx/xxxxxx with proper structure",
       "Verify DOI works before including in citation"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "very_common",
       "research_basis": "DOI omission statistics from academic libraries"
@@ -1157,7 +1259,9 @@
       "Remove any remaining 'doi:' prefix from citations",
       "Check that DOI link is properly formatted and clickable"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "APA 7 transition error studies from writing centers"
@@ -1183,7 +1287,9 @@
       "Only include retrieval date for unarchived websites without DOIs",
       "Check that DOI is working before removing retrieval date"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Retrieval date overuse studies from citation analysis"
@@ -1209,7 +1315,10 @@
       "Ensure URL is live and accessible when included",
       "Check that URL formatting is correct and complete"
     ],
-    "affected_source_types": ["website", "webpage"],
+    "affected_source_types": [
+      "website",
+      "webpage"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "URL formatting transition studies from academic writing"
@@ -1235,7 +1344,10 @@
       "Omit retrieval date for archived or dated content sources",
       "Check if content is stable before including retrieval date"
     ],
-    "affected_source_types": ["website", "webpage"],
+    "affected_source_types": [
+      "website",
+      "webpage"
+    ],
     "frequency": {
       "estimated_frequency": "common",
       "research_basis": "Retrieval date misuse studies from citation analysis"
@@ -1261,7 +1373,9 @@
       "Update broken links to working versions in references",
       "Verify that links lead to intended content sources"
     ],
-    "affected_source_types": ["all_source_types"],
+    "affected_source_types": [
+      "all_source_types"
+    ],
     "frequency": {
       "estimated_frequency": "moderate",
       "research_basis": "Link validation studies in academic libraries"
@@ -1287,7 +1401,9 @@
       "Focus on DOI as primary locator in reference lists",
       "Check that DOI is working before removing database name"
     ],
-    "affected_source_types": ["journal_article"],
+    "affected_source_types": [
+      "journal_article"
+    ],
     "frequency": {
       "estimated_frequency": "uncommon",
       "research_basis": "Database citation studies from academic libraries"

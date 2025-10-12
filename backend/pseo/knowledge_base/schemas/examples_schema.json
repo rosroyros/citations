@@ -1,0 +1,255 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "examples_schema.json",
+  "title": "Citation Examples Collection Schema",
+  "description": "Schema for collection of real citation examples",
+  "type": "object",
+  "required": ["examples"],
+  "properties": {
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "example_id",
+          "source_type",
+          "reference_citation",
+          "in_text_citations",
+          "metadata",
+          "tags"
+        ],
+        "properties": {
+          "example_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$",
+            "description": "Unique identifier for the example"
+          },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "journal_article",
+              "book",
+              "book_chapter",
+              "website",
+              "newspaper_article",
+              "magazine_article",
+              "blog_post",
+              "youtube_video",
+              "podcast_episode",
+              "social_media",
+              "dissertation",
+              "government_document",
+              "government_report",
+              "conference_paper",
+              "dataset",
+              "encyclopedia_entry",
+              "dictionary_entry",
+              "report"
+            ]
+          },
+          "reference_citation": {
+            "type": "string",
+            "minLength": 20,
+            "description": "Complete APA 7 reference list citation"
+          },
+          "in_text_citations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["type", "citation"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["parenthetical", "narrative"]
+                },
+                "citation": {
+                  "type": "string",
+                  "description": "Formatted in-text citation"
+                },
+                "context": {
+                  "type": "string",
+                  "description": "Example sentence showing usage"
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "description": "In-text citation examples"
+          },
+          "metadata": {
+            "type": "object",
+            "required": ["title", "year", "authors"],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 5,
+                "description": "Work title"
+              },
+              "year": {
+                "type": "integer",
+                "minimum": 1900,
+                "maximum": 2030,
+                "description": "Publication year"
+              },
+              "authors": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["last_name"],
+                  "properties": {
+                    "last_name": {
+                      "type": "string",
+                      "minLength": 2
+                    },
+                    "initials": {
+                      "type": "string",
+                      "pattern": "^[A-Z]\\.(?: [A-Z]\\.)*$",
+                      "description": "Author initials (optional for organizational authors)"
+                    },
+                    "full_name": {
+                      "type": "string",
+                      "description": "Full author name"
+                    }
+                  }
+                },
+                "minItems": 1,
+                "maxItems": 25,
+                "description": "Author information"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Journal name, publisher, website, etc."
+                  },
+                  "volume": {
+                    "type": "string",
+                    "description": "Volume number"
+                  },
+                  "issue": {
+                    "type": "string",
+                    "description": "Issue number"
+                  },
+                  "pages": {
+                    "type": "string",
+                    "description": "Page range"
+                  },
+                  "doi": {
+                    "type": ["string", "null"],
+                    "pattern": "^(10\\.[0-9]+.*|null)$",
+                    "description": "Digital Object Identifier"
+                  },
+                  "url": {
+                    "type": ["string", "null"],
+                    "format": "uri",
+                    "description": "URL if no DOI"
+                  },
+                  "publisher": {
+                    "type": "string",
+                    "description": "Publisher name"
+                  },
+                  "location": {
+                    "type": ["string", "null"],
+                    "description": "Publication location"
+                  }
+                }
+              },
+              "verification": {
+                "type": "object",
+                "properties": {
+                  "doi_resolves": {
+                    "type": "boolean",
+                    "description": "Whether DOI resolves to active source"
+                  },
+                  "url_active": {
+                    "type": "boolean",
+                    "description": "Whether URL is active"
+                  },
+                  "verified_date": {
+                    "type": "string",
+                    "format": "date",
+                    "description": "Date verification was performed"
+                  }
+                }
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 2,
+            "maxItems": 10,
+            "description": "Tags for categorization and searching"
+          },
+          "special_features": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "doi_present",
+                "no_doi",
+                "many_authors",
+                "single_author",
+                "organization_author",
+                "no_date",
+                "retrieval_date",
+                "special_punctuation",
+                "foreign_language",
+                "translated_work",
+                "edition_specified",
+                "advance_online",
+                "supplemental_material"
+              ]
+            },
+            "description": "Special features of this citation"
+          },
+          "field": {
+            "type": "string",
+            "enum": [
+              "psychology",
+              "education",
+              "nursing",
+              "business",
+              "social_work",
+              "sociology",
+              "medicine",
+              "communication",
+              "political_science",
+              "other"
+            ],
+            "description": "Academic field this example comes from"
+          },
+          "notes": {
+            "type": "string",
+            "maxLength": 500,
+            "description": "Additional notes about this example"
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "total_count": {
+          "type": "integer",
+          "description": "Total number of examples"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of last update"
+        },
+        "version": {
+          "type": "string",
+          "description": "Version identifier"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
