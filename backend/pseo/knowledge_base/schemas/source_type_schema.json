@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "source_type_schema.json",
+  "title": "Source Type Schema",
+  "description": "Schema for defining different source types (journal articles, books, etc.)",
+  "type": "object",
+  "required": [
+    "source_type_id",
+    "name",
+    "description",
+    "basic_template",
+    "required_elements",
+    "optional_elements"
+  ],
+  "properties": {
+    "source_type_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Unique identifier for the source type"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 50,
+      "description": "Human-readable name (e.g., 'Journal Article')"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 200,
+      "description": "Brief description of the source type"
+    },
+    "basic_template": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Basic citation template format"
+    },
+    "required_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "format"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Element name (e.g., 'author', 'year')"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this element represents"
+          },
+          "format": {
+            "type": "string",
+            "description": "Formatting requirements"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Example formats"
+          }
+        }
+      },
+      "minItems": 1,
+      "description": "Required citation elements"
+    },
+    "optional_elements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "description", "when_to_include"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Element name"
+          },
+          "description": {
+            "type": "string",
+            "description": "What this element represents"
+          },
+          "when_to_include": {
+            "type": "string",
+            "description": "When this element should be included"
+          }
+        }
+      },
+      "description": "Optional citation elements"
+    },
+    "special_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["case_name", "description", "format"],
+        "properties": {
+          "case_name": {
+            "type": "string",
+            "description": "Name of the special case"
+          },
+          "description": {
+            "type": "string",
+            "description": "When this case applies"
+          },
+          "format": {
+            "type": "string",
+            "description": "Special formatting for this case"
+          },
+          "example": {
+            "type": "string",
+            "description": "Example citation for this case"
+          }
+        }
+      },
+      "description": "Special formatting cases"
+    },
+    "common_variations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["variation_name", "template", "description"],
+        "properties": {
+          "variation_name": {
+            "type": "string",
+            "description": "Name of the variation"
+          },
+          "template": {
+            "type": "string",
+            "description": "Template for this variation"
+          },
+          "description": {
+            "type": "string",
+            "description": "When to use this variation"
+          }
+        }
+      },
+      "description": "Common variations of this source type"
+    }
+  },
+  "additionalProperties": false
+}

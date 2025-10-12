@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "citation_rule_schema.json",
+  "title": "APA Citation Rule Schema",
+  "description": "Schema for APA 7th edition citation rules",
+  "type": "object",
+  "required": [
+    "rule_id",
+    "source",
+    "description",
+    "examples",
+    "category"
+  ],
+  "properties": {
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Unique identifier for the rule"
+    },
+    "source": {
+      "type": "string",
+      "pattern": "^APA Manual Section [0-9]+\\.[0-9]+, p\\. [0-9]+$",
+      "description": "APA manual reference (e.g., 'APA Manual Section 6.14, p. 165')"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 500,
+      "description": "Clear explanation of the rule (100-150 words)"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "example"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["correct", "incorrect"]
+          },
+          "example": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Formatted citation example"
+          },
+          "explanation": {
+            "type": "string",
+            "description": "Why this example is correct/incorrect"
+          }
+        }
+      },
+      "minItems": 2,
+      "maxItems": 10,
+      "description": "Array of correct and incorrect examples"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "author_formatting",
+        "date_formatting",
+        "title_capitalization",
+        "italics_usage",
+        "punctuation",
+        "doi_url_formatting",
+        "volume_issue_formatting",
+        "page_number_formatting",
+        "in_text_citation",
+        "reference_list_formatting"
+      ]
+    },
+    "apa6_vs_7": {
+      "type": "object",
+      "properties": {
+        "changed_in_7": {
+          "type": "boolean",
+          "description": "Whether this rule changed from APA 6 to 7"
+        },
+        "apa6_rule": {
+          "type": "string",
+          "description": "Previous APA 6 rule (if changed)"
+        },
+        "change_explanation": {
+          "type": "string",
+          "description": "Explanation of the change"
+        }
+      }
+    },
+    "required_elements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of required elements for this rule"
+    },
+    "optional_elements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of optional elements for this rule"
+    }
+  },
+  "additionalProperties": false
+}

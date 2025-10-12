@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "error_schema.json",
+  "title": "Common Citation Error Schema",
+  "description": "Schema for common APA citation errors",
+  "type": "object",
+  "required": [
+    "error_id",
+    "error_name",
+    "category",
+    "description",
+    "wrong_example",
+    "correct_example",
+    "fix_instructions",
+    "affected_source_types"
+  ],
+  "properties": {
+    "error_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Unique identifier for the error"
+    },
+    "error_name": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 100,
+      "description": "Clear, descriptive name of the error"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "capitalization",
+        "italics",
+        "punctuation",
+        "author_formatting",
+        "doi_url",
+        "spacing",
+        "order",
+        "missing_elements",
+        "extra_elements",
+        "formatting"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 300,
+      "description": "Clear description of what the error is"
+    },
+    "wrong_example": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Example showing the incorrect formatting"
+    },
+    "correct_example": {
+      "type": "string",
+      "minLength": 10,
+      "description": "Example showing the correct formatting"
+    },
+    "explanation": {
+      "type": "string",
+      "minLength": 50,
+      "maxLength": 400,
+      "description": "Why students make this error"
+    },
+    "fix_instructions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 20
+      },
+      "minItems": 1,
+      "maxItems": 10,
+      "description": "Step-by-step instructions to fix the error"
+    },
+    "affected_source_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Which source types this error commonly affects"
+    },
+    "frequency": {
+      "type": "object",
+      "properties": {
+        "estimated_frequency": {
+          "type": "string",
+          "enum": ["very_common", "common", "moderate", "uncommon", "rare"]
+        },
+        "research_basis": {
+          "type": "string",
+          "description": "Source for frequency estimate"
+        }
+      }
+    },
+    "rule_violated": {
+      "type": "string",
+      "description": "Which APA rule this violates (reference to rule_id)"
+    },
+    "difficulty_to_fix": {
+      "type": "string",
+      "enum": ["easy", "moderate", "difficult"],
+      "description": "How difficult this error is for students to fix"
+    },
+    "prevention_tips": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 20
+      },
+      "description": "Tips to prevent this error in the future"
+    }
+  },
+  "additionalProperties": false
+}
