@@ -229,7 +229,7 @@ function App() {
       {/* Benefits Section */}
       <section className="benefits">
         <div className="benefits-content">
-          <h3 className="benefits-title">Why students choose Citation Format Checker</h3>
+          <h3 className="benefits-title">Why researchers choose Citation Format Checker</h3>
           <div className="benefits-grid">
             <div className="benefit-card">
               <div className="benefit-icon">⚡</div>
