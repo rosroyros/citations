@@ -1,0 +1,1567 @@
+[
+  {
+    "rule_id": "single_author_format",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "In APA 7th edition, single authors are formatted with last name followed by a comma and first and middle initials. The initials should be separated by periods but not spaces. This format applies to all reference types including journal articles, books, and webpages. The author's name should be inverted (last name first) in the reference list only. This rule ensures consistency across all citation formats and makes alphabetical ordering more efficient in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, M. K."
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, R. A."
+      },
+      {
+        "type": "incorrect",
+        "citation": "M. K. Johnson"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, M.K."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "last_name",
+      "comma",
+      "first_initial",
+      "period",
+      "middle_initial",
+      "period"
+    ],
+    "common_errors": [
+      "Not inverting name (first name first)",
+      "Omitting comma after last name",
+      "Adding spaces between initials"
+    ]
+  },
+  {
+    "rule_id": "two_authors_format",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with two authors, both names should be inverted (last name first) and separated by an ampersand (&) rather than the word 'and'. Each author's name follows the single author format (Last name, initials). The ampersand should be preceded by a comma. This format is used in both reference lists and parenthetical citations, but narrative citations use 'and' instead of '&'. This rule distinguishes APA from other citation styles and maintains consistency across multi-author works.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, J. D., & Brown, A. M."
+      },
+      {
+        "type": "correct",
+        "citation": "Garcia, L. P., & Martinez, R. T."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. D. and Brown, A. M."
+      },
+      {
+        "type": "incorrect",
+        "citation": "J. D. Smith & A. M. Brown"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "author1_last",
+      "author1_initials",
+      "comma",
+      "ampersand",
+      "author2_last",
+      "author2_initials"
+    ],
+    "common_errors": [
+      "Using 'and' instead of '&'",
+      "Not inverting second author's name",
+      "Missing comma before ampersand"
+    ]
+  },
+  {
+    "rule_id": "three_to_twenty_authors",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with three to twenty authors, list all authors in the reference list. Each author's name should be inverted (last name first) with initials. Authors should be separated by commas, with an ampersand (&) before the final author's name. This represents a significant change from APA 6th edition, which used 'et al.' for works with seven or more authors. This rule ensures proper attribution to all contributors while maintaining readability for moderately sized author groups.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P."
+      },
+      {
+        "type": "correct",
+        "citation": "Chen, X., Rodriguez, M., Johnson, L., Kim, S., & Patel, R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, K. L., et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, K. L., Williams, J. M., Davis, S. R. and Thompson, B. P."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "all_authors_inverted",
+      "commas_between_authors",
+      "ampersand_before_last"
+    ],
+    "common_errors": [
+      "Using 'et al.' prematurely",
+      "Using 'and' instead of '&'",
+      "Not listing all authors"
+    ]
+  },
+  {
+    "rule_id": "twenty_plus_authors_etal",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "For works with 21 or more authors, list the first 19 authors, insert an ellipsis (...), then list the final author. The ellipsis replaces authors 20 through the second-to-last author. All listed authors follow the standard inverted format. This rule prevents extremely long citation lists while still providing key attribution information. The ellipsis should not be italicized or bracketed. This change from APA 6th edition's 7+ author rule provides more comprehensive author listing.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z."
+      },
+      {
+        "type": "correct",
+        "citation": "Johnson, M. K., Williams, R. A., Brown, L. D., Davis, S. M., ... Smith, T. R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author1, A. A., et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author1, A. A., Author2, B. B., ... Author20, T. T., LastAuthor, Z. Z."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "first_19_authors",
+      "ellipsis",
+      "final_author"
+    ],
+    "common_errors": [
+      "Using 'et al.' instead of ellipsis format",
+      "Listing too many authors",
+      "Omitting the final author"
+    ]
+  },
+  {
+    "rule_id": "organization_as_author",
+    "source": "APA Manual Section 9.11, p. 288",
+    "description": "When an organization, corporation, or government agency is the author, use the full official name of the organization. Do not invert organizational names or use initials unless the organization is commonly known by its abbreviation (like APA or NIH). The organization name should be written out completely in the first mention, with abbreviations in brackets if they will be used subsequently. This rule ensures proper attribution for corporate and institutional authors while maintaining clarity for readers.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "American Psychological Association"
+      },
+      {
+        "type": "correct",
+        "citation": "National Institute of Mental Health"
+      },
+      {
+        "type": "incorrect",
+        "citation": "APA"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Association, American Psychological"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "full_organization_name"
+    ],
+    "common_errors": [
+      "Using abbreviations instead of full names",
+      "Inverting organizational names",
+      "Using acronyms without explanation"
+    ]
+  },
+  {
+    "rule_id": "government_author_format",
+    "source": "APA Manual Section 9.11, p. 288",
+    "description": "Government authors should include the specific agency or department as the author. When parent departments are relevant to identification, they can be included in the publisher position instead of the author position. Use the most specific agency name as the author. For example, use 'National Institute of Mental Health' rather than 'U.S. Department of Health and Human Services, National Institute of Mental Health.' This rule provides clear attribution while avoiding unnecessarily long author names.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Centers for Disease Control and Prevention"
+      },
+      {
+        "type": "correct",
+        "citation": "U.S. Census Bureau"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Department of Commerce, U.S. Census Bureau"
+      },
+      {
+        "type": "incorrect",
+        "citation": "CDC"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "specific_agency_name"
+    ],
+    "common_errors": [
+      "Including parent departments in author position",
+      "Using acronyms without full names",
+      "Not being specific enough"
+    ]
+  },
+  {
+    "rule_id": "anonymous_author_handling",
+    "source": "APA Manual Section 9.12, p. 289",
+    "description": "When no author is listed and the work cannot be attributed to a specific organization, move the title to the author position, followed by the date. Do not use 'Anonymous' as the author unless the work is actually signed 'Anonymous.' For works truly signed 'Anonymous,' treat 'Anonymous' as the author name. This rule ensures that readers can identify works by their titles when authorship is unknown while maintaining the standard reference format structure.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Merriam-Webster's collegiate dictionary. (2003)."
+      },
+      {
+        "type": "correct",
+        "citation": "Anonymous. (2018). The art of invisibility."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anonymous. (2003). Merriam-Webster's collegiate dictionary."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Unknown author. (2018). The art of invisibility."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "title_as_author_or_anonymous",
+      "date"
+    ],
+    "common_errors": [
+      "Using 'Anonymous' when author is unknown",
+      "Leaving author position empty",
+      "Not moving title to author position"
+    ]
+  },
+  {
+    "rule_id": "author_titles_suffixes",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "Author titles, suffixes, and credentials (like Jr., Sr., II, III, Ph.D., M.D.) should be included in the reference list. Suffixes like Jr., Sr., II, and III follow the initials, separated by commas. Academic and professional credentials are generally omitted from reference list entries but may be included in special circumstances. Titles like Dr., Professor, or military ranks are not included in reference list citations. This rule provides complete identification when needed while avoiding unnecessary credential inflation.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "King, M. L., Jr."
+      },
+      {
+        "type": "correct",
+        "citation": "Davis, J. H., III"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Dr. Davis, J. H., III"
+      },
+      {
+        "type": "incorrect",
+        "citation": "King, M. L. Jr., Ph.D."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "name",
+      "comma",
+      "suffix"
+    ],
+    "common_errors": [
+      "Including professional titles",
+      "Incorrect comma placement with suffixes",
+      "Adding unnecessary credentials"
+    ]
+  },
+  {
+    "rule_id": "authors_same_surname",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "When authors share the same surname, include their first initials even when there are multiple authors. This prevents confusion between different authors with identical last names. The standard format remains the same (Last name, initials), but this rule ensures that all authors are properly distinguished. This is particularly important in reference list ordering and when readers need to distinguish between works by different authors with common surnames.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B., & Johnson, C. D."
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. R., Smith, M. K., & Brown, L. P."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. B., & C. D."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A., & Johnson, C."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "full_initials_for_all_authors"
+    ],
+    "common_errors": [
+      "Omitting initials for subsequent authors with same surname",
+      "Using inconsistent initial formats"
+    ]
+  },
+  {
+    "rule_id": "double_surname_handling",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Authors with double surnames (like Hernandez Lopez or Van der Wiel) should maintain both parts of the surname in the reference list. Treat the double surname as a single unit with a comma after the complete surname. Do not insert commas between parts of compound surnames unless that is the person's preferred usage. This rule respects cultural naming conventions and ensures accurate identification of authors with complex surnames.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Hernandez Lopez, M. R."
+      },
+      {
+        "type": "correct",
+        "citation": "Van der Wiel, J. H."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Hernandez, Lopez, M. R."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Lopez Hernandez, M. R."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "complete_double_surname",
+      "comma",
+      "initials"
+    ],
+    "common_errors": [
+      "Splitting double surnames",
+      "Incorrectly ordering name parts",
+      "Adding unnecessary commas"
+    ]
+  },
+  {
+    "rule_id": "hyphenated_names",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Hyphenated surnames should be treated as a single unit with the hyphen maintained in the reference list. The entire hyphenated surname comes before the comma, followed by initials. Do not separate hyphenated names with commas or treat them as multiple surnames. This rule preserves the author's intended name format and ensures accurate alphabetical ordering in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith-Johnson, K. L."
+      },
+      {
+        "type": "correct",
+        "citation": "Garcia-Martinez, R. P."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, Johnson, K. L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith Johnson, K. L."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "hyphenated_surname",
+      "comma",
+      "initials"
+    ],
+    "common_errors": [
+      "Removing hyphens",
+      "Treating hyphenated names as separate surnames",
+      "Incorrect comma placement"
+    ]
+  },
+  {
+    "rule_id": "compound_names_prefixes",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Surnames with prefixes (like de, van, von, del, la, le) should be treated according to the author's preference and cultural conventions. Common prefixes like 'van' or 'de' are typically treated as part of the surname and included before the comma. The prefix and surname should remain together as a single unit. This rule respects various cultural naming traditions while maintaining consistency in reference list formatting.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "De Vries, H. M."
+      },
+      {
+        "type": "correct",
+        "citation": "Van Gogh, V. W."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Vries, De H. M."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Gogh, Van V. W."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "prefix_and_surname",
+      "comma",
+      "initials"
+    ],
+    "common_errors": [
+      "Separating prefixes from surnames",
+      "Incorrect alphabetical treatment",
+      "Not respecting cultural conventions"
+    ]
+  },
+  {
+    "rule_id": "missing_author_information",
+    "source": "APA Manual Section 9.4, p. 284",
+    "description": "When author information is incomplete, use available information and follow specific rules for missing elements. If only initials are available, use them without periods. If no author can be identified, move the title to the author position. For edited volumes with no author, use the editor(s) with '(Ed.)' after the name. This rule ensures that references can be created even with incomplete author information while maintaining APA format consistency.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "SJ (Ed.). (2020). The complete guide."
+      },
+      {
+        "type": "correct",
+        "citation": "Annual report of the company. (2019)."
+      },
+      {
+        "type": "incorrect",
+        "citation": "S.J. (Ed.). (2020). The complete guide."
+      },
+      {
+        "type": "incorrect",
+        "citation": "[Unknown author]. (2019). Annual report of the company."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "available_initials_or_title",
+      "editor_designation_if_applicable"
+    ],
+    "common_errors": [
+      "Using periods with initials only",
+      "Leaving author position empty",
+      "Not using proper editor designation"
+    ]
+  },
+  {
+    "rule_id": "author_initials_formatting",
+    "source": "APA Manual Section 6.7, p. 166",
+    "description": "Author initials should include periods after each initial with no spaces between initials. Use all initials provided by the author, including middle initials. Do not use spaces between initials (J.R. not J. R.). Initials should be followed by periods unless only initials are available without periods in the source. This formatting ensures consistency and readability in reference lists while properly representing author names.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Robertson, M.J.L."
+      },
+      {
+        "type": "correct",
+        "citation": "Anderson, S.A."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Robertson, M. J. L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, SA"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "initials_with_periods",
+      "no_spaces_between_initials"
+    ],
+    "common_errors": [
+      "Adding spaces between initials",
+      "Omitting periods after initials",
+      "Not using all available initials"
+    ]
+  },
+  {
+    "rule_id": "author_name_order",
+    "source": "APA Manual Section 9.8, p. 286",
+    "description": "In reference lists, author names should be alphabetized by the last name of the first author. When the first author is identical, alphabetize by the second author's last name, and so on. For works by the same author in the same year, use suffixes (a, b, c) after the year, alphabetized by title. Author order in multi-author works should reflect the order of authorship on the original publication. This rule ensures logical organization and easy location of sources in reference lists.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B. (2020a). First title. Johnson, A. B. (2020b). Second title."
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J., Brown, K., & Davis, L."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. B. (2020b). First title. Johnson, A. B. (2020a). Second title."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Brown, K., Smith, J., & Davis, L."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "alphabetical_order",
+      "original_authorship_order",
+      "year_suffixes_for_same_author_same_year"
+    ],
+    "common_errors": [
+      "Alphabetizing by first name",
+      "Changing original author order",
+      "Incorrect year suffix ordering"
+    ]
+  },
+  {
+    "rule_id": "basic_year_format",
+    "source": "APA Manual Section 9.2, p. 266",
+    "description": "In APA 7, the publication year for most sources is placed in parentheses following the author name. The year is followed by a period. This format applies to journal articles, books, and most other standard reference types. The year should be the actual publication year, not the copyright year when they differ. For edited books, use the year of publication of the specific edition you are citing. This format has remained consistent from APA 6 with minor clarification about copyright vs publication year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2023). Research methods in psychology."
+      },
+      {
+        "type": "correct",
+        "citation": "Johnson, A. B., & Williams, C. (2022). Statistical analysis for social sciences."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. 2023. Research methods in psychology."
+      },
+      {
+        "type": "incorrect",
+        "citation": "(Smith, J. 2023). Research methods in psychology."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "author",
+      "opening_parenthesis",
+      "year",
+      "closing_parenthesis",
+      "period"
+    ],
+    "common_errors": [
+      "missing parentheses around year",
+      "incorrect punctuation after year",
+      "using copyright year instead of publication year"
+    ]
+  },
+  {
+    "rule_id": "no_date_format",
+    "source": "APA Manual Section 9.4, p. 267",
+    "description": "When no publication date is available, use (n.d.) in place of the year in parentheses. This abbreviation stands for 'no date' and is used for sources that lack any publication date information. This applies to web pages with no date, undated manuscripts, or archival materials without clear dating. The (n.d.) appears in the same position as the year would and is followed by a period. This format is unchanged from APA 6, but APA 7 provides clearer guidance on when to use (n.d.) versus seeking approximate dates.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Ancient Writing Institute. (n.d.). Cuneiform tablet translations."
+      },
+      {
+        "type": "correct",
+        "citation": "Author, A. (n.d.). Untitled manuscript."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Ancient Writing Institute. (no date). Cuneiform tablet translations."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Ancient Writing Institute. n.d. Cuneiform tablet translations."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "author",
+      "opening_parenthesis",
+      "n.d.",
+      "closing_parenthesis",
+      "period"
+    ],
+    "common_errors": [
+      "using 'no date' instead of 'n.d.'",
+      "missing parentheses around n.d.",
+      "placing n.d. in wrong position"
+    ]
+  },
+  {
+    "rule_id": "in_press_format",
+    "source": "APA Manual Section 9.5, p. 268",
+    "description": "For works accepted for publication but not yet published, use (in press) instead of the year. This format is used for journal articles that have been accepted but not yet published, books under contract, or similar forthcoming works. The phrase 'in press' appears in parentheses exactly as it would for a year, followed by a period. In APA 7, this usage is clarified to apply only to works that have been formally accepted for publication, not works merely submitted or under review. This represents a minor change from APA 6.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Thompson, R. K. (in press). Neural mechanisms of memory consolidation."
+      },
+      {
+        "type": "correct",
+        "citation": "Brown, L. M., Davis, J. P., & Wilson, S. T. (in press). Advanced statistical modeling techniques."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Thompson, R. K. (in-press). Neural mechanisms of memory consolidation."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Thompson, R. K. in press. Neural mechanisms of memory consolidation."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "author",
+      "opening_parenthesis",
+      "in press",
+      "closing_parenthesis",
+      "period"
+    ],
+    "common_errors": [
+      "using hyphen in 'in-press'",
+      "missing parentheses",
+      "applying to unsubmitted works"
+    ]
+  },
+  {
+    "rule_id": "specific_date_format",
+    "source": "APA Manual Section 9.13, p. 284",
+    "description": "For sources that require more specific dating than just the year, use Year, Month Day format. This applies to newspapers, magazines, blog posts, social media posts, and some online sources where the specific date is important for locating the source. The month should be spelled out, followed by the day number without ordinal suffixes. This format replaces the APA 6 practice of including (Year, Month Day) for these source types, simplifying the reference format while maintaining specificity.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, M. (2023, October 15). New research findings announced. The Daily Chronicle."
+      },
+      {
+        "type": "correct",
+        "citation": "TechBlog. (2022, November 3). Latest software update released."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. (2023, Oct 15). New research findings announced. The Daily Chronicle."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. (2023, October 15th). New research findings announced. The Daily Chronicle."
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "author",
+      "opening_parenthesis",
+      "year",
+      "comma",
+      "spelled_out_month",
+      "day_number",
+      "closing_parenthesis",
+      "period"
+    ],
+    "common_errors": [
+      "abbreviating month names",
+      "using ordinal suffixes (1st, 2nd, 3rd)",
+      "missing comma after year"
+    ]
+  },
+  {
+    "rule_id": "date_range_format",
+    "source": "APA Manual Section 9.28, p. 290",
+    "description": "For historical works or multi-volume publications spanning multiple years, use en dash to indicate date ranges. This format is used for classical works with uncertain dating spans, multi-volume works published over several years, or historical documents covering extended periods. The en dash (not hyphen) connects the years without spaces. When specific centuries are involved, include both start and end years. APA 7 clarifies this usage compared to APA 6, providing more explicit guidance on when date ranges are appropriate.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Shakespeare, W. (1599\u20131601). Hamlet."
+      },
+      {
+        "type": "correct",
+        "citation": "Ancient Historian. (200\u2013150 BCE). Roman conquest chronicles."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Shakespeare, W. (1599-1601). Hamlet."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Shakespeare, W. (1599 \u2013 1601). Hamlet."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "author",
+      "opening_parenthesis",
+      "start_year",
+      "en_dash",
+      "end_year",
+      "closing_parenthesis",
+      "period"
+    ],
+    "common_errors": [
+      "using hyphen instead of en dash",
+      "adding spaces around dash",
+      "applying to inappropriate source types"
+    ]
+  },
+  {
+    "rule_id": "article_title_sentence_case",
+    "source": "APA 7th Edition, Section 6.17, p. 167",
+    "description": "Article titles in APA 7 references should use sentence case, meaning only the first word of the title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This applies to journal articles, magazine articles, and newspaper articles. The rule emphasizes natural language capitalization rather than the more formal title case used for book and journal titles. Subtitles are treated as separate sentences for capitalization purposes.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The impact of social media on adolescent mental health: A longitudinal study"
+      },
+      {
+        "type": "correct",
+        "citation": "Psychological interventions for anxiety disorders during COVID-19"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The Impact Of Social Media On Adolescent Mental Health: A Longitudinal Study"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Psychological Interventions for Anxiety Disorders During COVID-19"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "First word after colon capitalized"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "journal_periodical_title_case",
+    "source": "APA 7th Edition, Section 6.22, p. 172",
+    "description": "Journal and periodical titles use title case in APA 7 references. All major words (nouns, pronouns, verbs, adjectives, adverbs) are capitalized, while minor words (articles, short prepositions, conjunctions) are lowercase unless they are the first or last word of the title or subtitle. This rule applies to journal names, magazine titles, and newspaper titles in reference list entries.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Journal of Clinical Psychology"
+      },
+      {
+        "type": "correct",
+        "citation": "New England Journal of Medicine"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Journal of clinical psychology"
+      },
+      {
+        "type": "incorrect",
+        "citation": "New england journal of medicine"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "Major words capitalized",
+      "First and last words always capitalized",
+      "Minor words lowercase (unless first/last)"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "book_title_case",
+    "source": "APA 7th Edition, Section 9.19, p. 285",
+    "description": "Book titles in APA 7 references use title case capitalization. All major words including nouns, pronouns, verbs, adjectives, and adverbs are capitalized. Minor words such as articles (a, an, the), short prepositions (of, in, on, at), and coordinating conjunctions (and, but, or) are lowercase unless they appear as the first or last word of the title or subtitle. This applies to both entire books and edited collections.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The Psychology of Learning and Motivation"
+      },
+      {
+        "type": "correct",
+        "citation": "Cognitive-Behavioral Therapy for Anxiety Disorders: A Comprehensive Guide"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The psychology of learning and motivation"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Cognitive-behavioral therapy for anxiety disorders: a comprehensive guide"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "Major words capitalized",
+      "First/last words capitalized",
+      "Minor words lowercase"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "chapter_title_sentence_case",
+    "source": "APA 7th Edition, Section 10.2, p. 321",
+    "description": "Chapter titles and other parts of larger works use sentence case in APA 7 references. Only the first word of the chapter title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This rule applies to chapters in edited books, sections of reports, and other components that are part of a larger work. The principle is to treat these as individual pieces within a larger container.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The role of executive function in academic achievement"
+      },
+      {
+        "type": "correct",
+        "citation": "Social development in early childhood: Theoretical perspectives"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The Role of Executive Function in Academic Achievement"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Social Development in Early Childhood: Theoretical Perspectives"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "First word after colon capitalized"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "heading_level_1_2_title_case",
+    "source": "APA 7th Edition, Section 2.27, p. 48",
+    "description": "APA 7 headings for Levels 1 and 2 use title case capitalization. Level 1 headings are centered, bold, and use title case. Level 2 headings are flush left, bold, and use title case. Title case means capitalizing all major words including the first word, last word, and all principal words (nouns, pronouns, verbs, adjectives, adverbs). Minor words like articles, short prepositions, and conjunctions are lowercase unless they are first or last.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Method"
+      },
+      {
+        "type": "correct",
+        "citation": "Participants and Setting"
+      },
+      {
+        "type": "incorrect",
+        "citation": "method"
+      },
+      {
+        "type": "incorrect",
+        "citation": "participants and setting"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "Title case capitalization",
+      "Bold formatting",
+      "Specific alignment per level"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "heading_level_3_plus_sentence_case",
+    "source": "APA 7th Edition, Section 2.27, p. 48",
+    "description": "APA 7 headings for Levels 3, 4, and 5 use sentence case capitalization. Level 3 headings are flush left, bold, italicized, and use sentence case. Level 4 headings are indented, bold, and use sentence case. Level 5 headings are indented, bold, italicized, and use sentence case. Sentence case means capitalizing only the first word and proper nouns, with the rest in lowercase.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Research design and measures"
+      },
+      {
+        "type": "correct",
+        "citation": "Data analysis procedures"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Research Design and Measures"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Data Analysis Procedures"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "Sentence case capitalization",
+      "Specific formatting per level (bold, italics, indent)"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "website_title_sentence_case",
+    "source": "APA 7th Edition, Section 9.38, p. 298",
+    "description": "Website titles generally use sentence case in APA 7 references. Capitalize only the first word of the website title, the first word of the subtitle (after a colon), and proper nouns. However, if the website title is also the name of a standalone work (like an online book or report), it may use title case. The rule distinguishes between websites as containers versus standalone web documents.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Pew research center: Internet, science & tech"
+      },
+      {
+        "type": "correct",
+        "citation": "American psychological association: Psychology topics"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Pew Research Center: Internet, Science & Tech"
+      },
+      {
+        "type": "incorrect",
+        "citation": "American Psychological Association: Psychology Topics"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "Special handling for standalone works"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "report_title_sentence_case",
+    "source": "APA 7th Edition, Section 10.4, p. 329",
+    "description": "Report titles in APA 7 references use sentence case capitalization. Only the first word of the report title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This applies to technical reports, government reports, working papers, and other similar documents. The rule treats reports as articles or other works that are part of a larger series or organizational output.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The state of mental health in America: A 2023 report"
+      },
+      {
+        "type": "correct",
+        "citation": "Educational outcomes in urban schools: Longitudinal data analysis"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The State of Mental Health in America: A 2023 Report"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Educational Outcomes in Urban Schools: Longitudinal Data Analysis"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "First word after colon capitalized"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "conference_paper_title_sentence_case",
+    "source": "APA 7th Edition, Section 10.5, p. 335",
+    "description": "Conference paper titles use sentence case in APA 7 references. Capitalize only the first word of the paper title, the first word of the subtitle (after a colon), and proper nouns. This applies to papers presented at conferences, symposia, and similar academic gatherings. The rule treats conference papers as articles or works within the larger conference proceedings.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Artificial intelligence in psychological assessment: Current applications"
+      },
+      {
+        "type": "correct",
+        "citation": "Virtual reality therapy for phobia treatment: A meta-analysis"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Artificial Intelligence in Psychological Assessment: Current Applications"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Virtual Reality Therapy for Phobia Treatment: A Meta-Analysis"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "First word after colon capitalized"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "blog_post_title_sentence_case",
+    "source": "APA 7th Edition, Section 10.1, p. 316",
+    "description": "Blog post titles use sentence case in APA 7 references. Only the first word of the blog post title, the first word of the subtitle (after a colon), and proper nouns are capitalized. This treats blog posts similarly to articles or works within a larger website or publication. The rule maintains consistency with other web-based content that is part of a larger container.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Mindfulness practices for stress reduction: A beginner's guide"
+      },
+      {
+        "type": "correct",
+        "citation": "The future of online education: Trends and predictions"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Mindfulness Practices for Stress Reduction: A Beginner's Guide"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The Future of Online Education: Trends and Predictions"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "First word capitalized",
+      "Proper nouns capitalized",
+      "First word after colon capitalized"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "proper_nouns_always_capitalized",
+    "source": "APA 7th Edition, Section 6.15, p. 166",
+    "description": "Proper nouns are always capitalized in APA 7 regardless of whether title case or sentence case is being used. This includes names of people, specific places, organizations, brand names, historical events, and other proper designations. When determining capitalization, always preserve the capitalization of proper nouns as they would normally appear. This rule applies across all title types and is consistent with standard English capitalization conventions.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The impact of World War II on European society"
+      },
+      {
+        "type": "correct",
+        "citation": "Research conducted at Harvard University showed promising results"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The impact of world war ii on european society"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Research conducted at harvard university showed promising results"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "Names of people",
+      "Geographic names",
+      "Organization names",
+      "Historical events"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "acronyms_and_initialisms",
+    "source": "APA 7th Edition, Section 6.16, p. 166",
+    "description": "Acronyms and initialisms maintain their standard capitalization in APA 7 titles. Well-known acronyms like NASA, FBI, or APA appear in all capitals. Lesser-known or discipline-specific acronyms may appear in title case or sentence case depending on their standard usage. When an acronym is first mentioned, it should be spelled out followed by the acronym in parentheses. In subsequent mentions, the acronym alone can be used.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The role of CDC guidelines in pandemic response"
+      },
+      {
+        "type": "correct",
+        "citation": "Research on PTSD treatment protocols"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The role of cdc guidelines in pandemic response"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Research on ptsd treatment protocols"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "Well-known acronyms in all caps",
+      "Consistent with standard usage",
+      "First mention spelled out"
+    ],
+    "common_errors": [
+      "NEEDS MANUAL VERIFICATION"
+    ]
+  },
+  {
+    "rule_id": "book_titles_reference_list",
+    "source": "APA Manual Section 9.28, p. 295",
+    "description": "Book titles in the reference list should be italicized and use sentence case (capitalize only the first word, proper nouns, and after colons). The italicization applies to complete books, edited books, textbooks, and monographs. This formatting helps distinguish book titles from article or chapter titles within the same reference. Book subtitles should also be italicized and separated from the main title by a colon. This rule remains consistent with APA 6, but APA 7 provides clearer examples for different book types including electronic books and reports.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": ""
+      },
+      {
+        "type": "correct",
+        "citation": ""
+      },
+      {
+        "type": "incorrect",
+        "citation": ""
+      },
+      {
+        "type": "incorrect",
+        "citation": ""
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "book_title_italics",
+      "sentence_case",
+      "colon_before_subtitle"
+    ],
+    "common_errors": []
+  },
+  {
+    "rule_id": "journal_titles_reference_list",
+    "source": "APA Manual Section 9.28, p. 296",
+    "description": "Journal titles in the reference list must be italicized and use title case (capitalize major words). This rule applies to both print and electronic journals. The journal title should be followed by the volume number (also italicized) and issue number (in parentheses, not italicized). This formatting helps readers identify journal publications and distinguishes them from other source types. APA 7 maintains the same italicization rules as APA 6 but clarifies that journal titles should always be spelled out in full, not abbreviated.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": ""
+      },
+      {
+        "type": "correct",
+        "citation": ""
+      },
+      {
+        "type": "incorrect",
+        "citation": ""
+      },
+      {
+        "type": "incorrect",
+        "citation": ""
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "journal_title_italics",
+      "title_case",
+      "volume_number_italics"
+    ],
+    "common_errors": []
+  },
+  {
+    "rule_id": "periodical_volume_numbers",
+    "source": "APA Manual Section 9.28, p. 296",
+    "description": "Volume numbers for periodicals (journals, magazines) should be italicized in the reference list. The volume number follows the italicized journal title and is separated by a comma. Issue numbers, when present, appear in parentheses immediately after the volume number and are not italicized. This formatting helps distinguish between the journal name, volume, and issue components. This rule is consistent with APA 6, but APA 7 provides clearer guidance for electronic journals and DOIs.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, *45*(2), 123\u2013145."
+      },
+      {
+        "type": "correct",
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12*(4), 67\u201389."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anderson, M. K. (2023). Research methodology advancements. *Journal of Experimental Psychology*, 45(2), 123\u2013145."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Tech Institute Report. (2022). Software engineering practices. *Computational Science Review*, *12 (4)*, 67\u201389."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "volume_number_italics",
+      "issue_number_parentheses"
+    ],
+    "common_errors": [
+      "not italicizing volume numbers",
+      "italicizing issue numbers",
+      "missing comma after journal title"
+    ]
+  },
+  {
+    "rule_id": "webpage_website_titles",
+    "source": "APA Manual Section 9.32, p. 300",
+    "description": "Website and webpage titles should be italicized in the reference list and use sentence case. This applies to standalone websites, specific webpages, and online reports. The title should be followed by the site name and URL. This rule was updated in APA 7 to simplify web source formatting, eliminating the need to distinguish between website and document titles. Previously, APA 6 had more complex rules about when to italicize web content.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "National Science Foundation. (2023). *Research funding opportunities*. NSF Grants Website. https://www.nsf.gov/funding"
+      },
+      {
+        "type": "correct",
+        "citation": "American Psychological Association. (2022). *Psychology careers guide*. APA Website. https://www.apa.org/careers"
+      },
+      {
+        "type": "incorrect",
+        "citation": "National Science Foundation. (2023). Research funding opportunities. NSF Grants Website. https://www.nsf.gov/funding"
+      },
+      {
+        "type": "incorrect",
+        "citation": "American Psychological Association. (2022). *PSYCHOLOGY CAREERS GUIDE*. APA Website. https://www.apa.org/careers"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "webpage_title_italics",
+      "sentence_case",
+      "site_name",
+      "url"
+    ],
+    "common_errors": [
+      "not italicizing webpage titles",
+      "using title case instead of sentence case",
+      "missing site name"
+    ]
+  },
+  {
+    "rule_id": "foreign_language_words",
+    "source": "APA Manual Section 6.23, p. 159",
+    "description": "Foreign language words that are not commonly used in English should be italicized, especially when they appear in academic writing. This includes technical terms, phrases, or words from languages other than English that may be unfamiliar to readers. However, words that have been adopted into common English usage should not be italicized. This rule helps readers identify non-English terms and maintains clarity in academic writing. The formatting is consistent with APA 6 but with better examples.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The research examined *sang-froid* under extreme stress conditions."
+      },
+      {
+        "type": "correct",
+        "citation": "Participants demonstrated *schadenfreude* when observing others' failures."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The research examined sang-froid under extreme stress conditions."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Participants demonstrated d\u00e9j\u00e0 vu when observing familiar scenes."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "foreign_word_italics",
+      "uncommon_term"
+    ],
+    "common_errors": [
+      "italicizing commonly adopted foreign words",
+      "not italicizing unfamiliar foreign terms",
+      "overuse of foreign terms"
+    ]
+  },
+  {
+    "rule_id": "technical_terms_special_meaning",
+    "source": "APA Manual Section 6.22, p. 158",
+    "description": "Technical terms, letters, or words used as linguistic examples or with special meaning should be italicized. This includes terms being discussed as terms themselves, statistical symbols, and words used in a special or technical sense. The italics indicate to readers that the term is being referenced for its linguistic or symbolic properties rather than its meaning. This rule helps distinguish between ordinary usage and metalinguistic discussion of terms.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The term *operational definition* refers to how variables are measured in research."
+      },
+      {
+        "type": "correct",
+        "citation": "Participants were instructed to press the *space* bar when ready."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The term operational definition refers to how variables are measured in research."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The researcher defined *significant* as p < .05."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "term_italics",
+      "special_meaning_context"
+    ],
+    "common_errors": [
+      "italicizing terms used in normal context",
+      "not italicizing terms being defined",
+      "overusing italics for emphasis"
+    ]
+  },
+  {
+    "rule_id": "genera_species_names",
+    "source": "APA Manual Section 6.21, p. 158",
+    "description": "Genus and species names in biological contexts should be italicized. The genus name is capitalized and the species name is lowercase, both in italics. This formatting follows standard biological nomenclature and helps readers identify taxonomic names. When abbreviated, the genus name should be followed by a period and remain italicized. This rule applies to all biological sciences writing and is consistent with both APA 6 and scientific conventions.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The study examined *Homo sapiens* cognitive development patterns."
+      },
+      {
+        "type": "correct",
+        "citation": "Research on *Drosophila melanogaster* has revealed important genetic mechanisms."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The study examined Homo sapiens cognitive development patterns."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Research on *drosophila melanogaster* has revealed important genetic mechanisms."
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "genus_species_italics",
+      "genus_capitalized",
+      "species_lowercase"
+    ],
+    "common_errors": [
+      "not italicizing taxonomic names",
+      "incorrect capitalization",
+      "missing italics on abbreviated genus"
+    ]
+  },
+  {
+    "rule_id": "letters_words_linguistic_examples",
+    "source": "APA Manual Section 6.24, p. 160",
+    "description": "Letters, words, or phrases used as linguistic examples should be italicized. This includes individual letters being referenced as letters, words being used as words, and phrases being analyzed linguistically. The italics signal to readers that these elements are being discussed for their linguistic properties rather than their meaning. This formatting is particularly important in language studies, psychology research, and education research.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Participants were asked to identify words containing the letter *a*."
+      },
+      {
+        "type": "correct",
+        "citation": "The word *psychology* derives from Greek roots meaning 'study of the soul.'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Participants were asked to identify words containing the letter a."
+      },
+      {
+        "type": "incorrect",
+        "citation": "The word psychology derives from Greek roots meaning 'study of the soul.'"
+      }
+    ],
+    "changed_from_apa6": false,
+    "required_elements": [
+      "linguistic_example_italics",
+      "letter_word_as_example"
+    ],
+    "common_errors": [
+      "not italicizing letters used as examples",
+      "not italicizing words used as words",
+      "confusing with emphasis italics"
+    ]
+  },
+  {
+    "rule_id": "doi_format_https",
+    "source": "APA Manual Section 9.35, p. 299",
+    "description": "In APA 7, all DOIs should be presented as hyperlinks beginning with https://doi.org/ followed by the DOI number. This represents a significant change from APA 6, where DOIs were presented either as doi:10.xxxx/xxxxx or as full URLs beginning with http://dx.doi.org/. The new format ensures consistency and makes DOIs directly clickable in digital formats. When including a DOI in a reference, always format it as a live hyperlink without any additional punctuation or formatting. This applies to journal articles, books, and any other source that has a DOI assigned.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2023). Research methods. https://doi.org/10.1000/182"
+      },
+      {
+        "type": "incorrect",
+        "citation": "doi:10.1037/rmh0000000"
+      },
+      {
+        "type": "incorrect",
+        "citation": "http://dx.doi.org/10.1037/rmh0000000"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "https://doi.org/",
+      "doi_number"
+    ],
+    "common_errors": [
+      "using old doi: prefix",
+      "using dx.doi.org prefix",
+      "missing https://doi.org/ format"
+    ]
+  },
+  {
+    "rule_id": "doi_vs_url_preference",
+    "source": "APA Manual Section 9.34, p. 298",
+    "description": "APA 7 establishes a clear hierarchy for linking to online sources: always prefer DOI over URL when both are available. DOIs are considered permanent identifiers that provide more stable linking to scholarly content compared to URLs, which may change or become inaccessible. When a source has both a DOI and a URL, include only the DOI in your reference. This rule applies to journal articles, books, book chapters, and any other scholarly source that has been assigned a DOI. URLs should only be used when no DOI is available for the source. This preference system represents a clarification of APA 6 guidelines.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://doi.org/10.1000/xyz123"
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, B. (2022). Research methods in psychology. https://www.example.com/book"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://doi.org/10.1000/xyz123 https://www.publisher.com/book"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, A. (2023). Statistical analysis. https://www.publisher.com/book [when DOI is available]"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "doi_if_available",
+      "url_only_if_no_doi"
+    ],
+    "common_errors": [
+      "including both DOI and URL",
+      "using URL when DOI is available",
+      "not checking for DOI availability"
+    ]
+  },
+  {
+    "rule_id": "url_formatting_websites",
+    "source": "APA Manual Section 9.36, p. 300",
+    "description": "When including URLs for websites, online documents, or other sources without DOIs, present them as live hyperlinks without any special formatting or punctuation. APA 7 removes the 'Retrieved from' prefix that was required in APA 6 for most URLs. URLs should be presented in their simplest form, beginning with http:// or https://, and should be hyperlinks in digital documents. Do not add a period at the end of a URL unless it is part of the original URL. This simplification makes citations cleaner while maintaining functionality for digital access to sources.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "correct",
+        "citation": "Pew Research Center. (2023). Social media trends. https://www.pewresearch.org/internet/2023/01/12/social-media-use/"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved from https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Available at: https://www.pewresearch.org/internet/2023/01/12/social-media-use/"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "full_url"
+    ],
+    "common_errors": [
+      "using 'Retrieved from' prefix",
+      "adding 'Available at' prefix",
+      "unnecessary punctuation"
+    ]
+  },
+  {
+    "rule_id": "retrieval_dates_usage",
+    "source": "APA Manual Section 9.16, p. 270",
+    "description": "Retrieval dates are only required in specific circumstances where the content of a source is designed to change over time and the page is not archived. This includes wikis, social media posts, and websites with continuously updated content. For most websites and online sources, retrieval dates are no longer needed. When a retrieval date is required, format it as 'Retrieved Month Day, Year,' followed by the URL. This represents a significant change from APA 6, where retrieval dates were more commonly used. The key principle is to include retrieval dates only when the reader needs to know when you accessed the source because the content may have changed.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Retrieved October 15, 2023, from https://en.wikipedia.org/wiki/Artificial_intelligence"
+      },
+      {
+        "type": "correct",
+        "citation": "Centers for Disease Control and Prevention. (2023). COVID data tracker. https://covid.cdc.gov/covid-data-tracker"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved October 15, 2023, from https://www.cdc.gov/coronavirus/index.html"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved 10/15/2023 from https://en.wikipedia.org/wiki/Artificial_intelligence"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "retrieved_date_only_for_unarchived_changing_content"
+    ],
+    "common_errors": [
+      "using retrieval dates for static content",
+      "incorrect date format",
+      "missing comma after year"
+    ]
+  },
+  {
+    "rule_id": "hyperlink_formatting",
+    "source": "APA Manual Section 9.35, p. 299",
+    "description": "In APA 7, both DOIs and URLs should be presented as live, active hyperlinks in digital documents. The hyperlink text should be the full URL or DOI itself, not descriptive text like 'click here' or 'link'. In print publications, these links should appear in plain text but remain functional for readers who might type them into browsers. When formatting hyperlinks, avoid any special styling beyond the default blue underline that most applications use automatically. Do not break URLs or DOIs across lines; if necessary, insert a line break before a forward slash or at a period. This ensures readability and functionality.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "correct",
+        "citation": "National Institutes of Health. (2023). Health information. https://www.nih.gov/health-information"
+      },
+      {
+        "type": "incorrect",
+        "citation": "[link to article] https://doi.org/10.1037/rmh0000000"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Click here: https://www.nih.gov/health-information"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "active_hyperlink",
+      "full_url_as_link_text"
+    ],
+    "common_errors": [
+      "using descriptive link text",
+      "breaking URLs incorrectly",
+      "adding unnecessary formatting"
+    ]
+  },
+  {
+    "rule_id": "broken_inactive_links",
+    "source": "APA Manual Section 9.37, p. 301",
+    "description": "When a URL or DOI leads to a broken or inactive link, APA 7 provides several options for handling the citation. If the source is available through an archive like the Internet Archive, include the archived URL. If the source cannot be located, include as much information as possible and note that the resource is no longer available. For journal articles with broken DOIs, include the DOI but add a note indicating it's inactive. The principle is to provide enough information for readers to locate the source if possible, while acknowledging access limitations. This represents more detailed guidance than APA 6 provided for handling broken links.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Author, A. (2020). Article title. https://web.archive.org/web/20210101000000/https://original-url.com/article"
+      },
+      {
+        "type": "correct",
+        "citation": "Smith, J. (2019). Research findings. [Resource no longer available]"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author, A. (2020). Article title. [Broken link]"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, J. (2019). Research findings. [URL not working]"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "alternative_access_information",
+      "availability_note"
+    ],
+    "common_errors": [
+      "vague broken link notes",
+      "not seeking archived versions",
+      "insufficient information for source location"
+    ]
+  },
+  {
+    "rule_id": "database_sources_formatting",
+    "source": "APA Manual Section 9.30, p. 292",
+    "description": "For sources from academic databases, APA 7 simplifies formatting by generally omitting database names and URLs. Most scholarly articles found in databases should be cited using their DOI rather than the database URL. Only include database information when the source is exclusive to that database and cannot be found elsewhere, such as with dissertations or some reports. This represents a major change from APA 6, where database names and retrieval information were commonly included. The principle is to provide the most direct and permanent path to the source, which is typically through the DOI rather than database-specific access information.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Johnson, M. (2023). Psychology research. https://doi.org/10.1000/xyz123"
+      },
+      {
+        "type": "correct",
+        "citation": "Williams, R. (2022). Dissertation title. (Publication No. 1234567) [Doctoral dissertation, University Name]. ProQuest Dissertations & Theses Global."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Johnson, M. (2023). Psychology research. Retrieved from Academic Search Ultimate database."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Williams, R. (2022). Dissertation. Available from: https://www.proquest.com/dissertation"
+      }
+    ],
+    "changed_from_apa6": true,
+    "required_elements": [
+      "doi_preferred",
+      "database_info_only_for_exclusive_content"
+    ],
+    "common_errors": [
+      "including unnecessary database information",
+      "using database URLs when DOI available",
+      "missing database info for exclusive content"
+    ]
+  }
+]
