@@ -586,10 +586,17 @@ class StaticSiteGenerator:
 
 ## WEEK 5-6: LLM Content Generation
 
-### Task 3.1: Build Claude Integration
+### Task 3.1: Build LLM Integration ✅ **DONE**
 **Test**: Generates text for each section type, validates output quality
 **Owner**: You (developer)
 **Output**: `backend/pseo/generator/llm_writer.py`
+
+**Results**: ✅ Implemented with GPT-4o-mini (not Claude)
+- 12 passing tests covering all generation methods
+- Actual cost: $0.000161 per introduction (130 input + 236 output tokens)
+- Full project cost: ~$0.17 for 45 pages (much cheaper than predicted!)
+- Verbose logging throughout for debugging
+- Token tracking and cost calculation built-in
 
 **Implementation**:
 ```python
