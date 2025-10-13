@@ -95,7 +95,7 @@ class LLMWriter:
     def generate_introduction(self, topic: str, keywords: List[str],
                              rules: Dict, pain_points: List[str]) -> str:
         """
-        Generate 200-250 word introduction for a guide
+        Generate 300-400 word introduction for a guide
 
         Args:
             topic: Main topic of the guide
@@ -104,7 +104,7 @@ class LLMWriter:
             pain_points: Common user frustrations
 
         Returns:
-            Introduction text (200-250 words)
+            Introduction text (300-400 words)
         """
         logger.info(f"Generating introduction for topic: {topic}")
 
@@ -115,22 +115,23 @@ PAIN POINTS: {', '.join(pain_points)}
 RELEVANT RULES: {self._summarize_rules(rules)}
 
 Requirements:
-- 200-250 words
+- 300-400 words (longer, more comprehensive)
 - Conversational, empathetic tone
 - Use second person ("you")
 - Acknowledge user frustrations
 - Preview guide content
 - Natural keyword integration
 - Make this unique from generic guides
+- DO NOT use H1 headings (#), only plain text or H3+ headings (###) if needed
 
 Output only the introduction text."""
 
-        return self._call_openai(prompt, max_tokens=400, temperature=0.7)
+        return self._call_openai(prompt, max_tokens=600, temperature=0.7)
 
     def generate_explanation(self, concept: str, rules: Dict,
                             examples: List[str]) -> str:
         """
-        Generate 400-600 word explanation section
+        Generate 800-1200 word explanation section
 
         Args:
             concept: Concept to explain
@@ -138,7 +139,7 @@ Output only the introduction text."""
             examples: Citation examples
 
         Returns:
-            Explanation text (400-600 words, markdown formatted)
+            Explanation text (800-1200 words, markdown formatted)
         """
         logger.info(f"Generating explanation for concept: {concept}")
 
@@ -148,17 +149,18 @@ RULES: {self._summarize_rules(rules)}
 EXAMPLES: {chr(10).join(examples[:3])}
 
 Requirements:
-- 400-600 words
+- 800-1200 words (comprehensive, detailed explanation)
 - Clear, simple language
-- Use headings and lists
-- Include 2-3 examples
+- Use H2 (##) or H3 (###) headings for subsections - NEVER use H1 (#)
+- Include 2-3 examples with detailed explanations
 - Show correct formatting
 - Explain why rules matter
 - Avoid jargon
+- Add practical tips and common pitfalls
 
-Use Markdown formatting for structure."""
+Use Markdown formatting for structure. Remember: NO H1 headings, only H2 (##) and below."""
 
-        return self._call_openai(prompt, max_tokens=800, temperature=0.7)
+        return self._call_openai(prompt, max_tokens=1800, temperature=0.7)
 
     def generate_why_errors_happen(self, errors: List[Dict]) -> str:
         """
@@ -168,7 +170,7 @@ Use Markdown formatting for structure."""
             errors: List of common error dictionaries
 
         Returns:
-            Explanation text (300-500 words)
+            Explanation text (400-600 words)
         """
         logger.info(f"Generating 'why errors happen' section for {len(errors)} errors")
 
@@ -177,16 +179,17 @@ Use Markdown formatting for structure."""
 COMMON ERRORS: {self._summarize_errors(errors)}
 
 Requirements:
-- 300-500 words
+- 400-600 words (detailed explanations)
 - Psychological explanations
 - Acknowledge confusion points
 - Empathetic tone
 - Explain database/technology factors
 - Note learning curve
+- DO NOT use H1 headings (#), only H2 (##) or H3 (###) if needed
 
 Be specific about what makes these rules confusing for students."""
 
-        return self._call_openai(prompt, max_tokens=600, temperature=0.7)
+        return self._call_openai(prompt, max_tokens=900, temperature=0.7)
 
     def generate_step_by_step(self, task: str, rules: Dict,
                               complexity: str = "beginner") -> str:
@@ -199,7 +202,7 @@ Be specific about what makes these rules confusing for students."""
             complexity: Target audience level (beginner/intermediate/advanced)
 
         Returns:
-            Step-by-step instructions (markdown formatted)
+            Step-by-step instructions (markdown formatted, 500-700 words)
         """
         logger.info(f"Generating step-by-step instructions for: {task}")
 
@@ -209,17 +212,19 @@ RULES: {self._summarize_rules(rules)}
 COMPLEXITY LEVEL: {complexity}
 
 Requirements:
-- 5-8 clear steps
+- 500-700 words with detailed steps
+- 5-8 clear steps, each with detailed explanation
 - Each step has action + verification
 - Include time estimates
 - Add tips for efficiency
 - Use numbered list
 - Bold key actions
 - Include "What you need" section
+- DO NOT use H1 headings (#), only H2 (##) or H3 (###) if needed
 
 Assume beginner user with no prior citation knowledge."""
 
-        return self._call_openai(prompt, max_tokens=600, temperature=0.7)
+        return self._call_openai(prompt, max_tokens=1000, temperature=0.7)
 
     def generate_faq(self, topic: str, num_questions: int = 8) -> List[Dict]:
         """
@@ -238,10 +243,11 @@ Assume beginner user with no prior citation knowledge."""
 
 Requirements:
 - Questions in natural language (how people search)
-- Answers 50-150 words each
+- Answers 100-200 words each (more detailed, comprehensive)
 - Cover common confusion points
 - Include practical scenarios
 - Link to detailed resources where helpful
+- DO NOT use H1 headings in answers
 
 Format as JSON array:
 [
@@ -253,7 +259,7 @@ Format as JSON array:
 
 Output only valid JSON, no markdown code blocks."""
 
-        response = self._call_openai(prompt, max_tokens=1200, temperature=0.7)
+        response = self._call_openai(prompt, max_tokens=2000, temperature=0.7)
 
         try:
             # Clean up response if it contains markdown code blocks

@@ -80,14 +80,27 @@ class LLMReviewer:
         logger.debug("Checking required sections")
         required_sections = self._get_required_sections(page_type)
         for section in required_sections:
-            if f"## {section}" not in content:
+            # Check for exact match or acceptable variations
+            section_found = False
+            if isinstance(section, list):
+                # Multiple acceptable variations
+                for variant in section:
+                    if f"## {variant}" in content:
+                        section_found = True
+                        break
+            else:
+                if f"## {section}" in content:
+                    section_found = True
+
+            if not section_found:
+                section_name = section[0] if isinstance(section, list) else section
                 issues.append({
                     "severity": "high",
-                    "issue": f"Missing required section: {section}",
+                    "issue": f"Missing required section: {section_name}",
                     "location": "Structure",
-                    "suggestion": f"Add {section} section with appropriate content"
+                    "suggestion": f"Add {section_name} section with appropriate content"
                 })
-                logger.warning(f"Missing required section: {section}")
+                logger.warning(f"Missing required section: {section_name}")
 
         # 3. Technical checks
         logger.debug("Running technical checks")
@@ -293,21 +306,27 @@ If no issues found, return: {{"issues": []}}
                 "suggestion": "Manual review recommended"
             }]
 
-    def _get_required_sections(self, page_type: str) -> List[str]:
-        """Get list of required sections for page type."""
+    def _get_required_sections(self, page_type: str) -> List:
+        """
+        Get list of required sections for page type.
+
+        Returns list where each item can be either:
+        - A string (exact match required)
+        - A list of strings (any variation acceptable)
+        """
         if page_type == "mega_guide":
             return [
                 "Introduction",
-                "Examples",
-                "Common Errors",
+                ["Examples", "Comprehensive Examples", "Example Citations"],  # Accept variations
+                ["Common Errors", "Common Errors to Avoid"],
                 "Validation Checklist",
-                "Frequently Asked Questions"
+                ["Frequently Asked Questions", "FAQ"]
             ]
         elif page_type == "source_type":
             return [
                 "Basic Format",
-                "Examples",
-                "Common Errors",
+                ["Examples", "Reference List Examples", "Example Citations"],  # Accept variations
+                ["Common Errors", "Common Errors to Avoid"],
                 "Validation Checklist"
             ]
         return []

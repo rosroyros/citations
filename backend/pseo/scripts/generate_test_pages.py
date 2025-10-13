@@ -125,9 +125,24 @@ def save_page(result: dict, config: dict, output_dir: Path):
     # Create filename from URL slug
     filename = config["url_slug"]
 
-    # Save markdown content
+    # Add YAML front matter with metadata
+    metadata = result["metadata"]
+    front_matter = f"""---
+title: "{metadata.get('meta_title', config.get('title', ''))}"
+description: "{metadata.get('meta_description', config.get('description', ''))}"
+date: {metadata.get('last_updated', datetime.now().strftime("%Y-%m-%d"))}
+reading_time: {metadata.get('reading_time', '')}
+word_count: {metadata.get('word_count', 0)}
+---
+
+"""
+
+    # Combine front matter with content
+    full_content = front_matter + result["content"]
+
+    # Save markdown content with front matter
     content_file = output_dir / f"{filename}.md"
-    content_file.write_text(result["content"], encoding='utf-8')
+    content_file.write_text(full_content, encoding='utf-8')
     logger.info(f"  Saved content: {content_file}")
 
     # Save metadata + token usage
