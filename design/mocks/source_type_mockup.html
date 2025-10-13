@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Cite a Journal Article in APA 7th Edition - Mockup</title>
+    <style>
+        :root {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F3E8FF 50%, #FCE7F3 100%);
+            color: #1f2937;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            color: #9333ea;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .breadcrumbs {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .breadcrumbs a {
+            color: #9333ea;
+            text-decoration: none;
+        }
+
+        .content-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero {
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .quick-ref-box {
+            background: #f3e8ff;
+            border: 2px solid #9333ea;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .quick-ref-box h2 {
+            font-size: 1.25rem;
+            color: #6b21a8;
+            margin-bottom: 1rem;
+        }
+
+        .template-box {
+            font-family: 'Courier New', Courier, monospace;
+            background: white;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            border-left: 3px solid #9333ea;
+        }
+
+        .template-box em {
+            font-style: italic;
+            color: #9333ea;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-section p {
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .element-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .element-item {
+            background: #f9fafb;
+            border-left: 3px solid #9333ea;
+            padding: 1rem;
+            border-radius: 0.375rem;
+        }
+
+        .element-item strong {
+            color: #9333ea;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .element-item.optional {
+            border-left-color: #6b7280;
+        }
+
+        .element-item.optional strong {
+            color: #6b7280;
+        }
+
+        .example-box {
+            margin: 1.5rem 0;
+        }
+
+        .example-variation {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .citation-example {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9fafb;
+            border-left: 3px solid #9333ea;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .citation-example em {
+            font-style: italic;
+        }
+
+        .note-box {
+            background: #fef3c7;
+            border-left: 3px solid #fbbf24;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            margin: 1rem 0;
+        }
+
+        .note-box strong {
+            color: #92400e;
+        }
+
+        .note-box p {
+            color: #78350f;
+            font-size: 0.875rem;
+        }
+
+        .step-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .step-box ol {
+            margin-left: 0;
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .step-box li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-box li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #9333ea;
+            color: white;
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+        }
+
+        .error-example {
+            background: #fef2f2;
+            border-left: 3px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        .error-example strong {
+            color: #991b1b;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .correction-box {
+            background: #f0fdf4;
+            border-left: 3px solid #22c55e;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .correction-box strong {
+            color: #166534;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .mini-checker {
+            background: white;
+            border: 2px solid #9333ea;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2);
+        }
+
+        .mini-checker h4 {
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .mini-checker p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .mini-checker textarea {
+            width: 100%;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .mini-checker textarea:focus {
+            outline: none;
+            border-color: #9333ea;
+        }
+
+        .mini-checker button {
+            width: 100%;
+            background: #9333ea;
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+        }
+
+        .mini-checker button:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+        }
+
+        .related-box {
+            background: #f3e8ff;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .related-box h3 {
+            font-size: 1.25rem;
+            color: #6b21a8;
+            margin-bottom: 1rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .related-link {
+            background: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #9333ea;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .related-link:hover {
+            background: #6b21a8;
+            color: white;
+        }
+
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="logo-text">Citation Checker</span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/guides">Citation Guides</a> &gt;
+        <a href="/guides/source-types">Source Types</a> &gt;
+        <span>Journal Article</span>
+    </nav>
+
+    <div class="content-wrapper">
+        <main class="main-content">
+            <!-- Hero -->
+            <div class="hero">
+                <h1>How to Cite a Journal Article in APA 7th Edition</h1>
+                <p class="hero-description">A comprehensive guide to citing journal articles in APA format, with examples for every variation you'll encounter.</p>
+            </div>
+
+            <!-- Quick Reference -->
+            <div class="quick-ref-box">
+                <h2>📋 Quick Reference Template</h2>
+                <div class="template-box">
+                    Author, A. A., & Author, B. B. (Year). <em>Title of article in sentence case</em>. <em>Journal Name in Title Case</em>, <em>volume</em>(issue), page-range. https://doi.org/xx.xxxx/xxxxx
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;"><strong>Tip:</strong> Copy this template and replace the placeholder information with your source details.</p>
+            </div>
+
+            <!-- Basic Format -->
+            <section class="content-section">
+                <h2>Basic Format Explanation</h2>
+                <p>Journal articles are one of the most commonly cited sources in academic writing. The basic format includes the author(s), publication year, article title, journal name, volume and issue numbers, page range, and DOI or URL.</p>
+
+                <p>The key to proper journal article citations is understanding which elements to italicize (journal name and volume number) and which to include in parentheses (issue number and publication year).</p>
+
+                <h3>Key Elements to Remember</h3>
+                <ul>
+                    <li><strong>Author names:</strong> Last name, First initial. Middle initial.</li>
+                    <li><strong>Article title:</strong> Use sentence case (only first word capitalized)</li>
+                    <li><strong>Journal name:</strong> Use title case and italicize</li>
+                    <li><strong>Volume:</strong> Italicize the volume number</li>
+                    <li><strong>Issue:</strong> Include in parentheses (not italicized)</li>
+                    <li><strong>DOI:</strong> Format as https://doi.org/... (no period at end)</li>
+                </ul>
+            </section>
+
+            <!-- Required vs Optional -->
+            <section class="content-section">
+                <h2>Required vs Optional Elements</h2>
+
+                <h3>Required Elements</h3>
+                <div class="element-list">
+                    <div class="element-item">
+                        <strong>Author(s)</strong>
+                        <p>At least one author is required. List up to 20 authors before using "et al."</p>
+                    </div>
+
+                    <div class="element-item">
+                        <strong>Publication Year</strong>
+                        <p>The year the article was published. Place in parentheses after authors.</p>
+                    </div>
+
+                    <div class="element-item">
+                        <strong>Article Title</strong>
+                        <p>The title of the article in sentence case. Include subtitle after colon.</p>
+                    </div>
+
+                    <div class="element-item">
+                        <strong>Journal Name</strong>
+                        <p>The full name of the journal in title case, italicized.</p>
+                    </div>
+
+                    <div class="element-item">
+                        <strong>Volume Number</strong>
+                        <p>The volume number, italicized. Do not include "Vol."</p>
+                    </div>
+                </div>
+
+                <h3>Optional Elements</h3>
+                <div class="element-list">
+                    <div class="element-item optional">
+                        <strong>Issue Number</strong>
+                        <p>Include when available. Place in parentheses after volume (not italicized).</p>
+                    </div>
+
+                    <div class="element-item optional">
+                        <strong>Page Range</strong>
+                        <p>Include if article has page numbers. Use format: 123-145.</p>
+                    </div>
+
+                    <div class="element-item optional">
+                        <strong>DOI or URL</strong>
+                        <p>Include DOI when available (preferred). Otherwise include URL.</p>
+                    </div>
+                </div>
+
+                <div class="note-box">
+                    <strong>📌 Missing Elements Rule:</strong>
+                    <p>If an element is missing, simply omit it and move to the next element. Don't use "n.d." or placeholders unless specifically indicated (like for missing dates).</p>
+                </div>
+            </section>
+
+            <!-- MiniChecker Placement #1 -->
+            <div class="mini-checker">
+                <h4>🔍 Try It Out</h4>
+                <p>Paste a journal article citation to check your formatting</p>
+                <textarea placeholder="Smith, J. A. (2020). Article title. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example"></textarea>
+                <button>Check Citation</button>
+            </div>
+
+            <!-- Examples -->
+            <section class="content-section">
+                <h2>Reference List Examples</h2>
+                <p>Here are correctly formatted examples for common journal article variations:</p>
+
+                <div class="example-box">
+                    <div class="example-variation">Standard Article with DOI (1-2 Authors)</div>
+                    <div class="citation-example">
+                        Smith, J. A., & Jones, M. B. (2020). The effects of social media on academic performance. <em>Journal of Educational Psychology</em>, <em>112</em>(4), 789-805. https://doi.org/10.1037/edu0000123
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-variation">Article with 3-20 Authors</div>
+                    <div class="citation-example">
+                        Anderson, C. A., Shibuya, A., Ihori, N., Swing, E. L., Bushman, B. J., Sakamoto, A., Rothstein, H. R., & Saleem, M. (2010). Violent video game effects on aggression, empathy, and prosocial behavior in Eastern and Western countries: A meta-analytic review. <em>Psychological Bulletin</em>, <em>136</em>(2), 151-173. https://doi.org/10.1037/a0018251
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-variation">Article with 21+ Authors</div>
+                    <div class="citation-example">
+                        Kalnay, E., Kanamitsu, M., Kistler, R., Collins, W., Deaven, D., Gandin, L., Iredell, M., Saha, S., White, G., Woollen, J., Zhu, Y., Chelliah, M., Ebisuzaki, W., Higgins, W., Janowiak, J., Mo, K. C., Ropelewski, C., Wang, J., Leetmaa, A., ... Joseph, D. (1996). The NCEP/NCAR 40-year reanalysis project. <em>Bulletin of the American Meteorological Society</em>, <em>77</em>(3), 437-471. https://doi.org/10.1175/1520-0477(1996)077<0437:TNYRP>2.0.CO;2
+                    </div>
+                    <div class="note-box">
+                        <strong>Note:</strong>
+                        <p>List the first 19 authors, then insert an ellipsis (...), then list the final author's name.</p>
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-variation">Article with No DOI (Include URL)</div>
+                    <div class="citation-example">
+                        Williams, R. L. (2018). Teaching for critical thinking in the age of digital media. <em>Education Quarterly</em>, <em>45</em>(3), 234-251. https://www.example.com/article
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-variation">Advance Online Publication</div>
+                    <div class="citation-example">
+                        Chen, P. Y., & Vazsonyi, A. T. (2024). Academic achievement and well-being: A longitudinal study. <em>Developmental Psychology</em>. Advance online publication. https://doi.org/10.1037/dev0000123
+                    </div>
+                </div>
+
+                <div class="example-box">
+                    <div class="example-variation">Article with No Page Numbers</div>
+                    <div class="citation-example">
+                        Thompson, L. F., & Surface, E. A. (2007). Employee surveys administered online: Attitudes toward the medium, nonresponse, and data representativeness. <em>Organizational Research Methods</em>, <em>10</em>(2). https://doi.org/10.1177/1094428106/294696
+                    </div>
+                </div>
+            </section>
+
+            <!-- In-Text Citations -->
+            <section class="content-section">
+                <h2>In-Text Citation Guidelines</h2>
+                <p>When citing journal articles in the text of your paper, follow these guidelines:</p>
+
+                <h3>Parenthetical Citation</h3>
+                <div class="citation-example">
+                    Recent research demonstrates a strong correlation between sleep and academic performance (Smith & Jones, 2020).
+                </div>
+
+                <h3>Narrative Citation</h3>
+                <div class="citation-example">
+                    Smith and Jones (2020) found that students who maintained regular sleep schedules performed better academically.
+                </div>
+
+                <h3>Multiple Authors (3+)</h3>
+                <div class="citation-example">
+                    First citation: (Anderson, Shibuya, Ihori, et al., 2010)<br>
+                    Subsequent citations: (Anderson et al., 2010)
+                </div>
+
+                <div class="note-box">
+                    <strong>Note:</strong>
+                    <p>In APA 7, use "et al." for 3 or more authors in all in-text citations (both first and subsequent). This is different from APA 6, which required listing all authors in the first citation.</p>
+                </div>
+            </section>
+
+            <!-- Step-by-Step -->
+            <section class="content-section">
+                <h2>Step-by-Step Instructions</h2>
+                <p>Follow these steps to create a perfect journal article citation:</p>
+
+                <div class="step-box">
+                    <ol>
+                        <li><strong>Identify all authors:</strong> Find all author names on the article. Format each as Last name, First initial. Middle initial. Separate with commas and use "&" before the last author.</li>
+
+                        <li><strong>Locate the publication year:</strong> Find the year on the article or journal issue. Place in parentheses after authors.</li>
+
+                        <li><strong>Copy the article title:</strong> Type the exact article title. Convert to sentence case (only first word and proper nouns capitalized).</li>
+
+                        <li><strong>Find the journal name:</strong> Locate the journal name. Keep in title case and italicize. Do not italicize the comma after it.</li>
+
+                        <li><strong>Get volume and issue:</strong> Find these on the article or journal cover. Italicize volume, place issue in parentheses (not italicized).</li>
+
+                        <li><strong>Note the page range:</strong> Find the first and last page numbers. Format as start-end (e.g., 123-145).</li>
+
+                        <li><strong>Include the DOI:</strong> If available, format as https://doi.org/... No period at the end. If no DOI, use the journal's homepage URL.</li>
+
+                        <li><strong>Verify formatting:</strong> Check punctuation, italics, and capitalization. Ensure no elements are missing.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Common Errors -->
+            <section class="content-section">
+                <h2>Common Errors to Avoid</h2>
+                <p>These are the most frequent mistakes when citing journal articles:</p>
+
+                <h3>Using "and" instead of "&"</h3>
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p>Smith, J. and Jones, M. (2020)...</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>Smith, J., & Jones, M. (2020)...</p>
+                </div>
+
+                <h3>Italicizing issue number</h3>
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p><em>Journal Name</em>, <em>15</em><em>(2)</em>, 123-145.</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p><em>Journal Name</em>, <em>15</em>(2), 123-145.</p>
+                </div>
+
+                <h3>Title case for article title</h3>
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p>The Effects of Social Media on Academic Performance</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>The effects of social media on academic performance</p>
+                </div>
+
+                <h3>Adding "Retrieved from" before URL</h3>
+                <div class="error-example">
+                    <strong>❌ Incorrect (APA 7):</strong>
+                    <p>Retrieved from https://doi.org/...</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct (APA 7):</strong>
+                    <p>https://doi.org/...</p>
+                </div>
+
+                <h3>Period after DOI</h3>
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p>https://doi.org/10.1234/example.</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>https://doi.org/10.1234/example</p>
+                </div>
+            </section>
+
+            <!-- MiniChecker Placement #2 -->
+            <div class="mini-checker">
+                <h4>✨ Ready to Check Your Full Reference List?</h4>
+                <p>Validate your entire bibliography at once with our citation checker</p>
+                <button style="background: #22c55e;">Check Full Reference List →</button>
+            </div>
+
+            <!-- Validation Checklist -->
+            <section class="content-section">
+                <h2>Validation Checklist</h2>
+                <p>Before submitting, verify your journal article citations with this checklist:</p>
+
+                <div class="checklist">
+                    <ul>
+                        <li>All authors listed with correct format (Last, F. M.)</li>
+                        <li>Ampersand (&) used before last author</li>
+                        <li>Publication year in parentheses</li>
+                        <li>Article title in sentence case</li>
+                        <li>Journal name in title case and italicized</li>
+                        <li>Volume number italicized</li>
+                        <li>Issue number in parentheses (not italicized)</li>
+                        <li>Page range included (if available)</li>
+                        <li>DOI formatted as https://doi.org/...</li>
+                        <li>No period after DOI or URL</li>
+                        <li>All punctuation correct (commas, periods)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Special Cases -->
+            <section class="content-section">
+                <h2>Special Cases</h2>
+
+                <h3>Journal Article in a Different Language</h3>
+                <div class="citation-example">
+                    Guerin, B. (2012). Translating behavior analysis to a foreign language: A functional approach [Traducir el análisis de la conducta a un idioma extranjero: Un enfoque funcional]. <em>Revista Internacional de Psicología y Terapia Psicológica</em>, <em>12</em>(1), 109-118.
+                </div>
+
+                <h3>Article with Article Number Instead of Page Range</h3>
+                <div class="citation-example">
+                    Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., & Schaefer, J. R. (2018). Teaching medicine with the help of "Dr. House." <em>PLOS ONE</em>, <em>13</em>(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+                </div>
+
+                <h3>Retracted Article</h3>
+                <div class="citation-example">
+                    Sample, A. B., & Sample, C. D. (2019). Article title here [Retracted]. <em>Journal Name</em>, <em>15</em>(2), 123-145. https://doi.org/10.1234/example
+                </div>
+            </section>
+
+            <!-- Related Sources -->
+            <div class="related-box">
+                <h3>Related Source Types</h3>
+                <div class="related-grid">
+                    <a href="#" class="related-link">📖 How to Cite Books</a>
+                    <a href="#" class="related-link">🌐 How to Cite Websites</a>
+                    <a href="#" class="related-link">📄 How to Cite Conference Papers</a>
+                    <a href="#" class="related-link">📚 How to Cite Book Chapters</a>
+                    <a href="#" class="related-link">📰 How to Cite Newspapers</a>
+                    <a href="#" class="related-link">🎓 How to Cite Dissertations</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2024 Citation Checker. Last updated: December 2024</p>
+        </div>
+    </footer>
+</body>
+</html>

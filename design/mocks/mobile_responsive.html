@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Responsive Demo - Citation Checker</title>
+    <style>
+        :root {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 320px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F3E8FF 50%, #FCE7F3 100%);
+            color: #1f2937;
+            max-width: 375px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header - Mobile Optimized */
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: #9333ea;
+        }
+
+        .logo-text {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        /* Breadcrumbs - Mobile */
+        .breadcrumbs {
+            padding: 0.75rem 1rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .breadcrumbs a {
+            color: #9333ea;
+            text-decoration: none;
+        }
+
+        /* Content */
+        .content {
+            padding: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Quick Summary Box */
+        .tldr {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .tldr h2 {
+            font-size: 1rem;
+            color: #92400e;
+            margin-bottom: 0.75rem;
+        }
+
+        .tldr ul {
+            font-size: 0.875rem;
+            color: #78350f;
+            padding-left: 1.25rem;
+        }
+
+        .tldr li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 1.5rem;
+        }
+
+        .section h2 {
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .section h3 {
+            font-size: 1rem;
+            color: #1f2937;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section p {
+            font-size: 0.875rem;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .section ul {
+            font-size: 0.875rem;
+            padding-left: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Code/Citation Blocks */
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9fafb;
+            border-left: 3px solid #9333ea;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            margin: 0.75rem 0;
+        }
+
+        /* Error Box */
+        .error-box {
+            background: #fef2f2;
+            border-left: 3px solid #ef4444;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin: 0.75rem 0;
+        }
+
+        .error-box strong {
+            color: #991b1b;
+            font-size: 0.875rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-box p {
+            color: #7f1d1d;
+            font-size: 0.8125rem;
+        }
+
+        .success-box {
+            background: #f0fdf4;
+            border-left: 3px solid #22c55e;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-top: 0.5rem;
+        }
+
+        .success-box strong {
+            color: #166534;
+            font-size: 0.875rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-box p {
+            color: #166534;
+            font-size: 0.8125rem;
+        }
+
+        /* Mini Checker - Mobile Optimized */
+        .mini-checker {
+            background: white;
+            border: 2px solid #9333ea;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.2);
+        }
+
+        .mini-checker h4 {
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .mini-checker p {
+            font-size: 0.8125rem;
+            color: #6b7280;
+            margin-bottom: 0.75rem;
+        }
+
+        .mini-checker textarea {
+            width: 100%;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8125rem;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .mini-checker textarea:focus {
+            outline: none;
+            border-color: #9333ea;
+        }
+
+        .mini-checker button {
+            width: 100%;
+            background: #9333ea;
+            color: white;
+            border: none;
+            padding: 0.875rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+            /* Larger touch target */
+            min-height: 44px;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.625rem;
+            font-size: 0.875rem;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Related Box */
+        .related {
+            background: #f3e8ff;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .related h3 {
+            font-size: 1rem;
+            color: #6b21a8;
+            margin-bottom: 0.75rem;
+        }
+
+        .related-link {
+            display: block;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: #9333ea;
+            font-weight: 500;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-link:active {
+            background: #6b21a8;
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        /* Viewport indicator */
+        .viewport-indicator {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1f2937;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.75rem;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Viewport Indicator -->
+    <div class="viewport-indicator">
+        📱 Mobile View (375px) - Resize browser to test responsiveness
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="logo-text">Citation Checker</span>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> &gt; <a href="/guides">Guides</a> &gt; <span>Journal Article</span>
+    </nav>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Hero Card -->
+        <div class="card">
+            <h1>How to Cite a Journal Article in APA</h1>
+            <p class="description">Complete guide to citing journal articles in APA 7th edition format</p>
+            <div class="meta">
+                <div class="meta-item">📖 10 min read</div>
+                <div class="meta-item">🔄 Dec 2024</div>
+            </div>
+        </div>
+
+        <!-- Quick Reference -->
+        <div class="card tldr">
+            <h2>📋 Quick Reference</h2>
+            <div class="code-block">
+                Author, A. A., & Author, B. B. (Year). <em>Article title</em>. <em>Journal Name</em>, <em>volume</em>(issue), pages. https://doi.org/...
+            </div>
+        </div>
+
+        <!-- Section Example -->
+        <div class="card">
+            <div class="section">
+                <h2>Basic Format</h2>
+                <p>Journal articles are one of the most commonly cited sources. The key elements include:</p>
+                <ul>
+                    <li>Author names in Last, F. M. format</li>
+                    <li>Publication year in parentheses</li>
+                    <li>Article title in sentence case</li>
+                    <li>Journal name in title case (italicized)</li>
+                    <li>Volume number (italicized)</li>
+                    <li>Issue number in parentheses</li>
+                    <li>DOI as URL</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Example Citation -->
+        <div class="card">
+            <div class="section">
+                <h3>Example</h3>
+                <div class="code-block">
+                    Smith, J. A., & Jones, M. B. (2020). The effects of social media on academic performance. <em>Journal of Educational Psychology</em>, <em>112</em>(4), 789-805. https://doi.org/10.1037/edu0000123
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Checker - Mobile Optimized -->
+        <div class="card mini-checker">
+            <h4>🔍 Quick Check</h4>
+            <p>Validate your citation</p>
+            <textarea placeholder="Paste citation here..."></textarea>
+            <button>Check Citation</button>
+        </div>
+
+        <!-- Common Errors -->
+        <div class="card">
+            <div class="section">
+                <h2>Common Errors</h2>
+
+                <h3>Using "and" instead of "&"</h3>
+                <div class="error-box">
+                    <strong>❌ Wrong:</strong>
+                    <p>Smith, J. and Jones, M. (2020)...</p>
+                </div>
+                <div class="success-box">
+                    <strong>✓ Correct:</strong>
+                    <p>Smith, J., & Jones, M. (2020)...</p>
+                </div>
+
+                <h3 style="margin-top: 1rem;">Italicizing issue number</h3>
+                <div class="error-box">
+                    <strong>❌ Wrong:</strong>
+                    <p><em>Journal Name</em>, <em>15</em><em>(2)</em>, 123-145.</p>
+                </div>
+                <div class="success-box">
+                    <strong>✓ Correct:</strong>
+                    <p><em>Journal Name</em>, <em>15</em>(2), 123-145.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="card">
+            <div class="section">
+                <h2>Validation Checklist</h2>
+                <div class="checklist">
+                    <ul>
+                        <li>Authors formatted correctly</li>
+                        <li>Ampersand (&) before last author</li>
+                        <li>Year in parentheses</li>
+                        <li>Article title in sentence case</li>
+                        <li>Journal name italicized</li>
+                        <li>Volume italicized</li>
+                        <li>Issue in parentheses</li>
+                        <li>DOI as URL</li>
+                        <li>No period after DOI</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related -->
+        <div class="related">
+            <h3>Related Guides</h3>
+            <a href="#" class="related-link">📖 How to Cite Books</a>
+            <a href="#" class="related-link">🌐 How to Cite Websites</a>
+            <a href="#" class="related-link">📚 Complete APA Guide</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">&copy; 2024 Citation Checker</p>
+        <p class="footer-text" style="margin-top: 0.5rem;">Last updated: December 2024</p>
+    </footer>
+</body>
+</html>
