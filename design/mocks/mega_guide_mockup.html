@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Guide to Checking APA Citations - Mockup</title>
+    <style>
+        :root {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F3E8FF 50%, #FCE7F3 100%);
+            color: #1f2937;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            color: #9333ea;
+        }
+
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #9333ea;
+        }
+
+        /* Breadcrumbs */
+        .breadcrumbs {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        .breadcrumbs a {
+            color: #9333ea;
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Layout */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .meta-info {
+            display: flex;
+            gap: 2rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 1rem;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .toc h2 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .toc ol {
+            list-style-position: inside;
+            color: #6b7280;
+        }
+
+        .toc li {
+            margin-bottom: 0.5rem;
+        }
+
+        .toc a {
+            color: #9333ea;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* TL;DR Box */
+        .tldr-box {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tldr-box h2 {
+            font-size: 1.25rem;
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tldr-box ul {
+            list-style-position: inside;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .tldr-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Content Sections */
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            color: #1f2937;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .content-section p {
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #374151;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Code/Citation Blocks */
+        .citation-example {
+            font-family: 'Courier New', Courier, monospace;
+            background: #f9fafb;
+            border-left: 3px solid #9333ea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .citation-example em {
+            font-style: italic;
+        }
+
+        /* Error Boxes */
+        .error-example {
+            background: #fef2f2;
+            border-left: 3px solid #ef4444;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        .error-example strong {
+            color: #991b1b;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-example p {
+            color: #7f1d1d;
+            font-size: 0.875rem;
+        }
+
+        .correction-box {
+            background: #f0fdf4;
+            border-left: 3px solid #22c55e;
+            padding: 1rem;
+            margin-top: 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .correction-box strong {
+            color: #166534;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .correction-box p {
+            color: #166534;
+            font-size: 0.875rem;
+        }
+
+        /* Checklist */
+        .checklist {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: #22c55e;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.875rem;
+        }
+
+        .comparison-table th {
+            background: #f9fafb;
+            color: #1f2937;
+            font-weight: 600;
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        .comparison-table td {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Components */
+        .sidebar-section {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section li {
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-section a {
+            color: #9333ea;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .sidebar-section a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mini Checker Component */
+        .mini-checker {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .mini-checker h4 {
+            font-size: 1.125rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .mini-checker p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .mini-checker textarea {
+            width: 100%;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.2s;
+        }
+
+        .mini-checker textarea:focus {
+            outline: none;
+            border-color: #9333ea;
+        }
+
+        .mini-checker button {
+            width: 100%;
+            background: #9333ea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+        }
+
+        .mini-checker button:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(147, 51, 234, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-description {
+                font-size: 1.125rem;
+            }
+
+            .header-content {
+                padding: 1rem;
+            }
+
+            .breadcrumbs {
+                padding: 1rem;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="logo-text">Citation Checker</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/checker">Check Citations</a></li>
+                    <li><a href="/guides">Guides</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> &gt;
+        <a href="/guides">Citation Guides</a> &gt;
+        <span>Complete Guide to Checking APA Citations</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <main class="main-content">
+            <!-- Hero Section -->
+            <div class="hero">
+                <h1>Complete Guide to Checking APA Citations</h1>
+                <p class="hero-description">Master the art of validating APA 7th edition citations with our comprehensive, step-by-step guide. Learn how to catch errors before submission.</p>
+                <div class="meta-info">
+                    <span>📖 Reading time: 25 minutes</span>
+                    <span>🔄 Last updated: December 2024</span>
+                    <span>✅ APA 7th Edition</span>
+                </div>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h2>📑 Table of Contents</h2>
+                <ol>
+                    <li><a href="#tldr">Quick Summary</a></li>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#why-check">Why Checking Citations Matters</a></li>
+                    <li><a href="#common-errors">Most Common Citation Errors</a></li>
+                    <li><a href="#manual-checking">Manual Checking Process</a></li>
+                    <li><a href="#automated-tools">Using Automated Tools</a></li>
+                    <li><a href="#examples">Comprehensive Examples</a></li>
+                    <li><a href="#errors">Common Errors to Avoid</a></li>
+                    <li><a href="#checklist">Validation Checklist</a></li>
+                    <li><a href="#apa6-vs-7">APA 6 vs 7 Changes</a></li>
+                    <li><a href="#faq">Frequently Asked Questions</a></li>
+                    <li><a href="#resources">Related Resources</a></li>
+                </ol>
+            </div>
+
+            <!-- TL;DR Section -->
+            <div class="tldr-box" id="tldr">
+                <h2>⚡ TL;DR - Quick Summary</h2>
+                <ul>
+                    <li>90.9% of academic papers contain at least one citation error</li>
+                    <li>Author name formatting errors are the #1 most common mistake</li>
+                    <li>Always check: author names, dates, titles, DOIs, and punctuation</li>
+                    <li>Use automated tools first, then manually verify critical citations</li>
+                    <li>APA 7th edition has simplified several rules from 6th edition</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+            </div>
+
+            <!-- Introduction -->
+            <section class="content-section" id="introduction">
+                <h2>Introduction</h2>
+                <p>You've spent weeks researching, writing, and revising your paper. The content is solid, your arguments are compelling, and you're ready to submit. But there's one critical step that many researchers overlook: thoroughly checking their citations.</p>
+
+                <p>Research shows that over 90% of academic papers contain citation errors. These mistakes range from minor formatting issues to serious problems like incorrect author names or missing publication years. While they might seem trivial, citation errors can undermine your credibility, delay publication, and in some cases, lead to rejection.</p>
+
+                <p>This comprehensive guide walks you through everything you need to know about checking APA citations. Whether you're a first-year student or an experienced researcher, you'll learn practical strategies to catch errors before they become problems.</p>
+            </section>
+
+            <!-- Why Checking Matters -->
+            <section class="content-section" id="why-check">
+                <h2>Why Checking Citations Matters</h2>
+                <p>Citation accuracy isn't just about following rules—it's about academic integrity and professional credibility. Here's why it matters:</p>
+
+                <h3>Academic Integrity</h3>
+                <p>Accurate citations give proper credit to original authors and allow readers to verify your sources. Errors can inadvertently misrepresent someone's work or make sources impossible to locate.</p>
+
+                <h3>Publication Requirements</h3>
+                <p>Most journals and academic institutions have strict citation requirements. Papers with numerous formatting errors are often returned for revision before peer review even begins.</p>
+
+                <h3>Professional Reputation</h3>
+                <p>Consistent citation errors signal carelessness. Taking the time to validate your references demonstrates attention to detail and professional rigor.</p>
+
+                <div class="citation-example">
+                    "Citation formatting is often the first thing reviewers notice. It sets the tone for how they'll evaluate the rest of your work." — Journal Editor Survey, 2023
+                </div>
+            </section>
+
+            <!-- MiniChecker Placement #1 -->
+            <div class="mini-checker">
+                <h4>🔍 Quick Check Your Citation</h4>
+                <p>Paste a single citation to instantly validate APA formatting</p>
+                <textarea placeholder="Smith, J. A. (2020). Article title goes here. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example"></textarea>
+                <button>Check Citation</button>
+            </div>
+
+            <!-- Common Errors Section -->
+            <section class="content-section" id="common-errors">
+                <h2>Most Common Citation Errors</h2>
+                <p>Based on analysis of thousands of academic papers, these are the most frequent citation mistakes:</p>
+
+                <h3>1. Author Name Formatting (45% of errors)</h3>
+                <p>The most common mistake is incorrectly formatting author names, especially with multiple authors or organizational authors.</p>
+
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p>John Smith, Mary Jones, and Robert Lee (2020)...</p>
+                </div>
+
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>Smith, J., Jones, M., & Lee, R. (2020)...</p>
+                </div>
+
+                <h3>2. Title Capitalization (25% of errors)</h3>
+                <p>Article titles should use sentence case (only first word capitalized), while journal names use title case.</p>
+
+                <div class="error-example">
+                    <strong>❌ Incorrect:</strong>
+                    <p>The Effects Of Social Media On Student Learning</p>
+                </div>
+
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>The effects of social media on student learning</p>
+                </div>
+
+                <h3>3. DOI/URL Formatting (15% of errors)</h3>
+                <p>DOIs should be formatted as URLs (https://doi.org/...) without periods at the end.</p>
+
+                <h3>4. Punctuation Errors (10% of errors)</h3>
+                <p>Missing or incorrect punctuation, especially periods, commas, and ampersands (&).</p>
+
+                <h3>5. Missing Elements (5% of errors)</h3>
+                <p>Omitting required elements like publication year, volume numbers, or page ranges.</p>
+            </section>
+
+            <!-- Manual Checking Process -->
+            <section class="content-section" id="manual-checking">
+                <h2>Manual Checking Process</h2>
+                <p>Follow this systematic approach to manually verify your citations:</p>
+
+                <ol>
+                    <li><strong>Check author names:</strong> Verify last name, first initial, and middle initial format. Confirm correct use of ampersand (&) before the last author.</li>
+                    <li><strong>Verify dates:</strong> Ensure publication year is in parentheses and matches the source.</li>
+                    <li><strong>Review titles:</strong> Check sentence case for article titles, title case for journal names.</li>
+                    <li><strong>Validate volume/issue:</strong> Confirm volume numbers are italicized, issue numbers in parentheses (not italicized).</li>
+                    <li><strong>Check page numbers:</strong> Verify format (123-145) and accuracy.</li>
+                    <li><strong>Review DOIs/URLs:</strong> Test that links work and are properly formatted.</li>
+                    <li><strong>Verify punctuation:</strong> Check periods, commas, and spacing throughout.</li>
+                    <li><strong>Confirm alphabetization:</strong> Ensure reference list is alphabetically ordered.</li>
+                </ol>
+            </section>
+
+            <!-- Examples Section -->
+            <section class="content-section" id="examples">
+                <h2>Comprehensive Examples</h2>
+                <p>Here are correctly formatted examples for common source types:</p>
+
+                <h3>Journal Article with DOI</h3>
+                <div class="citation-example">
+                    Smith, J. A., & Jones, M. B. (2020). The effects of social media on academic performance. <em>Journal of Educational Psychology</em>, 112(4), 789-805. https://doi.org/10.1037/edu0000123
+                </div>
+
+                <h3>Book (Authored)</h3>
+                <div class="citation-example">
+                    Brown, P. C., Roediger, H. L., III, & McDaniel, M. A. (2014). <em>Make it stick: The science of successful learning</em>. Harvard University Press.
+                </div>
+
+                <h3>Website (Organizational Author)</h3>
+                <div class="citation-example">
+                    American Psychological Association. (2020). <em>Publication manual of the American Psychological Association</em> (7th ed.). https://doi.org/10.1037/0000165-000
+                </div>
+
+                <h3>Journal Article (21+ Authors)</h3>
+                <div class="citation-example">
+                    Kalnay, E., Kanamitsu, M., Kistler, R., Collins, W., Deaven, D., Gandin, L., Iredell, M., Saha, S., White, G., Woollen, J., Zhu, Y., Chelliah, M., Ebisuzaki, W., Higgins, W., Janowiak, J., Mo, K. C., Ropelewski, C., Wang, J., Leetmaa, A., ... Joseph, D. (1996). The NCEP/NCAR 40-year reanalysis project. <em>Bulletin of the American Meteorological Society</em>, 77(3), 437-471.
+                </div>
+            </section>
+
+            <!-- MiniChecker Placement #2 -->
+            <div class="mini-checker">
+                <h4>🔍 Test What You've Learned</h4>
+                <p>Try checking one of your own citations</p>
+                <textarea placeholder="Paste your citation here..."></textarea>
+                <button>Check Citation</button>
+            </div>
+
+            <!-- Errors Section -->
+            <section class="content-section" id="errors">
+                <h2>Common Errors to Avoid</h2>
+                <p>Learn from these frequently encountered mistakes:</p>
+
+                <h3>Using "and" instead of "&"</h3>
+                <div class="error-example">
+                    <strong>❌ Wrong:</strong>
+                    <p>Smith, J. and Jones, M. (2020)...</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>Smith, J., & Jones, M. (2020)...</p>
+                </div>
+
+                <h3>Forgetting to italicize journal names</h3>
+                <div class="error-example">
+                    <strong>❌ Wrong:</strong>
+                    <p>...Journal of Psychology, 45(2)...</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct:</strong>
+                    <p>...<em>Journal of Psychology</em>, 45(2)...</p>
+                </div>
+
+                <h3>Including "Retrieved from" before URLs</h3>
+                <p>APA 7 eliminated "Retrieved from" for most URLs (except when content may change over time).</p>
+
+                <div class="error-example">
+                    <strong>❌ Wrong (APA 7):</strong>
+                    <p>Retrieved from https://www.example.com</p>
+                </div>
+                <div class="correction-box">
+                    <strong>✓ Correct (APA 7):</strong>
+                    <p>https://www.example.com</p>
+                </div>
+            </section>
+
+            <!-- Checklist Section -->
+            <section class="content-section" id="checklist">
+                <h2>Validation Checklist</h2>
+                <p>Use this checklist to systematically review your citations:</p>
+
+                <div class="checklist">
+                    <ul>
+                        <li>All author names formatted as Last, F. M.</li>
+                        <li>Ampersand (&) used before last author in reference list</li>
+                        <li>Publication year in parentheses after authors</li>
+                        <li>Article titles in sentence case</li>
+                        <li>Journal names in title case and italicized</li>
+                        <li>Volume numbers italicized</li>
+                        <li>Issue numbers in parentheses (not italicized)</li>
+                        <li>Page ranges formatted correctly (e.g., 123-145)</li>
+                        <li>DOIs formatted as https://doi.org/...</li>
+                        <li>No periods after DOIs or URLs</li>
+                        <li>Reference list alphabetized by first author's last name</li>
+                        <li>Hanging indent for all references</li>
+                        <li>All in-text citations have corresponding references</li>
+                        <li>All references cited in text</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- APA 6 vs 7 -->
+            <section class="content-section" id="apa6-vs-7">
+                <h2>APA 6 vs 7 Changes</h2>
+                <p>Key differences between APA 6th and 7th edition:</p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>APA 6</th>
+                            <th>APA 7</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Location information</td>
+                            <td>Required for publishers</td>
+                            <td>Omitted (publisher name only)</td>
+                        </tr>
+                        <tr>
+                            <td>"Retrieved from"</td>
+                            <td>Used before most URLs</td>
+                            <td>Omitted unless content may change</td>
+                        </tr>
+                        <tr>
+                            <td>DOI format</td>
+                            <td>doi:10.xxxx or dx.doi.org/10.xxxx</td>
+                            <td>https://doi.org/10.xxxx</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple authors</td>
+                            <td>List up to 7, then et al.</td>
+                            <td>List up to 20, then et al.</td>
+                        </tr>
+                        <tr>
+                            <td>Issue numbers</td>
+                            <td>Omit if pages continuous</td>
+                            <td>Always include if available</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="content-section" id="faq">
+                <h2>Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I cite a source with no author?</div>
+                    <div class="faq-answer">Start the citation with the title of the work. Move the publication date to after the title. Alphabetize by the first significant word of the title (ignore "A," "An," "The").</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What if the publication date is unknown?</div>
+                    <div class="faq-answer">Use (n.d.) which stands for "no date" in place of the year.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Should I include page numbers for online articles?</div>
+                    <div class="faq-answer">Include page numbers if they are available in the PDF version. If the article only exists online without page numbers, you can omit them.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">How do I format a citation with 4 authors?</div>
+                    <div class="faq-answer">List all four authors in the reference list: Smith, J., Jones, M., Brown, P., & White, K. (2020)...</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Do I need to include a retrieval date for websites?</div>
+                    <div class="faq-answer">Only include a retrieval date if the content is designed to change over time (like wikis). For most websites, omit the retrieval date in APA 7.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">What's the difference between a DOI and a URL?</div>
+                    <div class="faq-answer">A DOI (Digital Object Identifier) is a permanent identifier for a digital document. It's more stable than a URL. Always use a DOI when available instead of a URL.</div>
+                </div>
+            </section>
+
+            <!-- MiniChecker Placement #3 -->
+            <div class="mini-checker">
+                <h4>✨ Ready to Check Your Full Reference List?</h4>
+                <p>Use our full citation checker to validate your entire bibliography at once</p>
+                <button style="background: #22c55e;">Check Full Reference List →</button>
+            </div>
+
+            <!-- Conclusion -->
+            <section class="content-section">
+                <h2>Conclusion</h2>
+                <p>Checking citations doesn't have to be overwhelming. With a systematic approach and the right tools, you can ensure your references are accurate and properly formatted. Remember:</p>
+
+                <ul>
+                    <li>Start by using automated tools to catch obvious errors</li>
+                    <li>Follow up with manual verification of key citations</li>
+                    <li>Use the checklist to ensure nothing is missed</li>
+                    <li>When in doubt, consult the APA Manual or official APA Style resources</li>
+                </ul>
+
+                <p>Taking the time to validate your citations demonstrates academic rigor and professionalism. Your future self—and your reviewers—will thank you.</p>
+            </section>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Related Guides</h3>
+                <ul>
+                    <li><a href="#">How to Cite Journal Articles</a></li>
+                    <li><a href="#">Complete APA 7th Edition Guide</a></li>
+                    <li><a href="#">Common Citation Errors</a></li>
+                    <li><a href="#">APA Reference List Format</a></li>
+                    <li><a href="#">In-Text Citation Guide</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Quick Tools</h3>
+                <ul>
+                    <li><a href="#">Citation Checker</a></li>
+                    <li><a href="#">Format Generator</a></li>
+                    <li><a href="#">DOI Lookup</a></li>
+                    <li><a href="#">Style Comparison</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section" style="background: #f0fdf4; border: 1px solid #22c55e;">
+                <h3>💡 Pro Tip</h3>
+                <p style="color: #166534; font-size: 0.875rem; line-height: 1.6;">Check your citations as you write, not all at once at the end. This saves time and prevents errors from accumulating.</p>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">&copy; 2024 Citation Checker. Last updated: December 2024</p>
+            <p class="footer-text" style="margin-top: 0.5rem;">Built for researchers, by researchers</p>
+        </div>
+    </footer>
+</body>
+</html>
