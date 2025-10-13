@@ -1,0 +1,30 @@
+{
+  "title": "How to Cite a Journal Article in APA",
+  "url": "/how-to-cite-journal-article-apa/",
+  "page_type": "source_type",
+  "content": "# How to Cite a Journal Article in APA\n\nThis guide explains...",
+  "metadata": {
+    "meta_title": "How to Cite a Journal Article in APA | Complete Guide",
+    "meta_description": "Learn how to properly cite journal articles in APA 7th edition format with examples",
+    "word_count": 2500,
+    "reading_time": "10 minutes"
+  },
+  "llm_review": {
+    "overall_verdict": "PASS",
+    "review_summary": "Content passes quality checks",
+    "issues_found": [
+      {
+        "severity": "low",
+        "issue": "Only 7 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  },
+  "word_count": 2500,
+  "human_review": {
+    "approved": true,
+    "approved_date": "2025-10-13T21:18:51.538475",
+    "approved_by": "human_review"
+  }
+}
