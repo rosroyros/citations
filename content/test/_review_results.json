@@ -1,38 +1,20 @@
 {
   "apa-citation-errors.md": {
     "verdict": "NEEDS_REVISION",
-    "word_count": 2817,
-    "issues_count": 6,
+    "word_count": 4406,
+    "issues_count": 3,
     "issues": [
       {
         "severity": "high",
-        "issue": "Content too short: 2817 words (minimum 5000)",
+        "issue": "Content too short: 4406 words (minimum 5000)",
         "location": "Entire page",
         "suggestion": "Expand content by adding more examples and explanations"
       },
       {
-        "severity": "high",
-        "issue": "Missing required section: Examples",
-        "location": "Structure",
-        "suggestion": "Add Examples section with appropriate content"
-      },
-      {
-        "severity": "high",
-        "issue": "Found 2 H1 headings (should be exactly 1)",
-        "location": "Headings",
-        "suggestion": "Use only one H1 per page"
-      },
-      {
         "severity": "medium",
-        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "issue": "Meta title length: 73 chars (ideal: 30-60)",
         "location": "Meta title",
         "suggestion": "Adjust title length for optimal SEO"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta description length: 0 chars (ideal: 120-160)",
-        "location": "Meta description",
-        "suggestion": "Adjust description length for optimal click-through rate"
       },
       {
         "severity": "low",
@@ -44,38 +26,14 @@
   },
   "check-apa-citations.md": {
     "verdict": "NEEDS_REVISION",
-    "word_count": 2979,
-    "issues_count": 6,
+    "word_count": 4383,
+    "issues_count": 2,
     "issues": [
       {
         "severity": "high",
-        "issue": "Content too short: 2979 words (minimum 5000)",
+        "issue": "Content too short: 4383 words (minimum 5000)",
         "location": "Entire page",
         "suggestion": "Expand content by adding more examples and explanations"
-      },
-      {
-        "severity": "high",
-        "issue": "Missing required section: Examples",
-        "location": "Structure",
-        "suggestion": "Add Examples section with appropriate content"
-      },
-      {
-        "severity": "high",
-        "issue": "Found 2 H1 headings (should be exactly 1)",
-        "location": "Headings",
-        "suggestion": "Use only one H1 per page"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta title length: 0 chars (ideal: 30-60)",
-        "location": "Meta title",
-        "suggestion": "Adjust title length for optimal SEO"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta description length: 0 chars (ideal: 120-160)",
-        "location": "Meta description",
-        "suggestion": "Adjust description length for optimal click-through rate"
       },
       {
         "severity": "low",
@@ -86,102 +44,53 @@
     ]
   },
   "how-to-cite-book-apa.md": {
-    "verdict": "NEEDS_REVISION",
-    "word_count": 4112,
-    "issues_count": 5,
+    "verdict": "PASS",
+    "word_count": 5007,
+    "issues_count": 6,
     "issues": [
-      {
-        "severity": "high",
-        "issue": "Missing required section: Examples",
-        "location": "Structure",
-        "suggestion": "Add Examples section with appropriate content"
-      },
-      {
-        "severity": "high",
-        "issue": "Found 4 H1 headings (should be exactly 1)",
-        "location": "Headings",
-        "suggestion": "Use only one H1 per page"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta title length: 0 chars (ideal: 30-60)",
-        "location": "Meta title",
-        "suggestion": "Adjust title length for optimal SEO"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta description length: 0 chars (ideal: 120-160)",
-        "location": "Meta description",
-        "suggestion": "Adjust description length for optimal click-through rate"
-      },
       {
         "severity": "low",
         "issue": "Only 0 internal links found (ideal: 8-15)",
         "location": "Internal linking",
         "suggestion": "Add more internal links to related pages"
+      },
+      {
+        "severity": "medium",
+        "issue": "The basic citation format provided does not include the correct structure for the source name, which is typically the publisher\u2019s name for books.",
+        "location": "Quick Reference",
+        "suggestion": "Revise the basic format to include the publisher\u2019s name at the end, making it: 'Author, A. A. (Year). Title of work. Publisher.'"
+      },
+      {
+        "severity": "low",
+        "issue": "The section on title formatting does not clarify that book titles should be italicized.",
+        "location": "Title Formatting",
+        "suggestion": "Add a note that book titles should be italicized in the reference list."
+      },
+      {
+        "severity": "medium",
+        "issue": "The explanation for works accepted for publication is slightly misleading regarding the use of 'in press.'",
+        "location": "Works Accepted for Publication",
+        "suggestion": "Clarify that 'in press' should only be used when the work has been accepted for publication and is not yet published, and provide additional context if possible."
+      },
+      {
+        "severity": "low",
+        "issue": "The examples provided under multiple authors do not include a scenario with more than twenty authors, which is relevant for comprehensive understanding.",
+        "location": "Author Format",
+        "suggestion": "Add an example of how to cite a book with more than twenty authors, which should involve listing the first 19 authors followed by an ellipsis and then the final author's name."
+      },
+      {
+        "severity": "medium",
+        "issue": "The section on Publisher Information is incomplete and cuts off mid-sentence.",
+        "location": "Publisher Information",
+        "suggestion": "Complete the section with proper guidelines for including DOI or URL information, and ensure the entire content is present."
       }
     ]
   },
   "how-to-cite-journal-article-apa.md": {
-    "verdict": "NEEDS_REVISION",
-    "word_count": 4111,
-    "issues_count": 5,
+    "verdict": "PASS",
+    "word_count": 5418,
+    "issues_count": 1,
     "issues": [
-      {
-        "severity": "high",
-        "issue": "Missing required section: Examples",
-        "location": "Structure",
-        "suggestion": "Add Examples section with appropriate content"
-      },
-      {
-        "severity": "high",
-        "issue": "Found 3 H1 headings (should be exactly 1)",
-        "location": "Headings",
-        "suggestion": "Use only one H1 per page"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta title length: 0 chars (ideal: 30-60)",
-        "location": "Meta title",
-        "suggestion": "Adjust title length for optimal SEO"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta description length: 0 chars (ideal: 120-160)",
-        "location": "Meta description",
-        "suggestion": "Adjust description length for optimal click-through rate"
-      },
-      {
-        "severity": "low",
-        "issue": "Only 0 internal links found (ideal: 8-15)",
-        "location": "Internal linking",
-        "suggestion": "Add more internal links to related pages"
-      }
-    ]
-  },
-  "how-to-cite-website-apa.md": {
-    "verdict": "NEEDS_REVISION",
-    "word_count": 3667,
-    "issues_count": 4,
-    "issues": [
-      {
-        "severity": "high",
-        "issue": "Found 3 H1 headings (should be exactly 1)",
-        "location": "Headings",
-        "suggestion": "Use only one H1 per page"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta title length: 0 chars (ideal: 30-60)",
-        "location": "Meta title",
-        "suggestion": "Adjust title length for optimal SEO"
-      },
-      {
-        "severity": "medium",
-        "issue": "Meta description length: 0 chars (ideal: 120-160)",
-        "location": "Meta description",
-        "suggestion": "Adjust description length for optimal click-through rate"
-      },
       {
         "severity": "low",
         "issue": "Only 0 internal links found (ideal: 8-15)",
