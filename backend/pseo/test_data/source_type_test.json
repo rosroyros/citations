@@ -1,0 +1,207 @@
+{
+  "source_type_name": "Journal Article",
+  "source_description": "Complete guide to formatting journal article citations in APA 7th edition, including DOIs, volume numbers, and page ranges.",
+  "quick_reference_template": "Author, A. A. (Year). Title of article in sentence case. *Journal Name in Title Case, Volume*(Issue), pages. https://doi.org/xxxxx",
+  "basic_format_explanation": "Journal articles follow a consistent format in APA 7th edition. The article title uses sentence case (only first word and proper nouns capitalized), while the journal name uses title case and italics. Volume numbers are italicized, but issue numbers are not in parentheses. DOIs are formatted as URLs rather than with the 'doi:' prefix.",
+  "key_elements": [
+    "Author(s) with initials",
+    "Publication year in parentheses",
+    "Article title in sentence case",
+    "Journal name in italics, title case",
+    "Volume number (italicized)",
+    "Issue number (in parentheses)",
+    "Page range or article number",
+    "DOI as clickable URL"
+  ],
+  "required_elements": [
+    {
+      "name": "Author(s)",
+      "description": "Last name followed by first and middle initials. Maximum 20 authors listed."
+    },
+    {
+      "name": "Publication Year",
+      "description": "Year in parentheses, followed by a period."
+    },
+    {
+      "name": "Article Title",
+      "description": "Title in sentence case, ending with a period."
+    },
+    {
+      "name": "Journal Name",
+      "description": "Full journal name in title case and italics."
+    },
+    {
+      "name": "Volume Number",
+      "description": "Volume number in italics."
+    },
+    {
+      "name": "Page Range",
+      "description": "Page numbers separated by en-dash."
+    },
+    {
+      "name": "DOI",
+      "description": "Digital Object Identifier formatted as URL."
+    }
+  ],
+  "optional_elements": [
+    {
+      "name": "Issue Number",
+      "description": "Include when journal uses issue numbering and each issue starts at page 1."
+    },
+    {
+      "name": "Article Number",
+      "description": "Use instead of page range when journal uses article numbering."
+    }
+  ],
+  "missing_elements_guidance": "If no DOI is available, include the journal homepage URL. If no URL is available, end citation after page range.",
+  "reference_examples": [
+    {
+      "variation_title": "Standard Journal Article with DOI",
+      "citation": "Smith, J. K., & Johnson, L. M. (2023). The impact of artificial intelligence on academic research integrity. *Journal of Scholarly Publishing, 54*(2), 123-145. https://doi.org/10.1353/jsp.2023.0012",
+      "in_text_citation": "(Smith & Johnson, 2023)",
+      "breakdown": [
+        {"element": "Authors", "value": "Smith, J. K., & Johnson, L. M."},
+        {"element": "Year", "value": "(2023)"},
+        {"element": "Article title", "value": "The impact of artificial intelligence on academic research integrity."},
+        {"element": "Journal", "value": "*Journal of Scholarly Publishing*"},
+        {"element": "Volume/Issue", "value": "*54*(2)"},
+        {"element": "Pages", "value": "123-145"},
+        {"element": "DOI", "value": "https://doi.org/10.1353/jsp.2023.0012"}
+      ]
+    },
+    {
+      "variation_title": "Journal Article without DOI (Print)",
+      "citation": "Williams, R. T. (2022). Climate change adaptation strategies in coastal communities. *Environmental Policy Review, 18*(3), 45-67.",
+      "in_text_citation": "(Williams, 2022)"
+    },
+    {
+      "variation_title": "Advance Online Publication",
+      "special_note": "Use 'in press' if article accepted but not yet published.",
+      "citation": "Anderson, P. R., & Davis, M. K. (2024). Machine learning applications in psychological assessment. *Clinical Psychology Review*. Advance online publication. https://doi.org/10.1016/j.cpr.2024.102345",
+      "in_text_citation": "(Anderson & Davis, 2024)"
+    }
+  ],
+  "in_text_guidelines": "In-text citations for journal articles include the author(s) and year. For two authors, include both names. For three or more authors, include the first author followed by 'et al.' Use narrative format (Author, Year) when the author is part of your sentence, or parenthetical format (Author, Year) at the end of the sentence.",
+  "narrative_examples": [
+    "Smith and Johnson (2023) found that...",
+    "As Williams (2022) demonstrated..."
+  ],
+  "parenthetical_examples": [
+    "Recent research supports this conclusion (Smith & Johnson, 2023).",
+    "Previous studies have shown conflicting results (Williams, 2022)."
+  ],
+  "multiple_authors_guidance": "Two authors: List both names. Three or more authors: Use first author's name followed by 'et al.' in all citations (APA 7 simplified this from APA 6).",
+  "special_cases_guidance": "No author: Use title in place of author. No date: Use 'n.d.' Organization as author: Use organization name. Multiple works by same author: List in chronological order.",
+  "step_by_step_instructions": "1. **Identify the Author(s)**: List all authors up to 20. Format as Last Name, F. M. 2. **Find the Publication Year**: Locate the year in parentheses after author names. 3. **Copy the Article Title**: Use exact title, capitalizing only first word and proper nouns. 4. **Locate Journal Information**: Find the full journal name, volume, issue, and page numbers. 5. **Find the DOI**: Look for the DOI, usually on the first page or in database record. 6. **Format Everything**: Apply proper italics, punctuation, and spacing according to APA format. 7. **Double-Check**: Verify all elements are present and correctly formatted.",
+  "what_you_need": [
+    "Author names and initials",
+    "Publication year",
+    "Complete article title",
+    "Full journal name",
+    "Volume and issue numbers",
+    "Page range or article number",
+    "DOI or journal URL"
+  ],
+  "time_estimate": "3-5 minutes per citation",
+  "pro_tip": "Save time by using citation management software like Zotero or EndNote, but always double-check the formatting against APA 7 guidelines.",
+  "common_errors": [
+    {
+      "error_name": "Incorrect Title Capitalization",
+      "wrong_example": "Smith, J. (2023). The Impact Of Artificial Intelligence On Research. *Journal of Science, 15*(2), 123-145.",
+      "correct_example": "Smith, J. (2023). The impact of artificial intelligence on research. *Journal of Science, 15*(2), 123-145.",
+      "why_it_happens": "Students often apply title case to article titles instead of sentence case as required by APA 7.",
+      "fix_instructions": "Change article title to sentence case: capitalize only the first word, first word after colon, and proper nouns.",
+      "frequency": "45"
+    },
+    {
+      "error_name": "Missing or Incorrect DOI Format",
+      "wrong_example": "Johnson, L. (2022). Climate policy implications. *Environmental Studies, 8*(1), 23-34. doi:10.1234/env.2022.001",
+      "correct_example": "Johnson, L. (2022). Climate policy implications. *Environmental Studies, 8*(1), 23-34. https://doi.org/10.1234/env.2022.001",
+      "why_it_happens": "APA 6 used 'doi:' prefix, but APA 7 requires DOIs formatted as clickable URLs.",
+      "fix_instructions": "Change 'doi:' prefix to 'https://doi.org/' to create a clickable link.",
+      "frequency": "35"
+    }
+  ],
+  "validation_checklist": [
+    "Author names formatted as Last, F. M.",
+    "Publication year in parentheses with period",
+    "Article title in sentence case with period",
+    "Journal name in italics and title case",
+    "Volume number italicized",
+    "Issue number in parentheses (if present)",
+    "Page range with en-dash (not hyphen)",
+    "DOI formatted as clickable URL",
+    "All periods and commas in correct places",
+    "No missing elements"
+  ],
+  "quick_validation_tip": "Read the citation aloud. It should flow naturally with proper pauses at punctuation marks.",
+  "red_flags": [
+    "Article title has title case capitalization",
+    "DOI uses 'doi:' prefix instead of URL format",
+    "Missing italics for journal name or volume",
+    "Issue number not in parentheses",
+    "Using hyphens instead of en-dashes for page ranges"
+  ],
+  "special_cases": [
+    {
+      "title": "Article with Article Number",
+      "when_applies": "When journal uses article numbering instead of page ranges",
+      "formatting": "Use 'Article' followed by the number instead of page range",
+      "example": "Thompson, K. (2023). Data privacy in healthcare research. *Medical Ethics Journal, 12*(1), Article 3. https://doi.org/10.1111/medj.2023.3"
+    }
+  ],
+  "related_sources": [
+    {
+      "name": "Books",
+      "url": "/how-to-cite-books-apa/",
+      "description": "Complete guide to citing books and book chapters"
+    },
+    {
+      "name": "Websites",
+      "url": "/how-to-cite-websites-apa/",
+      "description": "How to cite online sources and web pages"
+    },
+    {
+      "name": "Newspaper Articles",
+      "url": "/how-to-cite-newspaper-articles-apa/",
+      "description": "Citing print and online newspaper articles"
+    }
+  ],
+  "next_steps_recommendation": "Practice creating journal article citations from different databases, then move on to more complex source types like edited books or datasets.",
+  "faq": [
+    {
+      "question": "How do I cite a journal article with more than 20 authors?",
+      "answer": "List the first 19 authors, insert an ellipsis (...), then list the final author. For example: Smith, J., Johnson, K., Williams, M., ... Brown, T. (2023).",
+      "example": "Smith, J., Johnson, K., Williams, M., Davis, R., ... Brown, T. (2023). Research methods overview. *Psychology Journal, 45*(2), 123-145."
+    },
+    {
+      "question": "What if I can't find the DOI for a journal article?",
+      "answer": "First, search Crossref.org using the article title and author. If still no DOI found, include the journal's homepage URL. If the article is from a print-only journal, end the citation after the page range."
+    },
+    {
+      "question": "Do I need to include database names in journal article citations?",
+      "answer": "Generally no, unless the article is from an exclusive database that's the only way to access it. In most cases, use DOI or journal URL instead."
+    }
+  ],
+  "expert_tips": [
+    {
+      "title": "Use Crossref for DOI Verification",
+      "content": "Always verify DOIs through Crossref.org. This ensures accuracy and helps you spot fake or incorrect DOIs that sometimes appear in database records."
+    },
+    {
+      "title": "Maintain a DOI Log",
+      "content": "Keep a spreadsheet of DOIs for articles you frequently cite. This saves time and ensures consistency across your papers."
+    }
+  ],
+  "best_practice_summary": "Always verify journal article information against the original source rather than relying solely on database records, which can contain formatting errors.",
+  "bottom_line_summary": "Journal article citations require attention to detail: proper author formatting, sentence case for titles, correct italicization, and accurate DOI formatting. Master these elements and you'll handle most academic citations confidently.",
+  "three_important_rules": [
+    "Article titles use sentence case (not title case)",
+    "Volume numbers are italicized, issue numbers are in parentheses",
+    "DOIs are formatted as clickable URLs (https://doi.org/...)"
+  ],
+  "practice_guide_slug": "check-apa-citations",
+  "last_updated": "2024-01-15",
+  "reading_time": "8 minutes",
+  "word_count": "2,450"
+}
