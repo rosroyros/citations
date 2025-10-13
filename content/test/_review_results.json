@@ -1,0 +1,193 @@
+{
+  "apa-citation-errors.md": {
+    "verdict": "NEEDS_REVISION",
+    "word_count": 2817,
+    "issues_count": 6,
+    "issues": [
+      {
+        "severity": "high",
+        "issue": "Content too short: 2817 words (minimum 5000)",
+        "location": "Entire page",
+        "suggestion": "Expand content by adding more examples and explanations"
+      },
+      {
+        "severity": "high",
+        "issue": "Missing required section: Examples",
+        "location": "Structure",
+        "suggestion": "Add Examples section with appropriate content"
+      },
+      {
+        "severity": "high",
+        "issue": "Found 2 H1 headings (should be exactly 1)",
+        "location": "Headings",
+        "suggestion": "Use only one H1 per page"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "location": "Meta title",
+        "suggestion": "Adjust title length for optimal SEO"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta description length: 0 chars (ideal: 120-160)",
+        "location": "Meta description",
+        "suggestion": "Adjust description length for optimal click-through rate"
+      },
+      {
+        "severity": "low",
+        "issue": "Only 3 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  },
+  "check-apa-citations.md": {
+    "verdict": "NEEDS_REVISION",
+    "word_count": 2979,
+    "issues_count": 6,
+    "issues": [
+      {
+        "severity": "high",
+        "issue": "Content too short: 2979 words (minimum 5000)",
+        "location": "Entire page",
+        "suggestion": "Expand content by adding more examples and explanations"
+      },
+      {
+        "severity": "high",
+        "issue": "Missing required section: Examples",
+        "location": "Structure",
+        "suggestion": "Add Examples section with appropriate content"
+      },
+      {
+        "severity": "high",
+        "issue": "Found 2 H1 headings (should be exactly 1)",
+        "location": "Headings",
+        "suggestion": "Use only one H1 per page"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "location": "Meta title",
+        "suggestion": "Adjust title length for optimal SEO"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta description length: 0 chars (ideal: 120-160)",
+        "location": "Meta description",
+        "suggestion": "Adjust description length for optimal click-through rate"
+      },
+      {
+        "severity": "low",
+        "issue": "Only 3 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  },
+  "how-to-cite-book-apa.md": {
+    "verdict": "NEEDS_REVISION",
+    "word_count": 4112,
+    "issues_count": 5,
+    "issues": [
+      {
+        "severity": "high",
+        "issue": "Missing required section: Examples",
+        "location": "Structure",
+        "suggestion": "Add Examples section with appropriate content"
+      },
+      {
+        "severity": "high",
+        "issue": "Found 4 H1 headings (should be exactly 1)",
+        "location": "Headings",
+        "suggestion": "Use only one H1 per page"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "location": "Meta title",
+        "suggestion": "Adjust title length for optimal SEO"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta description length: 0 chars (ideal: 120-160)",
+        "location": "Meta description",
+        "suggestion": "Adjust description length for optimal click-through rate"
+      },
+      {
+        "severity": "low",
+        "issue": "Only 0 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  },
+  "how-to-cite-journal-article-apa.md": {
+    "verdict": "NEEDS_REVISION",
+    "word_count": 4111,
+    "issues_count": 5,
+    "issues": [
+      {
+        "severity": "high",
+        "issue": "Missing required section: Examples",
+        "location": "Structure",
+        "suggestion": "Add Examples section with appropriate content"
+      },
+      {
+        "severity": "high",
+        "issue": "Found 3 H1 headings (should be exactly 1)",
+        "location": "Headings",
+        "suggestion": "Use only one H1 per page"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "location": "Meta title",
+        "suggestion": "Adjust title length for optimal SEO"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta description length: 0 chars (ideal: 120-160)",
+        "location": "Meta description",
+        "suggestion": "Adjust description length for optimal click-through rate"
+      },
+      {
+        "severity": "low",
+        "issue": "Only 0 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  },
+  "how-to-cite-website-apa.md": {
+    "verdict": "NEEDS_REVISION",
+    "word_count": 3667,
+    "issues_count": 4,
+    "issues": [
+      {
+        "severity": "high",
+        "issue": "Found 3 H1 headings (should be exactly 1)",
+        "location": "Headings",
+        "suggestion": "Use only one H1 per page"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta title length: 0 chars (ideal: 30-60)",
+        "location": "Meta title",
+        "suggestion": "Adjust title length for optimal SEO"
+      },
+      {
+        "severity": "medium",
+        "issue": "Meta description length: 0 chars (ideal: 120-160)",
+        "location": "Meta description",
+        "suggestion": "Adjust description length for optimal click-through rate"
+      },
+      {
+        "severity": "low",
+        "issue": "Only 0 internal links found (ideal: 8-15)",
+        "location": "Internal linking",
+        "suggestion": "Add more internal links to related pages"
+      }
+    ]
+  }
+}
