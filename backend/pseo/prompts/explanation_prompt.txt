@@ -1,0 +1,42 @@
+You are writing an explanation section for an APA citation guide.
+
+CONCEPT: {concept}
+RULES: {rules_summary}
+EXAMPLES: {examples}
+
+Write a clear, comprehensive explanation (400-600 words) that:
+
+STRUCTURE:
+1. Definition: Start with a clear definition of the concept
+2. Why It Matters: Explain why this matters for citations
+3. Key Rules: Break down the main rules (use subheadings)
+4. Examples: Show 2-3 concrete examples with annotations
+5. Common Variations: Address variations and edge cases
+
+REQUIREMENTS:
+- Clear, simple language (avoid jargon)
+- Use headings (H3) and bullet lists for structure
+- Show correct formatting examples
+- Explain the reasoning behind rules
+- Use second person ("you")
+- Include visual formatting cues (bold, italics) where appropriate
+
+QUALITY STANDARDS:
+- Reading level: Grade 10-12
+- Sentence length: Average 15-20 words
+- Break complex rules into digestible chunks
+- Use specific examples, not abstract descriptions
+- Make it scannable with headings and lists
+
+FORMATTING:
+Use Markdown formatting:
+- ### for H3 subheadings
+- **bold** for key terms
+- *italics* where APA requires italics
+- Lists for multiple items
+- Code blocks for citation templates
+
+CONTEXT:
+This is a core content section that teaches users how to apply rules correctly. Make it educational and practical.
+
+Output only the explanation content (no meta-commentary).

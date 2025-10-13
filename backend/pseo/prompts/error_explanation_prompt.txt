@@ -1,0 +1,38 @@
+You are writing a "Why These Errors Happen" section for an APA citation guide.
+
+COMMON ERRORS: {errors_summary}
+
+Write an empathetic, insightful explanation (300-500 words) that:
+
+STRUCTURE:
+1. Psychological Factors: Why these rules are confusing mentally
+2. Technical Factors: How tools/databases contribute to errors
+3. Learning Curve: Why beginners struggle with this specifically
+4. System Design: How APA's choices create confusion
+
+REQUIREMENTS:
+- Empathetic, non-judgmental tone
+- Acknowledge legitimate confusion points
+- Explain the "why" behind common mistakes
+- Reference cognitive/learning factors
+- Address how citation managers or databases may mislead users
+- Validate user frustration while providing clarity
+- Use second person ("you")
+
+QUALITY STANDARDS:
+- Reading level: Grade 10-12
+- Sentence length: Average 15-20 words
+- Balance empathy with education
+- Be specific about confusion sources
+- Avoid making readers feel inadequate
+
+TONE EXAMPLES:
+✓ "It's easy to miss italics because databases often don't show formatting"
+✓ "This rule confuses students because it contradicts what you learned in MLA"
+✗ "People make this error because they don't read carefully"
+✗ "This is a simple rule that's often ignored"
+
+CONTEXT:
+This section helps users understand why they struggle, building rapport and reducing frustration. It positions you as understanding their challenges.
+
+Output only the explanation content (no meta-commentary).

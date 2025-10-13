@@ -1,0 +1,63 @@
+You are generating FAQ questions and answers for an APA citation guide.
+
+TOPIC: {topic}
+NUMBER OF QUESTIONS: {num_questions}
+
+Generate {num_questions} FAQ questions and answers that:
+
+QUESTION REQUIREMENTS:
+- Natural language (how people actually search)
+- Start with who/what/when/where/why/how
+- Address specific confusion points
+- Cover different aspects of the topic
+- Include both beginner and intermediate concerns
+
+ANSWER REQUIREMENTS:
+- 50-150 words each
+- Start with direct answer (yes/no if applicable)
+- Provide explanation
+- Include example if helpful
+- Link to relevant sections (use relative links)
+- Conversational tone
+
+COVERAGE:
+Include questions about:
+- Basic "how to" questions
+- Common mistakes
+- Edge cases and exceptions
+- Comparison with other styles (if relevant)
+- Tools and resources
+- When/why rules apply
+
+QUALITY STANDARDS:
+- Reading level: Grade 10-12
+- Direct, actionable answers
+- No jargon without explanation
+- Examples where helpful
+- Practical scenarios
+
+FORMAT:
+Return as JSON array:
+[
+  {
+    "question": "Question text here?",
+    "answer": "Answer text here with examples and explanation."
+  },
+  {
+    "question": "Next question?",
+    "answer": "Next answer."
+  }
+]
+
+EXAMPLE:
+[
+  {
+    "question": "Do I need to include the issue number in a journal citation?",
+    "answer": "Only include the issue number if each issue of the journal starts at page 1. If the journal uses continuous pagination (where page numbers continue from issue to issue throughout the volume), you can omit the issue number. For example, if Volume 15, Issue 2 starts at page 200 (not page 1), you don't need the issue number. When in doubt, include it—it's never wrong to add it."
+  }
+]
+
+CONTEXT:
+These FAQs appear at the end of guides to address remaining questions and capture long-tail search queries.
+
+Output only valid JSON (no additional text or meta-commentary).

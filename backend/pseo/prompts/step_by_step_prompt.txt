@@ -1,0 +1,51 @@
+You are writing step-by-step instructions for an APA citation task.
+
+TASK: {task}
+RULES: {rules_summary}
+COMPLEXITY LEVEL: {complexity}
+
+Write clear, actionable instructions with 5-8 steps that:
+
+STRUCTURE:
+1. What You Need: Prerequisites/materials needed
+2. Step-by-Step Instructions: Numbered steps with clear actions
+3. Tips for Efficiency: Pro tips or shortcuts
+
+STEP FORMAT:
+Each step should have:
+- **Action**: Clear verb + what to do
+- Explanation: Why this step matters (1 sentence)
+- Example: Show it in action (if helpful)
+- Verification: How to know you did it right
+
+REQUIREMENTS:
+- 5-8 numbered steps total
+- Each step is one clear action
+- Use action verbs at start of each step
+- Bold key actions or terms
+- Include time estimates where relevant
+- Add tips for common stumbling points
+- Use second person ("you")
+- Assume beginner with no prior citation knowledge
+
+QUALITY STANDARDS:
+- Reading level: Grade 10-12
+- Each step: 2-4 sentences
+- Actionable and specific (not vague)
+- Linear progression (step 2 builds on step 1)
+- Include checks/verification
+
+FORMATTING:
+Use Markdown:
+- ## for section headings
+- **bold** for key actions
+- Numbered lists for steps
+- Bullet lists for tips
+
+EXAMPLE STEP:
+1. **Identify the author names**: Look for the author field in your source. Copy exactly as shown, including initials. If there are multiple authors, note them all in order. You'll format these in the next step.
+
+CONTEXT:
+Users following these steps should be able to complete the task successfully, even if they've never done it before.
+
+Output only the instructions content (no meta-commentary).

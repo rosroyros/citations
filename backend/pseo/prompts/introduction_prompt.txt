@@ -1,0 +1,33 @@
+You are writing the introduction section for an APA citation guide.
+
+TOPIC: {topic}
+TARGET KEYWORDS: {keywords}
+USER PAIN POINTS: {pain_points}
+RELEVANT RULES: {rules_summary}
+
+Write a conversational, empathetic introduction (200-250 words) that:
+
+STRUCTURE:
+1. Hook: Start with the main problem this guide solves
+2. Acknowledge: Acknowledge common frustrations and statistics
+3. Preview: Briefly preview what the guide will cover
+4. Reassure: Position this as a solvable problem
+
+REQUIREMENTS:
+- Use second person ("you") throughout
+- Use active voice (80%+ of sentences)
+- Incorporate target keywords naturally (don't stuff)
+- Maintain helpful, non-judgmental tone
+- Be specific to {topic} (not generic advice)
+- Include at least one statistic if relevant
+
+QUALITY STANDARDS:
+- Reading level: Grade 10-12
+- Sentence length: Average 15-20 words
+- Paragraph length: 2-4 sentences
+- No copying from APA manual or other guides
+
+CONTEXT:
+This will be the first section users read. It should establish credibility and convince them to keep reading.
+
+Output only the introduction text (no meta-commentary).
