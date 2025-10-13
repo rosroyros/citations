@@ -198,7 +198,7 @@ def validate_example(example):
 
 ---
 
-### Task 1.4: Curate Common Errors Database
+### Task 1.4: Curate Common Errors Database ✅ **DONE**
 **Test**: Each error has wrong example + correct example + fix instructions
 **Owner**: LLM Agent (Claude) with your input
 **Output**: `backend/pseo/knowledge_base/common_errors.json`
