@@ -1,0 +1,44 @@
+{
+  "total_pages": 5,
+  "total_words": 302037,
+  "total_input_tokens": 26481,
+  "total_output_tokens": 36325,
+  "total_cost": 0.025767150000000003,
+  "pages": [
+    {
+      "title": "Complete Guide to Checking APA Citations in 2024",
+      "type": "mega_guide",
+      "words": 53928,
+      "tokens": 4162,
+      "cost": 0.00152565
+    },
+    {
+      "title": "The Ultimate APA Citation Errors Guide: Common Mistakes & How to Fix Them",
+      "type": "mega_guide",
+      "words": 60277,
+      "tokens": 7312,
+      "cost": 0.0029368499999999995
+    },
+    {
+      "title": "How to Cite a Journal Article in APA Format (7th Edition)",
+      "type": "source_type",
+      "words": 57908,
+      "tokens": 12203,
+      "cost": 0.0050124
+    },
+    {
+      "title": "How to Cite a Book in APA Format (7th Edition)",
+      "type": "source_type",
+      "words": 61716,
+      "tokens": 17163,
+      "cost": 0.007136549999999999
+    },
+    {
+      "title": "How to Cite a Website in APA Format (7th Edition)",
+      "type": "source_type",
+      "words": 68208,
+      "tokens": 21966,
+      "cost": 0.009155700000000001
+    }
+  ]
+}

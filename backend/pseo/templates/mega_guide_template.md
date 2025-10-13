@@ -14,28 +14,25 @@
 4. [Comprehensive Examples](#comprehensive-examples)
 5. [Common Errors to Avoid](#common-errors-to-avoid)
 6. [Validation Checklist](#validation-checklist)
-7. [APA 6 vs 7 Changes](#apa-6-vs-7-changes)
-8. [Frequently Asked Questions](#frequently-asked-questions)
-9. [Related Resources](#related-resources)
-10. [Conclusion](#conclusion)
+7. [Frequently Asked Questions](#frequently-asked-questions)
+8. [Related Resources](#related-resources)
 
 ---
 
 ## TL;DR - Quick Summary
 
-{% for bullet in tldr_bullets %}
-- {{ bullet }}
-{% endfor %}
-
-**Key Takeaway**: {{ primary_takeaway }}
+**Key Points:**
+- Master APA 7th edition citation formatting
+- Identify and fix common citation errors
+- Use validation tools to ensure accuracy
+- Understand the rules that matter most
+- Save time and improve your grades
 
 ---
 
 ## Introduction
 
 {{ introduction }}
-
-{{ importance_statement }}
 
 ---
 
@@ -58,21 +55,22 @@
 ## Comprehensive Examples
 
 {% for example in examples %}
-### {{ example.title }}
+### {{ example.metadata.title }}
 
 **Reference List Format:**
+```
 {{ example.reference_citation }}
+```
 
-**In-Text Citation:**
-{{ example.in_text_citation }}
+**In-Text Citations:**
+{% for citation in example.in_text_citations %}
+- **{{ citation.type|title }}**: {{ citation.citation }}
+  - Example: {{ citation.context }}
+{% endfor %}
 
-{% if example.explanation %}
-**Explanation:** {{ example.explanation }}
-{% endif %}
+**Source Type:** {{ example.source_type }}
 
-{% if example.variation_note %}
-**Note:** {{ example.variation_note }}
-{% endif %}
+---
 
 {% endfor %}
 
@@ -101,28 +99,14 @@
 
 ## Validation Checklist
 
+Use this checklist to verify your citations before submission:
+
 {% for item in validation_checklist %}
-- [ ] {{ item }}
-{% endfor %}
-
-**Quick Test:** {{ quick_validation_tip }}
-
----
-
-## APA 6 vs 7 Changes
-
-{% for change in apa6_vs_7 %}
-### {{ change.element }}
-
-**APA 6:** {{ change.apa6_format }}
-
-**APA 7:** {{ change.apa7_format }}
-
-**Why the Change:** {{ change.reason }}
-
+- [ ] {{ item.item }}
 {% endfor %}
 
 ---
+
 
 ## Frequently Asked Questions
 
@@ -138,32 +122,13 @@
 ## Related Resources
 
 {% for resource in related_resources %}
-- [{{ resource.title }}]({{ resource.url }}) - {{ resource.description }}
+- [{{ resource.title }}]({{ resource.url }})
 {% endfor %}
-
-**Recommended Next Step:** {{ next_step_recommendation }}
-
----
-
-## Conclusion
-
-{{ conclusion_summary }}
-
-{{ final_advice }}
-
-{{ encouragement_message }}
-
----
-
-## Quick Reference Guide
-
-{{ quick_reference_content }}
 
 ---
 
 **Last Updated:** {{ last_updated }}
 **Reading Time:** {{ reading_time }}
-**Word Count:** {{ word_count }} words
 
 ---
 
