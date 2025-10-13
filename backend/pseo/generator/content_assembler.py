@@ -62,7 +62,7 @@ class ContentAssembler:
             config: Configuration dict with title, description, keywords, pain_points
 
         Returns:
-            Dict with 'content' (markdown), 'metadata', 'template_data'
+            Dict with 'content' (markdown), 'metadata', 'template_data', 'token_usage'
         """
         logger.info(f"=== Assembling Mega Guide: {topic} ===")
 
@@ -110,12 +110,18 @@ class ContentAssembler:
         logger.info("Step 7: Generating metadata")
         metadata = self._generate_metadata(content, config)
 
+        # 8. Get token usage from LLM writer
+        token_usage = self.llm_writer.get_usage_summary()
         logger.info(f"=== Mega Guide Complete: {metadata['word_count']} words ===")
+        logger.info(f"Token usage: {token_usage['total_input_tokens']} input, "
+                   f"{token_usage['total_output_tokens']} output, "
+                   f"${token_usage['total_cost_usd']:.6f}")
 
         return {
             "content": content,
             "metadata": metadata,
-            "template_data": template_data
+            "template_data": template_data,
+            "token_usage": token_usage
         }
 
     def assemble_source_type_page(self, source_type: str, config: dict) -> dict:
@@ -127,7 +133,7 @@ class ContentAssembler:
             config: Configuration dict with title, description, keywords
 
         Returns:
-            Dict with 'content' (markdown), 'metadata', 'template_data'
+            Dict with 'content' (markdown), 'metadata', 'template_data', 'token_usage'
         """
         logger.info(f"=== Assembling Source Type Page: {source_type} ===")
 
@@ -173,12 +179,18 @@ class ContentAssembler:
         logger.info("Step 7: Generating metadata")
         metadata = self._generate_metadata(content, config)
 
+        # 8. Get token usage from LLM writer
+        token_usage = self.llm_writer.get_usage_summary()
         logger.info(f"=== Source Type Page Complete: {metadata['word_count']} words ===")
+        logger.info(f"Token usage: {token_usage['total_input_tokens']} input, "
+                   f"{token_usage['total_output_tokens']} output, "
+                   f"${token_usage['total_cost_usd']:.6f}")
 
         return {
             "content": content,
             "metadata": metadata,
-            "template_data": template_data
+            "template_data": template_data,
+            "token_usage": token_usage
         }
 
     def _generate_mega_guide_sections(self, topic: str, config: dict, rules: list) -> dict:
