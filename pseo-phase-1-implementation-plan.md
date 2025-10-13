@@ -472,10 +472,18 @@ Save as standalone HTML files with inline CSS for review.
 
 ---
 
-### Task 2.5: Build Static Site Generator (after mockup approval)
+### Task 2.5: Build Static Site Generator (after mockup approval) ✅ **DONE**
 **Test**: Converts markdown to HTML, applies approved layout, generates valid HTML
 **Owner**: You (developer)
 **Output**: `backend/pseo/builder/static_generator.py`
+
+**Results**: ✅ StaticSiteGenerator implemented with 12 passing tests
+- Markdown to HTML conversion with tables, code blocks, TOC support
+- YAML front matter extraction
+- Layout template application via Jinja2
+- SEO-friendly URL generation (mega_guide, source_type patterns)
+- XML sitemap generation
+- Verbose logging for debugging
 
 **Implementation**:
 ```python
