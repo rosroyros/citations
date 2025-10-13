@@ -1,44 +1,44 @@
 {
   "total_pages": 5,
-  "total_words": 302037,
+  "total_words": 17686,
   "total_input_tokens": 26481,
-  "total_output_tokens": 36325,
-  "total_cost": 0.025767150000000003,
+  "total_output_tokens": 36775,
+  "total_cost": 0.02603715,
   "pages": [
     {
       "title": "Complete Guide to Checking APA Citations in 2024",
       "type": "mega_guide",
-      "words": 53928,
-      "tokens": 4162,
-      "cost": 0.00152565
+      "words": 2979,
+      "tokens": 4302,
+      "cost": 0.0016096499999999998
     },
     {
       "title": "The Ultimate APA Citation Errors Guide: Common Mistakes & How to Fix Them",
       "type": "mega_guide",
-      "words": 60277,
-      "tokens": 7312,
-      "cost": 0.0029368499999999995
+      "words": 2817,
+      "tokens": 7545,
+      "cost": 0.00307665
     },
     {
       "title": "How to Cite a Journal Article in APA Format (7th Edition)",
       "type": "source_type",
-      "words": 57908,
-      "tokens": 12203,
-      "cost": 0.0050124
+      "words": 4111,
+      "tokens": 12369,
+      "cost": 0.005112
     },
     {
       "title": "How to Cite a Book in APA Format (7th Edition)",
       "type": "source_type",
-      "words": 61716,
-      "tokens": 17163,
-      "cost": 0.007136549999999999
+      "words": 4112,
+      "tokens": 17178,
+      "cost": 0.0071455500000000005
     },
     {
       "title": "How to Cite a Website in APA Format (7th Edition)",
       "type": "source_type",
-      "words": 68208,
-      "tokens": 21966,
-      "cost": 0.009155700000000001
+      "words": 3667,
+      "tokens": 21862,
+      "cost": 0.009093299999999999
     }
   ]
 }
