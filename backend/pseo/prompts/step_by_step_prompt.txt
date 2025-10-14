@@ -27,6 +27,7 @@ REQUIREMENTS:
 - Add tips for common stumbling points
 - Use second person ("you")
 - Assume beginner with no prior citation knowledge
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 QUALITY STANDARDS:
 - Reading level: Grade 10-12

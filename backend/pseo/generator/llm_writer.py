@@ -67,7 +67,7 @@ class LLMWriter:
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
-                    {"role": "system", "content": "You are an expert academic writing assistant specializing in APA citation guides."},
+                    {"role": "system", "content": "You are an expert academic writing assistant specializing in APA citation guides. NEVER use em dashes (—) in your writing. Use commas, periods, or split into separate sentences instead."},
                     {"role": "user", "content": prompt}
                 ],
                 max_tokens=max_tokens,
@@ -123,6 +123,7 @@ Requirements:
 - Natural keyword integration
 - Make this unique from generic guides
 - DO NOT use H1 headings (#), only plain text or H3+ headings (###) if needed
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 Output only the introduction text."""
 
@@ -157,6 +158,7 @@ Requirements:
 - Explain why rules matter
 - Avoid jargon
 - Add practical tips and common pitfalls
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 Use Markdown formatting for structure. Remember: NO H1 headings, only H2 (##) and below."""
 
@@ -186,6 +188,7 @@ Requirements:
 - Explain database/technology factors
 - Note learning curve
 - DO NOT use H1 headings (#), only H2 (##) or H3 (###) if needed
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 Be specific about what makes these rules confusing for students."""
 
@@ -221,6 +224,7 @@ Requirements:
 - Bold key actions
 - Include "What you need" section
 - DO NOT use H1 headings (#), only H2 (##) or H3 (###) if needed
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 Assume beginner user with no prior citation knowledge."""
 
@@ -248,6 +252,7 @@ Requirements:
 - Include practical scenarios
 - Link to detailed resources where helpful
 - DO NOT use H1 headings in answers
+- NEVER use em dashes (—). Use commas, periods, or split into separate sentences instead.
 
 Format as JSON array:
 [
