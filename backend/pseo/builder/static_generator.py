@@ -15,15 +15,17 @@ logger = logging.getLogger(__name__)
 class StaticSiteGenerator:
     """Converts markdown content to HTML static site"""
 
-    def __init__(self, layout_template: str):
+    def __init__(self, layout_template: str, base_url: str = "https://yoursite.com"):
         """
         Initialize generator with layout template
 
         Args:
             layout_template: Jinja2 template string for page layout
+            base_url: Base URL for the site (e.g., "https://example.com")
         """
         self.layout = Template(layout_template)
-        logger.info("StaticSiteGenerator initialized")
+        self.base_url = base_url.rstrip('/')  # Remove trailing slash
+        logger.info(f"StaticSiteGenerator initialized with base_url={self.base_url}")
 
     def convert_markdown_to_html(self, md_content: str) -> str:
         """
@@ -63,7 +65,9 @@ class StaticSiteGenerator:
         """
         logger.debug(f"Applying layout with metadata: {list(metadata.keys())}")
 
-        result = self.layout.render(content=html_content, **metadata)
+        # Add base_url to metadata for template
+        template_data = {**metadata, 'base_url': self.base_url}
+        result = self.layout.render(content=html_content, **template_data)
 
         logger.debug(f"Layout applied, final size: {len(result)} chars")
         return result
@@ -106,7 +110,7 @@ class StaticSiteGenerator:
 
         for page in pages:
             sitemap += f"""  <url>
-    <loc>https://yoursite.com{page['url']}</loc>
+    <loc>{self.base_url}{page['url']}</loc>
     <lastmod>{page['lastmod']}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>{page['priority']}</priority>

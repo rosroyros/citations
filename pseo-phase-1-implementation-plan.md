@@ -1479,7 +1479,7 @@ python3 backend/pseo/review/human_review_cli.py
 
 ## WEEK 8: Static Site Setup
 
-### Task 5.1: Build Static Site Generator
+### Task 5.1: Build Static Site Generator ✅ **DONE**
 **Test**: Converts markdown to HTML, applies approved layout, generates valid HTML
 **Owner**: You (developer)
 **Output**: `backend/pseo/builder/static_generator.py`

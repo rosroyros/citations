@@ -108,7 +108,7 @@ class ContentAssembler:
 
         # 7. Generate metadata
         logger.info("Step 7: Generating metadata")
-        metadata = self._generate_metadata(content, config)
+        metadata = self._generate_metadata(content, config, page_type="mega_guide")
 
         # 8. Get token usage from LLM writer
         token_usage = self.llm_writer.get_usage_summary()
@@ -177,7 +177,7 @@ class ContentAssembler:
 
         # 7. Generate metadata
         logger.info("Step 7: Generating metadata")
-        metadata = self._generate_metadata(content, config)
+        metadata = self._generate_metadata(content, config, page_type="source_type")
 
         # 8. Get token usage from LLM writer
         token_usage = self.llm_writer.get_usage_summary()
@@ -479,13 +479,14 @@ class ContentAssembler:
         # In future, could filter by source type
         return self._load_errors(source_type)
 
-    def _generate_metadata(self, content: str, config: dict) -> dict:
+    def _generate_metadata(self, content: str, config: dict, page_type: str = None) -> dict:
         """
         Generate SEO metadata for page
 
         Args:
             content: Full page content (markdown)
             config: Configuration dict
+            page_type: Page type (mega_guide, source_type, etc.)
 
         Returns:
             Dict with metadata fields
@@ -496,6 +497,7 @@ class ContentAssembler:
         reading_time_minutes = max(1, word_count // 200)  # 200 words per minute
 
         metadata = {
+            "page_type": page_type or config.get('page_type', 'source_type'),
             "meta_title": config.get('title', ''),
             "meta_description": config.get('description', ''),
             "word_count": word_count,
@@ -503,7 +505,7 @@ class ContentAssembler:
             "last_updated": datetime.now().strftime("%Y-%m-%d")
         }
 
-        logger.debug(f"Metadata: {word_count} words, {reading_time_minutes} min read")
+        logger.debug(f"Metadata: page_type={metadata['page_type']}, {word_count} words, {reading_time_minutes} min read")
         return metadata
 
     def _generate_checklist(self, rules: list) -> list:
