@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:mini-checker": "vite build --config vite.config.minichecker.js",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
