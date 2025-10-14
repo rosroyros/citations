@@ -40,8 +40,7 @@ class StaticSiteGenerator:
         logger.debug(f"Converting markdown to HTML ({len(md_content)} chars)")
 
         md = markdown.Markdown(extensions=[
-            'tables',
-            'fenced_code',
+            'extra',  # Includes tables, fenced_code, and allows HTML
             'toc',
             'nl2br',
             'sane_lists'

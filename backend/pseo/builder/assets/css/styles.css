@@ -332,6 +332,34 @@
             left: 0;
         }
 
+        /* TL;DR Box (Mega Guides) */
+        .tldr-box {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tldr-box h2 {
+            font-size: 1.25rem;
+            color: #92400e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tldr-box ul {
+            list-style-position: inside;
+            color: #92400e;
+            font-weight: 500;
+        }
+
+        .tldr-box li {
+            margin-bottom: 0.5rem;
+        }
+
         .mini-checker {
             background: white;
             border: 2px solid #9333ea;

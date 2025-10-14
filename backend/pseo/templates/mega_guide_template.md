@@ -21,12 +21,16 @@
 
 ## TL;DR - Quick Summary
 
-**Key Points:**
-- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
+<div class="tldr-box">
+<h2>⚡ Key Points</h2>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+</div>
 
 ---
 
@@ -55,22 +59,21 @@
 ## Comprehensive Examples
 
 {% for example in examples %}
-### {{ example.metadata.title }}
-
-**Reference List Format:**
-```
+<div class="example-box">
+<div class="example-variation">{{ example.metadata.title }}</div>
+<div class="citation-example">
 {{ example.reference_citation }}
-```
+</div>
 
-**In-Text Citations:**
+<strong>In-Text Citations:</strong>
+<ul>
 {% for citation in example.in_text_citations %}
-- **{{ citation.type|title }}**: {{ citation.citation }}
-  - Example: {{ citation.context }}
+<li><strong>{{ citation.type|title }}:</strong> {{ citation.citation }}</li>
 {% endfor %}
+</ul>
 
-**Source Type:** {{ example.source_type }}
-
----
+<p><strong>Source Type:</strong> {{ example.source_type }}</p>
+</div>
 
 {% endfor %}
 
@@ -79,19 +82,26 @@
 ## Common Errors to Avoid
 
 {% for error in common_errors %}
-### {{ error.error_name }}
-
-**The Error:**
+<div class="error-example">
+<strong>❌ {{ error.error_name }}</strong>
+<div style="font-family: 'Courier New', monospace; margin-top: 0.5rem;">
 {{ error.wrong_example }}
+</div>
+</div>
 
-**The Fix:**
+<div class="correction-box">
+<strong>✓ Correct Format:</strong>
+<div style="font-family: 'Courier New', monospace; margin-top: 0.5rem;">
 {{ error.correct_example }}
+</div>
+</div>
 
-**Why This Happens:** {{ error.why_it_happens }}
-
-**How to Avoid It:** {{ error.fix_instructions }}
-
-**Frequency:** {{ error.frequency }}% of students make this error
+<div class="note-box">
+<strong>Why This Happens:</strong>
+<p>{{ error.why_it_happens }}</p>
+<strong>How to Avoid It:</strong>
+<p>{{ error.fix_instructions }}</p>
+</div>
 
 ---
 
@@ -99,11 +109,14 @@
 
 ## Validation Checklist
 
-Use this checklist to verify your citations before submission:
-
+<div class="checklist">
+<p>Use this checklist to verify your citations before submission:</p>
+<ul>
 {% for item in validation_checklist %}
-- [ ] {{ item.item }}
+<li>{{ item.item }}</li>
 {% endfor %}
+</ul>
+</div>
 
 ---
 
