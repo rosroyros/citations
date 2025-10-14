@@ -1660,10 +1660,18 @@ def test_layout_application():
 
 ## WEEK 9: Mini-Checker Component
 
-### Task 6.1: Build MiniChecker React Component
+### Task 6.1: Build MiniChecker React Component ✅ **DONE**
 **Test**: Accepts citation input, calls API, displays results inline
 **Owner**: You (frontend developer)
-**Output**: `frontend/components/MiniChecker.tsx`
+**Output**: `frontend/frontend/src/components/MiniChecker.jsx`
+
+**Results**: ✅ MiniChecker component implemented with 16 passing tests
+- Component: `MiniChecker.jsx` (148 lines)
+- Tests: `MiniChecker.test.jsx` (344 lines, 16 tests passing)
+- Styles: `MiniChecker.css` (mobile responsive, matches main app design)
+- Features: Simple textarea (600 char limit), calls `/api/validate`, inline results, CTA to main checker
+- Keyboard shortcut: Ctrl+Enter for quick validation
+- Design: Matches purple #9333ea theme from main app
 
 **Implementation**:
 ```tsx
