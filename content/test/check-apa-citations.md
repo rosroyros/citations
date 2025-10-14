@@ -4,6 +4,12 @@ description: "Learn how to validate APA 7th edition citations with our comprehen
 date: 2025-10-13
 reading_time: 21 minutes
 word_count: 4383
+page_type: mega_guide
+url_slug: check-apa-citations
+meta_title: "Complete Guide to Checking APA Citations in 2024"
+meta_description: "Learn how to validate APA 7th edition citations with our comprehensive guide. Discover common errors, validation tools, and expert tips."
+breadcrumb_title: "Check APA Citations"
+last_updated: 2024-10-13
 ---
 
 # Complete Guide to Checking APA Citations in 2024

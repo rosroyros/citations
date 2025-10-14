@@ -4,6 +4,12 @@ description: "Learn how to cite books in APA 7 format. Covers print books, ebook
 date: 2025-10-13
 reading_time: 25 minutes
 word_count: 5007
+page_type: source_type
+url_slug: book
+meta_title: "How to Cite a Book in APA Format (7th Edition)"
+meta_description: "Learn how to cite books in APA 7 format. Covers print books, ebooks, edited books, chapters, and multiple editions with examples."
+breadcrumb_title: "Books"
+last_updated: 2024-10-13
 ---
 
 # How to Cite a Book in APA Format (7th Edition)

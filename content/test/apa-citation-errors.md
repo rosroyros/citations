@@ -4,6 +4,12 @@ description: "Master APA citations by learning the 50 most common errors student
 date: 2025-10-13
 reading_time: 22 minutes
 word_count: 4406
+page_type: mega_guide
+url_slug: apa-citation-errors
+meta_title: "The Ultimate APA Citation Errors Guide: Common Mistakes & How to Fix Them"
+meta_description: "Master APA citations by learning the 50 most common errors students make. Includes examples, fixes, and prevention strategies."
+breadcrumb_title: "APA Citation Errors"
+last_updated: 2024-10-13
 ---
 
 # The Ultimate APA Citation Errors Guide: Common Mistakes & How to Fix Them

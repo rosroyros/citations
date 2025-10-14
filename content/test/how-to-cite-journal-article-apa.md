@@ -4,6 +4,12 @@ description: "Complete guide to citing journal articles in APA 7. Includes forma
 date: 2025-10-13
 reading_time: 27 minutes
 word_count: 5418
+page_type: source_type
+url_slug: journal-article
+meta_title: "How to Cite a Journal Article in APA Format (7th Edition)"
+meta_description: "Complete guide to citing journal articles in APA 7. Includes format rules, examples for different article types, and common error fixes."
+breadcrumb_title: "Journal Articles"
+last_updated: 2024-10-13
 ---
 
 # How to Cite a Journal Article in APA Format (7th Edition)
