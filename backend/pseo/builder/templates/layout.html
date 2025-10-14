@@ -49,8 +49,8 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="content-wrapper {{ page_type or 'source-type' }}">
-        <article class="content-page">
+    <div class="content-wrapper {% if page_type %}{{ page_type }}{% endif %}">
+        <main class="main-content">
             {{ content | safe }}
 
             <!-- MiniChecker CTA placements (will be populated by JavaScript) -->
@@ -80,7 +80,7 @@
                 </div>
             </div>
             {% endif %}
-        </article>
+        </main>
 
         {% if page_type == 'mega_guide' %}
         <!-- Sidebar (for mega guide pages only) -->
@@ -111,7 +111,7 @@
             </div>
         </aside>
         {% endif %}
-    </main>
+    </div>
 
     <!-- Footer -->
     <footer class="site-footer">
