@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
-import { Helmet } from 'react-helmet'
 import './App.css'
 
 function App() {
@@ -10,81 +9,6 @@ function App() {
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
-
-  // Schema.org structured data
-  const schemaData = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Citation Format Checker",
-    "url": "https://citationformatchecker.com",
-    "description": "Free APA 7th edition citation validator. Catch formatting errors from citation generators instantly.",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "featureList": [
-      "Capitalization check",
-      "Italics validation",
-      "DOI formatting",
-      "Punctuation rules",
-      "APA 7th edition compliance"
-    ],
-    "author": {
-      "@type": "Organization",
-      "name": "Citation Format Checker"
-    }
-  }
-
-  // FAQ Schema.org data
-  const faqSchemaData = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I check my APA citations?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Simply paste your citations into the text box and click 'Check My Citations'. Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is this citation checker free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, Citation Format Checker is completely free to use. You can check as many citations as you need without any cost or registration."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What citation style does this tool support?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What types of errors does this tool catch?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I check multiple citations at once?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation."
-        }
-      }
-    ]
-  }
 
   const editor = useEditor({
     extensions: [
@@ -172,15 +96,6 @@ function App() {
 
   return (
     <>
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify(schemaData)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchemaData)}
-        </script>
-      </Helmet>
-
       <div className="app">
         {/* Header */}
         <header className="header">
