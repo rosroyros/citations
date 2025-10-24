@@ -2,11 +2,11 @@
 Prompt management for citation validation.
 Loads validation prompts and formats citations for LLM input.
 """
-import logging
 import os
 from pathlib import Path
+from backend.logger import setup_logger
 
-logger = logging.getLogger(__name__)
+logger = setup_logger("prompt_manager")
 
 
 class PromptManager:
