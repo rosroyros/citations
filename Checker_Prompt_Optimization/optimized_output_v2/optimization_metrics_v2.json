@@ -1,0 +1,12 @@
+{
+  "accuracy": 0.7107438016528925,
+  "f1_invalid": 0.7058823479500037,
+  "f1_valid": 0.715447149474519,
+  "precision_invalid": 0.839999999832,
+  "recall_invalid": 0.6086956520856963,
+  "tp_invalid": 42,
+  "fp_invalid": 8,
+  "tn_invalid": 44,
+  "fn_invalid": 27,
+  "total": 121
+}

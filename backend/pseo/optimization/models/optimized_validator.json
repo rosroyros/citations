@@ -1,0 +1,73 @@
+{
+  "validate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "citation": "Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. [ITALIC]Psychology & Marketing, 23[\/ITALIC](2), 161-180. https:\/\/doi.org\/10.1002\/mar.20105",
+        "reasoning": "The citation is formatted correctly according to APA 7th edition guidelines. It includes the authors' names, publication year, title of the article in sentence case, journal name in italics, volume number in italics, issue number in parentheses, page range, and a DOI link. All elements are present and correctly formatted.",
+        "source_type": "journal article",
+        "is_valid": "true",
+        "errors": "[]"
+      },
+      {
+        "augmented": true,
+        "citation": "Maplesoft. (2019). [ITALIC]Maple companion[\/ITALIC] (Version 2.1.0). Cybernet Systems Co. https:\/\/www.maplesoft.com\/products\/MapleCompanion\/",
+        "reasoning": "The citation is for a software product, which is a type of book or software reference in APA style. The author is correctly listed as Maplesoft, the year of publication is provided, and the title is italicized. The version number is included, which is appropriate for software citations. The publisher is listed as Cybernet Systems Co., and the URL is provided. Overall, the citation adheres to APA 7th edition guidelines for software references.",
+        "source_type": "book",
+        "is_valid": "true",
+        "errors": "[]"
+      },
+      {
+        "augmented": true,
+        "citation": "Schlesselmann, A. J., McNally, R. J., and Held, P. (2025). Using Network Analysis To Characterize Clinical Improvement During Cognitive Processing Therapy. Behaviour Research and Therapy, 185, Article 104678. https:\/\/doi.org\/10.1016\/j.brat.2024.104678",
+        "reasoning": "The citation is mostly correct but contains a minor error in the author formatting. In APA 7th edition, the use of \"and\" is not appropriate in the author list; instead, an ampersand (&) should be used before the last author's name. Additionally, the year of publication should be checked to ensure it is not in the future, as the year 2025 is not valid at the time of this validation.",
+        "source_type": "journal article",
+        "is_valid": "false",
+        "errors": "[\n    {\n        \"component\": \"Authors\",\n        \"problem\": \"Incorrect conjunction used in author list.\",\n        \"correction\": \"Use '&' instead of 'and' before the last author's name.\"\n    },\n    {\n        \"component\": \"Year\",\n        \"problem\": \"Year of publication is in the future.\",\n        \"correction\": \"Change the year to a valid year (e.g., 2024 or earlier).\"\n    }\n]"
+      },
+      {
+        "augmented": true,
+        "citation": "Drollinger, T., Comer, L. B., and Warrington, P. T. (2006). Development And Validation Of The Active Empathetic Listening Scale.Psychology & Marketing, 23(2), 161-180.https:\/\/doi.org\/10.1002\/mar.20105",
+        "reasoning": "The citation has several formatting issues according to APA 7th edition guidelines. The authors' names should be separated by commas without \"and\" before the last author. There should be a space before the journal title and the volume number, and the journal title should be italicized. Additionally, there should be a space before the DOI link.",
+        "source_type": "journal article",
+        "is_valid": "false",
+        "errors": "[\n    {\n        \"component\": \"Authors\",\n        \"problem\": \"Incorrect use of 'and' in the author list.\",\n        \"correction\": \"Drollinger, T., Comer, L. B., & Warrington, P. T.\"\n    },\n    {\n        \"component\": \"Journal Title and Volume\",\n        \"problem\": \"No space between the journal title and volume number.\",\n        \"correction\": \"Psychology & Marketing, 23(2), 161-180.\"\n    },\n    {\n        \"component\": \"DOI\",\n        \"problem\": \"No space before the DOI link.\",\n        \"correction\": \"https:\/\/doi.org\/10.1002\/mar.20105\"\n    }\n]"
+      }
+    ],
+    "signature": {
+      "instructions": "Validate APA 7th edition citation and identify errors.\n\nThe validator must:\n1. Detect the citation source type (journal article, book, webpage, etc.)\n2. Validate against APA 7 rules\n3. List specific errors with components and corrections",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation text to validate"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Source Type:",
+          "description": "Detected source type: journal article, book, book chapter, webpage, or other"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "Boolean: true if no errors, false if errors found"
+        },
+        {
+          "prefix": "Errors:",
+          "description": "JSON list of errors, each with: component (str), problem (str), correction (str). Empty list if valid."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.9",
+      "dspy": "2.6.27",
+      "cloudpickle": "3.1"
+    }
+  }
+}

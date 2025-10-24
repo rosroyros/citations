@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APA Citation Validator - Optimization Report</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .header h1 { margin: 0 0 10px 0; }
+        .header p { margin: 5px 0; opacity: 0.9; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-card h3 {
+            margin: 0 0 10px 0;
+            color: #667eea;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .metric-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .citation-cell {
+            max-width: 500px;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        .badge-valid {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-invalid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .badge-correct {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .badge-incorrect {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .badge-synthetic {
+            background: #e7e7e7;
+            color: #666;
+        }
+        .badge-curated {
+            background: #cfe2ff;
+            color: #084298;
+        }
+        .explanation-cell {
+            max-width: 400px;
+            font-size: 13px;
+            color: #666;
+        }
+        .confusion-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-width: 500px;
+        }
+        .cm-cell {
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .cm-header {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #666;
+        }
+        .cm-tp { background: #d4edda; color: #155724; }
+        .cm-fp { background: #fff3cd; color: #856404; }
+        .cm-fn { background: #f8d7da; color: #721c24; }
+        .cm-tn { background: #d1ecf1; color: #0c5460; }
+        .filters {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            background: white;
+            color: #667eea;
+            border: 1px solid #667eea;
+        }
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .filter-btn:hover {
+            background: #5568d3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎯 APA Citation Validator - Optimization Report</h1>
+        <p>Generated: 2025-10-24 13:58:17</p>
+        <p>Test Set Size: 121 citations</p>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <h3>Overall Accuracy</h3>
+            <div class="metric-value">66.9%</div>
+            <div class="metric-label">81 / 121 correct</div>
+        </div>
+        <div class="metric-card">
+            <h3>F1 Score (Invalid)</h3>
+            <div class="metric-value">0.722</div>
+            <div class="metric-label">Primary optimization target</div>
+        </div>
+        <div class="metric-card">
+            <h3>Precision (Invalid)</h3>
+            <div class="metric-value">83.9%</div>
+            <div class="metric-label">True positives / (TP + FP)</div>
+        </div>
+        <div class="metric-card">
+            <h3>Recall (Invalid)</h3>
+            <div class="metric-value">63.4%</div>
+            <div class="metric-label">True positives / (TP + FN)</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📊 Confusion Matrix (Invalid Class)</h2>
+        <div class="confusion-matrix">
+            <div class="cm-cell cm-header"></div>
+            <div class="cm-cell cm-header">Pred Invalid</div>
+            <div class="cm-cell cm-header">Pred Valid</div>
+
+            <div class="cm-cell cm-header">True Invalid</div>
+            <div class="cm-cell cm-tp">TP: 52</div>
+            <div class="cm-cell cm-fn">FN: 30</div>
+
+            <div class="cm-cell cm-header">True Valid</div>
+            <div class="cm-cell cm-fp">FP: 10</div>
+            <div class="cm-cell cm-tn">TN: 29</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📋 Complete Test Set Results</h2>
+        <div class="filters">
+            <button class="filter-btn active" onclick="filterResults('all')">All (121)</button>
+            <button class="filter-btn" onclick="filterResults('correct')">Correct (81)</button>
+            <button class="filter-btn" onclick="filterResults('incorrect')">Incorrect (40)</button>
+            <button class="filter-btn" onclick="filterResults('curated')">Curated (0)</button>
+            <button class="filter-btn" onclick="filterResults('synthetic')">Synthetic (121)</button>
+        </div>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Citation</th>
+                    <th>Ground Truth</th>
+                    <th>Predicted</th>
+                    <th>Status</th>
+                    <th>Source</th>
+                    <th>Explanation</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>1</td>
+                    <td class="citation-cell">Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Ed.), _A New Companion to Malory_ (pp. 144-163). D. S. Brewer.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: author, year, chapter title, editors, book title, page range, and publisher. Each element is formatted according to APA standards, making this citation accurate and complete.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>2</td>
+                    <td class="citation-cell">Armstrong, D., & Smith, J. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: authors, year, chapter title, editors, book title in italics, page range, and publisher. All formatting rules are adhered to, making it a proper citation.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>3</td>
+                    <td class="citation-cell">Armstrong, D. (2019). Malory and character. In M. G. Leitch, & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it correctly follows the APA 7th edition rules for citing a book chapter with editors. All components, including author formatting, year, title, editors, page range, and publisher, are correctly formatted according to the guidelines.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>4</td>
+                    <td class="citation-cell">Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1017/9781108569368</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition rules. The author's name is formatted correctly, the year is in parentheses, the chapter title is in sentence case, the book title is italicized, and the publisher is listed with a DOI provided. All necessary components are present and correctly formatted.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>5</td>
+                    <td class="citation-cell">David, A. & Simpson, J. (Eds.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes the editors' names, year of publication, title in the appropriate format, edition and volume information, and the publisher's name, all formatted according to the rules specified for edited books.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>6</td>
+                    <td class="citation-cell">David, A., Simpson, J. (Eds.). (2006) _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A) W. W. Norton and Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to multiple formatting errors: 
+1. There is no comma after the editors' names before the year.
+2. The year is not correctly formatted with parentheses.
+3. The title is not properly capitalized according to APA rules.
+4. The edition and volume information should be in parentheses and placed after the title.
+5. The publisher's name should be followed by a period, and there should be a comma before it.
+
+A corrected version would look like this: David, A., & Simpson, J. (Eds.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>7</td>
+                    <td class="citation-cell">David, A., & Simpson, J. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_. W. W. Norton and Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules for a book with editors. The structure is correct, including the formatting of the authors, year, title, and publisher details.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>8</td>
+                    <td class="citation-cell">David, A., & Simpson, J. (Eds.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton and Company. https://doi.org/10.1234/5678</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: authors, year, title (in proper format), edition, volume, publisher, and a DOI link. All formatting rules have been adhered to, making this citation complete and accurate.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>9</td>
+                    <td class="citation-cell">Simpson, J. (Ed.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: the editor's name, year of publication, italicized title with proper capitalization, edition and volume information, and the publisher's name. All formatting rules have been adhered to, making this citation compliant with APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>10</td>
+                    <td class="citation-cell">Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The structure is correct, including author formatting, year placement, title case, journal details, and DOI presentation.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>11</td>
+                    <td class="citation-cell">Soto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2) developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power._Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The authors are correctly formatted, the year is properly placed, the title is in the correct case, and all publication details are included and formatted correctly.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>12</td>
+                    <td class="citation-cell">Soto, C. J., & John, O. P. (2017). The Next Big Five Inventory (BFI-2): Developing and Assessing a Hierarchical Model with 15 Facets to Enhance Bandwidth, Fidelity, and Predictive Power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. https://doi.org/10.1037/pspp0000096</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition guidelines. The authors are correctly formatted, the publication year is appropriately placed, the article title is in the correct case, and all journal details, including volume, issue, page range, and DOI, are correctly presented.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>13</td>
+                    <td class="citation-cell">Soto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The authors are correctly formatted, the year is properly placed, the title is in the correct case, and the journal details are accurately presented.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>14</td>
+                    <td class="citation-cell">Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation adheres to APA 7th edition guidelines. All components are correctly formatted, including author names, publication year, article title, journal name, volume and issue numbers, page range, and DOI. There are no errors present in the citation structure.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>15</td>
+                    <td class="citation-cell">Nguyen, T., Carnevale, J. J., Scholer, A. A., & Miele, D. B. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title case, and proper journal details.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>16</td>
+                    <td class="citation-cell">Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. https://doi.org/10.1037/pspa0000166</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title capitalization, journal name and volume italicization, issue number formatting, and inclusion of the DOI.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>17</td>
+                    <td class="citation-cell">Pegion, K., Kirtman, B. P., Becker, E., Collins, D. C., LaJoie, E., Burgman, R., Bell, R., DelSole, R., Min, D., Zhu, Y., Li, W., Sinsky, E., Guan, H., Gottschalck, J., Metzger, E. J., Barton, N. P., Achuthavarier, D., Marshak, J., Koster, R., & Kim, H. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary formatting rules of the APA 7th edition. The structure is correct, including author formatting, year placement, title capitalization, journal name and volume formatting, and the inclusion of the DOI.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>18</td>
+                    <td class="citation-cell">Pegion, K., Kirtman, B. P., Becker, E., Collins, D. C., LaJoie, E., Burgman, R., Bell, R., DelSole, R., & Kim, H. (2019). The subseasonal experiment: A _multimodel_ subseasonal prediction experiment. Bulletin of the American Meteorological Society, 100(10), 2043-2061.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly formats the authors, year, title, journal name, volume, issue, and page range. All elements are in the appropriate order and style, adhering to the required standards for journal articles.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>19</td>
+                    <td class="citation-cell">Pegion, K., et al. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title capitalization, journal name and volume italicization, issue number formatting, page range inclusion, and proper DOI presentation.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>20</td>
+                    <td class="citation-cell">Pegion K., Kirtman B.P., Becker, E., Collins, D. C., LaJoie E., Burgman, R., Bell, R., DelSole, R., Min, D., Zhu Y., Li W., Sinsky, E., Guan, H., Gottschalck, J., Metzger, E. J., Barton N. P., Achuthavarier D., Marshak J., Koster, R., Kim, H. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_ 100(10), 2043-2061 https://doi.org/10.1175/BAMS-D-18-0270.1</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to multiple formatting errors: incorrect author formatting, capitalization issues in the title, missing punctuation after the year, and improper formatting of the journal volume and issue. To correct it, the authors should be formatted as "Pegion, K., Kirtman, B. P., Becker, E., Collins, D. C., LaJoie, E., Burgman, R., Bell, R., DelSole, R., Min, D., Zhu, Y., Li, W., Sinsky, E., Guan, H., Gottschalck, J., Metzger, E. J., Barton, N. P., Achuthavarier, D., Marshak, J., Koster, R., & Kim, H. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society, 100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1"</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>21</td>
+                    <td class="citation-cell">Scruton, R. (1996). _The eclipse of listening_. _The New Criterion, 15_(3), 5–13.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The structure is correct, with proper punctuation and capitalization, making it a well-formatted citation for a journal article.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>22</td>
+                    <td class="citation-cell">Scruton, Roger. (1996) The eclipse of listening. _The New Criterion_ 15(3): 5-13.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: 
+1. The year should be in parentheses immediately after the author's name without a period.
+2. The article title should not be italicized and should be in sentence case.
+3. The journal name should be italicized, and the volume number should also be italicized, with the issue number in parentheses.
+4. There should be a comma before the page range, and the page range should not be preceded by a colon.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>23</td>
+                    <td class="citation-cell">Scruton, R., & Smith, J. (1996). The eclipse of listening. _The New Criterion, 15_(3), 5–13. https://doi.org/10.1234/56789</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly formats the authors, year, title, journal name, volume, issue, page range, and DOI. All elements are in the appropriate order and style as required by APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>24</td>
+                    <td class="citation-cell">Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5–13.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not adhere to the correct formatting for an APA citation. The title should be in sentence case and italicized, and there should be a period after the title before the journal name. The journal name should be in title case and italicized, and the issue number should be in parentheses immediately after the volume number. Additionally, the citation is missing a period at the end. A corrected version would look like this: Scruton, R. (1996). _The eclipse of listening_. _The New Criterion, 15_(3), 5–13.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>25</td>
+                    <td class="citation-cell">Scruton, R. (1996). The eclipse of listening. The New Criterion, 15(3), 5-13.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition rules. The author's name is correctly formatted, the year is in parentheses, the article title is in sentence case, and the journal name and volume are italicized. The issue number is correctly placed in parentheses, and the page range is included, making the citation complete and accurate.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>26</td>
+                    <td class="citation-cell">Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It adheres to the required structure for a journal article citation, including proper author formatting, title capitalization, and inclusion of the DOI. All elements are correctly punctuated and formatted.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>27</td>
+                    <td class="citation-cell">Baniya S., & Weech S. (2019). Data and Experience Design: Negotiating Community-oriented Digital Research with Service-Learning. _Purdue Journal of Service-Learning and International Engagement,_ 6(1), 11–16.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components in the proper format, including author names, publication year, article title, journal name, volume and issue numbers, and page range.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>28</td>
+                    <td class="citation-cell">Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It adheres to the required structure for a journal article citation, including proper author formatting, year placement, title capitalization, and inclusion of the DOI. All elements are correctly formatted and punctuated.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>29</td>
+                    <td class="citation-cell">Baniya, S., Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning _Purdue Journal of Service-Learning and International Engagement, 6_(1) 11–16. https://doi.org/10.5703/1288284316979</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to multiple formatting errors: 
+1. There is a missing comma before the year of publication.
+2. The article title is not in sentence case.
+3. The issue number is not in parentheses and is not formatted correctly.
+4. There is no comma before the page range. 
+
+Correcting these issues would make the citation compliant with APA 7th edition guidelines.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>30</td>
+                    <td class="citation-cell">Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11–16.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title capitalization, and proper journal details.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>31</td>
+                    <td class="citation-cell">Denny, H., Nordlof, J., & Salem, L. (2018). "Tell me exactly what it was that I was doing that was so bad": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal, 37_(1), 67–98. https://www.jstor.org/stable/26537363</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly formats the authors, year, title, journal name, volume, issue, page range, and DOI. All elements are in the appropriate order and style as required by APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>32</td>
+                    <td class="citation-cell">Denny, H., Nordlof, J., Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal, 37_(1), 67–98. https://doi.org/10.1080/26537363</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is mostly correct, but it has a formatting issue with the DOI. In APA 7th edition, the DOI should not be followed by a period, as it can lead to confusion. Therefore, the citation is invalid due to this minor error.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>33</td>
+                    <td class="citation-cell">Denny, H., & Nordlof, J. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, _37_(1), 67–98. https://www.jstor.org/stable/26537363</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition guidelines. The authors are correctly formatted, the publication year is properly placed, the article title is in the correct case, and the journal name and volume are italicized. Additionally, the inclusion of the DOI at the end is appropriate for electronic sources.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>34</td>
+                    <td class="citation-cell">Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The structure is correct, including author formatting, year placement, title capitalization, and journal details. There are no errors present in the citation.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>35</td>
+                    <td class="citation-cell">Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, _37_(1), 67–98. https://www.jstor.org/stable/26537363</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title capitalization, journal details, and inclusion of the DOI link.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>36</td>
+                    <td class="citation-cell">Price, D., & Johns, E. (2018, March 23). _Laziness does not exist_. Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition guidelines for citing an online article. The formatting of the authors, date, title, source, and URL is all correct.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>37</td>
+                    <td class="citation-cell">Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: the year should be in parentheses, the title should be in sentence case, the source name (Medium) should be italicized, and there should be a period before the URL. Correcting these elements would make the citation compliant with APA 7th edition standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>38</td>
+                    <td class="citation-cell">Price, D. (2018, March 23). Laziness does not exist. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not follow the correct APA format for an online article. Specifically, the title "Laziness does not exist" should not be italicized, and the name of the website "Medium" should be italicized and followed by a period before the URL. The correct format should be: Price, D. (2018, March 23). Laziness does not exist. *Medium*. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>39</td>
+                    <td class="citation-cell">Price, D. (2018 March). _Laziness does not exist._ Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the date format is incorrect; it should be "2018, March" instead of "2018 March." Furthermore, the title "Laziness does not exist" should not be italicized and should be in sentence case. The correct format should be: Price, D. (2018, March). Laziness does not exist. Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>40</td>
+                    <td class="citation-cell">American Society for the Prevention of Cruelty to Animals. (2019, November 21). Justice served: Case closed for over 40 dogfighting victims. https://www.aspca.org/news/justice-served-case-closed-over-40-dogfighting-victims</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines. It includes all necessary components: the author, publication date, title in the correct format, and the URL. There are no formatting errors, and the title is presented in sentence case, which is appropriate for an online article.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>41</td>
+                    <td class="citation-cell">American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it incorrectly formats the date by including the month without a specific day, which is not standard for APA citations. Furthermore, it lacks the necessary publisher information or a URL, which is essential for online sources. To correct it, the citation should either provide a complete date (year, month, day) or just the year, and include the publisher or a link if it is an online document.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>42</td>
+                    <td class="citation-cell">ASPCA. (2019, November 21). _Justice Served: case closed for over 40 dogfighting victims_. https://www.aspca.org/news/justice-served-case-closed-over-40-dogfighting-victims</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines. The author, date, title, and URL are all formatted correctly, making it a proper citation for an online article.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>43</td>
+                    <td class="citation-cell">_Tuscan white bean pasta._ (2018, February 25). Budgetbytes. Retrieved March 18, 2020, from https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect capitalization of the website name "Budgetbytes," which should be "Budget Bytes." Additionally, the retrieval date is not required for this type of source in APA 7th edition unless the content is subject to change. Correcting these issues would make the citation valid.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>44</td>
+                    <td class="citation-cell">Tuscan white bean pasta. (2018, February 25) Budgetbytes. Retrieved March 18, 2020, from https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not italicize the title of the webpage and includes an unnecessary retrieval date. The correct format should italicize "Tuscan white bean pasta" and omit the retrieval date unless the content is subject to change. The publisher's name should also be italicized. A corrected version would look like this: *Tuscan white bean pasta*. (2018, February 25). *Budgetbytes*. https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>45</td>
+                    <td class="citation-cell">_Tuscan white bean pasta._ (2018, February 25). Budgetbytes. https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the title of the article should not be italicized. Instead, the website name "Budgetbytes" should be italicized. The correct format should look like this: "Tuscan white bean pasta. (2018, February 25). *Budgetbytes*. https://www.budgetbytes.com/tuscan-white-bean-pasta/".</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>46</td>
+                    <td class="citation-cell">_Tuscan White Bean Pasta._ (2018 February 25). Budgetbytes. Retrieved March 18, 2020 from https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the date and the unnecessary retrieval date. The correct format should be: _Tuscan White Bean Pasta._ (2018, February 25). Budgetbytes. https://www.budgetbytes.com/tuscan-white-bean-pasta/. The retrieval date should be omitted since the URL is stable.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>47</td>
+                    <td class="citation-cell">_Tuscan white bean pasta_ (2018, February 25). Budget bytes, Budgetbytes. Retrieved 2020, March 18, from https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the title is not formatted correctly (it should be in sentence case and italicized), the publication date is not placed correctly, and the retrieval date is unnecessary for a stable URL. The correct format should look like this: _Tuscan white bean pasta_ (2018, February 25). Budget Bytes. https://www.budgetbytes.com/tuscan-white-bean-pasta/</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>48</td>
+                    <td class="citation-cell">National Alliance on Mental Illness (n.d) _Mental health conditions._ https://www.nami.org/Learn-More/Mental-Health-Conditions</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the missing period after "(n.d)" and the absence of a retrieval date for the online source. According to APA 7th edition guidelines, the citation should read: "National Alliance on Mental Illness. (n.d.). _Mental health conditions._ Retrieved [date], from https://www.nami.org/Learn-More/Mental-Health-Conditions." This format ensures clarity and adherence to APA standards for online sources without a specified publication date.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>49</td>
+                    <td class="citation-cell">National Alliance on Mental Illness. _Mental Health Conditions_. Retrieved from https://www.nami.org/Learn-More/Mental-Health-Conditions</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not include the publication date, which is a required element in APA citations. Furthermore, the phrase "Retrieved from" is not needed in APA 7th edition unless the content is subject to change. The correct format should include the publication date in parentheses after the organization name, followed by the title in italics and the URL without "Retrieved from."</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>50</td>
+                    <td class="citation-cell">NAMI. (n.d.). _Mental health conditions_. https://www.nami.org/Learn-More/Mental-Health-Conditions</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition format. The author is correctly formatted, the date is indicated as "n.d." for no date, the title is italicized and in the correct case, and the URL is included without a trailing period. All elements are in accordance with APA guidelines.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>51</td>
+                    <td class="citation-cell">National Alliance on Mental Illness. (n.d.). Mental Health Conditions. https://www.nami.org/Learn-More/Mental-Health-Conditions</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines for citing a webpage. The organization is correctly formatted as the author, the date is appropriately indicated as "n.d." for "no date," the title is in the correct format, and the URL is included without any additional punctuation that could interfere with the link.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>52</td>
+                    <td class="citation-cell">Quantum mechanics (2019, Nov 19) In _Wikipedia_. https://en.wikipedia.org/w/index.php?title=Quantum_mechanics&oldid=948476810</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: the date should be formatted as (2019, November 19) instead of (2019, Nov 19), the title should be in sentence case and italicized (Quantum mechanics), and the phrase "In _Wikipedia_" should not be included in this manner. Additionally, a retrieval date is recommended for online sources like Wikipedia. A correct citation would look like this: Wikipedia. (2019, November 19). *Quantum mechanics*. https://en.wikipedia.org/w/index.php?title=Quantum_mechanics&oldid=948476810</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>53</td>
+                    <td class="citation-cell">_Wikipedia_. (2019, November 19). Quantum Mechanics. https://en.wikipedia.org/w/index.php?title=Quantum_mechanics&oldid=948476810</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not follow the correct author format (should be "Wikipedia contributors"), the title is not in the correct sentence case, and it lacks a retrieval date, which is typically not required for stable Wikipedia entries. The correct format should be: Wikipedia contributors. (2019, November 19). Quantum mechanics. Wikipedia. https://en.wikipedia.org/w/index.php?title=Quantum_mechanics&oldid=948476810</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>54</td>
+                    <td class="citation-cell">Quantum Mechanics. (2019, November 19). In _Wikipedia_. Retrieved from https://en.wikipedia.org/w/index.php?title=Quantum_mechanics&oldid=948476810</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the title of the webpage should be in sentence case rather than title case. It should read "Quantum mechanics." instead of "Quantum Mechanics." Additionally, while Wikipedia is a valid source for some contexts, it is generally recommended to use more authoritative sources for academic work.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>55</td>
+                    <td class="citation-cell">Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). _Development and validation of the active empathetic listening scale_. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It adheres to the required structure for a journal article citation, including proper author formatting, year placement, title capitalization, and inclusion of the DOI.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>56</td>
+                    <td class="citation-cell">Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. Psychology & Marketing, 23(2), 161-180.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title case, and journal details.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>57</td>
+                    <td class="citation-cell">Drollinger, T., Comer, L. B., Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the title and the placement of the year. The title should be in sentence case and not italicized, and the year should be placed immediately after the authors' initials in parentheses. Correcting these issues would make the citation compliant with APA 7th edition guidelines.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>58</td>
+                    <td class="citation-cell">Drollinger, T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition guidelines for a journal article. The structure is correct, with proper formatting for the author, year, title, journal name, volume, issue, page range, and DOI.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>59</td>
+                    <td class="citation-cell">Perreault, L., & Johnson, M. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the inclusion of the retrieval date, which is not required for sources like UpToDate that are not expected to change frequently. To correct it, the citation should omit "Retrieved January 12, 2020, from" and just provide the URL after the title.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>60</td>
+                    <td class="citation-cell">perreault L. (2019). Obesity in adults: role of physical activity and exercise. UpToDate Retrieved January 12 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: the author's name is incorrectly formatted, the title is not in the correct case or italicized, the source name is not italicized, and the retrieval date is unnecessary in this context. Additionally, the URL should be presented without "Retrieved" and the retrieval date. A corrected version would look like this: Perreault, L. (2019). *Obesity in adults: Role of physical activity and exercise*. *UpToDate*. https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>61</td>
+                    <td class="citation-cell">Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved from: January 12, 2020, https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to incorrect title capitalization, unnecessary retrieval date formatting, and improper use of "Retrieved from:". The correct format should be: Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>62</td>
+                    <td class="citation-cell">Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the title of the article should be italicized, not the source name. Furthermore, the retrieval date is not required for APA citations unless the content is subject to change. The correct format should have the article title italicized and the source name in regular font.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>63</td>
+                    <td class="citation-cell">Stine, R. L. [RL_Stine]. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines for citing an online forum post. All components, including author formatting, date, title, and source details, are correctly presented.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>64</td>
+                    <td class="citation-cell">Stine, R.L. [RL__Stine]. (2013, October 23) _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post] Reddit https://www.reddit.com/r/IAmA/comments/1p32dl/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the missing period after "Reddit" and the absence of a retrieval date. According to APA 7th edition guidelines, it is important to include a retrieval date for online content that may change, and proper punctuation is essential for clarity and correctness. The correct format should include a retrieval date and a period after the platform name.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>65</td>
+                    <td class="citation-cell">Stine, R. L. [RL__Stine]. _I’m R.L. Stine and it’s my job to terrify kids. Ask Me Anything!_ [Online forum post]. Reddit. (2013, October 23). https://www.reddit.com/r/IAmA/comments/1p32dl/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It includes all necessary components: the author's name, the date of publication, the title of the post in italics, the platform (Reddit), and the URL. All formatting rules are adhered to, making this citation correct.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>66</td>
+                    <td class="citation-cell">Stine, R. L., & Smith, J. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: authors, publication date, title in italics, indication of the type of post, source, and URL. All formatting rules are adhered to, making it a proper citation for an online forum post.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>67</td>
+                    <td class="citation-cell">Stine, R.L. (2013, October 23). _I’m R.L. Stine and it’s My Job to Terrify Kids. Ask me anything!_ [Online forum post] Reddit https://www.reddit.com/r/IAmA/comments/1p32dl</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the title formatting. The title should be "I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!" with only the first word and proper nouns capitalized. Additionally, the source "Reddit" should be italicized, and there should be a period after the URL. Correcting these issues would make the citation valid according to APA 7th edition standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>68</td>
+                    <td class="citation-cell">NatGeo. (2020 Jan 12). Scientists knew African grays are clever, but now they’ve been documented assisting other members of their species—even strangers [Tweet; thumbnail link to article]. Twitter. https://twitter.com/NatGeo/status/1216346352063537154</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the date. In APA 7th edition, the month should be written in full (e.g., "January" instead of "Jan"). Therefore, the correct format should be "2020 January 12" instead of "2020 Jan 12." Additionally, while the rest of the citation is mostly correct, ensuring the date is fully spelled out is essential for adherence to APA guidelines.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>69</td>
+                    <td class="citation-cell">National Geographic [@NatGeo]. (2020, January 12). _Scientists knew African grays are clever, but now they’ve been documented assisting other members of their species—even strangers._ [Tweet; thumbnail link to article] Twitter. https://twitter.com/NatGeo/status/1216346352063537154</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it follows the APA 7th edition format for a tweet. It includes the author (National Geographic), the date of publication, the title of the tweet in italics, a description of the content type in square brackets, the platform (Twitter), and the URL. All elements are correctly formatted and placed according to APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>70</td>
+                    <td class="citation-cell">National Geographic [@NatGeo]. (2020, January 12). _Scientists knew African grays are clever, but now they’ve been documented assisting other members of their species—even strangers_ [Tweet; thumbnail link to article]. Twitter. Available at: https://twitter.com/NatGeo/status/1216346352063537154</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is mostly correct but fails to adhere to APA 7th edition guidelines due to the phrasing "Available at:" before the URL. The correct phrasing should be "Retrieved from" to align with APA standards for online sources. This small error affects the overall validity of the citation.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>71</td>
+                    <td class="citation-cell">MLA Style [@mlastyle] (n.d.) _Tweets_ [Twitter profile] Retrieved Jan 12 2020 from https://twitter.com/mlastyle</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it is formatted in MLA style rather than APA style. In APA format, the citation should include the author's last name and initials, the year of publication in parentheses, the title in italics with only the first word capitalized, and the source details. The retrieval date is not necessary unless the source is subject to change. Therefore, this citation does not meet the requirements of APA 7th edition guidelines.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>72</td>
+                    <td class="citation-cell">MLA Style [@mlastyle]. (n.d.). Tweets [Twitter profile]. Retrieved January 12, 2020, from https://twitter.com/mlastyle</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it follows MLA style rather than APA 7th edition guidelines. In APA, the citation should include the author's last name and initials, the year of publication in parentheses, the title in italics, and the source details formatted according to APA standards. The retrieval date is not necessary unless the content is subject to change.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>73</td>
+                    <td class="citation-cell">MLA Association, & @mlastyle. (n.d.). _Tweets Collection_ [Twitter profile]. Retrieved January 12, 2020, from https://twitter.com/mlastyle</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it incorrectly formats the author (should be "MLA Association" without the ampersand), and it does not adhere to the proper structure for citing a social media profile in APA style. In APA, a Twitter profile citation should include the author's name, the year of the last tweet (if available), the title of the profile in italics, and the URL, without a retrieval date unless the content is subject to change.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>74</td>
+                    <td class="citation-cell">_Tweets_ by MLA Style [@mlastyle]. Retrieved on 01/12/2020 from: https://twitter.com/mlastyle</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not include the necessary components for an APA citation of a tweet. Specifically, it should have the author's name (if known), the date of the tweet, the content of the tweet (up to 20 words), and the URL. The format used here resembles MLA style rather than APA style, which requires a different structure.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>75</td>
+                    <td class="citation-cell">U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines as it includes all required elements: author, date, title in italics, platform, and URL. The additional description in brackets is not standard but does not detract from the citation's validity.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>76</td>
+                    <td class="citation-cell">Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it correctly follows the APA 7th edition format for a social media post. It includes all necessary components: author, date, title, platform, and URL. The title is italicized and formatted correctly, and the additional information in brackets is appropriately included.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>77</td>
+                    <td class="citation-cell">U.S. Department of the Interior (2020, Jan 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached][Status update] Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the title not being in sentence case and the inclusion of non-standard supplemental materials in brackets. The title should be formatted as "Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah" without the brackets. Additionally, the citation should follow the APA guidelines more closely by omitting unnecessary details that do not conform to the standard citation format.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>78</td>
+                    <td class="citation-cell">U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it includes extraneous information in the title that should not be there according to APA guidelines. The title should only reflect the content of the post without additional descriptors. The correct format would be to remove "[Image attached] [Status update]" from the title, ensuring it adheres to APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>79</td>
+                    <td class="citation-cell">U.S. Department of Interior. (2020, January 10). Like frosting on a cake, snow coats and clings to hoodoos at Bryce Canyon National Park in Utah. [Image attached] [Status update]. Facebook https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to improper formatting of the title, incorrect handling of the social media platform name, and the inclusion of non-standard elements like "[Image attached]" and "[Status update]." To correct it, the title should be in sentence case, the platform name should be italicized, and the URL should be formatted correctly without the "https://" prefix. A period should also be added at the end of the citation.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>80</td>
+                    <td class="citation-cell">Little River Canyon National Preserve (n.d.). _Home_ [Facebook page]. Facebook. Retrieved January 12, 2020, from https://www.facebook.com/lirinps/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is mostly correct but includes an unnecessary retrieval date. According to APA 7th edition guidelines, retrieval dates are not required for stable content, which applies to social media pages. The rest of the citation elements are formatted correctly, but to fully comply with APA standards, the retrieval date should be removed.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>81</td>
+                    <td class="citation-cell">Little River Canyon National Preserve (n.d) _Home_ [Facebook page], Facebook. Retrieved January 12 2020, from https://www.facebook.com/lirinps/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several issues: the year should be formatted as (n.d.). Additionally, the retrieval date is not required for social media citations in APA 7th edition unless the content is subject to change. Lastly, there should be a period at the end of the citation after the URL. Correcting these issues would make the citation valid.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>82</td>
+                    <td class="citation-cell">Little River Canyon National Preserve. (n.d.). Home [Facebook page]. Facebook. Retrieved January 12, 2020, from https://www.facebook.com/lirinps/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines for citing a social media page. It includes the name of the organization, the indication of no date, the title of the page in italics, the platform name, the retrieval date, and the URL. All elements are correctly formatted and in the appropriate order.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>83</td>
+                    <td class="citation-cell">Little River Canyon National Preserve (n.d.). _Welcome to Our Page_ [Facebook page]. Facebook. Retrieved January 12, 2020, from https://www.facebook.com/lirinps/</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is mostly correct but includes an unnecessary retrieval date. According to APA 7th edition guidelines, retrieval dates are not required for stable content, such as a Facebook page. The citation should omit "Retrieved January 12, 2020, from" to be fully compliant with APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>84</td>
+                    <td class="citation-cell">Little River Canyon National Preserve (n.d.). _Home_ [Facebook]. Facebook. Retrieved: January 12, 2020, from https://www.facebook.com/lirinps/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it incorrectly includes the retrieval date with "Retrieved:" and does not follow the correct format for social media citations. According to APA 7th edition, the retrieval date is not required for stable content, and the citation should simply state the date in parentheses after the title without the word "Retrieved." The correct format should be: Little River Canyon National Preserve. (n.d.). _Home_ [Facebook]. Facebook. https://www.facebook.com/lirinps/</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>85</td>
+                    <td class="citation-cell">BBC [@bbc] (2020, January 12). Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not adhere to the correct author format, date placement, title formatting, and overall structure required by APA 7th edition. The author should be listed as "BBC" without the handle, the date should be formatted as (2020, January 12) immediately after the author, and the title should be italicized and in sentence case. The description of the content should not be in brackets, and the URL should be presented clearly at the end without a period.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>86</td>
+                    <td class="citation-cell">BBC [@bbc]. (2020, January 12) _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram, https://www.instagram.com/p/B7OkWqbBwcf/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: the author is not presented in the correct format, the title is not in sentence case, and the medium is incorrectly placed in brackets. Furthermore, the source should be italicized, and the URL should be formatted according to APA standards. A corrected version would look like this: BBC. (2020, January 12). Skywatchers have been treated to the first full moon of 2020 known as a “wolf moon” at the same time as a photograph. *Instagram*. https://www.instagram.com/p/B7OkWqbBwcf/</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>87</td>
+                    <td class="citation-cell">BBC [@bbc], & Skywatchers. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to incorrect author formatting and title capitalization. The correct format should list "BBC" as the author without the "[@bbc]" notation, and "Skywatchers" should be included as a secondary contributor if necessary. The title should be in sentence case, capitalizing only the first word and any proper nouns. Additionally, the source "Instagram" should be italicized. A corrected version might look like: BBC. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020 known as a “wolf moon” at the same time as a_ [Photograph]. _Instagram_. https://www.instagram.com/p/B7OkWqbBwcf/</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>88</td>
+                    <td class="citation-cell">Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: the author's name should only include the last name and initials without the full name in brackets, the date should be formatted as (2016, July 3), the title should be in sentence case (_Albatross culture 1_), and the platform name (YouTube) should be italicized. Lastly, a period should follow the URL. Correcting these elements would make the citation valid according to APA 7th edition guidelines.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>89</td>
+                    <td class="citation-cell">K. Lushi. [Korab Lushi]. (2016, July 3). _Albatross Culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the author's name, which should not include the full name in brackets. Additionally, the title should be in sentence case (e.g., "Albatross culture 1") and italicized. The source "YouTube" should also be italicized. To correct the citation, it should be formatted as follows: Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>90</td>
+                    <td class="citation-cell">Lushi, K. [Korab Lushi]. (July 3, 2016). _Albatross culture 1_ [Video]. YouTube: https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the date and the publisher. The date should be formatted as "2016, July 3" and the publisher should be followed by a period. Additionally, the URL should also end with a period. These issues prevent the citation from adhering to APA 7th edition guidelines.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>91</td>
+                    <td class="citation-cell">Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect formatting of the date and the title. In APA 7th edition, the date should be formatted as (2016, July 3) without a comma after the year, and the title of the video should not be italicized. The correct format for a video citation should look like this: Lushi, K. (2016, July 3). Albatross culture 1 [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>92</td>
+                    <td class="citation-cell">Stoneman, R. (2008). _Alexander the Great: A Life in Legend_ Yale University Press.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it lacks proper punctuation between the title and the publisher's name. The correct format should be: Stoneman, R. (2008). _Alexander the Great: A Life in Legend_. Yale University Press. The period after the title is essential to separate it from the publisher's name, and the citation must end with a period after the publisher's name.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>93</td>
+                    <td class="citation-cell">Smith, J., & Stoneman, R. (2008). _Alexander the Great: A life in legend_. New Haven: Yale University Press. https://doi.org/10.1234/abcd</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary APA 7th edition formatting rules for a book. The structure is correct, including author formatting, year placement, title capitalization and italicization, publisher information, and the inclusion of a DOI.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>94</td>
+                    <td class="citation-cell">Stoneman R. 2008 _Alexander the Great: A life in legend_ Yale University Press</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it lacks proper formatting for the author's name (it should be "Stoneman, R."), there is no comma before the year, the title should be in sentence case and italicized correctly ("Alexander the great: A life in legend"), and there should be a period after "Yale University Press." The correct format should be: Stoneman, R. (2008). _Alexander the great: A life in legend_. Yale University Press.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>95</td>
+                    <td class="citation-cell">Stoneman, R. (2008) Alexander the Great: A life in legend. Yale University Press.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because it does not follow the correct formatting for the year, title capitalization, and punctuation. The correct format should be: Stoneman, R. (2008). *Alexander the Great: A life in legend*. Yale University Press. This includes the year in parentheses followed by a period, the title in italics with proper capitalization, and a period after the publisher's name.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>96</td>
+                    <td class="citation-cell">Leitch, M. G., Rushton, C. J., & Smith, A. L. (Eds.). (2019). _A new companion to Malory_. D. S. Brewer. https://doi.org/10.1234/56789</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: authors' names, year of publication, title in italics with proper capitalization, publisher information, and a DOI link. All elements are formatted according to the rules specified for an edited book.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>97</td>
+                    <td class="citation-cell">Leitch, M. G., & Rushton, C. J. (Eds.). 2019. _A New Companion to Malory_. D. S. Brewer.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the missing period after the year of publication and the incorrect formatting of the title. The correct format should be: Leitch, M. G., & Rushton, C. J. (Eds.). (2019). _A new companion to Malory_. D. S. Brewer. The parentheses around the year must be followed by a period, and the title should be in sentence case.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>98</td>
+                    <td class="citation-cell">Leitch, M. G. & Rushton, C. J. (Eds) (2019). A New Companion to Malory. D S Brewer</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to incorrect formatting of the editors' designation, lack of proper capitalization and italicization of the book title, and missing punctuation after the publisher's name. The correct format should be: Leitch, M. G., & Rushton, C. J. (Eds.). (2019). *A new companion to Malory*. D. S. Brewer.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>99</td>
+                    <td class="citation-cell">Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes the author's name, year of publication, italicized title with proper capitalization, editor designation, publisher information, and a note about the original publication year. All elements are formatted correctly and in the appropriate order.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>100</td>
+                    <td class="citation-cell">Malory, T. (2017). Le Morte D'Arthur P. J. C. Field, Ed.. D. S. Brewer (Original work published 1469-70)</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to several formatting issues: 
+1. The title is not italicized.
+2. The capitalization of the title is incorrect; it should be "Le morte d'Arthur."
+3. The editor's name is not formatted correctly; it should be "Field, P. J. C. (Ed.)" and should be followed by the publisher's name.
+4. The original publication date should be in parentheses after the title, not included in the main citation line.
+5. There is no publisher listed after the editor's name, which is required in APA format.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>101</td>
+                    <td class="citation-cell">Malory, T., & Field, P. J. C. (Ed.). (2017). _Le Morte Darthur_. D. S. Brewer. (Original work published 1469-70)</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes the authors' names, year of publication, title in italics with proper capitalization, publisher information, and a note about the original publication. All elements are formatted correctly and in the right order, adhering to APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>102</td>
+                    <td class="citation-cell">Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes the author's name, year of publication, italicized title with proper capitalization, editor designation, and publisher information. All elements are formatted correctly and punctuated appropriately.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>103</td>
+                    <td class="citation-cell">Malory, T. (2017). _Le morte darthur_ (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70). https://doi.org/10.1234/morte.darthur.2017</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: author, year, title, editor, publisher, original publication date, and DOI. Each element is formatted according to APA standards, making this citation complete and accurate.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>104</td>
+                    <td class="citation-cell">Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is mostly correct but includes an unconventional element regarding the original publication date. In APA style, the original publication date should be mentioned, but it should not include "ca." or a range of years. Instead, it should simply state the original year if known, or just "BCE" if applicable. Therefore, the citation does not fully adhere to APA 7th edition guidelines due to this issue.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>105</td>
+                    <td class="citation-cell">Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines for citing a translated work. It correctly formats the author's name, year of publication, title in italics, and includes the translators' names in parentheses. The publisher's name is also correctly placed at the end with appropriate punctuation.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>106</td>
+                    <td class="citation-cell">Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to incorrect punctuation and formatting. The author's name should not have a comma after it, the translation information should be formatted correctly, and the original publication note should be placed at the end in parentheses without "ca." The correct format should look like this: Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published 385-378 BCE).</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>107</td>
+                    <td class="citation-cell">Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. https://doi.org/10.1000/182 (Original work published ca. 385-378 BCE)</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the incorrect placement of the translation information and the original publication date. In APA style, the translation information should be formatted as "(A. Nehamas & P. Woodruff, Trans.)" immediately after the title without a period before the closing parenthesis. Additionally, the original work's publication date should not be included in the citation itself but rather mentioned in the text or as a footnote. Therefore, the citation does not fully adhere to APA 7th edition rules.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>108</td>
+                    <td class="citation-cell">Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the original work's publication date should be formatted correctly according to APA guidelines. It should be presented as "(Original work published 385-378 BCE)" after the publisher's name, not within the same parentheses as the year of the translated work. The correct format should separate the original publication date from the translated work's publication year.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>109</td>
+                    <td class="citation-cell">Belcher, W (2019). _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed) University of Chicago Press.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to the following reasons: 
+1. There is no comma after the author's last name before the year.
+2. The edition should be enclosed in parentheses and should be formatted as "(2nd ed.)".
+3. There is no period after the publisher's name.
+4. The title's subtitle should only capitalize the first word and any proper nouns. 
+
+A corrected version would look like this: Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>110</td>
+                    <td class="citation-cell">Belcher, W., & Smith, J. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press. https://doi.org/10.7208/chicago/9780226499918.001.0001</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It includes all necessary components: authors, year of publication, title in the correct format, edition, publisher, and DOI. Each element is correctly punctuated and formatted, making it a complete and accurate citation.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>111</td>
+                    <td class="citation-cell">W. Belcher (2019). Writing your journal article in twelve weeks (2nd ed.). University of Chicago Press.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to the APA 7th edition guidelines for citing a book. It includes all necessary components: author name, year of publication, title in italics with proper capitalization, edition information, and publisher details, all formatted correctly.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>112</td>
+                    <td class="citation-cell">Belcher, W., (2019) _Writing your journal article in twelve weeks: A guide to academic publishing success_ 2nd ed. University of Chicago Press.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to multiple formatting errors: the unnecessary comma after the author's name, incorrect placement of the year, improper capitalization in the title and subtitle, and the edition information not being formatted correctly. The correct format should be: Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>113</td>
+                    <td class="citation-cell">Armstrong, D., & Smith, J. (2019). Character study in Malory. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: authors, year, chapter title, editors, book title in italics, page range, and publisher. Each element is formatted according to APA standards, making this citation accurate and complete.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>114</td>
+                    <td class="citation-cell">Armstrong, D. (2019) Malory and character In M. G. Leitch & C. J. Rushton (Eds.) _A new companion to Malory pp. 144-163_ D. S. Brewer.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to multiple formatting errors: 
+1. The year is not correctly punctuated (missing period after the closing parenthesis).
+2. The chapter title "Malory and character" should not be italicized and should be in sentence case.
+3. The book title "_A new companion to Malory_" should be italicized, and only the first word and proper nouns should be capitalized.
+4. The page range should be formatted as "pp. 144-163" and placed after the book title, not within it.
+5. The publisher's name should be followed by a period. 
+
+A corrected version would look like this: 
+Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>115</td>
+                    <td class="citation-cell">Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton, Eds., _A new Companion to Malory_ (pp. 144-163). D. S. Brewer.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: author, year, chapter title, editors, book title, page range, and publisher, all formatted according to the rules.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>116</td>
+                    <td class="citation-cell">Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: author, year, chapter title, editors, book title, page range, publisher, and DOI. Each element is formatted according to the rules, making it a complete and accurate citation.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>117</td>
+                    <td class="citation-cell">David, A., & Simpson, J. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary formatting rules of the APA 7th edition for a book with editors. All components, including author formatting, year, title, edition, volume, and publisher details, are correctly presented.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>118</td>
+                    <td class="citation-cell">David A., and Simpson, J. (2006). The Norton anthology of English literature: The Middle Ages. 8th ed., Vol A, W. W. Norton & Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid due to incorrect author formatting, missing punctuation, improper title capitalization, and incorrect publisher name format. The correct citation should look like this: David, A., & Simpson, J. (2006). *The Norton anthology of English literature: The Middle Ages* (8th ed., Vol. A). W. W. Norton.</td>
+                </tr>
+
+                <tr data-correct="false" data-source="synthetic_expansion">
+                    <td>119</td>
+                    <td class="citation-cell">David, A. & Simpson, J. (Eds.) (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-incorrect">Incorrect</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid according to APA 7th edition guidelines. It correctly formats the editors, year, title, edition, volume, and publisher information. All elements are in the correct order and properly punctuated, adhering to the required standards for citing an edited book.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>120</td>
+                    <td class="citation-cell">_The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-invalid">Invalid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is invalid because the title should be in sentence case, meaning only the first word of the title and subtitle, as well as any proper nouns, should be capitalized. The correct format for the title should be "_The Norton anthology of English literature: The middle ages_". Additionally, the placement of the edition and volume is correct, but the title capitalization error makes the citation non-compliant with APA standards.</td>
+                </tr>
+
+                <tr data-correct="true" data-source="synthetic_expansion">
+                    <td>121</td>
+                    <td class="citation-cell">David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.</td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-valid">Valid</span></td>
+                    <td><span class="badge badge-correct">Correct</span></td>
+                    <td>
+                        <span class="badge badge-synthetic">Synthetic Expansion</span>
+                        
+                    </td>
+                    <td class="explanation-cell">The citation is valid as it adheres to all the necessary formatting rules outlined in the APA 7th edition guidelines for a book with editors. All components, including author formatting, year, title, edition, volume, and publisher details, are correctly presented.</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function filterResults(filter) {
+            const rows = document.querySelectorAll('#resultsTable tbody tr');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            rows.forEach(row => {
+                if (filter === 'all') {
+                    row.style.display = '';
+                } else if (filter === 'correct') {
+                    row.style.display = row.dataset.correct === 'true' ? '' : 'none';
+                } else if (filter === 'incorrect') {
+                    row.style.display = row.dataset.correct === 'false' ? '' : 'none';
+                } else if (filter === 'curated') {
+                    row.style.display = row.dataset.source === 'manual_curation' ? '' : 'none';
+                } else if (filter === 'synthetic') {
+                    row.style.display = row.dataset.source === 'synthetic_expansion' ? '' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

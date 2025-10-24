@@ -1,0 +1,725 @@
+[
+  {
+    "index": 0,
+    "citation": "Rybaczewska, M., & Sparks, L. (2022). Ageing consumers and e-commerce activities. Ageing and Society. \\1(8), 1879–1898. https://doi.org/10.1017/S0144686X20001932",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "format",
+          "problem": "Using book formatting for journal article (period instead of comma before volume)",
+          "correction": "Journal articles use comma before volume number"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "volume",
+          "problem": "Volume number is incorrectly formatted with a backslash.",
+          "correction": "Remove the backslash before the volume number."
+        },
+        {
+          "component": "journal",
+          "problem": "Journal name should be italicized.",
+          "correction": "Italicize 'Ageing and Society'."
+        },
+        {
+          "component": "format",
+          "problem": "Missing space between journal name and volume number.",
+          "correction": "Add a space before '1'."
+        },
+        {
+          "component": "format",
+          "problem": "Missing space before issue number.",
+          "correction": "Add a space before '(8)'."
+        }
+      ]
+    }
+  },
+  {
+    "index": 1,
+    "citation": "Peterzell, J. (1990, April). Better late than never. _Time, 135_(17), 20–21.",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "webpage",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Title should be in sentence case and not italicized.",
+          "correction": "Change 'Better late than never.' to 'Better late than never.'"
+        },
+        {
+          "component": "journal",
+          "problem": "Journal name should be italicized and followed by a comma.",
+          "correction": "Italicize 'Time' and add a comma after it."
+        },
+        {
+          "component": "volume",
+          "problem": "Volume number should not have a comma after it.",
+          "correction": "Remove the comma after '135'."
+        },
+        {
+          "component": "date",
+          "problem": "Month should be written in full text.",
+          "correction": "Change 'April' to 'April'."
+        }
+      ]
+    }
+  },
+  {
+    "index": 2,
+    "citation": "Smith, J. A. (2020, March 15). How to cite sources. _Publisher_. URL",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "webpage",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Title should not be italicized.",
+          "correction": "Remove italics from 'How to cite sources'."
+        },
+        {
+          "component": "publisher",
+          "problem": "Publisher name should include the location.",
+          "correction": "Add the location of the publisher."
+        },
+        {
+          "component": "doi",
+          "problem": "URL is incomplete and should be a valid link.",
+          "correction": "Provide a complete URL."
+        }
+      ]
+    }
+  },
+  {
+    "index": 3,
+    "citation": "Author, A. A., and Author, B. B. (2020). Title of chapter. In E. E. Editor & F. F. Editor (Eds.),Title of work: Capital letter also for subtitle(pp. pages of chapter). Publisher. DOI (if available)",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "book chapter",
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Using 'and' instead of '&' before final author",
+          "correction": "Should use '&' in reference list"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "book chapter",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Incorrect conjunction used for multiple authors",
+          "correction": "Replace 'and' with '&'"
+        },
+        {
+          "component": "title",
+          "problem": "Title of chapter should be in sentence case",
+          "correction": "Change 'Title of chapter' to 'Title of chapter'."
+        },
+        {
+          "component": "format",
+          "problem": "Title of work should be italicized and in sentence case",
+          "correction": "Change 'Title of work: Capital letter also for subtitle' to 'Title of work: Capital letter also for subtitle'."
+        },
+        {
+          "component": "pages",
+          "problem": "Page range should be formatted correctly",
+          "correction": "Change 'pp. pages of chapter' to 'pp. 1-10' (example)."
+        },
+        {
+          "component": "publisher",
+          "problem": "Publisher name is missing",
+          "correction": "Add the publisher's name."
+        },
+        {
+          "component": "doi",
+          "problem": "DOI should be formatted as a URL starting with https://doi.org/",
+          "correction": "Change 'DOI (if available)' to 'https://doi.org/10.1234/example' (example)."
+        }
+      ]
+    }
+  },
+  {
+    "index": 4,
+    "citation": "Author, A. A. (2020). _Title of work: Capital letter also for subtitle_ (E. Editor, Ed.). Publisher. DOI (if available)",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "other",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Placeholder used instead of actual author names.",
+          "correction": "Replace 'Author, A. A.' with actual author names."
+        },
+        {
+          "component": "title",
+          "problem": "Placeholder used instead of actual title.",
+          "correction": "Replace '_Title of work: Capital letter also for subtitle_' with actual title."
+        },
+        {
+          "component": "editor",
+          "problem": "Placeholder used instead of actual editor information.",
+          "correction": "Replace '(E. Editor, Ed.)' with actual editor details."
+        },
+        {
+          "component": "publisher",
+          "problem": "Placeholder used instead of actual publisher name.",
+          "correction": "Replace 'Publisher' with actual publisher name."
+        },
+        {
+          "component": "doi",
+          "problem": "Placeholder used instead of actual DOI.",
+          "correction": "Replace 'DOI (if available)' with actual DOI if available."
+        }
+      ]
+    }
+  },
+  {
+    "index": 5,
+    "citation": "Baumeister, R. F. (1993). Exposing the self-knowledge myth [Review of the bookThe self-knower: A hero under control, by R. A. Wicklund and M. Eckert].Contemporary Psychology,38(5), 466–467.",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "other",
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Using 'and' instead of '&' before final author",
+          "correction": "Should use '&' in reference list"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Missing space between the title of the review and the book title.",
+          "correction": "Add a space before 'The self-knower'."
+        },
+        {
+          "component": "title",
+          "problem": "The title of the book should be italicized.",
+          "correction": "Italicize 'The self-knower: A hero under control'."
+        },
+        {
+          "component": "authors",
+          "problem": "Authors of the book should be formatted correctly.",
+          "correction": "Format as 'Wicklund, R. A., & Eckert, M.'."
+        },
+        {
+          "component": "format",
+          "problem": "Missing space before the journal name and volume number.",
+          "correction": "Add space before 'Contemporary Psychology'."
+        },
+        {
+          "component": "volume",
+          "problem": "Volume number should be italicized.",
+          "correction": "Italicize '38'."
+        },
+        {
+          "component": "issue",
+          "problem": "Missing space before the issue number in parentheses.",
+          "correction": "Add space before '(5)'."
+        }
+      ]
+    }
+  },
+  {
+    "index": 6,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., and Schaefer, J. R. (2018). Teaching Medicine With The Help Of \"Dr. House.\" PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Using 'and' instead of '&' before final author",
+          "correction": "Should use '&' in reference list"
+        },
+        {
+          "component": "title",
+          "problem": "Using title case instead of sentence case",
+          "correction": "Should be: Teaching medicine with the help of \"Dr"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Incorrect conjunction used for multiple authors",
+          "correction": "Replace 'and' with '&'"
+        },
+        {
+          "component": "title",
+          "problem": "Title should not be in quotation marks and should be in sentence case.",
+          "correction": "Change 'Teaching Medicine With The Help Of \"Dr. House.\"' to 'Teaching medicine with the help of Dr. House.'"
+        },
+        {
+          "component": "journal",
+          "problem": "Journal name should be italicized.",
+          "correction": "Italicize 'PLoS ONE'."
+        },
+        {
+          "component": "format",
+          "problem": "Missing space after the comma following the journal name.",
+          "correction": "Add a space after the comma."
+        },
+        {
+          "component": "pages",
+          "problem": "The word 'Article' should not be included in the citation.",
+          "correction": "Remove 'Article' from the citation."
+        }
+      ]
+    }
+  },
+  {
+    "index": 7,
+    "citation": "Pope, J. P., and Wall, H. (2025). Is the goal intrinsic or extrinsic? Examining self-determination theory researchers' and the general publics' perceptions of exercise goals. Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement, 57(3), 239–248. https://doi.org/10.1037/cbs0000411",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Using 'and' instead of '&' before final author",
+          "correction": "Should use '&' in reference list"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Incorrect conjunction used for multiple authors",
+          "correction": "Replace 'and' with '&'"
+        },
+        {
+          "component": "format",
+          "problem": "Missing space after journal name and before volume number",
+          "correction": "Add space before '57'"
+        },
+        {
+          "component": "journal",
+          "problem": "Journal name should be italicized",
+          "correction": "Italicize 'Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement'"
+        },
+        {
+          "component": "title",
+          "problem": "Title should be in sentence case",
+          "correction": "Change 'Is the goal intrinsic or extrinsic? Examining self-determination theory researchers' and the general publics' perceptions of exercise goals.' to 'Is the goal intrinsic or extrinsic? Examining self-determination theory researchers' and the general public's perceptions of exercise goals.'"
+        }
+      ]
+    }
+  },
+  {
+    "index": 8,
+    "citation": "Author, A. A. (2020). _Title of work: Capital letter also for subtitle_ (T. Translator, Trans.). Publisher. (Original work published YEAR) DOI (if available)",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "other",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Placeholder for author name is not valid.",
+          "correction": "Replace 'Author, A. A.' with actual author name."
+        },
+        {
+          "component": "title",
+          "problem": "Placeholder for title is not valid.",
+          "correction": "Replace '_Title of work: Capital letter also for subtitle_' with actual title."
+        },
+        {
+          "component": "translator",
+          "problem": "Placeholder for translator is not valid.",
+          "correction": "Replace 'T. Translator' with actual translator name if applicable."
+        },
+        {
+          "component": "publisher",
+          "problem": "Placeholder for publisher is not valid.",
+          "correction": "Replace 'Publisher' with actual publisher name."
+        },
+        {
+          "component": "date",
+          "problem": "Placeholder for original publication year is not valid.",
+          "correction": "Replace 'YEAR' with actual original publication year."
+        },
+        {
+          "component": "doi",
+          "problem": "Placeholder for DOI is not valid.",
+          "correction": "Provide actual DOI if available."
+        }
+      ]
+    }
+  },
+  {
+    "index": 9,
+    "citation": "Pope, J. P., & Wall, H. (2025). Is the goal intrinsic or extrinsic? Examining self-determination theory researchers' and the general publics' perceptions of exercise goals. Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement. \\1(3), 239–248. https://doi.org/10.1037/cbs0000411",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "format",
+          "problem": "Using book formatting for journal article (period instead of comma before volume)",
+          "correction": "Journal articles use comma before volume number"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "Unknown",
+          "problem": "[\n    {\"component\": \"volume\", \"problem\": \"Volume number is incorrectly formatted with a backslash.\", \"correction\": \"Change '\\1' to '1'.\"},\n    {\"component\": \"format\", \"problem\": \"Missing space before the DOI link.\", \"correction\": \"Add a space before 'https://doi.org/'.\"}\n]",
+          "correction": "See APA 7 guidelines"
+        }
+      ]
+    }
+  },
+  {
+    "index": 10,
+    "citation": "Author, A. A., & Author, B. B. (2020). Title of chapter. In E. E. Editor & F. F. Editor (Eds.), _Title of work: Capital letter also for subtitle_ (pp. pages of chapter). Publisher. DOI (if available)",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "book chapter",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Placeholder names used instead of actual author names.",
+          "correction": "Replace 'Author, A. A.' and 'Author, B. B.' with actual author names."
+        },
+        {
+          "component": "title",
+          "problem": "Placeholder title used instead of actual chapter title.",
+          "correction": "Replace 'Title of chapter' with the actual title."
+        },
+        {
+          "component": "editor",
+          "problem": "Placeholder editors used instead of actual editor names.",
+          "correction": "Replace 'E. E. Editor' and 'F. F. Editor' with actual editor names."
+        },
+        {
+          "component": "book_title",
+          "problem": "Placeholder book title used instead of actual book title.",
+          "correction": "Replace 'Title of work: Capital letter also for subtitle' with the actual book title."
+        },
+        {
+          "component": "pages",
+          "problem": "Placeholder for page numbers used instead of actual page numbers.",
+          "correction": "Replace 'pages of chapter' with actual page numbers."
+        },
+        {
+          "component": "publisher",
+          "problem": "Placeholder for publisher name used instead of actual publisher name.",
+          "correction": "Replace 'Publisher' with the actual publisher name."
+        },
+        {
+          "component": "doi",
+          "problem": "Placeholder for DOI used instead of actual DOI.",
+          "correction": "Replace 'DOI (if available)' with the actual DOI if available."
+        }
+      ]
+    }
+  },
+  {
+    "index": 11,
+    "citation": "Smith, J. A. (2020, March 15). _Title of article_. Name of publishing website. URL",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "webpage",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Title should not be italicized and should be in sentence case.",
+          "correction": "Change '_Title of article_' to 'Title of article'."
+        },
+        {
+          "component": "journal",
+          "problem": "Name of publishing website should be italicized.",
+          "correction": "Italicize 'Name of publishing website'."
+        },
+        {
+          "component": "doi",
+          "problem": "URL placeholder should be replaced with an actual URL.",
+          "correction": "Replace 'URL' with the actual URL."
+        },
+        {
+          "component": "format",
+          "problem": "No period should be placed at the end of the citation.",
+          "correction": "Remove the period after the URL."
+        }
+      ]
+    }
+  },
+  {
+    "index": 12,
+    "citation": "Smith, J. A. (2020). _Title of book_. Publisher. URL",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "book",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Title of the book is incorrectly italicized.",
+          "correction": "Remove italics from the title."
+        },
+        {
+          "component": "publisher",
+          "problem": "Publisher name is incomplete.",
+          "correction": "Provide the full name of the publisher."
+        },
+        {
+          "component": "doi",
+          "problem": "URL is not a valid link.",
+          "correction": "Provide a valid URL or DOI."
+        }
+      ]
+    }
+  },
+  {
+    "index": 13,
+    "citation": "Duis, J. M. (2008). _Acid/base chemistry and related organic chemistry conceptions of undergraduate organic chemistry students_ (Publication No. 3348786) [Doctoral dissertation, University of Northern Colorado]. ProQuest Dissertations and Theses Global.",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "doctoral dissertation",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "Title should not be italicized.",
+          "correction": "Remove italics from the title."
+        },
+        {
+          "component": "format",
+          "problem": "Unnecessary inclusion of 'Publication No.'",
+          "correction": "Remove 'Publication No. 3348786' from the citation."
+        }
+      ]
+    }
+  },
+  {
+    "index": 14,
+    "citation": "Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The nomological validity of the Type A personality among employed adults [Monograph]. Journal of Applied Psychology, 76(1), 143–168. http://doi.org/10.1037/0021-9010.76.1.143",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "journal",
+          "problem": "Journal name must be italicized",
+          "correction": "T. (1991). The nomological validity of the Type A personality among employed adults [Monograph]. Journal of Applied Psychology should be italicized"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "title",
+          "problem": "The title of the work is incorrectly labeled as a monograph.",
+          "correction": "Remove '[Monograph]'."
+        },
+        {
+          "component": "doi",
+          "problem": "DOI should be formatted as a URL starting with https://doi.org/",
+          "correction": "Change 'http://doi.org/' to 'https://doi.org/'."
+        },
+        {
+          "component": "format",
+          "problem": "The title should not be italicized.",
+          "correction": "Remove italics from the title."
+        },
+        {
+          "component": "journal",
+          "problem": "The journal name should be italicized.",
+          "correction": "Italicize 'Journal of Applied Psychology'."
+        }
+      ]
+    }
+  },
+  {
+    "index": 15,
+    "citation": "Denny, H., Nordlof, J., & Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_,_ 37_(1), 67–98. https://www.jstor.org/stable/26537363",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "journal article",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Incorrect formatting of authors' names.",
+          "correction": "Denny, H., Nordlof, J., & Salem, L."
+        },
+        {
+          "component": "title",
+          "problem": "Title should not be in quotation marks and should be in sentence case.",
+          "correction": "Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers."
+        },
+        {
+          "component": "journal",
+          "problem": "Journal name should be italicized and followed by a comma.",
+          "correction": "_Writing Center Journal_, "
+        },
+        {
+          "component": "volume",
+          "problem": "Volume number should be italicized and followed by the issue number in parentheses.",
+          "correction": "_37_(1)"
+        },
+        {
+          "component": "format",
+          "problem": "Unnecessary underscore before the volume number and missing spaces between components.",
+          "correction": "Remove underscore and add spaces between journal name, volume, issue, and page numbers."
+        },
+        {
+          "component": "doi",
+          "problem": "DOI should be formatted as a URL starting with https://doi.org/",
+          "correction": "https://doi.org/10.5325/wrcentj.37.1.0067"
+        }
+      ]
+    }
+  },
+  {
+    "index": 16,
+    "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+    "ground_truth": {
+      "is_valid": true,
+      "source_type": "journal article",
+      "errors": []
+    },
+    "prediction": {
+      "source_type": "book",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Author's name should be formatted with last name first.",
+          "correction": "Format as 'Plato.'"
+        },
+        {
+          "component": "date",
+          "problem": "Year of publication should be in parentheses immediately after the author's name.",
+          "correction": "(1989) should be placed after 'Plato.'"
+        },
+        {
+          "component": "title",
+          "problem": "Title should be in sentence case and italicized.",
+          "correction": "Change '_Symposium_' to '_Symposium_'."
+        },
+        {
+          "component": "publisher",
+          "problem": "Publisher's name should not include 'Company.'",
+          "correction": "Change 'Hackett Publishing Company' to 'Hackett Publishing.'"
+        },
+        {
+          "component": "date",
+          "problem": "Original work published date should be formatted correctly.",
+          "correction": "Change 'ca. 385-378 BCE' to 'Original work published ca. 385-378 BCE.'"
+        }
+      ]
+    }
+  },
+  {
+    "index": 17,
+    "citation": "Martin, M. (2018). Animals. In L. A. Schintler and C. L. McNeely (Eds.),Encyclopedia of big data. SpringerLink.https://doi.org/10.1007/978-3-319-32001-4\\_7-1",
+    "ground_truth": {
+      "is_valid": false,
+      "source_type": "journal article",
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Using 'and' instead of '&' before final author",
+          "correction": "Should use '&' in reference list"
+        }
+      ]
+    },
+    "prediction": {
+      "source_type": "book chapter",
+      "is_valid": false,
+      "errors": [
+        {
+          "component": "authors",
+          "problem": "Incorrect conjunction used for multiple editors",
+          "correction": "Replace 'and' with '&'"
+        },
+        {
+          "component": "format",
+          "problem": "Missing space after period and before editors' names",
+          "correction": "Add space after the period"
+        },
+        {
+          "component": "title",
+          "problem": "Title of the book should be italicized",
+          "correction": "Italicize 'Encyclopedia of big data'"
+        },
+        {
+          "component": "publisher",
+          "problem": "Publisher's name should be included in the correct format",
+          "correction": "Add 'Springer' as the publisher."
+        },
+        {
+          "component": "doi",
+          "problem": "DOI should not have a backslash and should be formatted as a URL",
+          "correction": "Change 'https://doi.org/10.1007/978-3-319-32001-4\\_7-1' to 'https://doi.org/10.1007/978-3-319-32001-4_7-1'"
+        }
+      ]
+    }
+  }
+]

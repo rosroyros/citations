@@ -1,0 +1,40 @@
+{
+  "validate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "markdown\nTask: Validate APA 7th Edition Citations in Markdown\n\nObjective:\nReview citations formatted in APA 7th edition style within markdown syntax and ensure that they are accurately presented following scholarly writing standards.\n\nInput Format:\n- Citations conform to markdown syntax:\n  - Italics are represented with underscores: _text_\n  - Literal underscores are escaped with backslashes: \\_\n  - Literal characters are escaped with backslashes.\n\nSteps for Validation:\n\n1. Input Parsing:\n\n   a. Break down the citation into its core components:\n      - Authors, publication year, title, source name, volume, issue, page range, editors (if any), publisher (if relevant), and DOI/URL.\n\n2. Determine Citation Source Type:\n\n   a. Classify the citation as a journal article, book, webpage, book chapter, or other based on structural elements.\n\n3. Validation against APA 7th Edition Standards:\n\n   a. Authors:\n      - Use an ampersand (&) before the last author in the reference list, not \"and\".\n   \n   b. Title:\n      - Ensure the title is in sentence case: only the first word, the first word after a colon, and any proper nouns are capitalized.\n   \n   c. Formatting:\n      - Italics: Apply for book titles and journal names.\n      - Volume and Issue: Italicize journal names and volume numbers. Place issue numbers in parentheses directly after the volume number without a space.\n      - Sequence: Ensure correct punctuation and lack of unnecessary spaces before volume, issue, or page numbers.\n   \n   d. DOI/URL:\n      - Present as clickable URLs. Avoid any older formats, such as including \"dx.doi.org\", and ensure there's no markdown-specific escaping affecting their use.\n\n   e. Specific Cases:\n      - Exclusion of terms like \"Monograph\" in journal article citations.\n      - Adherence to current APA rules regarding the presentation of DOIs and URLs.\n\n4. Error Detection and Correction:\n\n   a. For each error, identify and document:\n      - **component**: The problematic section of the citation (e.g., authors, title).\n      - **problem**: Description of the issue against APA standards.\n      - **correction**: Amendments necessary to align with APA guidelines.\n\n5. Output Requirements:\n   - Provide for each citation:\n     - **source_type**: The identified type of source (e.g., journal article).\n     - **is_valid**: Boolean indicating compliance with APA 7th edition standards.\n     - **errors**: A list of dictionaries describing each error with details on component, problem, and correction.\n\n6. Error Handling Guidelines:\n\n   a. Avoid false positives: Verify the necessity of corrections and alignment with APA guidelines.\n   b. Prevent false negatives: Ensure proper identification and correction of all actual compliance issues.\n   c. Reference the latest APA Manual to accurately assess citation conformity.\n   d. Implement feedback loops to enhance detection accuracy over time.\n\n7. Special Considerations:\n\n   a. Mind potential markdown-related misinterpretations like unnecessary escape characters.\n   b. Addressing issues with outdated formats in DOIs or URLs actively.\n   c. Maintain consistency with APA 7th edition updates for sustained accuracy in validation processes.\n\nBy carefully implementing these structured guidelines, you will ensure accurate validation of APA 7th edition citations in markdown, enhancing scholarly consistency.",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation text to validate"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Source Type:",
+          "description": "Detected source type: journal article, book, book chapter, webpage, or other"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "Boolean: true if no errors, false if errors found"
+        },
+        {
+          "prefix": "Errors:",
+          "description": "JSON list of errors. Each error MUST use one of these exact component names (lowercase):\n    - 'authors' for author name and formatting errors\n    - 'title' for article/book/chapter title errors\n    - 'journal' for journal or periodical name errors\n    - 'doi' for DOI or URL errors\n    - 'publisher' for publisher name and location errors\n    - 'date' for publication date errors\n    - 'volume' for volume number errors\n    - 'issue' for issue number errors\n    - 'pages' for page number errors\n    - 'format' for spacing, punctuation, or capitalization errors\n\n    Format: [{\"component\": \"<exact name from list>\", \"problem\": \"<description>\", \"correction\": \"<fix>\"}]\n    Use empty list [] if citation is valid."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrpBee APA Citation Dataset Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #e67e22;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #e67e22;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        .dataset-summary {
+            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .dataset-summary h2 {
+            color: white;
+            border-left: none;
+            padding-left: 0;
+            margin-top: 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .valid-card {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+        .invalid-card {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        }
+        .filter-buttons {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .filter-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .filter-btn.valid-filter {
+            background: #27ae60;
+        }
+        .filter-btn.valid-filter:hover, .filter-btn.valid-filter.active {
+            background: #229954;
+        }
+        .filter-btn.invalid-filter {
+            background: #e74c3c;
+        }
+        .filter-btn.invalid-filter:hover, .filter-btn.invalid-filter.active {
+            background: #c0392b;
+        }
+        .citation {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .citation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .citation.valid {
+            border-left: 4px solid #27ae60;
+        }
+        .citation.invalid {
+            border-left: 4px solid #e74c3c;
+        }
+        .citation-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+        .citation-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        .meta-item {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 2px;
+        }
+        .source-type {
+            font-weight: bold;
+            color: #495057;
+        }
+        .validity-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: white;
+        }
+        .valid-badge {
+            background: #27ae60;
+        }
+        .invalid-badge {
+            background: #e74c3c;
+        }
+        .error-info {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .error-info strong {
+            color: #721c24;
+        }
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .stats-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .stats-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .file-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .error-breakdown {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .error-type {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 ScrpBee APA Citation Dataset Report</h1>
+
+        <div class="dataset-summary">
+            <h2>📊 Clean Dataset from ScrapingBee</h2>
+            <p>Complete citation validation dataset created from Purdue OWL using ScrapingBee scraping technology</p>
+            <p><strong>Generated:</strong> 2025-10-21 21:25:52</p>
+        </div>
+
+        <div class="file-info">
+            <strong>📁 Dataset Files:</strong><br>
+            • Valid Citations: backend/pseo/optimization/datasets/scrpbee/scrpbee_valid_citations_clean.jsonl<br>
+            • Invalid Citations: backend/pseo/optimization/datasets/scrpbee/scrpbee_invalid_citations.jsonl
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>38</h3>
+                <p>Total Citations</p>
+            </div>
+            <div class="stat-card valid-card">
+                <h3>19</h3>
+                <p>Valid Citations</p>
+            </div>
+            <div class="stat-card invalid-card">
+                <h3>19</h3>
+                <p>Invalid Citations</p>
+            </div>
+            <div class="stat-card">
+                <h3>4</h3>
+                <p>Source Types</p>
+            </div>
+        </div>
+
+        <div class="error-breakdown">
+            <h3>🔧 Error Types Generated:</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;"><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">auth001: 3</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">cap001: 2</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">date001: 5</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">edn001: 1</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">ital001: 2</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">punc001: 4</span><span style="background: #f39c12; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.9em;">punc002: 2</span></div>
+        </div>
+
+        <h2>🔍 Search & Filter</h2>
+        <input type="text" class="search-box" id="searchBox" placeholder="Search citations by title, author, error type, or keyword...">
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCitations('all')">All Citations</button>
+            <button class="filter-btn valid-filter" onclick="filterCitations('valid')">Valid Only</button>
+            <button class="filter-btn invalid-filter" onclick="filterCitations('invalid')">Invalid Only</button>
+            <button class="filter-btn" onclick="filterCitations('journal article')">Journal Articles</button>
+            <button class="filter-btn" onclick="filterCitations('book')">Books</button>
+            <button class="filter-btn" onclick="filterCitations('webpage')">Webpages</button>
+            <button class="filter-btn" onclick="filterCitations('other')">Other Sources</button>
+        </div>
+
+        <h2>📈 Statistics</h2>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Source Type</th>
+                    <th>Valid</th>
+                    <th>Invalid</th>
+                    <th>Total</th>
+                    <th>Percentage</th>
+                </tr>
+            </thead>
+            <tbody id="statsTableBody">
+                <!-- Stats will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>📚 Citations</h2>
+        <div id="citationsContainer">
+            <p style="text-align: center; color: #6c757d;">Loading citation data...</p>
+        </div>
+    </div>
+
+    <script>
+        // Citation data embedded directly
+        const allCitations = [{"citation_id": "scrpbee_001", "citation_text": "Scruton, R. (1996). The eclipse of listening. _The New Criterion_, 15(3), 5–13. ", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116848", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_002", "citation_text": "Baniya, S. , & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. Purdue Journal of Service-_Learning and International Engagement_, 6(1), 11–16. https://doi. org/10. 5703/1288284316979", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116888", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_003", "citation_text": "Denny, H. , Nordlof, J. , & Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98. https://www. jstor. org/stable/26537363", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116921", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_004", "citation_text": "Scruton, R. (1996). The eclipse of listening. The New Criterion, 15(3), 5–13.", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116936", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_005", "citation_text": "Malory, T. (2017). _Le morte darthur_ (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673563", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_006", "citation_text": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press. ", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673591", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_007", "citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. ", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673615", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_008", "citation_text": "Stoneman, R. (2008). Alexander the Great: A life in legend. Yale University Press.", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673629", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_009", "citation_text": "Malory, T. (2017). Le morte darthur (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673648", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_010", "citation_text": "Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.). University of Chicago Press.", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673669", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_011", "citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer.", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673694", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_012", "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www. uptodate. com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446482", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_013", "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), _Encyclopedia of big data_. SpringerLink. https://doi. org/10. 1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446510", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_014", "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446530", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_015", "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446547", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_016", "citation_text": "Dacus, L. (2018). Night shift [Song]. On Historian [Album]. Matador Records. ", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.465987", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_017", "citation_text": "Hopper, E. (1942). _Nighthawks_ [Painting]. _Art Institute of Chicago_, Chicago, IL, United States. https://www. artic. edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466015", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_019", "citation_text": "Dacus, L. (2018). Night shift [Song]. On Historian [Album]. Matador Records.", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466044", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_020", "citation_text": "Hopper, E. (1942). Nighthawks [Painting]. Art Institute of Chicago, Chicago, IL, United States. https://www.artic.edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466058", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_text": "Scruton, R. 1996. The eclipse of listening. _The New Criterion_, 15(3), 5–13. ", "source_type": "journal article", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (1996)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888295", "verified_against_kb": false, "derived_from": "scrpbee_001", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:24:50.888301"}, "citation_id": "scrpbee_error_001"}, {"citation_text": "Baniya, S. , & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. Purdue Journal of Service-Learning and International Engagement, 6(1), 11–16. https://doi. org/10. 5703/1288284316979", "source_type": "journal article", "is_valid": false, "errors": [{"component": "formatting", "problem": "Missing italics for journal/book title", "correction": "Title should be italicized (with underscores)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888352", "verified_against_kb": false, "derived_from": "scrpbee_002", "error_injection_method": "programmatic", "error_types": ["ital001"], "date_created": "2025-10-21T21:24:50.888354"}, "citation_id": "scrpbee_error_002"}, {"citation_text": "Baniya, S. , & Weech, S. (2019). Data And Experience Design: Negotiating Community-oriented Digital Research With Service-learning. Purdue Journal of Service-_Learning and International Engagement_, 6(1), 11–16. https://doi. org/10. 5703/1288284316979", "source_type": "journal article", "is_valid": false, "errors": [{"component": "title", "problem": "Using title case instead of sentence case for article title", "correction": "Should be: Data and experience design: Negotiating community-oriented digital research with service-learning"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888413", "verified_against_kb": false, "derived_from": "scrpbee_002", "error_injection_method": "programmatic", "error_types": ["cap001"], "date_created": "2025-10-21T21:24:50.888414"}, "citation_id": "scrpbee_error_003"}, {"citation_text": "Scruton, R. (1996). The Eclipse Of Listening. The New Criterion, 15(3), 5–13.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "title", "problem": "Using title case instead of sentence case for article title", "correction": "Should be: The eclipse of listening"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888491", "verified_against_kb": false, "derived_from": "scrpbee_004", "error_injection_method": "programmatic", "error_types": ["cap001"], "date_created": "2025-10-21T21:24:50.888492"}, "citation_id": "scrpbee_error_004"}, {"citation_text": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_(2nd ed.). University of Chicago Press. ", "source_type": "book", "is_valid": false, "errors": [{"component": "edition", "problem": "Missing comma before edition information", "correction": "Should be: (2nd ed.)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888509", "verified_against_kb": false, "derived_from": "scrpbee_006", "error_injection_method": "programmatic", "error_types": ["edn001"], "date_created": "2025-10-21T21:24:50.888509"}, "citation_id": "scrpbee_error_005"}, {"citation_text": "Belcher, W (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press. ", "source_type": "book", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: W."}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888555", "verified_against_kb": false, "derived_from": "scrpbee_006", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:24:50.888556"}, "citation_id": "scrpbee_error_006"}, {"citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch and C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. ", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Using 'and' instead of '&' before final author", "correction": "Should use '&' in reference list"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888564", "verified_against_kb": false, "derived_from": "scrpbee_007", "error_injection_method": "programmatic", "error_types": ["auth001"], "date_created": "2025-10-21T21:24:50.888565"}, "citation_id": "scrpbee_error_007"}, {"citation_text": "Armstrong, D (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer.", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: D."}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888587", "verified_against_kb": false, "derived_from": "scrpbee_011", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:24:50.888587"}, "citation_id": "scrpbee_error_008"}, {"citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch and C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer.", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Using 'and' instead of '&' before final author", "correction": "Should use '&' in reference list"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888589", "verified_against_kb": false, "derived_from": "scrpbee_011", "error_injection_method": "programmatic", "error_types": ["auth001"], "date_created": "2025-10-21T21:24:50.888590"}, "citation_id": "scrpbee_error_009"}, {"citation_text": "Armstrong, D. 2019. Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer.", "source_type": "other", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2019)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888592", "verified_against_kb": false, "derived_from": "scrpbee_011", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:24:50.888593"}, "citation_id": "scrpbee_error_010"}, {"citation_text": "Perreault, L. 2019. Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www. uptodate. com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2019)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888598", "verified_against_kb": false, "derived_from": "scrpbee_012", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:24:50.888599"}, "citation_id": "scrpbee_error_011"}, {"citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www. uptodate. com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": false, "errors": [{"component": "formatting", "problem": "Missing italics for journal/book title", "correction": "Title should be italicized (with underscores)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888601", "verified_against_kb": false, "derived_from": "scrpbee_012", "error_injection_method": "programmatic", "error_types": ["ital001"], "date_created": "2025-10-21T21:24:50.888602"}, "citation_id": "scrpbee_error_012"}, {"citation_text": "Perreault, L. 2019. Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2019)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888613", "verified_against_kb": false, "derived_from": "scrpbee_014", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:24:50.888614"}, "citation_id": "scrpbee_error_013"}, {"citation_text": "Martin, M. (2018). Animals. In L. A. Schintler and C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": false, "errors": [{"component": "authors", "problem": "Using 'and' instead of '&' before final author", "correction": "Should use '&' in reference list"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888618", "verified_against_kb": false, "derived_from": "scrpbee_015", "error_injection_method": "programmatic", "error_types": ["auth001"], "date_created": "2025-10-21T21:24:50.888619"}, "citation_id": "scrpbee_error_014"}, {"citation_text": "Dacus, L (2018). Night shift [Song]. On Historian [Album]. Matador Records. ", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: L."}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888625", "verified_against_kb": false, "derived_from": "scrpbee_016", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:24:50.888625"}, "citation_id": "scrpbee_error_015"}, {"citation_text": "Hopper E. (1942). _Nighthawks_ [Painting]. _Art Institute of Chicago_, Chicago, IL, United States. https://www. artic. edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Hopper,"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888672", "verified_against_kb": false, "derived_from": "scrpbee_017", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:24:50.888673"}, "citation_id": "scrpbee_error_016"}, {"citation_text": "Dacus, L (2018). Night shift [Song]. On Historian [Album]. Matador Records.", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: L."}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888687", "verified_against_kb": false, "derived_from": "scrpbee_019", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:24:50.888688"}, "citation_id": "scrpbee_error_017"}, {"citation_text": "Hopper, E. 1942. Nighthawks [Painting]. Art Institute of Chicago, Chicago, IL, United States. https://www.artic.edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (1942)"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888693", "verified_against_kb": false, "derived_from": "scrpbee_020", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:24:50.888693"}, "citation_id": "scrpbee_error_018"}, {"citation_text": "Hopper E. (1942). Nighthawks [Painting]. Art Institute of Chicago, Chicago, IL, United States. https://www.artic.edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Hopper,"}], "metadata": {"source": "Purdue OWL (ScrapingBee)", "section": "Error Injection", "date_collected": "2025-10-21T21:24:50.888696", "verified_against_kb": false, "derived_from": "scrpbee_020", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:24:50.888696"}, "citation_id": "scrpbee_error_019"}];
+
+        let filteredCitations = [...allCitations];
+
+        function isValidCitation(citation) {
+            return citation.is_valid !== false;
+        }
+
+        function displayCitations() {
+            const container = document.getElementById('citationsContainer');
+            container.innerHTML = '';
+
+            if (filteredCitations.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d;">No citations found matching your criteria.</p>';
+                return;
+            }
+
+            // Group by validity and then by source type
+            const grouped = {
+                valid: {},
+                invalid: {}
+            };
+
+            filteredCitations.forEach(citation => {
+                const isValid = isValidCitation(citation);
+                const category = isValid ? 'valid' : 'invalid';
+                const type = citation.source_type;
+
+                if (!grouped[category][type]) {
+                    grouped[category][type] = [];
+                }
+                grouped[category][type].push(citation);
+            });
+
+            // Display valid citations first
+            if (Object.keys(grouped.valid).length > 0) {
+                const validSection = document.createElement('div');
+                validSection.innerHTML = '<h2 style="color: #27ae60; border-left-color: #27ae60;">✅ Valid Citations</h2>';
+
+                Object.keys(grouped.valid).sort().forEach(type => {
+                    const typeDiv = document.createElement('div');
+                    typeDiv.innerHTML = `
+                        <h3>📖 ${type.charAt(0).toUpperCase() + type.slice(1)} (${grouped.valid[type].length})</h3>
+                        <div class="citations-group" data-type="${type}" data-validity="valid">
+                            ${grouped.valid[type].map(citation => createCitationHTML(citation, true)).join('')}
+                        </div>
+                    `;
+                    validSection.appendChild(typeDiv);
+                });
+
+                container.appendChild(validSection);
+            }
+
+            // Display invalid citations
+            if (Object.keys(grouped.invalid).length > 0) {
+                const invalidSection = document.createElement('div');
+                invalidSection.innerHTML = '<h2 style="color: #e74c3c; border-left-color: #e74c3c;">❌ Invalid Citations (with Errors)</h2>';
+
+                Object.keys(grouped.invalid).sort().forEach(type => {
+                    const typeDiv = document.createElement('div');
+                    typeDiv.innerHTML = `
+                        <h3>📖 ${type.charAt(0).toUpperCase() + type.slice(1)} (${grouped.invalid[type].length})</h3>
+                        <div class="citations-group" data-type="${type}" data-validity="invalid">
+                            ${grouped.invalid[type].map(citation => createCitationHTML(citation, false)).join('')}
+                        </div>
+                    `;
+                    invalidSection.appendChild(typeDiv);
+                });
+
+                container.appendChild(invalidSection);
+            }
+        }
+
+        function createCitationHTML(citation, isValid) {
+            const validityClass = isValid ? 'valid' : 'invalid';
+            const validityBadge = isValid ?
+                '<span class="validity-badge valid-badge">✅ Valid</span>' :
+                '<span class="validity-badge invalid-badge">❌ Invalid</span>';
+
+            let errorInfo = '';
+            if (!isValid && citation.errors && citation.errors.length > 0) {
+                const error = citation.errors[0];
+                const errorTypes = citation.metadata.error_types || [];
+                const errorTypeTags = errorTypes.map(type =>
+                    `<span class="error-type">${type}</span>`
+                ).join(' ');
+
+                errorInfo = `
+                    <div class="error-info">
+                        <strong>🔧 Error:</strong> ${error.problem}<br>
+                        <strong>💡 Correction:</strong> ${error.correction}<br>
+                        <strong>🏷️ Type:</strong> ${error.component} | ${errorTypeTags}
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="citation ${validityClass}" data-type="${citation.source_type}" data-validity="${isValid ? 'valid' : 'invalid'}">
+                    <div class="citation-text">
+                        ${highlightSearchTerms(citation.citation_text)}
+                    </div>
+                    <div class="citation-meta">
+                        <span class="meta-item"><strong>ID:</strong> ${citation.citation_id}</span>
+                        <span class="meta-item source-type">${citation.source_type}</span>
+                        <span class="meta-item">${citation.metadata.source}</span>
+                        ${validityBadge}
+                    </div>
+                    ${errorInfo}
+                </div>
+            `;
+        }
+
+        function highlightSearchTerms(text) {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (!searchTerm) return text;
+
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function filterCitations(filter) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter citations
+            if (filter === 'all') {
+                filteredCitations = [...allCitations];
+            } else if (filter === 'valid') {
+                filteredCitations = allCitations.filter(c => isValidCitation(c));
+            } else if (filter === 'invalid') {
+                filteredCitations = allCitations.filter(c => !isValidCitation(c));
+            } else {
+                filteredCitations = allCitations.filter(c => c.source_type === filter);
+            }
+
+            // Apply search filter if exists
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (searchTerm) {
+                filteredCitations = filteredCitations.filter(citation => {
+                    const searchText = (citation.citation_text + ' ' +
+                                     citation.citation_id + ' ' +
+                                     citation.source_type + ' ' +
+                                     (citation.errors ? citation.errors.map(e => e.problem).join(' ') : '')).toLowerCase();
+                    return searchText.includes(searchTerm);
+                });
+            }
+
+            displayCitations();
+        }
+
+        function updateStatistics() {
+            const stats = {};
+
+            allCitations.forEach(citation => {
+                const type = citation.source_type;
+                if (!stats[type]) {
+                    stats[type] = { valid: 0, invalid: 0 };
+                }
+
+                if (isValidCitation(citation)) {
+                    stats[type].valid++;
+                } else {
+                    stats[type].invalid++;
+                }
+            });
+
+            const tbody = document.getElementById('statsTableBody');
+            tbody.innerHTML = '';
+
+            Object.keys(stats).sort().forEach(type => {
+                const valid = stats[type].valid;
+                const invalid = stats[type].invalid;
+                const total = valid + invalid;
+                const percentage = ((total / allCitations.length) * 100).toFixed(1);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${type.charAt(0).toUpperCase() + type.slice(1)}</strong></td>
+                        <td style="color: #27ae60; font-weight: bold;">${valid}</td>
+                        <td style="color: #e74c3c; font-weight: bold;">${invalid}</td>
+                        <td>${total}</td>
+                        <td>${percentage}%</td>
+                    </tr>
+                `;
+            });
+
+            // Add total row
+            const totalValid = allCitations.filter(c => isValidCitation(c)).length;
+            const totalInvalid = allCitations.filter(c => !isValidCitation(c)).length;
+
+            tbody.innerHTML += `
+                <tr style="background-color: #f8f9fa; font-weight: bold;">
+                    <td><strong>TOTAL</strong></td>
+                    <td style="color: #27ae60;">${totalValid}</td>
+                    <td style="color: #e74c3c;">${totalInvalid}</td>
+                    <td>${allCitations.length}</td>
+                    <td>100.0%</td>
+                </tr>
+            `;
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            if (searchTerm) {
+                filteredCitations = allCitations.filter(citation => {
+                    const searchText = (citation.citation_text + ' ' +
+                                     citation.citation_id + ' ' +
+                                     citation.source_type + ' ' +
+                                     (citation.errors ? citation.errors.map(e => e.problem).join(' ') : '')).toLowerCase();
+                    return searchText.includes(searchTerm);
+                });
+            } else {
+                // Re-apply current filter
+                const activeBtn = document.querySelector('.filter-btn.active');
+                if (activeBtn) {
+                    const filterText = activeBtn.textContent.toLowerCase().replace(' only', '');
+                    if (filterText === 'all citations') {
+                        filteredCitations = [...allCitations];
+                    } else if (filterText === 'valid') {
+                        filteredCitations = allCitations.filter(c => isValidCitation(c));
+                    } else if (filterText === 'invalid') {
+                        filteredCitations = allCitations.filter(c => !isValidCitation(c));
+                    } else {
+                        filteredCitations = allCitations.filter(c => c.source_type === filterText);
+                    }
+                } else {
+                    filteredCitations = [...allCitations];
+                }
+            }
+
+            displayCitations();
+        });
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatistics();
+            displayCitations();
+        });
+    </script>
+</body>
+</html>

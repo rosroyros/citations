@@ -104,6 +104,21 @@
             </div>
 
             <div class="related-resources">
+                <h3>Quick Tools</h3>
+                <ul>
+                    <li><a href="/checker/">Citation Checker</a></li>
+                    <li><a href="#">Format Generator</a></li>
+                    <li><a href="#">DOI Lookup</a></li>
+                    <li><a href="#">Style Comparison</a></li>
+                </ul>
+            </div>
+
+            <div class="related-resources">
+                <h3>💡 Pro Tip</h3>
+                <p>Check your citations as you write, not all at once at the end. This saves time and prevents errors from accumulating.</p>
+            </div>
+
+            <div class="related-resources">
                 <h3>Page Info</h3>
                 <p><strong>Word count:</strong> {{ word_count or 'Unknown' }}</p>
                 <p><strong>Reading time:</strong> {{ reading_time or 'Unknown' }}</p>
@@ -117,17 +132,41 @@
     <footer class="site-footer">
         <div class="site-footer-content">
             <p>&copy; 2024 Citation Checker. Last updated: {{ last_updated or '2024' }}</p>
+            <p class="footer-tagline">Built for researchers, by researchers</p>
         </div>
     </footer>
 
     <!-- Scripts -->
+    <script>
+        // Polyfill for process.env (needed for React development build)
+        window.process = { env: { NODE_ENV: 'production' } };
+    </script>
     <script src="/assets/js/mini-checker.js"></script>
     <script>
         // Mount MiniChecker components
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof mountMiniChecker === 'function') {
+                // Mount main MiniChecker
                 mountMiniChecker('mini-checker-1', {
                     placeholder: "Enter your citation here...",
+                    contextType: "mega-guide",
+                    onFullChecker: function() {
+                        window.location.href = '/checker/';
+                    }
+                });
+
+                // Mount intro section MiniChecker
+                mountMiniChecker('mini-checker-intro', {
+                    placeholder: "Smith, J. A. (2020). Article title goes here. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example",
+                    contextType: "mega-guide",
+                    onFullChecker: function() {
+                        window.location.href = '/checker/';
+                    }
+                });
+
+                // Mount test section MiniChecker
+                mountMiniChecker('mini-checker-test', {
+                    placeholder: "Paste your citation here...",
                     contextType: "mega-guide",
                     onFullChecker: function() {
                         window.location.href = '/checker/';

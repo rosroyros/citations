@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APA Citation Dataset Report - Complete (65 Citations)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-top: 30px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .summary-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2em;
+        }
+        .filter-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .filter-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #2980b9;
+        }
+        .citation {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .citation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .citation-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 4px solid #28a745;
+        }
+        .citation-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .meta-item {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 2px;
+        }
+        .source-type {
+            font-weight: bold;
+            color: #495057;
+        }
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .stats-table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .stats-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .new-citation {
+            border-left: 4px solid #28a745;
+        }
+        .existing-citation {
+            border-left: 4px solid #17a2b8;
+        }
+        .file-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .dataset-info {
+            background: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .dataset-info strong {
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 APA Citation Dataset Report - Complete</h1>
+
+        <div class="dataset-info">
+            <strong>📈 Dataset Summary:</strong> 65 Total Citations | 47 from Purdue OWL | 18 Manual Entries | 7 Newly Scraped
+        </div>
+
+        <div class="file-info">
+            <strong>📁 Data Source:</strong> backend/pseo/optimization/datasets/valid_citations_fixed.jsonl
+        </div>
+
+        <div class="summary-grid">
+            <div class="summary-card">
+                <h3 id="total-citations">65</h3>
+                <p>Total Citations</p>
+            </div>
+            <div class="summary-card">
+                <h3 id="source-count">2</h3>
+                <p>Data Sources</p>
+            </div>
+            <div class="summary-card">
+                <h3 id="type-count">6</h3>
+                <p>Citation Types</p>
+            </div>
+            <div class="summary-card">
+                <h3 id="new-count">7</h3>
+                <p>Newly Scraped</p>
+            </div>
+        </div>
+
+        <h2>🔍 Search & Filter</h2>
+        <input type="text" class="search-box" id="searchBox" placeholder="Search citations by title, author, or keyword...">
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCitations('all')">All Citations</button>
+            <button class="filter-btn" onclick="filterCitations('journal article')">Journal Articles</button>
+            <button class="filter-btn" onclick="filterCitations('book')">Books</button>
+            <button class="filter-btn" onclick="filterCitations('book chapter')">Book Chapters</button>
+            <button class="filter-btn" onclick="filterCitations('webpage')">Webpages</button>
+            <button class="filter-btn" onclick="filterCitations('other')">Other Sources</button>
+            <button class="filter-btn" onclick="filterCitations('social media')">Social Media</button>
+        </div>
+
+        <h2>📈 Statistics</h2>
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>Source Type</th>
+                    <th>Count</th>
+                    <th>Percentage</th>
+                </tr>
+            </thead>
+            <tbody id="statsTableBody">
+                <!-- Stats will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <h2>📚 Citations by Category</h2>
+        <div id="citationsContainer">
+            <p style="text-align: center; color: #6c757d;">Loading citation data...</p>
+        </div>
+    </div>
+
+    <script>
+        // Complete citation dataset embedded directly
+        const allCitations = [
+  {
+    "citation_id": "purdue_owl_003",
+    "citation_text": "Scruton, R. (1996). The eclipse of listening. _The New Criterion, 15_(3), 5–13.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.167090",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_005",
+    "citation_text": "Baniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. _Purdue Journal of Service-Learning and International Engagement_,_ __6_(1), 11–16. https://doi.org/10.5703/1288284316979",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.167765",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_007",
+    "citation_text": "Denny, H., Nordlof, J., & Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_,_ 37_(1), 67–98. https://www.jstor.org/stable/26537363",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.168499",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_009",
+    "citation_text": "Peterzell, J. (1990, April). Better late than never. _Time, 135_(17), 20–21.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.169104",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_011",
+    "citation_text": "Schultz, S. (2005, December 28). Calls made to strengthen state energy policies. _The Country Today_, 1A, 2A.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.169551",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_013",
+    "citation_text": "Baumeister, R. F. (1993). Exposing the self-knowledge myth [Review of the book _The self-knower: A hero under control_, by R. A. Wicklund & M. Eckert]. _Contemporary Psychology_,_ 38_(5), 466–467.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-18T10:30:00.170065",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_003",
+    "citation_text": "Stoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.405517",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_007",
+    "citation_text": "Leitch, M. G., & Rushton, C. J. (Eds.). (2019). _A new companion to Malory_. D. S. Brewer.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.406624",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_011",
+    "citation_text": "Malory, T. (2017). _Le morte darthur_ (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.407718",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_015",
+    "citation_text": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.408760",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_019",
+    "citation_text": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.409758",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_023",
+    "citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory _(pp. 144-163). D. S. Brewer.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.410815",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_027",
+    "citation_text": "David, A., & Simpson, J. (Eds.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton and Company.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-18T10:30:00.411890",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_003",
+    "citation_text": "Price, D. (2018, March 23). _Laziness does not exist_. Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.652798",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_007",
+    "citation_text": "Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.654289",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_009",
+    "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise",
+    "source_type": "webpage",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.654785",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_013",
+    "citation_text": "Richards, C. (2019, December 9). Best music of 2019: Lana Del Rey sings lullabies about the end of America. _Washington Post_. https://www.washingtonpost.com/entertainment/music/best-music-of-2019-lana-del-rey-sings-lullabies-about-the-end-of-america/2019/12/06/6e82c5ec-15d8-11ea-a659-7d69641c6ff7\\_story.html",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.655721",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_017",
+    "citation_text": "Jones, J. (2020, May 10). _Why flats dominate Spain's housing market_. BBC. https://www.bbc.com/worklife/article/20200506-why-do-flats-dominate-spains-housing-market",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.656533",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_025",
+    "citation_text": "Duis, J. M. (2008). _Acid/base chemistry and related organic chemistry conceptions of undergraduate organic chemistry students_ (Publication No. 3348786) [Doctoral dissertation, University of Northern Colorado]. ProQuest Dissertations and Theses Global.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.658086",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_029",
+    "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), _Encyclopedia of big data_. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4\\_7-1",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.658848",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_033",
+    "citation_text": "Grantmakers in the Arts. (2019). _Arts funding trends, United States, 1994-present_ (ICPSR 37337) [Data set]. National Archive of Data on Arts & Culture. https://www.icpsr.umich.edu/icpsrweb/NADAC/studies/37337",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.659667",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_035",
+    "citation_text": "HatchMed. (2017). _8 ways to improve patient satisfaction _[Infographic]. HatchMed.com. https://www.hatchmed.com/blog/2017/1/30/8-ways-to-improve-patient-satisfaction",
+    "source_type": "webpage",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.660078",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_037",
+    "citation_text": "Schulman, M. (2019, December 8). Peter Dinklage is still punk rock. _The New Yorker. _https://www.newyorker.com/culture/the-new-yorker-interview/peter-dinklage-is-still-punk-rock",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.660532",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_039",
+    "citation_text": "Paynter, W. (1970, September 17). _Interview with Will Paynter_ [Interview]. Studs Terkel Radio Archive; The Chicago History Museum. https://studsterkel.wfmt.com/programs/interview-will-paynter",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.660929",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_043",
+    "citation_text": "Smith, C. (2017, October 13). _AI and machine learning demystified_ [PowerPoint slides]. SlideShare. https://www.slideshare.net/carologic/ai-and-machine-learning-demystified-by-carol-smith-at-midwest-ux-2017",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.661660",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_047",
+    "citation_text": "Maplesoft. (2019). _Maple companion_ (Version 2.1.0). Cybernet Systems Co. https://www.maplesoft.com/products/MapleCompanion/",
+    "source_type": "webpage",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.662396",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_051",
+    "citation_text": "Stine, R. L. [RL\\_\\_Stine]. (2013, October 23). _I’m R. L. Stine and it’s my job to terrify kids. Ask me anything! _[Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.663235",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_055",
+    "citation_text": "Smith, J. A. or Name of Group [@username]. (2020). _Tweets _[Twitter profile]. Retrieved March 15, 2020, from URL",
+    "source_type": "social media",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.664014",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_063",
+    "citation_text": "Smith, J. A. (2020, March 15). How to cite sources. _Publisher_. URL",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.665555",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_065",
+    "citation_text": "Axelrod, A. (2019, August 11). A century later: The Treaty of Versailles and its rejection of racial equality. _Code Switch, NPR_. https://www.npr.org/sections/codeswitch/2019/08/11/742293305/a-century-later-the-treaty-of-versailles-and-its-rejection-of-racial-equality",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.665890",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_069",
+    "citation_text": "Lushi, K. [Korab Lushi]. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=\\_AMrJRQDPjk&t=148s",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.666617",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_073",
+    "citation_text": "Al-Mutawa, N. (2010, July). _Superheroes inspired by Islam_ [Video]. TED. https://www.ted.com/talks/naif\\_al\\_mutawa\\_superheroes\\_inspired\\_by\\_islam#t-4909",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.667306",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_077",
+    "citation_text": "Prime, K. (Host). (2019, March 29). For whom the cowbell tolls [Audio podcast episode]. In _Radiolab_. WNYC Studios. https://www.wnycstudios.org/story/whom-cowbell-tolls",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-18T10:30:00.668094",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "manual_book_001",
+    "citation_text": "Goodpaster, K. E., Nash, L. L., & de Bettignies, H. (2006). _Business ethics: Policies and persons_ (3rd ed.). McGraw-Hill/Irwin.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_002",
+    "citation_text": "American Medical Association. (2004). _American Medical Association family medical guide_ (4th ed.). Wiley.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_003",
+    "citation_text": "Post, E. (1923). _Etiquette in society, in business, in politics, and at home_. Funk & Wagnalls. http://www.bartleby.com/95/",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_004",
+    "citation_text": "Winne, P. H. (2001). Self-regulated learning viewed from models of information processing. In B.J. Zimmerman & D.H. Schunk (Eds.), _Self-regulated learning and academic achievement_ (2nd ed., pp. 160-192). Lawrence Erlbaum Associates.",
+    "source_type": "book chapter",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_005",
+    "citation_text": "Tolstoy, L. (2006). _War and peace_. (A. Briggs, Trans.). Viking. (Original work published 1865).",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_006",
+    "citation_text": "Gianoulis, T. (2013). Hipsters. In T. Riggs (Ed.), _St. James encyclopedia of popular culture_ (2nd ed., Vol. 2, pp. 675-676). St. James Press.",
+    "source_type": "book chapter",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_007",
+    "citation_text": "Schmidt, N. A., & Brown, J. M. (2017). _Evidence-based practice for nurses: Appraisal and application of research_ (4th ed.). Jones & Bartlett Learning, LLC.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_008",
+    "citation_text": "McCormack, B., McCance, T., & Maben, J. (2013). Outcome evaluation in the development of person-centred practice. In B. McCormack, K. Manley, & A. Titchen (Eds.), _Practice development in nursing and healthcare_ (pp. 190-211). John Wiley & Sons.",
+    "source_type": "book chapter",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_009",
+    "citation_text": "Burgess, R. (2019). _Rethinking global health: Frameworks of power_. Routledge.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_010",
+    "citation_text": "Veletsianos, G. (2020). _Learning online: The student experience_. Johns Hopkins University Press.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_011",
+    "citation_text": "Chaffe-Stengel, P., & Stengel, D. (2012). _Working with sample data: Exploration and inference_. Business Expert Press. https://doi.org/10.4128/9781606492147",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_012",
+    "citation_text": "Gladwell, M. (2008). _Outliers: The story of success_. Little, Brown and Company. https://www.amazon.com/Outliers-Story-Success-Malcolm-Gladwell-ebook/dp/B001ANYDAO/ref=tmm_kin_swatch_0?_encoding=UTF8&qid=&sr=",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_013",
+    "citation_text": "Seton, E. T. (1911). _The Arctic prairies: A canoe-journey of 2,000 miles in search of the caribou_. Charles Scribner's Sons. http://www.gutenberg.org/etext/6818",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_014",
+    "citation_text": "Quina, K., & Kanarian, M. A. (1988). Continuing education. In P. Bronstein & K. Quina (Eds.), _Teaching a psychology of people: Resources for gender and sociocultural awareness_ (pp. 200-208). American Psychological Association.",
+    "source_type": "book chapter",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_015",
+    "citation_text": "Miller, J., & Smith, T. (Eds.). (1996). _Cape Cod stories: Tales from Cape Cod, Nantucket, and Martha's Vineyard_. Chronicle Books.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_016",
+    "citation_text": "American Psychological Association. (2020). _Publication manual of the American Psychological Association_ (7th ed.). https://doi.org/10.1037/0000165-000",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_017",
+    "citation_text": "Arking, R. (2006). _The biology of aging: Observations and principles_ (3rd ed.). Oxford University Press.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_018",
+    "citation_text": "Culliney, J. L. (2006). _Islands in a far sea: The fate of nature in Hawai'i_ (Rev. ed.). University of Hawai'i Press.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "manual_book_019",
+    "citation_text": "Green, C. M. (1962-1963). _Washington_ (Vols. 1-2). Princeton University Press.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Manual entry from screenshot",
+      "date_collected": "2025-10-21",
+      "verified_against_kb": true
+    }
+  },
+  {
+    "citation_id": "purdue_owl_059",
+    "citation_text": "Scruton, R. (1996). The eclipse of listening. The New Criterion, 15(3), 5–13.",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-21T18:45:04.176736",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_060",
+    "citation_text": "Baniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. Purdue Journal of Service-Learning and International Engagement, 6(1), 11–16. https://doi.org/10.5703/1288284316979",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-21T18:45:04.176802",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_061",
+    "citation_text": "Denny, H., Nordlof, J., & Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98. https://www.jstor.org/stable/26537363",
+    "source_type": "journal article",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html",
+      "section": "Journal Articles",
+      "date_collected": "2025-10-21T18:45:04.176850",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_063",
+    "citation_text": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.",
+    "source_type": "book",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html",
+      "section": "Books",
+      "date_collected": "2025-10-21T18:45:11.654104",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_064",
+    "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise",
+    "source_type": "webpage",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-21T18:45:15.469146",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_065",
+    "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4_7-1",
+    "source_type": "webpage",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html",
+      "section": "Electronic Sources",
+      "date_collected": "2025-10-21T18:45:15.469179",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_066",
+    "citation_text": "Hopper, E. (1942). _Nighthawks_ [Painting]. Art Institute of Chicago, Chicago, IL, United States. https://www.artic.edu/artworks/111628/nighthawks",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html",
+      "section": "Audiovisual Media",
+      "date_collected": "2025-10-21T18:45:23.514969",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_067",
+    "citation_text": "Ryan, S. (2019). _Sea smoke on Lake Michigan_ [Photograph]. New York Times. https://www.nytimes.com/interactive/2019/world/year-in-pictures.html",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html",
+      "section": "Audiovisual Media",
+      "date_collected": "2025-10-21T18:45:23.514998",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_068",
+    "citation_text": "Nail, T. (2017). What is an assemblage? SubStance, 46(1), 21-37. http://sub.uwpress.org/lookup/doi/10.3368/ss.46.1.21",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html",
+      "section": "Other Print Sources",
+      "date_collected": "2025-10-21T18:45:34.830405",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_069",
+    "citation_text": "Palanker, D., Volk, J., Lucia, K., & Thomas, K. (2018). Mental health parity at risk: Deregulating the individual market and the impact on mental health coverage. National Alliance on Mental Illness. https://www.nami.org/About-NAMI/Publications-Reports/Public-Policy-Reports/Parity-at-Risk/ParityatRisk.pdf",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_print_sources.html",
+      "section": "Other Print Sources",
+      "date_collected": "2025-10-21T18:45:34.830463",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_070",
+    "citation_text": "Barkley, S., Chen, M., & McDonald, P. (2018). The effects of sodium on children’s health [Unpublished manuscript]. Department of Biology, University of Cincinnati.",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_non_print_sources.html",
+      "section": "Other Non-Print Sources",
+      "date_collected": "2025-10-21T18:45:39.147039",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_071",
+    "citation_text": "Glass, A. (2019). How avocados changed America [Manuscript in preparation]. Department of Sociology, Michigan State University.",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_non_print_sources.html",
+      "section": "Other Non-Print Sources",
+      "date_collected": "2025-10-21T18:45:39.147075",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  },
+  {
+    "citation_id": "purdue_owl_072",
+    "citation_text": "Jones, R. (2019). Walt Whitman and the American Dream [Manuscript submitted for publication]. Department of English, University of Mississippi.",
+    "source_type": "other",
+    "is_valid": true,
+    "metadata": {
+      "source": "Purdue OWL",
+      "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_other_non_print_sources.html",
+      "section": "Other Non-Print Sources",
+      "date_collected": "2025-10-21T18:45:39.147106",
+      "formatting_preserved": true,
+      "verified_against_kb": false
+    }
+  }
+];
+
+        let filteredCitations = [...allCitations];
+
+        function isNewCitation(citationId) {
+            return citationId.startsWith('purdue_owl_') &&
+                   parseInt(citationId.split('_')[2]) >= 59;
+        }
+
+        function displayCitations() {
+            const container = document.getElementById('citationsContainer');
+            container.innerHTML = '';
+
+            if (filteredCitations.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d;">No citations found matching your criteria.</p>';
+                return;
+            }
+
+            // Group by source type
+            const grouped = {};
+            filteredCitations.forEach(citation => {
+                const type = citation.source_type;
+                if (!grouped[type]) {
+                    grouped[type] = [];
+                }
+                grouped[type].push(citation);
+            });
+
+            // Display each group
+            Object.keys(grouped).sort().forEach(type => {
+                const typeSection = document.createElement('div');
+                typeSection.innerHTML = `
+                    <h2>📖 ${type.charAt(0).toUpperCase() + type.slice(1)} (${grouped[type].length})</h2>
+                    <div class="citations-group" data-type="${type}">
+                        ${grouped[type].map(citation => createCitationHTML(citation)).join('')}
+                    </div>
+                `;
+                container.appendChild(typeSection);
+            });
+        }
+
+        function createCitationHTML(citation) {
+            const isNew = isNewCitation(citation.citation_id);
+            const newClass = isNew ? 'new-citation' : 'existing-citation';
+            const newBadge = isNew ? '<span class="meta-item" style="background: #d4edda; color: #155724;">🆕 New</span>' : '';
+
+            return `
+                <div class="citation ${newClass}" data-type="${citation.source_type}">
+                    <div class="citation-text">
+                        ${highlightSearchTerms(citation.citation_text)}
+                    </div>
+                    <div class="citation-meta">
+                        <span class="meta-item"><strong>ID:</strong> ${citation.citation_id}</span>
+                        <span class="meta-item source-type">${citation.source_type}</span>
+                        <span class="meta-item">${citation.metadata.source}</span>
+                        ${newBadge}
+                    </div>
+                </div>
+            `;
+        }
+
+        function highlightSearchTerms(text) {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (!searchTerm) return text;
+
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function filterCitations(type) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter citations
+            if (type === 'all') {
+                filteredCitations = [...allCitations];
+            } else {
+                filteredCitations = allCitations.filter(c => c.source_type === type);
+            }
+
+            // Apply search filter if exists
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (searchTerm) {
+                filteredCitations = filteredCitations.filter(citation =>
+                    citation.citation_text.toLowerCase().includes(searchTerm) ||
+                    citation.citation_id.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            displayCitations();
+        }
+
+        function updateStatistics() {
+            // Update summary cards
+            document.getElementById('total-citations').textContent = allCitations.length;
+
+            const sources = new Set(allCitations.map(c => c.metadata.source));
+            document.getElementById('source-count').textContent = sources.size;
+
+            const types = new Set(allCitations.map(c => c.source_type));
+            document.getElementById('type-count').textContent = types.size;
+
+            const newCount = allCitations.filter(c => isNewCitation(c.citation_id)).length;
+            document.getElementById('new-count').textContent = newCount;
+
+            // Update statistics table
+            const stats = {};
+            allCitations.forEach(citation => {
+                stats[citation.source_type] = (stats[citation.source_type] || 0) + 1;
+            });
+
+            const tbody = document.getElementById('statsTableBody');
+            tbody.innerHTML = '';
+
+            Object.keys(stats).sort().forEach(type => {
+                const count = stats[type];
+                const percentage = ((count / allCitations.length) * 100).toFixed(1);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${type.charAt(0).toUpperCase() + type.slice(1)}</strong></td>
+                        <td>${count}</td>
+                        <td>${percentage}%</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            if (searchTerm) {
+                filteredCitations = allCitations.filter(citation =>
+                    citation.citation_text.toLowerCase().includes(searchTerm) ||
+                    citation.citation_id.toLowerCase().includes(searchTerm) ||
+                    citation.source_type.toLowerCase().includes(searchTerm)
+                );
+            } else {
+                // Re-apply current filter
+                const activeBtn = document.querySelector('.filter-btn.active');
+                if (activeBtn && activeBtn.textContent !== 'All Citations') {
+                    filterCitations(activeBtn.textContent.toLowerCase());
+                    return;
+                } else {
+                    filteredCitations = [...allCitations];
+                }
+            }
+
+            displayCitations();
+        });
+
+        // Load data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatistics();
+            displayCitations();
+        });
+    </script>
+</body>
+</html>

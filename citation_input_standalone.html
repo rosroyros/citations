@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Input Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .citation-type-selector {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .citation-type-selector:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .quick-action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            padding: 8px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-btn:active {
+            transform: translateY(0);
+        }
+
+        .quick-btn.active {
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quick-btn-journal {
+            color: #059669;
+            border-color: #10b981;
+        }
+
+        .quick-btn-journal:hover, .quick-btn-journal.active {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border-color: #059669;
+        }
+
+        .quick-btn-book {
+            color: #7c3aed;
+            border-color: #8b5cf6;
+        }
+
+        .quick-btn-book:hover, .quick-btn-book.active {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border-color: #7c3aed;
+        }
+
+        .quick-btn-chapter {
+            color: #ea580c;
+            border-color: #f97316;
+        }
+
+        .quick-btn-chapter:hover, .quick-btn-chapter.active {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            border-color: #ea580c;
+        }
+
+        .quick-btn-web {
+            color: #0891b2;
+            border-color: #06b6d4;
+        }
+
+        .quick-btn-web:hover, .quick-btn-web.active {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+            border-color: #0891b2;
+        }
+
+        .quick-btn-social {
+            color: #be123c;
+            border-color: #e11d48;
+        }
+
+        .quick-btn-social:hover, .quick-btn-social.active {
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+            color: white;
+            border-color: #be123c;
+        }
+
+        .quick-btn-other {
+            color: #6b7280;
+            border-color: #374151;
+        }
+
+        .quick-btn-other:hover, .quick-btn-other.active {
+            background: linear-gradient(135deg, #374151 0%, #6b7280 100%);
+            color: white;
+            border-color: #374151;
+        }
+
+        @media (max-width: 768px) {
+            .quick-action-buttons {
+                gap: 6px;
+            }
+
+            .quick-btn {
+                padding: 6px 12px;
+                font-size: 0.85em;
+            }
+        }
+
+        .rich-text-editor {
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rich-text-editor:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .editor-toolbar {
+            background: #f8f9fa;
+            padding: 12px;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .toolbar-btn:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .toolbar-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .citation-input {
+            min-height: 200px;
+            padding: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border: none;
+            outline: none;
+            resize: vertical;
+            font-family: 'Georgia', serif;
+        }
+
+        .citation-input:empty:before {
+            content: "Paste your citation here...";
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .submit-btn, .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            flex: 1;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .submit-btn:hover, .download-btn:hover, .clear-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .clear-btn:hover {
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .submit-btn:active, .download-btn:active, .clear-btn:active {
+            transform: translateY(0);
+        }
+
+        .confirm-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .confirm-dialog.show {
+            display: flex;
+        }
+
+        .confirm-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .confirm-box h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .confirm-box p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .confirm-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .confirm-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .confirm-clear {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .confirm-clear:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .confirm-cancel {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .confirm-cancel:hover {
+            background: #d1d5db;
+        }
+
+        .notification {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .notification.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #e1e5e9;
+        }
+
+        .stats h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .stats p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .preview-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e1e5e9;
+        }
+
+        .preview-box {
+            background: #f8f9fa;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .toolbar-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Citation Input Tool</h1>
+            <p>Paste formatted citations and save them to JSON</p>
+        </div>
+
+        <div class="form-container">
+            <div id="notification" class="notification"></div>
+
+            <form id="citationForm">
+                <div class="form-group">
+                    <label for="citationType">Citation Type:</label>
+                    <select id="citationType" class="citation-type-selector" required>
+                        <option value="">Select a citation type...</option>
+                        <option value="journal article">Journal Article</option>
+                        <option value="book">Book</option>
+                        <option value="book chapter">Book Chapter</option>
+                        <option value="webpage">Webpage</option>
+                        <option value="social media">Social Media</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <div class="quick-action-buttons">
+                        <button type="button" class="quick-btn quick-btn-journal" data-type="journal article">📄 Journal</button>
+                        <button type="button" class="quick-btn quick-btn-book" data-type="book">📚 Book</button>
+                        <button type="button" class="quick-btn quick-btn-chapter" data-type="book chapter">📖 Chapter</button>
+                        <button type="button" class="quick-btn quick-btn-web" data-type="webpage">🌐 Webpage</button>
+                        <button type="button" class="quick-btn quick-btn-social" data-type="social media">💬 Social</button>
+                        <button type="button" class="quick-btn quick-btn-other" data-type="other">📄 Other</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="citationInput">Citation Text:</label>
+                    <div class="rich-text-editor">
+                        <div class="editor-toolbar">
+                            <button type="button" class="toolbar-btn" id="pasteBtn" title="Paste from clipboard (Cmd/Ctrl+V)">
+                                📋 Paste
+                            </button>
+                            <button type="button" class="toolbar-btn" id="focusBtn" title="Focus input box">
+                                🎯 Focus
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="italic">
+                                <em>I</em> Italic
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="bold">
+                                <strong>B</strong> Bold
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="underline">
+                                <u>U</u> Underline
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="removeFormat">
+                                Clear Format
+                            </button>
+                        </div>
+                        <div id="citationInput" class="citation-input" contenteditable="true" spellcheck="false"></div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">Save Citation</button>
+                    <button type="button" id="downloadBtn" class="download-btn">Download JSON</button>
+                    <button type="button" id="clearBtn" class="clear-btn">Clear All</button>
+                </div>
+            </form>
+
+            <div class="stats">
+                <h3>Statistics</h3>
+                <p id="citationCount">Citations saved: 0</p>
+                <p id="lastSaved">Last saved: Never</p>
+            </div>
+
+            <div class="preview-section">
+                <h3>Recent Citations Preview</h3>
+                <div id="previewBox" class="preview-box">No citations saved yet.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div id="confirmDialog" class="confirm-dialog">
+        <div class="confirm-box">
+            <h3>Clear All Citations?</h3>
+            <p>Are you sure you want to delete all <span id="citationCountConfirm">0</span> citations? This action cannot be undone.</p>
+            <div class="confirm-buttons">
+                <button id="confirmClearBtn" class="confirm-btn confirm-clear">Clear All</button>
+                <button id="confirmCancelBtn" class="confirm-btn confirm-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let citations = [];
+        const jsonFileName = 'citations.json';
+
+        // Load citations from localStorage
+        loadCitations();
+
+        // Rich text editor functionality
+        const citationInput = document.getElementById('citationInput');
+        const toolbarButtons = document.querySelectorAll('.toolbar-btn');
+
+        // Toolbar button handlers
+        toolbarButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const command = button.dataset.command;
+
+                if (command === 'removeFormat') {
+                    document.execCommand('removeFormat', false, null);
+                } else {
+                    document.execCommand(command, false, null);
+                }
+
+                citationInput.focus();
+            });
+        });
+
+        // Handle paste events to preserve formatting
+        citationInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+
+            // Get pasted content as HTML and plain text
+            const htmlContent = e.clipboardData.getData('text/html');
+            const plainText = e.clipboardData.getData('text/plain');
+
+            console.log('🔍 Debug: Raw HTML from clipboard:', htmlContent);
+            console.log('🔍 Debug: Plain text from clipboard:', plainText);
+
+            let finalContent;
+
+            if (htmlContent) {
+                // Process HTML content
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = htmlContent;
+
+                // Convert common italic styling to <em> tags
+                let processedHTML = tempDiv.innerHTML;
+
+                // Handle CSS-based italics (font-style: italic)
+                processedHTML = processedHTML.replace(/<[^>]+style="[^"]*font-style:\s*italic[^"]*"[^>]*>(.*?)<\/[^>]+>/g, '<em>$1</em>');
+                processedHTML = processedHTML.replace(/<span[^>]*class="[^"]*italic[^"]*"[^>]*>(.*?)<\/span>/g, '<em>$1</em>');
+
+                // Handle various HTML italics tags
+                processedHTML = processedHTML.replace(/<em[^>]*>|<i[^>]*>/g, '<em>');
+                processedHTML = processedHTML.replace(/<\/em>|<\/i>/g, '</em>');
+                processedHTML = processedHTML.replace(/<strong[^>]*>|<b[^>]*>/g, '<strong>');
+                processedHTML = processedHTML.replace(/<\/strong>|<\/b>/g, '</strong>');
+                processedHTML = processedHTML.replace(/<u[^>]*>/g, '<u>');
+                processedHTML = processedHTML.replace(/<\/u>/g, '</u>');
+
+                finalContent = processedHTML;
+                console.log('🔍 Debug: Processed HTML:', finalContent);
+
+            } else {
+                // For plain text, try to detect common italics patterns
+                // If the text contains phrases that look like titles or publications, wrap them in <em>
+                let processedText = plainText;
+
+                // Common patterns for italicized content in citations
+                const italicPatterns = [
+                    /:\s*([^:,]+?\s+(?:of|for|and|in|the|a|to)\s+[^:,]*?)(?=,|\.|\(|;|$)/g,
+                    /,\s*_([^_]+)_(?=,|\.|\(|;|$)/g,
+                    /,\s*\*([^*]+)\*(?=,|\.|\(|;|$)/g
+                ];
+
+                italicPatterns.forEach(pattern => {
+                    processedText = processedText.replace(pattern, (match, title) => {
+                        // Don't double-wrap if already processed
+                        if (!match.includes('<em>')) {
+                            return match.replace(title, `<em>${title}</em>`);
+                        }
+                        return match;
+                    });
+                });
+
+                finalContent = processedText;
+                console.log('🔍 Debug: Processed plain text:', finalContent);
+            }
+
+            document.execCommand('insertHTML', false, finalContent);
+        });
+
+        // Form submission
+        document.getElementById('citationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const citationType = document.getElementById('citationType').value;
+            const citationText = citationInput.innerHTML.trim();
+
+            if (!citationType) {
+                showNotification('Please select a citation type', 'error');
+                return;
+            }
+
+            if (!citationText || citationText === '') {
+                showNotification('Please enter a citation', 'error');
+                return;
+            }
+
+            // Convert HTML to markdown (focus on italics)
+            const markdownText = htmlToMarkdown(citationText);
+
+            // Create citation object
+            const citation = {
+                citation_id: `manual_${Date.now()}`,
+                citation_text: markdownText,
+                source_type: citationType,
+                is_valid: true,
+                metadata: {
+                    source: "Manual Input",
+                    date_collected: new Date().toISOString(),
+                    formatting_preserved: true,
+                    verified_against_kb: false
+                }
+            };
+
+            // Add to citations array
+            citations.push(citation);
+
+            // Save to localStorage
+            saveCitations();
+
+            // Show success message
+            showNotification('Citation saved successfully!', 'success');
+
+            // Reset form
+            citationInput.innerHTML = '';
+            document.getElementById('citationType').value = '';
+            citationInput.focus();
+
+            // Update UI
+            updateStats();
+            updatePreview();
+
+            console.log('✅ Saved citation:', citation.citation_id);
+        });
+
+        // Download button handler
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            downloadCitations();
+        });
+
+        // Clear button handler
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            showConfirmDialog();
+        });
+
+        // Confirm clear button handler
+        document.getElementById('confirmClearBtn').addEventListener('click', () => {
+            clearAllCitations();
+            hideConfirmDialog();
+        });
+
+        // Confirm cancel button handler
+        document.getElementById('confirmCancelBtn').addEventListener('click', () => {
+            hideConfirmDialog();
+        });
+
+        // Close dialog when clicking outside
+        document.getElementById('confirmDialog').addEventListener('click', (e) => {
+            if (e.target.id === 'confirmDialog') {
+                hideConfirmDialog();
+            }
+        });
+
+        // Quick action button handlers
+        document.querySelectorAll('.quick-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const citationType = button.dataset.type;
+                document.getElementById('citationType').value = citationType;
+
+                // Update active state
+                updateQuickButtonStates(citationType);
+
+                console.log('🏷️ Set citation type to:', citationType);
+            });
+        });
+
+        // Update quick button states when dropdown changes
+        document.getElementById('citationType').addEventListener('change', (e) => {
+            updateQuickButtonStates(e.target.value);
+        });
+
+        // Update quick button active states
+        function updateQuickButtonStates(selectedType) {
+            document.querySelectorAll('.quick-btn').forEach(btn => {
+                if (btn.dataset.type === selectedType) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // Paste button handler
+        document.getElementById('pasteBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            // Clear any existing content and focus
+            citationInput.innerHTML = '';
+            citationInput.focus();
+
+            // Trigger native paste
+            try {
+                document.execCommand('paste');
+            } catch (error) {
+                console.log('📋 Paste command failed, showing hint...');
+                showNotification('Please press Cmd+V (Mac) or Ctrl+V (Windows) to paste', 'success');
+            }
+        });
+
+        // Focus button handler
+        document.getElementById('focusBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+
+            citationInput.focus();
+            console.log('🎯 Input focused');
+        });
+
+        
+        // Convert HTML to markdown (preserving italics as underscores)
+        function htmlToMarkdown(html) {
+            console.log('🔧 Debug: Input to htmlToMarkdown:', html);
+
+            // Process HTML tags to markdown before removing them
+            let markdown = html
+                // Convert <em> and <i> to underscores
+                .replace(/<em[^>]*>|<i[^>]*>/g, '_')
+                .replace(/<\/em>|<\/i>/g, '_')
+                // Convert <strong> and <b> to double asterisks
+                .replace(/<strong[^>]*>|<b[^>]*>/g, '**')
+                .replace(/<\/strong>|<\/b>/g, '**')
+                // Remove underline tags completely (markdown doesn't have underline)
+                .replace(/<u[^>]*>/g, '')
+                .replace(/<\/u>/g, '');
+
+            console.log('🔧 Debug: After tag conversion:', markdown);
+
+            // Remove any remaining HTML tags but keep content
+            markdown = markdown.replace(/<[^>]*>/g, '');
+
+            console.log('🔧 Debug: After removing tags:', markdown);
+
+            // Clean up HTML entities and extra whitespace
+            markdown = markdown
+                .replace(/&amp;/g, '&')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>')
+                .replace(/&quot;/g, '"')
+                .replace(/&#39;/g, "'")
+                // Clean up stray asterisks and unwanted characters
+                .replace(/\*{3,}/g, '**')  // Reduce multiple asterisks to double
+                .replace(/\*+\s*$/g, '')   // Remove trailing asterisks
+                .replace(/\s*\*+\s*$/g, '') // Remove trailing asterisks with spaces
+                .replace(/\s+/g, ' ')
+                .trim();
+
+            console.log('🔧 Debug: Final markdown:', markdown);
+            return markdown;
+        }
+
+        // Save citations to localStorage
+        function saveCitations() {
+            localStorage.setItem('citations', JSON.stringify(citations));
+        }
+
+        // Load citations from localStorage
+        function loadCitations() {
+            const stored = localStorage.getItem('citations');
+            if (stored) {
+                citations = JSON.parse(stored);
+            }
+            updateStats();
+            updatePreview();
+        }
+
+        // Download citations as JSONL file
+        function downloadCitations() {
+            if (citations.length === 0) {
+                showNotification('No citations to download', 'error');
+                return;
+            }
+
+            // Create JSONL content (one JSON per line)
+            const jsonlContent = citations.map(citation => JSON.stringify(citation)).join('\n');
+
+            // Create blob and download
+            const blob = new Blob([jsonlContent], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'citations.jsonl';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showNotification(`Downloaded ${citations.length} citations to citations.jsonl`, 'success');
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('citationCount').textContent = `Citations saved: ${citations.length}`;
+
+            if (citations.length > 0) {
+                const lastCitation = citations[citations.length - 1];
+                const lastSaved = new Date(lastCitation.metadata.date_collected).toLocaleString();
+                document.getElementById('lastSaved').textContent = `Last saved: ${lastSaved}`;
+            } else {
+                document.getElementById('lastSaved').textContent = 'Last saved: Never';
+            }
+        }
+
+        // Show confirmation dialog
+        function showConfirmDialog() {
+            document.getElementById('citationCountConfirm').textContent = citations.length;
+            document.getElementById('confirmDialog').classList.add('show');
+        }
+
+        // Hide confirmation dialog
+        function hideConfirmDialog() {
+            document.getElementById('confirmDialog').classList.remove('show');
+        }
+
+        // Clear all citations
+        function clearAllCitations() {
+            const clearedCount = citations.length;
+            citations = [];
+
+            // Clear localStorage
+            localStorage.removeItem('citations');
+
+            // Update UI
+            updateStats();
+            updatePreview();
+
+            // Show success notification
+            showNotification(`Successfully cleared ${clearedCount} citations. Starting fresh!`, 'success');
+
+            console.log(`🗑️  Cleared ${clearedCount} citations from memory and localStorage`);
+        }
+
+        // Update preview
+        function updatePreview() {
+            const previewBox = document.getElementById('previewBox');
+
+            if (citations.length === 0) {
+                previewBox.textContent = 'No citations saved yet.';
+                return;
+            }
+
+            // Show last 5 citations
+            const recentCitations = citations.slice(-5).reverse();
+            const previewText = recentCitations.map(citation => {
+                return `${citation.source_type.toUpperCase()}: ${citation.citation_text}`;
+            }).join('\n\n');
+
+            previewBox.textContent = previewText;
+        }
+
+        // Focus input on load
+        citationInput.focus();
+
+        // Auto-save every 30 seconds as backup
+        setInterval(() => {
+            if (citations.length > 0) {
+                saveCitations();
+                console.log('💾 Auto-saved citations to localStorage');
+            }
+        }, 30000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                document.getElementById('citationForm').dispatchEvent(new Event('submit'));
+            }
+            // Ctrl/Cmd + D to download
+            if ((e.ctrlKey || e.metaKey) && e.key === 'd') {
+                e.preventDefault();
+                downloadCitations();
+            }
+            // Ctrl/Cmd + Shift + C to clear (with confirmation)
+            if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'C') {
+                e.preventDefault();
+                showConfirmDialog();
+            }
+            // ESC to close confirmation dialog
+            if (e.key === 'Escape') {
+                hideConfirmDialog();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "validate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "augmented": true,
+        "citation": "Rybaczewska, M., & Sparks, L. (2022). Ageing consumers and e-commerce activities. Ageing and Society, 42(8), 1879\u20131898. https://doi.org/10.1017/S0144686X20001932",
+        "reasoning": "The citation is correctly formatted according to APA 7th edition guidelines. It includes the authors' names, publication year, title of the article, journal name, volume number, issue number, page range, and a DOI link. All elements are present and properly formatted.",
+        "source_type": "journal article",
+        "is_valid": "true",
+        "errors": "[]"
+      },
+      {
+        "augmented": true,
+        "citation": "Denny, H., Nordlof, J., and Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers.Writing Center Journal,37(1), 67\u201398.https://www.jstor.org/stable/26537363",
+        "reasoning": "The citation has several formatting issues according to APA 7th edition guidelines. The authors' names should be separated by an ampersand (&) instead of \"and.\" There should be a space after the colon in the title. The journal title should be italicized, and there should be a space before the volume number. Additionally, the volume number should be italicized, and there should be a comma before the page range. The DOI link should also have a space before it.",
+        "source_type": "journal article",
+        "is_valid": "False",
+        "errors": "[{\"component\": \"Authors\", \"problem\": \"Incorrect conjunction used for authors\", \"correction\": \"Use '&' instead of 'and' to separate authors.\"}, {\"component\": \"Title\", \"problem\": \"No space after the colon in the title\", \"correction\": \"Add a space after the colon.\"}, {\"component\": \"Journal Title\", \"problem\": \"Journal title not italicized\", \"correction\": \"Italicize the journal title.\"}, {\"component\": \"Volume and Issue\", \"problem\": \"No space before volume number\", \"correction\": \"Add a space before the volume number.\"}, {\"component\": \"Volume\", \"problem\": \"Volume number not italicized\", \"correction\": \"Italicize the volume number.\"}, {\"component\": \"Page Range\", \"problem\": \"No comma before page range\", \"correction\": \"Add a comma before the page range.\"}, {\"component\": \"DOI\", \"problem\": \"No space before DOI\", \"correction\": \"Add a space before the DOI.\"}]"
+      }
+    ],
+    "signature": {
+      "instructions": "Validate APA 7th edition citation and identify errors.\n\nThe validator must:\n1. Detect the citation source type (journal article, book, webpage, etc.)\n2. Validate against APA 7 rules\n3. List specific errors with components and corrections",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation text to validate"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Source Type:",
+          "description": "Detected source type: journal article, book, book chapter, webpage, or other"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "Boolean: true if no errors, false if errors found"
+        },
+        {
+          "prefix": "Errors:",
+          "description": "JSON list of errors, each with: component (str), problem (str), correction (str). Empty list if valid."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.9",
+      "dspy": "2.6.27",
+      "cloudpickle": "3.1"
+    }
+  }
+}

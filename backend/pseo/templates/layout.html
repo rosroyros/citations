@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <link rel="canonical" href="{{ base_url }}{{ url }}">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "{{ meta_title }}",
+        "description": "{{ meta_description }}"
+    }
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/mini-checker.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="logo-text">Citation Checker</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/checker/">Check Citations</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> >
+        <a href="/guides/">Citation Guides</a> >
+        <span class="current">{{ breadcrumb_title or meta_title }}</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper {% if page_type %}{{ page_type }}{% endif %}">
+        <main class="main-content">
+            {{ content | safe }}
+
+            {% if page_type == 'source_type' or not page_type %}
+            <!-- Related Resources Grid (for source type pages) -->
+            <div class="related-box">
+                <h3>Related Source Types</h3>
+                <div class="related-grid">
+                    {% if related_resources %}
+                        {% for resource in related_resources %}
+                        <a href="{{ resource.url }}" class="related-link">{{ resource.title }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <a href="/how-to-cite-book-apa/" class="related-link">📖 How to Cite Books</a>
+                        <a href="/how-to-cite-website-apa/" class="related-link">🌐 How to Cite Websites</a>
+                        <a href="/how-to-cite-newspaper-apa/" class="related-link">📰 How to Cite Newspapers</a>
+                        <a href="/how-to-cite-chapter-apa/" class="related-link">📚 How to Cite Book Chapters</a>
+                        <a href="/how-to-cite-dataset-apa/" class="related-link">💾 How to Cite Datasets</a>
+                        <a href="/guide/apa-7th-edition/" class="related-link">📋 Complete APA Guide</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </main>
+
+        {% if page_type == 'mega_guide' %}
+        <!-- Enhanced Sidebar (for mega guide pages only) -->
+        {{ sidebar_content | safe }}
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="site-footer-content">
+            <p>&copy; 2024 Citation Checker. Last updated: {{ last_updated or '2024' }}</p>
+            <p class="footer-tagline">Built for researchers, by researchers</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Citation checking function for MiniChecker components
+        function checkCitation(button) {
+            const textarea = button.previousElementSibling;
+            const citation = textarea.value.trim();
+
+            if (!citation) {
+                alert('Please enter a citation to check.');
+                return;
+            }
+
+            // For now, redirect to full checker
+            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+  "validate.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [
+      {
+        "citation": "Lastname, F. M. or Name of Group (2020). [ITALIC]Title of dataset[\/ITALIC] (Version No.) [Data set]. Publisher. DOI or URL",
+        "is_valid": true,
+        "errors": [],
+        "source_type": "unknown"
+      },
+      {
+        "citation": "Lushi, K. [Korab Lushi]. (2016, July 3). [ITALIC]Albatross culture 1[\/ITALIC] [Video]. YouTube. https:\/\/www.youtube.com\/watch?v=_AMrJRQDPjk&t=148s",
+        "is_valid": true,
+        "errors": [],
+        "source_type": "unknown"
+      },
+      {
+        "citation": "Maplesoft. (2019). [ITALIC]Maple companion[\/ITALIC] (Version 2.1.0). Cybernet Systems Co. https:\/\/www.maplesoft.com\/products\/MapleCompanion\/",
+        "is_valid": true,
+        "errors": [],
+        "source_type": "unknown"
+      },
+      {
+        "citation": "Leitch, M. G., & Rushton, C. J. (Eds.). (2019).A new companion to Malory. D. S. New York, NY: Brewer.",
+        "is_valid": false,
+        "errors": [
+          {
+            "component": "Publisher",
+            "problem": "Including publisher location (removed in APA 7)",
+            "correction": "Should be: Brewer. (no location)"
+          }
+        ],
+        "source_type": "unknown"
+      }
+    ],
+    "signature": {
+      "instructions": "Analyze the provided citation following the APA 7th edition guidelines. Your task is to:\n\n1. Identify the source type of the citation (e.g., journal article, book, webpage).\n2. Validate the citation based on APA 7 rules, determining if it adheres to the formatting standards.\n3. If the citation contains errors, compile a detailed list that specifies each identified error along with the corresponding correction, clearly stating which component of the citation is affected.\n\nOutput the results in a structured format that includes:\n- The detected source type\n- A boolean value indicating whether the citation is valid\n- A comprehensive list of errors, detailing each issue found (with components, problems, and suggested corrections).\n\nExample inputs\/outputs must be based on real citation practices and errors, ensuring clarity and accuracy for users aiming to enhance their citation skills.",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation text to validate"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Source Type:",
+          "description": "Detected source type: journal article, book, book chapter, webpage, or other"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "Boolean: true if no errors, false if errors found"
+        },
+        {
+          "prefix": "Errors:",
+          "description": "JSON list of errors, each with: component (str), problem (str), correction (str). Empty list if valid."
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.9",
+      "dspy": "2.6.27",
+      "cloudpickle": "3.1"
+    }
+  }
+}

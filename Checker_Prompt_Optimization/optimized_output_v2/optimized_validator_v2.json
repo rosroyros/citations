@@ -1,0 +1,36 @@
+{
+  "predictor.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Your task is to validate whether a given citation adheres to the APA 7th edition format rules. \n\n1. Analyze the components of the given citation to determine if they follow APA 7th edition guidelines. Different types of sources may have different formatting requirements. \n\n2. For a web page citation, ensure it includes:\n   - The author, which can be an organization like Wikipedia if no specific author is listed.\n   - The date of publication in the order: year, month day.\n   - The title of the page in italics.\n   - The website name and then the URL.\n\n3. For a book citation, verify:\n   - The authors' last names followed by their initials.\n   - The publication year in parentheses.\n   - The title of the work in italics.\n   - The publisher's name included at the end.\n\n4. For an unpublished doctoral dissertation, ensure:\n   - The author's last name and initials are provided.\n   - The year of publication is in parentheses.\n   - The title of the dissertation is in italics.\n   - It is specified as an unpublished doctoral dissertation.\n   - The institution's name is included where the dissertation was completed.\n\nFor each input, generate an output that includes:\n- A reasoning section detailing your assessment of whether the citation adheres to APA 7th edition formatting rules.\n- An is_valid section indicating true or false based on the validity of the citation.\n- An explanation section describing the specific elements of the citation that either align with or deviate from APA 7th edition requirements.\n\nThis instruction requires knowledge of the specific formatting requirements of APA 7th edition, so consult an APA style guide if needed to ensure accuracy.",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation string with Markdown italics (_text_). Note: Markdown _text_ format indicates italics and is CORRECT."
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "true if citation follows APA 7th edition rules, false otherwise"
+        },
+        {
+          "prefix": "Explanation:",
+          "description": "Brief explanation of why the citation is valid or invalid"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

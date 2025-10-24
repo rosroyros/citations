@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Input Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .citation-type-selector {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: #f8f9fa;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .citation-type-selector:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .rich-text-editor {
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            background: white;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .rich-text-editor:focus-within {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .editor-toolbar {
+            background: #f8f9fa;
+            padding: 12px;
+            border-bottom: 1px solid #e1e5e9;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-btn {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .toolbar-btn:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .toolbar-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .citation-input {
+            min-height: 200px;
+            padding: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border: none;
+            outline: none;
+            resize: vertical;
+            font-family: 'Georgia', serif;
+        }
+
+        .citation-input:empty:before {
+            content: "Paste your citation here...";
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .notification {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .notification.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .notification.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-10px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #e1e5e9;
+        }
+
+        .stats h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .stats p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .toolbar-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Citation Input Tool</h1>
+            <p>Paste formatted citations and save them to JSON</p>
+        </div>
+
+        <div class="form-container">
+            <div id="notification" class="notification"></div>
+
+            <form id="citationForm">
+                <div class="form-group">
+                    <label for="citationType">Citation Type:</label>
+                    <select id="citationType" class="citation-type-selector" required>
+                        <option value="">Select a citation type...</option>
+                        <option value="journal article">Journal Article</option>
+                        <option value="book">Book</option>
+                        <option value="book chapter">Book Chapter</option>
+                        <option value="webpage">Webpage</option>
+                        <option value="social media">Social Media</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="citationInput">Citation Text:</label>
+                    <div class="rich-text-editor">
+                        <div class="editor-toolbar">
+                            <button type="button" class="toolbar-btn" data-command="italic">
+                                <em>I</em> Italic
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="bold">
+                                <strong>B</strong> Bold
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="underline">
+                                <u>U</u> Underline
+                            </button>
+                            <button type="button" class="toolbar-btn" data-command="removeFormat">
+                                Clear Format
+                            </button>
+                        </div>
+                        <div id="citationInput" class="citation-input" contenteditable="true" spellcheck="false"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Save Citation</button>
+            </form>
+
+            <div class="stats">
+                <h3>Statistics</h3>
+                <p id="citationCount">Citations saved: 0</p>
+                <p id="fileName">JSON file: citations.json</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize
+        let citationCount = 0;
+        const jsonFileName = 'citations.json';
+
+        // Load existing citations count
+        loadCitationCount();
+
+        // Rich text editor functionality
+        const citationInput = document.getElementById('citationInput');
+        const toolbarButtons = document.querySelectorAll('.toolbar-btn');
+
+        // Toolbar button handlers
+        toolbarButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const command = button.dataset.command;
+
+                if (command === 'removeFormat') {
+                    document.execCommand('removeFormat', false, null);
+                } else {
+                    document.execCommand(command, false, null);
+                }
+
+                citationInput.focus();
+            });
+        });
+
+        // Handle paste events to preserve formatting
+        citationInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+
+            // Get pasted content as HTML
+            const htmlContent = e.clipboardData.getData('text/html') ||
+                                e.clipboardData.getData('text/plain');
+
+            // Convert to plain text with basic formatting preservation
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = htmlContent;
+
+            // Preserve italics, bold, and underline
+            const formattedContent = tempDiv.innerHTML
+                .replace(/<em>|<i>/g, '<em>')
+                .replace(/<\/em>|<\/i>/g, '</em>')
+                .replace(/<strong>|<b>/g, '<strong>')
+                .replace(/<\/strong>|<\/b>/g, '</strong>')
+                .replace(/<u>/g, '<u>')
+                .replace(/<\/u>/g, '</u>');
+
+            document.execCommand('insertHTML', false, formattedContent);
+        });
+
+        // Form submission
+        document.getElementById('citationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const citationType = document.getElementById('citationType').value;
+            const citationText = citationInput.innerHTML.trim();
+
+            if (!citationType) {
+                showNotification('Please select a citation type', 'error');
+                return;
+            }
+
+            if (!citationText || citationText === '') {
+                showNotification('Please enter a citation', 'error');
+                return;
+            }
+
+            // Convert HTML to markdown (focus on italics)
+            const markdownText = htmlToMarkdown(citationText);
+
+            // Create citation object
+            const citation = {
+                citation_id: `manual_${Date.now()}`,
+                citation_text: markdownText,
+                source_type: citationType,
+                is_valid: true,
+                metadata: {
+                    source: "Manual Input",
+                    date_collected: new Date().toISOString(),
+                    formatting_preserved: true,
+                    verified_against_kb: false
+                }
+            };
+
+            try {
+                await saveCitation(citation);
+                showNotification('Citation saved successfully!', 'success');
+
+                // Reset form
+                citationInput.innerHTML = '';
+                document.getElementById('citationType').value = '';
+                citationInput.focus();
+
+                // Update count
+                citationCount++;
+                updateStats();
+
+            } catch (error) {
+                console.error('Error saving citation:', error);
+                showNotification('Error saving citation: ' + error.message, 'error');
+            }
+        });
+
+        // Convert HTML to markdown (preserving italics as underscores)
+        function htmlToMarkdown(html) {
+            return html
+                // Convert <em> and <i> to underscores
+                .replace(/<em[^>]*>|<i[^>]*>/g, '_')
+                .replace(/<\/em>|<\/i>/g, '_')
+                // Convert <strong> and <b> to double asterisks
+                .replace(/<strong[^>]*>|<b[^>]*>/g, '**')
+                .replace(/<\/strong>|<\/b>/g, '**')
+                // Convert <u> to HTML underline (since markdown doesn't have underline)
+                .replace(/<u[^>]*>/g, '<u>')
+                .replace(/<\/u>/g, '</u>')
+                // Remove other HTML tags but keep content
+                .replace(/<[^>]*>/g, '')
+                // Clean up extra whitespace
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Save citation to JSON file
+        async function saveCitation(citation) {
+            const response = await fetch('/citations.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(citation)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to save citation');
+            }
+
+            return response.json();
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+
+        // Load citation count
+        async function loadCitationCount() {
+            try {
+                const response = await fetch('/citations.json?count=true');
+                if (response.ok) {
+                    const data = await response.json();
+                    citationCount = data.count || 0;
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Error loading citation count:', error);
+            }
+        }
+
+        // Update statistics
+        function updateStats() {
+            document.getElementById('citationCount').textContent = `Citations saved: ${citationCount}`;
+            document.getElementById('fileName').textContent = `JSON file: ${jsonFileName}`;
+        }
+
+        // Focus input on load
+        citationInput.focus();
+    </script>
+</body>
+</html>

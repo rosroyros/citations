@@ -1,42 +1,56 @@
-# {{ guide_title }}
-
-{{ guide_description }}
-
----
-
-## Table of Contents
-
-1. [Quick Summary](#tldr---quick-summary)
-2. [Introduction](#introduction)
-{% for section in main_sections %}
-3. [{{ section.title }}](#{{ section.slug }})
-{% endfor %}
-4. [Comprehensive Examples](#comprehensive-examples)
-5. [Common Errors to Avoid](#common-errors-to-avoid)
-6. [Validation Checklist](#validation-checklist)
-7. [Frequently Asked Questions](#frequently-asked-questions)
-8. [Related Resources](#related-resources)
-
----
-
-## TL;DR - Quick Summary
-
-<div class="tldr-box">
-<h2>⚡ Key Points</h2>
-<ul>
-<li>Master APA 7th edition citation formatting</li>
-<li>Identify and fix common citation errors</li>
-<li>Use validation tools to ensure accuracy</li>
-<li>Understand the rules that matter most</li>
-<li>Save time and improve your grades</li>
-</ul>
+<div class="hero">
+<h1>{{ guide_title }}</h1>
+<p class="hero-description">{{ guide_description }}</p>
+<div class="hero-meta">
+<div class="meta-badge">📖 Reading time: {{ reading_time }}</div>
+<div class="meta-badge">🔄 Last updated: {{ last_updated }}</div>
+<div class="meta-badge">✅ {{ citation_style or 'APA 7th Edition' }}</div>
 </div>
+</div>
+
+---
+
+<div class="toc">
+<h2>📑 Table of Contents</h2>
+<ol>
+<li><a href="#tldr---quick-summary">Quick Summary</a></li>
+<li><a href="#introduction">Introduction</a></li>
+{% for section in main_sections %}
+<li><a href="#{{ section.slug }}">{{ section.title }}</a></li>
+{% endfor %}
+<li><a href="#comprehensive-examples">Comprehensive Examples</a></li>
+<li><a href="#common-errors-to-avoid">Common Errors to Avoid</a></li>
+<li><a href="#validation-checklist">Validation Checklist</a></li>
+<li><a href="#frequently-asked-questions">Frequently Asked Questions</a></li>
+<li><a href="#related-resources">Related Resources</a></li>
+</ol>
+</div>
+
+---
+
+## ⚡ TL;DR - Quick Summary
+
+{% tldr_box title="TL;DR - Quick Summary" %}
+- Master APA 7th edition citation formatting
+- Identify and fix common citation errors
+- Use validation tools to ensure accuracy
+- Understand the rules that matter most
+- Save time and improve your grades
+
+**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
+{% endtldr_box %}
 
 ---
 
 ## Introduction
 
 {{ introduction }}
+
+---
+
+<div class="cta-placement" id="mini-checker-intro">
+<!-- MiniChecker component will be rendered here -->
+</div>
 
 ---
 
@@ -56,7 +70,7 @@
 
 ---
 
-## Comprehensive Examples
+## 📚 Comprehensive Examples
 
 {% for example in examples %}
 <div class="example-box">
@@ -79,27 +93,33 @@
 
 ---
 
-## Common Errors to Avoid
+<div class="cta-placement" id="mini-checker-test">
+<!-- MiniChecker component will be rendered here -->
+</div>
+
+---
+
+## ❌ Common Errors to Avoid
 
 {% for error in common_errors %}
 <div class="error-example">
-<strong>❌ {{ error.error_name }}</strong>
-<div style="font-family: 'Courier New', monospace; margin-top: 0.5rem;">
+<h4>❌ {{ error.error_name }}</h4>
+<div class="wrong-example">
 {{ error.wrong_example }}
 </div>
 </div>
 
 <div class="correction-box">
-<strong>✓ Correct Format:</strong>
-<div style="font-family: 'Courier New', monospace; margin-top: 0.5rem;">
+<h4>✓ Correct Format:</h4>
+<div class="correct-example">
 {{ error.correct_example }}
 </div>
 </div>
 
-<div class="note-box">
-<strong>Why This Happens:</strong>
+<div class="explanation-box">
+<h4>Why This Happens:</h4>
 <p>{{ error.why_it_happens }}</p>
-<strong>How to Avoid It:</strong>
+<h4>How to Avoid It:</h4>
 <p>{{ error.fix_instructions }}</p>
 </div>
 
@@ -107,7 +127,7 @@
 
 {% endfor %}
 
-## Validation Checklist
+## ✅ Validation Checklist
 
 <div class="checklist">
 <p>Use this checklist to verify your citations before submission:</p>
@@ -121,18 +141,19 @@
 ---
 
 
-## Frequently Asked Questions
+## 🙋 Frequently Asked Questions
 
 {% for faq in faq_questions %}
-### {{ faq.question }}
-
-{{ faq.answer }}
+<div class="faq-item">
+<div class="faq-question">{{ faq.question }}</div>
+<div class="faq-answer">{{ faq.answer }}</div>
+</div>
 
 {% endfor %}
 
 ---
 
-## Related Resources
+## 🔗 Related Resources
 
 {% for resource in related_resources %}
 - [{{ resource.title }}]({{ resource.url }})
@@ -140,16 +161,28 @@
 
 ---
 
-**Last Updated:** {{ last_updated }}
-**Reading Time:** {{ reading_time }}
+## ✨ Conclusion
+
+This guide provides you with comprehensive knowledge to master APA 7th edition citation format. By following the guidelines and examples provided, you'll be able to create accurate citations that demonstrate academic rigor and professionalism.
+
+Remember to:
+- Always double-check author names and publication dates
+- Use sentence case for article titles and title case for journal names
+- Include DOIs whenever available
+- Validate your citations before submission
+
+Taking the time to ensure citation accuracy shows attention to detail and respect for academic standards.
 
 ---
 
-<div class="cta-placement">
-    <h3>Need to Check Your Citations?</h3>
-    <p>Use our free APA citation checker to validate your reference list instantly.</p>
-    <a href="/checker/" class="cta-button">Check Citations Now</a>
+<div class="cta-placement" id="mini-checker-final">
+<!-- MiniChecker component will be rendered here -->
 </div>
+
+---
+
+**Last Updated:** {{ last_updated }}
+**Reading Time:** {{ reading_time }}
 
 ---
 

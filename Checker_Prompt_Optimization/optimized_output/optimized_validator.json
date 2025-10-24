@@ -1,0 +1,36 @@
+{
+  "predictor.predict": {
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature": {
+      "instructions": "Task: Validate APA 7th Edition Citation Formatting\n\nInstructions: \n\n1. **Understand the Citation Structure**: Recognize the different components of an APA-style citation, which generally includes author information, year of publication, title of the work, and publication details.\n\n2. **Identify Citation Type**: Determine whether the input citation is for a book, a journal article, a book with editors, or other types of works. This is crucial as APA 7th edition rules vary depending on the type of source.\n\n3. **Check Author Formatting**: Ensure the authors' names are formatted correctly. The format should be the last name followed by initials. If there are multiple authors, they should be separated by commas, and an ampersand (&) should precede the final author.\n\n4. **Year and Parentheses**: Confirm that the year of publication is enclosed in parentheses directly following the last author’s initials or editor designation and that there is proper punctuation (e.g., a period after the closing parenthesis).\n\n5. **Title Formatting**: For books, the entire title should be italicized with only the first word of the title and subtitle capitalized, along with any proper nouns. For journal articles, the article title should be in sentence case, followed by the journal name in italics with capitalization, the volume number in italics, and the issue number in parentheses not italicized.\n\n6. **Publisher/Journal Details**: For books, ensure the publisher’s name follows the title with a period after the name. For journals, confirm the page range is included, preceded by a comma.\n\n7. **Supplemental Materials**: If applicable, check for the correct indication of supplemental materials within square brackets after the article title.\n\n8. **Explanation and Output**: For each citation:\n   - **Reasoning**: Provide detailed reasoning about whether the citation follows the APA rules.\n   - **Is_valid**: Output true if the citation is valid according to APA 7th edition guidelines, otherwise false.\n   - **Explanation**: Offer a thorough explanation or correction for any identified issues to adhere to APA standards.",
+      "fields": [
+        {
+          "prefix": "Citation:",
+          "description": "Citation string with Markdown italics (_text_)"
+        },
+        {
+          "prefix": "Reasoning: Let's think step by step in order to",
+          "description": "${reasoning}"
+        },
+        {
+          "prefix": "Is Valid:",
+          "description": "true if citation follows APA 7th edition rules, false otherwise"
+        },
+        {
+          "prefix": "Explanation:",
+          "description": "Brief explanation of why the citation is valid or invalid"
+        }
+      ]
+    },
+    "lm": null
+  },
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.12",
+      "dspy": "3.0.3",
+      "cloudpickle": "3.1"
+    }
+  }
+}

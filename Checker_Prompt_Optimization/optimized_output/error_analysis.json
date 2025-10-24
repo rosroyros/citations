@@ -1,0 +1,108 @@
+{
+  "total": 121,
+  "correct": 81,
+  "incorrect": 40,
+  "accuracy": 0.6694214876033058,
+  "error_types": {
+    "false_positive": 30,
+    "false_negative": 10
+  },
+  "fp_patterns": {
+    "no_capitals": 30,
+    "missing_page_notation": 20,
+    "insufficient_commas": 5,
+    "and_instead_of_ampersand": 1
+  },
+  "fn_patterns": {
+    "has_doi_or_url": 9,
+    "has_markdown_italics": 10,
+    "many_commas": 3,
+    "proper_parentheses": 2
+  },
+  "num_false_positives": 30,
+  "num_false_negatives": 10,
+  "false_positive_examples": [
+    {
+      "citation": "Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Ed.), _A New Companion to Malory_ (pp. 144-163). D. S. Brewer.",
+      "explanation": "The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: author, year, chapter title, editors, book title, page range, and publisher. Each element is formatted according to APA standards, making this citation accurate and complete."
+    },
+    {
+      "citation": "Armstrong, D. (2019). Malory and character. In M. G. Leitch, & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer",
+      "explanation": "The citation is valid as it correctly follows the APA 7th edition rules for citing a book chapter with editors. All components, including author formatting, year, title, editors, page range, and publisher, are correctly formatted according to the guidelines."
+    },
+    {
+      "citation": "David, A., & Simpson, J. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_. W. W. Norton and Company.",
+      "explanation": "The citation is valid as it adheres to all the necessary APA 7th edition formatting rules for a book with editors. The structure is correct, including the formatting of the authors, year, title, and publisher details."
+    },
+    {
+      "citation": "Simpson, J. (Ed.). (2006). _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.",
+      "explanation": "The citation is valid according to APA 7th edition guidelines. It correctly includes all necessary components: the editor's name, year of publication, italicized title with proper capitalization, edition and volume information, and the publisher's name. All formatting rules have been adhered to, making this citation compliant with APA standards."
+    },
+    {
+      "citation": "Soto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2) developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power._Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096",
+      "explanation": "The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The authors are correctly formatted, the year is properly placed, the title is in the correct case, and all publication details are included and formatted correctly."
+    },
+    {
+      "citation": "Soto, C. J., & John, O. P. (2017). The Next Big Five Inventory (BFI-2): Developing and Assessing a Hierarchical Model with 15 Facets to Enhance Bandwidth, Fidelity, and Predictive Power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. https://doi.org/10.1037/pspp0000096",
+      "explanation": "The citation is valid as it adheres to all the necessary APA 7th edition guidelines. The authors are correctly formatted, the publication year is appropriately placed, the article title is in the correct case, and all journal details, including volume, issue, page range, and DOI, are correctly presented."
+    },
+    {
+      "citation": "Soto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143.",
+      "explanation": "The citation is valid as it adheres to all the necessary APA 7th edition formatting rules. The authors are correctly formatted, the year is properly placed, the title is in the correct case, and the journal details are accurately presented."
+    },
+    {
+      "citation": "Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166",
+      "explanation": "The citation adheres to APA 7th edition guidelines. All components are correctly formatted, including author names, publication year, article title, journal name, volume and issue numbers, page range, and DOI. There are no errors present in the citation structure."
+    },
+    {
+      "citation": "Nguyen, T., Carnevale, J. J., Scholer, A. A., & Miele, D. B. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899.",
+      "explanation": "The citation is valid as it adheres to all the necessary APA 7th edition formatting rules, including correct author formatting, year placement, title case, and proper journal details."
+    },
+    {
+      "citation": "Pegion, K., Kirtman, B. P., Becker, E., Collins, D. C., LaJoie, E., Burgman, R., Bell, R., DelSole, R., & Kim, H. (2019). The subseasonal experiment: A _multimodel_ subseasonal prediction experiment. Bulletin of the American Meteorological Society, 100(10), 2043-2061.",
+      "explanation": "The citation is valid according to APA 7th edition guidelines. It correctly formats the authors, year, title, journal name, volume, issue, and page range. All elements are in the appropriate order and style, adhering to the required standards for journal articles."
+    }
+  ],
+  "false_negative_examples": [
+    {
+      "citation": "_Tuscan white bean pasta._ (2018, February 25). Budgetbytes. Retrieved March 18, 2020, from https://www.budgetbytes.com/tuscan-white-bean-pasta/",
+      "explanation": "The citation is invalid due to the incorrect capitalization of the website name \"Budgetbytes,\" which should be \"Budget Bytes.\" Additionally, the retrieval date is not required for this type of source in APA 7th edition unless the content is subject to change. Correcting these issues would make the citation valid."
+    },
+    {
+      "citation": "_Tuscan white bean pasta._ (2018, February 25). Budgetbytes. https://www.budgetbytes.com/tuscan-white-bean-pasta/",
+      "explanation": "The citation is invalid because the title of the article should not be italicized. Instead, the website name \"Budgetbytes\" should be italicized. The correct format should look like this: \"Tuscan white bean pasta. (2018, February 25). *Budgetbytes*. https://www.budgetbytes.com/tuscan-white-bean-pasta/\"."
+    },
+    {
+      "citation": "Perreault, L., & Johnson, M. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise",
+      "explanation": "The citation is invalid due to the inclusion of the retrieval date, which is not required for sources like UpToDate that are not expected to change frequently. To correct it, the citation should omit \"Retrieved January 12, 2020, from\" and just provide the URL after the title."
+    },
+    {
+      "citation": "MLA Association, & @mlastyle. (n.d.). _Tweets Collection_ [Twitter profile]. Retrieved January 12, 2020, from https://twitter.com/mlastyle",
+      "explanation": "The citation is invalid because it incorrectly formats the author (should be \"MLA Association\" without the ampersand), and it does not adhere to the proper structure for citing a social media profile in APA style. In APA, a Twitter profile citation should include the author's name, the year of the last tweet (if available), the title of the profile in italics, and the URL, without a retrieval date unless the content is subject to change."
+    },
+    {
+      "citation": "U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater",
+      "explanation": "The citation is invalid because it includes extraneous information in the title that should not be there according to APA guidelines. The title should only reflect the content of the post without additional descriptors. The correct format would be to remove \"[Image attached] [Status update]\" from the title, ensuring it adheres to APA standards."
+    },
+    {
+      "citation": "Little River Canyon National Preserve (n.d.). _Home_ [Facebook page]. Facebook. Retrieved January 12, 2020, from https://www.facebook.com/lirinps/",
+      "explanation": "The citation is mostly correct but includes an unnecessary retrieval date. According to APA 7th edition guidelines, retrieval dates are not required for stable content, which applies to social media pages. The rest of the citation elements are formatted correctly, but to fully comply with APA standards, the retrieval date should be removed."
+    },
+    {
+      "citation": "Little River Canyon National Preserve (n.d.). _Welcome to Our Page_ [Facebook page]. Facebook. Retrieved January 12, 2020, from https://www.facebook.com/lirinps/",
+      "explanation": "The citation is mostly correct but includes an unnecessary retrieval date. According to APA 7th edition guidelines, retrieval dates are not required for stable content, such as a Facebook page. The citation should omit \"Retrieved January 12, 2020, from\" to be fully compliant with APA standards."
+    },
+    {
+      "citation": "Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s",
+      "explanation": "The citation is invalid due to the incorrect formatting of the date and the title. In APA 7th edition, the date should be formatted as (2016, July 3) without a comma after the year, and the title of the video should not be italicized. The correct format for a video citation should look like this: Lushi, K. (2016, July 3). Albatross culture 1 [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s"
+    },
+    {
+      "citation": "Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+      "explanation": "The citation is mostly correct but includes an unconventional element regarding the original publication date. In APA style, the original publication date should be mentioned, but it should not include \"ca.\" or a range of years. Instead, it should simply state the original year if known, or just \"BCE\" if applicable. Therefore, the citation does not fully adhere to APA 7th edition guidelines due to this issue."
+    },
+    {
+      "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. https://doi.org/10.1000/182 (Original work published ca. 385-378 BCE)",
+      "explanation": "The citation is invalid due to the incorrect placement of the translation information and the original publication date. In APA style, the translation information should be formatted as \"(A. Nehamas & P. Woodruff, Trans.)\" immediately after the title without a period before the closing parenthesis. Additionally, the original work's publication date should not be included in the citation itself but rather mentioned in the text or as a footnote. Therefore, the citation does not fully adhere to APA 7th edition rules."
+    }
+  ]
+}

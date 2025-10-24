@@ -1,3 +1,4 @@
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,6 +7,7 @@ from dotenv import load_dotenv
 from html.parser import HTMLParser
 from backend.logger import setup_logger
 from backend.providers.openai_provider import OpenAIProvider
+from backend.providers.dspy_provider import DSPyProvider
 
 # Load environment variables
 load_dotenv()
@@ -13,8 +15,15 @@ load_dotenv()
 # Initialize logger
 logger = setup_logger("citation_validator")
 
-# Initialize LLM provider
-llm_provider = OpenAIProvider()
+# Initialize LLM provider based on environment variable
+VALIDATOR_PROVIDER = os.getenv("VALIDATOR_PROVIDER", "openai").lower()
+
+if VALIDATOR_PROVIDER == "dspy":
+    logger.info("Initializing DSPy provider")
+    llm_provider = DSPyProvider()
+else:
+    logger.info("Initializing OpenAI provider")
+    llm_provider = OpenAIProvider()
 
 
 class HTMLToTextConverter(HTMLParser):

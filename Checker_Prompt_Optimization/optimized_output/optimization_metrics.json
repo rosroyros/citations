@@ -1,0 +1,10 @@
+{
+  "accuracy": 0.6942148760330579,
+  "f1_invalid": 0.7175572468224464,
+  "f1_valid": 0.6666666615794173,
+  "tp_invalid": 47,
+  "fp_invalid": 14,
+  "tn_invalid": 37,
+  "fn_invalid": 23,
+  "total": 121
+}

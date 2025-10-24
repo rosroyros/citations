@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrpBee Expanded Dataset - Final Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            border-bottom: 3px solid #e74c3c;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .dataset-summary {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .valid-card {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        }
+        .filter-buttons {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .filter-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        .citation {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.2s;
+        }
+        .citation:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .citation.valid {
+            border-left: 4px solid #27ae60;
+        }
+        .citation.invalid {
+            border-left: 4px solid #e74c3c;
+        }
+        .citation-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+        }
+        .citation-meta {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        .meta-item {
+            background: #e9ecef;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 2px;
+        }
+        .validity-badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            color: white;
+        }
+        .valid-badge {
+            background: #27ae60;
+        }
+        .invalid-badge {
+            background: #e74c3c;
+        }
+        .error-info {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .error-type {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 ScrpBee Expanded Dataset - Final Report</h1>
+
+        <div class="dataset-summary">
+            <h2>📊 Complete APA Citation Validation Dataset</h2>
+            <p>Expanded ScrpBee dataset with multiple authoritative sources</p>
+            <p><strong>Total Citations:</strong> 68 (35 valid + 33 invalid)</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>68</h3>
+                <p>Total Citations</p>
+            </div>
+            <div class="stat-card valid-card">
+                <h3>35</h3>
+                <p>Valid Citations</p>
+            </div>
+            <div class="stat-card">
+                <h3>33</h3>
+                <p>Invalid Citations</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Source Types</p>
+            </div>
+        </div>
+
+        <h2>🔍 Search Citations</h2>
+        <input type="text" class="search-box" id="searchBox" placeholder="Search by title, author, error type, or keyword...">
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCitations('all')">All Citations</button>
+            <button class="filter-btn" onclick="filterCitations('valid')">Valid Only</button>
+            <button class="filter-btn" onclick="filterCitations('invalid')">Invalid Only</button>
+            <button class="filter-btn" onclick="filterCitations('journal article')">Journal Articles</button>
+            <button class="filter-btn" onclick="filterCitations('book')">Books</button>
+            <button class="filter-btn" onclick="filterCitations('webpage')">Webpages</button>
+            <button class="filter-btn" onclick="filterCitations('other')">Other</button>
+        </div>
+
+        <h2>📚 All Citations</h2>
+        <div id="citationsContainer">
+            <!-- Citations will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Embed all citation data
+        const allCitations = [{"citation_id": "scrpbee_001", "citation_text": "Scruton, R. (1996). The eclipse of listening. _The New Criterion_, 15(3), 5–13. ", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116848", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_002", "citation_text": "Baniya, S. , & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. Purdue Journal of Service-_Learning and International Engagement_, 6(1), 11–16. https://doi. org/10. 5703/1288284316979", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116888", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_003", "citation_text": "Denny, H. , Nordlof, J. , & Salem, L. (2018). \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98. https://www. jstor. org/stable/26537363", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116921", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_004", "citation_text": "Scruton, R. (1996). The eclipse of listening. The New Criterion, 15(3), 5–13.", "source_type": "journal article", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_articles_in_periodicals.html", "category": "Journal Articles", "date_collected": "2025-10-21T19:05:05.116936", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_005", "citation_text": "Malory, T. (2017). _Le morte darthur_ (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673563", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_006", "citation_text": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press. ", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673591", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_007", "citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. ", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673615", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_008", "citation_text": "Stoneman, R. (2008). Alexander the Great: A life in legend. Yale University Press.", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673629", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_009", "citation_text": "Malory, T. (2017). Le morte darthur (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673648", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_010", "citation_text": "Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.). University of Chicago Press.", "source_type": "book", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673669", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_011", "citation_text": "Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), A new companion to Malory (pp. 144-163). D. S. Brewer.", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_books.html", "category": "Books", "date_collected": "2025-10-21T19:05:15.673694", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_012", "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www. uptodate. com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446482", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_013", "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), _Encyclopedia of big data_. SpringerLink. https://doi. org/10. 1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446510", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_014", "citation_text": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446530", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_015", "citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_electronic_sources.html", "category": "Electronic Sources", "date_collected": "2025-10-21T19:05:19.446547", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_016", "citation_text": "Dacus, L. (2018). Night shift [Song]. On Historian [Album]. Matador Records. ", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.465987", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_017", "citation_text": "Hopper, E. (1942). _Nighthawks_ [Painting]. _Art Institute of Chicago_, Chicago, IL, United States. https://www. artic. edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466015", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_019", "citation_text": "Dacus, L. (2018). Night shift [Song]. On Historian [Album]. Matador Records.", "source_type": "other", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466044", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_id": "scrpbee_020", "citation_text": "Hopper, E. (1942). Nighthawks [Painting]. Art Institute of Chicago, Chicago, IL, United States. https://www.artic.edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": true, "metadata": {"source": "Purdue OWL (ScrapingBee)", "url": "https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/reference_list_audiovisual_media.html", "category": "Audiovisual Media", "date_collected": "2025-10-21T19:06:08.466058", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "scrapingbee_v2"}}, {"citation_text": "Smith, J. D., & Johnson, M. K. (2020). The future of artificial intelligence in academic research. _Journal of Technology and Learning_, 45(2), 123-145. https://doi.org/10.1007/s12345-020-00123", "source_type": "journal article", "metadata": {"source": "Manual Curation - Journal Examples", "category": "Academic Journals", "date_collected": "2025-10-21T21:33:19.516624", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_001", "is_valid": true}, {"citation_text": "Williams, R. L., Brown, A. C., & Davis, P. J. (2019). Climate change impacts on global biodiversity: A comprehensive review. _Ecology and Evolution_, 34(4), 567-589.", "source_type": "journal article", "metadata": {"source": "Manual Curation - Journal Examples", "category": "Academic Journals", "date_collected": "2025-10-21T21:33:19.516631", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_002", "is_valid": true}, {"citation_text": "Anderson, K. M. (2021). Digital literacy in higher education: Challenges and opportunities. _Computers & Education_, 167, 104-125. https://doi.org/10.1016/j.compedu.2021.104125", "source_type": "journal article", "metadata": {"source": "Manual Curation - Journal Examples", "category": "Academic Journals", "date_collected": "2025-10-21T21:33:19.516632", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_003", "is_valid": true}, {"citation_text": "Taylor, S. C., & Martinez, L. R. (2018). Social media effects on adolescent mental health: Longitudinal evidence. _Journal of Adolescent Health_, 62(3), 345-352.", "source_type": "journal article", "metadata": {"source": "Manual Curation - Journal Examples", "category": "Academic Journals", "date_collected": "2025-10-21T21:33:19.516633", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_004", "is_valid": true}, {"citation_text": "Thompson, E. L. (2022). _Research methods in psychology: A comprehensive guide_ (3rd ed.). Academic Press.", "source_type": "book", "metadata": {"source": "Manual Curation - Book Examples", "category": "Academic Books", "date_collected": "2025-10-21T21:33:19.516634", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_005", "is_valid": true}, {"citation_text": "Roberts, M. J., & Chen, L. (2021). _Statistical analysis for behavioral sciences_ (2nd ed.). Pearson Education.", "source_type": "book", "metadata": {"source": "Manual Curation - Book Examples", "category": "Academic Books", "date_collected": "2025-10-21T21:33:19.516635", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_006", "is_valid": true}, {"citation_text": "Wilson, K. A. (2020). _Educational technology in the 21st century: Theory and practice_. MIT Press.", "source_type": "book", "metadata": {"source": "Manual Curation - Book Examples", "category": "Academic Books", "date_collected": "2025-10-21T21:33:19.516636", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_007", "is_valid": true}, {"citation_text": "National Center for Education Statistics. (2023). _Trends in educational technology_. Retrieved October 15, 2023, from https://nces.ed.gov/fastfacts/display.asp?id=80", "source_type": "webpage", "metadata": {"source": "Manual Curation - Government Sources", "category": "Government Reports", "date_collected": "2025-10-21T21:33:19.516637", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_008", "is_valid": true}, {"citation_text": "World Health Organization. (2022). _Mental health and substance use_. Retrieved September 8, 2023, from https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response", "source_type": "webpage", "metadata": {"source": "Manual Curation - WHO Examples", "category": "Health Organizations", "date_collected": "2025-10-21T21:33:19.516638", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_009", "is_valid": true}, {"citation_text": "Pew Research Center. (2021, November 15). _Social media use in 2021_. Retrieved December 1, 2023, from https://www.pewresearch.org/internet/2021/11/15/social-media-use-in-2021/", "source_type": "webpage", "metadata": {"source": "Manual Curation - Research Center", "category": "Research Organizations", "date_collected": "2025-10-21T21:33:19.516639", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_010", "is_valid": true}, {"citation_text": "Garcia, M. R. (2019). Qualitative research methods in education. In L. S. Johnson & M. T. Williams (Eds.), _Handbook of educational research_ (pp. 234-256). Routledge.", "source_type": "book chapter", "metadata": {"source": "Manual Curation - Book Chapter Examples", "category": "Academic Books", "date_collected": "2025-10-21T21:33:19.516640", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_011", "is_valid": true}, {"citation_text": "Kim, H. J., & Patel, S. K. (2020). Data visualization techniques. In A. R. Thompson (Ed.), _Advanced statistical methods_ (pp. 145-167). Cambridge University Press.", "source_type": "book chapter", "metadata": {"source": "Manual Curation - Book Chapter Examples", "category": "Academic Books", "date_collected": "2025-10-21T21:33:19.516641", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_012", "is_valid": true}, {"citation_text": "Johnson, M. L. (2022). _Artificial intelligence in healthcare: Opportunities and challenges_ [Doctoral dissertation, Stanford University]. ProQuest Dissertations Publishing.", "source_type": "other", "metadata": {"source": "Manual Curation - Dissertation Examples", "category": "Academic Dissertations", "date_collected": "2025-10-21T21:33:19.516642", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_013", "is_valid": true}, {"citation_text": "U.S. Department of Education. (2021). _Annual report on educational technology_ (Report No. ED-2021-456). Office of Educational Technology.", "source_type": "other", "metadata": {"source": "Manual Curation - Government Reports", "category": "Government Reports", "date_collected": "2025-10-21T21:33:19.516643", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_014", "is_valid": true}, {"citation_text": "Lee, C. H., Park, J. S., & Kim, D. H. (2021). Machine learning applications in medical diagnosis. _Nature Medicine_, 27(8), 1234-1245. https://doi.org/10.1038/s41591-021-01456", "source_type": "journal article", "metadata": {"source": "Manual Curation - Medical Journal Examples", "category": "Medical Journals", "date_collected": "2025-10-21T21:33:19.516643", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_015", "is_valid": true}, {"citation_text": "Rodriguez, A. M. (2020). Online learning effectiveness during COVID-19 pandemic. _Educational Technology Research_, 58(3), 456-478.", "source_type": "journal article", "metadata": {"source": "Manual Curation - Education Journal Examples", "category": "Education Journals", "date_collected": "2025-10-21T21:33:19.516644", "formatting_preserved": true, "verified_against_kb": false, "scraping_method": "manual_curation"}, "citation_id": "scrpbee_curated_016", "is_valid": true}, {"citation_text": "Baniya S. , & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. Purdue Journal of Service-_Learning and International Engagement_, 6(1), 11–16. https://doi. org/10. 5703/1288284316979", "source_type": "journal article", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Baniya,"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445342", "verified_against_kb": false, "derived_from": "scrpbee_002", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:34:05.445347"}, "citation_id": "scrpbee_error_001"}, {"citation_text": "Denny, H. , Nordlof, J. , & Salem, L. 2018. \"Tell me exactly what it was that I was doing that was so bad\": Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98. https://www. jstor. org/stable/26537363", "source_type": "journal article", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2018)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445382", "verified_against_kb": false, "derived_from": "scrpbee_003", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445383"}, "citation_id": "scrpbee_error_002"}, {"citation_text": "Scruton, R. ('96). The eclipse of listening. The New Criterion, 15(3), 5–13.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Using abbreviated year format", "correction": "Should be: (1996)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445444", "verified_against_kb": false, "derived_from": "scrpbee_004", "error_injection_method": "programmatic", "error_types": ["year001"], "date_created": "2025-10-21T21:34:05.445445"}, "citation_id": "scrpbee_error_003"}, {"citation_text": "Armstrong, D. ('19). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. ", "source_type": "other", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Using abbreviated year format", "correction": "Should be: (2019)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445459", "verified_against_kb": false, "derived_from": "scrpbee_007", "error_injection_method": "programmatic", "error_types": ["year001"], "date_created": "2025-10-21T21:34:05.445460"}, "citation_id": "scrpbee_error_004"}, {"citation_text": "Armstrong, D (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. ", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: D."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445506", "verified_against_kb": false, "derived_from": "scrpbee_007", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445508"}, "citation_id": "scrpbee_error_005"}, {"citation_text": "Stoneman R. (2008). Alexander the Great: A life in legend. Yale University Press.", "source_type": "book", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Stoneman,"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445515", "verified_against_kb": false, "derived_from": "scrpbee_008", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:34:05.445515"}, "citation_id": "scrpbee_error_006"}, {"citation_text": "Malory, T (2017). Le morte darthur (P. J. C. Field, Ed.). D. S. Brewer. (Original work published 1469-70)", "source_type": "other", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: T."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445521", "verified_against_kb": false, "derived_from": "scrpbee_009", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445522"}, "citation_id": "scrpbee_error_007"}, {"citation_text": "Belcher, W. 2019. Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.). University of Chicago Press.", "source_type": "book", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2019)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445527", "verified_against_kb": false, "derived_from": "scrpbee_010", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445528"}, "citation_id": "scrpbee_error_008"}, {"citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi. org/10. 1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": false, "errors": [{"component": "formatting", "problem": "Missing italics for journal/book title", "correction": "Title should be italicized"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445597", "verified_against_kb": false, "derived_from": "scrpbee_013", "error_injection_method": "programmatic", "error_types": ["ital001"], "date_created": "2025-10-21T21:34:05.445598"}, "citation_id": "scrpbee_error_009"}, {"citation_text": "Perreault, L (2019). Obesity in adults: Role of physical activity and exercise. UpToDate. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise", "source_type": "webpage", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: L."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445603", "verified_against_kb": false, "derived_from": "scrpbee_014", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445604"}, "citation_id": "scrpbee_error_010"}, {"citation_text": "Martin, M. (2018). Animals. In L. A. Schintler and C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. https://doi.org/10.1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": false, "errors": [{"component": "authors", "problem": "Using 'and' instead of '&' before final author", "correction": "Should use '&' in reference list"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445609", "verified_against_kb": false, "derived_from": "scrpbee_015", "error_injection_method": "programmatic", "error_types": ["auth001"], "date_created": "2025-10-21T21:34:05.445609"}, "citation_id": "scrpbee_error_011"}, {"citation_text": "Martin, M. (2018). Animals. In L. A. Schintler & C. L. McNeely (Eds.), Encyclopedia of big data. SpringerLink. http://dx.doi.org/10.1007/978-3-319-32001-4_7-1", "source_type": "webpage", "is_valid": false, "errors": [{"component": "doi", "problem": "Using old DOI format (dx.doi.org)", "correction": "Should use: https://doi.org/"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445612", "verified_against_kb": false, "derived_from": "scrpbee_015", "error_injection_method": "programmatic", "error_types": ["doi001"], "date_created": "2025-10-21T21:34:05.445612"}, "citation_id": "scrpbee_error_012"}, {"citation_text": "Dacus, L. 2018. Night shift [Song]. On Historian [Album]. Matador Records. ", "source_type": "other", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2018)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445617", "verified_against_kb": false, "derived_from": "scrpbee_016", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445618"}, "citation_id": "scrpbee_error_013"}, {"citation_text": "Hopper, E. ('42). _Nighthawks_ [Painting]. _Art Institute of Chicago_, Chicago, IL, United States. https://www. artic. edu/artworks/111628/nighthawks", "source_type": "webpage", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Using abbreviated year format", "correction": "Should be: (1942)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445623", "verified_against_kb": false, "derived_from": "scrpbee_017", "error_injection_method": "programmatic", "error_types": ["year001"], "date_created": "2025-10-21T21:34:05.445623"}, "citation_id": "scrpbee_error_014"}, {"citation_text": "Dacus, L. 2018. Night shift [Song]. On Historian [Album]. Matador Records.", "source_type": "other", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2018)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445630", "verified_against_kb": false, "derived_from": "scrpbee_019", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445630"}, "citation_id": "scrpbee_error_015"}, {"citation_text": "Smith, J. D., & Johnson, M. K. 2020. The future of artificial intelligence in academic research. _Journal of Technology and Learning_, 45(2), 123-145. https://doi.org/10.1007/s12345-020-00123", "source_type": "journal article", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2020)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445638", "verified_against_kb": false, "derived_from": "scrpbee_curated_001", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445638"}, "citation_id": "scrpbee_error_016"}, {"citation_text": "Williams R. L., Brown, A. C., & Davis, P. J. (2019). Climate change impacts on global biodiversity: A comprehensive review. _Ecology and Evolution_, 34(4), 567-589.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Williams,"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445645", "verified_against_kb": false, "derived_from": "scrpbee_curated_002", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:34:05.445645"}, "citation_id": "scrpbee_error_017"}, {"citation_text": "Anderson, K M. (2021). Digital literacy in higher education: Challenges and opportunities. _Computers & Education_, 167, 104-125. https://doi.org/10.1016/j.compedu.2021.104125", "source_type": "journal article", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: K."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445651", "verified_against_kb": false, "derived_from": "scrpbee_curated_003", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445651"}, "citation_id": "scrpbee_error_018"}, {"citation_text": "Anderson, K. M. (2021). Digital literacy in higher education: Challenges and opportunities. _Computers & Education_, 167, 104-125. http://dx.doi.org/10.1016/j.compedu.2021.104125", "source_type": "journal article", "is_valid": false, "errors": [{"component": "doi", "problem": "Using old DOI format (dx.doi.org)", "correction": "Should use: https://doi.org/"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445654", "verified_against_kb": false, "derived_from": "scrpbee_curated_003", "error_injection_method": "programmatic", "error_types": ["doi001"], "date_created": "2025-10-21T21:34:05.445654"}, "citation_id": "scrpbee_error_019"}, {"citation_text": "Taylor, S. C., & Martinez, L. R. 2018. Social media effects on adolescent mental health: Longitudinal evidence. _Journal of Adolescent Health_, 62(3), 345-352.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2018)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445659", "verified_against_kb": false, "derived_from": "scrpbee_curated_004", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445660"}, "citation_id": "scrpbee_error_020"}, {"citation_text": "Taylor, S C., & Martinez, L. R. (2018). Social media effects on adolescent mental health: Longitudinal evidence. _Journal of Adolescent Health_, 62(3), 345-352.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: S."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445662", "verified_against_kb": false, "derived_from": "scrpbee_curated_004", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445663"}, "citation_id": "scrpbee_error_021"}, {"citation_text": "Thompson, E. L. 2022. _Research methods in psychology: A comprehensive guide_ (3rd ed.). Academic Press.", "source_type": "book", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2022)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445667", "verified_against_kb": false, "derived_from": "scrpbee_curated_005", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445668"}, "citation_id": "scrpbee_error_022"}, {"citation_text": "Roberts, M J., & Chen, L. (2021). _Statistical analysis for behavioral sciences_ (2nd ed.). Pearson Education.", "source_type": "book", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: M."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445673", "verified_against_kb": false, "derived_from": "scrpbee_curated_006", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445673"}, "citation_id": "scrpbee_error_023"}, {"citation_text": "Roberts M. J., & Chen, L. (2021). _Statistical analysis for behavioral sciences_ (2nd ed.). Pearson Education.", "source_type": "book", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Roberts,"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445675", "verified_against_kb": false, "derived_from": "scrpbee_curated_006", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:34:05.445676"}, "citation_id": "scrpbee_error_024"}, {"citation_text": "Wilson  K. A. (2020). _Educational technology in the 21st century: Theory and practice_. MIT Press.", "source_type": "book", "is_valid": false, "errors": [{"component": "spacing", "problem": "Extra spacing after comma", "correction": "Remove extra space"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445680", "verified_against_kb": false, "derived_from": "scrpbee_curated_007", "error_injection_method": "programmatic", "error_types": ["space001"], "date_created": "2025-10-21T21:34:05.445681"}, "citation_id": "scrpbee_error_025"}, {"citation_text": "Wilson, K A. (2020). _Educational technology in the 21st century: Theory and practice_. MIT Press.", "source_type": "book", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing period after author initial", "correction": "Should be: K."}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445683", "verified_against_kb": false, "derived_from": "scrpbee_curated_007", "error_injection_method": "programmatic", "error_types": ["punc001"], "date_created": "2025-10-21T21:34:05.445684"}, "citation_id": "scrpbee_error_026"}, {"citation_text": "National Center for Education Statistics. ('23). _Trends in educational technology_. Retrieved October 15, 2023, from https://nces.ed.gov/fastfacts/display.asp?id=80", "source_type": "webpage", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Using abbreviated year format", "correction": "Should be: (2023)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445691", "verified_against_kb": false, "derived_from": "scrpbee_curated_008", "error_injection_method": "programmatic", "error_types": ["year001"], "date_created": "2025-10-21T21:34:05.445692"}, "citation_id": "scrpbee_error_027"}, {"citation_text": "Garcia M. R. (2019). Qualitative research methods in education. In L. S. Johnson & M. T. Williams (Eds.), _Handbook of educational research_ (pp. 234-256). Routledge.", "source_type": "book chapter", "is_valid": false, "errors": [{"component": "authors", "problem": "Missing comma after author name", "correction": "Should be: Garcia,"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445707", "verified_against_kb": false, "derived_from": "scrpbee_curated_011", "error_injection_method": "programmatic", "error_types": ["punc002"], "date_created": "2025-10-21T21:34:05.445708"}, "citation_id": "scrpbee_error_028"}, {"citation_text": "Garcia, M. R. (2019). Qualitative research methods in education. In L. S. Johnson and M. T. Williams (Eds.), _Handbook of educational research_ (pp. 234-256). Routledge.", "source_type": "book chapter", "is_valid": false, "errors": [{"component": "authors", "problem": "Using 'and' instead of '&' before final author", "correction": "Should use '&' in reference list"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445709", "verified_against_kb": false, "derived_from": "scrpbee_curated_011", "error_injection_method": "programmatic", "error_types": ["auth001"], "date_created": "2025-10-21T21:34:05.445710"}, "citation_id": "scrpbee_error_029"}, {"citation_text": "Kim, H. J., & Patel, S. K. 2020. Data visualization techniques. In A. R. Thompson (Ed.), _Advanced statistical methods_ (pp. 145-167). Cambridge University Press.", "source_type": "book chapter", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2020)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445714", "verified_against_kb": false, "derived_from": "scrpbee_curated_012", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445715"}, "citation_id": "scrpbee_error_030"}, {"citation_text": "Johnson, M. L. 2022. _Artificial intelligence in healthcare: Opportunities and challenges_ [Doctoral dissertation, Stanford University]. ProQuest Dissertations Publishing.", "source_type": "other", "is_valid": false, "errors": [{"component": "publication_date", "problem": "Missing parentheses around publication year", "correction": "Should be: (2022)"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445720", "verified_against_kb": false, "derived_from": "scrpbee_curated_013", "error_injection_method": "programmatic", "error_types": ["date001"], "date_created": "2025-10-21T21:34:05.445720"}, "citation_id": "scrpbee_error_031"}, {"citation_text": "Lee  C. H., Park, J. S., & Kim, D. H. (2021). Machine learning applications in medical diagnosis. _Nature Medicine_, 27(8), 1234-1245. https://doi.org/10.1038/s41591-021-01456", "source_type": "journal article", "is_valid": false, "errors": [{"component": "spacing", "problem": "Extra spacing after comma", "correction": "Remove extra space"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445727", "verified_against_kb": false, "derived_from": "scrpbee_curated_015", "error_injection_method": "programmatic", "error_types": ["space001"], "date_created": "2025-10-21T21:34:05.445728"}, "citation_id": "scrpbee_error_032"}, {"citation_text": "Rodriguez  A. M. (2020). Online learning effectiveness during COVID-19 pandemic. _Educational Technology Research_, 58(3), 456-478.", "source_type": "journal article", "is_valid": false, "errors": [{"component": "spacing", "problem": "Extra spacing after comma", "correction": "Remove extra space"}], "metadata": {"source": "ScrpBee Expanded Dataset", "section": "Error Injection", "date_collected": "2025-10-21T21:34:05.445733", "verified_against_kb": false, "derived_from": "scrpbee_curated_016", "error_injection_method": "programmatic", "error_types": ["space001"], "date_created": "2025-10-21T21:34:05.445733"}, "citation_id": "scrpbee_error_033"}];
+        let filteredCitations = [...allCitations];
+
+        function isValidCitation(citation) {
+            return citation.is_valid !== false;
+        }
+
+        function displayCitations() {
+            const container = document.getElementById('citationsContainer');
+            container.innerHTML = '';
+
+            if (filteredCitations.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d;">No citations found matching your criteria.</p>';
+                return;
+            }
+
+            // Group by validity
+            const valid = filteredCitations.filter(c => isValidCitation(c));
+            const invalid = filteredCitations.filter(c => !isValidCitation(c));
+
+            let html = '';
+
+            if (valid.length > 0) {
+                html += '<h2 style="color: #27ae60; border-left: 4px solid #27ae60; padding-left: 15px;">✅ Valid Citations (' + valid.length + ')</h2>';
+                valid.forEach(citation => {
+                    html += createCitationHTML(citation, true);
+                });
+            }
+
+            if (invalid.length > 0) {
+                html += '<h2 style="color: #e74c3c; border-left: 4px solid #e74c3c; padding-left: 15px; margin-top: 30px;">❌ Invalid Citations (' + invalid.length + ')</h2>';
+                invalid.forEach(citation => {
+                    html += createCitationHTML(citation, false);
+                });
+            }
+
+            container.innerHTML = html;
+        }
+
+        function createCitationHTML(citation, isValid) {
+            const validityClass = isValid ? 'valid' : 'invalid';
+            const validityBadge = isValid ?
+                '<span class="validity-badge valid-badge">✅ Valid</span>' :
+                '<span class="validity-badge invalid-badge">❌ Invalid</span>';
+
+            let errorInfo = '';
+            if (!isValid && citation.errors && citation.errors.length > 0) {
+                const error = citation.errors[0];
+                const errorTypes = citation.metadata.error_types || [];
+                const errorTypeTags = errorTypes.map(type =>
+                    `<span class="error-type">${type}</span>`
+                ).join(' ');
+
+                errorInfo = `
+                    <div class="error-info">
+                        <strong>🔧 Error:</strong> ${error.problem}<br>
+                        <strong>💡 Correction:</strong> ${error.correction}<br>
+                        <strong>🏷️ Type:</strong> ${error.component} | ${errorTypeTags}
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="citation ${validityClass}">
+                    <div class="citation-text">
+                        ${highlightSearchTerms(citation.citation_text)}
+                    </div>
+                    <div class="citation-meta">
+                        <span class="meta-item"><strong>ID:</strong> ${citation.citation_id}</span>
+                        <span class="meta-item">${citation.source_type}</span>
+                        <span class="meta-item">${citation.metadata.source}</span>
+                        ${validityBadge}
+                    </div>
+                    ${errorInfo}
+                </div>
+            `;
+        }
+
+        function highlightSearchTerms(text) {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (!searchTerm) return text;
+
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span style="background-color: #fff3cd;">$1</span>');
+        }
+
+        function filterCitations(type) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (type === 'all') {
+                filteredCitations = [...allCitations];
+            } else if (type === 'valid') {
+                filteredCitations = allCitations.filter(c => isValidCitation(c));
+            } else if (type === 'invalid') {
+                filteredCitations = allCitations.filter(c => !isValidCitation(c));
+            } else {
+                filteredCitations = allCitations.filter(c => c.source_type === type);
+            }
+
+            // Apply search filter
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (searchTerm) {
+                filteredCitations = filteredCitations.filter(citation => {
+                    const searchText = (citation.citation_text + ' ' +
+                                     citation.citation_id + ' ' +
+                                     citation.source_type + ' ' +
+                                     (citation.errors ? citation.errors.map(e => e.problem).join(' ') : '')).toLowerCase();
+                    return searchText.includes(searchTerm);
+                });
+            }
+
+            displayCitations();
+        }
+
+        // Search functionality
+        document.getElementById('searchBox').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+
+            if (searchTerm) {
+                filteredCitations = allCitations.filter(citation => {
+                    const searchText = (citation.citation_text + ' ' +
+                                     citation.citation_id + ' ' +
+                                     citation.source_type + ' ' +
+                                     (citation.errors ? citation.errors.map(e => e.problem).join(' ') : '')).toLowerCase();
+                    return searchText.includes(searchTerm);
+                });
+            } else {
+                filteredCitations = [...allCitations];
+            }
+
+            displayCitations();
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCitations();
+        });
+    </script>
+</body>
+</html>

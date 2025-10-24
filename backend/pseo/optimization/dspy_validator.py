@@ -13,6 +13,11 @@ class CitationValidation(dspy.Signature):
     """
     Validate APA 7th edition citation and identify errors.
 
+    FORMATTING NOTE:
+    - Citations use markdown syntax: underscores (_text_) indicate italics
+    - Escaped underscores (\_) are literal underscores in the text
+    - Backslash escaping (\) is used for literal characters
+
     The validator must:
     1. Detect the citation source type (journal article, book, webpage, etc.)
     2. Validate against APA 7 rules
@@ -140,9 +145,9 @@ def calculate_error_metrics(true_errors: List[Dict], pred_errors: List[Dict]) ->
     }
 
 
-def citation_validator_metric(example, prediction, trace=None):
+def citation_validator_metric(example, prediction, trace=None, pred_name=None, pred_trace=None):
     """
-    Balanced evaluation metric optimizing for both valid and invalid performance.
+    Balanced evaluation metric with GEPA feedback support.
 
     Scoring breakdown:
     - 50% weight: Citation-level correctness (valid vs invalid classification)
@@ -150,6 +155,9 @@ def citation_validator_metric(example, prediction, trace=None):
 
     This ensures the model can't game the metric by over-flagging or under-flagging.
     Higher is better (0.0 to 1.0).
+
+    For GEPA optimization, returns {'score': float, 'feedback': str} with detailed
+    feedback on what went wrong.
     """
     true_is_valid = example.is_valid
     pred_is_valid = prediction.is_valid
@@ -174,6 +182,45 @@ def citation_validator_metric(example, prediction, trace=None):
 
     # Balanced score: 50/50 weighting
     final_score = 0.5 * citation_correct + 0.5 * error_score
+
+    # Generate feedback for GEPA (only when requested by GEPA)
+    if pred_name is not None:
+        from dspy.primitives import Example
+
+        feedback_parts = []
+
+        # Validation status feedback
+        if true_is_valid and not pred_is_valid:
+            feedback_parts.append("❌ False negative: Citation is actually VALID but you flagged it as invalid.")
+        elif not true_is_valid and pred_is_valid:
+            feedback_parts.append("❌ False positive: Citation is actually INVALID but you marked it as valid.")
+        else:
+            feedback_parts.append("✓ Correct validation status")
+
+        # Error detection feedback (for invalid citations)
+        if not true_is_valid:
+            true_comps = set(e['component'].lower() for e in true_errors)
+            pred_comps = set(e['component'].lower() for e in pred_errors)
+
+            missed = true_comps - pred_comps
+            extra = pred_comps - true_comps
+
+            if missed:
+                feedback_parts.append(f"❌ Missed errors in: {', '.join(sorted(missed))}")
+                # Show what the errors were
+                for err in true_errors:
+                    if err['component'].lower() in missed:
+                        feedback_parts.append(f"  - {err['component']}: {err['problem']}")
+
+            if extra:
+                feedback_parts.append(f"❌ False alarm errors in: {', '.join(sorted(extra))}")
+
+            if not missed and not extra:
+                feedback_parts.append("✓ Correctly identified all error components")
+
+        feedback = "\n".join(feedback_parts)
+        # Return as Example object with score attribute (GEPA expects this format)
+        return Example(score=final_score, feedback=feedback)
 
     return final_score
 
