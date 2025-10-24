@@ -47,7 +47,7 @@ class PromptManager:
         with open(self.prompt_path, 'r', encoding='utf-8') as f:
             prompt = f.read()
 
-        logger.info(f"Loaded prompt: {len(prompt)} characters")
+        logger.info(f"Loaded validation prompt: {self.prompt_path.name} ({len(prompt)} characters)")
         return prompt
 
     def format_citations(self, citations_text: str) -> str:
