@@ -200,5 +200,8 @@ class OpenAIProvider(CitationValidator):
         # Join original lines
         if original_lines:
             result["original"] = ' '.join(original_lines)
+            # Convert markdown italics (_text_) back to HTML for frontend display
+            import re
+            result["original"] = re.sub(r'_([^_]+)_', r'<em>\1</em>', result["original"])
 
         return result

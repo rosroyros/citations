@@ -33,8 +33,8 @@ You are an APA 7th edition citation validator. Your task is to validate whether 
 
 ━━━ FORMATTING NOTES ━━━
 
-IMPORTANT: In the input citations, italic formatting is indicated using [ITALIC] and [/ITALIC] markers.
-Example: [ITALIC]Journal of Studies[/ITALIC] means the text should be italicized.
+IMPORTANT: In the input citations, italic formatting is indicated using markdown underscores.
+Example: _Journal of Studies_ means the text should be italicized.
 
 When you identify errors, clearly state:
 - What component has the error (e.g., "Title", "Authors", "Journal", "DOI", etc.)

@@ -30,13 +30,13 @@ class HTMLToTextConverter(HTMLParser):
     def handle_starttag(self, tag, attrs):
         if tag in ['em', 'i']:
             self.in_italic = True
-            self.text.append('[ITALIC]')
+            self.text.append('_')  # Markdown italic format
         elif tag in ['strong', 'b']:
             self.in_bold = True
-            self.text.append('[BOLD]')
+            self.text.append('**')  # Markdown bold format
         elif tag == 'u':
             self.in_underline = True
-            self.text.append('[UNDERLINE]')
+            self.text.append('_')  # Markdown underline as italic
         elif tag == 'p':
             if self.text and self.text[-1] != '\n':
                 self.text.append('\n')
@@ -44,13 +44,13 @@ class HTMLToTextConverter(HTMLParser):
     def handle_endtag(self, tag):
         if tag in ['em', 'i']:
             self.in_italic = False
-            self.text.append('[/ITALIC]')
+            self.text.append('_')  # Markdown italic format
         elif tag in ['strong', 'b']:
             self.in_bold = False
-            self.text.append('[/BOLD]')
+            self.text.append('**')  # Markdown bold format
         elif tag == 'u':
             self.in_underline = False
-            self.text.append('[/UNDERLINE]')
+            self.text.append('_')  # Markdown underline as italic
         elif tag == 'p':
             self.text.append('\n')
 
