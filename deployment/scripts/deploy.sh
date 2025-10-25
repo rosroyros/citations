@@ -23,6 +23,13 @@ cd frontend/frontend
 npm install
 npm run build
 
+# Copy guide CSS assets
+echo "📄 Copying guide CSS assets..."
+mkdir -p dist/assets/css
+cp ../../backend/pseo/builder/assets/css/styles.css dist/assets/css/
+cp ../../backend/pseo/builder/assets/css/mini-checker.css dist/assets/css/
+cd ../..
+
 # Restart Nginx
 echo "🌐 Restarting Nginx..."
 sudo systemctl reload nginx
