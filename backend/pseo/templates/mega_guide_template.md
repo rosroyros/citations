@@ -30,15 +30,17 @@
 
 ## ⚡ TL;DR - Quick Summary
 
-{% raw %}{% tldr_box title="TL;DR - Quick Summary" %}{% endraw %}
-- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
-
-**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% raw %}{% endtldr_box %}{% endraw %}
+<div class="tldr-box">
+<h3>⚡ Key Points</h3>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+</div>
 
 ---
 
