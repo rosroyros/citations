@@ -28,6 +28,13 @@ echo "📄 Copying guide CSS assets..."
 mkdir -p ../../assets/css
 cp ../../backend/pseo/builder/assets/css/styles.css ../../assets/css/
 cp ../../backend/pseo/builder/assets/css/mini-checker.css ../../assets/css/
+
+# Copy generated guide pages
+echo "📚 Copying generated guide pages..."
+mkdir -p ../../frontend/frontend/dist/guide
+cp -r ../../content/dist/guide/* ../../frontend/frontend/dist/guide/
+echo "✓ Copied $(find ../../content/dist/guide -name 'index.html' | wc -l) guide pages"
+
 cd ../..
 
 # Restart Nginx
