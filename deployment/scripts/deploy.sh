@@ -23,11 +23,11 @@ cd frontend/frontend
 npm install
 npm run build
 
-# Copy guide CSS assets
+# Copy guide CSS assets to correct nginx location
 echo "📄 Copying guide CSS assets..."
-mkdir -p dist/assets/css
-cp ../../backend/pseo/builder/assets/css/styles.css dist/assets/css/
-cp ../../backend/pseo/builder/assets/css/mini-checker.css dist/assets/css/
+mkdir -p ../../assets/css
+cp ../../backend/pseo/builder/assets/css/styles.css ../../assets/css/
+cp ../../backend/pseo/builder/assets/css/mini-checker.css ../../assets/css/
 cd ../..
 
 # Restart Nginx
