@@ -118,7 +118,7 @@ body {
 }
 
 /* Main Layout - Mega Guide (two-column with sidebar) */
-.content-wrapper.mega-guide {
+.content-wrapper.mega_guide {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
@@ -447,7 +447,7 @@ body {
     }
 
     /* Mega guide: collapse to single column on mobile */
-    .content-wrapper.mega-guide {
+    .content-wrapper.mega_guide {
         grid-template-columns: 1fr;
         padding: 1rem;
         gap: 2rem;
