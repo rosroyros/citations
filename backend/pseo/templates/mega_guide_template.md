@@ -30,7 +30,7 @@
 
 ## ⚡ TL;DR - Quick Summary
 
-{% tldr_box title="TL;DR - Quick Summary" %}
+{% raw %}{% tldr_box title="TL;DR - Quick Summary" %}{% endraw %}
 - Master APA 7th edition citation formatting
 - Identify and fix common citation errors
 - Use validation tools to ensure accuracy
@@ -38,7 +38,7 @@
 - Save time and improve your grades
 
 **Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% endtldr_box %}
+{% raw %}{% endtldr_box %}{% endraw %}
 
 ---
 
