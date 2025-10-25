@@ -38,9 +38,12 @@
 <p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
 </div>
 
-<section class="content-section" id="introduction">
-<h2>Introduction</h2>
+<section class="content-section" id="introduction" markdown="1">
+
+## Introduction
+
 {{ introduction }}
+
 </section>
 
 <div class="cta-placement" id="mini-checker-intro">
@@ -48,8 +51,10 @@
 </div>
 
 {% for section in main_sections %}
-<section class="content-section" id="{{ section.slug }}">
-<h2>{{ section.title }}</h2>
+<section class="content-section" id="{{ section.slug }}" markdown="1">
+
+## {{ section.title }}
+
 {{ section.content }}
 
 {% if section.examples %}
@@ -58,12 +63,14 @@
 {{ example }}
 {% endfor %}
 {% endif %}
+
 </section>
 
 {% endfor %}
 
-<section class="content-section" id="examples">
-<h2>📚 Comprehensive Examples</h2>
+<section class="content-section" id="examples" markdown="1">
+
+## 📚 Comprehensive Examples
 
 {% for example in examples %}
 <div class="example-box">
@@ -89,8 +96,9 @@
 <!-- MiniChecker component will be rendered here -->
 </div>
 
-<section class="content-section" id="errors">
-<h2>❌ Common Errors to Avoid</h2>
+<section class="content-section" id="errors" markdown="1">
+
+## ❌ Common Errors to Avoid
 
 {% for error in common_errors %}
 <h3>{{ error.error_name }}</h3>
@@ -111,8 +119,9 @@
 {% endfor %}
 </section>
 
-<section class="content-section" id="checklist">
-<h2>✅ Validation Checklist</h2>
+<section class="content-section" id="checklist" markdown="1">
+
+## ✅ Validation Checklist
 
 <div class="checklist">
 <p>Use this checklist to verify your citations before submission:</p>
@@ -124,8 +133,9 @@
 </div>
 </section>
 
-<section class="content-section" id="faq">
-<h2>🙋 Frequently Asked Questions</h2>
+<section class="content-section" id="faq" markdown="1">
+
+## 🙋 Frequently Asked Questions
 
 {% for faq in faq_questions %}
 <div class="faq-item">
@@ -140,8 +150,9 @@
 <!-- MiniChecker component will be rendered here -->
 </div>
 
-<section class="content-section" id="resources">
-<h2>🔗 Related Resources</h2>
+<section class="content-section" id="resources" markdown="1">
+
+## 🔗 Related Resources
 
 {% for resource in related_resources %}
 - [{{ resource.title }}]({{ resource.url }})

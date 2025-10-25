@@ -41,6 +41,7 @@ class StaticSiteGenerator:
 
         md = markdown.Markdown(extensions=[
             'extra',  # Includes tables, fenced_code, and allows HTML
+            'md_in_html',  # Allows markdown inside HTML blocks
             'toc',
             'nl2br',
             'sane_lists'
