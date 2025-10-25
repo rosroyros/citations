@@ -5,7 +5,7 @@ page_type: mega_guide
 url_slug: apa-graduate-students
 url: /guide/apa-graduate-students/
 last_updated: 2025-10-25
-word_count: 4970
+word_count: 4993
 reading_time: 24 minutes
 ---
 
@@ -39,25 +39,29 @@ reading_time: 24 minutes
 
 ## ⚡ TL;DR - Quick Summary
 
-{% tldr_box title="TL;DR - Quick Summary" %}- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
+<div class="tldr-box">
+<h3>⚡ Key Points</h3>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+</div>
 
-**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% endtldr_box %}
 ---
 
 ## Introduction
 
-Navigating the world of APA citations can feel overwhelming, especially for graduate students tackling theses and dissertations. You are juggling complex sources, strict formatting requirements, and high expectations from your academic advisors. It is completely normal to feel frustrated when trying to master the intricacies of APA style, which seems to change with every new edition. This guide is designed with you in mind. 
+Navigating the world of citations can be a daunting task, especially for graduate students tackling complex sources in their theses and dissertations. You are likely under pressure to meet rigorous academic standards while also ensuring that your work is accurately represented. It can be frustrating to find the right balance between adhering to citation guidelines and properly crediting the multitude of authors and organizations that contribute to your research. 
 
-Here, you will find a comprehensive overview of APA citation rules tailored specifically for graduate-level work. Whether you are citing a journal article, a book, or even a webpage, this guide will help you format your references correctly. You will learn about the specific requirements for citing single authors, two authors, and even works with multiple contributors. Understanding how to properly attribute works is crucial for meeting dissertation requirements and ensuring your academic integrity.
+This APA citation guide is specifically tailored for you, the graduate student, as you embark on the critical journey of writing at the graduate level. Whether you are drafting a thesis or a dissertation, understanding how to correctly format your citations is vital to your academic success. The rules of APA style can initially seem overwhelming, but this guide aims to simplify the process and help you master the nuances of APA citations.
 
-In this guide, we will address common pain points that many graduate students face. You may wonder how to format citations for sources with many authors or how to cite a work by an organization instead of an individual. We will also explore how to manage the citation of complex sources that you might encounter during your research. By providing clear examples and breaking down the rules, this guide aims to clarify the process of creating accurate citations so you can focus more on your research and writing. 
+We will delve into essential topics that you need to grasp, such as how to format single authors, multiple authors, and organizational authors effectively. You will also learn how to manage citations for sources with three to twenty authors as well as how to handle works with more than twenty authors, which can often lead to confusion. By addressing common pain points, such as understanding citation expectations and dealing with complex sources, this guide will equip you with the knowledge needed to navigate APA citations with confidence.
 
-As you dive into your thesis or dissertation, remember that mastering APA citations is a skill that will serve you throughout your academic career. With practice and the right resources, you will become more confident in your citation abilities. Let this guide be your companion as you navigate the sometimes confusing waters of APA style. Together, we can transform your citation challenges into strengths that enhance your scholarly work.
+As you progress through this guide, you will find practical examples that illustrate correct and incorrect citation formats. This will provide you with a clear understanding of how to avoid common pitfalls and ensure that your references are presented correctly. By the end of this guide, you will not only feel more comfortable with APA style but also more empowered to focus on the substance of your research. So, let us get started on your journey to mastering graduate APA citations, making your academic writing process smoother and more efficient.
 
 ---
 
@@ -71,116 +75,106 @@ As you dive into your thesis or dissertation, remember that mastering APA citati
 
 ## Comprehensive Guide to APA Citations for Graduate Students
 
-As a graduate student, understanding how to properly cite sources in APA style is crucial for your academic writing. This guide provides a thorough overview of the key rules for APA citations, specifically tailored for graduate students. We will cover author formatting, the importance of correct citations, and practical tips to avoid common pitfalls.
+The American Psychological Association (APA) citation style is widely used in social sciences, psychology, education, and other fields. For graduate students, mastering APA citations is crucial for academic writing. This guide outlines the essential rules for formatting citations in APA style, helping you avoid common pitfalls and ensuring your work adheres to academic standards.
 
-### Importance of Proper Citations
+### Why Proper Citation Matters
 
-Citations serve several purposes in academic writing. Firstly, they give credit to the original authors of the works you reference. This not only acknowledges their contributions but also helps avoid plagiarism. Secondly, citations allow readers to locate the original sources for further reading. Lastly, following a consistent citation format, like APA, enhances the credibility of your work and reflects academic professionalism.
+Citations serve several purposes in academic writing. They give credit to original authors, enhance the credibility of your work, and allow readers to locate the sources you used. Proper citation formatting is vital for avoiding plagiarism and maintaining academic integrity.
 
 ### Author Formatting Rules
 
-In APA 7th edition, there are specific rules for formatting author names in your references. Understanding these rules will help ensure that your citations are accurate and consistent.
-
 #### Single Author Format
 
-For works with a single author, the format is as follows:
+In APA 7th edition, the format for a single author includes the last name, followed by a comma and the first and middle initials. The initials should be separated by periods but not spaces.
 
-- Last name, followed by a comma, and then the first and middle initials, separated by periods but not spaces.
+- **Correct Example**: Johnson, M. K.
+- **Incorrect Examples**: 
+  - M. K. Johnson (not inverting the name)
+  - Johnson, M.K. (omitting space after the period)
 
-**Correct Examples:**
-- Johnson, M. K.
-- Williams, R. A.
-
-**Incorrect Examples:**
-- M. K. Johnson
-- Johnson, M.K.
-
-**Why This Matters:**
-Inverting the author's name (last name first) helps with alphabetical ordering in your reference list. It also provides a clear and standardized way to present author names.
+This rule ensures consistency across citation formats and makes it easier to order references alphabetically.
 
 #### Two Authors Format
 
-When citing works by two authors, both names should be inverted and separated by an ampersand (&). For narrative citations, use "and" instead.
+For works with two authors, both names should be inverted and separated by an ampersand (&). Each author's name follows the single author format. The ampersand should be preceded by a comma.
 
-**Correct Examples:**
-- Smith, J. D., & Brown, A. M.
-- Garcia, L. P., & Martinez, R. T.
+- **Correct Example**: Smith, J. D., & Brown, A. M.
+- **Incorrect Examples**: 
+  - Smith, J. D. and Brown, A. M. (using 'and' instead of '&')
+  - J. D. Smith & A. M. Brown (not following the correct format)
 
-**Incorrect Examples:**
-- Smith, J. D. and Brown, A. M.
-- J. D. Smith & A. M. Brown
+This distinction is essential to maintain consistency across different citation styles.
 
-**Practical Tip:**
-Always remember to place a comma before the ampersand when listing two authors. This small detail can make a significant difference in the accuracy of your citation.
+#### Three to Twenty Authors
 
-#### Three to Twenty Authors Format
+When citing works with three to twenty authors, list all authors in the reference list. Each author's name should be inverted, separated by commas, and use an ampersand before the final author's name.
 
-For works with three to twenty authors, list all authors in the reference list. Each author's name should follow the single author format.
+- **Correct Example**: Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
+- **Incorrect Examples**: 
+  - Anderson, K. L., et al. (using 'et al.' prematurely)
+  - Anderson, K. L., Williams, J. M., Davis, S. R. and Thompson, B. P. (using 'and' instead of '&')
 
-**Correct Examples:**
-- Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
-- Chen, X., Rodriguez, M., Johnson, L., Kim, S., & Patel, R.
+This rule is a significant change from APA 6th edition, which allowed for 'et al.' after a certain number of authors.
 
-**Incorrect Examples:**
-- Anderson, K. L., et al.
-- Anderson, K. L., Williams, J. M., Davis, S. R. and Thompson, B. P.
+#### Twenty Plus Authors
 
-**Why This Matters:**
-Listing all authors gives proper credit and allows readers to identify all contributors, enhancing the integrity of your work.
+For works with 21 or more authors, list the first 19 authors, insert an ellipsis (...), and then list the final author. The ellipsis replaces the authors from the 20th to the second-to-last author.
 
-#### Twenty or More Authors Format
+- **Correct Example**: Author1, A. A., Author2, B. B., Author3, C. C., ..., LastAuthor, Z. Z.
+- **Incorrect Examples**: 
+  - Author1, A. A., et al. (using 'et al.' instead of ellipsis)
+  - Author1, A. A., Author2, B. B., ... Author20, T. T., LastAuthor, Z. Z. (listing too many authors)
 
-When a work has 21 or more authors, list the first 19 authors, followed by an ellipsis (...), then the final author's name.
+This format helps to prevent overly long citation lists while ensuring key attribution information is still provided.
 
-**Correct Examples:**
-- Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z.
+### Organizational and Government Authors
 
-**Incorrect Examples:**
-- Author1, A. A., et al.
-- Author1, A. A., Author2, B. B., ... Author20, T. T., LastAuthor, Z. Z.
+#### Organization as Author
 
-**Practical Tip:**
-Make sure not to include more than 19 authors before using the ellipsis. This rule helps keep citations manageable while still providing key attribution.
+When an organization, corporation, or government agency is the author, use the full official name without inverting it unless it is commonly known by its abbreviation.
 
-### Organizational or Government Authors
+- **Correct Example**: American Psychological Association
+- **Incorrect Examples**: 
+  - APA (using abbreviation)
+  - Association, American Psychological (incorrect order)
 
-When citing works authored by organizations, use the full official name.
+This rule clarifies authorship and maintains clarity.
 
-**Correct Examples:**
-- American Psychological Association
-- National Institute of Mental Health
+#### Government Author Format
 
-**Incorrect Examples:**
-- APA
-- Association, American Psychological
+For government authors, include the specific agency or department as the author. Use the most specific agency name.
 
-**Why This Matters:**
-Using complete names ensures that readers can easily identify the source and adds credibility to your citations.
+- **Correct Example**: Centers for Disease Control and Prevention
+- **Incorrect Examples**: 
+  - Department of Commerce, U.S. Census Bureau (including parent departments)
+  - CDC (using an abbreviation)
+
+This ensures clear attribution without unnecessarily long names.
 
 ### Handling Anonymous Authors
 
-If no author is listed, use the title in the author position, followed by the date. Do not use "Anonymous" unless the work is explicitly signed that way.
+When no author is listed and the work cannot be attributed to a specific organization, move the title to the author position.
 
-**Correct Examples:**
-- Merriam-Webster's collegiate dictionary. (2003).
-- Anonymous. (2018). The art of invisibility.
+- **Correct Example**: Merriam-Webster's collegiate dictionary. (2003).
+- **Incorrect Examples**: 
+  - Anonymous. (2003). Merriam-Webster's collegiate dictionary. (incorrect use of 'Anonymous')
+  - Unknown author. (2018). The art of invisibility. (not moving title)
 
-**Incorrect Examples:**
-- Anonymous. (2003). Merriam-Webster's collegiate dictionary.
-- Unknown author. (2018). The art of invisibility.
+This approach helps readers identify works by their titles in the absence of authorship.
 
-**Common Pitfall:**
-Avoid using "Anonymous" unless absolutely necessary. Instead, position the title as the author to maintain the structure of your citations.
+### Common Pitfalls and Practical Tips
 
-### Common Errors to Avoid
+1. **Inverting Names**: Always ensure that author names are inverted correctly. Common mistakes include not inverting names for multiple authors or incorrectly formatting initials.
+  
+2. **Using 'et al.'**: Only use 'et al.' when there are more than twenty authors. In earlier editions, this was used after seven authors, leading to confusion.
 
-1. **Inversion Errors**: Ensure that author names are inverted correctly. Missing this can lead to confusion in your reference list.
-2. **Comma and Ampersand Misplacement**: Always check for the correct placement of commas and ampersands in multi-author citations.
-3. **Omitting Initials**: When authors share the same surname, always include first initials to avoid ambiguity.
+3. **Clarity with Surnames**: If authors share the same surname, always include their initials to avoid confusion. 
 
-### Final Thoughts
+4. **Double Surnames**: Treat double surnames as a single unit. Do not insert commas between parts unless preferred by the individual.
 
-Proper citation is a fundamental skill for graduate students. Familiarizing yourself with APA citation rules will not only improve the quality of your academic work but also enhance your credibility as a researcher. By following these guidelines and being mindful of common mistakes, you can confidently navigate the world of academic citations.
+### Conclusion
+
+Mastering APA citation rules is essential for graduate students. Understanding how to format author names, handle organizational authors, and properly cite works without authors will enhance your academic writing. By avoiding common pitfalls and following these guidelines, you will create well-structured references that uphold academic integrity and clarity.
 
 
 
@@ -604,58 +598,58 @@ Mindfulness practices for stress reduction: A beginner's guide
 ## 🙋 Frequently Asked Questions
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a book in APA format?</div>
-<div class="faq-answer">To cite a book in APA format, you need to include the author's last name, first initial, publication year, title in italics, edition (if applicable), and the publisher's name. For example, a basic citation for a book would look like this: Author, A. A. (Year). Title of work: Capital letter also for subtitle. Publisher. If you have multiple authors, list them in the order they appear in the book, using an ampersand before the last author's name. Make sure to follow the capitalization rules for titles, where only the first word and proper nouns are capitalized. For more details on citing books, refer to the Publication Manual of the American Psychological Association or visit the APA Style website.</div>
+<div class="faq-question">What is the basic format for an APA citation of a book?</div>
+<div class="faq-answer">In APA format, the basic citation for a book includes the author's last name, followed by their initials. Next, provide the publication year in parentheses, the title of the book in italics, the edition if it is not the first, and the publisher's name. For example: Smith, J. (2020). Understanding Psychology (3rd ed.). Academic Press. If you are citing a specific chapter in an edited book, the format changes slightly. You would cite the author of the chapter, the year, the title of the chapter, the editors of the book, and the page range of the chapter. For more detailed guidelines, refer to the APA Publication Manual or the Purdue OWL resource.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the correct way to cite a journal article in APA?</div>
-<div class="faq-answer">To cite a journal article in APA format, you will need to include the author's last name, first initial, publication year, article title, journal name in italics, volume number in italics, issue number in parentheses (if applicable), page range, and DOI if available. The format looks like this: Author, A. A. (Year). Title of article. Title of Journal, Volume(Issue), page range. https://doi.org/xxxxxx If there is no DOI, you can provide the URL of the journal's homepage. Ensure that you follow the correct punctuation and italics formatting. For further guidance, consult the APA Style website or the Publication Manual.</div>
+<div class="faq-question">How do I cite a journal article in APA format?</div>
+<div class="faq-answer">To cite a journal article in APA format, start with the author's last name and initials. Include the publication year in parentheses, followed by the title of the article in sentence case. Next, provide the title of the journal in italics and title case, the volume number in italics, the issue number in parentheses (if applicable), and the page range. For example: Doe, J. (2021). The effects of social media on mental health. Journal of Psychology, 15(3), 45-67. If the article has a DOI, include it at the end. For more comprehensive information, consult the APA Publication Manual or the official APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I handle multiple authors when citing?</div>
-<div class="faq-answer">When citing a source with multiple authors in APA format, the number of authors dictates how you format the citation. For a work with one or two authors, list both names every time you cite the work. For three or more authors, include the first author's last name followed by 'et al.' in in-text citations. For example, if citing a source with three authors, your in-text citation would look like this: Author, A. A., Author, B. B., & Author, C. C. (Year). For the reference list, you should list all authors up to 20 before using an ellipsis for additional authors. For more information, consult the APA Style guidelines.</div>
+<div class="faq-question">What should I do if I cannot find all the information needed for a citation?</div>
+<div class="faq-answer">If you encounter missing information while citing a source, use what you have as a starting point. For example, if an author is missing, you can start with the title of the work. If the date is unknown, use 'n.d.' for 'no date.' It is essential to be as thorough as possible, but also to acknowledge that not all sources provide complete information. If you are citing a webpage, include the URL and the date you accessed it if the content may change. Always prioritize reliable sources, and for more guidance, visit the APA Style website for detailed citation rules.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite an online article or web page in APA?</div>
-<div class="faq-answer">When citing an online article or webpage in APA format, you should include the author's last name, first initial, publication date in parentheses, title of the article in italics, and the URL. The format looks like this: Author, A. A. (Year, Month Day). Title of article. Website Name. URL. If there is no author, start with the title of the article. Always ensure that the URL is functional and accessible. If the article is undated, use 'n.d.' in place of the year. For additional details and examples, check the APA Style website.</div>
+<div class="faq-question">How do I cite a source with multiple authors in APA format?</div>
+<div class="faq-answer">When citing a source with multiple authors in APA format, the rules depend on the number of authors. For a work with one or two authors, list both names. For example: Smith, J., & Doe, A. (2020). Title of the work. If a work has three or more authors, include the first author's last name followed by 'et al.' for in-text citations. For the reference list, include all authors' names up to 20 authors. Beyond 20, list the first 19 authors followed by an ellipsis and then the last author's name. For further details, refer to the APA Publication Manual or resources like Purdue OWL.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What should I do if I cannot find a DOI for an article?</div>
-<div class="faq-answer">If you cannot find a DOI for an article, do not worry. For APA citations, if a DOI is not available, you can provide the URL of the journal's homepage or the article's direct URL if accessible. Make sure that the link works and leads directly to the article. If the article was retrieved from a database that does not provide a DOI, it is acceptable to omit the DOI from your citation. For more specific guidance, the APA Style website has comprehensive information on what to do in these situations.</div>
+<div class="faq-question">How do I format in-text citations in APA style?</div>
+<div class="faq-answer">In-text citations in APA style can be formatted in two ways: parenthetical and narrative. For parenthetical citations, include the author's last name and the year of publication in parentheses at the end of the sentence. For example: (Smith, 2020). In a narrative citation, incorporate the author's name into the sentence, followed by the year in parentheses. For example: Smith (2020) discusses the impact of climate change. If you are quoting directly, include the page number as well, like this: (Smith, 2020, p. 15). For comprehensive guidelines, consult the APA Publication Manual or the APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a source with no author?</div>
-<div class="faq-answer">When citing a source with no author in APA format, you should start with the title of the work. The title should be followed by the publication date in parentheses. The format for a book would look like this: Title of work. (Year). Publisher. For in-text citations, use the title in place of the author. For example, if citing a book, you would refer to it as 'Title of Work (Year).' If the title is long, you can shorten it for the in-text citation. For web pages, simply format the reference as you would for an authored page but start with the title. Additional examples can be found on the APA Style website.</div>
+<div class="faq-question">How do I cite a website in APA format?</div>
+<div class="faq-answer">To cite a website in APA format, include the author's last name and initials, the publication date in parentheses, the title of the webpage in italics, and the URL. For example: Doe, J. (2021). Title of the webpage. https://www.example.com. If there is no author, start with the title of the webpage. If the publication date is missing, use 'n.d.' for 'no date.' It is also advisable to check if the webpage includes a retrieval date if the content is likely to change over time. For more details, refer to the APA Publication Manual or the APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the difference between a primary and secondary source in APA citations?</div>
-<div class="faq-answer">In APA citations, a primary source is an original work, such as a study, report, or firsthand account. A secondary source, on the other hand, interprets or analyzes primary sources. When citing a primary source, you reference it directly. However, if you are citing a secondary source that references a primary source, you should cite the secondary source and mention the primary source in your text. For example, you would write: Author, A. A. (Year) cited in Author, B. B. (Year). For further clarity, consult the APA Style guidelines on citing primary and secondary sources.</div>
+<div class="faq-question">Can I use secondary sources in my research? How do I cite them in APA?</div>
+<div class="faq-answer">Yes, you can use secondary sources in your research, but it is best to use primary sources when possible. When citing a secondary source in APA format, mention the original author and the secondary source in your text. For example: Smith's research (as cited in Doe, 2020) shows that... In your reference list, only include the secondary source you accessed, not the original work. For instance: Doe, J. (2020). Title of the book. Publisher. This method allows you to acknowledge the original author while indicating that you accessed the information through another source. For more information, check the APA Publication Manual.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I format in-text citations for direct quotes?</div>
-<div class="faq-answer">When using direct quotes in APA format, you need to provide the author's last name, the publication year, and the page number where the quote can be found. The format looks like this: (Author, Year, p. Page Number). For example: (Smith, 2020, p. 15). If the quote is from an online source without page numbers, use paragraph numbers instead, indicated as 'para. 5'. If the quote is 40 words or more, format it as a block quote, which is indented and does not use quotation marks. For more details, refer to the APA Style guidelines on in-text citations.</div>
+<div class="faq-question">How do I cite a conference paper in APA format?</div>
+<div class="faq-answer">To cite a conference paper in APA format, start with the author's last name and initials. Then include the year of the conference in parentheses, followed by the title of the paper in italics. Next, indicate that it was presented at the conference, the name of the conference, and location. For example: Smith, J. (2020). Title of the paper. Paper presented at the 10th Annual Conference on Education, New York, NY. If the paper is published in conference proceedings, include publication details as well. For more detailed guidelines, refer to the APA Publication Manual or resources like Purdue OWL.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I create a reference list in APA format?</div>
-<div class="faq-answer">To create a reference list in APA format, start a new page titled 'References' at the top. Each entry should follow a hanging indent format, where the first line is flush left, and subsequent lines are indented. Entries should be organized alphabetically by the last name of the first author. Be sure to include all the necessary elements for each citation, such as author names, publication year, title, and source. Maintain double-spacing throughout the reference list. For visual examples and specific formatting details, check the APA Style website.</div>
+<div class="faq-question">What is a DOI and how do I find it for my sources?</div>
+<div class="faq-answer">A DOI, or Digital Object Identifier, is a unique alphanumeric string assigned to a digital object, such as a journal article. It provides a permanent link to the content. You can typically find the DOI on the first page of the article or in the database record where you accessed the article. If a DOI is available, always include it in your citation as it helps readers locate the source easily. For example: Smith, J. (2020). Title of the article. Journal Name, 10(2), 100-110. https://doi.org/10.1234/abcd.5678. For more information, visit the APA Style website or consult the APA Publication Manual.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the correct way to cite a thesis or dissertation in APA format?</div>
-<div class="faq-answer">When citing a thesis or dissertation in APA format, include the author's last name, first initial, year of publication, title of the thesis or dissertation in italics, the type of work (thesis or dissertation), and the institution. The format is as follows: Author, A. A. (Year). Title of thesis or dissertation (Unpublished master's thesis or Doctoral dissertation). Name of Institution. If the thesis is published, include the database or repository where it can be found. For example: Smith, J. (2020). Understanding APA style (Unpublished master's thesis). University of Example. More information can be found on the APA Style website.</div>
+<div class="faq-question">How do I cite multiple works by the same author in APA format?</div>
+<div class="faq-answer">When citing multiple works by the same author in APA format, list the works in chronological order from the oldest to the most recent. For example: Smith, J. (2018). Title of the first work. Publisher. Smith, J. (2020). Title of the second work. Publisher. If you are citing multiple works by the same author published in the same year, differentiate them by adding letters after the year, such as (2020a) and (2020b). This helps to clarify which work is being referenced. For further details, refer to the APA Publication Manual or the Purdue OWL resource.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a film or video in APA format?</div>
-<div class="faq-answer">To cite a film or video in APA format, include the director's last name, first initial, year of release, title in italics, and the production company. The format looks like this: Director, A. A. (Director). (Year). Title of film [Film]. Production Company. If citing a specific scene or quote from the film, include a description in your in-text citation such as the time stamp. For example: (Director, Year, 1:23:45). For more detailed guidelines, consult the APA Style website, which provides comprehensive examples of citing various types of audiovisual materials.</div>
+<div class="faq-question">What are the rules for citing personal communications in APA style?</div>
+<div class="faq-answer">In APA style, personal communications, such as interviews, emails, or private messages, are not included in the reference list. Instead, cite them only in the text. Include the name of the person, the phrase 'personal communication,' and the date of the communication. For example: (J. Doe, personal communication, March 15, 2021). Since personal communications are not recoverable by others, they do not need to be listed in the reference list. For more information on this topic, refer to the APA Publication Manual or the APA Style website.</div>
 </div>
 
 

@@ -5,7 +5,7 @@ page_type: mega_guide
 url_slug: apa-citations-nursing
 url: /guide/apa-citations-nursing/
 last_updated: 2025-10-25
-word_count: 4856
+word_count: 4896
 reading_time: 24 minutes
 ---
 
@@ -39,27 +39,31 @@ reading_time: 24 minutes
 
 ## ⚡ TL;DR - Quick Summary
 
-{% tldr_box title="TL;DR - Quick Summary" %}- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
+<div class="tldr-box">
+<h3>⚡ Key Points</h3>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+</div>
 
-**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% endtldr_box %}
 ---
 
 ## Introduction
 
-Navigating the world of APA citations can be particularly challenging for nursing professionals and students. In the fast-paced healthcare environment, where accurate sourcing is paramount, you may find yourself grappling with the nuances of medical journal formatting and specific citation requirements. As a nurse or nursing student, your focus should be on delivering quality care, not deciphering citation styles. This guide is designed to alleviate some of the stress associated with APA citations in nursing. 
+In the ever-evolving field of nursing, accurate documentation is essential. Whether you are conducting research, writing a thesis, or preparing a manuscript for publication, mastering APA citations is crucial. You may find yourself frustrated by the nuances of APA formatting, especially when it comes to medical journal articles and clinical sources. This guide aims to alleviate some of those pain points by providing you with clear, step-by-step instructions specifically tailored for nursing-related citations. 
 
-In this comprehensive resource, you will find clear explanations of the rules and conventions that govern APA citations, specifically tailored for nursing and healthcare research. Whether you are referencing clinical sources, journal articles, or books, our guide will help you understand how to format citations correctly. You will also learn how to avoid common pitfalls that many encounter when citing medical literature. 
+Navigating the world of healthcare research can be complex. You are likely dealing with a myriad of sources, from peer-reviewed journal articles to government reports and clinical guidelines. Each type of source has its own citation requirements, and understanding these distinctions can make the difference between a polished piece of writing and one that may be rejected due to formatting errors. 
 
-We will begin by discussing the formatting for authors, including how to properly cite single authors, two authors, and multiple authors. You will discover the importance of inverting names and using the correct punctuation, ensuring that your references are not only accurate but also easy to read. Additionally, we will cover the special considerations for organizational authors, which is often a source of confusion in the healthcare field. 
+In this guide, you will discover essential rules for citing various types of sources. We will cover how to format citations for single authors, two authors, and even works with more than twenty authors. You will learn the importance of proper author formatting, including the correct use of initials, commas, and ampersands. We will also address common mistakes that often arise when citing nursing-specific literature, helping you avoid pitfalls that could undermine your credibility. 
 
-Moreover, our guide will highlight common errors to watch out for, so you can submit your work with confidence. You will learn how to present your sources clearly and consistently, allowing your research to be easily recognized and respected in the nursing community. With this guide at your side, you can focus more on your clinical practice and academic pursuits, knowing that your citations are correct and professional.
+Moreover, you will find practical examples that illustrate each citation rule in action. These examples will not only clarify the guidelines but will also serve as templates you can refer to as you compile your own references. Understanding these citation rules is not merely an academic exercise; they are vital for ensuring that your work is taken seriously within the nursing community and the larger healthcare landscape. 
 
-By the end of this guide, you will feel empowered to tackle APA citations in nursing with ease. Whether you are writing a research paper, preparing for a presentation, or simply trying to enhance your knowledge, our goal is to provide you with the tools you need for success. Let’s dive in and make APA citations simpler and more approachable for you in the context of nursing.
+By the end of this guide, you will feel more confident in your ability to create accurate APA citations tailored for nursing. You will be equipped with the skills needed to ensure that your work is recognized and respected in the field of healthcare research. So, let’s dive into the details and start mastering APA citations for nursing together.
 
 ---
 
@@ -73,149 +77,109 @@ By the end of this guide, you will feel empowered to tackle APA citations in nur
 
 ## Comprehensive Guide to APA Citations for Nursing
 
-Citing sources accurately is critical in nursing research and practice. The American Psychological Association (APA) citation style is widely used in the fields of social sciences, including nursing. This guide provides a detailed overview of APA citation rules, ensuring clarity and precision in your academic writing.
+Citing sources accurately is crucial in nursing and healthcare. Proper citations provide credit to original authors, allow readers to locate sources, and enhance your credibility as a writer. The American Psychological Association (APA) citation style is widely used in nursing literature. This guide will explain key rules for formatting citations in APA 7th edition, focusing on author formatting, which is foundational for creating accurate references.
 
-### Importance of Proper Citations
+## Author Formatting Rules
 
-Correct citations not only give credit to the original authors but also enhance the credibility of your work. They allow readers to locate the sources you used, which is essential for further research. Following APA guidelines helps maintain consistency, making your paper easier to read and understand.
+### Single Author Format
 
-### Author Formatting Rules
+In APA 7th edition, the format for a single author includes the author's last name followed by a comma and the first initial, followed by a period. If applicable, include a middle initial. For example:
 
-#### Single Author Format
+- **Correct:** Johnson, M. K.
+- **Incorrect:** M. K. Johnson, Johnson, M.K.
 
-According to APA Manual Section 9.8, a single author is cited by listing their last name followed by a comma and their first and middle initials, separated by periods with no spaces. This format is applied across various reference types, such as journal articles and books.
+This format ensures consistency and makes it easy to arrange references alphabetically. A common error is omitting the comma after the last name or adding spaces between initials. Always remember to invert the author's name in the reference list.
 
-**Examples:**
-- Correct: Johnson, M. K.
-- Correct: Williams, R. A.
-- Incorrect: M. K. Johnson
-- Incorrect: Johnson, M.K.
+### Two Authors Format
 
-**Common Pitfalls:**
-- Failing to invert the name (first name first).
-- Omitting the comma after the last name.
-- Adding spaces between initials.
+For works with two authors, both names should be inverted and separated by an ampersand (&). The correct format is:
 
-#### Two Authors Format
+- **Correct:** Smith, J. D., & Brown, A. M.
+- **Incorrect:** Smith, J. D. and Brown, A. M.
 
-For works with two authors, both names should be inverted and separated by an ampersand (&). Each author's name follows the same single author format. This rule applies to reference lists and parenthetical citations, but narrative citations use "and" instead of "&".
+In parenthetical citations, use the ampersand. In narrative citations, write "and" instead. A common pitfall is forgetting to place a comma before the ampersand. 
 
-**Examples:**
-- Correct: Smith, J. D., & Brown, A. M.
-- Incorrect: Smith, J. D. and Brown, A. M.
+### Three to Twenty Authors Format
 
-**Common Pitfalls:**
-- Using "and" instead of "&".
-- Missing the comma before the ampersand.
+When a work has three to twenty authors, you should list all authors in the reference list. Each author's name should be inverted and separated by commas, with an ampersand before the final author. For example:
 
-#### Three to Twenty Authors
+- **Correct:** Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
+- **Incorrect:** Anderson, K. L., et al.
 
-When a work has three to twenty authors, all authors should be listed in the reference list, inverted and separated by commas, with an ampersand before the last author's name. 
+This approach differs from APA 6th edition, which used "et al." for works with seven or more authors. Listing all authors allows for proper attribution and recognition of their contributions.
 
-**Examples:**
-- Correct: Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
-- Incorrect: Anderson, K. L., et al.
+### Twenty Plus Authors Format
 
-**Common Pitfalls:**
-- Using "et al." prematurely.
-- Not listing all authors.
+For works with 21 or more authors, you should list the first 19 authors, insert an ellipsis (...), and then include the final author. For example:
 
-#### Twenty or More Authors
+- **Correct:** Author1, A. A., Author2, B. B., ..., LastAuthor, Z. Z.
+- **Incorrect:** Author1, A. A., et al.
 
-For works with twenty-one or more authors, list the first 19 authors followed by an ellipsis (...) and then the final author's name. The ellipsis replaces authors 20 through the second-to-last author.
+This rule prevents excessively long citations while still providing essential information about the authors. It is essential to ensure the ellipsis is not italicized or bracketed.
 
-**Examples:**
-- Correct: Author1, A. A., Author2, B. B., ..., LastAuthor, Z. Z.
-- Incorrect: Author1, A. A., et al.
+### Organization as Author
 
-**Common Pitfalls:**
-- Listing too many authors.
-- Omitting the final author.
+When the author is an organization, use the full official name. Do not invert or abbreviate the organization's name unless it is commonly known by its abbreviation. For example:
 
-### Special Cases in Author Formatting
+- **Correct:** American Psychological Association
+- **Incorrect:** APA
 
-#### Organization as Author
+This rule ensures clarity and proper attribution to corporate and institutional authors. It is important to avoid using acronyms without prior explanation.
 
-When an organization, corporation, or government agency is the author, use the full official name without inversion. Abbreviations can be used in brackets if they will be referenced again.
+### Government Author Format
 
-**Examples:**
-- Correct: American Psychological Association
-- Incorrect: APA
+For government authors, include the specific agency or department as the author. For example:
 
-**Common Pitfalls:**
-- Using abbreviations instead of full names.
-- Inverting organizational names.
+- **Correct:** Centers for Disease Control and Prevention
+- **Incorrect:** Department of Commerce, U.S. Census Bureau
 
-#### Government Author Format
+Using the most specific agency name clarifies the source without creating unnecessarily long author names.
 
-For government authors, include the specific agency or department. Use the most specific agency name as the author.
+### Anonymous Author Handling
 
-**Examples:**
-- Correct: Centers for Disease Control and Prevention
-- Incorrect: Department of Commerce, U.S. Census Bureau
+If no author is listed, the title should move to the author position. Do not use "Anonymous" unless the work is signed by that name. For example:
 
-**Common Pitfalls:**
-- Including parent departments in the author position.
-- Using acronyms without full names.
+- **Correct:** Merriam-Webster's collegiate dictionary. (2003).
+- **Incorrect:** Unknown author. (2018). 
 
-#### Handling Anonymous Work
+This rule allows readers to identify works by their titles when authorship is unknown. 
 
-If no author is listed and the work cannot be attributed to a specific organization, move the title to the author position followed by the date. Do not use "Anonymous" unless the work is explicitly signed that way.
+### Author Titles and Suffixes
 
-**Examples:**
-- Correct: Merriam-Webster's collegiate dictionary. (2003).
-- Incorrect: Unknown author. (2018).
+Include author titles, suffixes, and credentials in the reference list. Suffixes like Jr., Sr., II, and III should follow the initials. For example:
 
-**Common Pitfalls:**
-- Leaving the author position empty.
-- Not moving the title to the author position.
+- **Correct:** King, M. L., Jr.
+- **Incorrect:** Dr. Davis, J. H., III
 
-### Additional Author Considerations
+This rule helps provide complete identification without inflating credentials unnecessarily.
 
-#### Author Titles and Suffixes
+### Authors with the Same Surname
 
-Include author titles, suffixes, and credentials in the reference list where applicable. Suffixes like Jr. or Sr. should follow the initials, separated by commas.
+When authors share the same surname, include their first initials to avoid confusion. For example:
 
-**Examples:**
-- Correct: King, M. L., Jr.
-- Incorrect: Dr. Davis, J. H., III
+- **Correct:** Johnson, A. B., & Johnson, C. D.
+- **Incorrect:** Johnson, A. B., & C. D.
 
-**Common Pitfalls:**
-- Including professional titles unnecessarily.
-- Incorrect comma placement with suffixes.
+This rule is essential for distinguishing between authors with identical last names, particularly in reference lists.
 
-#### Same Surname Authors
+### Double Surname Handling
 
-When authors share the same surname, include their initials to avoid confusion. This is crucial for proper identification in citations.
+Authors with double surnames should maintain both parts in the reference list. For example:
 
-**Examples:**
-- Correct: Johnson, A. B., & Johnson, C. D.
-- Incorrect: Johnson, A. B., & C. D.
+- **Correct:** Hernandez Lopez, M. R.
+- **Incorrect:** Hernandez, Lopez, M. R.
 
-**Common Pitfalls:**
-- Omitting initials for subsequent authors with the same surname.
+This respects cultural naming conventions and ensures accurate identification.
 
-#### Double Surname Handling
+## Tips for Accurate Citations
 
-Authors with double surnames should maintain both parts in their reference list. Treat the double surname as a single unit.
+1. **Use Consistent Formatting:** Always follow the rules for author formatting. Consistency is key in academic writing.
+2. **Review Your Work:** Before submission, review your citations to ensure they adhere to APA guidelines. Common errors can easily be overlooked.
+3. **Utilize Citation Tools:** Consider using citation management software that supports APA formatting. These tools can help generate accurate citations quickly.
 
-**Examples:**
-- Correct: Hernandez Lopez, M. R.
-- Incorrect: Hernandez, Lopez, M. R.
+## Conclusion
 
-**Common Pitfalls:**
-- Splitting double surnames incorrectly.
-
-### Practical Tips for Effective Citations
-
-1. **Be Consistent**: Always follow the same format throughout your paper.
-2. **Check for Updates**: Ensure you are using the latest version of APA guidelines, as citation styles can evolve.
-3. **Use Citation Tools**: Consider using citation management software or online tools to help format references correctly.
-4. **Proofread**: Review your citations carefully to avoid common errors and ensure accuracy.
-
-### Conclusion
-
-Mastering APA citations is essential for nursing professionals and students alike. By adhering to the rules outlined in this guide, you can improve the quality and reliability of your academic writing. Remember, proper citations not only enhance your credibility but also contribute to the academic community's integrity.
+Understanding and applying APA citation rules is essential for nursing professionals. Accurate citations enhance the credibility of your work and ensure proper attribution to original authors. By following the outlined rules and avoiding common pitfalls, you can create well-structured references that align with APA 7th edition standards. Remember that clear and consistent citation practices contribute to the overall integrity of academic writing in nursing and healthcare.
 
 
 
@@ -640,57 +604,57 @@ Mindfulness practices for stress reduction: A beginner's guide
 
 <div class="faq-item">
 <div class="faq-question">How do I cite a book in APA format for my nursing paper?</div>
-<div class="faq-answer">To cite a book in APA format, you need to include the author's last name, first initial, publication year, book title in italics, edition if applicable, and publisher. For example, a basic citation would look like this: Smith, J. (2020). *Nursing Fundamentals* (2nd ed.). Nursing Press. If the book has a DOI, include it at the end. Make sure to follow proper capitalization rules: only capitalize the first word of the title and subtitle, and any proper nouns. For more details, you can refer to the APA Publication Manual or the APA Style website.</div>
+<div class="faq-answer">To cite a book in APA format, you need to include the author's last name, first initial, publication year, title in italics, and the publisher's name. For example, if you are citing a book by Smith published in 2020 titled 'Nursing Fundamentals,' your citation would look like this: Smith, J. (2020). *Nursing fundamentals*. Health Press. If the book has a DOI, include it at the end. Remember, for multiple authors, use an ampersand (&) before the last author's name. For more detailed guidelines, refer to the APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the correct way to cite a journal article in APA for my nursing research?</div>
-<div class="faq-answer">When citing a journal article in APA format, you should provide the author's last name, first initial, publication year, article title, journal name in italics, volume number in italics, issue number in parentheses, page range, and DOI if available. For example: Doe, A. B. (2021). The impact of nursing interventions on patient outcomes. *Journal of Nursing Research*, *45*(3), 123-130. https://doi.org/10.1234/jnr.2021.0453. Pay attention to punctuation and italicization, as these are important in APA formatting. For additional guidance, check the APA Style website.</div>
+<div class="faq-question">What is the correct way to cite a journal article in APA for nursing research?</div>
+<div class="faq-answer">When citing a journal article in APA format, you need to include the author's last name, first initial, publication year, article title, journal name in italics, volume number in italics, issue number in parentheses (if applicable), page range, and DOI if available. For instance, if you are citing an article by Johnson published in 2021 in the 'Journal of Nursing Research,' it could look like this: Johnson, L. (2021). Nursing practices in emergency care. *Journal of Nursing Research*, 25(3), 123-130. https://doi.org/10.1234/jnr.2021.5678. For more information, check the APA Style blog.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a website in APA format for nursing assignments?</div>
-<div class="faq-answer">To cite a website in APA format, include the author’s last name and first initial, publication date (or 'n.d.' for no date), title of the webpage in italics, website name, and the URL. For example: Johnson, L. (n.d.). *Understanding patient care*. Nursing Insights. http://www.nursinginsights.com/patient-care. Remember to ensure that the webpage is from a credible source, especially in the nursing field. For more comprehensive instructions, refer to the APA Style website.</div>
+<div class="faq-question">How do I cite a website in APA format for nursing?</div>
+<div class="faq-answer">To cite a website in APA format, include the author's last name, first initial, publication date, title of the webpage in italics, website name, and the URL. For example, if you are citing a webpage from the World Health Organization, it would look like this: World Health Organization. (2023). *Mental health: Strengthening our response*. https://www.who.int/news-room/fact-sheets/detail/mental-health-strengthening-our-response. If there is no publication date, use 'n.d.' for 'no date.' For more detailed guidance, refer to the official APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What should I do if I have multiple authors for a nursing citation?</div>
-<div class="faq-answer">When citing a source with multiple authors in APA format, list all authors up to 20 names in the reference list. Use an ampersand (&) before the last author's name. For example: Brown, T., Green, H., & White, R. (2019). *Advanced Nursing Practices*. Healthcare Publishing. In-text citations for two authors should include both names each time. For three or more authors, use the first author's last name followed by 'et al.' for subsequent citations. For detailed guidance, visit the APA Style website.</div>
+<div class="faq-question">What should I do if a source has no author for my nursing citation?</div>
+<div class="faq-answer">If a source has no identifiable author, use the title of the work in place of the author. For example, if you are citing a report titled 'Nursing Best Practices' from 2022, your citation would start with the title: *Nursing best practices*. (2022). Health Authority. https://www.healthauthority.org/nursing-best-practices. Always ensure to follow the same formatting rules, such as italicizing titles. For more information on citing sources without authors, the APA Style website has a helpful section.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a class lecture or personal communication in APA for nursing?</div>
-<div class="faq-answer">To cite a class lecture or personal communication in APA format, provide the speaker's name, the term 'personal communication,' and the date. This type of source is not included in the reference list since it cannot be retrieved by others. For example: J. Smith (personal communication, March 15, 2023). If you want to reference specific information from a lecture, include it in the text of your paper. For additional information, consult the APA Style website.</div>
+<div class="faq-question">How do I cite multiple authors in APA format for my nursing research?</div>
+<div class="faq-answer">When citing a work with multiple authors, the format changes depending on the number of authors. For one to 20 authors, list all authors in the order they appear in the source, using an ampersand (&) before the last author. For example: Smith, J., Johnson, L., & Roberts, K. (2021). *Nursing ethics*. Health Press. For more than 20 authors, list the first 19 authors, then add an ellipsis (...) and the final author's name. For practical examples, visit the APA Style website, which provides comprehensive guidelines.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I format a reference page for my nursing paper in APA style?</div>
-<div class="faq-answer">To format a reference page in APA style, start on a new page at the end of your paper. Center the title 'References' at the top. List all sources alphabetically by the last name of the first author. Use a hanging indent for each entry, where the first line is flush left and subsequent lines are indented. Ensure that the references are double-spaced. Following APA guidelines will help ensure clarity and professionalism in your work. For more formatting specifics, you can refer to the APA Style website.</div>
+<div class="faq-question">How do I format in-text citations for nursing papers in APA?</div>
+<div class="faq-answer">In-text citations in APA format vary based on the number of authors and the citation style. For a single author, include the author's last name and the publication year in parentheses, such as (Smith, 2020). For two authors, use both last names separated by an ampersand, like (Smith & Johnson, 2021). For three or more authors, use the first author's last name followed by 'et al.,' for example, (Smith et al., 2022). This method helps keep your writing concise while still giving credit. For further details, refer to the APA Style guide.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">Can I use citations from older nursing journals or texts?</div>
-<div class="faq-answer">Yes, you can use citations from older nursing journals or texts, provided that the information is still relevant and accurate. However, it is important to balance older sources with more recent research to ensure that your work reflects current practices and knowledge in the nursing field. If you are referencing an older study, make sure to discuss its significance and how it relates to newer findings. For more insights on using historical sources, check the APA Style website.</div>
+<div class="faq-question">How do I cite government publications in APA for nursing?</div>
+<div class="faq-answer">To cite a government publication in APA format, start with the name of the government agency as the author, followed by the publication year, title in italics, publication number if available, and the URL if accessed online. For example: U.S. Department of Health and Human Services. (2022). *Nursing workforce data*. https://www.hhs.gov/nursing-workforce-data. If there is no specific publication number, it is not necessary to include it. For more guidance, the APA Style website offers specific examples for government sources.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a government report in APA format for nursing?</div>
-<div class="faq-answer">When citing a government report in APA format, include the authoring organization, publication year, title in italics, report number if applicable, and the URL. For example: U.S. Department of Health and Human Services. (2022). *Nursing workforce: A report to Congress* (Report No. HHS-1234). https://www.hhs.gov/nursing-workforce-report. Make sure to check the credibility of the government source and provide accurate details in your citation. For further guidance, visit the APA Style website.</div>
+<div class="faq-question">What if I use a source from a database for my nursing research?</div>
+<div class="faq-answer">When citing a source from a database in APA format, the citation should follow the same structure as for print sources. Include the author, publication year, title, journal name, volume number, issue number, and page numbers. If the article has a DOI, include it at the end. For example: Smith, J. (2021). *Advances in nursing therapy*. *Journal of Nursing*, 45(2), 100-110. https://doi.org/10.1001/jn.2021.5678. The database name is usually not needed unless it is an uncommon source. For more details, check the APA Style website.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I handle citations for materials that have no author?</div>
-<div class="faq-answer">When citing materials with no author in APA format, begin with the title of the work, followed by the publication year. For example: *Nursing Care Standards*. (2020). Health Publications. If the title is long, you can shorten it for in-text citations. Remember to alphabetize the reference list entry by the title. This approach helps maintain clarity and organization in your citations. For more on handling such sources, refer to the APA Style website.</div>
+<div class="faq-question">How do I handle citations for a secondary source in nursing?</div>
+<div class="faq-answer">To cite a secondary source in APA format, you need to acknowledge both the original source and the secondary source you accessed. In your text, mention the original author and then add 'as cited in' followed by the secondary source's author and publication year. For example, if you are citing a study by Brown from 2019 as found in a book by Smith published in 2021, your in-text citation would look like this: (Brown, 2019, as cited in Smith, 2021). In your reference list, only include the secondary source. For more information, the APA Style website has a detailed explanation.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the difference between a primary source and a secondary source in nursing research?</div>
-<div class="faq-answer">In nursing research, a primary source presents original research or firsthand accounts, such as clinical trials, original studies, or patient interviews. Secondary sources interpret or analyze primary sources, including literature reviews or meta-analyses. It is crucial to differentiate between the two when conducting research, as primary sources often provide more direct evidence for your work. Make sure to appropriately cite both types in your assignments. For further reading, visit the APA Style website.</div>
+<div class="faq-question">What are the guidelines for citing figures and tables in nursing research?</div>
+<div class="faq-answer">When citing figures and tables in APA format, you need to provide a caption that includes the figure or table number and a brief title. For example, 'Figure 1. Patient demographics in nursing study.' If the figure or table is reproduced from another source, include a citation beneath it, such as 'Reprinted from Smith (2020).' Additionally, make sure to include the full reference for the source in the reference list. For comprehensive guidelines, the APA Style website provides specific rules for figures and tables.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I format in-text citations for nursing-related research?</div>
-<div class="faq-answer">In-text citations in APA format can be done using parenthetical or narrative citations. For parenthetical citations, include the author's last name and publication year in parentheses, like this: (Smith, 2020). For narrative citations, incorporate the author's name into the text followed by the year in parentheses, like this: Smith (2020) discusses the importance of... If you're quoting directly, include the page number as well: (Smith, 2020, p. 15). For more details on in-text citations, check the APA Style website.</div>
+<div class="faq-question">How do I create a reference list for my nursing paper in APA format?</div>
+<div class="faq-answer">To create a reference list in APA format, start on a new page at the end of your paper. Title the page 'References' and center it at the top. List all sources in alphabetical order by the last name of the first author. Use a hanging indent for each entry, where the first line is flush left and subsequent lines are indented. Ensure that every in-text citation is included in the reference list and that the formatting follows APA guidelines, such as italicizing book and journal titles. For more detailed information, visit the APA Style website.</div>
 </div>
 
 

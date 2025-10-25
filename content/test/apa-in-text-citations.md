@@ -5,7 +5,7 @@ page_type: mega_guide
 url_slug: apa-in-text-citations
 url: /guide/apa-in-text-citations/
 last_updated: 2025-10-25
-word_count: 5058
+word_count: 5194
 reading_time: 25 minutes
 ---
 
@@ -39,27 +39,31 @@ reading_time: 25 minutes
 
 ## ⚡ TL;DR - Quick Summary
 
-{% tldr_box title="TL;DR - Quick Summary" %}- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
+<div class="tldr-box">
+<h3>⚡ Key Points</h3>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+</div>
 
-**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% endtldr_box %}
 ---
 
 ## Introduction
 
-Navigating the world of APA in-text citations can feel overwhelming at times. You are not alone in your frustrations, especially when it comes to ensuring that your citations are correctly placed and formatted. Whether you are dealing with parenthetical citations, narrative citations, or quoting sources, the intricacies of citation rules can be challenging. You might find yourself wondering how to handle multiple authors, where to place page numbers, or how to cite secondary sources correctly. 
+Navigating the world of APA in-text citations can feel overwhelming, especially if you are new to academic writing or if you have not encountered these rules before. You may find yourself frustrated by citation placement, the nuances of multiple authors, or how to handle page numbers and secondary sources. This guide aims to simplify your experience with APA in-text citations by providing clear explanations and practical examples. 
 
-This guide is designed to alleviate some of that stress by breaking down the essential components of APA in-text citations. You will discover clear explanations and examples that demystify the citation process. We will cover everything from the correct format for single authors to handling works with multiple authors, providing you with the tools you need to cite effectively. 
+In-text citations are essential for giving credit to the original sources of your ideas, quotes, or data, and they help your readers locate those sources in your reference list. You will encounter two primary types of APA in-text citations: parenthetical citations and narrative citations. Understanding when to use each format can significantly enhance the clarity of your writing. 
 
-You will learn the specific rules for citing works by two authors, as well as how to manage citations for three to twenty authors. If you are working with larger groups of authors, we will explain the new guidelines that allow for a more manageable way to present your sources. Additionally, we will address how to cite organizations as authors, ensuring that you give proper credit to corporate and institutional contributors.
+This guide will outline the specific rules you need to follow for citing works by single authors, two authors, and even those with multiple contributors. You may also be curious about how to cite organizations as authors or how to manage citations with an extensive list of contributors. We will address these common scenarios, ensuring you feel confident in your citation skills. 
 
-Throughout this guide, we will emphasize common pitfalls to avoid. You will find tips on citation placement, how to format names correctly, and the importance of including page numbers when quoting. Our aim is to make this process as straightforward as possible, allowing you to focus on your writing rather than getting bogged down by citation concerns.
+Additionally, we will tackle some of the more challenging aspects of in-text citations, such as how to properly include page numbers when quoting directly from a source and how to cite secondary sources if you are referencing an idea from someone else's work. 
 
-By the end of this guide, you will feel more confident in your ability to navigate APA in-text citations. With a solid understanding of the rules and examples at your fingertips, you can ensure that your work is properly cited, contributing to the integrity of your writing. So, let’s dive in and take the stress out of APA in-text citations together!
+By the end of this guide, you will have a comprehensive understanding of APA in-text citations. You will be equipped with the knowledge to cite sources accurately, which will not only enhance your writing but also bolster your credibility as a researcher. Let's dive in and demystify APA in-text citations together, making the process easier and more intuitive for you.
 
 ---
 
@@ -73,127 +77,151 @@ By the end of this guide, you will feel more confident in your ability to naviga
 
 ## Comprehensive Guide to APA In-Text Citations
 
-In academic writing, proper citation is crucial for giving credit to authors, avoiding plagiarism, and guiding readers to source materials. The American Psychological Association (APA) has established specific rules for in-text citations in its 7th edition. This guide provides an overview of the key rules for in-text citations, offering examples and practical tips to help you navigate the APA citation style effectively.
+In-text citations are a crucial component of academic writing in APA (American Psychological Association) style. They provide readers with the necessary information to locate the full reference in the reference list. This guide outlines the rules for in-text citations in APA 7th edition, focusing on author formatting, date formatting, and common citation scenarios.
 
-## Single Author Format
+### Author Formatting
 
-When citing a work by a single author, the author's last name is followed by a comma and the first initial. If there is a middle initial, it should also be included, separated by a period. For example:
+#### Single Author Format
 
-- **Correct Formatting**: Johnson, M. K.
-- **Incorrect Formatting**: M. K. Johnson or Johnson, M.K.
+For works by a single author, the author’s last name is followed by a comma and the first initial, with a period after each initial. This format applies to all reference types, including journal articles, books, and webpages. 
 
-**Why This Rule Matters**: Inverting the author's name (last name first) simplifies the organization of references in a list. This format ensures that citations are consistent across various reference types, including journal articles, books, and webpages.
+**Correct Example:**
+- Johnson, M. K. (2023) discusses the importance of psychological research.
 
-### Practical Tips
+**Common Errors:**
+- Not inverting the name (e.g., M. K. Johnson instead of Johnson, M. K.)
+- Omitting the comma after the last name (e.g., Johnson M. K.)
+- Adding spaces between initials (e.g., Johnson, M. K. instead of Johnson, M.K.)
 
-- Always remember to include a comma after the last name.
-- Do not add spaces between initials.
+This format ensures consistency and helps in the efficient organization of references.
 
-### Common Pitfalls
+#### Two Authors Format
 
-- Forgetting to invert the name.
-- Omitting the comma after the last name.
-- Adding unnecessary spaces between initials.
+When there are two authors, both names should be inverted and separated by an ampersand (&). The ampersand must be preceded by a comma. 
 
-## Two Authors Format
+**Correct Example:**
+- Smith, J. D., & Brown, A. M. (2022) state that collaboration enhances research outcomes.
 
-For works with two authors, both names should be inverted and separated by an ampersand (&). The ampersand must be preceded by a comma. For example:
+**Common Errors:**
+- Using "and" instead of "&" (e.g., Smith, J. D. and Brown, A. M.)
+- Forgetting the comma before the ampersand (e.g., Smith, J. D. & Brown, A. M.)
 
-- **Correct Formatting**: Smith, J. D., & Brown, A. M.
-- **Incorrect Formatting**: Smith, J. D. and Brown, A. M. or J. D. Smith & A. M. Brown
+Using the ampersand in citations helps distinguish between author roles and maintains clarity.
 
-**Why This Rule Matters**: Using the ampersand instead of "and" helps maintain consistency in both reference lists and parenthetical citations. This distinction is essential for differentiating between APA and other citation styles.
+#### Three to Twenty Authors
 
-### Practical Tips
+For works with three to twenty authors, list all authors in the reference list. Each name should be inverted and separated by commas, with an ampersand before the last author's name.
 
-- Always use an ampersand in reference lists and parenthetical citations.
-- Use "and" in narrative citations (e.g., Smith and Brown (2023) argue that...).
+**Correct Example:**
+- Anderson, K. L., Williams, J. M., & Davis, S. R. (2021) explore new methodologies in psychology.
 
-### Common Pitfalls
+**Common Errors:**
+- Using "et al." prematurely for works with fewer than seven authors.
+- Omitting the ampersand before the last author's name.
+  
+This rule allows for proper attribution and ensures all contributors are recognized.
 
-- Using "and" instead of "&".
-- Forgetting to place a comma before the ampersand.
+#### Twenty Plus Authors
 
-## Three to Twenty Authors
+For works with twenty-one or more authors, list the first nineteen authors, insert an ellipsis (...), and then list the final author.
 
-For works with three to twenty authors, you must list all authors in the reference list. Each author's name is inverted, with initials following the last name. Authors should be separated by commas, with an ampersand before the final author's name. For example:
+**Correct Example:**
+- Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z. (2020) provide a comprehensive review of the literature.
 
-- **Correct Formatting**: Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
-- **Incorrect Formatting**: Anderson, K. L., et al. or Anderson, K. L., Williams, J. M. and Thompson, B. P.
-
-**Why This Rule Matters**: Listing all authors allows for proper attribution to all contributors without losing clarity. This is a departure from previous editions, which used "et al." for works with seven or more authors.
-
-### Practical Tips
-
-- Always list all authors up to twenty.
-- Use commas between authors and an ampersand before the last author.
-
-### Common Pitfalls
-
-- Using "et al." too early in the citation.
-- Forgetting to list all authors.
-
-## Twenty or More Authors
-
-For works with twenty-one or more authors, list the first 19 authors, insert an ellipsis (...), and then add the final author. For example:
-
-- **Correct Formatting**: Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z.
-- **Incorrect Formatting**: Author1, A. A., et al. 
-
-**Why This Rule Matters**: This format balances the need for attribution and readability. It prevents extremely long citation lists while ensuring that credit is still given to the relevant contributors.
-
-### Practical Tips
-
-- Ensure that the ellipsis is not italicized or bracketed.
-- Always include the final author's name after the ellipsis.
-
-### Common Pitfalls
-
+**Common Errors:**
 - Using "et al." instead of the ellipsis format.
-- Listing too many authors beyond the first 19.
-- Omitting the final author's name.
+- Listing too many authors.
 
-## Organization as Author
+This change from previous editions allows for a more concise representation of authors while still providing necessary attribution.
 
-When citing a work where an organization is the author, use the full official name without inverting it. For example:
+### Organization as Author
 
-- **Correct Formatting**: American Psychological Association
-- **Incorrect Formatting**: APA
+When an organization is the author, use the full official name without inversion or initials unless commonly known by an abbreviation.
 
-**Why This Rule Matters**: This ensures that readers can clearly identify the source of the information, especially when dealing with organizations that may not be widely recognized by their acronyms.
+**Correct Example:**
+- American Psychological Association (2023) offers guidelines for ethical research.
 
-### Practical Tips
+**Common Errors:**
+- Using abbreviations instead of full names (e.g., APA instead of American Psychological Association).
+- Inverting organizational names.
 
-- Use the full name upon first mention, followed by the abbreviation in parentheses if used later.
-- Avoid inverting organizational names.
+This ensures clarity and proper attribution for corporate authors.
 
-### Common Pitfalls
+### Author Titles and Suffixes
 
-- Using abbreviations instead of full names.
-- Inverting the organizational name.
+Include author titles and suffixes (like Jr., Sr., II, III) in the reference list. Suffixes should follow the initials and be separated by commas.
 
-## Missing Author Information
+**Correct Example:**
+- King, M. L., Jr. (2021) discusses leadership styles.
 
-If author information is incomplete, use what is available. If only initials are known, use them without periods. If no author can be identified, move the title to the author position. For example:
+**Common Errors:**
+- Including professional titles (e.g., Dr. King) or unnecessary credentials.
 
-- **Correct Formatting**: SJ (Ed.). (2020). The complete guide.
-- **Incorrect Formatting**: [Unknown author]. (2019). Annual report of the company.
+This provides complete identification without inflating credentials unnecessarily.
 
-**Why This Rule Matters**: This flexibility allows for proper citation even when complete information is not available, maintaining consistency in APA format.
+### Missing Author Information
 
-### Practical Tips
+When author information is incomplete, use available information following specific rules. If initials are all that is available, use them without periods. If no author can be identified, move the title to the author position.
 
-- Use the editor designation (Ed.) for edited volumes.
-- Ensure that the author position is not left empty.
+**Correct Example:**
+- SJ (Ed.). (2020). The complete guide.
 
-### Common Pitfalls
-
+**Common Errors:**
 - Using periods with initials only.
-- Not using the proper editor designation.
+- Leaving the author position empty.
 
-## Conclusion
+This rule helps maintain consistency even when author information is incomplete.
 
-Understanding and applying the rules for APA in-text citations is vital for academic writing. Following these guidelines ensures clarity, consistency, and proper credit to authors. By paying attention to details and avoiding common pitfalls, you can effectively navigate the complexities of APA citation style.
+### Date Formatting
+
+#### Basic Year Format
+
+The publication year is placed in parentheses following the author’s name. It must be followed by a period.
+
+**Correct Example:**
+- Smith, J. (2023). Research methods in psychology.
+
+**Common Errors:**
+- Missing parentheses around the year (e.g., Smith, J. 2023).
+- Using the copyright year instead of the publication year.
+
+This format is essential for clarity and accurate referencing.
+
+#### No Date Format
+
+For sources without a publication date, use (n.d.) in place of the year.
+
+**Correct Example:**
+- Ancient Writing Institute. (n.d.). Cuneiform tablet translations.
+
+**Common Errors:**
+- Using "no date" instead of "n.d."
+- Missing parentheses around "n.d."
+
+This rule is crucial for maintaining clarity when dealing with undated sources.
+
+#### In Press Format
+
+When a work has been accepted for publication but is not yet published, use (in press) instead of the year.
+
+**Correct Example:**
+- Thompson, R. K. (in press). Neural mechanisms of memory consolidation.
+
+**Common Errors:**
+- Missing parentheses around "in press."
+- Using hyphens (e.g., in-press).
+
+This guideline clarifies that the work has been formally accepted.
+
+### Practical Tips and Common Pitfalls
+
+1. **Double-Check Author Names:** Always verify the correct spelling and format of authors’ names to avoid errors in attribution.
+2. **Use the Correct Punctuation:** Pay attention to commas, periods, and ampersands to ensure proper formatting.
+3. **Be Mindful of Author Count:** Ensure you understand how many authors are present to apply the correct rules for listing them.
+4. **Stay Consistent with Year Formatting:** Always adhere to the correct format regarding publication years and their placement in citations.
+5. **Review Citation Examples:** Familiarize yourself with correct citation formats by reviewing examples in the APA manual or trusted resources.
+
+By following these guidelines, you can effectively incorporate APA in-text citations into your writing. Proper citation not only gives credit to original authors but also enhances the credibility of your work.
 
 
 
@@ -617,58 +645,58 @@ Mindfulness practices for stress reduction: A beginner's guide
 ## 🙋 Frequently Asked Questions
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a book in-text in APA style?</div>
-<div class="faq-answer">To cite a book in-text in APA style, include the author's last name and the year of publication. For example, if you are referencing a book authored by Smith published in 2020, you would write it as (Smith, 2020). If you are quoting directly, include the page number as well, like this: (Smith, 2020, p. 15). If the author's name is part of the narrative, you can simply include the year in parentheses. For example, 'Smith (2020) discusses...'. For more detailed information and examples, refer to the APA Style website at https://apastyle.apa.org.</div>
+<div class="faq-question">How do I cite a book in-text using APA format?</div>
+<div class="faq-answer">To cite a book in-text in APA format, you generally include the author's last name and the year of publication. For example, if you were referencing a book by John Smith published in 2020, you would write it as (Smith, 2020). If you are directly quoting a specific passage, you should also include the page number, like this: (Smith, 2020, p. 15). If the author’s name is mentioned in the narrative, you only need to include the year and page number in parentheses, for instance, Smith (2020) discusses this concept (p. 15). For more detailed examples and guidelines, you can refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
 <div class="faq-question">What if a source has multiple authors?</div>
-<div class="faq-answer">When citing a source with multiple authors in APA style, the format changes slightly depending on how many authors there are. For two authors, always include both names every time you cite, like this: (Smith & Jones, 2020). For three or more authors, list the first author's last name followed by 'et al.' in all citations after the first one. For example, in the first citation, you would write (Smith, Jones, & Taylor, 2020), and in subsequent citations, it would be (Smith et al., 2020). This helps to keep citations concise while still crediting all authors. For further guidance, check the APA Style website.</div>
+<div class="faq-answer">When citing a source with multiple authors in APA format, the number of authors determines how you format your in-text citation. For two authors, always include both names separated by an ampersand if in parentheses, such as (Smith & Jones, 2020). If the authors are part of the narrative, write it as Smith and Jones (2020). For three or more authors, include only the first author's last name followed by 'et al.' for all citations, like this: (Smith et al., 2020). However, for the first citation in your text, you should include all authors’ last names for up to five authors. For further information, consult the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a website in-text in APA style?</div>
-<div class="faq-answer">To cite a website in-text in APA style, include the author's last name or the organization name if no specific author is available, followed by the publication year. For example, if you are citing a web article by the American Psychological Association published in 2021, you would write (American Psychological Association, 2021). If you quote directly from the webpage, add a paragraph number if page numbers are not available, like this: (American Psychological Association, 2021, para. 4). For more examples and detailed instructions, visit the APA Style website.</div>
+<div class="faq-question">How do I cite a source with no author?</div>
+<div class="faq-answer">When citing a source with no identifiable author in APA format, you should use the title of the work instead. If the title is shorter than 40 characters, you can include it in quotation marks in the citation. For example, if you were citing an article titled 'Understanding Psychology,' you would write it as ('Understanding Psychology,' 2020). If the title is longer, you can use a shortened version. If you mention the title in the narrative, include the year in parentheses: Understanding Psychology (2020). For more detailed guidance, you can visit the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What do I do if there is no author for my source?</div>
-<div class="faq-answer">If your source does not have an identifiable author, use the title of the work in place of the author's name in your in-text citation. For example, if you are citing an article titled 'Understanding Psychology' published in 2021, you would use the title in the citation: ('Understanding Psychology,' 2021). If the title is long, you can shorten it in the citation. If you are including the title in your narrative, italicize it. Be sure to check the APA Style guidelines for specific rules regarding citation formats for various types of sources without authors.</div>
+<div class="faq-question">How do I cite a website in-text in APA format?</div>
+<div class="faq-answer">In APA format, when citing a website in-text, include the author’s last name and the year of publication. If there is no specific author, use the organization or website name as the author. For example, if citing a report from the World Health Organization published in 2021, you would write (World Health Organization, 2021). If you are quoting directly, also include the paragraph number if available, like this: (World Health Organization, 2021, para. 3). For comprehensive resources on citing websites, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a source with a corporate author?</div>
-<div class="faq-answer">When citing a source with a corporate author in APA style, you treat the organization as the author. Include the full name of the organization followed by the year of publication. For example, if the World Health Organization published a report in 2020, you would cite it as (World Health Organization, 2020). If you mention the organization in your narrative, you only need to include the year in parentheses. This format is crucial for reports, guidelines, and publications from government agencies or organizations. For more details, visit the APA Style website.</div>
+<div class="faq-question">What is the difference between direct quotes and paraphrasing in APA citations?</div>
+<div class="faq-answer">In APA format, direct quotes require you to include the exact wording from the source, along with the author's last name, year, and page number. For instance, if you quote a sentence from a book, you would write it as follows: 'This is a direct quote' (Smith, 2020, p. 15). On the other hand, paraphrasing involves putting the information into your own words. In this case, you do not need to include a page number, but you still provide the author's last name and year, like this: (Smith, 2020). Keep in mind that both methods require proper attribution to the original author. For additional information, refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a personal communication in APA style?</div>
-<div class="faq-answer">In APA style, personal communications like emails, interviews, or private conversations are not included in the reference list. Instead, you cite them in-text only. Include the communicator's initials and last name along with the phrase 'personal communication' and the exact date. For example, you would cite it as (J. Smith, personal communication, March 15, 2022). Since these sources are not retrievable by others, they do not appear in the reference list. This is an important distinction to remember when citing informal information.</div>
+<div class="faq-question">How do I handle citations for a source with multiple editions?</div>
+<div class="faq-answer">If you are citing a source that has multiple editions, it is important to indicate the edition you are using in your in-text citation. For example, if you are citing the second edition of a book by Jane Doe published in 2019, you would format your citation like this: (Doe, 2019, 2nd ed.). If you mention the author in the narrative, it would appear as Jane Doe (2019, 2nd ed.). This helps clarify which version of the source you are referring to, especially if the work has significantly changed across editions. For more details, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the difference between parenthetical and narrative citations?</div>
-<div class="faq-answer">In APA style, there are two main types of in-text citations: parenthetical and narrative. Parenthetical citations are placed at the end of a sentence in parentheses, containing the author’s last name and the year of publication. For example: (Smith, 2020). Narrative citations, on the other hand, integrate the author's name into the text, followed by the year in parentheses. For instance: 'Smith (2020) argues that...' Understanding when to use each type can enhance the flow of your writing. For more information, check the APA Style guidelines.</div>
+<div class="faq-question">How do I cite a source that I found in another source?</div>
+<div class="faq-answer">When citing a source that you found within another source, you should use a secondary citation. In your in-text citation, you will mention the original author and the date, followed by 'as cited in' and the author of the work you actually accessed. For example, if you found a quote from an article by Smith in a book by Brown, you would write it as (Smith, 2020, as cited in Brown, 2021). This indicates that you did not read Smith's work directly. Be sure to include the full citation for Brown in your reference list, as that is the source you accessed. For further guidance, visit the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a secondary source in APA style?</div>
-<div class="faq-answer">When citing a secondary source in APA style, you should first try to find the original source. If that is not possible, you can cite the secondary source while crediting the original work. In your text, mention the original author and year, followed by 'as cited in' and the secondary source's author and year. For example: 'Smith’s theory (2020, as cited in Jones, 2021) suggests that...'. In your reference list, only include the secondary source. This method ensures that you acknowledge the original work while using the secondary source. For more guidance, refer to the APA Style website.</div>
+<div class="faq-question">What should I do if I have multiple citations in one parenthesis?</div>
+<div class="faq-answer">If you need to include multiple citations within the same parenthesis in APA format, separate each citation with a semicolon. For example, if you are citing works by Smith from 2020 and Jones from 2019, you would format it as (Smith, 2020; Jones, 2019). If the citations have the same author, list them chronologically by year. For example, (Smith, 2019, 2020). Be sure to follow the order of author names alphabetically if the authors are different. This helps maintain clarity in your writing when referencing multiple sources. For more on this topic, see the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How should I handle multiple citations in one in-text citation?</div>
-<div class="faq-answer">When you need to cite multiple sources within a single parenthetical citation in APA style, separate each citation with a semicolon. For example, if you are referencing works by Smith (2020) and Jones (2019), you would write (Smith, 2020; Jones, 2019). Ensure the citations are in alphabetical order by the first author's last name. This method allows you to provide credit to multiple works efficiently within the same part of your text. For additional examples and rules, consult the APA Style website.</div>
+<div class="faq-question">How do I cite a personal communication in APA format?</div>
+<div class="faq-answer">In APA format, personal communications such as emails, interviews, or private messages are cited in-text only, as they do not provide recoverable data. You need to include the name of the person you communicated with, the phrase 'personal communication,' and the date of the communication. For example, you would write: (J. Doe, personal communication, March 15, 2021). Since personal communications are not included in the reference list, ensure that you provide sufficient context in your text so that readers understand the relevance of the communication. For more detailed information, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a chapter in an edited book in APA style?</div>
-<div class="faq-answer">To cite a chapter from an edited book in-text in APA style, include the author's last name and the year of publication. If you are quoting directly from the chapter, also include the page number. For example, if you are referencing a chapter by Smith in a book edited by Jones, published in 2021, you would cite it as (Smith, 2021, p. 45). If you mention the author's name in the narrative, just include the year and page number in parentheses. For more detailed instructions, check the APA Style website.</div>
+<div class="faq-question">How do I cite a film or video in-text in APA format?</div>
+<div class="faq-answer">To cite a film or video in-text in APA format, you typically include the producer's or director's last name and the year of release. For example, if you are referencing a film directed by Steven Spielberg released in 1993, you would write it as (Spielberg, 1993). If you mention the director in the narrative, you would format it as Spielberg (1993). If you need to cite a specific scene or quote, include the time stamp instead of a page number, like this: (Spielberg, 1993, 1:15:30). For additional resources on citing films and videos, refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the correct way to cite a film or documentary in-text in APA style?</div>
-<div class="faq-answer">When citing a film or documentary in-text in APA style, include the producer or director’s last name and the year of release. For example, if you are citing a film directed by Spielberg released in 2020, you would write it as (Spielberg, 2020). If you mention the director in your narrative, only include the year in parentheses, such as 'Spielberg (2020) illustrates...'. If you are quoting or referring to a specific moment, you can include a time stamp, like (Spielberg, 2020, 1:23:45). For more examples, visit the APA Style website.</div>
+<div class="faq-question">What do I do if I need to cite a source that is not in English?</div>
+<div class="faq-answer">When citing a source that is not in English in APA format, you should provide the original title in the original language followed by a translation in square brackets. For example, if you are citing a book titled 'Die Unendliche Geschichte' by Michael Ende, you would write it as (Ende, 1979, 'The NeverEnding Story'). This allows your readers to see both the original title and the translation. Ensure that the citation includes the year of publication and any other relevant details. For more guidance on this topic, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 

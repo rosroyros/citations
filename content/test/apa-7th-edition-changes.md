@@ -5,8 +5,8 @@ page_type: mega_guide
 url_slug: apa-7th-edition-changes
 url: /guide/apa-7th-edition-changes/
 last_updated: 2025-10-25
-word_count: 5172
-reading_time: 25 minutes
+word_count: 4934
+reading_time: 24 minutes
 ---
 
 <div class="hero">
@@ -39,25 +39,31 @@ reading_time: 25 minutes
 
 ## ⚡ TL;DR - Quick Summary
 
-{% tldr_box title="TL;DR - Quick Summary" %}- Master APA 7th edition citation formatting
-- Identify and fix common citation errors
-- Use validation tools to ensure accuracy
-- Understand the rules that matter most
-- Save time and improve your grades
+<div class="tldr-box">
+<h3>⚡ Key Points</h3>
+<ul>
+<li>Master APA 7th edition citation formatting</li>
+<li>Identify and fix common citation errors</li>
+<li>Use validation tools to ensure accuracy</li>
+<li>Understand the rules that matter most</li>
+<li>Save time and improve your grades</li>
+</ul>
+<p style="margin-top: 1rem;"><strong>Key Takeaway:</strong> Systematic citation checking prevents rejection and demonstrates academic rigor.</p>
+</div>
 
-**Key Takeaway:** Systematic citation checking prevents rejection and demonstrates academic rigor.
-{% endtldr_box %}
 ---
 
 ## Introduction
 
-Transitioning from the APA 6 to APA 7 edition can feel overwhelming, especially with the myriad of changes that have been implemented. If you are grappling with outdated knowledge or find yourself confused about the latest citation rules, you are not alone. Many students, researchers, and educators are encountering similar challenges as they adapt to the new guidelines. This guide aims to simplify your transition by highlighting the most significant changes between APA 6 and APA 7, making it easier for you to navigate this updated citation style.
+The transition from the sixth to the seventh edition of the APA Publication Manual can feel overwhelming. If you are accustomed to the guidelines of APA 6, you may find yourself puzzled by the changes introduced in APA 7. This guide is designed to help you navigate the updates, clarify any confusion, and ensure that your citations are accurate and compliant with the latest standards.
 
-One of the key areas where APA 7 has introduced changes is in the formatting of author names. For instance, while APA 6 had specific rules regarding how to cite single authors and works with multiple authors, APA 7 has streamlined these processes to ensure clarity and consistency. You will find updated rules for citing authors, including how to handle works with three to twenty authors. This change is particularly important, as it enhances the visibility of all contributors in your reference list.
+One of the most significant shifts in APA 7 is related to author formatting. For instance, while APA 6 allowed the use of "et al." for works with seven or more authors, APA 7 requires you to list all authors for works with three to twenty contributors. This change emphasizes the importance of acknowledging each individual's contribution, which can be a relief for those who want to ensure proper attribution. Additionally, the formatting for both single and two-author citations has been streamlined to create consistency and ease of use.
 
-In addition to author formatting, APA 7 has also revised guidelines for organizational authors and how to cite works with twenty or more authors. These updates not only promote proper attribution but also help you avoid common pitfalls that often arise during the citation process. As you go through this guide, you will gain insights into the most effective ways to format your references, ensuring that your work meets the rigorous standards of academic writing.
+Another notable update involves how organizations are treated as authors. In APA 7, you are encouraged to use the full official name of the organization, rather than abbreviating it. This adjustment may seem minor, but it enhances clarity for readers who may not be familiar with specific acronyms. 
 
-Throughout this guide, we will address frequently encountered pain points, such as common errors that can lead to confusion. By focusing on practical examples and clear explanations, you will be equipped to tackle the transition with confidence. Whether you are writing a research paper, thesis, or any academic work, understanding these APA 7 changes will enhance your writing and ensure you adhere to the latest standards. Let's dive into the details and make your experience with APA citations a little less daunting.
+Throughout this guide, you will find detailed explanations of these changes, along with practical examples to help you implement the new rules effectively. Whether you are a student turning in your first research paper or a seasoned academic revising your manuscript, this guide aims to alleviate the frustrations that come with updating your citation practices. 
+
+By the end of this guide, you will feel more confident in your understanding of APA 7 changes compared to APA 6. You will be well-equipped to tackle your citations with clarity and precision. Let us dive into the specifics and ensure that you are fully prepared to embrace the latest in APA citation standards.
 
 ---
 
@@ -69,107 +75,127 @@ Throughout this guide, we will address frequently encountered pain points, such 
 
 ## Understanding Apa 7 Changes From Apa 6
 
-## Overview of Changes from APA 6 to APA 7
+## Comprehensive Guide to Changes from APA 6 to APA 7
 
-The American Psychological Association (APA) has made significant updates in the 7th edition of its citation style, which offers clearer guidelines and improved formatting rules. This guide will outline the major changes from the 6th edition to the 7th edition, focusing on author formatting, publication dates, and how to handle missing author information. Understanding these changes is crucial for adhering to APA standards and ensuring accurate citation practices.
+The American Psychological Association (APA) recently updated its citation style from the 6th to the 7th edition. This guide provides a detailed overview of the key changes in formatting and citation rules. Understanding these changes is essential for students, educators, and researchers who must adhere to APA style in their writing. 
 
-## Author Formatting Changes
+### Author Formatting
 
-### Single Author Format
+#### Single Author Format
 
-In the 7th edition, the format for citing single authors remains consistent with the previous edition. Authors should be listed with their last name first, followed by a comma, and then their first and middle initials. The initials must be separated by periods without spaces. This rule applies to all reference types, including books, journal articles, and webpages. The author's name should only be inverted in the reference list.
+In the 7th edition, the formatting for a single author remains largely unchanged from the 6th edition. The author’s last name is followed by a comma and their first and middle initials. The initials should be separated by periods but not spaces. This format applies to all reference types, including journal articles, books, and webpages. 
 
-#### Examples
-- **Correct**: Johnson, M. K.
-- **Incorrect**: M. K. Johnson
+**Examples:**
+- Correct: Johnson, M. K.
+- Correct: Williams, R. A.
+- Incorrect: M. K. Johnson
+- Incorrect: Johnson, M.K.
 
-This formatting ensures that citations are orderly and easily searchable. 
+This rule ensures consistency in citation formats and improves the alphabetical ordering of references.
 
-### Two Authors Format
+#### Two Authors Format
 
-For works with two authors, the names should be inverted and separated by an ampersand (&). Each name should follow the same format as for a single author. The ampersand must be preceded by a comma. This rule applies to both reference lists and parenthetical citations, while narrative citations use "and" instead of "&".
+For works with two authors, both names should be inverted and separated by an ampersand (&). This replaces the previous use of 'and' in reference lists. 
 
-#### Examples
-- **Correct**: Smith, J. D., & Brown, A. M.
-- **Incorrect**: Smith, J. D. and Brown, A. M.
+**Examples:**
+- Correct: Smith, J. D., & Brown, A. M.
+- Incorrect: Smith, J. D. and Brown, A. M.
 
-Maintaining consistency in the format helps to clarify authorship in multi-author works.
+The change to using an ampersand maintains clarity and consistency across citations.
 
-### Three to Twenty Authors
+#### Three to Twenty Authors
 
-A significant change from APA 6 to APA 7 is that for works with three to twenty authors, all authors must be listed in the reference list. Each author's name should be inverted with initials, separated by commas, and an ampersand before the final author's name.
+A significant change in APA 7 is that all authors of a work with three to twenty authors must be listed in the reference list. Each author's name should be inverted with initials, separated by commas, with an ampersand before the last author's name.
 
-#### Examples
-- **Correct**: Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
-- **Incorrect**: Anderson, K. L., et al.
+**Examples:**
+- Correct: Anderson, K. L., Williams, J. M., Davis, S. R., & Thompson, B. P.
+- Incorrect: Anderson, K. L., et al.
 
-This change emphasizes proper attribution to all contributors, improving transparency and acknowledgment of authors’ roles.
+This change aims to give proper credit to all contributors and improves readability for moderately sized author groups.
 
-### Twenty or More Authors
+#### Twenty or More Authors
 
-For works with twenty-one or more authors, you should list the first 19 authors, followed by an ellipsis, and then the final author's name. This format replaces the earlier rule from APA 6, which used "et al." after seven authors. 
+When a work has 21 or more authors, the format changes significantly. The first 19 authors are listed, followed by an ellipsis (...), and then the final author's name. 
 
-#### Examples
-- **Correct**: Author1, A. A., Author2, B. B., ..., LastAuthor, Z. Z.
-- **Incorrect**: Author1, A. A., et al.
+**Examples:**
+- Correct: Author1, A. A., Author2, B. B., ..., LastAuthor, Z. Z.
+- Incorrect: Author1, A. A., et al.
 
-This approach prevents lengthy citations while still providing essential credit to contributors.
+This change from the previous 7+ authors rule provides a more comprehensive listing while avoiding excessively long citations.
 
 ### Organization as Author
 
-When an organization is the author, use the full name of the organization without inverting it or using initials, unless the organization is commonly known by its abbreviation. 
+When an organization, corporation, or government agency is the author, the full official name of the organization should be used. Abbreviations can only be used if they are widely recognized. 
 
-#### Examples
-- **Correct**: American Psychological Association
-- **Incorrect**: APA
+**Examples:**
+- Correct: American Psychological Association
+- Incorrect: APA
 
-This rule ensures clarity and proper attribution for corporate and institutional authors.
+This rule ensures proper attribution and clarity for readers.
 
-## Publication Date Formatting
+### Author Titles and Suffixes
 
-### Basic Year Format
+In APA 7, author titles and suffixes (like Jr., Sr., II, III) should be included in the reference list. However, academic and professional credentials are typically omitted. This change helps identify authors accurately while avoiding clutter in citations.
 
-The 7th edition retains the rule of placing the publication year in parentheses immediately following the author's name. This year should be the actual publication year, not the copyright year if they differ.
+**Examples:**
+- Correct: King, M. L., Jr.
+- Incorrect: Dr. Davis, J. H., III
 
-#### Examples
-- **Correct**: Smith, J. (2023). Research methods in psychology.
-- **Incorrect**: Smith, J. 2023. Research methods in psychology.
+### Addressing Missing Author Information
 
-Using the correct format for publication years is vital for readers to locate the sources accurately.
+When author information is incomplete, APA 7 provides clear guidelines on how to handle the situation. If only initials are available, they should be used without periods. If no author can be identified, the title should move to the author position. 
 
-### No Date Format
+**Examples:**
+- Correct: SJ (Ed.). (2020). The complete guide.
+- Incorrect: S.J. (Ed.). (2020). The complete guide.
 
-When no publication date is available, the notation (n.d.) is used in place of the year. This notation stands for "no date" and applies to sources lacking any publication date information.
+This flexibility ensures that references can still be created even when author information is incomplete.
 
-#### Examples
-- **Correct**: Ancient Writing Institute. (n.d.). Cuneiform tablet translations.
-- **Incorrect**: Ancient Writing Institute. (no date). Cuneiform tablet translations.
+### Date Formatting Changes
 
-Using (n.d.) correctly allows for the acknowledgment of sources while maintaining APA standards.
+#### Basic Year Format
 
-### In Press Format
+In APA 7, the publication year is placed in parentheses following the author's name. This format has remained consistent from APA 6, but with minor clarifications regarding copyright versus publication year.
 
-For works accepted for publication but not yet published, use (in press) instead of a year. This format applies only to works that have been formally accepted for publication. 
+**Examples:**
+- Correct: Smith, J. (2023). Research methods in psychology.
+- Incorrect: Smith, J. 2023. Research methods in psychology.
 
-#### Examples
-- **Correct**: Thompson, R. K. (in press). Neural mechanisms of memory consolidation.
-- **Incorrect**: Thompson, R. K. in press. Neural mechanisms of memory consolidation.
+This consistency helps standardize the way years are presented across various types of sources.
 
-Understanding this distinction helps in accurately representing the status of works in progress.
+#### No Date Format
 
-## Handling Missing Author Information
+When no publication date is available, (n.d.) should be used in place of the year. This format remains unchanged from APA 6 but offers clearer guidance on when to use (n.d.) versus seeking approximate dates.
 
-If author information is incomplete, use available information while following specific rules. For example, if only initials are available, use them without periods. If no author can be identified, move the title to the author position. For edited volumes, use the editor(s) with "(Ed.)" after their name.
+**Examples:**
+- Correct: Ancient Writing Institute. (n.d.). Cuneiform tablet translations.
+- Incorrect: Ancient Writing Institute. (no date). Cuneiform tablet translations.
 
-#### Examples
-- **Correct**: SJ (Ed.). (2020). The complete guide.
-- **Incorrect**: [Unknown author]. (2019). Annual report of the company.
+This rule allows for proper citation even when dates are not available.
 
-This flexibility allows for the creation of references even with incomplete information, while still adhering to APA formatting rules.
+#### In Press Format
 
-## Conclusion
+For works that have been accepted for publication but not yet published, the phrase (in press) is used instead of a year. This change clarifies that it applies only to works formally accepted for publication, not merely submitted.
 
-Adhering to the changes set forth in the 7th edition of the APA Manual is essential for clear and accurate academic writing. Understanding the formatting for authors, publication dates, and handling of missing information can enhance the quality of citations in your work. By following these guidelines, you ensure that your references are not only correct but also consistent and professional. Avoiding common pitfalls, such as incorrect punctuation or incomplete information, will further improve your writing and adherence to APA standards.
+**Examples:**
+- Correct: Thompson, R. K. (in press). Neural mechanisms of memory consolidation.
+- Incorrect: Thompson, R. K. in press. Neural mechanisms of memory consolidation.
+
+This distinction helps prevent misunderstandings regarding the status of the work.
+
+### Practical Tips and Common Pitfalls
+
+1. **Consistency is Key**: Always ensure that author names are formatted consistently. Inverted names and initials must be applied uniformly throughout the reference list.
+
+2. **Pay Attention to Details**: Small errors, like misplaced commas or incorrect use of ampersands, can lead to significant misunderstandings in citations. 
+
+3. **Check Author Count**: Be mindful of the number of authors for a given work. Implement the correct formatting based on the number to avoid missing crucial citations.
+
+4. **Understand the Rules for Dates**: Familiarize yourself with the guidelines around publication dates, especially the use of (n.d.) and (in press). This will help you accurately represent your sources.
+
+5. **Refer to the Manual**: When in doubt, consult the APA Manual for clarification on any specific rule. The manual serves as the definitive guide for APA style.
+
+In conclusion, the transition from APA 6 to APA 7 includes several significant changes that enhance clarity and consistency in academic writing. By understanding these changes, writers can improve their citation practices and ensure their work adheres to the latest standards.
 
 
 
@@ -593,58 +619,58 @@ Mindfulness practices for stress reduction: A beginner's guide
 ## 🙋 Frequently Asked Questions
 
 <div class="faq-item">
-<div class="faq-question">What are the major changes in APA 7 compared to APA 6?</div>
-<div class="faq-answer">APA 7 introduced several key changes compared to APA 6. One significant change is the simplification of the citation format for multiple authors. In APA 6, you needed to list up to seven authors before using 'et al.' In APA 7, you list up to 20 authors before using 'et al.' Additionally, the publisher location is no longer required in the reference list. There is also a new emphasis on inclusive language, encouraging authors to avoid biased language in their writing. Furthermore, the use of singular 'they' is now accepted as a gender-neutral pronoun. For a comprehensive overview of these changes, you can refer to the official APA Style website.</div>
+<div class="faq-question">What are the major changes in referencing electronic sources from APA 6 to APA 7?</div>
+<div class="faq-answer">In APA 7, the formatting for electronic sources has been simplified. For instance, the inclusion of 'Retrieved from' before the URL is no longer necessary unless a retrieval date is required for the source. Additionally, if a DOI is available, it should be presented as a clickable link, following the format 'https://doi.org/xxxx'. This change is practical for academic writing as it improves accessibility and readability. For more detailed information, you can refer to the official APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a book with more than 20 authors in APA 7?</div>
-<div class="faq-answer">In APA 7, if you are citing a book with more than 20 authors, you will list the first 19 authors followed by an ellipsis (...) and then add the final author's name. For example, if the book has 25 authors, you would format it like this: Lastname, A., Lastname, B., Lastname, C., Lastname, D., Lastname, E., Lastname, F., Lastname, G., Lastname, H., Lastname, I., Lastname, J., Lastname, K., Lastname, L., Lastname, M., Lastname, N., Lastname, O., Lastname, P., Lastname, Q., Lastname, R., Lastname, S., ... Lastname, Z. (Year). Title of the book. Publisher. This change makes it easier to handle works with many authors. For more details, refer to Section 9.8 of the APA Publication Manual.</div>
+<div class="faq-question">How has the citation format for multiple authors changed in APA 7?</div>
+<div class="faq-answer">In APA 6, if a work had more than seven authors, you would list the first six authors, insert an ellipsis, and then add the final author's name. APA 7 simplifies this by allowing you to list up to 20 authors in the reference list. This change makes it easier to acknowledge all contributors to a work. For example, if a source has 15 authors, you would list all 15 before concluding with a period. For further guidance, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is new about citing online sources in APA 7?</div>
-<div class="faq-answer">APA 7 has updated guidelines for citing online sources to reflect the ever-changing digital landscape. One major change is the removal of the need to include the retrieval date for most online sources, unless the content is likely to change over time, such as wikis. Additionally, APA 7 encourages the use of DOIs (Digital Object Identifiers) in a standard format, which is now presented as a URL (e.g., https://doi.org/xxxx). If a DOI is not available, you should use a stable URL. For example, a basic citation for an online article would look like this: Author, A. A. (Year). Title of the article. Website Name. URL. For more detailed information, consult the APA Style website.</div>
+<div class="faq-question">What is the new guideline for the use of the publisher location in references?</div>
+<div class="faq-answer">In APA 6, the publisher's location was required in the reference list. However, APA 7 has eliminated this requirement. Now, only the publisher's name is needed. This change aligns with the shift towards a more digital-focused citation style, where location is less relevant. For instance, instead of writing 'New York, NY: Publisher', you would simply state 'Publisher'. For additional details, refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
 <div class="faq-question">How has the format for in-text citations changed in APA 7?</div>
-<div class="faq-answer">In APA 7, in-text citations have been simplified, particularly for works with multiple authors. If a work has three or more authors, you only need to include the first author's last name followed by 'et al.' in all citations, even the first one. For instance, if you are citing a work by authors Smith, Johnson, and Brown, you would write (Smith et al., Year) for all in-text citations. Additionally, APA 7 suggests that for parenthetical citations, you can include the publication year immediately after the author's name if it is within the narrative. This change streamlines citations and makes them easier to read. For more detailed examples, check out the APA Publication Manual.</div>
+<div class="faq-answer">In-text citations in APA 7 have seen some important updates. If a work has three or more authors, you only need to include the first author's last name followed by 'et al.' from the first citation onward. In APA 6, you would need to list all authors the first time. This change simplifies citations in your writing and makes it less cumbersome, especially for sources with many authors. For more information on in-text citations, visit the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What should I know about using inclusive language in APA 7?</div>
-<div class="faq-answer">Inclusive language is a significant focus in APA 7. This edition encourages authors to use language that is free from bias and respectful of all individuals. For example, gender-specific terms should be avoided unless necessary. Instead of using 'man' or 'mankind,' authors should opt for terms like 'humanity' or 'people.' Additionally, the use of the singular 'they' is now accepted as a non-binary pronoun. This change promotes inclusivity for individuals who do not identify strictly as male or female. Authors should also be mindful of using person-first language, which emphasizes the individual rather than the condition. For more guidance on inclusive language, refer to the APA Style website.</div>
+<div class="faq-question">What are the new rules for using the singular 'they' in APA 7?</div>
+<div class="faq-answer">APA 7 recognizes the use of the singular 'they' as a gender-neutral pronoun. This is a significant shift from APA 6, which often encouraged using 'he or she' or other constructs. This change supports inclusivity and acknowledges the diversity of gender identities. For example, instead of writing 'Each participant should submit his or her responses', you can now write 'Each participant should submit their responses'. For further insights on inclusive language, refer to the guidelines at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I format references for online journal articles in APA 7?</div>
-<div class="faq-answer">When formatting references for online journal articles in APA 7, you should include the following elements: Author, A. A. (Year). Title of the article. Title of the Journal, volume number(issue number), page range. https://doi.org/xxxx. Note that the journal title and volume number should be italicized, while the issue number should be in parentheses and not italicized. For example: Smith, J. (2020). Understanding the effects of climate change. Journal of Environmental Studies, 15(3), 45-67. https://doi.org/10.1234/jes.2020.5678. This format emphasizes the article's accessibility and provides a clear path for readers to locate the source. For further reference, you can visit the APA Style website.</div>
+<div class="faq-question">What is the new approach to font choices in APA 7?</div>
+<div class="faq-answer">APA 7 provides more flexibility in font choices compared to APA 6. While APA 6 primarily endorsed Times New Roman 12-point font, APA 7 allows for various fonts such as 11-point Calibri, 11-point Arial, and 12-point Georgia. This change recognizes that different fonts can enhance readability and accessibility. It is important to ensure that your chosen font is legible and consistent throughout your document. For a complete overview, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What has changed regarding the use of footnotes in APA 7?</div>
-<div class="faq-answer">Footnotes can still be used in APA 7, but their purpose has been clarified. They are now primarily used to provide additional content that is not essential to the main text but may be of interest to readers. For instance, you might use a footnote to provide extra context or cite a source that supports a point made in the text. In APA 7, footnotes should be formatted as superscript numbers and listed at the bottom of the page. It is recommended to use footnotes sparingly, as overuse can distract from the main text. For more detailed guidelines on using footnotes, refer to the APA Publication Manual.</div>
+<div class="faq-question">How has the heading structure changed in APA 7?</div>
+<div class="faq-answer">In APA 7, the heading structure has been refined to provide clearer guidelines. There are five levels of headings, with specific formatting for each. For example, Level 1 headings are centered and bolded, while Level 2 headings are flush left and bolded. This structure helps organize your work and improves the clarity of your document. Additionally, APA 7 encourages the use of headings for all papers, not just those that are longer. For more detailed information, visit the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">How do I cite a website in APA 7?</div>
-<div class="faq-answer">To cite a website in APA 7, you should follow this basic format: Author, A. A. (Year, Month Day). Title of the webpage. Website Name. URL. If there is no specific date, you can use 'n.d.' for 'no date.' For example: Johnson, L. (2021, April 5). Understanding the basics of psychology. Psychology Today. https://www.psychologytoday.com/basics. It is important to provide the full URL to ensure that readers can access the source directly. If the author is an organization, list the organization as the author. For additional examples, consult the APA Style website.</div>
+<div class="faq-question">What are the changes regarding student papers in APA 7?</div>
+<div class="faq-answer">APA 7 introduces specific guidelines for student papers that differ from professional papers. Student papers do not require a running head, while professional papers do. Additionally, there are variations in title page formatting and the inclusion of course information. This distinction allows students to focus on their content without the additional requirements meant for published works. To learn more about these guidelines, refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What is the updated guidance on using abbreviations in APA 7?</div>
-<div class="faq-answer">APA 7 has updated its guidance on the use of abbreviations to enhance clarity. Authors are encouraged to define abbreviations upon first use and to use them consistently thereafter. For example, if you are writing about the American Psychological Association, you would write it fully the first time followed by the abbreviation in parentheses: American Psychological Association (APA). After that, you can use 'APA' throughout the rest of the text. However, abbreviations that are widely recognized, such as NASA or FBI, do not need to be spelled out. This approach helps maintain readability while also preventing unnecessary repetition. For more information, check the APA Publication Manual.</div>
+<div class="faq-question">What is the new guideline for using abbreviations in APA 7?</div>
+<div class="faq-answer">In APA 7, the guidelines for using abbreviations are more straightforward. You should define an abbreviation the first time it appears in the text, followed by the abbreviation in parentheses. For example, 'American Psychological Association (APA)'. After the initial definition, you can use the abbreviation alone. This change makes academic writing clearer and more concise. For additional information on abbreviations, visit the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">Are there changes in how to format student papers in APA 7?</div>
-<div class="faq-answer">Yes, APA 7 has introduced new guidelines for formatting student papers. The title page now requires the title, author's name, institution, course, instructor's name, and due date, all centered and double-spaced. Additionally, the running head is no longer required for student papers. The page number is placed in the upper right corner on every page. The font can now be either 12-point Times New Roman, 11-point Arial, or 11-point Calibri, allowing for more flexibility. These changes make it easier for students to adhere to the guidelines without overwhelming them. For detailed formatting examples, refer to the APA Style website.</div>
+<div class="faq-question">How do I format references for online videos in APA 7?</div>
+<div class="faq-answer">In APA 7, the format for citing online videos has been revised to include more relevant details. You should provide the name of the individual or group author, the date of publication, the title of the video in italics, the type of video in square brackets, and the URL. For example: Author, A. A. (Year, Month Day). Title of video [Video]. Site Name. URL. This clear structure helps readers locate the source easily. For further guidance, check the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 <div class="faq-item">
-<div class="faq-question">What are the guidelines for referencing social media posts in APA 7?</div>
-<div class="faq-answer">When referencing social media posts in APA 7, you should include the author's name, the date of the post, the content of the post, the platform, and the URL. The format looks like this: Author, A. A. [@username]. (Year, Month Day). Content of the post [Type of post]. Platform. URL. For example: Doe, J. [@jdoe]. (2020, March 15). Excited to share my new research findings! [Tweet]. Twitter. https://twitter.com/jdoe/status/123456789. This format allows readers to find the original post easily. For more information on citing social media, consult the APA Style website.</div>
+<div class="faq-question">What are the guidelines for using figures and tables in APA 7?</div>
+<div class="faq-answer">APA 7 has updated the guidelines for figures and tables to enhance clarity and presentation. Each figure and table should be labeled consecutively and given a descriptive title. Additionally, you should provide a note below the table or figure if further explanation is needed. The formatting is more flexible, allowing for better integration with the text. This change aims to improve the reader's understanding of complex data. For more details, refer to the APA Style website at https://apastyle.apa.org.</div>
 </div>
 
 
