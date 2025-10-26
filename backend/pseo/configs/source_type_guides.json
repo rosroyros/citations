@@ -182,5 +182,235 @@
     ],
     "target_audience": "graduate students and researchers",
     "word_count_target": 3500
+  },
+  {
+    "id": "source_type_09",
+    "title": "How to Cite a Newspaper Article in APA Format (7th Edition)",
+    "topic": "newspaper citation",
+    "url": "/how-to-cite-newspaper-apa/",
+    "url_slug": "newspaper",
+    "description": "Complete guide to citing newspaper articles in APA 7. Covers online and print articles, editorials, op-eds, and news websites.",
+    "keywords": [
+      "cite newspaper APA",
+      "APA newspaper citation",
+      "newspaper article APA",
+      "online newspaper APA",
+      "APA 7 newspaper"
+    ],
+    "pain_points": [
+      "online vs print format differences",
+      "author identification in news articles",
+      "page number requirements",
+      "retrieval date vs publication date"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_10",
+    "title": "How to Cite a Magazine Article in APA Format (7th Edition)",
+    "topic": "magazine citation",
+    "url": "/how-to-cite-magazine-apa/",
+    "url_slug": "magazine",
+    "description": "Complete guide to citing magazine articles in APA 7. Covers print and online magazines, monthly and weekly publications, and special issues.",
+    "keywords": [
+      "cite magazine APA",
+      "APA magazine citation",
+      "magazine article APA",
+      "online magazine APA",
+      "APA 7 magazine"
+    ],
+    "pain_points": [
+      "magazine vs journal distinction",
+      "volume and issue numbers",
+      "online magazine URLs",
+      "author attribution in popular press"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_11",
+    "title": "How to Cite a Blog Post in APA Format (7th Edition)",
+    "topic": "blog citation",
+    "url": "/how-to-cite-blog-apa/",
+    "url_slug": "blog",
+    "description": "Complete guide to citing blog posts in APA 7. Covers individual blog posts, organizational blogs, and comment citations.",
+    "keywords": [
+      "cite blog APA",
+      "APA blog citation",
+      "blog post APA",
+      "website blog APA",
+      "APA 7 blog"
+    ],
+    "pain_points": [
+      "blog vs website distinction",
+      "blog author identification",
+      "retrieval date requirements",
+      "blog comment citations"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_12",
+    "title": "How to Cite a YouTube Video in APA Format (7th Edition)",
+    "topic": "youtube citation",
+    "url": "/how-to-cite-youtube-apa/",
+    "url_slug": "youtube",
+    "description": "Complete guide to citing YouTube videos in APA 7. Covers individual videos, channels, and educational content on YouTube.",
+    "keywords": [
+      "cite YouTube APA",
+      "APA YouTube citation",
+      "YouTube video APA",
+      "online video APA",
+      "APA 7 YouTube"
+    ],
+    "pain_points": [
+      "username vs real name",
+      "video description format",
+      "timestamp citations",
+      "channel vs individual video"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_13",
+    "title": "How to Cite a Podcast in APA Format (7th Edition)",
+    "topic": "podcast citation",
+    "url": "/how-to-cite-podcast-apa/",
+    "url_slug": "podcast",
+    "description": "Complete guide to citing podcasts in APA 7. Covers podcast episodes, series, and audio content from streaming platforms.",
+    "keywords": [
+      "cite podcast APA",
+      "APA podcast citation",
+      "podcast episode APA",
+      "audio podcast APA",
+      "APA 7 podcast"
+    ],
+    "pain_points": [
+      "episode vs series citation",
+      "host vs producer attribution",
+      "podcast platform URLs",
+      "episode number format"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_14",
+    "title": "How to Cite a TED Talk in APA Format (7th Edition)",
+    "topic": "ted talk citation",
+    "url": "/how-to-cite-ted-talk-apa/",
+    "url_slug": "ted-talk",
+    "description": "Complete guide to citing TED Talks in APA 7. Covers official TED talks, TEDx events, and YouTube TED videos.",
+    "keywords": [
+      "cite TED talk APA",
+      "APA TED talk citation",
+      "TED presentation APA",
+      "TEDx citation APA",
+      "APA 7 TED talk"
+    ],
+    "pain_points": [
+      "TED vs TEDx format",
+      "video vs transcript citation",
+      "speaker vs organizer attribution",
+      "platform selection (TED.com vs YouTube)"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_15",
+    "title": "How to Cite Wikipedia in APA Format (7th Edition)",
+    "topic": "wikipedia citation",
+    "url": "/how-to-cite-wikipedia-apa/",
+    "url_slug": "wikipedia",
+    "description": "Complete guide to citing Wikipedia in APA 7. Covers article citations, when to use Wikipedia, and alternative scholarly sources.",
+    "keywords": [
+      "cite Wikipedia APA",
+      "APA Wikipedia citation",
+      "Wikipedia article APA",
+      "online encyclopedia APA",
+      "APA 7 Wikipedia"
+    ],
+    "pain_points": [
+      "academic acceptability concerns",
+      "archive date vs retrieval date",
+      "no author attribution",
+      "permanent link vs regular URL"
+    ],
+    "target_audience": "undergraduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_16",
+    "title": "How to Cite a Dictionary Entry in APA Format (7th Edition)",
+    "topic": "dictionary citation",
+    "url": "/how-to-cite-dictionary-apa/",
+    "url_slug": "dictionary",
+    "description": "Complete guide to citing dictionary entries in APA 7. Covers online and print dictionaries, specialized dictionaries, and reference entries.",
+    "keywords": [
+      "cite dictionary APA",
+      "APA dictionary citation",
+      "dictionary entry APA",
+      "online dictionary APA",
+      "APA 7 dictionary"
+    ],
+    "pain_points": [
+      "online vs print format differences",
+      "entry term placement",
+      "edition information",
+      "specialized vs general dictionary"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_17",
+    "title": "How to Cite an Encyclopedia Entry in APA Format (7th Edition)",
+    "topic": "encyclopedia citation",
+    "url": "/how-to-cite-encyclopedia-apa/",
+    "url_slug": "encyclopedia",
+    "description": "Complete guide to citing encyclopedia entries in APA 7. Covers online and print encyclopedias, specialized encyclopedias, and reference entries.",
+    "keywords": [
+      "cite encyclopedia APA",
+      "APA encyclopedia citation",
+      "encyclopedia entry APA",
+      "online encyclopedia APA",
+      "APA 7 encyclopedia"
+    ],
+    "pain_points": [
+      "entry author vs encyclopedia editor",
+      "volume and page numbers",
+      "online encyclopedia format",
+      "specialized encyclopedia citation"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3000
+  },
+  {
+    "id": "source_type_18",
+    "title": "How to Cite a Film or Movie in APA Format (7th Edition)",
+    "topic": "film citation",
+    "url": "/how-to-cite-film-apa/",
+    "url_slug": "film",
+    "description": "Complete guide to citing films and movies in APA 7. Covers theatrical releases, streaming films, documentaries, and director attribution.",
+    "keywords": [
+      "cite film APA",
+      "APA film citation",
+      "movie citation APA",
+      "documentary APA",
+      "APA 7 film"
+    ],
+    "pain_points": [
+      "director vs producer attribution",
+      "streaming vs theatrical format",
+      "studio vs distributor",
+      "film vs television distinction"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
   }
 ]

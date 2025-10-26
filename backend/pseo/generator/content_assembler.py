@@ -364,10 +364,10 @@ class ContentAssembler:
         Load common errors relevant to topic
 
         Args:
-            topic: Topic to filter errors by
+            topic: Topic to filter errors by (e.g., "conference paper citation", "newspaper citation")
 
         Returns:
-            List of error dicts
+            List of error dicts filtered by source type
         """
         logger.debug(f"Loading errors for topic: {topic}")
 
@@ -389,10 +389,66 @@ class ContentAssembler:
             logger.warning(f"Unexpected errors.json structure: {type(data)}")
             return []
 
-        # Return first 10 errors (filtering can be added later)
-        errors = all_errors[:10]
+        # Map topic to source type tag used in knowledge base
+        source_type_map = {
+            "conference paper citation": "conference_paper",
+            "dissertation citation": "dissertation",
+            "thesis citation": "thesis",
+            "book chapter citation": "book_chapter",
+            "edited book citation": "edited_book",
+            "report citation": "report",
+            "government report citation": "government_report",
+            "dataset citation": "dataset",
+            "newspaper citation": "newspaper_article",
+            "newspaper print citation": "newspaper_article",
+            "magazine citation": "magazine_article",
+            "blog citation": "blog_post",
+            "youtube citation": "youtube_video",
+            "podcast citation": "podcast",
+            "ted talk citation": "ted_talk",
+            "wikipedia citation": "wikipedia",
+            "dictionary citation": "dictionary",
+            "encyclopedia citation": "encyclopedia",
+            "film citation": "film",
+            "tv episode citation": "tv_episode",
+            "twitter citation": "twitter_post",
+            "instagram citation": "instagram_post",
+            "facebook citation": "facebook_post",
+            "linkedin citation": "linkedin_post",
+            "software citation": "software",
+            "patent citation": "patent",
+            "artwork citation": "artwork"
+        }
 
-        logger.debug(f"Loaded {len(errors)} errors")
+        source_type_tag = source_type_map.get(topic.lower())
+
+        # Filter errors by source type
+        filtered_errors = []
+        generic_errors = []
+
+        for error in all_errors:
+            affected_types = error.get("affected_source_types", [])
+
+            # If error applies to all source types, treat as generic
+            if "all_source_types" in affected_types:
+                generic_errors.append(error)
+            # If source type tag matches, add to filtered list
+            elif source_type_tag and source_type_tag in affected_types:
+                filtered_errors.append(error)
+            # If no affected_source_types specified, it's also generic
+            elif not affected_types:
+                generic_errors.append(error)
+
+        # Prefer source-specific errors, fall back to generic if needed
+        if len(filtered_errors) >= 5:
+            errors = filtered_errors[:10]
+            logger.info(f"Using {len(errors)} source-specific errors for {topic}")
+        else:
+            # Mix: use what we have + fill with generic
+            errors = filtered_errors + generic_errors[:max(0, 10 - len(filtered_errors))]
+            logger.info(f"Using {len(filtered_errors)} source-specific + {len(errors) - len(filtered_errors)} generic errors for {topic}")
+
+        logger.debug(f"Loaded {len(errors)} total errors (from {len(all_errors)} available)")
         return errors
 
     def _load_source_type_data(self, source_type: str) -> dict:
@@ -646,6 +702,7 @@ class ContentAssembler:
 
         # Templates for different source types
         templates = {
+            # Tier 1: Academic sources
             "conference paper citation": "Author, A. A. (Year). <em>Title of paper</em>. In E. E. Editor (Ed.), <em>Title of proceedings</em> (pp. pages). Publisher. https://doi.org/xxxxx",
             "dissertation citation": "Author, A. A. (Year). <em>Title of dissertation</em> [Doctoral dissertation, Institution Name]. Database Name. https://doi.org/xxxxx",
             "thesis citation": "Author, A. A. (Year). <em>Title of thesis</em> [Master's thesis, Institution Name]. Database Name. https://URL",
@@ -653,7 +710,19 @@ class ContentAssembler:
             "edited book citation": "Editor, E. E. (Ed.). (Year). <em>Book title</em>. Publisher. https://doi.org/xxxxx",
             "report citation": "Author, A. A. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://doi.org/xxxxx",
             "government report citation": "Agency Name. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://URL",
-            "dataset citation": "Author, A. A. (Year). <em>Title of dataset</em> (Version X) [Data set]. Publisher. https://doi.org/xxxxx"
+            "dataset citation": "Author, A. A. (Year). <em>Title of dataset</em> (Version X) [Data set]. Publisher. https://doi.org/xxxxx",
+
+            # Tier 2: Online & popular sources
+            "newspaper citation": "Author, A. A. (Year, Month Day). Title of article. <em>Newspaper Name</em>. https://www.url.com",
+            "magazine citation": "Author, A. A. (Year, Month Day). Title of article. <em>Magazine Name</em>, <em>volume</em>(issue), pages. https://www.url.com",
+            "blog citation": "Author, A. A. (Year, Month Day). <em>Title of blog post</em>. Blog Name. https://www.url.com",
+            "youtube citation": "Author/Username. (Year, Month Day). <em>Title of video</em> [Video]. YouTube. https://www.youtube.com/watch?v=xxxxx",
+            "podcast citation": "Host, H. H. (Host). (Year, Month Day). Episode title (No. episode number) [Audio podcast episode]. In <em>Podcast name</em>. Publisher. https://www.url.com",
+            "ted talk citation": "Speaker, S. S. (Year, Month). <em>Title of talk</em> [Video]. TED. https://www.ted.com/talks/xxxxx",
+            "wikipedia citation": "Wikipedia contributors. (Year, Month Day). Title of article. In <em>Wikipedia</em>. Retrieved Month Day, Year, from https://en.wikipedia.org/wiki/xxxxx",
+            "dictionary citation": "Author, A. A. (Year). Title of entry. In <em>Dictionary name</em> (edition ed.). Publisher. https://www.url.com",
+            "encyclopedia citation": "Author, A. A. (Year). Title of entry. In E. E. Editor (Ed.), <em>Encyclopedia name</em> (Vol. volume, pp. pages). Publisher. https://www.url.com",
+            "film citation": "Director, D. D. (Director). (Year). <em>Title of film</em> [Film]. Studio. https://www.url.com"
         }
 
         # Default template for journal articles (fallback)
