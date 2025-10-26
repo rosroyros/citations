@@ -1,0 +1,186 @@
+[
+  {
+    "id": "source_type_01",
+    "title": "How to Cite a Conference Paper in APA Format (7th Edition)",
+    "topic": "conference paper citation",
+    "url": "/how-to-cite-conference-paper-apa/",
+    "url_slug": "conference-paper",
+    "description": "Complete guide to citing conference papers in APA 7. Includes format rules, examples for proceedings, presentations, and unpublished papers.",
+    "keywords": [
+      "cite conference paper APA",
+      "APA conference citation",
+      "conference proceedings APA",
+      "cite presentation APA",
+      "APA 7 conference paper"
+    ],
+    "pain_points": [
+      "unclear proceedings vs paper format",
+      "conference vs journal confusion",
+      "multiple presentation formats",
+      "unpublished vs published papers"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_02",
+    "title": "How to Cite a Dissertation in APA Format (7th Edition)",
+    "topic": "dissertation citation",
+    "url": "/how-to-cite-dissertation-apa/",
+    "url_slug": "dissertation",
+    "description": "Complete guide to citing dissertations in APA 7. Covers published and unpublished dissertations, ProQuest, institutional repositories, and international dissertations.",
+    "keywords": [
+      "cite dissertation APA",
+      "APA dissertation citation",
+      "ProQuest dissertation APA",
+      "unpublished dissertation APA",
+      "APA 7 dissertation"
+    ],
+    "pain_points": [
+      "published vs unpublished format differences",
+      "database vs institutional repository",
+      "dissertation vs thesis terminology",
+      "retrieval information requirements"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_03",
+    "title": "How to Cite a Thesis in APA Format (7th Edition)",
+    "topic": "thesis citation",
+    "url": "/how-to-cite-thesis-apa/",
+    "url_slug": "thesis",
+    "description": "Complete guide to citing master's theses in APA 7. Includes format rules for published and unpublished theses, databases, and institutional repositories.",
+    "keywords": [
+      "cite thesis APA",
+      "APA thesis citation",
+      "master's thesis APA",
+      "unpublished thesis APA",
+      "APA 7 thesis"
+    ],
+    "pain_points": [
+      "thesis vs dissertation distinction",
+      "published vs unpublished formats",
+      "database citation requirements",
+      "international thesis formats"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_04",
+    "title": "How to Cite a Book Chapter in APA Format (7th Edition)",
+    "topic": "book chapter citation",
+    "url": "/how-to-cite-book-chapter-apa/",
+    "url_slug": "book-chapter",
+    "description": "Complete guide to citing book chapters in APA 7. Covers edited books, anthologies, reprinted chapters, and online book chapters.",
+    "keywords": [
+      "cite book chapter APA",
+      "APA book chapter citation",
+      "edited book chapter APA",
+      "anthology citation APA",
+      "APA 7 book chapter"
+    ],
+    "pain_points": [
+      "editor vs author confusion",
+      "chapter page numbers",
+      "multiple editors format",
+      "reprinted chapter citations"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_05",
+    "title": "How to Cite an Edited Book in APA Format (7th Edition)",
+    "topic": "edited book citation",
+    "url": "/how-to-cite-edited-book-apa/",
+    "url_slug": "edited-book",
+    "description": "Complete guide to citing edited books in APA 7. Includes format rules for single and multiple editors, series editors, and edition numbers.",
+    "keywords": [
+      "cite edited book APA",
+      "APA edited book citation",
+      "book editor citation APA",
+      "multiple editors APA",
+      "APA 7 edited book"
+    ],
+    "pain_points": [
+      "Ed. vs Eds. abbreviation",
+      "multiple editors format",
+      "editor vs author role",
+      "edition information placement"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_06",
+    "title": "How to Cite a Report in APA Format (7th Edition)",
+    "topic": "report citation",
+    "url": "/how-to-cite-report-apa/",
+    "url_slug": "report",
+    "description": "Complete guide to citing reports in APA 7. Covers technical reports, research reports, white papers, and organizational reports.",
+    "keywords": [
+      "cite report APA",
+      "APA report citation",
+      "technical report APA",
+      "white paper citation APA",
+      "APA 7 report"
+    ],
+    "pain_points": [
+      "report number formatting",
+      "organizational author format",
+      "grey literature sources",
+      "online vs print reports"
+    ],
+    "target_audience": "graduate students and professionals",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_07",
+    "title": "How to Cite a Government Report in APA Format (7th Edition)",
+    "topic": "government report citation",
+    "url": "/how-to-cite-government-report-apa/",
+    "url_slug": "government-report",
+    "description": "Complete guide to citing government reports in APA 7. Includes federal, state, and local government documents, agency reports, and congressional documents.",
+    "keywords": [
+      "cite government report APA",
+      "APA government document citation",
+      "federal report citation APA",
+      "congressional report APA",
+      "APA 7 government report"
+    ],
+    "pain_points": [
+      "agency name hierarchy",
+      "report number identification",
+      "government website citations",
+      "congressional document formats"
+    ],
+    "target_audience": "graduate students and policy researchers",
+    "word_count_target": 3500
+  },
+  {
+    "id": "source_type_08",
+    "title": "How to Cite a Dataset in APA Format (7th Edition)",
+    "topic": "dataset citation",
+    "url": "/how-to-cite-dataset-apa/",
+    "url_slug": "dataset",
+    "description": "Complete guide to citing datasets in APA 7. Covers data repositories, version numbers, DOIs, and raw vs. processed data citations.",
+    "keywords": [
+      "cite dataset APA",
+      "APA dataset citation",
+      "data repository citation APA",
+      "research data APA",
+      "APA 7 dataset"
+    ],
+    "pain_points": [
+      "version number inclusion",
+      "dataset vs database distinction",
+      "contributor vs author roles",
+      "repository name formatting"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 3500
+  }
+]

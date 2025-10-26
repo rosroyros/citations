@@ -159,6 +159,7 @@ class ContentAssembler:
             **config,
             **llm_content,
             "source_type_name": source_type.title(),
+            "quick_reference_template": self._generate_quick_reference_template(source_type),
             "examples": examples,
             "common_errors": errors,
             "validation_checklist": self._generate_checklist(source_type_data.get('rules', [])),
@@ -630,3 +631,36 @@ class ContentAssembler:
                 strings.append(str(ex))
 
         return strings
+
+    def _generate_quick_reference_template(self, source_type: str) -> str:
+        """
+        Generate quick reference template based on source type
+
+        Args:
+            source_type: Type of source
+
+        Returns:
+            Formatted template string with HTML
+        """
+        logger.debug(f"Generating quick reference template for {source_type}")
+
+        # Templates for different source types
+        templates = {
+            "conference paper citation": "Author, A. A. (Year). <em>Title of paper</em>. In E. E. Editor (Ed.), <em>Title of proceedings</em> (pp. pages). Publisher. https://doi.org/xxxxx",
+            "dissertation citation": "Author, A. A. (Year). <em>Title of dissertation</em> [Doctoral dissertation, Institution Name]. Database Name. https://doi.org/xxxxx",
+            "thesis citation": "Author, A. A. (Year). <em>Title of thesis</em> [Master's thesis, Institution Name]. Database Name. https://URL",
+            "book chapter citation": "Author, A. A. (Year). Title of chapter. In E. E. Editor (Ed.), <em>Book title</em> (pp. pages). Publisher. https://doi.org/xxxxx",
+            "edited book citation": "Editor, E. E. (Ed.). (Year). <em>Book title</em>. Publisher. https://doi.org/xxxxx",
+            "report citation": "Author, A. A. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://doi.org/xxxxx",
+            "government report citation": "Agency Name. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://URL",
+            "dataset citation": "Author, A. A. (Year). <em>Title of dataset</em> (Version X) [Data set]. Publisher. https://doi.org/xxxxx"
+        }
+
+        # Default template for journal articles (fallback)
+        default_template = "Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</em>(issue), pages. https://doi.org/xxxxx"
+
+        # Return appropriate template
+        template = templates.get(source_type.lower(), default_template)
+
+        logger.debug(f"Using template: {template[:50]}...")
+        return template

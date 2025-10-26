@@ -7,20 +7,29 @@
 <div class="quick-ref-box">
 <h2>📋 Quick Reference</h2>
 <div class="template-box">
-Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</em>(issue), pages. https://doi.org/xxxxx
+{{ quick_reference_template }}
 </div>
 <p style="margin-top: 1rem; font-size: 0.875rem; color: #6b7280;"><strong>Tip:</strong> Copy this template and replace with your source details.</p>
 </div>
 
 ---
 
-## Basic Format Explanation
+<div class="mini-checker">
+<h4>🔍 Try It Out</h4>
+<p>Paste a {{ source_type_name|lower }} citation to check your formatting</p>
+<textarea placeholder="Author, A. A. (Year). Title of work..."></textarea>
+<button>Check Citation</button>
+</div>
+
+---
 
 {{ basic_format_explanation }}
 
 ---
 
 ## Reference List Examples
+
+<p>Here are correctly formatted examples for common {{ source_type_name|lower }} variations:</p>
 
 {% for example in examples %}
 <div class="example-box">
@@ -41,7 +50,9 @@ Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</
 
 ## Step-by-Step Instructions
 
+<div class="step-box">
 {{ step_by_step_instructions }}
+</div>
 
 ---
 
@@ -64,14 +75,26 @@ Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</
 
 <div class="note-box">
 <strong>Why This Happens:</strong>
-<p>{{ error.why_it_happens }}</p>
+<p>{{ error.explanation }}</p>
 <strong>How to Avoid It:</strong>
-<p>{{ error.fix_instructions }}</p>
+<ul>
+{% for instruction in error.fix_instructions %}
+<li>{{ instruction }}</li>
+{% endfor %}
+</ul>
 </div>
 
 ---
 
 {% endfor %}
+
+<div class="mini-checker">
+<h4>✨ Ready to Check Your Full Reference List?</h4>
+<p>Validate your entire bibliography at once with our citation checker</p>
+<button style="background: #22c55e;">Check Full Reference List →</button>
+</div>
+
+---
 
 ## Validation Checklist
 
@@ -105,13 +128,19 @@ Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</
 
 ---
 
-**Last Updated:** {{ last_updated }}
-**Reading Time:** {{ reading_time }}
+<div class="related-box">
+<h3>Related Source Types</h3>
+<div class="related-grid">
+<a href="/how-to-cite-book-apa/" class="related-link">📖 How to Cite Books</a>
+<a href="/how-to-cite-website-apa/" class="related-link">🌐 How to Cite Websites</a>
+<a href="/how-to-cite-conference-paper-apa/" class="related-link">📄 How to Cite Conference Papers</a>
+<a href="/how-to-cite-book-chapter-apa/" class="related-link">📚 How to Cite Book Chapters</a>
+<a href="/how-to-cite-dissertation-apa/" class="related-link">🎓 How to Cite Dissertations</a>
+<a href="/how-to-cite-dataset-apa/" class="related-link">📊 How to Cite Datasets</a>
+</div>
+</div>
 
 ---
 
-<div class="cta-placement">
-    <h3>Need to Check Your Citations?</h3>
-    <p>Use our free APA citation checker to validate your {{ source_type_name|lower }} citations instantly.</p>
-    <a href="/checker/" class="cta-button">Check Citations Now</a>
-</div>
+**Last Updated:** {{ last_updated }}
+**Reading Time:** {{ reading_time }}
