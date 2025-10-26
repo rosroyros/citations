@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Dataset in APA Format (7th Edition)
 description: Complete guide to citing datasets in APA 7. Covers data repositories, version numbers, DOIs, and raw vs. processed data citations.
+meta_title: How to Cite a Dataset in APA Format (7th Edition)
+meta_description: Complete guide to citing datasets in APA 7. Covers data repositories, version numbers, DOIs, and raw vs. processed data citations.
 page_type: source_type
 url_slug: dataset
 url: /how-to-cite-dataset-apa/

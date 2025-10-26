@@ -1,6 +1,8 @@
 ---
 title: APA In-Text Citation Complete Guide
 description: Master APA in-text citation rules and formatting
+meta_title: APA In-Text Citation Complete Guide
+meta_description: Master APA in-text citation rules and formatting
 page_type: mega_guide
 url_slug: apa-in-text-citations
 url: /guide/apa-in-text-citations/

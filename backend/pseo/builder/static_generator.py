@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class StaticSiteGenerator:
     """Converts markdown content to HTML static site"""
 
-    def __init__(self, layout_template: str, base_url: str = "https://yoursite.com"):
+    def __init__(self, layout_template: str, base_url: str = "https://citationformatchecker.com"):
         """
         Initialize generator with layout template
 

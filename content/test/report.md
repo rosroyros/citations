@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Report in APA Format (7th Edition)
 description: Complete guide to citing reports in APA 7. Covers technical reports, research reports, white papers, and organizational reports.
+meta_title: How to Cite a Report in APA Format (7th Edition)
+meta_description: Complete guide to citing reports in APA 7. Covers technical reports, research reports, white papers, and organizational reports.
 page_type: source_type
 url_slug: report
 url: /how-to-cite-report-apa/

@@ -1,6 +1,8 @@
 ---
 title: APA Citation Guide for Nursing Students
 description: Essential APA citation guide for nursing research and clinical papers
+meta_title: APA Citation Guide for Nursing Students
+meta_description: Essential APA citation guide for nursing research and clinical papers
 page_type: mega_guide
 url_slug: apa-citations-nursing
 url: /guide/apa-citations-nursing/

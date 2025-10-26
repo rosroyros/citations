@@ -1,6 +1,8 @@
 ---
 title: How to Cite Wikipedia in APA Format (7th Edition)
 description: Complete guide to citing Wikipedia in APA 7. Covers article citations, when to use Wikipedia, and alternative scholarly sources.
+meta_title: How to Cite Wikipedia in APA Format (7th Edition)
+meta_description: Complete guide to citing Wikipedia in APA 7. Covers article citations, when to use Wikipedia, and alternative scholarly sources.
 page_type: source_type
 url_slug: wikipedia
 url: /how-to-cite-wikipedia-apa/

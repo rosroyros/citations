@@ -1,6 +1,8 @@
 ---
 title: Complete Guide to Checking APA Citations
 description: Learn how to validate APA citations and catch formatting errors
+meta_title: Complete Guide to Checking APA Citations
+meta_description: Learn how to validate APA citations and catch formatting errors
 page_type: mega_guide
 url_slug: check-apa-citations
 url: /guide/check-apa-citations/

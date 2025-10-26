@@ -1,6 +1,8 @@
 ---
 title: How to Fix APA Citation Errors
 description: Step-by-step guide to identifying and fixing APA citation mistakes
+meta_title: How to Fix APA Citation Errors
+meta_description: Step-by-step guide to identifying and fixing APA citation mistakes
 page_type: mega_guide
 url_slug: fix-apa-citation-errors
 url: /guide/fix-apa-citation-errors/

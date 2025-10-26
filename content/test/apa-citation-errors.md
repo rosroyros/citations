@@ -1,6 +1,8 @@
 ---
 title: APA Citation Errors - Prevention Guide
 description: Identify and prevent common APA citation mistakes
+meta_title: APA Citation Errors - Prevention Guide
+meta_description: Identify and prevent common APA citation mistakes
 page_type: mega_guide
 url_slug: apa-citation-errors
 url: /guide/apa-citation-errors/

@@ -722,7 +722,18 @@ class ContentAssembler:
             "wikipedia citation": "Wikipedia contributors. (Year, Month Day). Title of article. In <em>Wikipedia</em>. Retrieved Month Day, Year, from https://en.wikipedia.org/wiki/xxxxx",
             "dictionary citation": "Author, A. A. (Year). Title of entry. In <em>Dictionary name</em> (edition ed.). Publisher. https://www.url.com",
             "encyclopedia citation": "Author, A. A. (Year). Title of entry. In E. E. Editor (Ed.), <em>Encyclopedia name</em> (Vol. volume, pp. pages). Publisher. https://www.url.com",
-            "film citation": "Director, D. D. (Director). (Year). <em>Title of film</em> [Film]. Studio. https://www.url.com"
+            "film citation": "Director, D. D. (Director). (Year). <em>Title of film</em> [Film]. Studio. https://www.url.com",
+
+            # Tier 3: Multimedia & social media
+            "tv episode citation": "Writer, W. W. (Writer), & Director, D. D. (Director). (Year, Month Day). Episode title (Season X, Episode Y) [TV series episode]. In P. P. Producer (Executive Producer), <em>Series name</em>. Studio. https://www.url.com",
+            "twitter citation": "Author [@username]. (Year, Month Day). <em>First 20 words of tweet</em> [Tweet]. Twitter. https://twitter.com/username/status/xxxxx",
+            "instagram citation": "Author [@username]. (Year, Month Day). <em>First 20 words of caption</em> [Photograph]. Instagram. https://www.instagram.com/p/xxxxx",
+            "facebook citation": "Author. (Year, Month Day). <em>First 20 words of post</em> [Status update]. Facebook. https://www.facebook.com/username/posts/xxxxx",
+            "linkedin citation": "Author. (Year, Month Day). <em>First 20 words of post</em> [Status update]. LinkedIn. https://www.linkedin.com/posts/xxxxx",
+            "software citation": "Author, A. A. (Year). <em>Software name</em> (Version X.X) [Computer software]. Publisher. https://www.url.com",
+            "patent citation": "Inventor, I. I. (Year). <em>Patent title</em> (U.S. Patent No. X,XXX,XXX). U.S. Patent and Trademark Office. https://www.url.com",
+            "artwork citation": "Artist, A. A. (Year). <em>Title of work</em> [Medium]. Museum/Collection Name, Location. https://www.url.com",
+            "music citation": "Artist, A. A. (Year). <em>Song title</em> [Song]. On <em>Album name</em>. Record Label. https://www.url.com"
         }
 
         # Default template for journal articles (fallback)

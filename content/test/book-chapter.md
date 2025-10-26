@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Book Chapter in APA Format (7th Edition)
 description: Complete guide to citing book chapters in APA 7. Covers edited books, anthologies, reprinted chapters, and online book chapters.
+meta_title: How to Cite a Book Chapter in APA Format (7th Edition)
+meta_description: Complete guide to citing book chapters in APA 7. Covers edited books, anthologies, reprinted chapters, and online book chapters.
 page_type: source_type
 url_slug: book-chapter
 url: /how-to-cite-book-chapter-apa/

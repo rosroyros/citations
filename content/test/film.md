@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Film or Movie in APA Format (7th Edition)
 description: Complete guide to citing films and movies in APA 7. Covers theatrical releases, streaming films, documentaries, and director attribution.
+meta_title: How to Cite a Film or Movie in APA Format (7th Edition)
+meta_description: Complete guide to citing films and movies in APA 7. Covers theatrical releases, streaming films, documentaries, and director attribution.
 page_type: source_type
 url_slug: film
 url: /how-to-cite-film-apa/

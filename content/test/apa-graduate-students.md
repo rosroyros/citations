@@ -1,6 +1,8 @@
 ---
 title: APA for Graduate Students Guide
 description: Comprehensive APA citation guide for graduate-level academic work
+meta_title: APA for Graduate Students Guide
+meta_description: Comprehensive APA citation guide for graduate-level academic work
 page_type: mega_guide
 url_slug: apa-graduate-students
 url: /guide/apa-graduate-students/

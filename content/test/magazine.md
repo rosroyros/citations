@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Magazine Article in APA Format (7th Edition)
 description: Complete guide to citing magazine articles in APA 7. Covers print and online magazines, monthly and weekly publications, and special issues.
+meta_title: How to Cite a Magazine Article in APA Format (7th Edition)
+meta_description: Complete guide to citing magazine articles in APA 7. Covers print and online magazines, monthly and weekly publications, and special issues.
 page_type: source_type
 url_slug: magazine
 url: /how-to-cite-magazine-apa/

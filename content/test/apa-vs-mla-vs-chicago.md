@@ -1,6 +1,8 @@
 ---
 title: APA vs MLA vs Chicago Comparison
 description: Compare APA, MLA, and Chicago citation styles with examples
+meta_title: APA vs MLA vs Chicago Comparison
+meta_description: Compare APA, MLA, and Chicago citation styles with examples
 page_type: mega_guide
 url_slug: apa-vs-mla-vs-chicago
 url: /guide/apa-vs-mla-vs-chicago/

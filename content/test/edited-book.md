@@ -1,6 +1,8 @@
 ---
 title: How to Cite an Edited Book in APA Format (7th Edition)
 description: Complete guide to citing edited books in APA 7. Includes format rules for single and multiple editors, series editors, and edition numbers.
+meta_title: How to Cite an Edited Book in APA Format (7th Edition)
+meta_description: Complete guide to citing edited books in APA 7. Includes format rules for single and multiple editors, series editors, and edition numbers.
 page_type: source_type
 url_slug: edited-book
 url: /how-to-cite-edited-book-apa/

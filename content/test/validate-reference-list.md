@@ -1,6 +1,8 @@
 ---
 title: Validate Your Reference List Guide
 description: Complete guide to validating APA reference lists for accuracy
+meta_title: Validate Your Reference List Guide
+meta_description: Complete guide to validating APA reference lists for accuracy
 page_type: mega_guide
 url_slug: validate-reference-list
 url: /guide/validate-reference-list/

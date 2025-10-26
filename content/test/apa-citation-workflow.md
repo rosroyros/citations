@@ -1,6 +1,8 @@
 ---
 title: APA Citation Workflow Guide
 description: Efficient workflow for managing APA citations throughout research
+meta_title: APA Citation Workflow Guide
+meta_description: Efficient workflow for managing APA citations throughout research
 page_type: mega_guide
 url_slug: apa-citation-workflow
 url: /guide/apa-citation-workflow/

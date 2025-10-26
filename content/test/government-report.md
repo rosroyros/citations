@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Government Report in APA Format (7th Edition)
 description: Complete guide to citing government reports in APA 7. Includes federal, state, and local government documents, agency reports, and congressional documents.
+meta_title: How to Cite a Government Report in APA Format (7th Edition)
+meta_description: Complete guide to citing government reports in APA 7. Includes federal, state, and local government documents, agency reports, and congressional documents.
 page_type: source_type
 url_slug: government-report
 url: /how-to-cite-government-report-apa/

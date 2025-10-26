@@ -1,6 +1,8 @@
 ---
 title: APA 7th Edition Changes Guide
 description: Understanding key changes from APA 6th to 7th edition
+meta_title: APA 7th Edition Changes Guide
+meta_description: Understanding key changes from APA 6th to 7th edition
 page_type: mega_guide
 url_slug: apa-7th-edition-changes
 url: /guide/apa-7th-edition-changes/

@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Newspaper Article in APA Format (7th Edition)
 description: Complete guide to citing newspaper articles in APA 7. Covers online and print articles, editorials, op-eds, and news websites.
+meta_title: How to Cite a Newspaper Article in APA Format (7th Edition)
+meta_description: Complete guide to citing newspaper articles in APA 7. Covers online and print articles, editorials, op-eds, and news websites.
 page_type: source_type
 url_slug: newspaper
 url: /how-to-cite-newspaper-apa/

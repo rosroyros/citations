@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Blog Post in APA Format (7th Edition)
 description: Complete guide to citing blog posts in APA 7. Covers individual blog posts, organizational blogs, and comment citations.
+meta_title: How to Cite a Blog Post in APA Format (7th Edition)
+meta_description: Complete guide to citing blog posts in APA 7. Covers individual blog posts, organizational blogs, and comment citations.
 page_type: source_type
 url_slug: blog
 url: /how-to-cite-blog-apa/

@@ -1,6 +1,8 @@
 ---
 title: Complete APA 7th Edition Citation Guide
 description: Master APA 7th edition citation format with comprehensive examples and guidelines
+meta_title: Complete APA 7th Edition Citation Guide
+meta_description: Master APA 7th edition citation format with comprehensive examples and guidelines
 page_type: mega_guide
 url_slug: apa-7th-edition
 url: /guide/apa-7th-edition/

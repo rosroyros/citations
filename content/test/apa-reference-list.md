@@ -1,6 +1,8 @@
 ---
 title: APA Reference List Format Guide
 description: Complete guide to formatting APA reference lists with examples
+meta_title: APA Reference List Format Guide
+meta_description: Complete guide to formatting APA reference lists with examples
 page_type: mega_guide
 url_slug: apa-reference-list
 url: /guide/apa-reference-list/

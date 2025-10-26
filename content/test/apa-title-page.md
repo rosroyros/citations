@@ -1,6 +1,8 @@
 ---
 title: APA Title Page Format Guide
 description: How to format APA title pages correctly for academic papers
+meta_title: APA Title Page Format Guide
+meta_description: How to format APA title pages correctly for academic papers
 page_type: mega_guide
 url_slug: apa-title-page
 url: /guide/apa-title-page/

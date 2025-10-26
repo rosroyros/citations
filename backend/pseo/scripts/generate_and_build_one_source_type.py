@@ -185,6 +185,8 @@ def main():
     front_matter = f"""---
 title: {config['title']}
 description: {config['description']}
+meta_title: {config['title']}
+meta_description: {config['description']}
 page_type: source_type
 url_slug: {config['url_slug']}
 url: {config['url']}

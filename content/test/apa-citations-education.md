@@ -1,6 +1,8 @@
 ---
 title: APA Citation Guide for Education Research
 description: Complete APA citation guide for education research and papers
+meta_title: APA Citation Guide for Education Research
+meta_description: Complete APA citation guide for education research and papers
 page_type: mega_guide
 url_slug: apa-citations-education
 url: /guide/apa-citations-education/

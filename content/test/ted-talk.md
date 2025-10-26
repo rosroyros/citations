@@ -1,6 +1,8 @@
 ---
 title: How to Cite a TED Talk in APA Format (7th Edition)
 description: Complete guide to citing TED Talks in APA 7. Covers official TED talks, TEDx events, and YouTube TED videos.
+meta_title: How to Cite a TED Talk in APA Format (7th Edition)
+meta_description: Complete guide to citing TED Talks in APA 7. Covers official TED talks, TEDx events, and YouTube TED videos.
 page_type: source_type
 url_slug: ted-talk
 url: /how-to-cite-ted-talk-apa/

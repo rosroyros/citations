@@ -412,5 +412,212 @@
     ],
     "target_audience": "undergraduate and graduate students",
     "word_count_target": 2500
+  },
+  {
+    "id": "source_type_18",
+    "title": "How to Cite a TV Episode in APA Format (7th Edition)",
+    "topic": "tv episode citation",
+    "url": "/how-to-cite-tv-episode-apa/",
+    "url_slug": "tv-episode",
+    "description": "Complete guide to citing TV episodes in APA 7. Covers broadcast episodes, streaming series, and television programs.",
+    "keywords": [
+      "cite TV episode APA",
+      "APA TV citation",
+      "television episode APA",
+      "streaming series APA",
+      "APA 7 TV episode"
+    ],
+    "pain_points": [
+      "writer vs director attribution",
+      "streaming vs broadcast format",
+      "episode vs series citation",
+      "network vs production company"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_19",
+    "title": "How to Cite a Twitter/X Post in APA Format (7th Edition)",
+    "topic": "twitter citation",
+    "url": "/how-to-cite-twitter-apa/",
+    "url_slug": "twitter",
+    "description": "Complete guide to citing Twitter (X) posts in APA 7. Covers individual tweets, threads, and retweets.",
+    "keywords": [
+      "cite Twitter APA",
+      "APA Twitter citation",
+      "tweet citation APA",
+      "X post citation APA",
+      "APA 7 Twitter"
+    ],
+    "pain_points": [
+      "username vs real name",
+      "Twitter rebranding to X",
+      "tweet vs thread citation",
+      "handling @ mentions and hashtags"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_20",
+    "title": "How to Cite an Instagram Post in APA Format (7th Edition)",
+    "topic": "instagram citation",
+    "url": "/how-to-cite-instagram-apa/",
+    "url_slug": "instagram",
+    "description": "Complete guide to citing Instagram posts in APA 7. Covers photos, videos, stories, and IGTV content.",
+    "keywords": [
+      "cite Instagram APA",
+      "APA Instagram citation",
+      "Instagram post APA",
+      "social media citation APA",
+      "APA 7 Instagram"
+    ],
+    "pain_points": [
+      "username vs display name",
+      "photo vs video vs reel format",
+      "caption inclusion",
+      "expired stories citation"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_21",
+    "title": "How to Cite a Facebook Post in APA Format (7th Edition)",
+    "topic": "facebook citation",
+    "url": "/how-to-cite-facebook-apa/",
+    "url_slug": "facebook",
+    "description": "Complete guide to citing Facebook posts in APA 7. Covers status updates, page posts, and group content.",
+    "keywords": [
+      "cite Facebook APA",
+      "APA Facebook citation",
+      "Facebook post APA",
+      "social media APA",
+      "APA 7 Facebook"
+    ],
+    "pain_points": [
+      "privacy settings and accessibility",
+      "page vs profile posts",
+      "group content citation",
+      "post type specification"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_22",
+    "title": "How to Cite a LinkedIn Post in APA Format (7th Edition)",
+    "topic": "linkedin citation",
+    "url": "/how-to-cite-linkedin-apa/",
+    "url_slug": "linkedin",
+    "description": "Complete guide to citing LinkedIn posts in APA 7. Covers individual posts, articles, and company page content.",
+    "keywords": [
+      "cite LinkedIn APA",
+      "APA LinkedIn citation",
+      "LinkedIn post APA",
+      "professional network APA",
+      "APA 7 LinkedIn"
+    ],
+    "pain_points": [
+      "post vs article distinction",
+      "company page vs personal profile",
+      "professional title inclusion",
+      "privacy and access restrictions"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_23",
+    "title": "How to Cite Software or an App in APA Format (7th Edition)",
+    "topic": "software citation",
+    "url": "/how-to-cite-software-apa/",
+    "url_slug": "software",
+    "description": "Complete guide to citing software and apps in APA 7. Covers computer programs, mobile apps, and statistical software.",
+    "keywords": [
+      "cite software APA",
+      "APA software citation",
+      "app citation APA",
+      "computer program APA",
+      "APA 7 software"
+    ],
+    "pain_points": [
+      "version number formatting",
+      "developer vs publisher attribution",
+      "open source software citation",
+      "mobile vs desktop apps"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_24",
+    "title": "How to Cite a Patent in APA Format (7th Edition)",
+    "topic": "patent citation",
+    "url": "/how-to-cite-patent-apa/",
+    "url_slug": "patent",
+    "description": "Complete guide to citing patents in APA 7. Covers U.S. and international patents, patent applications, and patent databases.",
+    "keywords": [
+      "cite patent APA",
+      "APA patent citation",
+      "patent number APA",
+      "patent application APA",
+      "APA 7 patent"
+    ],
+    "pain_points": [
+      "patent number formatting",
+      "inventor vs assignee",
+      "filing date vs issue date",
+      "international patent citations"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_25",
+    "title": "How to Cite Artwork in APA Format (7th Edition)",
+    "topic": "artwork citation",
+    "url": "/how-to-cite-artwork-apa/",
+    "url_slug": "artwork",
+    "description": "Complete guide to citing artwork in APA 7. Covers paintings, sculptures, photographs, and museum collections.",
+    "keywords": [
+      "cite artwork APA",
+      "APA artwork citation",
+      "painting citation APA",
+      "museum art APA",
+      "APA 7 artwork"
+    ],
+    "pain_points": [
+      "medium specification",
+      "museum vs online reproduction",
+      "untitled works citation",
+      "private collection access"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_26",
+    "title": "How to Cite a Music Album or Song in APA Format (7th Edition)",
+    "topic": "music citation",
+    "url": "/how-to-cite-music-apa/",
+    "url_slug": "music",
+    "description": "Complete guide to citing music in APA 7. Covers albums, songs, streaming music, and musical compositions.",
+    "keywords": [
+      "cite music APA",
+      "APA music citation",
+      "song citation APA",
+      "album citation APA",
+      "APA 7 music"
+    ],
+    "pain_points": [
+      "song vs album citation",
+      "composer vs performer attribution",
+      "streaming vs physical format",
+      "track number inclusion"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
   }
 ]

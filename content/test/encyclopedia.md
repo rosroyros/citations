@@ -1,6 +1,8 @@
 ---
 title: How to Cite an Encyclopedia Entry in APA Format (7th Edition)
 description: Complete guide to citing encyclopedia entries in APA 7. Covers online and print encyclopedias, specialized encyclopedias, and reference entries.
+meta_title: How to Cite an Encyclopedia Entry in APA Format (7th Edition)
+meta_description: Complete guide to citing encyclopedia entries in APA 7. Covers online and print encyclopedias, specialized encyclopedias, and reference entries.
 page_type: source_type
 url_slug: encyclopedia
 url: /how-to-cite-encyclopedia-apa/

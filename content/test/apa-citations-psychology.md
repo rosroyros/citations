@@ -1,6 +1,8 @@
 ---
 title: APA Citation Guide for Psychology Students
 description: APA citation guide specifically for psychology research and papers
+meta_title: APA Citation Guide for Psychology Students
+meta_description: APA citation guide specifically for psychology research and papers
 page_type: mega_guide
 url_slug: apa-citations-psychology
 url: /guide/apa-citations-psychology/

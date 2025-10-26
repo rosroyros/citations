@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Thesis in APA Format (7th Edition)
 description: Complete guide to citing master's theses in APA 7. Includes format rules for published and unpublished theses, databases, and institutional repositories.
+meta_title: How to Cite a Thesis in APA Format (7th Edition)
+meta_description: Complete guide to citing master's theses in APA 7. Includes format rules for published and unpublished theses, databases, and institutional repositories.
 page_type: source_type
 url_slug: thesis
 url: /how-to-cite-thesis-apa/

@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Podcast in APA Format (7th Edition)
 description: Complete guide to citing podcasts in APA 7. Covers podcast episodes, series, and audio content from streaming platforms.
+meta_title: How to Cite a Podcast in APA Format (7th Edition)
+meta_description: Complete guide to citing podcasts in APA 7. Covers podcast episodes, series, and audio content from streaming platforms.
 page_type: source_type
 url_slug: podcast
 url: /how-to-cite-podcast-apa/

@@ -1,6 +1,8 @@
 ---
 title: How to Cite a YouTube Video in APA Format (7th Edition)
 description: Complete guide to citing YouTube videos in APA 7. Covers individual videos, channels, and educational content on YouTube.
+meta_title: How to Cite a YouTube Video in APA Format (7th Edition)
+meta_description: Complete guide to citing YouTube videos in APA 7. Covers individual videos, channels, and educational content on YouTube.
 page_type: source_type
 url_slug: youtube
 url: /how-to-cite-youtube-apa/

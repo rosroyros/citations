@@ -1,6 +1,8 @@
 ---
 title: How to Cite a Dictionary Entry in APA Format (7th Edition)
 description: Complete guide to citing dictionary entries in APA 7. Covers online and print dictionaries, specialized dictionaries, and reference entries.
+meta_title: How to Cite a Dictionary Entry in APA Format (7th Edition)
+meta_description: Complete guide to citing dictionary entries in APA 7. Covers online and print dictionaries, specialized dictionaries, and reference entries.
 page_type: source_type
 url_slug: dictionary
 url: /how-to-cite-dictionary-apa/
