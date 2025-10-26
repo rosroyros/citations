@@ -27,6 +27,7 @@
 
 ---
 
+{% if examples %}
 ## Reference List Examples
 
 <p>Here are correctly formatted examples for common {{ source_type_name|lower }} variations:</p>
@@ -48,11 +49,13 @@
 
 {% endfor %}
 
+---
+
+{% endif %}
+
 ## Step-by-Step Instructions
 
-<div class="step-box">
 {{ step_by_step_instructions }}
-</div>
 
 ---
 
@@ -125,20 +128,6 @@
 ---
 
 {% endfor %}
-
----
-
-<div class="related-box">
-<h3>Related Source Types</h3>
-<div class="related-grid">
-<a href="/how-to-cite-book-apa/" class="related-link">📖 How to Cite Books</a>
-<a href="/how-to-cite-website-apa/" class="related-link">🌐 How to Cite Websites</a>
-<a href="/how-to-cite-conference-paper-apa/" class="related-link">📄 How to Cite Conference Papers</a>
-<a href="/how-to-cite-book-chapter-apa/" class="related-link">📚 How to Cite Book Chapters</a>
-<a href="/how-to-cite-dissertation-apa/" class="related-link">🎓 How to Cite Dissertations</a>
-<a href="/how-to-cite-dataset-apa/" class="related-link">📊 How to Cite Datasets</a>
-</div>
-</div>
 
 ---
 

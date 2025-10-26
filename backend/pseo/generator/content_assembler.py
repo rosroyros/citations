@@ -512,10 +512,10 @@ class ContentAssembler:
             if source_type_lower in ex.get('source_type', '').lower()
         ]
 
-        # If no matches, return general examples
+        # If no matches, return empty list (better than wrong source type)
         if not filtered_examples:
-            logger.info(f"No examples matched '{source_type}', returning general examples")
-            filtered_examples = all_examples[:10]
+            logger.info(f"No examples matched '{source_type}', returning empty list")
+            return []
 
         logger.debug(f"Found {len(filtered_examples)} examples for source type")
         return filtered_examples[:10]
