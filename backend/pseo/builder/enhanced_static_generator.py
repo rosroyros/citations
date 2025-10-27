@@ -370,37 +370,40 @@ class EnhancedStaticSiteGenerator:
         Returns:
             Sidebar HTML content
         """
-        # Simple hardcoded sidebar content that matches our working preview
+        # Sidebar content matching mockup design with proper CSS classes
         sidebar_html = """
-<aside class="content-sidebar">
-<div class="related-resources">
-<h3>Related Guides</h3>
-<ul>
-<li><a href="/how-to-cite-journal-article-apa/">How to Cite Journal Articles</a></li>
-<li><a href="/guide/apa-7th-edition/">Complete APA 7th Edition Guide</a></li>
-<li><a href="/guides/common-citation-errors/">Common Citation Errors</a></li>
-<li><a href="/guides/apa-reference-list-format/">APA Reference List Format</a></li>
-</ul>
-</div>
-<div class="related-resources">
-<h3>Quick Tools</h3>
-<ul>
-<li><a href="/checker/">Citation Checker</a></li>
-<li><a href="/generator/">Format Generator</a></li>
-<li><a href="/tools/doi-lookup/">DOI Lookup</a></li>
-<li><a href="/tools/style-comparison/">Style Comparison</a></li>
-</ul>
-</div>
-<div class="related-resources">
-<h3>💡 Pro Tip</h3>
-<p>Check your citations as you write, not all at once at the end. This saves time and prevents errors from accumulating.</p>
-</div>
-<div class="related-resources">
-<h3>Page Info</h3>
-<p><strong>Word count:</strong> {word_count}</p>
-<p><strong>Reading time:</strong> {reading_time}</p>
-<p><strong>Last updated:</strong> {last_updated}</p>
-</div>
+<aside class="sidebar">
+    <div class="sidebar-section">
+        <h3>Related Guides</h3>
+        <ul>
+            <li><a href="/how-to-cite-journal-article-apa/">📄 APA 7th Edition Guide</a></li>
+            <li><a href="/how-to-cite-journal-article-apa/">📰 Journal Articles</a></li>
+            <li><a href="/how-to-cite-book-apa/">📖 Books in APA</a></li>
+            <li><a href="/how-to-cite-website-apa/">🌐 Websites in APA</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section">
+        <h3>Quick Tools</h3>
+        <ul>
+            <li><a href="/">Citation Checker</a></li>
+            <li><a href="/generator/">Format Generator</a></li>
+            <li><a href="/tools/doi-lookup/">DOI Lookup</a></li>
+            <li><a href="/tools/style-comparison/">Style Comparison</a></li>
+        </ul>
+    </div>
+
+    <div class="sidebar-section sidebar-pro-tip">
+        <h3>💡 Pro Tip</h3>
+        <p>Check your citations as you write, not all at once at the end. This saves time and prevents errors from accumulating.</p>
+    </div>
+
+    <div class="sidebar-section">
+        <h3>Page Info</h3>
+        <p><strong>Word count:</strong> {word_count}</p>
+        <p><strong>Reading time:</strong> {reading_time}</p>
+        <p><strong>Last updated:</strong> {last_updated}</p>
+    </div>
 </aside>
         """.format(
             word_count=metadata.get('word_count', 'Unknown'),
