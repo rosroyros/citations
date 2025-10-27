@@ -1,0 +1,547 @@
+[
+  {
+    "id": "validation_01",
+    "title": "How to Check Capitalization in APA Citations",
+    "topic": "capitalization checking",
+    "url": "/how-to-check-capitalization-apa/",
+    "url_slug": "capitalization",
+    "description": "Complete guide to checking capitalization in APA citations. Learn title case vs sentence case rules, proper noun capitalization, and common errors to avoid.",
+    "keywords": [
+      "check capitalization APA",
+      "APA capitalization validation",
+      "title case sentence case APA",
+      "check citation capitalization",
+      "APA 7 capitalization rules"
+    ],
+    "pain_points": [
+      "title case vs sentence case confusion",
+      "proper noun capitalization rules",
+      "journal vs article title differences",
+      "subtitle capitalization after colon"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "capitalization",
+    "related_errors": [
+      "Article Title Title Case Error",
+      "Journal Title Capitalization Error",
+      "Subtitle Capitalization Error",
+      "Proper Noun Capitalization Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter",
+      "conference_paper",
+      "webpage"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_02",
+    "title": "How to Check Italics in APA Citations",
+    "topic": "italics checking",
+    "url": "/how-to-check-italics-apa/",
+    "url_slug": "italics",
+    "description": "Complete guide to checking italics in APA citations. Learn what should be italicized, common italics errors, and source-specific formatting rules.",
+    "keywords": [
+      "check italics APA",
+      "APA italics validation",
+      "italicize journal titles APA",
+      "check citation italics",
+      "APA 7 italics rules"
+    ],
+    "pain_points": [
+      "what to italicize vs not italicize",
+      "journal name italics confusion",
+      "book title italics rules",
+      "volume number italics formatting"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "italics",
+    "related_errors": [
+      "Book Title Not Italicized Error",
+      "Article Title Italicized Error",
+      "Journal Name Not Italicized Error",
+      "Volume Number Not Italicized Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "book_chapter",
+      "report"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_03",
+    "title": "How to Validate DOI Formatting in APA Citations",
+    "topic": "DOI validation",
+    "url": "/how-to-validate-doi-apa/",
+    "url_slug": "doi",
+    "description": "Complete guide to validating DOI formatting in APA citations. Learn correct DOI format, common DOI errors, and when to include DOIs.",
+    "keywords": [
+      "validate DOI APA",
+      "APA DOI formatting",
+      "check DOI format",
+      "DOI validation rules",
+      "APA 7 DOI guidelines"
+    ],
+    "pain_points": [
+      "DOI format structure",
+      "https vs http in DOIs",
+      "period after DOI confusion",
+      "when to include DOI",
+      "missing DOI errors"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "doi",
+    "related_errors": [
+      "DOI Format Error",
+      "Old DOI Format Error",
+      "DOI Period At End Error",
+      "Missing DOI Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter",
+      "report",
+      "dataset"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_04",
+    "title": "How to Check Ampersand Usage in APA Citations",
+    "topic": "ampersand checking",
+    "url": "/how-to-check-ampersand-apa/",
+    "url_slug": "ampersand",
+    "description": "Complete guide to checking ampersand usage in APA citations. Learn when to use & vs 'and', proper formatting, and common errors.",
+    "keywords": [
+      "check ampersand APA",
+      "APA ampersand rules",
+      "ampersand vs and APA",
+      "check citation ampersand",
+      "APA 7 ampersand usage"
+    ],
+    "pain_points": [
+      "ampersand vs 'and' confusion",
+      "reference list ampersand rules",
+      "in-text citation ampersand usage",
+      "multiple author formatting"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1800,
+    "element_focus": "ampersand",
+    "related_errors": [
+      "APA Ampersand Error",
+      "Comma Before Ampersand Error",
+      "Multiple Authors Formatting Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "book_chapter",
+      "report"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_05",
+    "title": "How to Verify Author Names in APA Citations",
+    "topic": "author name verification",
+    "url": "/how-to-verify-author-names-apa/",
+    "url_slug": "author-names",
+    "description": "Complete guide to verifying author names in APA citations. Learn author formatting, initials, suffixes, corporate authors, and common author errors.",
+    "keywords": [
+      "verify author names APA",
+      "APA author formatting",
+      "check author initials APA",
+      "corporate author APA",
+      "APA 7 author rules"
+    ],
+    "pain_points": [
+      "author initials formatting",
+      "corporate author rules",
+      "author suffixes (Jr., Sr., III)",
+      "missing author scenarios",
+      "author name order"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 2200,
+    "element_focus": "author_names",
+    "related_errors": [
+      "Author Initials Error",
+      "Author Name Order Error",
+      "Corporate Author Error",
+      "No Author Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "book_chapter",
+      "webpage",
+      "report"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_06",
+    "title": "How to Validate Date Formatting in APA Citations",
+    "topic": "date validation",
+    "url": "/how-to-validate-date-formatting-apa/",
+    "url_slug": "date-formatting",
+    "description": "Complete guide to validating date formatting in APA citations. Learn year-only vs full date rules, in-text citation dates, and common date errors.",
+    "keywords": [
+      "validate date formatting APA",
+      "APA date rules",
+      "check citation dates",
+      "in-text citation dates",
+      "APA 7 date formatting"
+    ],
+    "pain_points": [
+      "year-only vs full date confusion",
+      "in-text citation date formats",
+      "no date scenarios",
+      "publication date variations",
+      "date range formatting"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1800,
+    "element_focus": "date_formatting",
+    "related_errors": [
+      "Date Format Error",
+      "Missing Date Error",
+      "In-text Citation Date Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "webpage",
+      "newspaper",
+      "magazine"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_07",
+    "title": "How to Check Volume and Issue Numbers in APA Citations",
+    "topic": "volume issue checking",
+    "url": "/how-to-check-volume-issue-apa/",
+    "url_slug": "volume-issue",
+    "description": "Complete guide to checking volume and issue numbers in APA citations. Learn italics rules, formatting, and common journal citation errors.",
+    "keywords": [
+      "check volume issue APA",
+      "APA volume issue formatting",
+      "journal volume italics",
+      "check citation numbers",
+      "APA 7 volume issue rules"
+    ],
+    "pain_points": [
+      "volume number italics",
+      "issue number formatting",
+      "missing volume or issue",
+      "electronic article identifiers",
+      "volume vs issue confusion"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 1600,
+    "element_focus": "volume_issue",
+    "related_errors": [
+      "Volume Number Not Italicized Error",
+      "Issue Number Italicized Error",
+      "Missing Volume Issue Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "magazine",
+      "newspaper"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_08",
+    "title": "How to Check Et Al. Usage in APA Citations",
+    "topic": "et al checking",
+    "url": "/how-to-check-et-al-apa/",
+    "url_slug": "et-al",
+    "description": "Complete guide to checking et al. usage in APA citations. Learn author count rules, when to use et al., and common formatting errors.",
+    "keywords": [
+      "check et al APA",
+      "APA et al rules",
+      "author count et al",
+      "check citation et al",
+      "APA 7 et al usage"
+    ],
+    "pain_points": [
+      "when to use et al confusion",
+      "author count rules (20+ rule)",
+      "et al formatting rules",
+      "reference list vs in-text differences",
+      "first author et al rules"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1500,
+    "element_focus": "et_al",
+    "related_errors": [
+      "Et Al. Usage Error",
+      "Multiple Authors Formatting Error",
+      "21+ Authors Formatting Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "book_chapter",
+      "report"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_09",
+    "title": "How to Check Publisher Information in APA Citations",
+    "topic": "publisher checking",
+    "url": "/how-to-check-publisher-apa/",
+    "url_slug": "publisher",
+    "description": "Complete guide to checking publisher information in APA citations. Learn when to include publishers, formatting rules, and common publisher errors.",
+    "keywords": [
+      "check publisher APA",
+      "APA publisher rules",
+      "book publisher formatting",
+      "check citation publisher",
+      "APA 7 publisher guidelines"
+    ],
+    "pain_points": [
+      "when to include publisher",
+      "publisher location rules removed",
+      "multiple publisher formatting",
+      "university press formatting",
+      "database vs publisher confusion"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1600,
+    "element_focus": "publisher_info",
+    "related_errors": [
+      "Missing Publisher Error",
+      "Incorrect Publisher Format Error",
+      "Database Name Included Error"
+    ],
+    "affected_source_types": [
+      "book",
+      "book_chapter",
+      "report",
+      "software"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_10",
+    "title": "How to Validate URL Formatting in APA Citations",
+    "topic": "URL validation",
+    "url": "/how-to-validate-url-apa/",
+    "url_slug": "url",
+    "description": "Complete guide to validating URL formatting in APA citations. Learn when to include URLs, proper formatting, and common URL errors.",
+    "keywords": [
+      "validate URL APA",
+      "APA URL formatting",
+      "check citation URLs",
+      "hyperlink formatting APA",
+      "APA 7 URL rules"
+    ],
+    "pain_points": [
+      "when to include URLs",
+      "URL vs DOI confusion",
+      "retrieval dates removed",
+      "database URL inclusion",
+      "broken URL checking"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1700,
+    "element_focus": "url_formatting",
+    "related_errors": [
+      "URL Format Error",
+      "Access Date Included Error",
+      "Database Name Included Error",
+      "Broken URL Error"
+    ],
+    "affected_source_types": [
+      "webpage",
+      "blog",
+      "youtube",
+      "podcast",
+      "report"
+    ],
+    "validation_check_type": "element"
+  },
+  {
+    "id": "validation_11",
+    "title": "How to Check APA Reference List Format",
+    "topic": "reference list checking",
+    "url": "/how-to-check-reference-list-apa/",
+    "url_slug": "reference-list",
+    "description": "Complete guide to checking APA reference list format. Learn hanging indents, spacing, alphabetization, and overall reference list requirements.",
+    "keywords": [
+      "check reference list APA",
+      "APA reference format",
+      "hanging indent APA",
+      "check reference list",
+      "APA 7 reference list"
+    ],
+    "pain_points": [
+      "hanging indent formatting",
+      "double-spacing requirements",
+      "alphabetization rules",
+      "reference list order",
+      "formatting consistency"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "reference_list",
+    "related_errors": [
+      "Hanging Indent Error",
+      "Reference List Format Error",
+      "Alphabetization Error",
+      "Spacing Error"
+    ],
+    "affected_source_types": [
+      "all"
+    ],
+    "validation_check_type": "list"
+  },
+  {
+    "id": "validation_12",
+    "title": "How to Validate In-Text Citations in APA",
+    "topic": "in-text citation validation",
+    "url": "/how-to-validate-in-text-citations-apa/",
+    "url_slug": "in-text-citations",
+    "description": "Complete guide to validating in-text citations in APA. Learn parenthetical vs narrative formats, author-date rules, and common in-text citation errors.",
+    "keywords": [
+      "validate in-text citations APA",
+      "APA in-text citation rules",
+      "check parenthetical citations",
+      "narrative citation APA",
+      "APA 7 in-text citations"
+    ],
+    "pain_points": [
+      "parenthetical vs narrative confusion",
+      "author-date formatting",
+      "multiple author in-text rules",
+      "missing in-text citations",
+      "direct quote formatting"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 2200,
+    "element_focus": "in_text_citations",
+    "related_errors": [
+      "In-text Citation Format Error",
+      "Missing In-text Citation Error",
+      "Author-date Format Error"
+    ],
+    "affected_source_types": [
+      "all"
+    ],
+    "validation_check_type": "list"
+  },
+  {
+    "id": "validation_13",
+    "title": "How to Verify Alphabetization in APA Reference Lists",
+    "topic": "alphabetization checking",
+    "url": "/how-to-verify-alphabetization-apa/",
+    "url_slug": "alphabetization",
+    "description": "Complete guide to verifying alphabetization in APA reference lists. Learn alphabetical order rules, tie-breaking rules, and common sorting errors.",
+    "keywords": [
+      "verify alphabetization APA",
+      "APA reference alphabetization",
+      "check reference order",
+      "alphabetical rules APA",
+      "APA 7 alphabetization"
+    ],
+    "pain_points": [
+      "author surname alphabetization",
+      "same author tie-breaking",
+      "multiple works same author",
+      "corporate author sorting",
+      "no author entries"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1400,
+    "element_focus": "alphabetization",
+    "related_errors": [
+      "Alphabetization Error",
+      "Reference List Order Error",
+      "Same Author Tie-breaking Error"
+    ],
+    "affected_source_types": [
+      "all"
+    ],
+    "validation_check_type": "list"
+  },
+  {
+    "id": "validation_14",
+    "title": "How to Check Citation Consistency in APA Papers",
+    "topic": "citation consistency checking",
+    "url": "/how-to-check-citation-consistency-apa/",
+    "url_slug": "citation-consistency",
+    "description": "Complete guide to checking citation consistency in APA papers. Learn to match in-text citations with references, verify formatting, and ensure consistency.",
+    "keywords": [
+      "check citation consistency APA",
+      "APA citation matching",
+      "verify reference consistency",
+      "check citation formatting",
+      "APA 7 consistency rules"
+    ],
+    "pain_points": [
+      "in-text vs reference mismatches",
+      "formatting inconsistencies",
+      "missing references",
+      "orphaned citations",
+      "author name variations"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1800,
+    "element_focus": "citation_consistency",
+    "related_errors": [
+      "Citation Consistency Error",
+      "Missing Reference Error",
+      "Orphaned Citation Error"
+    ],
+    "affected_source_types": [
+      "all"
+    ],
+    "validation_check_type": "list"
+  },
+  {
+    "id": "validation_15",
+    "title": "How to Validate Hanging Indents in APA Reference Lists",
+    "topic": "hanging indent validation",
+    "url": "/how-to-validate-hanging-indents-apa/",
+    "url_slug": "hanging-indents",
+    "description": "Complete guide to validating hanging indents in APA reference lists. Learn proper hanging indent formatting, common errors, and how to fix them.",
+    "keywords": [
+      "validate hanging indents APA",
+      "APA hanging indent rules",
+      "check reference formatting",
+      "hanging indent setup",
+      "APA 7 hanging indents"
+    ],
+    "pain_points": [
+      "hanging indent setup",
+      "first line margin rules",
+      "subsequent lines indentation",
+      "Word hanging indent tools",
+      "Google Docs hanging indents"
+    ],
+    "target_audience": "students and researchers",
+    "word_count_target": 1200,
+    "element_focus": "hanging_indents",
+    "related_errors": [
+      "Hanging Indent Error",
+      "Reference List Format Error",
+      "First Line Indent Error"
+    ],
+    "affected_source_types": [
+      "all"
+    ],
+    "validation_check_type": "list"
+  }
+]

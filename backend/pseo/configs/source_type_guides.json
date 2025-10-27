@@ -20,7 +20,13 @@
       "unpublished vs published papers"
     ],
     "target_audience": "graduate students and researchers",
-    "word_count_target": 3500
+    "word_count_target": 3500,
+    "related_validation_pages": [
+      "/how-to-check-capitalization-apa/",
+      "/how-to-check-author-names-apa/",
+      "/how-to-check-ampersand-apa/",
+      "/how-to-validate-date-formatting-apa/"
+    ]
   },
   {
     "id": "source_type_02",
@@ -43,7 +49,13 @@
       "retrieval information requirements"
     ],
     "target_audience": "graduate students and researchers",
-    "word_count_target": 3500
+    "word_count_target": 3500,
+    "related_validation_pages": [
+      "/how-to-check-author-names-apa/",
+      "/how-to-check-italics-apa/",
+      "/how-to-validate-doi-apa/",
+      "/how-to-check-publisher-apa/"
+    ]
   },
   {
     "id": "source_type_03",
@@ -89,7 +101,14 @@
       "reprinted chapter citations"
     ],
     "target_audience": "undergraduate and graduate students",
-    "word_count_target": 3500
+    "word_count_target": 3500,
+    "related_validation_pages": [
+      "/how-to-check-capitalization-apa/",
+      "/how-to-check-italics-apa/",
+      "/how-to-check-author-names-apa/",
+      "/how-to-check-ampersand-apa/",
+      "/how-to-check-publisher-apa/"
+    ]
   },
   {
     "id": "source_type_05",
@@ -616,6 +635,102 @@
       "composer vs performer attribution",
       "streaming vs physical format",
       "track number inclusion"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_27",
+    "title": "How to Cite an E-book in APA Format (7th Edition)",
+    "topic": "ebook citation",
+    "url": "/how-to-cite-ebook-apa/",
+    "url_slug": "ebook",
+    "description": "Complete guide to citing e-books and digital books in APA 7. Covers Kindle, PDF e-books, library databases, and online book platforms.",
+    "keywords": [
+      "cite ebook APA",
+      "APA ebook citation",
+      "cite Kindle book APA",
+      "digital book citation APA",
+      "APA 7 ebook"
+    ],
+    "pain_points": [
+      "ebook vs print book format differences",
+      "lack of page numbers",
+      "DOI vs URL for ebooks",
+      "format indicator requirements",
+      "Kindle vs PDF vs EPUB differences"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_28",
+    "title": "How to Cite a Working Paper in APA Format (7th Edition)",
+    "topic": "working paper citation",
+    "url": "/how-to-cite-working-paper-apa/",
+    "url_slug": "working-paper",
+    "description": "Complete guide to citing working papers in APA 7. Covers SSRN, NBER, RePEc preprints, and unpublished drafts.",
+    "keywords": [
+      "cite working paper APA",
+      "APA working paper citation",
+      "SSRN citation APA",
+      "NBER working paper APA",
+      "preprint citation APA"
+    ],
+    "pain_points": [
+      "working paper vs published paper format",
+      "series and number placement",
+      "institutional affiliation requirements",
+      "unpublished status indication",
+      "repository vs institution citation"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_29",
+    "title": "How to Cite a White Paper in APA Format (7th Edition)",
+    "topic": "white paper citation",
+    "url": "/how-to-cite-white-paper-apa/",
+    "url_slug": "white-paper",
+    "description": "Complete guide to citing white papers in APA 7. Covers corporate, policy, and industry white papers from businesses and organizations.",
+    "keywords": [
+      "cite white paper APA",
+      "APA white paper citation",
+      "corporate report citation APA",
+      "industry report APA",
+      "policy paper citation APA"
+    ],
+    "pain_points": [
+      "white paper vs report distinction",
+      "corporate author format",
+      "publication vs release date",
+      "retrieval from company websites",
+      "format and series information"
+    ],
+    "target_audience": "graduate students and business professionals",
+    "word_count_target": 2500
+  },
+  {
+    "id": "source_type_30",
+    "title": "How to Cite a Press Release in APA Format (7th Edition)",
+    "topic": "press release citation",
+    "url": "/how-to-cite-press-release-apa/",
+    "url_slug": "press-release",
+    "description": "Complete guide to citing press releases in APA 7. Covers organizational press releases, PR newswires, and company announcements.",
+    "keywords": [
+      "cite press release APA",
+      "APA press release citation",
+      "company announcement citation APA",
+      "PR Newswire citation APA",
+      "news release APA"
+    ],
+    "pain_points": [
+      "press release vs news article distinction",
+      "organization as author format",
+      "release date vs access date",
+      "newswire vs company website citation",
+      "format descriptor requirements"
     ],
     "target_audience": "undergraduate and graduate students",
     "word_count_target": 2500

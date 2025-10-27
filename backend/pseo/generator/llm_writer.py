@@ -386,3 +386,193 @@ Output only valid JSON, no markdown code blocks."""
             "total_cost_usd": self.calculate_total_cost(),
             "model": self.model
         }
+
+    def generate_tools_and_tips(self, validation_element: str) -> Dict:
+        """
+        Generate structured tools and tips content for validation guides
+
+        Args:
+            validation_element: Type of validation element (e.g., "capitalization", "italics", "doi")
+
+        Returns:
+            Dict with structured tools and tips content
+        """
+        logger.info(f"Generating tools and tips for: {validation_element}")
+
+        prompt = f"""Generate comprehensive tools and tips for checking {validation_element} in APA citations.
+
+Focus on Microsoft Word and Google Docs features with specific, actionable instructions:
+
+Microsoft Word Features:
+- How to use Find feature (Ctrl+F/Cmd+F) to locate {validation_element} errors
+- How to use Find & Replace (Ctrl+H/Cmd+Shift+H) for bulk corrections
+- How to use Styles panel for formatting
+- Advanced search techniques for finding {validation_element} issues
+
+Google Docs Features:
+- How to use Find and Replace for checking {validation_element}
+- How to use Add-ons for citation checking
+- How to use keyboard shortcuts efficiently
+
+Search Strategies:
+- Specific search patterns to find {validation_element} errors
+- How to search for common mistake patterns
+- How to systematically check all citations
+
+Time-Saving Techniques:
+- Batch processing methods
+- Keyboard shortcuts for efficiency
+- Checklists for systematic review
+- Automation tools and recommendations
+
+Common Pitfalls:
+- Mistakes users commonly make when checking {validation_element}
+- How to avoid these common errors
+- Warning signs to watch for
+
+Provide practical, step-by-step instructions that students can immediately apply. Use clear, simple language and focus on actionable advice.
+
+Format the response as a JSON object with these exact keys:
+{{
+  "word_find": "Microsoft Word Find feature instructions",
+  "word_find_replace": "Microsoft Word Find & Replace instructions",
+  "word_styles": "Microsoft Word Styles panel instructions",
+  "docs_find": "Google Docs Find feature instructions",
+  "docs_addons": "Google Docs Add-ons instructions",
+  "search_strategies": "Specific search patterns and techniques",
+  "time_saving_techniques": ["Technique 1: Description", "Technique 2: Description", "Technique 3: Description"],
+  "common_pitfalls": ["Pitfall 1", "Pitfall 2", "Pitfall 3"]
+}}"""
+
+        try:
+            response = self._call_openai(prompt, max_tokens=1500)
+
+            # Parse JSON response
+            try:
+                content = response.strip()
+                # Try to extract JSON from the response
+                if '{' in content and '}' in content:
+                    start = content.find('{')
+                    end = content.rfind('}') + 1
+                    json_str = content[start:end]
+                    tools_data = json.loads(json_str)
+
+                    logger.info(f"✅ Generated tools and tips for {validation_element}")
+                    return tools_data
+                else:
+                    logger.warning("No JSON found in response, using fallback")
+                    return self._get_tools_fallback(validation_element)
+
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse JSON response: {e}")
+                return self._get_tools_fallback(validation_element)
+
+        except Exception as e:
+            logger.error(f"Error generating tools and tips: {e}")
+            return self._get_tools_fallback(validation_element)
+
+    def generate_before_after_examples(self, validation_element: str, num_examples: int = 5) -> List[Dict]:
+        """
+        Generate structured before/after examples for validation guides
+
+        Args:
+            validation_element: Type of validation element (e.g., "capitalization", "italics", "doi")
+            num_examples: Number of examples to generate (default: 5)
+
+        Returns:
+            List of example dictionaries
+        """
+        logger.info(f"Generating {num_examples} before/after examples for: {validation_element}")
+
+        examples_list = []
+        for i in range(num_examples):
+            prompt = f"""Generate one realistic before/after example for {validation_element} in APA citations.
+
+Example {i+1}:
+Create a realistic academic citation scenario with {validation_element} errors and corrections.
+
+Include:
+- scenario: Brief description of the situation
+- incorrect_citation: Full citation with the {validation_element} error
+- correct_citation: Corrected citation
+- changes: List of specific changes made
+- rule_applied: Which APA rule was applied
+- error_type: Type of error (e.g., "Capitalization error", "Formatting error")
+- fix_applied: Description of what was fixed
+- difficulty: Easy/Medium/Hard
+
+Use realistic academic sources (journal articles, books, webpages, etc.). Make the examples educational and clearly demonstrate the difference between incorrect and correct {validation_element} formatting.
+
+Format the response as a JSON object with these exact keys:
+{{
+  "scenario": "Brief description",
+  "incorrect_citation": "Full incorrect citation",
+  "correct_citation": "Full correct citation",
+  "changes": ["Change 1", "Change 2", "Change 3"],
+  "rule_applied": "APA rule applied",
+  "error_type": "Type of error",
+  "fix_applied": "Description of fix",
+  "difficulty": "Easy/Medium/Hard"
+}}"""
+
+            try:
+                response = self._call_openai(prompt, max_tokens=800)
+
+                # Parse JSON response
+                try:
+                    content = response.strip()
+                    if '{' in content and '}' in content:
+                        start = content.find('{')
+                        end = content.rfind('}') + 1
+                        json_str = content[start:end]
+                        example_data = json.loads(json_str)
+
+                        examples_list.append(example_data)
+                        logger.info(f"✅ Generated example {i+1} for {validation_element}")
+                    else:
+                        logger.warning(f"No JSON found in example {i+1} response")
+                        examples_list.append(self._get_example_fallback(validation_element, i+1))
+
+                except json.JSONDecodeError as e:
+                    logger.error(f"Failed to parse JSON for example {i+1}: {e}")
+                    examples_list.append(self._get_example_fallback(validation_element, i+1))
+
+            except Exception as e:
+                logger.error(f"Error generating example {i+1}: {e}")
+                examples_list.append(self._get_example_fallback(validation_element, i+1))
+
+        return examples_list
+
+    def _get_tools_fallback(self, validation_element: str) -> Dict:
+        """Get fallback tools content when LLM generation fails"""
+        return {
+            "word_find": f"Use Ctrl+F (Windows) or Cmd+F (Mac) to find {validation_element} patterns",
+            "word_find_replace": f"Use Ctrl+H (Windows) or Cmd+Shift+H (Mac) to fix {validation_element} errors",
+            "word_styles": f"Use the Styles panel in Word to format {validation_element} correctly",
+            "docs_find": f"Use Ctrl+F in Google Docs to find {validation_element} patterns",
+            "docs_addons": "Use citation checker add-ons in Google Docs",
+            "search_strategies": f"Search for common {validation_element} mistakes systematically",
+            "time_saving_techniques": [
+                "Create a checklist for systematic review",
+                "Use keyboard shortcuts for efficiency",
+                "Check citations in batches by source type"
+            ],
+            "common_pitfalls": [
+                f"Forgetting to check all instances of {validation_element}",
+                "Not verifying changes after corrections",
+                "Rushing through the review process"
+            ]
+        }
+
+    def _get_example_fallback(self, validation_element: str, example_num: int) -> Dict:
+        """Get fallback example content when LLM generation fails"""
+        return {
+            "scenario": f"Example {example_num}: Common {validation_element} error in academic citation",
+            "incorrect_citation": f"Incorrect {validation_element} formatting in citation",
+            "correct_citation": f"Correct {validation_element} formatting in citation",
+            "changes": [f"Fixed {validation_element} formatting according to APA rules"],
+            "rule_applied": f"APA 7th edition {validation_element} guidelines",
+            "error_type": f"{validation_element.title()} Error",
+            "fix_applied": f"Applied proper {validation_element} formatting",
+            "difficulty": "Easy"
+        }
