@@ -120,7 +120,7 @@ Johnson, M., & Williams, B. (2021). Another article. *Science Journal, 10*(3), 4
         assert f'<title>{sample_metadata["meta_title"]}</title>' in final_html
 
         # Check canonical URL
-        assert f'<link rel="canonical" href="https://yoursite.com{sample_metadata["url"]}">' in final_html
+        assert f'<link rel="canonical" href="https://citationformatchecker.com{sample_metadata["url"]}">' in final_html
 
         # Check schema.org markup
         assert '"@context": "https://schema.org"' in final_html

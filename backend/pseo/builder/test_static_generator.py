@@ -142,7 +142,7 @@ def test_sitemap_generation():
 
     assert '<?xml version="1.0" encoding="UTF-8"?>' in sitemap
     assert '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' in sitemap
-    assert '<loc>https://yoursite.com/guide/apa-citations/</loc>' in sitemap
+    assert '<loc>https://citationformatchecker.com/guide/apa-citations/</loc>' in sitemap
     assert '<lastmod>2024-10-13</lastmod>' in sitemap
     assert '<priority>0.7</priority>' in sitemap
     assert '</urlset>' in sitemap
