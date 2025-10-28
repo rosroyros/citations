@@ -36,6 +36,11 @@ mkdir -p ../../frontend/frontend/dist/guide
 cp -r ../../content/dist/guide/* ../../frontend/frontend/dist/guide/
 echo "✓ Copied $(find ../../content/dist/guide -name 'index.html' | wc -l) guide pages"
 
+# Copy validation guide pages
+echo "📚 Copying validation guide pages..."
+cp -r ../../content/dist/how-to-* ../../frontend/frontend/dist/
+echo "✓ Copied $(find ../../content/dist -name 'how-to-*' -type d | wc -l) validation guide directories"
+
 cd ../..
 
 # Restart Nginx
