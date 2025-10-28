@@ -72,13 +72,14 @@ class StaticSiteGenerator:
         logger.debug(f"Layout applied, final size: {len(result)} chars")
         return result
 
-    def generate_url_structure(self, page_type: str, page_name: str) -> str:
+    def generate_url_structure(self, page_type: str, page_name: str, front_matter: dict = None) -> str:
         """
         Create SEO-friendly URLs per spec
 
         Args:
-            page_type: Type of page (mega_guide, source_type, other)
+            page_type: Type of page (mega_guide, source_type, validation, other)
             page_name: URL slug for page
+            front_matter: Full front matter dictionary (for validation pages)
 
         Returns:
             URL path string
@@ -87,6 +88,9 @@ class StaticSiteGenerator:
             url = f"/guide/{page_name}/"
         elif page_type == "source_type":
             url = f"/how-to-cite-{page_name}-apa/"
+        elif page_type == "validation" and front_matter and "url" in front_matter:
+            # Use the URL from validation guide config
+            url = front_matter["url"]
         else:
             url = f"/{page_name}/"
 
@@ -202,7 +206,8 @@ class StaticSiteGenerator:
                 # Generate output path
                 url = self.generate_url_structure(
                     front_matter['page_type'],
-                    front_matter['url_slug']
+                    front_matter['url_slug'],
+                    front_matter
                 )
                 output_file = output_path / url.strip("/") / "index.html"
                 output_file.parent.mkdir(parents=True, exist_ok=True)
