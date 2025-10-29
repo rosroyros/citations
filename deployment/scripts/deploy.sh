@@ -38,8 +38,15 @@ echo "✓ Copied $(find ../../content/dist/guide -name 'index.html' | wc -l) gui
 
 # Copy validation guide pages
 echo "📚 Copying validation guide pages..."
-cp -r ../../content/dist/how-to-* ../../frontend/frontend/dist/
-echo "✓ Copied $(find ../../content/dist -name 'how-to-*' -type d | wc -l) validation guide directories"
+# Ensure we copy directories themselves, not their contents
+for guide_dir in ../../content/dist/how-to-*; do
+    if [ -d "$guide_dir" ]; then
+        guide_name=$(basename "$guide_dir")
+        mkdir -p "../../frontend/frontend/dist/$guide_name"
+        cp -r "$guide_dir"/* "../../frontend/frontend/dist/$guide_name/"
+    fi
+done
+echo "✓ Copied $(find ../../content/dist -maxdepth 1 -name 'how-to-*' -type d | wc -l) validation guide directories"
 
 cd ../..
 
