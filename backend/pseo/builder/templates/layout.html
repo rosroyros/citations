@@ -152,7 +152,7 @@
     </script>
     <script>
         // Citation checking function for static MiniChecker components in markdown
-        function checkCitation(button) {
+        async function checkCitation(button) {
             // Find the textarea within the same mini-checker container
             const miniChecker = button.closest('.mini-checker');
             const textarea = miniChecker ? miniChecker.querySelector('textarea') : null;
@@ -170,8 +170,62 @@
                 return;
             }
 
-            // Redirect to full checker
-            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Checking...';
+
+            // Remove previous results
+            const existingResults = miniChecker.querySelector('.mini-checker-results');
+            if (existingResults) {
+                existingResults.remove();
+            }
+
+            try {
+                // Call validation API
+                const response = await fetch('/api/validate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        citations: citation,
+                        style: 'apa7',
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Validation failed');
+                }
+
+                const data = await response.json();
+
+                // Show results inline
+                const resultsDiv = document.createElement('div');
+                resultsDiv.className = 'mini-checker-results';
+                resultsDiv.style.marginTop = '1rem';
+                resultsDiv.style.padding = '1rem';
+                resultsDiv.style.backgroundColor = '#f9fafb';
+                resultsDiv.style.borderRadius = '0.5rem';
+                resultsDiv.style.border = '1px solid #e5e7eb';
+
+                if (data.errors && data.errors.length > 0) {
+                    resultsDiv.innerHTML = '<h5 style="color: #dc2626; margin-bottom: 0.5rem;">❌ Issues Found:</h5><ul style="margin: 0; padding-left: 1.5rem;">' +
+                        data.errors.map(err => '<li style="color: #dc2626; margin-bottom: 0.25rem;">' + err.message + '</li>').join('') +
+                        '</ul><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                } else {
+                    resultsDiv.innerHTML = '<p style="color: #059669; margin: 0;">✅ Citation looks good!</p><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                }
+
+                miniChecker.appendChild(resultsDiv);
+
+            } catch (err) {
+                console.error('Validation error:', err);
+                alert('Error checking citation. Please try again or use the main checker.');
+            } finally {
+                // Reset button
+                button.disabled = false;
+                button.textContent = button.getAttribute('data-original-text') || 'Check Citation';
+            }
         }
 
         // Initialize static mini-checkers when page loads
@@ -189,6 +243,9 @@
                 });
 
                 if (button && textarea) {
+                    // Store original button text
+                    button.setAttribute('data-original-text', button.textContent);
+
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
                         console.log('Mini-checker button clicked');
