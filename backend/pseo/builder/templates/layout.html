@@ -150,6 +150,67 @@
         // Polyfill for process.env (needed for React development build)
         window.process = { env: { NODE_ENV: 'production' } };
     </script>
+    <script>
+        // Citation checking function for static MiniChecker components in markdown
+        function checkCitation(button) {
+            // Find the textarea within the same mini-checker container
+            const miniChecker = button.closest('.mini-checker');
+            const textarea = miniChecker ? miniChecker.querySelector('textarea') : null;
+
+            if (!textarea) {
+                console.error('Could not find textarea for mini-checker');
+                alert('Error: Could not find citation input field.');
+                return;
+            }
+
+            const citation = textarea.value.trim();
+
+            if (!citation) {
+                alert('Please enter a citation to check.');
+                return;
+            }
+
+            // Redirect to full checker
+            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+        }
+
+        // Initialize static mini-checkers when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const miniCheckers = document.querySelectorAll('.mini-checker');
+            console.log('Found static mini-checkers:', miniCheckers.length);
+
+            miniCheckers.forEach(function(miniChecker, index) {
+                const button = miniChecker.querySelector('button');
+                const textarea = miniChecker.querySelector('textarea');
+
+                console.log(`Mini-checker ${index + 1}:`, {
+                    button: !!button,
+                    textarea: !!textarea
+                });
+
+                if (button && textarea) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        console.log('Mini-checker button clicked');
+                        checkCitation(button);
+                    });
+
+                    // Add Enter key support
+                    textarea.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' && e.ctrlKey) {
+                            e.preventDefault();
+                            checkCitation(button);
+                        }
+                    });
+                } else {
+                    console.error('Mini-checker missing button or textarea:', {
+                        button: !!button,
+                        textarea: !!textarea
+                    });
+                }
+            });
+        });
+    </script>
     <script src="/assets/js/mini-checker.js"></script>
     <script>
         // Mount MiniChecker components

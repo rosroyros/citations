@@ -217,10 +217,21 @@ class StaticSiteGenerator:
                 logger.info(f"Written: {output_file}")
 
                 # Track for sitemap
+                page_type = front_matter['page_type']
+                # Set priority based on page type
+                if page_type == 'mega_guide':
+                    priority = '0.7'
+                elif page_type == 'validation':
+                    priority = '0.6'
+                elif page_type == 'source_type':
+                    priority = '0.6'
+                else:
+                    priority = '0.5'
+
                 pages.append({
                     'url': url,
                     'lastmod': front_matter.get('last_updated', datetime.now().strftime('%Y-%m-%d')),
-                    'priority': '0.7' if front_matter['page_type'] == 'mega_guide' else '0.6'
+                    'priority': priority
                 })
 
                 processed_count += 1
