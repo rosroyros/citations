@@ -1,12 +1,14 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from html.parser import HTMLParser
 import os
 import uuid
+import json
 from polar_sdk import Polar
+from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from backend.logger import setup_logger
 from backend.providers.openai_provider import OpenAIProvider
 
@@ -226,3 +228,95 @@ async def validate_citations(request: ValidationRequest):
         # Unexpected errors
         logger.error(f"Unexpected validation error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
+
+@app.post("/api/polar-webhook")
+async def handle_polar_webhook(request: Request):
+    """
+    Handle Polar webhooks for payment processing.
+
+    Verifies webhook signature and grants credits when payments are completed.
+
+    Args:
+        request: FastAPI Request object containing webhook payload
+
+    Returns:
+        Response: 200 OK for all processed webhooks
+    """
+    logger.info("Polar webhook received")
+
+    # Get signature from headers
+    signature = request.headers.get('X-Polar-Signature')
+    if not signature:
+        logger.warning("Webhook received without signature header")
+        return Response(status_code=401, content='{"error": "Invalid signature"}')
+
+    # Get raw body for signature verification
+    body = await request.body()
+
+    try:
+        # Verify webhook signature and parse payload
+        webhook = validate_event(
+            body=body,
+            headers=dict(request.headers),
+            secret=os.getenv('POLAR_WEBHOOK_SECRET')
+        )
+
+        logger.info(f"Webhook signature verified: {webhook.type}")
+
+        # Process only order.created and checkout.updated events
+        if webhook.type == "order.created":
+            await handle_order_created(webhook)
+        elif webhook.type == "checkout.updated":
+            await handle_checkout_updated(webhook)
+        else:
+            logger.debug(f"Ignoring webhook event type: {webhook.type}")
+
+        return Response(status_code=200)
+
+    except WebhookVerificationError as e:
+        logger.error(f"Webhook signature verification failed: {str(e)}")
+        return Response(status_code=401, content='{"error": "Invalid signature"}')
+    except Exception as e:
+        logger.error(f"Unexpected webhook processing error: {str(e)}", exc_info=True)
+        return Response(status_code=500, content='{"error": "Internal server error"}')
+
+
+async def handle_order_created(webhook):
+    """Handle order.created webhook by granting credits."""
+    from backend.database import add_credits
+
+    order_id = webhook.data.id
+    token = webhook.data.metadata.token
+
+    logger.info(f"Processing order.created: order_id={order_id}, token={token[:8]}...")
+
+    # Grant 1,000 credits (idempotent - add_credits checks for duplicate order_id)
+    success = add_credits(token, 1000, order_id)
+
+    if success:
+        logger.info(f"Successfully granted 1000 credits for order {order_id}")
+    else:
+        logger.warning(f"Order {order_id} already processed, skipping credit grant")
+
+
+async def handle_checkout_updated(webhook):
+    """Handle checkout.updated webhook when status is completed."""
+    from backend.database import add_credits
+
+    if webhook.data.status != "completed":
+        logger.debug(f"Ignoring checkout.updated with status: {webhook.data.status}")
+        return
+
+    order_id = webhook.data.order_id
+    token = webhook.data.metadata.token
+
+    logger.info(f"Processing checkout.updated: order_id={order_id}, token={token[:8]}...")
+
+    # Grant 1,000 credits (idempotent)
+    success = add_credits(token, 1000, order_id)
+
+    if success:
+        logger.info(f"Successfully granted 1000 credits for completed checkout {order_id}")
+    else:
+        logger.warning(f"Checkout order {order_id} already processed, skipping credit grant")
