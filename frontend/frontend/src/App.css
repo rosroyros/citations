@@ -183,6 +183,13 @@ button[type="submit"]:active:not(:disabled) {
   transform: translateY(0);
 }
 
+.cta-micro-text {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-align: center;
+  margin: 0.5rem 0 1rem 0;
+}
+
 textarea {
   font-family: 'Courier New', Courier, monospace;
   white-space: pre-wrap;

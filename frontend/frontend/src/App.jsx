@@ -183,6 +183,10 @@ function App() {
             {loading ? 'Validating...' : 'Check My Citations'}
           </button>
 
+          <p className="cta-micro-text">
+            No login required • Get results in seconds
+          </p>
+
           {/* Feature Pills */}
           <div className="feature-pills">
             <span className="feature-pill">✓ Capitalization check</span>
