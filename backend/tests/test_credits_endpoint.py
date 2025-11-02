@@ -1,32 +1,9 @@
 import pytest
-import tempfile
-import os
-from fastapi.testclient import TestClient
-
-def setup_test_client():
-    """Create a fresh test client with isolated database for each test."""
-    # Create temporary database for this test
-    test_db_file = tempfile.NamedTemporaryFile(delete=False, suffix='.db')
-    test_db_path = test_db_file.name
-    test_db_file.close()
-
-    # Set environment variable for database path
-    os.environ['TEST_DB_PATH'] = test_db_path
-
-    # Import modules after setting environment variable
-    from backend.app import app
-    from backend.database import init_db, add_credits
-
-    # Initialize fresh database
-    init_db()
-
-    return TestClient(app), test_db_path, add_credits
+from backend.database import add_credits
 
 
-def test_credits_balance_existing_user():
+def test_credits_balance_existing_user(client):
     """Test returns correct balance for existing user."""
-    client, test_db_path, add_credits = setup_test_client()
-
     # Add a test user with 100 credits
     add_credits("test-token-123", 100, "order-1")
 
@@ -37,15 +14,9 @@ def test_credits_balance_existing_user():
     assert data["token"] == "test-token-123"
     assert data["credits"] == 100
 
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
 
-
-def test_credits_balance_nonexistent_user():
+def test_credits_balance_nonexistent_user(client):
     """Test returns 0 for non-existent token."""
-    client, test_db_path, add_credits = setup_test_client()
-
     response = client.get("/api/credits?token=nonexistent-token")
 
     assert response.status_code == 200
@@ -53,42 +24,24 @@ def test_credits_balance_nonexistent_user():
     assert data["token"] == "nonexistent-token"
     assert data["credits"] == 0
 
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
 
-
-def test_credits_balance_missing_token():
+def test_credits_balance_missing_token(client):
     """Test returns error if token parameter missing."""
-    client, test_db_path, add_credits = setup_test_client()
-
     response = client.get("/api/credits")
 
     assert response.status_code == 422  # FastAPI validation error for missing query param
 
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
 
-
-def test_credits_balance_empty_token():
+def test_credits_balance_empty_token(client):
     """Test returns error if token parameter is empty."""
-    client, test_db_path, add_credits = setup_test_client()
-
     response = client.get("/api/credits?token=")
 
     assert response.status_code == 400
     assert "Token required" in response.json()["detail"]
 
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
 
-
-def test_credits_balance_user_with_zero_credits():
+def test_credits_balance_user_with_zero_credits(client):
     """Test returns 0 for user with zero credits."""
-    client, test_db_path, add_credits = setup_test_client()
-
     # Create user with 0 initial credits
     add_credits("zero-credit-user", 0, "order-zero")
 
@@ -99,15 +52,9 @@ def test_credits_balance_user_with_zero_credits():
     assert data["token"] == "zero-credit-user"
     assert data["credits"] == 0
 
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
 
-
-def test_credits_balance_after_adding_more():
+def test_credits_balance_after_adding_more(client):
     """Test returns updated balance after adding more credits."""
-    client, test_db_path, add_credits = setup_test_client()
-
     # Start with 50 credits
     add_credits("increment-test", 50, "order-1")
 
@@ -124,7 +71,3 @@ def test_credits_balance_after_adding_more():
     data = response.json()
     assert data["token"] == "increment-test"
     assert data["credits"] == 75
-
-    # Cleanup
-    if os.path.exists(test_db_path):
-        os.unlink(test_db_path)
