@@ -570,3 +570,74 @@ textarea {
   line-height: 1.6;
   margin: 0;
 }
+
+/* Success Page Styles */
+.success-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+}
+
+.activating-spinner {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.activating-spinner::before {
+  content: '';
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid #e5e7eb;
+  border-top: 3px solid #9333ea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 1rem;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  text-align: center;
+  color: #dc2626;
+  font-size: 1.125rem;
+  font-weight: 500;
+  background: #fef2f2;
+  padding: 2rem 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid #fecaca;
+  max-width: 500px;
+}
+
+.success-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #16a34a;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.125rem;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.success-banner.hidden {
+  transform: translateY(-100%);
+}
+
+/* Offset content when banner is visible */
+.success-banner ~ .app {
+  padding-top: 4rem;
+}

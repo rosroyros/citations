@@ -1,16 +1,14 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
-import { CreditDisplay } from './components/CreditDisplay'
-import Success from './pages/Success'
-import './App.css'
+import { saveToken } from '../utils/creditStorage'
+import '../App.css'
 
-function App() {
-  // Check if we're on the success page
-  if (window.location.pathname === '/success') {
-    return <Success />
-  }
+const Success = () => {
+  const [status, setStatus] = useState('activating')  // activating | success | error
+  const [credits, setCredits] = useState(0)
+  const [showBanner, setShowBanner] = useState(true)
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
@@ -100,8 +98,86 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    // Extract token from URL
+    const params = new URLSearchParams(window.location.search)
+    const token = params.get('token')
+
+    if (!token) {
+      setStatus('error')
+      return
+    }
+
+    // Save token
+    saveToken(token)
+
+    // Poll for credits
+    let attempts = 0
+    const maxAttempts = 15  // 30 seconds (15 * 2s)
+
+    const pollCredits = async () => {
+      try {
+        const response = await fetch(`/api/credits?token=${token}`)
+        const data = await response.json()
+
+        if (data.credits > 0) {
+          setCredits(data.credits)
+          setStatus('success')
+          clearInterval(interval)
+        } else if (attempts++ >= maxAttempts) {
+          setStatus('error')
+          clearInterval(interval)
+        }
+      } catch (e) {
+        console.error('Error polling credits:', e)
+      }
+    }
+
+    const interval = setInterval(pollCredits, 2000)
+    pollCredits()  // Call immediately
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Scroll listener to hide banner
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowBanner(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  if (status === 'activating') {
+    return (
+      <div className="success-page">
+        <div className="activating-spinner">Activating your credits...</div>
+      </div>
+    )
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="success-page">
+        <div className="error-message">
+          Error: Credits not activated. Please contact support.
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
+      {/* Success Banner */}
+      {showBanner && (
+        <div className="success-banner">
+          ✅ Payment Successful! You now have {credits} Citation Credits
+        </div>
+      )}
+
       <div className="app">
         {/* Header */}
         <header className="header">
@@ -113,7 +189,6 @@ function App() {
             </svg>
             <h1 className="logo-text">Citation Format Checker</h1>
           </div>
-          <CreditDisplay />
         </div>
       </header>
 
@@ -314,4 +389,4 @@ function App() {
   )
 }
 
-export default App
+export default Success
