@@ -1,0 +1,22 @@
+{
+  "source_type": "webpage",
+  "display_name": "Webpage",
+  "parent_page_url": "/how-to-cite-website-apa/",
+  "reference_template": "Author, A. A. (Year, Month Day). *Title of webpage*. Site Name. https://www.example.com/page",
+  "template_explanation": "Webpages include individual author, publication date, page title in italics, site name, and direct URL. For group authors, use the organization name.",
+  "common_rules": [
+    "Individual author or organization as author",
+    "Include specific publication date if available",
+    "Page title italicized and in sentence case",
+    "Include site name (not italicized)",
+    "Direct URL required",
+    "Use (n.d.) if no date available"
+  ],
+  "key_validation_points": [
+    "Author name or organization",
+    "Date in correct format or (n.d.)",
+    "Page title properly italicized",
+    "Site name included",
+    "Working direct URL"
+  ]
+}

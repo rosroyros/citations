@@ -1,0 +1,675 @@
+{
+  "sources": [
+    {
+      "id": "new_york_times",
+      "name": "The New York Times",
+      "url": "https://www.nytimes.com",
+      "parent_source_type": "newspaper_article",
+      "category": "newspaper",
+      "url_slug": "new-york-times",
+      "description": "How to cite articles from The New York Times in APA format"
+    },
+    {
+      "id": "youtube",
+      "name": "YouTube",
+      "url": "https://youtube.com",
+      "parent_source_type": "youtube_video",
+      "category": "video_platform",
+      "url_slug": "youtube",
+      "description": "How to cite YouTube videos in APA format"
+    },
+    {
+      "id": "wikipedia",
+      "name": "Wikipedia",
+      "url": "https://en.wikipedia.org",
+      "parent_source_type": "webpage",
+      "category": "reference",
+      "url_slug": "wikipedia",
+      "description": "How to cite Wikipedia pages in APA format"
+    },
+    {
+      "id": "cdc",
+      "name": "CDC",
+      "url": "https://www.cdc.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "cdc",
+      "description": "How to cite CDC reports and publications in APA format"
+    },
+    {
+      "id": "pubmed",
+      "name": "PubMed",
+      "url": "https://pubmed.ncbi.nlm.nih.gov",
+      "parent_source_type": "journal_article",
+      "category": "academic_database",
+      "url_slug": "pubmed",
+      "description": "How to cite PubMed articles in APA format"
+    },
+    {
+      "id": "washington_post",
+      "name": "The Washington Post",
+      "url": "https://www.washingtonpost.com",
+      "parent_source_type": "newspaper_article",
+      "category": "newspaper",
+      "url_slug": "washington-post",
+      "description": "How to cite articles from The Washington Post in APA format"
+    },
+    {
+      "id": "wall_street_journal",
+      "name": "The Wall Street Journal",
+      "url": "https://www.wsj.com",
+      "parent_source_type": "newspaper_article",
+      "category": "newspaper",
+      "url_slug": "wall-street-journal",
+      "description": "How to cite articles from The Wall Street Journal in APA format"
+    },
+    {
+      "id": "the_guardian",
+      "name": "The Guardian",
+      "url": "https://www.theguardian.com",
+      "parent_source_type": "newspaper_article",
+      "category": "newspaper",
+      "url_slug": "the-guardian",
+      "description": "How to cite articles from The Guardian in APA format"
+    },
+    {
+      "id": "bbc_news",
+      "name": "BBC News",
+      "url": "https://www.bbc.com/news",
+      "parent_source_type": "webpage",
+      "category": "news",
+      "url_slug": "bbc-news",
+      "description": "How to cite BBC News articles in APA format"
+    },
+    {
+      "id": "tiktok",
+      "name": "TikTok",
+      "url": "https://www.tiktok.com",
+      "parent_source_type": "social_media",
+      "category": "social_platform",
+      "url_slug": "tiktok",
+      "description": "How to cite TikTok videos in APA format"
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "parent_source_type": "social_media",
+      "category": "social_platform",
+      "url_slug": "linkedin",
+      "description": "How to cite LinkedIn posts in APA format"
+    },
+    {
+      "id": "cnn",
+      "name": "CNN",
+      "url": "https://www.cnn.com",
+      "parent_source_type": "webpage",
+      "category": "publication",
+      "url_slug": "cnn",
+      "description": "How to cite CNN articles in APA format"
+    },
+    {
+      "id": "reuters",
+      "name": "Reuters",
+      "url": "https://www.reuters.com",
+      "parent_source_type": "webpage",
+      "category": "publication",
+      "url_slug": "reuters",
+      "description": "How to cite Reuters articles in APA format"
+    },
+    {
+      "id": "associated_press",
+      "name": "Associated Press",
+      "url": "https://apnews.com",
+      "parent_source_type": "webpage",
+      "category": "publication",
+      "url_slug": "associated-press",
+      "description": "How to cite Associated Press articles in APA format"
+    },
+    {
+      "id": "npr",
+      "name": "NPR",
+      "url": "https://www.npr.org",
+      "parent_source_type": "webpage",
+      "category": "publication",
+      "url_slug": "npr",
+      "description": "How to cite NPR articles in APA format"
+    },
+    {
+      "id": "bloomberg",
+      "name": "Bloomberg",
+      "url": "https://www.bloomberg.com",
+      "parent_source_type": "webpage",
+      "category": "publication",
+      "url_slug": "bloomberg",
+      "description": "How to cite Bloomberg articles in APA format"
+    },
+    {
+      "id": "google_scholar",
+      "name": "Google Scholar",
+      "url": "https://scholar.google.com",
+      "parent_source_type": "academic_database",
+      "category": "academic",
+      "url_slug": "google-scholar",
+      "description": "How to cite Google Scholar articles in APA format"
+    },
+    {
+      "id": "jstor",
+      "name": "JSTOR",
+      "url": "https://www.jstor.org",
+      "parent_source_type": "academic_database",
+      "category": "academic",
+      "url_slug": "jstor",
+      "description": "How to cite JSTOR articles in APA format"
+    },
+    {
+      "id": "arxiv",
+      "name": "arXiv",
+      "url": "https://arxiv.org",
+      "parent_source_type": "academic_database",
+      "category": "academic",
+      "url_slug": "arxiv",
+      "description": "How to cite arXiv papers in APA format"
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "url": "https://www.nature.com",
+      "parent_source_type": "journal_article",
+      "category": "academic",
+      "url_slug": "nature",
+      "description": "How to cite Nature articles in APA format"
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "url": "https://www.science.org",
+      "parent_source_type": "journal_article",
+      "category": "academic",
+      "url_slug": "science",
+      "description": "How to cite Science articles in APA format"
+    },
+    {
+      "id": "nih",
+      "name": "NIH",
+      "url": "https://www.nih.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "nih",
+      "description": "How to cite NIH reports and publications in APA format"
+    },
+    {
+      "id": "fda",
+      "name": "FDA",
+      "url": "https://www.fda.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "fda",
+      "description": "How to cite FDA reports and publications in APA format"
+    },
+    {
+      "id": "epa",
+      "name": "EPA",
+      "url": "https://www.epa.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "epa",
+      "description": "How to cite EPA reports and publications in APA format"
+    },
+    {
+      "id": "white_house",
+      "name": "The White House",
+      "url": "https://www.whitehouse.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "white-house",
+      "description": "How to cite White House reports and publications in APA format"
+    },
+    {
+      "id": "supreme_court",
+      "name": "Supreme Court",
+      "url": "https://www.supremecourt.gov",
+      "parent_source_type": "government_report",
+      "category": "government",
+      "url_slug": "supreme-court",
+      "description": "How to cite Supreme Court opinions and reports in APA format"
+    },
+    {
+      "id": "merriam_webster",
+      "name": "Merriam-Webster",
+      "url": "https://www.merriam-webster.com",
+      "parent_source_type": "webpage",
+      "category": "reference",
+      "url_slug": "merriam-webster",
+      "description": "How to cite Merriam-Webster entries in APA format"
+    },
+    {
+      "id": "dictionary_com",
+      "name": "Dictionary.com",
+      "url": "https://www.dictionary.com",
+      "parent_source_type": "webpage",
+      "category": "reference",
+      "url_slug": "dictionary-com",
+      "description": "How to cite Dictionary.com entries in APA format"
+    },
+    {
+      "id": "britannica",
+      "name": "Britannica",
+      "url": "https://www.britannica.com",
+      "parent_source_type": "webpage",
+      "category": "reference",
+      "url_slug": "britannica",
+      "description": "How to cite Britannica articles in APA format"
+    },
+    {
+      "id": "apa_journal",
+      "name": "American Psychological Association",
+      "url": "https://www.apa.org/pubs/journals/apa",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "apa-journal",
+      "description": "How to cite APA journal articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "psychological_bulletin",
+      "name": "Psychological Bulletin",
+      "url": "https://www.apa.org/pubs/journals/bul",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "psychological-bulletin",
+      "description": "How to cite Psychological Bulletin articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "journal_experimental_psychology",
+      "name": "Journal of Experimental Psychology",
+      "url": "https://www.apa.org/pubs/journals/xp",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "journal-experimental-psychology",
+      "description": "How to cite Journal of Experimental Psychology articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "consulting_clinical_psychology",
+      "name": "Journal of Consulting and Clinical Psychology",
+      "url": "https://www.apa.org/pubs/journals/ccp",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "consulting-clinical-psychology",
+      "description": "How to cite Journal of Consulting and Clinical Psychology articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "developmental_psychology",
+      "name": "Developmental Psychology",
+      "url": "https://www.apa.org/pubs/journals/dev",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "developmental-psychology",
+      "description": "How to cite Developmental Psychology articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "cognitive_psychology",
+      "name": "Cognitive Psychology",
+      "url": "https://www.sciencedirect.com/journal/cognitive-psychology",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "cognitive-psychology",
+      "description": "How to cite Cognitive Psychology articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "social_psychology_personality",
+      "name": "Social Psychology and Personality Science",
+      "url": "https://journals.sagepub.com/home/spp",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "social-psychology-personality",
+      "description": "How to cite Social Psychology and Personality Science articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "clinical_psychological_science",
+      "name": "Clinical Psychological Science",
+      "url": "https://journals.sagepub.com/home/cpx",
+      "parent_source_type": "journal_article",
+      "category": "academic_psychology",
+      "url_slug": "clinical-psychological-science",
+      "description": "How to cite Clinical Psychological Science articles in APA format",
+      "priority": 1
+    },
+    {
+      "id": "american_sociological_review",
+      "name": "American Sociological Review",
+      "url": "https://journals.sagepub.com/home/asr",
+      "parent_source_type": "journal_article",
+      "category": "academic_sociology",
+      "url_slug": "american-sociological-review",
+      "description": "How to cite American Sociological Review articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "social_forces",
+      "name": "Social Forces",
+      "url": "https://academic.oup.com/sf",
+      "parent_source_type": "journal_article",
+      "category": "academic_sociology",
+      "url_slug": "social-forces",
+      "description": "How to cite Social Forces articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "sociology_health_illness",
+      "name": "Sociology of Health & Illness",
+      "url": "https://academic.oup.com/shm",
+      "parent_source_type": "journal_article",
+      "category": "academic_sociology",
+      "url_slug": "sociology-health-illness",
+      "description": "How to cite Sociology of Health & Illness articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "journal_health_social_behavior",
+      "name": "Journal of Health and Social Behavior",
+      "url": "https://journals.sagepub.com/home/hsb",
+      "parent_source_type": "journal_article",
+      "category": "academic_sociology",
+      "url_slug": "journal-health-social-behavior",
+      "description": "How to cite Journal of Health and Social Behavior articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "new_england_journal_medicine",
+      "name": "New England Journal of Medicine",
+      "url": "https://www.nejm.org",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "new-england-journal-medicine",
+      "description": "How to cite New England Journal of Medicine articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "lancet",
+      "name": "The Lancet",
+      "url": "https://www.thelancet.com",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "lancet",
+      "description": "How to cite The Lancet articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "journal_american_medical_association",
+      "name": "Journal of the American Medical Association",
+      "url": "https://jamanetwork.com/journals/jama",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "journal-american-medical-association",
+      "description": "How to cite Journal of the American Medical Association articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "nature_medicine",
+      "name": "Nature Medicine",
+      "url": "https://www.nature.com/nm",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "nature-medicine",
+      "description": "How to cite Nature Medicine articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "cell",
+      "name": "Cell",
+      "url": "https://www.cell.com/cell",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "cell",
+      "description": "How to cite Cell articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "bmj",
+      "name": "BMJ (British Medical Journal)",
+      "url": "https://www.bmj.com",
+      "parent_source_type": "journal_article",
+      "category": "academic_medical",
+      "url_slug": "bmj",
+      "description": "How to cite BMJ articles in APA format",
+      "priority": 2
+    },
+    {
+      "id": "harvard_business_review",
+      "name": "Harvard Business Review",
+      "url": "https://hbr.org",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "harvard-business-review",
+      "description": "How to cite Harvard Business Review articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "journal_business_research",
+      "name": "Journal of Business Research",
+      "url": "https://www.journals.elsevier.com/journal-of-business-research",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "journal-business-research",
+      "description": "How to cite Journal of Business Research articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "strategic_management_journal",
+      "name": "Strategic Management Journal",
+      "url": "https://onlinelibrary.wiley.com/journal/10970266",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "strategic-management-journal",
+      "description": "How to cite Strategic Management Journal articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "academy_management_review",
+      "name": "Academy of Management Review",
+      "url": "https://journals.aom.org/AMR",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "academy-management-review",
+      "description": "How to cite Academy of Management Review articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "journal_marketing",
+      "name": "Journal of Marketing",
+      "url": "https://www.ama.org/publications/Journal-of-Marketing",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "journal-marketing",
+      "description": "How to cite Journal of Marketing articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "management_science",
+      "name": "Management Science",
+      "url": "https://pubsonline.informs.org/journal/mnsc",
+      "parent_source_type": "journal_article",
+      "category": "academic_business",
+      "url_slug": "management-science",
+      "description": "How to cite Management Science articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "american_educational_research_journal",
+      "name": "American Educational Research Journal",
+      "url": "https://journals.sagepub.com/home/aera",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "american-educational-research-journal",
+      "description": "How to cite American Educational Research Journal articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "educational_researcher",
+      "name": "Educational Researcher",
+      "url": "https://journals.sagepub.com/home/edr",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "educational-researcher",
+      "description": "How to cite Educational Researcher articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "review_educational_research",
+      "name": "Review of Educational Research",
+      "url": "https://journals.sagepub.com/home/rer",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "review-educational-research",
+      "description": "How to cite Review of Educational Research articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "journal_educational_psychology",
+      "name": "Journal of Educational Psychology",
+      "url": "https://www.apa.org/pubs/journals/edu",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "journal-educational-psychology",
+      "description": "How to cite Journal of Educational Psychology articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "educational_psychologist",
+      "name": "Educational Psychologist",
+      "url": "https://www.tandfonline.com/toc/hepd20/current",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "educational-psychologist",
+      "description": "How to cite Educational Psychologist articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "learning_instruction",
+      "name": "Learning and Instruction",
+      "url": "https://www.journals.elsevier.com/learning-and-instruction",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "learning-instruction",
+      "description": "How to cite Learning and Instruction articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "computers_education",
+      "name": "Computers & Education",
+      "url": "https://www.journals.elsevier.com/computers-and-education",
+      "parent_source_type": "journal_article",
+      "category": "academic_education",
+      "url_slug": "computers-education",
+      "description": "How to cite Computers & Education articles in APA format",
+      "priority": 3
+    },
+    {
+      "id": "american_political_science_review",
+      "name": "American Political Science Review",
+      "url": "https://www.cambridge.org/core/journals/american-political-science-review",
+      "parent_source_type": "journal_article",
+      "category": "academic_political_science",
+      "url_slug": "american-political-science-review",
+      "description": "How to cite American Political Science Review articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "world_politics",
+      "name": "World Politics",
+      "url": "https://www.cambridge.org/core/journals/world-politics",
+      "parent_source_type": "journal_article",
+      "category": "academic_political_science",
+      "url_slug": "world-politics",
+      "description": "How to cite World Politics articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "journal_politics",
+      "name": "Journal of Politics",
+      "url": "https://www.journals.uchicago.edu/journals/jop",
+      "parent_source_type": "journal_article",
+      "category": "academic_political_science",
+      "url_slug": "journal-politics",
+      "description": "How to cite Journal of Politics articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "political_analysis",
+      "name": "Political Analysis",
+      "url": "https://onlinelibrary.wiley.com/journal/pola",
+      "parent_source_type": "journal_article",
+      "category": "academic_political_science",
+      "url_slug": "political-analysis",
+      "description": "How to cite Political Analysis articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "international_organization",
+      "name": "International Organization",
+      "url": "https://www.cambridge.org/core/journals/international-organization",
+      "parent_source_type": "journal_article",
+      "category": "academic_political_science",
+      "url_slug": "international-organization",
+      "description": "How to cite International Organization articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "science",
+      "name": "Science",
+      "url": "https://www.science.org",
+      "parent_source_type": "journal_article",
+      "category": "academic_stem",
+      "url_slug": "science",
+      "description": "How to cite Science articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "nature",
+      "name": "Nature",
+      "url": "https://www.nature.com",
+      "parent_source_type": "journal_article",
+      "category": "academic_stem",
+      "url_slug": "nature",
+      "description": "How to cite Nature articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "physical_review_letters",
+      "name": "Physical Review Letters",
+      "url": "https://journals.aps.org/PRL",
+      "parent_source_type": "journal_article",
+      "category": "academic_stem",
+      "url_slug": "physical-review-letters",
+      "description": "How to cite Physical Review Letters articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "proceedings_national_academy_sciences",
+      "name": "Proceedings of the National Academy of Sciences",
+      "url": "https://www.pnas.org",
+      "parent_source_type": "journal_article",
+      "category": "academic_stem",
+      "url_slug": "proceedings-national-academy-sciences",
+      "description": "How to cite Proceedings of the National Academy of Sciences articles in APA format",
+      "priority": 4
+    },
+    {
+      "id": "journal_chemical_physics",
+      "name": "Journal of Chemical Physics",
+      "url": "https://aip.scitation.org/journal/jcp",
+      "parent_source_type": "journal_article",
+      "category": "academic_stem",
+      "url_slug": "journal-chemical-physics",
+      "description": "How to cite Journal of Chemical Physics articles in APA format",
+      "priority": 4
+    }
+  ]
+}

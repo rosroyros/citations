@@ -1,0 +1,41 @@
+{
+  "config": {
+    "id": "validation_13",
+    "title": "How to Validate Citation Consistency in APA",
+    "topic": "citation consistency validation",
+    "url": "/how-to-validate-consistency-apa/",
+    "url_slug": "consistency",
+    "description": "Complete guide to validating citation consistency in APA format. Learn formatting consistency, capitalization rules, and style uniformity.",
+    "keywords": [
+      "validate consistency APA",
+      "APA formatting consistency",
+      "citation style uniformity",
+      "capitalization consistency",
+      "APA 7 consistency rules"
+    ],
+    "pain_points": [
+      "capitalization inconsistencies",
+      "punctuation variations",
+      "formatting differences",
+      "abbreviation usage",
+      "spacing issues"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "consistency",
+    "related_errors": [
+      "Consistency Error",
+      "Capitalization Error",
+      "Punctuation Error",
+      "Formatting Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "website",
+      "report",
+      "all_source_types"
+    ],
+    "validation_check_type": "element"
+  }
+}

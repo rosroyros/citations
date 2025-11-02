@@ -1,0 +1,21 @@
+{
+  "source_type": "newspaper_article",
+  "display_name": "Newspaper Article",
+  "parent_page_url": "/how-to-cite-newspaper-article-apa/",
+  "reference_template": "Author, A. A. (Year, Month Day). Title of article. *Name of Newspaper*. URL",
+  "template_explanation": "Newspaper articles include the full date, newspaper name in italics, and direct URL. Author format follows standard APA rules.",
+  "common_rules": [
+    "Include full publication date (Year, Month Day)",
+    "Newspaper name is italicized",
+    "Article title uses sentence case (not title case)",
+    "Include direct URL to the article",
+    "No volume/issue numbers for newspapers"
+  ],
+  "key_validation_points": [
+    "Author names in Last, F. format",
+    "Date in parentheses with full date",
+    "Article title not italicized",
+    "Newspaper name italicized",
+    "URL formatted as live link"
+  ]
+}

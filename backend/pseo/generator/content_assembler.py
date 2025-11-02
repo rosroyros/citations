@@ -8,12 +8,23 @@ Orchestrates the assembly of complete PSEO pages by combining:
 """
 import json
 import logging
+import time
+import re
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any
 
 from .template_engine import TemplateEngine
 from .llm_writer import LLMWriter
+
+# Add TF-IDF similarity calculation
+try:
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    from sklearn.metrics.pairwise import cosine_similarity
+    TFIDF_AVAILABLE = True
+except ImportError:
+    TFIDF_AVAILABLE = False
+    logging.warning("scikit-learn not available - TF-IDF similarity calculation disabled")
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -50,6 +61,17 @@ class ContentAssembler:
         # Initialize components
         self.template_engine = TemplateEngine(templates_dir)
         self.llm_writer = LLMWriter()
+
+        # Token budget enforcement
+        self.max_cost_per_page = 0.50  # USD per page
+        self.token_budgets = {
+            "navigation_guide": {"max_tokens": 500, "target_words": 350},
+            "real_examples": {"max_tokens": 800, "target_words": 500},
+            "source_issues": {"max_tokens": 600, "target_words": 400},
+            "faq": {"max_tokens": 400, "target_words": 250},
+            "step_by_step": {"max_tokens": 600, "target_words": 400},
+            "source_notes": {"max_tokens": 300, "target_words": 200}
+        }
 
         logger.info("ContentAssembler initialized successfully")
 
@@ -831,6 +853,7 @@ class ContentAssembler:
             "title": config["title"],
             "description": config["description"],
             "validation_element": validation_element,
+            "validation_element_display": "DOI" if validation_element == "doi" else validation_element.replace('_', ' ').title(),
             "quick_reference_template": self._generate_validation_quick_reference(validation_element),
             "what_to_look_for_rules": validation_data.get("rules", "Rules for this validation element..."),
             "apa_official_guidance": validation_data.get("apa_guidance", "According to APA 7th edition guidelines..."),
@@ -1005,11 +1028,32 @@ validation_element: {validation_element}
         with open(errors_file, 'r', encoding='utf-8') as f:
             all_errors = json.load(f)
 
+        # Map validation elements to error categories
+        validation_to_category_map = {
+            "author_names": "author_format",
+            "capitalization": "capitalization",
+            "doi": "doi_url",
+            "italics": "italics",
+            "ampersand": "punctuation",
+            "publisher_info": "punctuation",
+            "url_formatting": "doi_url",
+            "date_formatting": "punctuation",
+            "volume_issue": "punctuation",
+            "et_al": "author_format",
+            "reference_list": "punctuation",
+            "in_text_citations": "punctuation",
+            "alphabetization": "punctuation",
+            "citation_consistency": "punctuation",
+            "hanging_indents": "italics"
+        }
+
+        target_category = validation_to_category_map.get(validation_element, validation_element)
+
         # Filter errors relevant to this validation element
         relevant_errors = []
         for error in all_errors:
-            # Simple matching - can be enhanced
-            if validation_element.lower() in error.get("category", "").lower():
+            # Enhanced matching with category mapping
+            if target_category.lower() in error.get("category", "").lower():
                 error["detection_method"] = error.get("fix_instructions", [""])[0] if error.get("fix_instructions") else ""
                 error["quick_fix"] = error.get("fix_instructions", [""])[-1] if error.get("fix_instructions") else ""
                 error["frequency"] = error.get("frequency", {}).get("estimated_frequency", "Common")
@@ -1061,6 +1105,36 @@ validation_element: {validation_element}
             4. Time-saving tips
             5. How to handle special cases
             6. Where to find more help
+            """,
+            "rules": f"""
+            As an APA 7th edition expert, provide clear, concise rules for checking {validation_element} in citations.
+            Explain the specific formatting requirements and common guidelines that apply to {validation_element}.
+            Keep it to 2-3 sentences with the most important rules that students need to remember.
+            Focus on practical, actionable guidance.
+            """,
+            "apa_guidance": f"""
+            Provide official APA 7th edition guidance for {validation_element} formatting.
+            Quote or paraphrase the official APA rules for {validation_element} in academic citations.
+            Include any specific exceptions or special considerations mentioned in the APA manual.
+            Keep it to 2-3 sentences with the most authoritative guidance.
+            """,
+            "correct_example": f"""
+            Provide a clear, correct example of properly formatted {validation_element} in an APA citation.
+            Show exactly how {validation_element} should appear in a complete citation.
+            Make sure the example follows all APA 7th edition rules for {validation_element}.
+            Just provide the example, no additional explanation needed.
+            """,
+            "incorrect_example": f"""
+            Provide a clear example of incorrectly formatted {validation_element} that shows a common mistake.
+            This should be a realistic example of what students often get wrong with {validation_element}.
+            Make sure the example clearly demonstrates a formatting error.
+            Just provide the example, no additional explanation needed.
+            """,
+            "key_rules": f"""
+            Summarize the 3-4 most important rules to remember when checking {validation_element} in APA citations.
+            Focus on the rules that are most frequently violated or most important for academic integrity.
+            Present as a concise bullet-point style summary.
+            Keep it brief and memorable for quick reference.
             """
         }
 
@@ -1075,6 +1149,7 @@ validation_element: {validation_element}
                 task=f"check {validation_element} in APA citations",
                 rules={"rules": ["Check formatting", "Verify consistency", "Apply APA rules"]}
             )
+            time.sleep(0.5)  # Short delay between API calls
 
             # Generate source type guidance
             logger.info("Generating source type guidance...")
@@ -1090,6 +1165,7 @@ validation_element: {validation_element}
             Format as a list of dictionaries with keys: name, format_description, check_items, example
             """
             generated_content["source_type_variations"] = self._generate_structured_content(source_type_prompt)
+            time.sleep(0.5)  # Short delay between API calls
 
             # Generate tools and tips
             logger.info("Generating tools and tips...")
@@ -1109,6 +1185,7 @@ validation_element: {validation_element}
             Be specific and actionable.
             """
             generated_content["tools_tips"] = self.llm_writer.generate_tools_and_tips(validation_element)
+            time.sleep(0.5)  # Short delay between API calls
 
             # Generate before/after examples
             logger.info("Generating before/after examples...")
@@ -1129,6 +1206,7 @@ validation_element: {validation_element}
             Use realistic academic sources.
             """
             generated_content["before_after_examples"] = self.llm_writer.generate_before_after_examples(validation_element, 5)
+            time.sleep(0.5)  # Short delay between API calls
 
             # Generate APA rules and examples
             logger.info("Generating APA rules and examples...")
@@ -1148,11 +1226,53 @@ validation_element: {validation_element}
             """
             rules_content = self._generate_structured_content(rules_prompt)
             generated_content.update(rules_content)
+            time.sleep(0.5)  # Short delay between API calls
 
             # Generate FAQ
             logger.info("Generating FAQ...")
             faq_items = self.llm_writer.generate_faq(f"checking {validation_element} in APA citations", num_questions=6)
             generated_content["faq_items"] = faq_items
+            time.sleep(0.5)  # Short delay between API calls
+
+            # Generate template-specific content for missing variables
+            logger.info("Generating rules content...")
+            generated_content["rules"] = self.llm_writer.generate_explanation(
+                concept=f"rules for {validation_element}",
+                rules={"prompt": prompts["rules"]},
+                examples=[]
+            )
+            time.sleep(0.5)  # Short delay between API calls
+
+            logger.info("Generating APA guidance content...")
+            generated_content["apa_guidance"] = self.llm_writer.generate_explanation(
+                concept=f"APA guidance for {validation_element}",
+                rules={"prompt": prompts["apa_guidance"]},
+                examples=[]
+            )
+            time.sleep(0.5)  # Short delay between API calls
+
+            logger.info("Generating correct example...")
+            generated_content["correct_example"] = self.llm_writer.generate_explanation(
+                concept=f"correct {validation_element} example",
+                rules={"prompt": prompts["correct_example"]},
+                examples=[]
+            )
+            time.sleep(0.5)  # Short delay between API calls
+
+            logger.info("Generating incorrect example...")
+            generated_content["incorrect_example"] = self.llm_writer.generate_explanation(
+                concept=f"incorrect {validation_element} example",
+                rules={"prompt": prompts["incorrect_example"]},
+                examples=[]
+            )
+            time.sleep(0.5)  # Short delay between API calls
+
+            logger.info("Generating key rules...")
+            generated_content["key_rules"] = self.llm_writer.generate_explanation(
+                concept=f"key rules for {validation_element}",
+                rules={"prompt": prompts["key_rules"]},
+                examples=[]
+            )
 
             logger.info("✅ All LLM sections generated successfully")
 
@@ -1160,8 +1280,12 @@ validation_element: {validation_element}
             logger.error(f"Error generating LLM content: {str(e)}")
             generated_content["step_by_step_instructions"] = self._get_fallback_validation_content("step_by_step", validation_element)
             generated_content["faq_items"] = self._get_fallback_validation_content("faq", validation_element)
-            # Add fallback for rules content only
+            # Add fallback content for all template variables
             generated_content["rules"] = f"Rules for checking {validation_element} in APA citations..."
+            generated_content["apa_guidance"] = f"According to APA 7th edition guidelines for {validation_element}..."
+            generated_content["correct_example"] = f"Correct {validation_element} example..."
+            generated_content["incorrect_example"] = f"Incorrect {validation_element} example..."
+            generated_content["key_rules"] = "Key rules to remember..."
 
         generated_content["token_usage"] = total_token_usage
         return generated_content
@@ -1532,3 +1656,637 @@ validation_element: {validation_element}
         # Simple word count estimation
         words = content.split()
         return len(words)
+
+    def assemble_specific_source_page(self, source_id: str) -> dict:
+        """
+        Assemble specific source guide with focus on unique content
+        """
+        logger.info(f"=== Assembling Specific Source Page: {source_id} ===")
+
+        # 1. Load minimal source config
+        source_config = self._load_source_config(source_id)
+
+        # 2. Load parent source type data (for inheritance)
+        parent_data = self._load_parent_source_type_data(source_config["parent_source_type"])
+
+        # 3. Load template
+        template = self.template_engine.load_template("specific_source_template.md")
+
+        # 4. Generate UNIQUE content (not duplicating parent)
+        llm_content = self._generate_unique_source_content(source_config, parent_data)
+
+        # 5. Combine with inherited data
+        template_data = {
+            "source_name": source_config["name"],
+            "source_slug": source_id,
+            "source_url": source_config["url"],
+            "source_category": source_config["category"],
+            "parent_source_name": parent_data["display_name"],
+            "parent_source_url": parent_data["parent_page_url"],
+            "inherited_template": parent_data["reference_template"],
+            **llm_content,  # Generated unique content
+            "last_updated": datetime.now().strftime("%Y-%m-%d"),
+            "reading_time": "5 minutes"  # Target 800-1200 words
+        }
+
+        # 6. Content uniqueness validation
+        content = self.template_engine.inject_variables(template, template_data)
+        self._validate_content_uniqueness(content, parent_data.get("parent_page_url", ""))
+
+        # 7. Add schema markup and front matter
+        final_content = self._add_front_matter_and_schema(content, source_config, template_data)
+
+        # 8. Generate metadata
+        metadata = self._generate_specific_metadata(final_content, source_config)
+
+        # 9. Get token usage from LLM writer
+        token_usage = self.llm_writer.get_usage_summary()
+
+        # 10. Enforce budget constraints
+        self._enforce_token_budget(token_usage, source_config["name"])
+
+        logger.info(f"✅ Specific Source Page Complete: {metadata['word_count']} words")
+        logger.info(f"Token usage: {token_usage['total_input_tokens']} input, "
+                   f"{token_usage['total_output_tokens']} output, "
+                   f"${token_usage['total_cost_usd']:.6f}")
+
+        return {
+            "content": final_content,
+            "metadata": metadata,
+            "template_data": template_data,
+            "token_usage": token_usage
+        }
+
+    def _enforce_token_budget(self, token_usage: dict, source_name: str) -> None:
+        """
+        Enforce token budget constraints and log warnings if exceeded
+        """
+        total_cost = token_usage.get('total_cost_usd', 0)
+        total_tokens = token_usage.get('total_input_tokens', 0) + token_usage.get('total_output_tokens', 0)
+
+        # Check cost budget
+        if total_cost > self.max_cost_per_page:
+            logger.warning(f"⚠️  Cost budget exceeded for {source_name}: ${total_cost:.4f} > ${self.max_cost_per_page:.2f}")
+            logger.warning("Consider optimizing prompts or reducing content length")
+        else:
+            logger.debug(f"✅ Cost within budget for {source_name}: ${total_cost:.4f}")
+
+        # Check token efficiency (rough estimate: 200 words per 1000 tokens)
+        estimated_words_from_tokens = (total_tokens / 1000) * 200
+        if estimated_words_from_tokens < 800:  # Expected minimum word count
+            logger.warning(f"⚠️  Low token efficiency for {source_name}: {total_tokens} tokens for ~{estimated_words_from_tokens:.0f} words")
+            logger.warning("Consider improving prompt efficiency")
+
+        # Log budget status
+        remaining_budget = self.max_cost_per_page - total_cost
+        logger.info(f"Budget status for {source_name}: ${total_cost:.4f} used, ${remaining_budget:.4f} remaining")
+
+    def check_budget_health(self) -> dict:
+        """
+        Check overall budget health and provide recommendations
+        """
+        current_usage = self.llm_writer.get_usage_summary()
+        total_cost = current_usage.get('total_cost_usd', 0)
+        total_tokens = current_usage.get('total_input_tokens', 0) + current_usage.get('total_output_tokens', 0)
+
+        avg_cost_per_page = total_cost / max(1, current_usage.get('pages_generated', 1))
+        token_efficiency = (total_tokens / max(1, current_usage.get('total_words_generated', 1))) * 1000
+
+        health_status = {
+            "total_cost": total_cost,
+            "total_tokens": total_tokens,
+            "avg_cost_per_page": avg_cost_per_page,
+            "token_efficiency": token_efficiency,  # tokens per word
+            "within_budget": avg_cost_per_page <= self.max_cost_per_page,
+            "recommendations": []
+        }
+
+        # Generate recommendations
+        if avg_cost_per_page > self.max_cost_per_page * 0.8:
+            health_status["recommendations"].append("Average cost approaching budget limit - optimize prompts")
+
+        if token_efficiency > 6:  # More than 6 tokens per word is inefficient
+            health_status["recommendations"].append("Token efficiency could be improved - shorter prompts")
+
+        if not health_status["within_budget"]:
+            health_status["recommendations"].append("Cost exceeds budget - review generation strategy")
+
+        return health_status
+
+    def _load_source_config(self, source_id: str) -> dict:
+        """
+        Load specific source configuration
+        """
+        config_file = self.templates_dir.parent / "configs" / "specific_sources.json"
+
+        if not config_file.exists():
+            raise FileNotFoundError(f"Specific sources config not found: {config_file}")
+
+        with open(config_file, 'r', encoding='utf-8') as f:
+            config_data = json.load(f)
+
+        # Find the source by ID
+        for source in config_data["sources"]:
+            if source["id"] == source_id:
+                return source
+
+        raise ValueError(f"Source ID '{source_id}' not found in config")
+
+    def _load_parent_source_type_data(self, parent_type: str) -> dict:
+        """
+        Load parent source type data for inheritance
+        """
+        inheritance_file = self.knowledge_base_dir / "inheritance" / f"{parent_type}.json"
+
+        if not inheritance_file.exists():
+            logger.warning(f"Parent inheritance data not found: {inheritance_file}")
+            # Return default structure
+            return {
+                "display_name": parent_type.replace("_", " ").title(),
+                "parent_page_url": f"/how-to-cite-{parent_type}-apa/",
+                "reference_template": "Author, A. A. (Year). Title. Source.",
+                "template_explanation": "Standard citation format",
+                "common_rules": []
+            }
+
+        with open(inheritance_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+
+    def _generate_unique_source_content(self, source_config: dict, parent_data: dict) -> dict:
+        """
+        Generate content that's UNIQUE to this specific source with error handling and retries
+        """
+        source_name = source_config["name"]
+        source_url = source_config["url"]
+        parent_format = parent_data["reference_template"]
+
+        content = {}
+        errors = []
+
+        # Define content generation tasks with retry logic
+        generation_tasks = [
+            ("where_to_find_info", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_source_navigation_guide(
+                    source_name=source_name,
+                    source_url=source_url,
+                    what_to_find=["author", "publication date", "title", "URL/access info"]
+                ),
+                "navigation_guide",
+                source_name
+            )),
+            ("real_examples", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_real_source_examples(
+                    source_name=source_name,
+                    source_url=source_url,
+                    base_template=parent_format,
+                    num_examples=4
+                ),
+                "real_examples",
+                source_name
+            )),
+            ("source_specific_issues", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_source_specific_issues(
+                    source_name=source_name,
+                    common_problems=["finding authors", "date formats", "URL handling", "access requirements"]
+                ),
+                "source_issues",
+                source_name
+            )),
+            ("source_faq", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_source_specific_faq(
+                    source_name=source_name,
+                    parent_source_type=parent_data["display_name"]
+                ),
+                "faq",
+                source_name
+            )),
+            ("step_by_step_instructions", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_step_by_step(
+                    task=f"create {source_name} citation",
+                    rules={"template": parent_format, "source_url": source_url}
+                ),
+                "step_by_step",
+                source_name
+            )),
+            ("source_specific_notes", lambda: self._retry_generation(
+                lambda: self.llm_writer.generate_source_specific_notes(
+                    source_name=source_name,
+                    parent_rules=parent_data.get("common_rules", [])
+                ),
+                "source_notes",
+                source_name
+            ))
+        ]
+
+        # Execute generation tasks with error handling
+        for key, generator_func in generation_tasks:
+            try:
+                result = generator_func()
+                if result:
+                    content[key] = result
+                    logger.debug(f"Generated {key} for {source_name}")
+                else:
+                    logger.warning(f"Empty result for {key} - using fallback")
+                    content[key] = self._get_fallback_content(key, source_name, parent_data)
+                    errors.append(f"Empty content for {key}")
+
+            except Exception as e:
+                logger.error(f"Failed to generate {key} for {source_name}: {str(e)}")
+                content[key] = self._get_fallback_content(key, source_name, parent_data)
+                errors.append(f"Generation error for {key}: {str(e)}")
+
+        # Add static content that doesn't need LLM generation
+        content["key_point_1"] = f"Use {parent_data['display_name']} format with {source_name} specifics"
+        content["key_point_2"] = f"Locate citation info on {source_name}'s website"
+        content["key_point_3"] = f"Handle {source_name}'s unique formatting requirements"
+
+        # Add template-related content
+        content["related_sources"] = self._generate_related_sources(source_config)
+        content["validation_guides"] = self._generate_validation_guides(source_config)
+
+        # Log errors and check if we have too many failures
+        if errors:
+            logger.warning(f"Content generation completed with {len(errors)} errors for {source_name}")
+            if len(errors) > 3:  # More than 3 errors is concerning
+                logger.error(f"High error rate ({len(errors)}) for {source_name} - manual review recommended")
+
+        return content
+
+    def _retry_generation(self, generator_func, content_type: str, source_name: str, max_retries: int = 2) -> str:
+        """
+        Retry LLM generation with different strategies on failure
+        """
+        for attempt in range(max_retries + 1):
+            try:
+                result = generator_func()
+                if result and len(result.strip()) > 50:  # Minimum content length
+                    return result
+                else:
+                    logger.warning(f"Attempt {attempt + 1}: {content_type} too short for {source_name}")
+                    if attempt < max_retries:
+                        continue  # Try again
+                    else:
+                        return self._get_retry_fallback(content_type, source_name)
+
+            except Exception as e:
+                logger.warning(f"Attempt {attempt + 1} failed for {content_type}: {str(e)}")
+                if attempt < max_retries:
+                    # Brief pause before retry
+                    time.sleep(1)
+                    continue
+                else:
+                    logger.error(f"All retries failed for {content_type} - using fallback")
+                    return self._get_retry_fallback(content_type, source_name)
+
+        return ""
+
+    def _get_fallback_content(self, content_type: str, source_name: str, parent_data: dict) -> str:
+        """
+        Get fallback content when LLM generation fails
+        """
+        fallbacks = {
+            "where_to_find_info": f"""
+            ## Where to Find Citation Information on {source_name}
+
+            To cite content from {source_name}, you'll need to locate:
+            - Author information (usually at the top of the article)
+            - Publication date (typically below the title)
+            - Article or content title
+            - Direct URL from your browser
+
+            Look for these elements in the standard locations on {source_name}'s website.
+            """,
+
+            "real_examples": f"""
+            ## Examples from {source_name}
+
+            Example 1: Standard article
+            [Author]. (Year, Month Day). Title of content. {source_name}. https://www.example.com/content
+
+            Example 2: Multiple authors
+            [Author 1], [Author 2], & [Author 3]. (Year, Month Day). Title of content. {source_name}. https://www.example.com/content
+            """,
+
+            "source_specific_issues": f"""
+            ## Common Issues When Citing {source_name}
+
+            **Missing Author Information**
+            Some content on {source_name} may not list individual authors. Use the organization name instead.
+
+            **Date Formatting**
+            Ensure you use the full publication date in Year, Month Day format.
+
+            **URL Requirements**
+            Always use the direct URL to the specific content, not the homepage.
+            """,
+
+            "source_faq": f"""
+            ## Frequently Asked Questions
+
+            **Q: How do I cite {source_name} content with no author?**
+            A: Use the {source_name} organization name as the author.
+
+            **Q: What if I can't find a publication date?**
+            A: Use (n.d.) for "no date" and include the retrieval date if necessary.
+
+            **Q: How do I handle multiple authors from {source_name}?**
+            A: List all authors up to 20, or use "et al." for three or more in-text citations.
+            """,
+
+            "step_by_step_instructions": f"""
+            ## Step-by-Step Instructions
+
+            1. Navigate to the {source_name} content you want to cite
+            2. Locate the author information at the top of the content
+            3. Find the publication date below the title
+            4. Copy the exact title of the content
+            5. Get the direct URL from your browser
+            6. Format according to APA 7th edition guidelines
+            7. Create both reference list and in-text citations
+            """,
+
+            "source_specific_notes": f"""
+            ## Notes for Citing {source_name}
+
+            {source_name} content follows standard {parent_data.get('display_name', 'source type')} citation format
+            with some specific requirements for their platform. Pay attention to author attribution
+            and ensure you have the complete publication information.
+            """
+        }
+
+        return fallbacks.get(content_type, f"Content temporarily unavailable for {content_type}.")
+
+    def _get_retry_fallback(self, content_type: str, source_name: str) -> str:
+        """
+        Get fallback content specifically for retry failures
+        """
+        return f"""
+        ## {content_type.replace('_', ' ').title()}
+
+        Citation information for {source_name} follows standard APA 7th edition guidelines.
+        Please refer to the parent source type guide for detailed formatting instructions.
+
+        For specific questions about citing {source_name}, check the relevant sections of this guide
+        or use our citation checker tool for automated validation.
+        """
+
+    def _generate_related_sources(self, source_config: dict) -> List[dict]:
+        """
+        Generate related sources based on category
+        """
+        # This would typically come from a configuration or database
+        # For now, provide generic related sources
+        category = source_config.get("category", "general")
+
+        related_map = {
+            "newspaper": [
+                {"name": "The Washington Post", "description": "How to cite Washington Post articles", "url": "/cite-washington-post-apa/"},
+                {"name": "The Wall Street Journal", "description": "How to cite WSJ articles", "url": "/cite-wall-street-journal-apa/"}
+            ],
+            "video_platform": [
+                {"name": "TED Talks", "description": "How to cite TED Talks", "url": "/cite-ted-talks-apa/"},
+                {"name": "Vimeo", "description": "How to cite Vimeo videos", "url": "/cite-vimeo-apa/"}
+            ],
+            "reference": [
+                {"name": "Dictionary.com", "description": "How to cite Dictionary.com", "url": "/cite-dictionary-com-apa/"},
+                {"name": "Encyclopedia Britannica", "description": "How to cite Encyclopedia Britannica", "url": "/cite-encyclopedia-britannica-apa/"}
+            ],
+            "government": [
+                {"name": "NIH", "description": "How to cite NIH publications", "url": "/cite-nih-apa/"},
+                {"name": "FDA", "description": "How to cite FDA documents", "url": "/cite-fda-apa/"}
+            ],
+            "academic_database": [
+                {"name": "JSTOR", "description": "How to cite JSTOR articles", "url": "/cite-jstor-apa/"},
+                {"name": "Google Scholar", "description": "How to cite Google Scholar results", "url": "/cite-google-scholar-apa/"}
+            ]
+        }
+
+        return related_map.get(category, [
+            {"name": "Similar Source", "description": "How to cite similar sources", "url": "/cite-similar-source-apa/"}
+        ])
+
+    def _generate_validation_guides(self, source_config: dict) -> List[dict]:
+        """
+        Generate relevant validation guides based on source type
+        """
+        # Standard validation guides that apply to most sources
+        validation_guides = [
+            {"name": "Check Capitalization", "url": "/how-to-check-capitalization-apa/"},
+            {"name": "Validate URL Format", "url": "/how-to-check-url-apa/"},
+            {"name": "Check Author Formatting", "url": "/how-to-check-author-format-apa/"}
+        ]
+
+        # Add specific guides based on source type
+        if source_config.get("parent_source_type") in ["journal_article", "newspaper_article"]:
+            validation_guides.append({"name": "Validate DOI Format", "url": "/how-to-check-doi-apa/"})
+
+        if source_config.get("category") == "video_platform":
+            validation_guides.append({"name": "Check Video Citations", "url": "/how-to-check-video-citations-apa/"})
+
+        return validation_guides[:4]  # Limit to 4 guides
+
+    def _validate_content_uniqueness(self, specific_content: str, parent_url: str) -> None:
+        """
+        Ensure specific source page doesn't duplicate parent content using TF-IDF similarity
+        """
+        if not TFIDF_AVAILABLE:
+            logger.warning("TF-IDF similarity calculation not available - skipping uniqueness validation")
+            return
+
+        try:
+            # Load parent content (simplified - would normally load from file system)
+            parent_content = self._load_parent_content(parent_url)
+
+            if not parent_content:
+                logger.warning("Could not load parent content for similarity comparison")
+                return
+
+            # Clean content for comparison (remove headings, frontmatter, links)
+            specific_clean = self._clean_content_for_comparison(specific_content)
+            parent_clean = self._clean_content_for_comparison(parent_content)
+
+            # Calculate similarity using TF-IDF
+            similarity = self._calculate_content_similarity(specific_clean, parent_clean)
+
+            logger.info(f"Content similarity calculated: {similarity:.2%}")
+
+            if similarity > 0.3:  # 30% similarity threshold
+                logger.warning(f"Content similarity too high: {similarity:.2%}")
+                raise ValueError(f"Specific source page too similar to parent page ({similarity:.1%} overlap)")
+
+            logger.info(f"Content uniqueness validated: {(1-similarity):.1%} unique")
+
+        except Exception as e:
+            logger.error(f"Error in content uniqueness validation: {str(e)}")
+            # Don't fail the entire process if similarity check fails
+            logger.warning("Proceeding without uniqueness validation due to error")
+
+    def _load_parent_content(self, parent_url: str) -> str:
+        """
+        Load parent source type page content for comparison
+        """
+        # This is a placeholder implementation
+        # In practice, this would load the actual parent page content
+        # from the file system or content management system
+
+        # For now, return a generic parent content template
+        return """
+        # How to Cite Newspaper Articles in APA Format
+
+        This guide covers the general principles of citing newspaper articles in APA 7th edition format.
+
+        ## Basic Format
+
+        Author, A. A. (Year, Month Day). Title of article. *Name of Newspaper*. URL
+
+        ## Key Elements
+
+        - Author names in standard format
+        - Full publication date
+        - Article title in sentence case
+        - Newspaper name in italics
+        - Direct URL
+
+        ## Common Issues
+
+        - Finding author information
+        - Handling missing dates
+        - Formatting URLs correctly
+        """
+
+    def _clean_content_for_comparison(self, content: str) -> str:
+        """
+        Clean content for similarity comparison by removing structural elements
+        """
+        if not content:
+            return ""
+
+        # Remove YAML front matter
+        content = re.sub(r'^---.*?---\n', '', content, flags=re.DOTALL)
+
+        # Remove markdown headings
+        content = re.sub(r'^#+\s+.*$', '', content, flags=re.MULTILINE)
+
+        # Remove code blocks and templates
+        content = re.sub(r'```.*?```', '', content, flags=re.DOTALL)
+        content = re.sub(r'`[^`]*`', '', content)
+
+        # Remove internal links [text](url)
+        content = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', content)
+
+        # Remove HTML tags
+        content = re.sub(r'<[^>]*>', '', content)
+
+        # Remove extra whitespace and empty lines
+        content = re.sub(r'\n\s*\n', '\n', content)
+        content = content.strip()
+
+        # Convert to lowercase for comparison
+        return content.lower()
+
+    def _calculate_content_similarity(self, text1: str, text2: str) -> float:
+        """
+        Calculate TF-IDF cosine similarity between two texts
+        """
+        if not TFIDF_AVAILABLE:
+            return 0.0
+
+        try:
+            # Handle empty texts
+            if not text1 or not text2:
+                return 0.0
+
+            # Create TF-IDF vectorizer
+            vectorizer = TfidfVectorizer(
+                stop_words='english',
+                max_features=1000,
+                ngram_range=(1, 2)  # Include bigrams for better semantic matching
+            )
+
+            # Vectorize texts
+            tfidf_matrix = vectorizer.fit_transform([text1, text2])
+
+            # Calculate cosine similarity
+            similarity_matrix = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+            similarity = similarity_matrix[0][0]
+
+            # Ensure similarity is between 0 and 1
+            similarity = max(0.0, min(1.0, similarity))
+
+            logger.debug(f"TF-IDF similarity: {similarity:.4f}")
+            return similarity
+
+        except Exception as e:
+            logger.error(f"Error calculating TF-IDF similarity: {str(e)}")
+            return 0.0
+
+    def _generate_howto_schema(self, source_name: str, steps: List[str]) -> dict:
+        """
+        Generate HowTo schema markup for specific source page
+        """
+        return {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": f"How to Cite {source_name} in APA Format",
+            "description": f"Step-by-step guide to citing {source_name} in APA 7th edition format",
+            "step": [
+                {"@type": "HowToStep", "text": step}
+                for step in steps
+            ]
+        }
+
+    def _add_front_matter_and_schema(self, content: str, source_config: dict, template_data: dict) -> str:
+        """
+        Add YAML front matter and schema markup to content
+        """
+        # Generate schema
+        steps = [
+            "Locate citation information on the source",
+            "Format author names according to APA rules",
+            "Add publication date in correct format",
+            "Format title according to source type",
+            "Complete reference with URL/DOI",
+            "Create in-text citations"
+        ]
+
+        schema = self._generate_howto_schema(source_config["name"], steps)
+
+        # Create front matter
+        front_matter = f"""---
+title: "How to Cite {source_config['name']} in APA Format"
+description: "{source_config['description']}"
+meta_title: "Cite {source_config['name']} in APA Format | Complete Guide"
+meta_description: "Learn how to cite {source_config['name']} in APA 7th edition. Includes examples, templates, and specific formatting requirements."
+page_type: "specific_source"
+url_slug: "{source_config['url_slug']}"
+source_name: "{source_config['name']}"
+source_category: "{source_config['category']}"
+parent_source_type: "{source_config['parent_source_type']}"
+last_updated: "{datetime.now().strftime('%Y-%m-%d')}"
+word_count: {self._estimate_word_count(content)}
+reading_time: "5 minutes"
+keywords: ["cite {source_config['name'].lower()} apa", "{source_config['name'].lower()} citation", "apa 7th edition"]
+schema: {json.dumps(schema)}
+---
+
+"""
+
+        return front_matter + content
+
+    def _generate_specific_metadata(self, content: str, source_config: dict) -> dict:
+        """
+        Generate metadata for specific source page
+        """
+        word_count = self._estimate_word_count(content)
+
+        return {
+            "title": f"How to Cite {source_config['name']} in APA Format",
+            "description": source_config["description"],
+            "source_name": source_config["name"],
+            "source_category": source_config["category"],
+            "url": source_config["url_slug"],
+            "word_count": word_count,
+            "reading_time": f"{max(1, word_count // 200)} minutes",
+            "last_updated": datetime.now().isoformat(),
+            "page_type": "specific_source"
+        }

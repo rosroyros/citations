@@ -1,5 +1,5 @@
 # Development Workflow
-
+WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE ARE UNEXPECTED ISSUES ALWAYS STOP AND ASK FOR GUIDANCE AND NEVER COTNINUE BEFORE GETTING ANSWERS. 
 ## Core Principles
 - **One task at a time**: Mark as in_progress � complete � next task
 - **Test-driven development**: Write test � implement � verify � commit
@@ -8,7 +8,7 @@
 - **ALWAYS mark tasks as completed**: Immediately after finishing each task, mark it as completed in the todo list. Never batch completions.
 
 ## Task Flow
-1. Mark current task as `in_progress` in todo list
+1. Mark current task as `in_progress` in todo list and the implementation plan
 2. Write test(s) for the feature/fix (FIRST!)
 3. Implement until tests pass
 4. Verify in logs/output that it works
@@ -17,8 +17,59 @@
 7. Mark task as `completed` in todo list
 8. Commit the plan update
 9. Move to next task
+#### Step 5: Update Sitemap (If New Page)
 
-**CRITICAL**: Step 6 is NON-NEGOTIABLE. Never skip updating the implementation plan.
+If deploying a NEW specific-source page (not an update):
+
+```python
+from pseo.utils.sitemap_generator import SitemapGenerator
+import json
+from pathlib import Path
+
+# Load sitemap
+sitemap_path = "/opt/citations/frontend/frontend/dist/sitemap.xml"
+sitemap_gen = SitemapGenerator(sitemap_path)
+
+# Load specific sources config
+config_file = Path("pseo/configs/specific_sources.json")
+with open(config_file) as f:
+    sources = json.load(f)["sources"]
+
+# Generate sitemap entries
+entries = sitemap_gen.generate_specific_source_entries(sources)
+
+# Update sitemap
+sitemap_gen.add_entries_to_sitemap(entries, sitemap_path)
+
+print(f"✅ Sitemap updated with {len(entries)} entries")
+```
+## Step 5: Update Sitemap (If New Page)
+
+If deploying a NEW specific-source page (not an update):
+
+```python
+from pseo.utils.sitemap_generator import SitemapGenerator
+import json
+from pathlib import Path
+
+# Load sitemap
+sitemap_path = "/opt/citations/frontend/frontend/dist/sitemap.xml"
+sitemap_gen = SitemapGenerator(sitemap_path)
+
+# Load specific sources config
+config_file = Path("pseo/configs/specific_sources.json")
+with open(config_file) as f:
+    sources = json.load(f)["sources"]
+
+# Generate sitemap entries
+entries = sitemap_gen.generate_specific_source_entries(sources)
+
+# Update sitemap
+sitemap_gen.add_entries_to_sitemap(entries, sitemap_path)
+
+print(f"✅ Sitemap updated with {len(entries)} entries")
+```
+
 
 ## Git Commit Format
 ```

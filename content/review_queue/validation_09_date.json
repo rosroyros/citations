@@ -1,0 +1,41 @@
+{
+  "config": {
+    "id": "validation_09",
+    "title": "How to Validate Date Formatting in APA Citations",
+    "topic": "date validation",
+    "url": "/how-to-validate-date-apa/",
+    "url_slug": "date",
+    "description": "Complete guide to validating date formatting in APA citations. Learn correct date formats, publication years, and date consistency rules.",
+    "keywords": [
+      "validate date APA",
+      "APA date formatting",
+      "check publication year",
+      "date validation rules",
+      "APA 7 date guidelines"
+    ],
+    "pain_points": [
+      "publication year placement",
+      "no date sources",
+      "in press formatting",
+      "date consistency issues",
+      "retrieval date confusion"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "date",
+    "related_errors": [
+      "Date Format Error",
+      "Missing Year Error",
+      "In Press Error",
+      "Retrieval Date Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "website",
+      "report",
+      "newspaper"
+    ],
+    "validation_check_type": "element"
+  }
+}

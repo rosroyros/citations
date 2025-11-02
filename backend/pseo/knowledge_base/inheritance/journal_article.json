@@ -1,0 +1,24 @@
+{
+  "source_type": "journal_article",
+  "display_name": "Journal Article",
+  "parent_page_url": "/how-to-cite-journal-article-apa/",
+  "reference_template": "Author, A. A., & Author, B. B. (Year). Title of article. *Title of Journal, volume*(issue), pages. https://doi.org/xxxxx",
+  "template_explanation": "Journal articles include authors, publication year, article title in sentence case, journal name italicized with volume, issue number, page range, and DOI.",
+  "common_rules": [
+    "List up to 20 authors with last name, initials",
+    "Article title in sentence case (not italicized)",
+    "Journal name in title case and italicized",
+    "Volume number italicized",
+    "Issue number in parentheses (not italicized)",
+    "Include DOI as https://doi.org/ format"
+  ],
+  "key_validation_points": [
+    "Author names in correct format",
+    "& before last author in reference list",
+    "Year in parentheses after authors",
+    "Article title sentence case only",
+    "Journal name title case and italicized",
+    "Volume italicized, issue in parentheses",
+    "DOI formatted as URL"
+  ]
+}

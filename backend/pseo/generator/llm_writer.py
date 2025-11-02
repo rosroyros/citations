@@ -10,6 +10,7 @@ This module handles all LLM-based content generation for PSEO pages including:
 """
 import json
 import logging
+import time
 from typing import List, Dict, Optional
 from openai import OpenAI
 
@@ -48,14 +49,15 @@ class LLMWriter:
         logger.info(f"LLMWriter initialized successfully")
 
     def _call_openai(self, prompt: str, max_tokens: int = 1000,
-                     temperature: float = 0.7) -> str:
+                     temperature: float = 0.7, max_retries: int = 3) -> str:
         """
-        Make API call to OpenAI
+        Make API call to OpenAI with timeout and retry logic
 
         Args:
             prompt: The prompt to send
             max_tokens: Maximum tokens to generate
             temperature: Sampling temperature (0.0-2.0)
+            max_retries: Maximum number of retry attempts
 
         Returns:
             Generated text
@@ -63,34 +65,50 @@ class LLMWriter:
         logger.debug(f"Making OpenAI API call - max_tokens: {max_tokens}, temp: {temperature}")
         logger.debug(f"Prompt preview: {prompt[:200]}...")
 
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": "You are an expert academic writing assistant specializing in APA citation guides. NEVER use em dashes (—) in your writing. Use commas, periods, or split into separate sentences instead."},
-                    {"role": "user", "content": prompt}
-                ],
-                max_tokens=max_tokens,
-                temperature=temperature
-            )
+        for attempt in range(max_retries):
+            try:
+                logger.debug(f"API attempt {attempt + 1}/{max_retries}")
 
-            # Track token usage
-            self.total_input_tokens += response.usage.prompt_tokens
-            self.total_output_tokens += response.usage.completion_tokens
+                # Add small delay to avoid rate limiting
+                if attempt > 0:
+                    time.sleep(1)  # 1 second delay between retries
 
-            logger.info(f"API call successful - Input tokens: {response.usage.prompt_tokens}, "
-                       f"Output tokens: {response.usage.completion_tokens}")
-            logger.debug(f"Running totals - Input: {self.total_input_tokens}, "
-                        f"Output: {self.total_output_tokens}")
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": "You are an expert academic writing assistant specializing in APA citation guides. NEVER use em dashes (—) in your writing. Use commas, periods, or split into separate sentences instead."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    max_tokens=max_tokens,
+                    temperature=temperature,
+                    timeout=60.0  # 60 second timeout
+                )
 
-            result = response.choices[0].message.content
-            logger.debug(f"Generated text preview: {result[:200]}...")
+                # Track token usage
+                self.total_input_tokens += response.usage.prompt_tokens
+                self.total_output_tokens += response.usage.completion_tokens
 
-            return result
+                logger.info(f"API call successful - Input tokens: {response.usage.prompt_tokens}, "
+                           f"Output tokens: {response.usage.completion_tokens}")
+                logger.debug(f"Running totals - Input: {self.total_input_tokens}, "
+                            f"Output: {self.total_output_tokens}")
 
-        except Exception as e:
-            logger.error(f"OpenAI API call failed: {str(e)}")
-            raise
+                result = response.choices[0].message.content
+                logger.debug(f"Generated text preview: {result[:200]}...")
+
+                return result
+
+            except Exception as e:
+                logger.error(f"OpenAI API call failed on attempt {attempt + 1}/{max_retries}: {str(e)}")
+
+                if attempt < max_retries - 1:
+                    # Exponential backoff: 2^attempt seconds, max 30 seconds
+                    backoff_time = min(2 ** attempt, 30)
+                    logger.info(f"Retrying in {backoff_time} seconds...")
+                    time.sleep(backoff_time)
+                else:
+                    logger.error(f"All {max_retries} attempts failed")
+                    raise
 
     def generate_introduction(self, topic: str, keywords: List[str],
                              rules: Dict, pain_points: List[str]) -> str:
@@ -576,3 +594,209 @@ Format the response as a JSON object with these exact keys:
             "fix_applied": f"Applied proper {validation_element} formatting",
             "difficulty": "Easy"
         }
+
+    def generate_source_navigation_guide(self, source_name: str, source_url: str, what_to_find: List[str]) -> str:
+        """
+        Generate guide on where to find citation information on a specific website
+        """
+        prompt = f"""
+        As an expert in web navigation and academic research, create a detailed guide for finding citation information on {source_name} ({source_url}).
+
+        Write 300-400 words explaining where students can locate:
+        - {" - ".join(what_to_find)}
+
+        Include specific guidance like:
+        - "Look for the author byline at the top of the article"
+        - "The publication date appears under the headline"
+        - "URL is in the browser address bar"
+
+        Be very specific about this website's layout and navigation. Use practical, actionable language.
+        Focus on what makes {source_name} unique for finding citation information.
+        """
+
+        return self._generate_with_high_quality_model(prompt)
+
+    def generate_real_source_examples(self, source_name: str, source_url: str, base_template: str, num_examples: int = 4) -> str:
+        """
+        Generate real citation examples from the specific source using web browsing
+        """
+        prompt = f"""
+        Browse {source_url} and find {num_examples} recent articles/content pieces from 2023-2024.
+        For each item found, create a complete APA 7th edition citation using this base template:
+        {base_template}
+
+        For each example, include:
+        1. A brief scenario description (what type of content this is)
+        2. Complete reference list citation in proper APA format
+        3. In-text citation (parenthetical format)
+        4. In-text citation (narrative format)
+        5. Notes about what makes this example noteworthy or unique
+
+        Examples should show variety when possible:
+        - Standard individual author
+        - Corporate author (if applicable)
+        - Multiple authors
+        - Special formatting cases specific to {source_name}
+
+        Ensure all examples are authentic and properly formatted according to APA 7th edition.
+        Focus on real, current content from {source_name}.
+        """
+
+        # Use web-enabled model for real examples
+        return self._generate_with_web_browsing(prompt)
+
+    def generate_source_specific_issues(self, source_name: str, common_problems: List[str]) -> str:
+        """
+        Generate content about common issues specific to this source
+        """
+        prompt = f"""
+        Identify and explain common citation problems students encounter when citing {source_name}.
+
+        Focus on practical issues like:
+        - {" - ".join(common_problems)}
+
+        For each problem:
+        1. Describe the issue clearly
+        2. Explain why it happens with this specific source
+        3. Provide a step-by-step solution
+        4. Show before/after examples if applicable
+
+        Write 400-500 words. Use clear headings for each problem. Be specific to {source_name}'s format and interface.
+        Focus on what makes {source_name} challenging or unique compared to other sources.
+        """
+
+        return self._generate_with_high_quality_model(prompt)
+
+    def generate_source_specific_faq(self, source_name: str, parent_source_type: str) -> str:
+        """
+        Generate FAQ specific to this source
+        """
+        prompt = f"""
+        Generate 5 frequently asked questions about citing {source_name} in APA format.
+
+        Questions should be specific to this source and not generic citation questions. Include topics like:
+        - Navigating {source_name}'s website to find citation info
+        - Handling {source_name}'s unique author formats
+        - Dealing with {source_name}'s publication date formats
+        - URL and access requirements
+        - How {source_name} differs from other {parent_source_type} sources
+
+        Format each Q&A pair as:
+
+        **Q: [Question]**
+
+        A: [Concise, actionable answer 2-3 sentences]
+
+        Make questions specific to {source_name} and answers practical for students.
+        """
+
+        return self._generate_with_high_quality_model(prompt)
+
+    def generate_source_specific_notes(self, source_name: str, parent_rules: List[str]) -> str:
+        """
+        Generate notes about what makes this source unique for citation purposes
+        """
+        prompt = f"""
+        Explain what makes citing {source_name} unique compared to general {parent_rules[0] if parent_rules else "source type"} citations.
+
+        Write 2-3 paragraphs (150-200 words) covering:
+        - Specific formatting requirements for {source_name}
+        - Where {source_name} differs from standard citation rules
+        - Common points of confusion for students
+        - Best practices specific to this source
+
+        Focus on actionable guidance that helps students avoid common mistakes with {source_name}.
+        """
+
+        return self._generate_with_high_quality_model(prompt)
+
+    def _generate_with_high_quality_model(self, prompt: str) -> str:
+        """
+        Generate content using high-quality model (gpt-4o)
+        """
+        try:
+            logger.debug(f"Generating content with high-quality model")
+
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "You are an expert in academic citation formats and APA 7th edition guidelines. Provide accurate, practical guidance for students."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=1000,
+                temperature=0.7
+            )
+
+            content = response.choices[0].message.content.strip()
+
+            # Track token usage
+            self.total_input_tokens += response.usage.prompt_tokens
+            self.total_output_tokens += response.usage.completion_tokens
+
+            logger.debug(f"Generated {len(content)} characters with high-quality model")
+            return content
+
+        except Exception as e:
+            logger.error(f"Error generating content with high-quality model: {str(e)}")
+            # Fallback to standard model
+            return self._generate_with_standard_model(prompt)
+
+    def _generate_with_web_browsing(self, prompt: str) -> str:
+        """
+        Generate content using web browsing model (gpt-4o with browsing)
+        """
+        try:
+            logger.debug(f"Generating content with web browsing model")
+
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": "You are an expert in academic citation formats with web browsing capability. Find real, current information and create accurate citations according to APA 7th edition guidelines."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=1500,
+                temperature=0.5,
+                tools=[{"type": "web_search", "function": {"name": "search", "parameters": {"type": "object", "properties": {"query": {"type": "string"}}}}}]
+            )
+
+            content = response.choices[0].message.content.strip()
+
+            # Track token usage
+            self.total_input_tokens += response.usage.prompt_tokens
+            self.total_output_tokens += response.usage.completion_tokens
+
+            logger.debug(f"Generated {len(content)} characters with web browsing model")
+            return content
+
+        except Exception as e:
+            logger.error(f"Error generating content with web browsing: {str(e)}")
+            # Fallback to high-quality model without browsing
+            fallback_prompt = prompt.replace("Browse", "Based on your knowledge of")
+            return self._generate_with_high_quality_model(fallback_prompt)
+
+    def _generate_with_standard_model(self, prompt: str) -> str:
+        """
+        Generate content using standard model (gpt-4o-mini)
+        """
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "You are an expert in academic citation formats and APA 7th edition guidelines."},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=800,
+                temperature=0.7
+            )
+
+            content = response.choices[0].message.content.strip()
+
+            # Track token usage
+            self.total_input_tokens += response.usage.prompt_tokens
+            self.total_output_tokens += response.usage.completion_tokens
+
+            return content
+
+        except Exception as e:
+            logger.error(f"Error generating content with standard model: {str(e)}")
+            return f"Content generation temporarily unavailable. Please try again later."

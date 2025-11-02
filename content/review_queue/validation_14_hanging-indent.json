@@ -1,0 +1,41 @@
+{
+  "config": {
+    "id": "validation_14",
+    "title": "How to Validate Hanging Indents in APA Reference Lists",
+    "topic": "hanging indent validation",
+    "url": "/how-to-validate-hanging-indent-apa/",
+    "url_slug": "hanging-indent",
+    "description": "Complete guide to validating hanging indents in APA reference lists. Learn proper indentation formatting and common hanging indent errors.",
+    "keywords": [
+      "validate hanging indent APA",
+      "APA reference formatting",
+      "hanging indent rules",
+      "citation indentation",
+      "APA 7 hanging indent guidelines"
+    ],
+    "pain_points": [
+      "indent spacing measurement",
+      "first line vs subsequent lines",
+      "word processor settings",
+      "exported citation issues",
+      "template formatting problems"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "hanging_indent",
+    "related_errors": [
+      "Hanging Indent Error",
+      "Indentation Error",
+      "Format Error",
+      "Spacing Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "website",
+      "report",
+      "all_source_types"
+    ],
+    "validation_check_type": "element"
+  }
+}

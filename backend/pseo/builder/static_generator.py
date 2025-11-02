@@ -77,7 +77,7 @@ class StaticSiteGenerator:
         Create SEO-friendly URLs per spec
 
         Args:
-            page_type: Type of page (mega_guide, source_type, validation, other)
+            page_type: Type of page (mega_guide, source_type, validation, specific_source, other)
             page_name: URL slug for page
             front_matter: Full front matter dictionary (for validation pages)
 
@@ -88,6 +88,8 @@ class StaticSiteGenerator:
             url = f"/guide/{page_name}/"
         elif page_type == "source_type":
             url = f"/how-to-cite-{page_name}-apa/"
+        elif page_type == "specific_source":
+            url = f"/cite-{page_name}-apa/"
         elif page_type == "validation" and front_matter and "url" in front_matter:
             # Use the URL from validation guide config
             url = front_matter["url"]
@@ -200,15 +202,18 @@ class StaticSiteGenerator:
                 # Convert to HTML
                 html_content = self.convert_markdown_to_html(content)
 
-                # Apply layout
-                final_html = self.apply_layout(html_content, front_matter)
-
-                # Generate output path
+                # Generate URL structure first (needed for canonical link in template)
                 url = self.generate_url_structure(
                     front_matter['page_type'],
                     front_matter['url_slug'],
                     front_matter
                 )
+
+                # Add URL to front_matter so template can use it for canonical link
+                front_matter['url'] = url
+
+                # Apply layout
+                final_html = self.apply_layout(html_content, front_matter)
                 output_file = output_path / url.strip("/") / "index.html"
                 output_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -225,6 +230,8 @@ class StaticSiteGenerator:
                     priority = '0.6'
                 elif page_type == 'source_type':
                     priority = '0.6'
+                elif page_type == 'specific_source':
+                    priority = '0.8'  # High priority for specific source pages
                 else:
                     priority = '0.5'
 

@@ -1,0 +1,22 @@
+{
+  "source_type": "youtube_video",
+  "display_name": "YouTube Video",
+  "parent_page_url": "/how-to-cite-youtube-apa/",
+  "reference_template": "[Screen name or Channel name]. (Year, Month Day). *Title of video* [Video]. YouTube. https://www.youtube.com/watch?v=xxxxx",
+  "template_explanation": "YouTube videos include the channel name, upload date, video title in italics, format descriptor [Video], platform name, and direct URL.",
+  "common_rules": [
+    "Use channel name or screen name as author",
+    "Include upload date in parentheses",
+    "Video title italicized and in sentence case",
+    "Include [Video] format descriptor",
+    "Platform name 'YouTube' not italicized",
+    "Use full YouTube URL not shortened links"
+  ],
+  "key_validation_points": [
+    "Channel name as author (no 'by' prefix)",
+    "Exact upload date required",
+    "Video title properly capitalized",
+    "[Video] descriptor included",
+    "Complete YouTube URL"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "config": {
+    "id": "validation_05",
+    "title": "How to Validate URL Formatting in APA Citations",
+    "topic": "URL validation",
+    "url": "/how-to-validate-url-apa/",
+    "url_slug": "url",
+    "description": "Complete guide to validating URL formatting in APA citations. Learn correct URL format, when to include URLs, and common URL errors.",
+    "keywords": [
+      "validate URL APA",
+      "APA URL formatting",
+      "check URL format",
+      "URL validation rules",
+      "APA 7 URL guidelines"
+    ],
+    "pain_points": [
+      "when to include URLs",
+      "retrieved date confusion",
+      "URL vs DOI decisions",
+      "broken link issues",
+      "URL formatting errors"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "url",
+    "related_errors": [
+      "URL Format Error",
+      "Retrieved Date Error",
+      "Missing URL Error",
+      "Broken Link Error"
+    ],
+    "affected_source_types": [
+      "website",
+      "blog",
+      "report",
+      "software",
+      "dataset"
+    ],
+    "validation_check_type": "element"
+  }
+}

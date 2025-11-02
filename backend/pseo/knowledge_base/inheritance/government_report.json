@@ -1,0 +1,23 @@
+{
+  "source_type": "government_report",
+  "display_name": "Government Report",
+  "parent_page_url": "/how-to-cite-government-report-apa/",
+  "reference_template": "Agency Name. (Year). *Title of report* (Report No. XXX, if available). Publisher. https://www.example.gov/report",
+  "template_explanation": "Government reports use the agency as author, include publication year, report title in italics, report number if available, publisher information, and URL.",
+  "common_rules": [
+    "Government agency as author (no individual names)",
+    "Publication year in parentheses",
+    "Report title italicized and in sentence case",
+    "Include report number in parentheses",
+    "Publisher often same as agency",
+    "Include .gov URL if available"
+  ],
+  "key_validation_points": [
+    "Full agency name as author",
+    "Publication year current",
+    "Report title properly formatted",
+    "Report number included if available",
+    "Publisher information complete",
+    "Official .gov URL preferred"
+  ]
+}

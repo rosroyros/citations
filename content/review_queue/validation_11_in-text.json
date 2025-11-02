@@ -1,0 +1,41 @@
+{
+  "config": {
+    "id": "validation_11",
+    "title": "How to Validate In-Text Citations in APA",
+    "topic": "in-text citation validation",
+    "url": "/how-to-validate-in-text-apa/",
+    "url_slug": "in-text",
+    "description": "Complete guide to validating in-text citations in APA format. Learn parenthetical citations, narrative citations, and author-date rules.",
+    "keywords": [
+      "validate in-text APA",
+      "APA in-text citations",
+      "parenthetical citations",
+      "narrative citations",
+      "author-date rules"
+    ],
+    "pain_points": [
+      "parenthetical vs narrative format",
+      "multiple authors formatting",
+      "direct quote citations",
+      "missing page numbers",
+      "et al. usage rules"
+    ],
+    "target_audience": "graduate students and researchers",
+    "word_count_target": 2000,
+    "element_focus": "in-text",
+    "related_errors": [
+      "In-Text Format Error",
+      "Missing Page Number Error",
+      "Author Format Error",
+      "Year Placement Error"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book",
+      "website",
+      "report",
+      "interview"
+    ],
+    "validation_check_type": "element"
+  }
+}
