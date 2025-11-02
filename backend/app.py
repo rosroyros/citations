@@ -4,6 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from html.parser import HTMLParser
+import os
+import uuid
+from polar_sdk import Polar
 from backend.logger import setup_logger
 from backend.providers.openai_provider import OpenAIProvider
 
@@ -15,6 +18,9 @@ logger = setup_logger("citation_validator")
 
 # Initialize LLM provider with GEPA-optimized prompt
 llm_provider = OpenAIProvider()
+
+# Initialize Polar client
+polar = Polar(access_token=os.getenv('POLAR_ACCESS_TOKEN'))
 
 
 class HTMLToTextConverter(HTMLParser):
@@ -139,6 +145,40 @@ async def health_check():
     """
     logger.debug("Health check endpoint called")
     return {"status": "ok"}
+
+
+@app.post("/api/create-checkout")
+async def create_checkout(request: dict):
+    """
+    Create a Polar checkout for purchasing citation credits.
+
+    Args:
+        request: Dict with optional 'token' field
+
+    Returns:
+        dict: {'checkout_url': str, 'token': str}
+    """
+    logger.info("Checkout creation request received")
+
+    # Get or generate token
+    token = request.get('token') or str(uuid.uuid4())
+    logger.debug(f"Token for checkout: {token[:8]}...")
+
+    try:
+        # Create Polar checkout
+        logger.info("Creating Polar checkout")
+        checkout = await polar.checkouts.create({
+            "product_id": os.getenv('POLAR_PRODUCT_ID'),
+            "success_url": f"{os.getenv('FRONTEND_URL')}/success?token={token}",
+            "metadata": {"token": token}
+        })
+
+        logger.info(f"Checkout created successfully: {checkout.url}")
+        return {"checkout_url": checkout.url, "token": token}
+
+    except Exception as e:
+        logger.error(f"Failed to create checkout: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to create checkout: {str(e)}")
 
 
 @app.post("/api/validate", response_model=ValidationResponse)
