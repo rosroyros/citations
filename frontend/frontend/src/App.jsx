@@ -150,14 +150,15 @@ function App() {
       <section className="hero">
         <div className="hero-content">
           <h2 className="hero-title">
-            Stop spending 5 minutes fixing every citation
+            Stop wasting 5 minutes on every citation
           </h2>
           <p className="hero-subtitle">
-            Citation generators create errors. We catch them. Get instant validation for your APA references and save hours of manual checking.
+            The fastest, most accurate APA citation checker.
           </p>
           <div className="hero-stat">
-            <span className="stat-icon">⚠️</span>
-            <span className="stat-text">90.9% of papers contain formatting errors</span>
+            <span className="stat-text">
+              ⚡ Instant validation • Catches citation generator errors • No sign up required
+            </span>
           </div>
         </div>
       </section>
