@@ -400,7 +400,8 @@ function App() {
             <div className="faq-item">
               <h4 className="faq-question">Can I get a refund?</h4>
               <p className="faq-answer">
-                {/* USE EXACT TEXT PROVIDED BY USER IN PREREQUISITES */}
+                Absolutely! We offer a no-questions-asked refund policy. If you're not completely
+                satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
               </p>
             </div>
 
