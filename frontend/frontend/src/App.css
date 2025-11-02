@@ -49,12 +49,50 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem;
-  text-align: center;
 }
 
 .hero-content {
-  max-width: 800px;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
   margin: 0 auto;
+}
+
+.hero-text {
+  flex: 0 0 70%;
+}
+
+.hero-illustration {
+  flex: 0 0 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-illustration img {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-text,
+  .hero-illustration {
+    flex: 1 1 100%;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
 }
 
 .hero-title {

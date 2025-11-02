@@ -1,0 +1,37 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Step 1: Paste -->
+  <g id="step1">
+    <rect x="20" y="50" width="80" height="100" rx="8" fill="#E9D5FF" stroke="#7C3AED" stroke-width="2"/>
+    <text x="60" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7C3AED">1. Paste</text>
+    <text x="60" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">Add your</text>
+    <text x="60" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">citations</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g id="arrow1">
+    <path d="M 110 100 L 140 100" stroke="#7C3AED" stroke-width="2" fill="none"/>
+    <polygon points="140,95 150,100 140,105" fill="#7C3AED"/>
+  </g>
+
+  <!-- Step 2: Validate -->
+  <g id="step2">
+    <rect x="160" y="50" width="80" height="100" rx="8" fill="#E9D5FF" stroke="#7C3AED" stroke-width="2"/>
+    <text x="200" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7C3AED">2. Validate</text>
+    <text x="200" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">AI checks</text>
+    <text x="200" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">accuracy</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g id="arrow2">
+    <path d="M 250 100 L 280 100" stroke="#7C3AED" stroke-width="2" fill="none"/>
+    <polygon points="280,95 290,100 280,105" fill="#7C3AED"/>
+  </g>
+
+  <!-- Step 3: Correct -->
+  <g id="step3">
+    <rect x="300" y="50" width="80" height="100" rx="8" fill="#D1FAE5" stroke="#10B981" stroke-width="2"/>
+    <text x="340" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#10B981">3. Correct</text>
+    <text x="340" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">Get perfect</text>
+    <text x="340" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#6B7280">citations</text>
+  </g>
+</svg>

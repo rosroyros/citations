@@ -149,16 +149,21 @@ function App() {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h2 className="hero-title">
-            Stop wasting 5 minutes on every citation
-          </h2>
-          <p className="hero-subtitle">
-            The fastest, most accurate APA citation checker.
-          </p>
-          <div className="hero-stat">
-            <span className="stat-text">
-              ⚡ Instant validation • Catches citation generator errors • No sign up required
-            </span>
+          <div className="hero-text">
+            <h2 className="hero-title">
+              Stop wasting 5 minutes on every citation
+            </h2>
+            <p className="hero-subtitle">
+              The fastest, most accurate APA citation checker.
+            </p>
+            <div className="hero-stat">
+              <span className="stat-text">
+                ⚡ Instant validation • Catches citation generator errors • No sign up required
+              </span>
+            </div>
+          </div>
+          <div className="hero-illustration">
+            <img src="/src/assets/hero-illustration.svg" alt="Citation checking process" />
           </div>
         </div>
       </section>
