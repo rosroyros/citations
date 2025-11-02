@@ -12,14 +12,19 @@ vi.mock('./utils/creditStorage.js', () => ({
 
 // Mock TipTap editor for testing
 vi.mock('@tiptap/react', () => ({
-  useEditor: () => ({
-    getHTML: () => '<p>Sample citation text</p>',
-    getText: () => 'Sample citation text',
-    isEmpty: false,
-    commands: {
-      setContent: vi.fn()
-    },
-  }),
+  useEditor: (config) => {
+    const editor = {
+      getHTML: () => '<p>Sample citation text</p>',
+      getText: () => 'Sample citation text',
+      isEmpty: false,
+      commands: { setContent: vi.fn() },
+    };
+    // Immediately trigger onFocus to clear placeholder
+    if (config?.onFocus) {
+      config.onFocus({ editor });
+    }
+    return editor;
+  },
   EditorContent: ({ editor }) => <div data-testid="editor">Mock Editor</div>,
 }))
 
@@ -41,14 +46,12 @@ describe('App - Form Submission', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     // Assert fetch was called with HTML content
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:8000/api/validate',
+        '/api/validate',
         expect.objectContaining({
           method: 'POST',
           headers: {
@@ -92,9 +95,7 @@ describe('App - Validation Results Display', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/validation results/i)).toBeInTheDocument()
@@ -127,9 +128,7 @@ describe('App - Validation Results Display', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       const successIcons = screen.getAllByText(/✅/)
@@ -154,9 +153,7 @@ describe('App - Error Handling', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/error:/i)).toBeInTheDocument()
@@ -172,9 +169,7 @@ describe('App - Error Handling', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/error:/i)).toBeInTheDocument()
@@ -191,9 +186,7 @@ describe('App - Error Handling', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/first error/i)).toBeInTheDocument()
@@ -218,14 +211,10 @@ describe('App - Error Handling', () => {
 })
 
 describe('App - Credit System Integration', () => {
-  let getToken, getFreeUsage, incrementFreeUsage
+  const { getToken, getFreeUsage, incrementFreeUsage } = require('./utils/creditStorage.js')
 
   beforeEach(() => {
     vi.clearAllMocks()
-    const mockModule = require('./utils/creditStorage.js')
-    getToken = mockModule.getToken
-    getFreeUsage = mockModule.getFreeUsage
-    incrementFreeUsage = mockModule.incrementFreeUsage
   })
 
   it('sends X-User-Token header in validation requests when token exists', async () => {
@@ -242,13 +231,11 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith(
-        'http://localhost:8000/api/validate',
+        '/api/validate',
         expect.objectContaining({
           method: 'POST',
           headers: {
@@ -269,9 +256,7 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByTestId('modal-overlay')).toBeInTheDocument()
@@ -310,9 +295,7 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/2 more citations checked/)).toBeInTheDocument()
@@ -344,9 +327,7 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(incrementFreeUsage).toHaveBeenCalledWith(2)
@@ -375,9 +356,7 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(incrementFreeUsage).not.toHaveBeenCalled()
@@ -400,9 +379,7 @@ describe('App - Credit System Integration', () => {
     render(<App />)
 
     const submitButton = screen.getByRole('button', { name: /check my citations/i })
-
-    // Force enable the button for testing
-    fireEvent.click(submitButton)
+    await userEvent.click(submitButton)
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalled()
