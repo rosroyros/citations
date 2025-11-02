@@ -10,8 +10,8 @@ import uuid
 import json
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
-from backend.logger import setup_logger
-from backend.providers.openai_provider import OpenAIProvider
+from logger import setup_logger
+from providers.openai_provider import OpenAIProvider
 
 # Load environment variables
 load_dotenv()
@@ -205,7 +205,7 @@ async def get_credits_balance(token: str):
     logger.debug(f"Getting credits balance for token: {token[:8]}...")
 
     try:
-        from backend.database import get_credits
+        from database import get_credits
         balance = get_credits(token)
         logger.debug(f"Retrieved balance: {balance} credits")
         return {"token": token, "credits": balance}
@@ -267,7 +267,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             return ValidationResponse(results=results)
 
         # Paid tier - check credits
-        from backend.database import get_credits, deduct_credits
+        from database import get_credits, deduct_credits
         user_credits = get_credits(token)
         logger.debug(f"User credits: {user_credits}")
 
@@ -376,7 +376,7 @@ async def handle_polar_webhook(request: Request):
 
 async def handle_order_created(webhook):
     """Handle order.created webhook by granting credits."""
-    from backend.database import add_credits
+    from database import add_credits
 
     order_id = webhook.data.id
     token = webhook.data.metadata.token
@@ -394,7 +394,7 @@ async def handle_order_created(webhook):
 
 async def handle_checkout_updated(webhook):
     """Handle checkout.updated webhook when status is completed."""
-    from backend.database import add_credits
+    from database import add_credits
 
     if webhook.data.status != "completed":
         logger.debug(f"Ignoring checkout.updated with status: {webhook.data.status}")

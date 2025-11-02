@@ -3,9 +3,9 @@ import re
 import time
 from typing import Dict, Any, List
 from openai import AsyncOpenAI, APIError, APITimeoutError, RateLimitError, AuthenticationError
-from backend.providers.base import CitationValidator
-from backend.prompt_manager import PromptManager
-from backend.logger import setup_logger
+from providers.base import CitationValidator
+from prompt_manager import PromptManager
+from logger import setup_logger
 
 logger = setup_logger("openai_provider")
 

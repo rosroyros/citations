@@ -8,27 +8,15 @@ from typing import Optional
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Database file path - allow override for testing
-_test_db_path: Optional[str] = None
-
 def get_db_path() -> str:
     """Get database path, using test override if set."""
-    if _test_db_path:
-        return _test_db_path
+    # Check for test environment variable
+    test_path = os.getenv('TEST_DB_PATH')
+    if test_path:
+        return test_path
+
+    # Production path
     return os.path.join(os.path.dirname(__file__), 'credits.db')
-
-def set_test_db_path(path: str):
-    """Override database path for testing."""
-    global _test_db_path
-    _test_db_path = path
-
-def reset_test_db_path():
-    """Reset to production database path."""
-    global _test_db_path
-    _test_db_path = None
-
-# For backward compatibility
-DB_PATH = get_db_path()
 
 def init_db():
     """
@@ -214,4 +202,4 @@ def deduct_credits(token: str, amount: int) -> bool:
 
 if __name__ == "__main__":
     init_db()
-    print(f"Database initialized at {DB_PATH}")
+    print(f"Database initialized at {get_db_path()}")
