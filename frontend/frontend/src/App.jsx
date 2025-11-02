@@ -289,17 +289,17 @@ function App() {
           <h3 className="benefits-title">Why researchers choose Citation Format Checker</h3>
           <div className="benefits-grid">
             <div className="benefit-card">
-              <div className="benefit-icon">⚡</div>
-              <h4 className="benefit-title">Save hours</h4>
+              <div className="benefit-icon">🎯</div>
+              <h4 className="benefit-title">Catches 99% of errors</h4>
               <p className="benefit-text">
-                Stop manually checking every citation. Get instant validation in seconds.
+                Our AI validates against official APA 7th Edition rules — more accurate than any generator or LLM.
               </p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">🎯</div>
               <h4 className="benefit-title">Catch generator errors</h4>
               <p className="benefit-text">
-                EasyBib, Zotero, and others make mistakes. We find them before your professor does.
+                Zotero, EasyBib, and ChatGPT make formatting mistakes. We find them before your professor does.
               </p>
             </div>
             <div className="benefit-card">
@@ -309,7 +309,38 @@ function App() {
                 Submit with confidence. No more losing grades on formatting mistakes.
               </p>
             </div>
+            <div className="benefit-card">
+              <div className="benefit-icon">💜</div>
+              <h4 className="benefit-title">Trusted by researchers worldwide</h4>
+              <p className="benefit-text">
+                Join thousands of students and academics who rely on us to perfect their citations.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Why We're Different Section */}
+      <section className="why-different">
+        <div className="why-different-content">
+          <h3 className="why-different-title">Why Citation Format Checker is Different</h3>
+          <div className="why-grid">
+            <div className="why-card">
+              <h4>Custom AI Models</h4>
+              <p>Trained on thousands of expert-verified citations for each source type</p>
+            </div>
+            <div className="why-card">
+              <h4>APA Expert Verified</h4>
+              <p>Every error type validated against official APA 7th Edition manual</p>
+            </div>
+            <div className="why-card">
+              <h4>99% Accuracy</h4>
+              <p>Significantly more accurate than ChatGPT, Zotero, and EasyBib</p>
+            </div>
+          </div>
+          <p className="why-footnote">
+            Unlike general AI tools, our models specialize exclusively in citation formatting
+          </p>
         </div>
       </section>
 
@@ -327,7 +358,8 @@ function App() {
             <div className="faq-item">
               <h4 className="faq-question">Is this citation checker free?</h4>
               <p className="faq-answer">
-                Yes, Citation Format Checker is completely free to use. You can check as many citations as you need without any cost or registration.
+                Yes! You get 10 free citation checks to try the tool. For unlimited checking,
+                you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
               </p>
             </div>
             <div className="faq-item">
@@ -346,6 +378,38 @@ function App() {
               <h4 className="faq-question">Can I check multiple citations at once?</h4>
               <p className="faq-answer">
                 Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">What are Citation Credits and how do they work?</h4>
+              <p className="faq-answer">
+                Each citation you check uses 1 credit. When you purchase 1,000 credits for $8.99,
+                you can check 1,000 citations. Credits never expire and can be used anytime.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">Do Citation Credits expire?</h4>
+              <p className="faq-answer">
+                No! Your credits never expire. Use them at your own pace — whether that's all at
+                once or over several years.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">Can I get a refund?</h4>
+              <p className="faq-answer">
+                {/* USE EXACT TEXT PROVIDED BY USER IN PREREQUISITES */}
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">How is this different from ChatGPT or citation generators?</h4>
+              <p className="faq-answer">
+                ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not
+                specialized for citation validation. Our AI models are custom-trained exclusively on
+                APA 7th Edition rules with expert verification, achieving 99% accuracy.
               </p>
             </div>
           </div>

@@ -686,3 +686,53 @@ textarea {
 .success-banner ~ .app {
   padding-top: 4rem;
 }
+
+/* Why Different Section */
+.why-different {
+  background-color: #f9fafb;
+  padding: 4rem 2rem;
+}
+
+.why-different-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.why-different-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.why-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.why-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.why-footnote {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+}
