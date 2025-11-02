@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
+import { CreditDisplay } from './components/CreditDisplay'
 import './App.css'
 
 function App() {
@@ -107,6 +108,7 @@ function App() {
             </svg>
             <h1 className="logo-text">Citation Format Checker</h1>
           </div>
+          <CreditDisplay />
         </div>
       </header>
 

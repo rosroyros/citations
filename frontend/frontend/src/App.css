@@ -12,6 +12,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo {
@@ -33,6 +36,12 @@
   color: #1f2937;
   margin: 0;
   letter-spacing: -0.02em;
+}
+
+.credit-display {
+  font-size: 0.9rem;
+  color: #9333ea;
+  font-weight: 500;
 }
 
 /* Hero Section */
