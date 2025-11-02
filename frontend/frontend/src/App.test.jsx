@@ -1,7 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+
+// Mock credit storage utilities
+vi.mock('./utils/creditStorage.js', () => ({
+  getToken: vi.fn(),
+  getFreeUsage: vi.fn(),
+  incrementFreeUsage: vi.fn(),
+}))
 
 // Mock TipTap editor for testing
 vi.mock('@tiptap/react', () => ({
@@ -9,13 +16,16 @@ vi.mock('@tiptap/react', () => ({
     getHTML: () => '<p>Sample citation text</p>',
     getText: () => 'Sample citation text',
     isEmpty: false,
-    commands: {},
+    commands: {
+      setContent: vi.fn()
+    },
   }),
   EditorContent: ({ editor }) => <div data-testid="editor">Mock Editor</div>,
 }))
 
 beforeEach(() => {
   vi.clearAllMocks()
+  localStorage.clear()
 })
 
 describe('App - Form Submission', () => {
@@ -30,8 +40,10 @@ describe('App - Form Submission', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     // Assert fetch was called with HTML content
     await waitFor(() => {
@@ -79,8 +91,10 @@ describe('App - Validation Results Display', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/validation results/i)).toBeInTheDocument()
@@ -112,8 +126,10 @@ describe('App - Validation Results Display', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       const successIcons = screen.getAllByText(/✅/)
@@ -137,8 +153,10 @@ describe('App - Error Handling', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/error:/i)).toBeInTheDocument()
@@ -153,8 +171,10 @@ describe('App - Error Handling', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/error:/i)).toBeInTheDocument()
@@ -170,8 +190,10 @@ describe('App - Error Handling', () => {
 
     render(<App />)
 
-    const submitButton = screen.getByRole('button', { name: /validate/i })
-    await userEvent.click(submitButton)
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
 
     await waitFor(() => {
       expect(screen.getByText(/first error/i)).toBeInTheDocument()
@@ -189,6 +211,201 @@ describe('App - Error Handling', () => {
 
     await waitFor(() => {
       expect(screen.queryByText(/first error/i)).not.toBeInTheDocument()
+    })
+
+    global.fetch.mockRestore()
+  })
+})
+
+describe('App - Credit System Integration', () => {
+  let getToken, getFreeUsage, incrementFreeUsage
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    const mockModule = require('./utils/creditStorage.js')
+    getToken = mockModule.getToken
+    getFreeUsage = mockModule.getFreeUsage
+    incrementFreeUsage = mockModule.incrementFreeUsage
+  })
+
+  it('sends X-User-Token header in validation requests when token exists', async () => {
+    getToken.mockReturnValue('user-token-123')
+    getFreeUsage.mockReturnValue(5)
+
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ results: [] }),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        'http://localhost:8000/api/validate',
+        expect.objectContaining({
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-User-Token': 'user-token-123',
+          },
+        })
+      )
+    })
+
+    global.fetch.mockRestore()
+  })
+
+  it('shows UpgradeModal when free tier exhausted (>= 10)', async () => {
+    getToken.mockReturnValue(null)
+    getFreeUsage.mockReturnValue(10)
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(screen.getByTestId('modal-overlay')).toBeInTheDocument()
+    })
+  })
+
+  it('displays PartialResults when response.partial === true', async () => {
+    getToken.mockReturnValue('user-token-123')
+    getFreeUsage.mockReturnValue(5)
+
+    const mockPartialResponse = {
+      results: [
+        {
+          citation_number: 1,
+          original: 'Smith, J. (2020). Partial citation.',
+          source_type: 'journal',
+          errors: []
+        }
+      ],
+      partial: {
+        total_citations: 5,
+        checked_citations: 2,
+        remaining_credits: 3
+      },
+      citations_checked: 2,
+      citations_remaining: 3
+    }
+
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockPartialResponse),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(screen.getByText(/2 more citations checked/)).toBeInTheDocument()
+      expect(screen.getByText(/Upgrade to see all results/)).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Get 1,000 Citation Credits/ })).toBeInTheDocument()
+    })
+
+    global.fetch.mockRestore()
+  })
+
+  it('increments free usage counter after successful validation (free users)', async () => {
+    getToken.mockReturnValue(null)
+    getFreeUsage.mockReturnValue(3)
+
+    const mockResponse = {
+      results: [
+        { citation_number: 1, original: 'Citation 1', source_type: 'journal', errors: [] },
+        { citation_number: 2, original: 'Citation 2', source_type: 'book', errors: [] }
+      ]
+    }
+
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(incrementFreeUsage).toHaveBeenCalledWith(2)
+    })
+
+    global.fetch.mockRestore()
+  })
+
+  it('does not increment free usage when user has token (paid tier)', async () => {
+    getToken.mockReturnValue('paid-user-token')
+    getFreeUsage.mockReturnValue(3)
+
+    const mockResponse = {
+      results: [
+        { citation_number: 1, original: 'Citation 1', source_type: 'journal', errors: [] }
+      ]
+    }
+
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockResponse),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(incrementFreeUsage).not.toHaveBeenCalled()
+    })
+
+    global.fetch.mockRestore()
+  })
+
+  it('allows submission when free user has less than 10 usages', async () => {
+    getToken.mockReturnValue(null)
+    getFreeUsage.mockReturnValue(7)
+
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({ results: [] }),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+
+    // Force enable the button for testing
+    fireEvent.click(submitButton)
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled()
     })
 
     global.fetch.mockRestore()
