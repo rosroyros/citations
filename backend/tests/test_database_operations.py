@@ -7,33 +7,31 @@ import sqlite3
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from database import init_db, get_credits, add_credits, deduct_credits, DB_PATH
+from database import init_db, get_credits, add_credits, deduct_credits, get_db_path
 
 
 def setup_test_db():
     """Set up a temporary database for testing"""
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for testing
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Set test environment variable
+    os.environ['TEST_DB_PATH'] = test_db_path
 
-    return test_db_path, original_db_path
+    return test_db_path
 
 
-def cleanup_test_db(test_db_path, original_db_path):
-    """Clean up test database and restore DB_PATH"""
-    import database
-    database.DB_PATH = original_db_path
-
+def cleanup_test_db(test_db_path):
+    """Clean up test database"""
     if os.path.exists(test_db_path):
         os.unlink(test_db_path)
+    # Remove environment variable
+    if 'TEST_DB_PATH' in os.environ:
+        del os.environ['TEST_DB_PATH']
 
 
 def test_get_credits_returns_zero_for_non_existent_token():
     """Test that get_credits returns 0 for non-existent token"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -44,12 +42,12 @@ def test_get_credits_returns_zero_for_non_existent_token():
         assert credits == 0
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_add_credits_creates_new_user():
     """Test that add_credits creates new user with correct balance"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -64,12 +62,12 @@ def test_add_credits_creates_new_user():
         assert credits == 1000
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_add_credits_adds_to_existing_user():
     """Test that add_credits adds to existing user balance"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -87,12 +85,12 @@ def test_add_credits_adds_to_existing_user():
         assert credits == 600  # 100 + 500
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_add_credits_rejects_duplicate_order_id():
     """Test that add_credits rejects duplicate order_id (idempotency)"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -111,12 +109,12 @@ def test_add_credits_rejects_duplicate_order_id():
         assert credits == 1000  # Not 2000
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_deduct_credits_reduces_balance():
     """Test that deduct_credits reduces balance correctly"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -134,12 +132,12 @@ def test_deduct_credits_reduces_balance():
         assert credits == 950  # 1000 - 50
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_deduct_credits_returns_false_insufficient():
     """Test that deduct_credits returns False when insufficient credits"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -157,12 +155,12 @@ def test_deduct_credits_returns_false_insufficient():
         assert credits == 100  # Unchanged
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 def test_deduct_credits_atomic_operation():
     """Test that deduct_credits handles atomic operations correctly"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Initialize database
@@ -197,7 +195,7 @@ def test_deduct_credits_atomic_operation():
         assert credits == 0
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 if __name__ == "__main__":

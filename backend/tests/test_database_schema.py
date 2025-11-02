@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from database import init_db, DB_PATH
+from database import init_db, get_db_path
 
 
 def test_init_db_creates_database_file():
@@ -16,10 +16,8 @@ def test_init_db_creates_database_file():
     # Use a temporary database file for testing
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for this test
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Set test environment variable
+    os.environ['TEST_DB_PATH'] = test_db_path
 
     try:
         # Ensure database doesn't exist initially
@@ -32,10 +30,12 @@ def test_init_db_creates_database_file():
         assert os.path.exists(test_db_path)
 
     finally:
-        # Restore original DB_PATH and clean up
-        database.DB_PATH = original_db_path
+        # Clean up
         if os.path.exists(test_db_path):
             os.unlink(test_db_path)
+        # Remove environment variable
+        if 'TEST_DB_PATH' in os.environ:
+            del os.environ['TEST_DB_PATH']
 
 
 def test_users_table_schema():
@@ -43,10 +43,8 @@ def test_users_table_schema():
     # Use a temporary database file for testing
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for this test
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Set test environment variable
+    os.environ['TEST_DB_PATH'] = test_db_path
 
     try:
         # Initialize database
@@ -79,10 +77,12 @@ def test_users_table_schema():
         assert credits_column[4] == '0', f"credits column should have default value '0', got '{credits_column[4]}'"
 
     finally:
-        # Restore original DB_PATH and clean up
-        database.DB_PATH = original_db_path
+        # Clean up
         if os.path.exists(test_db_path):
             os.unlink(test_db_path)
+        # Remove environment variable
+        if 'TEST_DB_PATH' in os.environ:
+            del os.environ['TEST_DB_PATH']
 
 
 def test_orders_table_schema():
@@ -90,10 +90,8 @@ def test_orders_table_schema():
     # Use a temporary database file for testing
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for this test
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Set test environment variable
+    os.environ['TEST_DB_PATH'] = test_db_path
 
     try:
         # Initialize database
@@ -122,10 +120,12 @@ def test_orders_table_schema():
         assert order_id_column[5] == 1, "order_id column should be PRIMARY KEY"
 
     finally:
-        # Restore original DB_PATH and clean up
-        database.DB_PATH = original_db_path
+        # Clean up
         if os.path.exists(test_db_path):
             os.unlink(test_db_path)
+        # Remove environment variable
+        if 'TEST_DB_PATH' in os.environ:
+            del os.environ['TEST_DB_PATH']
 
 
 def test_foreign_key_constraint():
@@ -133,10 +133,8 @@ def test_foreign_key_constraint():
     # Use a temporary database file for testing
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for this test
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Set test environment variable
+    os.environ['TEST_DB_PATH'] = test_db_path
 
     try:
         # Initialize database
@@ -165,10 +163,12 @@ def test_foreign_key_constraint():
         conn.close()
 
     finally:
-        # Restore original DB_PATH and clean up
-        database.DB_PATH = original_db_path
+        # Clean up
         if os.path.exists(test_db_path):
             os.unlink(test_db_path)
+        # Remove environment variable
+        if 'TEST_DB_PATH' in os.environ:
+            del os.environ['TEST_DB_PATH']
 
 
 if __name__ == "__main__":
