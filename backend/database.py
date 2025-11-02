@@ -2,13 +2,33 @@ import sqlite3
 import os
 import logging
 from pathlib import Path
+from typing import Optional
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Database file path
-DB_PATH = 'backend/credits.db'
+# Database file path - allow override for testing
+_test_db_path: Optional[str] = None
+
+def get_db_path() -> str:
+    """Get database path, using test override if set."""
+    if _test_db_path:
+        return _test_db_path
+    return os.path.join(os.path.dirname(__file__), 'credits.db')
+
+def set_test_db_path(path: str):
+    """Override database path for testing."""
+    global _test_db_path
+    _test_db_path = path
+
+def reset_test_db_path():
+    """Reset to production database path."""
+    global _test_db_path
+    _test_db_path = None
+
+# For backward compatibility
+DB_PATH = get_db_path()
 
 def init_db():
     """
@@ -16,15 +36,17 @@ def init_db():
     Creates the database file and tables if they don't exist.
     """
     try:
+        db_path = get_db_path()
+
         # Ensure the directory exists
-        db_dir = os.path.dirname(DB_PATH)
+        db_dir = os.path.dirname(db_path)
         if db_dir and not os.path.exists(db_dir):
             os.makedirs(db_dir, exist_ok=True)
             logger.info(f"Created database directory: {db_dir}")
 
         # Connect to database (creates file if it doesn't exist)
-        logger.info(f"Initializing database at: {DB_PATH}")
-        conn = sqlite3.connect(DB_PATH)
+        logger.info(f"Initializing database at: {db_path}")
+        conn = sqlite3.connect(db_path)
 
         # Enable foreign keys
         conn.execute("PRAGMA foreign_keys = ON")
@@ -75,7 +97,8 @@ def get_credits(token: str) -> int:
         int: Number of credits the user has
     """
     try:
-        with sqlite3.connect(DB_PATH) as conn:
+        db_path = get_db_path()
+        with sqlite3.connect(db_path) as conn:
             conn.execute("PRAGMA foreign_keys = ON")
             cursor = conn.cursor()
 
@@ -112,7 +135,8 @@ def add_credits(token: str, amount: int, order_id: str) -> bool:
         bool: True if credits were added, False if order_id already exists
     """
     try:
-        with sqlite3.connect(DB_PATH) as conn:
+        db_path = get_db_path()
+        with sqlite3.connect(db_path) as conn:
             conn.execute("PRAGMA foreign_keys = ON")
             cursor = conn.cursor()
 
@@ -158,7 +182,8 @@ def deduct_credits(token: str, amount: int) -> bool:
         bool: True if credits were deducted, False if insufficient credits
     """
     try:
-        with sqlite3.connect(DB_PATH) as conn:
+        db_path = get_db_path()
+        with sqlite3.connect(db_path) as conn:
             conn.execute("PRAGMA foreign_keys = ON")
             cursor = conn.cursor()
 

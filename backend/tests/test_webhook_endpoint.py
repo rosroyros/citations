@@ -47,24 +47,24 @@ MOCK_NON_ORDER_WEBHOOK = {
 
 def setup_test_db():
     """Set up a temporary database for testing"""
+    from database import set_test_db_path, init_db
+
     test_db_path = tempfile.mktemp(suffix='.db')
 
-    # Override the DB_PATH for testing
-    original_db_path = DB_PATH
-    import database
-    database.DB_PATH = test_db_path
+    # Override the database path for testing
+    set_test_db_path(test_db_path)
 
     # Initialize the test database
-    from database import init_db
     init_db()
 
-    return test_db_path, original_db_path
+    return test_db_path
 
 
-def cleanup_test_db(test_db_path, original_db_path):
-    """Clean up test database and restore DB_PATH"""
-    import database
-    database.DB_PATH = original_db_path
+def cleanup_test_db(test_db_path):
+    """Clean up test database and restore database path"""
+    from database import reset_test_db_path
+
+    reset_test_db_path()
 
     if os.path.exists(test_db_path):
         os.unlink(test_db_path)
@@ -73,7 +73,7 @@ def cleanup_test_db(test_db_path, original_db_path):
 @patch('app.validate_event')
 def test_webhook_valid_signature_accepted(mock_validate_event):
     """Test that webhook with valid signature is accepted"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Mock signature verification as successful - return a mock webhook payload
@@ -106,22 +106,27 @@ def test_webhook_valid_signature_accepted(mock_validate_event):
         assert 'body' in call_args.kwargs
         assert json.loads(call_args.kwargs['body']) == MOCK_ORDER_WEBHOOK
 
-        # Check that headers include the signature
+        # Check that headers include the signature (may be lowercase)
         assert 'headers' in call_args.kwargs
-        assert 'X-Polar-Signature' in call_args.kwargs['headers']
-        assert call_args.kwargs['headers']['X-Polar-Signature'] == "valid_signature"
+        header_dict = call_args.kwargs['headers']
+        # Check for signature header in various forms
+        signature_found = any(
+            key.lower() == 'x-polar-signature' and value == "valid_signature"
+            for key, value in header_dict.items()
+        )
+        assert signature_found, f"X-Polar-Signature header not found in headers: {list(header_dict.keys())}"
 
         # Check that secret was passed
         assert call_args.kwargs['secret'] == os.getenv('POLAR_WEBHOOK_SECRET')
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_invalid_signature_rejected(mock_validate_event):
     """Test that webhook with invalid signature is rejected"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Mock signature verification as failed - raise exception
@@ -146,19 +151,15 @@ def test_webhook_invalid_signature_rejected(mock_validate_event):
         assert data["error"] == "Invalid signature"
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_order_created_grants_credits(mock_validate_event):
     """Test that order.created event grants 1,000 credits"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
-        # Initialize database (explicit call to ensure tables are created)
-        from database import init_db
-        init_db()
-
         # Mock signature verification as successful - return a mock webhook payload
         mock_webhook = MagicMock()
         mock_webhook.type = "order.created"
@@ -187,19 +188,15 @@ def test_webhook_order_created_grants_credits(mock_validate_event):
         assert credits == 1000
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_checkout_updated_completed_grants_credits(mock_validate_event):
     """Test that checkout.updated with completed status grants credits"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
-        # Initialize database (explicit call to ensure tables are created)
-        from database import init_db
-        init_db()
-
         # Mock signature verification as successful - return a mock webhook payload
         mock_webhook = MagicMock()
         mock_webhook.type = "checkout.updated"
@@ -229,13 +226,13 @@ def test_webhook_checkout_updated_completed_grants_credits(mock_validate_event):
         assert credits == 1000
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_duplicate_order_id_rejected(mock_validate_event):
     """Test that duplicate webhook with same order_id doesn't grant credits twice"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Mock signature verification as successful - return a mock webhook payload
@@ -269,13 +266,13 @@ def test_webhook_duplicate_order_id_rejected(mock_validate_event):
         assert credits == 1000
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_non_order_event_ignored(mock_validate_event):
     """Test that non-order events are ignored"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Mock signature verification as successful - return a mock webhook payload
@@ -304,13 +301,13 @@ def test_webhook_non_order_event_ignored(mock_validate_event):
         assert credits == 0
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_missing_signature_header(mock_validate_event):
     """Test that webhook without signature header is rejected"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         client = TestClient(app)
@@ -329,13 +326,13 @@ def test_webhook_missing_signature_header(mock_validate_event):
         mock_validate_event.assert_not_called()
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 @patch('app.validate_event')
 def test_webhook_checkout_updated_non_completed_ignored(mock_validate_event):
     """Test that checkout.updated with non-completed status is ignored"""
-    test_db_path, original_db_path = setup_test_db()
+    test_db_path = setup_test_db()
 
     try:
         # Mock signature verification as successful - return a mock webhook payload
@@ -369,7 +366,7 @@ def test_webhook_checkout_updated_non_completed_ignored(mock_validate_event):
         assert credits == 0
 
     finally:
-        cleanup_test_db(test_db_path, original_db_path)
+        cleanup_test_db(test_db_path)
 
 
 if __name__ == "__main__":
