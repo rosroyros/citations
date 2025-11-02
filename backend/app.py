@@ -183,6 +183,33 @@ async def create_checkout(request: dict):
         raise HTTPException(status_code=500, detail=f"Failed to create checkout: {str(e)}")
 
 
+@app.get("/api/credits")
+async def get_credits_balance(token: str):
+    """
+    Get credit balance for a user token.
+
+    Args:
+        token: User token to look up credits for
+
+    Returns:
+        dict: {"token": str, "credits": int}
+    """
+    if not token:
+        raise HTTPException(status_code=400, detail="Token required")
+
+    logger.debug(f"Getting credits balance for token: {token[:8]}...")
+
+    try:
+        from backend.database import get_credits
+        balance = get_credits(token)
+        logger.debug(f"Retrieved balance: {balance} credits")
+        return {"token": token, "credits": balance}
+
+    except Exception as e:
+        logger.error(f"Error getting credits balance: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to retrieve credits balance")
+
+
 @app.post("/api/validate", response_model=ValidationResponse)
 async def validate_citations(request: ValidationRequest):
     """
