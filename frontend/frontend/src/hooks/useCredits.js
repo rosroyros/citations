@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getToken } from '../utils/creditStorage';
+import { getToken } from '../utils/creditStorage.js';
 
 export const useCredits = () => {
   const [credits, setCredits] = useState(null);
