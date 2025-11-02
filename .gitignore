@@ -40,3 +40,4 @@ phase*.json
 deploy_specific_sources.py
 fixed_sitemap.py
 backups/
+*.db
