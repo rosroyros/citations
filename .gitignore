@@ -8,3 +8,35 @@ node_modules/
 dist/
 build/
 .pytest_cache/
+
+# PSEO work archive
+pseo_work_archive/
+production_from_server/
+
+# Backups
+*_backup_*.tar.gz
+BACKUP_RESTORATION_GUIDE.md
+
+# PSEO scripts and data (archived)
+backend/*_batch*.py
+backend/*_batch*.json
+backend/*_results.json
+backend/*_sources.json
+backend/test_output/
+backend/current_sitemap.xml
+
+# Analysis and planning files (archived)
+*similarity*.csv
+*similarity*.py
+*scholar*.json
+*_analysis*.py
+*_collector*.py
+scrape_*.py
+complete_*.json
+comprehensive_*.json
+comprehensive_*.py
+phase*.py
+phase*.json
+deploy_specific_sources.py
+fixed_sitemap.py
+backups/
