@@ -3,6 +3,9 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { CreditDisplay } from './components/CreditDisplay'
+import { UpgradeModal } from './components/UpgradeModal'
+import { PartialResults } from './components/PartialResults'
+import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
 import Success from './pages/Success'
 import './App.css'
 
@@ -15,6 +18,7 @@ function App() {
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
   const editor = useEditor({
     extensions: [
@@ -46,6 +50,15 @@ function App() {
 
     if (!editor) return
 
+    const token = getToken()
+    const freeUsed = getFreeUsage()
+
+    // Check free tier limit
+    if (!token && freeUsed >= 10) {
+      setShowUpgradeModal(true)
+      return
+    }
+
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
 
@@ -59,11 +72,15 @@ function App() {
     try {
       console.log('Calling API: /api/validate')
 
+      // Build headers
+      const headers = { 'Content-Type': 'application/json' }
+      if (token) {
+        headers['X-User-Token'] = token
+      }
+
       const response = await fetch('/api/validate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({
           citations: htmlContent,
           style: 'apa7',
@@ -81,7 +98,19 @@ function App() {
       const data = await response.json()
       console.log('API response data:', data)
 
-      setResults(data)
+      // Handle response
+      if (data.partial) {
+        // Partial results (insufficient credits)
+        setResults({ ...data, isPartial: true })
+      } else {
+        // Full results
+        setResults(data)
+
+        // Increment free counter if no token
+        if (!token) {
+          incrementFreeUsage(data.results.length)
+        }
+      }
     } catch (err) {
       console.error('API call error:', err)
 
@@ -165,73 +194,83 @@ function App() {
       )}
 
       {results && (
-        <div className="results">
-          <div className="results-summary">
-            <h2>Validation Results</h2>
-            <div className="summary-stats">
-              <div className="summary-stat">
-                <span className="stat-number">{results.results.length}</span>
-                <span className="stat-label">Citations Checked</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">
-                  {results.results.filter(r => r.errors.length === 0).length}
-                </span>
-                <span className="stat-label">Perfect</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">
-                  {results.results.filter(r => r.errors.length > 0).length}
-                </span>
-                <span className="stat-label">Need Fixes</span>
+        results.isPartial ? (
+          <PartialResults
+            results={results.results}
+            partial={results.partial}
+            citations_checked={results.citations_checked}
+            citations_remaining={results.citations_remaining}
+            onUpgrade={() => setShowUpgradeModal(true)}
+          />
+        ) : (
+          <div className="results">
+            <div className="results-summary">
+              <h2>Validation Results</h2>
+              <div className="summary-stats">
+                <div className="summary-stat">
+                  <span className="stat-number">{results.results.length}</span>
+                  <span className="stat-label">Citations Checked</span>
+                </div>
+                <div className="summary-stat">
+                  <span className="stat-number">
+                    {results.results.filter(r => r.errors.length === 0).length}
+                  </span>
+                  <span className="stat-label">Perfect</span>
+                </div>
+                <div className="summary-stat">
+                  <span className="stat-number">
+                    {results.results.filter(r => r.errors.length > 0).length}
+                  </span>
+                  <span className="stat-label">Need Fixes</span>
+                </div>
               </div>
             </div>
+
+            {results.results.map((result) => (
+              <div key={result.citation_number} className="citation-result">
+                <h3>
+                  Citation #{result.citation_number}
+                  {result.errors.length === 0 ? ' ✅' : ' ❌'}
+                </h3>
+
+                <div className="original-citation">
+                  <strong>Original:</strong>
+                  <div
+                    className="citation-html"
+                    dangerouslySetInnerHTML={{ __html: result.original }}
+                  />
+                </div>
+
+                <div className="source-type">
+                  <em>Source type: {result.source_type}</em>
+                </div>
+
+                {result.errors.length === 0 ? (
+                  <div className="no-errors">
+                    <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
+                  </div>
+                ) : (
+                  <div className="errors-list">
+                    <strong>Errors found:</strong>
+                    {result.errors.map((error, index) => (
+                      <div key={index} className="error-item">
+                        <div className="error-component">
+                          <strong>❌ {error.component}:</strong>
+                        </div>
+                        <div className="error-problem">
+                          <em>Problem:</em> {error.problem}
+                        </div>
+                        <div className="error-correction">
+                          <em>Correction:</em> {error.correction}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-
-          {results.results.map((result) => (
-            <div key={result.citation_number} className="citation-result">
-              <h3>
-                Citation #{result.citation_number}
-                {result.errors.length === 0 ? ' ✅' : ' ❌'}
-              </h3>
-
-              <div className="original-citation">
-                <strong>Original:</strong>
-                <div
-                  className="citation-html"
-                  dangerouslySetInnerHTML={{ __html: result.original }}
-                />
-              </div>
-
-              <div className="source-type">
-                <em>Source type: {result.source_type}</em>
-              </div>
-
-              {result.errors.length === 0 ? (
-                <div className="no-errors">
-                  <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
-                </div>
-              ) : (
-                <div className="errors-list">
-                  <strong>Errors found:</strong>
-                  {result.errors.map((error, index) => (
-                    <div key={index} className="error-item">
-                      <div className="error-component">
-                        <strong>❌ {error.component}:</strong>
-                      </div>
-                      <div className="error-problem">
-                        <em>Problem:</em> {error.problem}
-                      </div>
-                      <div className="error-correction">
-                        <em>Correction:</em> {error.correction}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        )
       )}
 
       {/* Benefits Section */}
@@ -309,6 +348,8 @@ function App() {
           <p className="footer-text">© 2025 Citation Format Checker. All rights reserved.</p>
         </div>
       </footer>
+
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
     </>
   )
