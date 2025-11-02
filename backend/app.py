@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from html.parser import HTMLParser
+from typing import Optional
 import os
 import uuid
 import json
@@ -135,6 +136,10 @@ class CitationResult(BaseModel):
 class ValidationResponse(BaseModel):
     """Response model for citation validation."""
     results: list[CitationResult]
+    partial: bool = False
+    citations_checked: Optional[int] = None
+    citations_remaining: Optional[int] = None
+    credits_remaining: Optional[int] = None
 
 
 @app.get("/health")
@@ -211,11 +216,12 @@ async def get_credits_balance(token: str):
 
 
 @app.post("/api/validate", response_model=ValidationResponse)
-async def validate_citations(request: ValidationRequest):
+async def validate_citations(http_request: Request, request: ValidationRequest):
     """
     Validate citations against APA 7th edition rules using LLM.
 
     Args:
+        http_request: FastAPI Request object containing headers
         request: ValidationRequest with citations text and style
 
     Returns:
@@ -223,6 +229,12 @@ async def validate_citations(request: ValidationRequest):
     """
     logger.info(f"Validation request received for style: {request.style}")
     logger.debug(f"Citations length: {len(request.citations)} characters")
+
+    # Extract token from headers
+    token = http_request.headers.get('X-User-Token')
+    logger.debug(f"Token present: {bool(token)}")
+    if token:
+        logger.debug(f"Token preview: {token[:8]}...")
 
     # Validate input
     if not request.citations or not request.citations.strip():
@@ -244,12 +256,65 @@ async def validate_citations(request: ValidationRequest):
 
         logger.info(f"Validation completed: {len(validation_results['results'])} result(s)")
 
-        return ValidationResponse(results=validation_results["results"])
+        results = validation_results["results"]
+        citation_count = len(results)
+        logger.debug(f"Citation count: {citation_count}")
+
+        # Handle credit logic
+        if not token:
+            # Free tier - return everything (frontend enforces 10 limit)
+            logger.info("Free tier request - returning all results")
+            return ValidationResponse(results=results)
+
+        # Paid tier - check credits
+        from backend.database import get_credits, deduct_credits
+        user_credits = get_credits(token)
+        logger.debug(f"User credits: {user_credits}")
+
+        if user_credits == 0:
+            logger.warning("User has zero credits - returning 402 error")
+            raise HTTPException(
+                status_code=402,  # Payment Required
+                detail="You have 0 Citation Credits remaining. Purchase more to continue."
+            )
+
+        if user_credits >= citation_count:
+            # Can afford all citations
+            logger.info(f"Sufficient credits ({user_credits} >= {citation_count}) - returning all results")
+            success = deduct_credits(token, citation_count)
+            if not success:
+                logger.error("Failed to deduct credits")
+                raise HTTPException(status_code=500, detail="Failed to deduct credits")
+
+            return ValidationResponse(
+                results=results,
+                credits_remaining=user_credits - citation_count
+            )
+        else:
+            # Partial results
+            affordable = user_credits
+            logger.info(f"Insufficient credits ({user_credits} < {citation_count}) - returning {affordable} results")
+            success = deduct_credits(token, affordable)
+            if not success:
+                logger.error("Failed to deduct credits")
+                raise HTTPException(status_code=500, detail="Failed to deduct credits")
+
+            return ValidationResponse(
+                results=results[:affordable],
+                partial=True,
+                citations_checked=affordable,
+                citations_remaining=citation_count - affordable,
+                credits_remaining=0
+            )
 
     except ValueError as e:
         # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
         logger.error(f"Validation failed with user error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
+    except HTTPException as e:
+        # Re-raise HTTPExceptions (like 402 Payment Required)
+        raise e
 
     except Exception as e:
         # Unexpected errors
