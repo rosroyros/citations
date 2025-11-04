@@ -55,12 +55,15 @@
   display: flex;
   gap: 2rem;
   align-items: center;
+  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .hero-text {
-  flex: 0 0 70%;
+  flex: 1;
+  max-width: 900px;
+  text-align: center;
 }
 
 .hero-illustration {
