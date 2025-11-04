@@ -3,6 +3,8 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { saveToken } from '../utils/creditStorage'
+import { useCredits } from '../hooks/useCredits'
+import { CreditDisplay } from '../components/CreditDisplay'
 import '../App.css'
 
 const Success = () => {
@@ -13,6 +15,7 @@ const Success = () => {
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
+  const { credits: creditsFromHook } = useCredits() // For CreditDisplay component
 
   const editor = useEditor({
     extensions: [
@@ -189,6 +192,7 @@ const Success = () => {
             </svg>
             <h1 className="logo-text">Citation Format Checker</h1>
           </div>
+          <CreditDisplay />
         </div>
       </header>
 

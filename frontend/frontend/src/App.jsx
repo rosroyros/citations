@@ -6,6 +6,7 @@ import { CreditDisplay } from './components/CreditDisplay'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
+import { useCredits } from './hooks/useCredits'
 import Success from './pages/Success'
 import './App.css'
 
@@ -19,6 +20,7 @@ function App() {
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const { refreshCredits } = useCredits()
 
   const editor = useEditor({
     extensions: [
@@ -110,6 +112,13 @@ function App() {
         if (!token) {
           incrementFreeUsage(data.results.length)
         }
+      }
+
+      // Refresh credits for paid users
+      if (token) {
+        refreshCredits().catch(err =>
+          console.error('Failed to refresh credits:', err)
+        )
       }
     } catch (err) {
       console.error('API call error:', err)
