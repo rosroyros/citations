@@ -1892,20 +1892,22 @@ Create file `backend/test_results_local.md` with:
 
 ---
 
-### 👨‍💻 DEVELOPER TASK 7.3: Update Production Environment Variables
+### 👨‍💻 DEVELOPER TASK 7.3: Update Production Environment Variables & Code
 
-**Context:** Configure production VPS with Polar production credentials.
+**Context:** Configure production VPS with Polar production credentials AND remove sandbox API configuration from code.
 
 **Prerequisites:** User must provide production credentials (Task 7.2).
 
 **Execution steps:**
+
+**Part A: Update Environment Variables**
 1. SSH to VPS: `ssh deploy@178.156.161.140`
 2. Navigate to app: `cd /opt/citations`
 3. Edit environment file: `nano backend/.env`
 4. Update Polar credentials:
    ```bash
    # Replace sandbox with production values
-   POLAR_ACCESS_TOKEN=polar_live_...  # From user
+   POLAR_ACCESS_TOKEN=polar_live_...  # From user (NOT polar_sandbox_...)
    POLAR_PRODUCT_ID=prod_...           # From user
    POLAR_WEBHOOK_SECRET=whsec_...      # From user
 
@@ -1916,16 +1918,49 @@ Create file `backend/test_results_local.md` with:
    OPENAI_API_KEY=...  # Don't change
    ```
 5. Save and exit (Ctrl+X, Y, Enter)
-6. **Verify `.env` is NOT in git:**
-   ```bash
-   git status  # Should NOT show .env as modified
+
+**Part B: ⚠️ CRITICAL - Remove Sandbox API Configuration**
+6. Edit backend code: `nano backend/app.py`
+7. Find the Polar client initialization (around line 26-30):
+   ```python
+   # Current code (SANDBOX - DO NOT USE IN PRODUCTION)
+   from polar_sdk import SERVER_SANDBOX
+   polar = Polar(
+       access_token=os.getenv('POLAR_ACCESS_TOKEN'),
+       server=SERVER_SANDBOX  # Use sandbox API endpoint
+   )
    ```
-7. **If `.env` appears in git status:** STOP and ask user/architect
+8. **Replace with production configuration:**
+   ```python
+   # Production code (remove SERVER_SANDBOX import and parameter)
+   polar = Polar(
+       access_token=os.getenv('POLAR_ACCESS_TOKEN')
+       # No server parameter = defaults to production API
+   )
+   ```
+9. Save and exit (Ctrl+X, Y, Enter)
+
+**Part C: Verify Configuration**
+10. **Verify `.env` is NOT in git:**
+    ```bash
+    git status  # Should NOT show .env as modified
+    ```
+11. **If `.env` appears in git status:** STOP and ask user/architect
+12. **Commit the code change:**
+    ```bash
+    git add backend/app.py
+    git commit -m "chore: switch Polar client to production API endpoint"
+    ```
 
 **Verification:**
 - [ ] Production credentials in `.env`
-- [ ] FRONTEND_URL updated
+- [ ] FRONTEND_URL updated to production domain
+- [ ] `SERVER_SANDBOX` import removed from code
+- [ ] `server=SERVER_SANDBOX` parameter removed from Polar()
+- [ ] Code change committed to git
 - [ ] `.env` not tracked by git
+
+**⚠️ CRITICAL:** If you forget to remove `SERVER_SANDBOX`, production checkouts will fail with "invalid credentials" errors because production tokens won't work with sandbox API.
 
 **Do NOT commit .env file**
 
@@ -2094,6 +2129,11 @@ If you want to refund the test purchase:
 ✅ Zero credits error handling
 ✅ venv activation instructions
 ✅ Clear user/developer task assignments
+✅ Sandbox API configuration (SERVER_SANDBOX parameter)
+✅ Webhook signature header (webhook-signature not X-Polar-Signature)
+✅ Event type detection (isinstance checks)
+✅ Metadata dict access (using .get() method)
+✅ Async/sync API consistency (removed unnecessary await)
 
 **User Needs to Provide:**
 1. ✅ Polar sandbox credentials (Step 1-3 of Prerequisites)
