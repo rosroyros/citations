@@ -23,10 +23,9 @@ logger = setup_logger("citation_validator")
 llm_provider = OpenAIProvider()
 
 # Initialize Polar client
-from polar_sdk import SERVER_SANDBOX
 polar = Polar(
-    access_token=os.getenv('POLAR_ACCESS_TOKEN'),
-    server=SERVER_SANDBOX  # Use sandbox API endpoint
+    access_token=os.getenv('POLAR_ACCESS_TOKEN')
+    # No server parameter = production API
 )
 
 
