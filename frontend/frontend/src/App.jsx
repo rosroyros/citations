@@ -171,9 +171,6 @@ function App() {
               </span>
             </div>
           </div>
-          <div className="hero-illustration">
-            <img src="/src/assets/hero-illustration.svg" alt="Citation checking process" />
-          </div>
         </div>
       </section>
 
