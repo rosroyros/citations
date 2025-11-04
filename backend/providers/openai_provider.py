@@ -115,12 +115,19 @@ class OpenAIProvider(CitationValidator):
         """
         logger.debug("Parsing LLM response into structured format")
 
+        # Log the full response for debugging
+        logger.debug(f"Full LLM response ({len(response_text)} chars):\n{response_text}")
+
         results = []
 
         # Find all citation blocks by looking for CITATION # markers
-        # Each block starts with ═══ CITATION #N ═══ and continues until the next citation or end
-        citation_pattern = r'═+\s*CITATION #(\d+)\s*═+(.+?)(?=═+\s*CITATION #\d+|$)'
-        matches = re.finditer(citation_pattern, response_text, re.DOTALL)
+        # Handle both formats: "═══\nCITATION #N\n═══" and "CITATION #N\n═══"
+        citation_pattern = r'(?:═+\s+)?CITATION #(\d+)\s*\n\s*═+(.+?)(?=(?:═+\s+)?CITATION #\d+|$)'
+        matches = list(re.finditer(citation_pattern, response_text, re.DOTALL))
+
+        logger.debug(f"Regex found {len(matches)} citation blocks")
+        for i, match in enumerate(matches):
+            logger.debug(f"Match {i+1}: Citation #{match.group(1)}, content length: {len(match.group(2))} chars")
 
         for match in matches:
             citation_num = int(match.group(1))
@@ -130,6 +137,9 @@ class OpenAIProvider(CitationValidator):
                 result = self._parse_citation_block(citation_num, block_content)
                 if result:
                     results.append(result)
+                    logger.debug(f"Successfully parsed citation #{citation_num}")
+                else:
+                    logger.warning(f"Citation #{citation_num} parsed but returned empty result")
             except Exception as e:
                 logger.warning(f"Failed to parse citation #{citation_num}: {str(e)}")
                 logger.debug(f"Problematic block: {block_content[:200]}...")
