@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TipTap Investigation</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tiptap/core@2.1.13/dist/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.1.13/dist/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tiptap/extension-underline@2.1.13/dist/index.umd.js"></script>
+  <style>
+    body { font-family: system-ui; padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .editor { border: 2px solid #ccc; padding: 15px; min-height: 200px; margin: 20px 0; }
+    .output { background: #f5f5f5; padding: 15px; margin: 20px 0; font-family: monospace; white-space: pre-wrap; }
+    button { padding: 10px 20px; margin: 10px 5px; cursor: pointer; }
+    h2 { color: #333; margin-top: 30px; }
+    .test-case { border: 1px solid #ddd; padding: 15px; margin: 20px 0; }
+    .label { font-weight: bold; color: #666; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🔍 TipTap Citation Investigation</h1>
+  <p>This page helps investigate how TipTap handles citation formatting.</p>
+
+  <div class="test-case">
+    <h2>Test 1: Paste Your Failing Citations Here</h2>
+    <p>Copy the exact text from your screenshot and paste it below:</p>
+    <div id="editor1" class="editor"></div>
+    <button onclick="showHTML('editor1', 'output1')">Show HTML</button>
+    <button onclick="analyzeHTML('editor1', 'analysis1')">Analyze</button>
+    <div class="label">HTML Output:</div>
+    <div id="output1" class="output">(Paste citations above and click "Show HTML")</div>
+    <div class="label">Analysis:</div>
+    <div id="analysis1" class="output"></div>
+  </div>
+
+  <div class="test-case">
+    <h2>Test 2: Type Citations Manually</h2>
+    <p>Type 3 citations, pressing Enter ONCE between each:</p>
+    <div id="editor2" class="editor"></div>
+    <button onclick="showHTML('editor2', 'output2')">Show HTML</button>
+    <button onclick="analyzeHTML('editor2', 'analysis2')">Analyze</button>
+    <div class="label">HTML Output:</div>
+    <div id="output2" class="output">(Type citations above and click "Show HTML")</div>
+    <div class="label">Analysis:</div>
+    <div id="analysis2" class="output"></div>
+  </div>
+
+  <div class="test-case">
+    <h2>Test 3: Type with Double Spacing</h2>
+    <p>Type 3 citations, pressing Enter TWICE between each:</p>
+    <div id="editor3" class="editor"></div>
+    <button onclick="showHTML('editor3', 'output3')">Show HTML</button>
+    <button onclick="analyzeHTML('editor3', 'analysis3')">Analyze</button>
+    <div class="label">HTML Output:</div>
+    <div id="output3" class="output">(Type citations above and click "Show HTML")</div>
+    <div class="label">Analysis:</div>
+    <div id="analysis3" class="output"></div>
+  </div>
+
+  <script>
+    const { Editor } = window['@tiptap/core'];
+    const { StarterKit } = window['@tiptap/starter-kit'];
+    const { Underline } = window['@tiptap/extension-underline'];
+
+    // Create editors with same config as App.jsx
+    const editors = {};
+
+    function createEditor(elementId) {
+      const editor = new Editor({
+        element: document.getElementById(elementId),
+        extensions: [
+          StarterKit.configure({}),
+          Underline,
+        ],
+        content: '',
+        editorProps: {
+          attributes: {
+            class: 'citation-editor',
+          },
+        },
+      });
+      editors[elementId] = editor;
+      return editor;
+    }
+
+    // Initialize editors
+    createEditor('editor1');
+    createEditor('editor2');
+    createEditor('editor3');
+
+    function showHTML(editorId, outputId) {
+      const editor = editors[editorId];
+      const html = editor.getHTML();
+      document.getElementById(outputId).textContent = html;
+    }
+
+    function analyzeHTML(editorId, analysisId) {
+      const editor = editors[editorId];
+      const html = editor.getHTML();
+      const text = editor.getText();
+
+      // Count paragraphs
+      const pTags = html.match(/<p>/g) || [];
+      const emptyPTags = html.match(/<p><\/p>/g) || [];
+      const nonEmptyPTags = pTags.length - emptyPTags.length;
+
+      // Detect citations (rough heuristic)
+      const citationPattern = /\([12]\d{3}\)/g;
+      const possibleCitations = (text.match(citationPattern) || []).length;
+
+      // Check for italics
+      const emTags = html.match(/<em>/g) || [];
+
+      // Analyze newlines
+      const lines = text.split('\n').filter(l => l.trim());
+
+      const analysis = `
+📊 HTML Structure Analysis:
+
+Total <p> tags: ${pTags.length}
+Empty <p></p> tags: ${emptyPTags.length}
+Non-empty <p> tags: ${nonEmptyPTags}
+<em> tags (italics): ${emTags.length}
+
+📝 Text Analysis:
+
+Total characters: ${text.length}
+Non-empty lines: ${lines.length}
+Possible citations (by year pattern): ${possibleCitations}
+
+🔍 What Backend Will See:
+
+After HTMLToTextConverter:
+- Each <p> adds \\n at start AND end
+- Empty <p></p> becomes blank line
+- <em> becomes _text_
+
+Expected blank lines between citations: ${emptyPTags.length}
+
+⚠️ Prediction:
+${nonEmptyPTags === possibleCitations
+  ? '✅ Each citation is in its own <p> tag - should work!'
+  : nonEmptyPTags === 1 && possibleCitations > 1
+    ? '❌ All citations in ONE <p> tag - will be treated as single citation!'
+    : '⚠️ Complex structure - needs manual review'}
+      `;
+
+      document.getElementById(analysisId).textContent = analysis;
+    }
+
+    // Auto-analyze on content change
+    Object.keys(editors).forEach(editorId => {
+      const outputId = editorId.replace('editor', 'output');
+      const analysisId = editorId.replace('editor', 'analysis');
+
+      editors[editorId].on('update', () => {
+        // Auto-update on typing
+        setTimeout(() => {
+          if (editors[editorId].getText().trim()) {
+            showHTML(editorId, outputId);
+            analyzeHTML(editorId, analysisId);
+          }
+        }, 500);
+      });
+    });
+
+    console.log('✅ TipTap Investigation Tool Ready');
+    console.log('📝 Paste your failing citations in Test 1');
+  </script>
+
+  <div style="margin-top: 40px; padding: 20px; background: #fffbea; border-left: 4px solid #f59e0b;">
+    <h3>🎯 What to Look For:</h3>
+    <ul>
+      <li><strong>Test 1 (Your failing case):</strong> Check if all citations are in one &lt;p&gt; tag</li>
+      <li><strong>Tests 2 & 3:</strong> Compare HTML structure when manually typed with breaks</li>
+      <li><strong>Empty &lt;p&gt;&lt;/p&gt; tags:</strong> These create the blank lines needed for separation</li>
+      <li><strong>Italics (&lt;em&gt;):</strong> Verify they're preserved in HTML</li>
+    </ul>
+  </div>
+</body>
+</html>

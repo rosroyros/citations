@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/@tiptap/core@2.1.13/dist/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tiptap/starter-kit@2.1.13/dist/index.umd.js"></script>
+</head>
+<body>
+  <h2>Testing TipTap Output Structure</h2>
+  <p>This simulates what your frontend sends when you paste citations with line breaks.</p>
+
+  <h3>Expected HTML when pasting 3 citations with blank lines:</h3>
+  <pre id="output"></pre>
+
+  <script>
+    // Simulate what TipTap generates when you paste citations with blank lines
+    const mockHTML = `<p>Smith, J. A. (2023). Advances in computer vision techniques. <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>.</p>
+<p></p>
+<p>Johnson, M. R., Davis, S. L., & Thompson, A. K. (2022). Remote learning effectiveness during COVID-19: A meta-analysis. <em>Review of Educational Research</em>, 92(3), 412-445. https://doi.org/10.3102/00346543221075623</p>
+<p></p>
+<p>Garcia, E. M. (2021). Nurse burnout and patient safety: The mediating role of working conditions. <em>Journal of Nursing Administration</em>, 51(7), 389-395. https://doi.org/10.1097/NNA.0000000000001015</p>`;
+
+    document.getElementById('output').textContent = mockHTML;
+
+    console.log("HTML from TipTap:", mockHTML);
+  </script>
+</body>
+</html>

@@ -50,7 +50,9 @@ class HTMLToTextConverter(HTMLParser):
             self.in_underline = True
             self.text.append('_')  # Markdown underline as italic
         elif tag == 'p':
-            if self.text and self.text[-1] != '\n':
+            # Add newline at start of paragraph
+            # Don't skip if last char is \n - we want blank lines between <p> tags
+            if self.text:
                 self.text.append('\n')
 
     def handle_endtag(self, tag):

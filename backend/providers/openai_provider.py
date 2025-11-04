@@ -60,7 +60,7 @@ class OpenAIProvider(CitationValidator):
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.1,
-                max_tokens=2000,
+                max_tokens=4000,  # Increased to handle ~10+ citations
                 timeout=30.0  # 30 second timeout
             )
 
@@ -118,8 +118,8 @@ class OpenAIProvider(CitationValidator):
         results = []
 
         # Find all citation blocks by looking for CITATION # markers
-        # Each block starts with ═══ CITATION #N ═══ and ends with either ─── or next ═══
-        citation_pattern = r'═+\s*CITATION #(\d+)\s*═+(.+?)(?:─+|═+|$)'
+        # Each block starts with ═══ CITATION #N ═══ and continues until the next citation or end
+        citation_pattern = r'═+\s*CITATION #(\d+)\s*═+(.+?)(?=═+\s*CITATION #\d+|$)'
         matches = re.finditer(citation_pattern, response_text, re.DOTALL)
 
         for match in matches:
