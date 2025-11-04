@@ -23,7 +23,11 @@ logger = setup_logger("citation_validator")
 llm_provider = OpenAIProvider()
 
 # Initialize Polar client
-polar = Polar(access_token=os.getenv('POLAR_ACCESS_TOKEN'))
+from polar_sdk import SERVER_SANDBOX
+polar = Polar(
+    access_token=os.getenv('POLAR_ACCESS_TOKEN'),
+    server=SERVER_SANDBOX  # Use sandbox API endpoint
+)
 
 
 class HTMLToTextConverter(HTMLParser):
@@ -154,8 +158,24 @@ async def health_check():
     return {"status": "ok"}
 
 
+@app.get("/debug-env")
+async def debug_environment():
+    """
+    Debug endpoint to check environment variables.
+
+    Returns:
+        dict: Environment variables (masked for security)
+    """
+    return {
+        "POLAR_ACCESS_TOKEN": f"{os.getenv('POLAR_ACCESS_TOKEN', 'NOT_SET')[:10]}..." if os.getenv('POLAR_ACCESS_TOKEN') else "NOT_SET",
+        "POLAR_PRODUCT_ID": os.getenv('POLAR_PRODUCT_ID', 'NOT_SET'),
+        "POLAR_WEBHOOK_SECRET": f"{os.getenv('POLAR_WEBHOOK_SECRET', 'NOT_SET')[:10]}..." if os.getenv('POLAR_WEBHOOK_SECRET') else "NOT_SET",
+        "FRONTEND_URL": os.getenv('FRONTEND_URL', 'NOT_SET')
+    }
+
+
 @app.post("/api/create-checkout")
-async def create_checkout(request: dict):
+def create_checkout(request: dict):
     """
     Create a Polar checkout for purchasing citation credits.
 
@@ -174,13 +194,20 @@ async def create_checkout(request: dict):
     try:
         # Create Polar checkout
         logger.info("Creating Polar checkout")
-        checkout = await polar.checkouts.create({
-            "product_id": os.getenv('POLAR_PRODUCT_ID'),
+        logger.info(f"Product ID being used: {os.getenv('POLAR_PRODUCT_ID')}")
+        logger.info(f"Token: {token}")
+
+        checkout_request = {
+            "products": [os.getenv('POLAR_PRODUCT_ID')],
             "success_url": f"{os.getenv('FRONTEND_URL')}/success?token={token}",
             "metadata": {"token": token}
-        })
+        }
+        logger.info(f"Checkout request: {checkout_request}")
+
+        checkout = polar.checkouts.create(request=checkout_request)
 
         logger.info(f"Checkout created successfully: {checkout.url}")
+        logger.info(f"Checkout object details: {checkout}")
         return {"checkout_url": checkout.url, "token": token}
 
     except Exception as e:
@@ -336,41 +363,59 @@ async def handle_polar_webhook(request: Request):
         Response: 200 OK for all processed webhooks
     """
     logger.info("Polar webhook received")
+    logger.info(f"Request headers: {dict(request.headers)}")
 
     # Get signature from headers
-    signature = request.headers.get('X-Polar-Signature')
+    # Polar sends signature as 'webhook-signature' header (not 'X-Polar-Signature')
+    signature = request.headers.get('webhook-signature')
     if not signature:
         logger.warning("Webhook received without signature header")
+        logger.warning(f"Available headers: {list(request.headers.keys())}")
         return Response(status_code=401, content='{"error": "Invalid signature"}')
+
+    logger.info(f"Signature header found: {signature[:20]}...")
 
     # Get raw body for signature verification
     body = await request.body()
+    logger.info(f"Body received, length: {len(body)} bytes")
+    logger.info(f"Body preview: {body[:200]}")
+
+    webhook_secret = os.getenv('POLAR_WEBHOOK_SECRET')
+    logger.info(f"Using webhook secret: {webhook_secret[:20]}...")
 
     try:
         # Verify webhook signature and parse payload
+        logger.info("Calling validate_event...")
         webhook = validate_event(
             body=body,
             headers=dict(request.headers),
-            secret=os.getenv('POLAR_WEBHOOK_SECRET')
+            secret=webhook_secret
         )
 
-        logger.info(f"Webhook signature verified: {webhook.type}")
+        # Determine event type from the webhook payload object
+        from polar_sdk.models.webhookordercreatedpayload import WebhookOrderCreatedPayload
+        from polar_sdk.models.webhookcheckoutupdatedpayload import WebhookCheckoutUpdatedPayload
 
-        # Process only order.created and checkout.updated events
-        if webhook.type == "order.created":
+        if isinstance(webhook, WebhookOrderCreatedPayload):
+            logger.info("Webhook signature verified: order.created")
             await handle_order_created(webhook)
-        elif webhook.type == "checkout.updated":
+        elif isinstance(webhook, WebhookCheckoutUpdatedPayload):
+            logger.info("Webhook signature verified: checkout.updated")
             await handle_checkout_updated(webhook)
         else:
-            logger.debug(f"Ignoring webhook event type: {webhook.type}")
+            event_type = type(webhook).__name__
+            logger.debug(f"Ignoring webhook event type: {event_type}")
 
         return Response(status_code=200)
 
     except WebhookVerificationError as e:
         logger.error(f"Webhook signature verification failed: {str(e)}")
+        logger.error(f"Error type: {type(e)}")
+        logger.error(f"Error details: {e.__dict__ if hasattr(e, '__dict__') else 'No details'}")
         return Response(status_code=401, content='{"error": "Invalid signature"}')
     except Exception as e:
         logger.error(f"Unexpected webhook processing error: {str(e)}", exc_info=True)
+        logger.error(f"Error type: {type(e)}")
         return Response(status_code=500, content='{"error": "Internal server error"}')
 
 
@@ -379,9 +424,14 @@ async def handle_order_created(webhook):
     from database import add_credits
 
     order_id = webhook.data.id
-    token = webhook.data.metadata.token
+    # metadata is a dict, not an object
+    token = webhook.data.metadata.get('token') if isinstance(webhook.data.metadata, dict) else webhook.data.metadata.token
 
-    logger.info(f"Processing order.created: order_id={order_id}, token={token[:8]}...")
+    logger.info(f"Processing order.created: order_id={order_id}, token={token[:8] if token else 'None'}...")
+
+    if not token:
+        logger.error(f"Order {order_id} missing token in metadata")
+        return
 
     # Grant 1,000 credits (idempotent - add_credits checks for duplicate order_id)
     success = add_credits(token, 1000, order_id)
@@ -401,9 +451,14 @@ async def handle_checkout_updated(webhook):
         return
 
     order_id = webhook.data.order_id
-    token = webhook.data.metadata.token
+    # metadata is a dict, not an object
+    token = webhook.data.metadata.get('token') if isinstance(webhook.data.metadata, dict) else webhook.data.metadata.token
 
-    logger.info(f"Processing checkout.updated: order_id={order_id}, token={token[:8]}...")
+    logger.info(f"Processing checkout.updated: order_id={order_id}, token={token[:8] if token else 'None'}...")
+
+    if not token:
+        logger.error(f"Checkout {order_id} missing token in metadata")
+        return
 
     # Grant 1,000 credits (idempotent)
     success = add_credits(token, 1000, order_id)
