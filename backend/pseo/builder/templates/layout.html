@@ -151,6 +151,25 @@
         window.process = { env: { NODE_ENV: 'production' } };
     </script>
     <script>
+        // Helper function to extract source type from URL
+        function getSourceTypeFromURL() {
+            const path = window.location.pathname;
+
+            // Extract source type from URL patterns like /how-to-cite-[source]-[style]/
+            const match = path.match(/\/how-to-cite-([^-]+)-/);
+            if (match && match[1]) {
+                return match[1].toLowerCase();
+            }
+
+            // Extract source type from specific source URLs like /source/[source-type]/
+            const sourceMatch = path.match(/\/source\/([^\/]+)/);
+            if (sourceMatch && sourceMatch[1]) {
+                return sourceMatch[1].toLowerCase();
+            }
+
+            return 'unknown';
+        }
+
         // Citation checking function for static MiniChecker components in markdown
         async function checkCitation(button) {
             // Find the textarea within the same mini-checker container
@@ -168,6 +187,18 @@
             if (!citation) {
                 alert('Please enter a citation to check.');
                 return;
+            }
+
+            // Track mini_checker_opened event
+            if (typeof gtag === 'function') {
+                const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                               document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                const sourceType = getSourceTypeFromURL();
+
+                gtag('event', 'mini_checker_opened', {
+                    page_type: pageType,
+                    source_type: sourceType
+                });
             }
 
             // Show loading state
@@ -201,6 +232,20 @@
 
                 // Extract errors from response (API returns {results: [{errors: [...]}]})
                 const errors = data.results && data.results[0] && data.results[0].errors ? data.results[0].errors : [];
+
+                // Track mini_checker_validated event
+                if (typeof gtag === 'function') {
+                    const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                                   document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                    const sourceType = getSourceTypeFromURL();
+
+                    gtag('event', 'mini_checker_validated', {
+                        page_type: pageType,
+                        source_type: sourceType,
+                        validation_result: errors.length > 0 ? 'errors_found' : 'valid',
+                        errors_count: errors.length
+                    });
+                }
 
                 // Show results inline
                 const resultsDiv = document.createElement('div');
