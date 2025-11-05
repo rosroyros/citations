@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { getToken } from '../utils/creditStorage.js';
+import { trackEvent } from '../utils/analytics';
 import './UpgradeModal.css';
 
 export const UpgradeModal = ({ isOpen, onClose }) => {
@@ -7,6 +8,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
   const [error, setError] = useState(null);
 
   const handleCheckout = async () => {
+    trackEvent('upgrade_button_clicked', {});
     setLoading(true);
     setError(null);
 

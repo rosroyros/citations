@@ -7,6 +7,7 @@ import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
 import { useCredits } from './hooks/useCredits'
+import { trackEvent } from './utils/analytics'
 import Success from './pages/Success'
 import './App.css'
 
@@ -57,6 +58,7 @@ function App() {
 
     // Check free tier limit
     if (!token && freeUsed >= 10) {
+      trackEvent('upgrade_modal_shown', { trigger: 'free_limit' })
       setShowUpgradeModal(true)
       return
     }
@@ -216,7 +218,10 @@ function App() {
             partial={results.partial}
             citations_checked={results.citations_checked}
             citations_remaining={results.citations_remaining}
-            onUpgrade={() => setShowUpgradeModal(true)}
+            onUpgrade={() => {
+              trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
+              setShowUpgradeModal(true)
+            }}
           />
         ) : (
           <div className="results">
