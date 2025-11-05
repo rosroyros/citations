@@ -4,18 +4,8 @@ You are deploying a reviewed and approved task to production.
 TASK_ID="{{arg:1}}"
 
 if [ -z "$TASK_ID" ]; then
-    # Get first approved task
-    TASK_ID=$(bd list --json 2>/dev/null | python3 -c "
-import sys, json
-try:
-    issues = json.load(sys.stdin)
-    approved = [i for i in issues if \"approved\" in i.get(\"labels\", []) and i.get(\"status\") == \"in_progress\"]
-    if approved:
-        approved.sort(key=lambda x: x.get(\"priority\", 2))
-        print(approved[0][\"id\"])
-except:
-    pass
-" 2>/dev/null)
+    # Get first approved task using bd filtering
+    TASK_ID=$(bd list --label approved --json 2>/dev/null | python3 -c '\''import sys, json; issues = json.load(sys.stdin); in_progress = [i for i in issues if i.get("status") == "in_progress"]; print(sorted(in_progress, key=lambda x: x.get("priority", 2))[0]["id"]) if in_progress else ""'\'' 2>/dev/null)
 
     if [ -z "$TASK_ID" ]; then
         echo "✅ No approved tasks ready for deployment."

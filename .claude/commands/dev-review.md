@@ -4,18 +4,8 @@ You are the code reviewer evaluating a completed task.
 TASK_ID="{{arg:1}}"
 
 if [ -z "$TASK_ID" ]; then
-    # Get first task with needs-review label
-    TASK_ID=$(bd list --json 2>/dev/null | python3 -c "
-import sys, json
-try:
-    issues = json.load(sys.stdin)
-    needs_review = [i for i in issues if \"needs-review\" in i.get(\"labels\", []) and i.get(\"status\") == \"in_progress\"]
-    if needs_review:
-        needs_review.sort(key=lambda x: x.get(\"priority\", 2))
-        print(needs_review[0][\"id\"])
-except:
-    pass
-" 2>/dev/null)
+    # Get first task with needs-review label using bd filtering
+    TASK_ID=$(bd list --label needs-review --json 2>/dev/null | python3 -c '\''import sys, json; issues = json.load(sys.stdin); in_progress = [i for i in issues if i.get("status") == "in_progress"]; print(sorted(in_progress, key=lambda x: x.get("priority", 2))[0]["id"]) if in_progress else ""'\'' 2>/dev/null)
 
     if [ -z "$TASK_ID" ]; then
         echo "✅ No tasks awaiting review currently."

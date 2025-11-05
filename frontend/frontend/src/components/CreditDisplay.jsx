@@ -1,4 +1,4 @@
-import { useCredits } from '../hooks/useCredits';
+import { useCredits } from '../contexts/CreditContext';
 
 export const CreditDisplay = () => {
   const { credits, loading, hasToken } = useCredits();

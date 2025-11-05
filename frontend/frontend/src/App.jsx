@@ -6,16 +6,12 @@ import { CreditDisplay } from './components/CreditDisplay'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
-import { useCredits } from './hooks/useCredits'
+import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent } from './utils/analytics'
 import Success from './pages/Success'
 import './App.css'
 
-function App() {
-  // Check if we're on the success page
-  if (window.location.pathname === '/success') {
-    return <Success />
-  }
+function AppContent() {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
@@ -453,6 +449,23 @@ function App() {
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
     </>
+  )
+}
+
+function App() {
+  // Check if we're on the success page
+  if (window.location.pathname === '/success') {
+    return (
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    )
+  }
+
+  return (
+    <CreditProvider>
+      <AppContent />
+    </CreditProvider>
   )
 }
 

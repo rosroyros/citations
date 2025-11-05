@@ -5,17 +5,7 @@ TASK_ID="{{arg:1}}"
 
 if [ -z "$TASK_ID" ]; then
     # Get first open task
-    TASK_ID=$(bd list --json 2>/dev/null | python3 -c "
-import sys, json
-try:
-    issues = json.load(sys.stdin)
-    open_issues = [i for i in issues if i.get(\"status\") == \"open\"]
-    if open_issues:
-        open_issues.sort(key=lambda x: x.get(\"priority\", 2))
-        print(open_issues[0][\"id\"])
-except:
-    pass
-" 2>/dev/null)
+    TASK_ID=$(bd list --json 2>/dev/null | python3 -c '\''import sys, json; issues = json.load(sys.stdin); open_issues = [i for i in issues if i.get("status") == "open"]; print(sorted(open_issues, key=lambda x: x.get("priority", 2))[0]["id"]) if open_issues else ""'\'' 2>/dev/null)
 
     if [ -z "$TASK_ID" ]; then
         echo "❌ No open tasks available. Check \"bd list\" for current work."
