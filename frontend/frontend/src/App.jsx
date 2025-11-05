@@ -91,11 +91,11 @@ function AppContent() {
       if (transaction.docChanged) {
         const currentText = editor.getText()
         const currentLength = currentText.length
+        const prevLength = transaction.before?.textContent?.length || 0
 
         // Track paste events (significant content addition)
         if (transaction.steps.some(step => step.json?.type === 'replace' || step.json?.type === 'insert')) {
           // Check if this is likely a paste event (content length increased significantly)
-          const prevLength = transaction.before?.length || 0
           if (currentLength > prevLength + 50) { // Threshold for paste vs typing
             trackEvent('editor_paste', {
               content_length_before: prevLength,
@@ -106,9 +106,10 @@ function AppContent() {
         }
 
         // Track clear events (content becomes empty or nearly empty)
-        if (currentLength === 0 || currentLength < 10) {
+        // Only fire if previous content was substantial (>50 chars) then became small
+        if (prevLength > 50 && (currentLength === 0 || currentLength < 10)) {
           trackEvent('editor_cleared', {
-            content_length_before: transaction.before?.length || 0,
+            content_length_before: prevLength,
             content_length_after: currentLength
           })
         }
