@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -17,7 +17,18 @@ function AppContent() {
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const editorFocusedRef = useRef(false)
+  const abandonmentTimerRef = useRef(null)
   const { refreshCredits } = useCredits()
+
+  // Cleanup timer on component unmount
+  useEffect(() => {
+    return () => {
+      if (abandonmentTimerRef.current) {
+        clearTimeout(abandonmentTimerRef.current)
+      }
+    }
+  }, [])
 
   const editor = useEditor({
     extensions: [
@@ -41,6 +52,33 @@ function AppContent() {
         editor.commands.setContent('')
         setHasPlaceholder(false)
       }
+
+      // Track form abandonment - start timer when editor is focused
+      editorFocusedRef.current = true
+
+      // Clear any existing timer
+      if (abandonmentTimerRef.current) {
+        clearTimeout(abandonmentTimerRef.current)
+      }
+
+      // Set new timer for 30 seconds
+      const timer = setTimeout(() => {
+        // Track form abandonment if editor was focused but no submission occurred
+        trackEvent('form_abandoned', {
+          time_to_abandon: 30,
+          editor_content_length: editor.getText().length
+        })
+      }, 30000)
+
+      abandonmentTimerRef.current = timer
+    },
+    onBlur: ({ editor }) => {
+      // Clear the abandonment timer when editor loses focus
+      if (abandonmentTimerRef.current) {
+        clearTimeout(abandonmentTimerRef.current)
+        abandonmentTimerRef.current = null
+      }
+      editorFocusedRef.current = false
     },
   })
 
@@ -48,6 +86,12 @@ function AppContent() {
     e.preventDefault()
 
     if (!editor) return
+
+    // Clear abandonment timer on form submission
+    if (abandonmentTimerRef.current) {
+      clearTimeout(abandonmentTimerRef.current)
+      abandonmentTimerRef.current = null
+    }
 
     const token = getToken()
     const freeUsed = getFreeUsage()
@@ -135,6 +179,25 @@ function AppContent() {
       }
     } catch (err) {
       console.error('API call error:', err)
+
+      // Track validation error
+      let errorType = 'unknown'
+      if (err.message.includes('fetch')) {
+        errorType = 'connection'
+      } else if (err.message.includes('Network')) {
+        errorType = 'network'
+      } else if (err.message.includes('429')) {
+        errorType = 'rate_limit'
+      } else if (err.message.includes('400')) {
+        errorType = 'bad_request'
+      } else if (err.message.includes('500')) {
+        errorType = 'server_error'
+      }
+
+      trackEvent('validation_error', {
+        error_type: errorType,
+        error_message: err.message.substring(0, 100) // Truncate for privacy
+      })
 
       // User-friendly error messages
       let userMessage = err.message
