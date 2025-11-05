@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './PartialResults.css';
+import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking';
 
 export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade }) {
   const perfectCount = results.filter(r => r.errors.length === 0).length;
   const needFixesCount = results.filter(r => r.errors.length > 0).length;
+  const { trackSourceTypeView, trackCTAClick } = useAnalyticsTracking();
+
+  // Track source type views when results are displayed
+  useEffect(() => {
+    results.forEach((result) => {
+      if (result.source_type && result.citation_number) {
+        trackSourceTypeView(result.source_type, result.citation_number);
+      }
+    });
+  }, [results, trackSourceTypeView]);
 
   return (
     <div className="results">
@@ -78,7 +89,13 @@ export function PartialResults({ results, partial, citations_checked, citations_
             {citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} checked
           </p>
           <p className="lock-subtitle">Upgrade to see all results</p>
-          <button className="upgrade-button" onClick={onUpgrade}>
+          <button
+            className="upgrade-button"
+            onClick={() => {
+              trackCTAClick('Get 1,000 Citation Credits for $8.99', 'partial_results_upsell');
+              onUpgrade();
+            }}
+          >
             Get 1,000 Citation Credits for $8.99
           </button>
         </div>

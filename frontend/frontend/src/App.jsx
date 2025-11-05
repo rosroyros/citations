@@ -1,14 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { CreditDisplay } from './components/CreditDisplay'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
+import Footer from './components/Footer'
 import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent } from './utils/analytics'
+import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
 import Success from './pages/Success'
+import PrivacyPolicy from './pages/PrivacyPolicy'
+import TermsOfService from './pages/TermsOfService'
+import ContactUs from './pages/ContactUs'
 import './App.css'
 
 function AppContent() {
@@ -20,6 +26,7 @@ function AppContent() {
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const { refreshCredits } = useCredits()
+  const { trackCTAClick, trackNavigationClick } = useAnalyticsTracking()
 
   // Cleanup timer on component unmount
   useEffect(() => {
@@ -296,7 +303,15 @@ function AppContent() {
             </p>
           </div>
 
-          <button type="submit" disabled={loading || !editor || hasPlaceholder}>
+          <button
+            type="submit"
+            disabled={loading || !editor || hasPlaceholder}
+            onClick={() => {
+              if (!loading && editor && !hasPlaceholder) {
+                trackCTAClick('Check My Citations', 'main_form')
+              }
+            }}
+          >
             {loading ? 'Validating...' : 'Check My Citations'}
           </button>
 
@@ -537,12 +552,7 @@ function AppContent() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <p className="footer-text">© 2025 Citation Format Checker. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
 
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
@@ -551,19 +561,18 @@ function AppContent() {
 }
 
 function App() {
-  // Check if we're on the success page
-  if (window.location.pathname === '/success') {
-    return (
-      <CreditProvider>
-        <Success />
-      </CreditProvider>
-    )
-  }
-
   return (
-    <CreditProvider>
-      <AppContent />
-    </CreditProvider>
+    <Router>
+      <CreditProvider>
+        <Routes>
+          <Route path="/" element={<AppContent />} />
+          <Route path="/success" element={<Success />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/contact" element={<ContactUs />} />
+        </Routes>
+      </CreditProvider>
+    </Router>
   )
 }
 

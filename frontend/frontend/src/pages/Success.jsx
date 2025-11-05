@@ -7,7 +7,9 @@ import { useCredits } from '../contexts/CreditContext'
 import { CreditDisplay } from '../components/CreditDisplay'
 import { UpgradeModal } from '../components/UpgradeModal'
 import { PartialResults } from '../components/PartialResults'
+import Footer from '../components/Footer'
 import { trackEvent } from '../utils/analytics'
+import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking'
 import '../App.css'
 
 const Success = () => {
@@ -20,6 +22,7 @@ const Success = () => {
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const { credits: creditsFromHook, refreshCredits } = useCredits() // For CreditDisplay component
+  const { trackCTAClick } = useAnalyticsTracking()
 
   const editor = useEditor({
     extensions: [
@@ -517,12 +520,7 @@ const Success = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="footer-content">
-          <p className="footer-text">© 2025 Citation Format Checker. All rights reserved.</p>
-        </div>
-      </footer>
+      <Footer />
 
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
