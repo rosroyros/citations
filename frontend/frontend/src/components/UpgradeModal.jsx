@@ -81,15 +81,15 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
         <div className="upgrade-modal-benefits">
           <div className="upgrade-modal-benefit">
             <span className="upgrade-modal-checkmark">✓</span>
-            <span>Check unlimited citations</span>
+            <span>Check citations for 50+ research papers</span>
           </div>
           <div className="upgrade-modal-benefit">
             <span className="upgrade-modal-checkmark">✓</span>
-            <span>No subscription</span>
+            <span>Credits never expire - use anytime</span>
           </div>
           <div className="upgrade-modal-benefit">
             <span className="upgrade-modal-checkmark">✓</span>
-            <span>Lifetime access</span>
+            <span>Risk-free with money-back guarantee</span>
           </div>
         </div>
 
