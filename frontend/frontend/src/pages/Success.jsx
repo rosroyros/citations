@@ -114,11 +114,13 @@ const Success = () => {
         })
       }
 
-      // Refresh credits for paid users
+      // Refresh credits for paid users (with small delay to ensure state updates)
       if (token) {
-        refreshCredits().catch(err =>
-          console.error('Failed to refresh credits:', err)
-        )
+        setTimeout(() => {
+          refreshCredits().catch(err =>
+            console.error('Failed to refresh credits:', err)
+          )
+        }, 100)
       }
     } catch (err) {
       console.error('API call error:', err)

@@ -110,17 +110,32 @@ function App() {
         // Full results
         setResults(data)
 
+        // Track citation validation event
+        const citationsCount = data.results.length
+        const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
+        const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
+        const userType = token ? 'paid' : 'free'
+
+        trackEvent('citation_validated', {
+          citations_count: citationsCount,
+          errors_found: errorsFound,
+          perfect_count: perfectCount,
+          user_type: userType
+        })
+
         // Increment free counter if no token
         if (!token) {
           incrementFreeUsage(data.results.length)
         }
       }
 
-      // Refresh credits for paid users
+      // Refresh credits for paid users (with small delay to ensure state updates)
       if (token) {
-        refreshCredits().catch(err =>
-          console.error('Failed to refresh credits:', err)
-        )
+        setTimeout(() => {
+          refreshCredits().catch(err =>
+            console.error('Failed to refresh credits:', err)
+          )
+        }, 100)
       }
     } catch (err) {
       console.error('API call error:', err)
