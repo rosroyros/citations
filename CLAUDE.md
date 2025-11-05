@@ -3,20 +3,35 @@
 # Development Workflow
 WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE ARE UNEXPECTED ISSUES ALWAYS STOP AND ASK FOR GUIDANCE AND NEVER CONTINUE BEFORE GETTING ANSWERS.
 ## Core Principles
-- **One task at a time**: `bd update <id> --status in_progress` → complete → next task
+- **One task at a time**: Focus on single task, update status as you progress
 - **Test-driven development**: Write test → implement → verify → commit
 - **Meaningful commits**: One commit per logical change, easy to revert
 - **No long-lived branches**: Direct commits to main with clear messages
-- **ALWAYS mark tasks as completed**: Immediately after finishing each task, close it with `bd close <id> --reason "Done"`
 
-## Task Flow
-1. Mark current task as in_progress: `bd update <id> --status in_progress`
-2. Write test(s) for the feature/fix (FIRST!)
-3. Implement until tests pass
-4. Verify in logs/output that it works
-5. Commit with clear message (include `.beads/issues.jsonl` in commit)
-6. Close the issue: `bd close <id> --reason "Done"`
-7. Move to next task
+## Task Statuses & Labels
+
+bd supports 4 statuses: `open`, `in_progress`, `blocked`, `closed`
+
+Quality gate labels track review workflow:
+- `needs-review` - Code complete, awaiting review
+- `approved` - Reviewed and approved, ready to deploy
+
+### Workflow States
+
+- `open` - Ready to start
+- `in_progress` - Developer working
+- `in_progress` + label `needs-review` - Awaiting code review
+- `in_progress` + label `approved` - Ready to deploy
+- `blocked` - Needs architect help
+- `closed` - Deployed/completed
+
+### Commands
+
+- Update status: `bd update <id> --status in_progress`
+- Add label: `bd label add <id> needs-review`
+- Remove label: `bd label remove <id> needs-review`
+
+Use `/dev-start` to begin work on a task. Other workflow commands: `/architect`, `/dev-review`, `/deploy`
 
 ## Update Sitemap (If New Page)
 

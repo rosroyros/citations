@@ -5,6 +5,7 @@ import Underline from '@tiptap/extension-underline'
 import { saveToken } from '../utils/creditStorage'
 import { useCredits } from '../hooks/useCredits'
 import { CreditDisplay } from '../components/CreditDisplay'
+import { trackEvent } from '../utils/analytics'
 import '../App.css'
 
 const Success = () => {
@@ -126,6 +127,17 @@ const Success = () => {
         if (data.credits > 0) {
           setCredits(data.credits)
           setStatus('success')
+
+          // Track purchase conversion event
+          trackEvent('purchase', {
+            value: 8.99,
+            currency: 'USD',
+            items: [{
+              item_id: 'credits_1000',
+              quantity: 1
+            }]
+          })
+
           clearInterval(interval)
         } else if (attempts++ >= maxAttempts) {
           setStatus('error')
