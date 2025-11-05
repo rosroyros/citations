@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
-import { saveToken } from '../utils/creditStorage'
+import { saveToken, getToken } from '../utils/creditStorage'
 import { useCredits } from '../hooks/useCredits'
 import { CreditDisplay } from '../components/CreditDisplay'
+import { UpgradeModal } from '../components/UpgradeModal'
+import { PartialResults } from '../components/PartialResults'
 import { trackEvent } from '../utils/analytics'
 import '../App.css'
 
@@ -16,7 +18,8 @@ const Success = () => {
   const [results, setResults] = useState(null)
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
-  const { credits: creditsFromHook } = useCredits() // For CreditDisplay component
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const { credits: creditsFromHook, refreshCredits } = useCredits() // For CreditDisplay component
 
   const editor = useEditor({
     extensions: [
@@ -48,6 +51,8 @@ const Success = () => {
 
     if (!editor) return
 
+    const token = getToken()
+
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
 
@@ -61,11 +66,15 @@ const Success = () => {
     try {
       console.log('Calling API: /api/validate')
 
+      // Build headers
+      const headers = { 'Content-Type': 'application/json' }
+      if (token) {
+        headers['X-User-Token'] = token
+      }
+
       const response = await fetch('/api/validate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
         body: JSON.stringify({
           citations: htmlContent,
           style: 'apa7',
@@ -83,7 +92,34 @@ const Success = () => {
       const data = await response.json()
       console.log('API response data:', data)
 
-      setResults(data)
+      // Handle response
+      if (data.partial) {
+        // Partial results (insufficient credits)
+        setResults({ ...data, isPartial: true })
+      } else {
+        // Full results
+        setResults(data)
+
+        // Track citation validation event
+        const citationsCount = data.results.length
+        const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
+        const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
+        const userType = token ? 'paid' : 'free'
+
+        trackEvent('citation_validated', {
+          citations_count: citationsCount,
+          errors_found: errorsFound,
+          perfect_count: perfectCount,
+          user_type: userType
+        })
+      }
+
+      // Refresh credits for paid users
+      if (token) {
+        refreshCredits().catch(err =>
+          console.error('Failed to refresh credits:', err)
+        )
+      }
     } catch (err) {
       console.error('API call error:', err)
 
@@ -211,15 +247,18 @@ const Success = () => {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
-          <h2 className="hero-title">
-            Stop spending 5 minutes fixing every citation
-          </h2>
-          <p className="hero-subtitle">
-            Citation generators create errors. We catch them. Get instant validation for your APA references and save hours of manual checking.
-          </p>
-          <div className="hero-stat">
-            <span className="stat-icon">⚠️</span>
-            <span className="stat-text">90.9% of papers contain formatting errors</span>
+          <div className="hero-text">
+            <h2 className="hero-title">
+              Stop wasting 5 minutes on every citation
+            </h2>
+            <p className="hero-subtitle">
+              The fastest, most accurate APA citation checker.
+            </p>
+            <div className="hero-stat">
+              <span className="stat-text">
+                ⚡ Instant validation • Catches citation generator errors • No sign up required
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -239,6 +278,10 @@ const Success = () => {
             {loading ? 'Validating...' : 'Check My Citations'}
           </button>
 
+          <p className="cta-micro-text">
+            No login required • Get results in seconds
+          </p>
+
           {/* Feature Pills */}
           <div className="feature-pills">
             <span className="feature-pill">✓ Capitalization check</span>
@@ -256,73 +299,86 @@ const Success = () => {
       )}
 
       {results && (
-        <div className="results">
-          <div className="results-summary">
-            <h2>Validation Results</h2>
-            <div className="summary-stats">
-              <div className="summary-stat">
-                <span className="stat-number">{results.results.length}</span>
-                <span className="stat-label">Citations Checked</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">
-                  {results.results.filter(r => r.errors.length === 0).length}
-                </span>
-                <span className="stat-label">Perfect</span>
-              </div>
-              <div className="summary-stat">
-                <span className="stat-number">
-                  {results.results.filter(r => r.errors.length > 0).length}
-                </span>
-                <span className="stat-label">Need Fixes</span>
+        results.isPartial ? (
+          <PartialResults
+            results={results.results}
+            partial={results.partial}
+            citations_checked={results.citations_checked}
+            citations_remaining={results.citations_remaining}
+            onUpgrade={() => {
+              trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
+              setShowUpgradeModal(true)
+            }}
+          />
+        ) : (
+          <div className="results">
+            <div className="results-summary">
+              <h2>Validation Results</h2>
+              <div className="summary-stats">
+                <div className="summary-stat">
+                  <span className="stat-number">{results.results.length}</span>
+                  <span className="stat-label">Citations Checked</span>
+                </div>
+                <div className="summary-stat">
+                  <span className="stat-number">
+                    {results.results.filter(r => r.errors.length === 0).length}
+                  </span>
+                  <span className="stat-label">Perfect</span>
+                </div>
+                <div className="summary-stat">
+                  <span className="stat-number">
+                    {results.results.filter(r => r.errors.length > 0).length}
+                  </span>
+                  <span className="stat-label">Need Fixes</span>
+                </div>
               </div>
             </div>
+
+            {results.results.map((result) => (
+              <div key={result.citation_number} className="citation-result">
+                <h3>
+                  Citation #{result.citation_number}
+                  {result.errors.length === 0 ? ' ✅' : ' ❌'}
+                </h3>
+
+                <div className="original-citation">
+                  <strong>Original:</strong>
+                  <div
+                    className="citation-html"
+                    dangerouslySetInnerHTML={{ __html: result.original }}
+                  />
+                </div>
+
+                <div className="source-type">
+                  <em>Source type: {result.source_type}</em>
+                </div>
+
+                {result.errors.length === 0 ? (
+                  <div className="no-errors">
+                    <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
+                  </div>
+                ) : (
+                  <div className="errors-list">
+                    <strong>Errors found:</strong>
+                    {result.errors.map((error, index) => (
+                      <div key={index} className="error-item">
+                        <div className="error-component">
+                          <strong>❌ {error.component}:</strong>
+                        </div>
+                        <div className="error-problem">
+                          <em>Problem:</em> {error.problem}
+                        </div>
+                        <div className="error-correction">
+                          <em>Correction:</em> {error.correction}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-
-          {results.results.map((result) => (
-            <div key={result.citation_number} className="citation-result">
-              <h3>
-                Citation #{result.citation_number}
-                {result.errors.length === 0 ? ' ✅' : ' ❌'}
-              </h3>
-
-              <div className="original-citation">
-                <strong>Original:</strong>
-                <div
-                  className="citation-html"
-                  dangerouslySetInnerHTML={{ __html: result.original }}
-                />
-              </div>
-
-              <div className="source-type">
-                <em>Source type: {result.source_type}</em>
-              </div>
-
-              {result.errors.length === 0 ? (
-                <div className="no-errors">
-                  <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
-                </div>
-              ) : (
-                <div className="errors-list">
-                  <strong>Errors found:</strong>
-                  {result.errors.map((error, index) => (
-                    <div key={index} className="error-item">
-                      <div className="error-component">
-                        <strong>❌ {error.component}:</strong>
-                      </div>
-                      <div className="error-problem">
-                        <em>Problem:</em> {error.problem}
-                      </div>
-                      <div className="error-correction">
-                        <em>Correction:</em> {error.correction}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
+        )
       )}
 
       {/* Benefits Section */}
@@ -331,17 +387,17 @@ const Success = () => {
           <h3 className="benefits-title">Why researchers choose Citation Format Checker</h3>
           <div className="benefits-grid">
             <div className="benefit-card">
-              <div className="benefit-icon">⚡</div>
-              <h4 className="benefit-title">Save hours</h4>
+              <div className="benefit-icon">🎯</div>
+              <h4 className="benefit-title">Catches 99% of errors</h4>
               <p className="benefit-text">
-                Stop manually checking every citation. Get instant validation in seconds.
+                Our AI validates against official APA 7th Edition rules — more accurate than any generator or LLM.
               </p>
             </div>
             <div className="benefit-card">
               <div className="benefit-icon">🎯</div>
               <h4 className="benefit-title">Catch generator errors</h4>
               <p className="benefit-text">
-                EasyBib, Zotero, and others make mistakes. We find them before your professor does.
+                Zotero, EasyBib, and ChatGPT make formatting mistakes. We find them before your professor does.
               </p>
             </div>
             <div className="benefit-card">
@@ -351,7 +407,38 @@ const Success = () => {
                 Submit with confidence. No more losing grades on formatting mistakes.
               </p>
             </div>
+            <div className="benefit-card">
+              <div className="benefit-icon">💜</div>
+              <h4 className="benefit-title">Trusted by researchers worldwide</h4>
+              <p className="benefit-text">
+                Join thousands of students and academics who rely on us to perfect their citations.
+              </p>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Why We're Different Section */}
+      <section className="why-different">
+        <div className="why-different-content">
+          <h3 className="why-different-title">Why Citation Format Checker is Different</h3>
+          <div className="why-grid">
+            <div className="why-card">
+              <h4>Custom AI Models</h4>
+              <p>Trained on thousands of expert-verified citations for each source type</p>
+            </div>
+            <div className="why-card">
+              <h4>APA Expert Verified</h4>
+              <p>Every error type validated against official APA 7th Edition manual</p>
+            </div>
+            <div className="why-card">
+              <h4>99% Accuracy</h4>
+              <p>Significantly more accurate than ChatGPT, Zotero, and EasyBib</p>
+            </div>
+          </div>
+          <p className="why-footnote">
+            Unlike general AI tools, our models specialize exclusively in citation formatting
+          </p>
         </div>
       </section>
 
@@ -369,7 +456,8 @@ const Success = () => {
             <div className="faq-item">
               <h4 className="faq-question">Is this citation checker free?</h4>
               <p className="faq-answer">
-                Yes, Citation Format Checker is completely free to use. You can check as many citations as you need without any cost or registration.
+                Yes! You get 10 free citation checks to try the tool. For unlimited checking,
+                you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
               </p>
             </div>
             <div className="faq-item">
@@ -390,6 +478,39 @@ const Success = () => {
                 Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
               </p>
             </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">What are Citation Credits and how do they work?</h4>
+              <p className="faq-answer">
+                Each citation you check uses 1 credit. When you purchase 1,000 credits for $8.99,
+                you can check 1,000 citations. Credits never expire and can be used anytime.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">Do Citation Credits expire?</h4>
+              <p className="faq-answer">
+                No! Your credits never expire. Use them at your own pace — whether that's all at
+                once or over several years.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">Can I get a refund?</h4>
+              <p className="faq-answer">
+                Absolutely! We offer a no-questions-asked refund policy. If you're not completely
+                satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
+              </p>
+            </div>
+
+            <div className="faq-item">
+              <h4 className="faq-question">How is this different from ChatGPT or citation generators?</h4>
+              <p className="faq-answer">
+                ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not
+                specialized for citation validation. Our AI models are custom-trained exclusively on
+                APA 7th Edition rules with expert verification, achieving 99% accuracy.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -400,6 +521,8 @@ const Success = () => {
           <p className="footer-text">© 2025 Citation Format Checker. All rights reserved.</p>
         </div>
       </footer>
+
+      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
     </div>
     </>
   )
