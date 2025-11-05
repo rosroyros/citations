@@ -2,13 +2,18 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage.js'
 
 // Mock credit storage utilities
-vi.mock('./utils/creditStorage.js', () => ({
-  getToken: vi.fn(),
-  getFreeUsage: vi.fn(),
-  incrementFreeUsage: vi.fn(),
-}))
+vi.mock('./utils/creditStorage.js', async () => {
+  const actual = await vi.importActual('./utils/creditStorage.js')
+  return {
+    ...actual,
+    getToken: vi.fn(),
+    getFreeUsage: vi.fn(),
+    incrementFreeUsage: vi.fn(),
+  }
+})
 
 // Mock TipTap editor for testing
 vi.mock('@tiptap/react', () => ({
@@ -210,9 +215,7 @@ describe('App - Error Handling', () => {
   })
 })
 
-describe.skip('App - Credit System Integration', () => {
-  const { getToken, getFreeUsage, incrementFreeUsage } = require('./utils/creditStorage.js')
-
+describe('App - Credit System Integration', () => {
   beforeEach(() => {
     vi.clearAllMocks()
   })
@@ -298,9 +301,9 @@ describe.skip('App - Credit System Integration', () => {
     await userEvent.click(submitButton)
 
     await waitFor(() => {
-      expect(screen.getByText(/2 more citations checked/)).toBeInTheDocument()
+      expect(screen.getByText(/3 more citations checked/)).toBeInTheDocument()
       expect(screen.getByText(/Upgrade to see all results/)).toBeInTheDocument()
-      expect(screen.getByRole('button', { name: /Get 1,000 Citation Credits/ })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /Get 1,000 Citation Credits for \$8.99/ })).toBeInTheDocument()
     })
 
     global.fetch.mockRestore()

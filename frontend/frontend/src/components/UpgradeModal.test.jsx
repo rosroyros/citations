@@ -57,9 +57,9 @@ describe('UpgradeModal', () => {
     render(<UpgradeModal isOpen={true} onClose={() => {}} />);
 
     // Assert
-    expect(screen.getByText('Check unlimited citations')).toBeInTheDocument();
-    expect(screen.getByText('No subscription')).toBeInTheDocument();
-    expect(screen.getByText('Lifetime access')).toBeInTheDocument();
+    expect(screen.getByText('Check citations for 50+ research papers')).toBeInTheDocument();
+    expect(screen.getByText('Credits never expire - use anytime')).toBeInTheDocument();
+    expect(screen.getByText('Risk-free with money-back guarantee')).toBeInTheDocument();
 
     // Also check for checkmarks
     const checkmarks = screen.getAllByText('✓');

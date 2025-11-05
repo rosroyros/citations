@@ -1,122 +1,112 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { CreditDisplay } from './CreditDisplay';
-import { useCredits } from '../hooks/useCredits.js';
+import { CreditProvider } from '../contexts/CreditContext.jsx';
+import { getToken } from '../utils/creditStorage.js';
 
-// Mock the useCredits hook
-vi.mock('../hooks/useCredits.js', () => ({
-  useCredits: vi.fn(),
-}));
+// Mock the creditStorage utilities
+vi.mock('../utils/creditStorage.js', async () => {
+  const actual = await vi.importActual('../utils/creditStorage.js')
+  return {
+    ...actual,
+    getToken: vi.fn(),
+  }
+})
+
+// Mock fetch for credit API calls
+global.fetch = vi.fn();
 
 describe('CreditDisplay', () => {
-  let mockUseCredits;
-
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUseCredits = vi.fn();
+    global.fetch.mockClear();
   });
 
   it('should render nothing if no token', () => {
     // Arrange
-    mockUseCredits.mockReturnValue({
-      credits: null,
-      loading: false,
-      error: null,
-      hasToken: false,
-    });
-
-    vi.mocked(useCredits).mockImplementation(mockUseCredits);
+    getToken.mockReturnValue(null);
 
     // Act
-    const { container } = render(<CreditDisplay />);
+    const { container } = render(
+      <CreditProvider>
+        <CreditDisplay />
+      </CreditProvider>
+    );
 
     // Assert
     expect(container.firstChild).toBeNull();
   });
 
-  it('should display credits if token exists', () => {
+  it('should display credits if token exists', async () => {
     // Arrange
-    mockUseCredits.mockReturnValue({
-      credits: 847,
-      loading: false,
-      error: null,
-      hasToken: true,
+    getToken.mockReturnValue('test-token');
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ credits: 847 }),
     });
 
-    vi.mocked(useCredits).mockImplementation(mockUseCredits);
-
     // Act
-    render(<CreditDisplay />);
+    render(
+      <CreditProvider>
+        <CreditDisplay />
+      </CreditProvider>
+    );
 
     // Assert
-    expect(screen.getByText('Citation Credits: 847')).toBeInTheDocument();
+    await screen.findByText('Citation Credits: 847');
   });
 
   it('should show loading state', () => {
     // Arrange
-    mockUseCredits.mockReturnValue({
-      credits: null,
-      loading: true,
-      error: null,
-      hasToken: true,
-    });
-
-    vi.mocked(useCredits).mockImplementation(mockUseCredits);
+    getToken.mockReturnValue('test-token');
+    global.fetch.mockImplementation(() => new Promise(() => {})); // Never resolves
 
     // Act
-    render(<CreditDisplay />);
+    render(
+      <CreditProvider>
+        <CreditDisplay />
+      </CreditProvider>
+    );
 
     // Assert
     expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
-  it('should display 0 credits if credits is null but token exists', () => {
+  it('should display 0 credits if credits is null but token exists', async () => {
     // Arrange
-    mockUseCredits.mockReturnValue({
-      credits: null,
-      loading: false,
-      error: null,
-      hasToken: true,
+    getToken.mockReturnValue('test-token');
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ credits: 0 }),
     });
 
-    vi.mocked(useCredits).mockImplementation(mockUseCredits);
-
     // Act
-    render(<CreditDisplay />);
+    render(
+      <CreditProvider>
+        <CreditDisplay />
+      </CreditProvider>
+    );
 
     // Assert
-    expect(screen.getByText('Citation Credits: 0')).toBeInTheDocument();
+    await screen.findByText('Citation Credits: 0');
   });
 
-  it('should update when credits prop changes', () => {
+  it('should display initial credits after API call', async () => {
     // Arrange
-    mockUseCredits.mockReturnValueOnce({
-      credits: 100,
-      loading: false,
-      error: null,
-      hasToken: true,
+    getToken.mockReturnValue('test-token');
+    global.fetch.mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ credits: 150 }),
     });
-
-    vi.mocked(useCredits).mockImplementation(mockUseCredits);
 
     // Act
-    const { rerender } = render(<CreditDisplay />);
+    render(
+      <CreditProvider>
+        <CreditDisplay />
+      </CreditProvider>
+    );
 
-    // Assert initial
-    expect(screen.getByText('Citation Credits: 100')).toBeInTheDocument();
-
-    // Arrange updated credits
-    mockUseCredits.mockReturnValue({
-      credits: 95,
-      loading: false,
-      error: null,
-      hasToken: true,
-    });
-
-    // Act - rerender
-    rerender(<CreditDisplay />);
-
-    // Assert updated
-    expect(screen.getByText('Citation Credits: 95')).toBeInTheDocument();
+    // Assert
+    await screen.findByText('Citation Credits: 150');
   });
 });
