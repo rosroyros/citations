@@ -48,6 +48,11 @@ for guide_dir in ../../content/dist/how-to-*; do
 done
 echo "✓ Copied $(find ../../content/dist -maxdepth 1 -name 'how-to-*' -type d | wc -l) validation guide directories"
 
+# Copy sitemap
+echo "🗺️  Copying sitemap..."
+cp ../../content/dist/sitemap.xml ../../frontend/frontend/dist/sitemap.xml
+echo "✓ Sitemap copied"
+
 cd ../..
 
 # Restart Nginx
