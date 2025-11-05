@@ -53,6 +53,12 @@ function AppContent() {
         setHasPlaceholder(false)
       }
 
+      // Track editor focus event
+      trackEvent('editor_focused', {
+        editor_content_length: editor.getText().length,
+        has_placeholder: hasPlaceholder
+      })
+
       // Track form abandonment - start timer when editor is focused
       editorFocusedRef.current = true
 
@@ -79,6 +85,34 @@ function AppContent() {
         abandonmentTimerRef.current = null
       }
       editorFocusedRef.current = false
+    },
+    onUpdate: ({ editor, transaction }) => {
+      // Track editor content changes for paste and clear events
+      if (transaction.docChanged) {
+        const currentText = editor.getText()
+        const currentLength = currentText.length
+
+        // Track paste events (significant content addition)
+        if (transaction.steps.some(step => step.json?.type === 'replace' || step.json?.type === 'insert')) {
+          // Check if this is likely a paste event (content length increased significantly)
+          const prevLength = transaction.before?.length || 0
+          if (currentLength > prevLength + 50) { // Threshold for paste vs typing
+            trackEvent('editor_paste', {
+              content_length_before: prevLength,
+              content_length_after: currentLength,
+              content_added: currentLength - prevLength
+            })
+          }
+        }
+
+        // Track clear events (content becomes empty or nearly empty)
+        if (currentLength === 0 || currentLength < 10) {
+          trackEvent('editor_cleared', {
+            content_length_before: transaction.before?.length || 0,
+            content_length_after: currentLength
+          })
+        }
+      }
     },
   })
 
