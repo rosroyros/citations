@@ -56,7 +56,7 @@ We use the information we collect for the following purposes:
 
 **To Provide Our Service**:
 - Process and validate your citations
-- Manage your credit balance and usage
+- Manage your citation credit balance and usage
 - Deliver validation results and feedback
 - Provide customer support
 

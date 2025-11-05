@@ -31,8 +31,6 @@ The Service offers limited free usage for users without an account. Free usage i
 ### Credit System
 
 Users may purchase credits to access additional validation capabilities. Credits are:
-- Non-refundable once purchased
-- Valid for 12 months from the date of purchase
 - Non-transferable between users or accounts
 - Consumed upon each citation validation request
 
