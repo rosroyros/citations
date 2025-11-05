@@ -48,6 +48,17 @@ for guide_dir in ../../content/dist/how-to-*; do
 done
 echo "✓ Copied $(find ../../content/dist -maxdepth 1 -name 'how-to-*' -type d | wc -l) validation guide directories"
 
+# Copy cite-* pages (specific source citation guides)
+echo "📚 Copying cite-* citation guide pages..."
+for cite_dir in ../../content/dist/cite-*-apa; do
+    if [ -d "$cite_dir" ]; then
+        cite_name=$(basename "$cite_dir")
+        mkdir -p "../../frontend/frontend/dist/$cite_name"
+        cp -r "$cite_dir"/* "../../frontend/frontend/dist/$cite_name/"
+    fi
+done
+echo "✓ Copied $(find ../../content/dist -maxdepth 1 -name 'cite-*-apa' -type d | wc -l) cite-* directories"
+
 # Copy sitemap
 echo "🗺️  Copying sitemap..."
 cp ../../content/dist/sitemap.xml ../../frontend/frontend/dist/sitemap.xml
