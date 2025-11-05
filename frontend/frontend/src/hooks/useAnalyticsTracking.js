@@ -16,8 +16,8 @@ export const useAnalyticsTracking = () => {
     const scrollPosition = window.scrollY;
     const scrollPercentage = Math.round((scrollPosition / scrollHeight) * 100);
 
-    // Track at 25%, 50%, 75%, and 90%
-    const milestones = [25, 50, 75, 90];
+    // Track at 25%, 50%, 75%, and 100%
+    const milestones = [25, 50, 75, 100];
 
     milestones.forEach(milestone => {
       if (scrollPercentage >= milestone && !scrollDepthTracked.current.has(milestone)) {
@@ -34,7 +34,7 @@ export const useAnalyticsTracking = () => {
 
   // Track navigation and CTA clicks
   const trackNavigationClick = useCallback((element, url) => {
-    trackEvent('navigation_click', {
+    trackEvent('nav_link_clicked', {
       element_type: element,
       destination_url: url,
       page: window.location.pathname
@@ -43,7 +43,7 @@ export const useAnalyticsTracking = () => {
 
   // Track CTA clicks
   const trackCTAClick = useCallback((ctaText, ctaLocation) => {
-    trackEvent('cta_click', {
+    trackEvent('cta_clicked', {
       cta_text: ctaText,
       cta_location: ctaLocation,
       page: window.location.pathname
@@ -56,7 +56,7 @@ export const useAnalyticsTracking = () => {
 
     if (!contentInteractionTracked.current.has(trackKey)) {
       contentInteractionTracked.current.add(trackKey);
-      trackEvent('source_type_guide_view', {
+      trackEvent('guide_viewed', {
         source_type: sourceType,
         citation_number: citationNumber,
         page: window.location.pathname

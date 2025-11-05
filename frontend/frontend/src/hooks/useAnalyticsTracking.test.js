@@ -52,7 +52,7 @@ describe('useAnalyticsTracking', () => {
       result.current.trackNavigationClick('footer_link', '/privacy');
     });
 
-    expect(trackEvent).toHaveBeenCalledWith('navigation_click', {
+    expect(trackEvent).toHaveBeenCalledWith('nav_link_clicked', {
       element_type: 'footer_link',
       destination_url: '/privacy',
       page: '/'
@@ -66,7 +66,7 @@ describe('useAnalyticsTracking', () => {
       result.current.trackCTAClick('Check My Citations', 'main_form');
     });
 
-    expect(trackEvent).toHaveBeenCalledWith('cta_click', {
+    expect(trackEvent).toHaveBeenCalledWith('cta_clicked', {
       cta_text: 'Check My Citations',
       cta_location: 'main_form',
       page: '/'
@@ -80,7 +80,7 @@ describe('useAnalyticsTracking', () => {
       result.current.trackSourceTypeView('journal_article', 1);
     });
 
-    expect(trackEvent).toHaveBeenCalledWith('source_type_guide_view', {
+    expect(trackEvent).toHaveBeenCalledWith('guide_viewed', {
       source_type: 'journal_article',
       citation_number: 1,
       page: '/'
@@ -96,7 +96,7 @@ describe('useAnalyticsTracking', () => {
     });
 
     expect(trackEvent).toHaveBeenCalledTimes(2); // page_view + one source_type_guide_view
-    expect(trackEvent).toHaveBeenCalledWith('source_type_guide_view', {
+    expect(trackEvent).toHaveBeenCalledWith('guide_viewed', {
       source_type: 'journal_article',
       citation_number: 1,
       page: '/'
@@ -112,12 +112,12 @@ describe('useAnalyticsTracking', () => {
     });
 
     expect(trackEvent).toHaveBeenCalledTimes(3); // page_view + two source_type_guide_view calls
-    expect(trackEvent).toHaveBeenCalledWith('source_type_guide_view', {
+    expect(trackEvent).toHaveBeenCalledWith('guide_viewed', {
       source_type: 'journal_article',
       citation_number: 1,
       page: '/'
     });
-    expect(trackEvent).toHaveBeenCalledWith('source_type_guide_view', {
+    expect(trackEvent).toHaveBeenCalledWith('guide_viewed', {
       source_type: 'book',
       citation_number: 1,
       page: '/'

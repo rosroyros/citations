@@ -140,6 +140,49 @@
             // For now, redirect to full checker
             window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
         }
+
+        // Analytics tracking for PSEO guides
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track guide viewed on page load for source type pages
+            if (typeof gtag === 'function') {
+                const sourceType = getSourceTypeFromURL();
+                const isSourceTypePage = document.body.className.includes('source-type') ||
+                                       window.location.pathname.includes('/how-to-cite-');
+
+                if (isSourceTypePage && sourceType !== 'unknown') {
+                    gtag('event', 'guide_viewed', {
+                        source_type: sourceType,
+                        page_path: window.location.pathname
+                    });
+                }
+            }
+
+            // Track guide completion when user scrolls to bottom
+            let guideCompletedTracked = false;
+
+            window.addEventListener('scroll', function() {
+                if (guideCompletedTracked) return;
+
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPosition = window.scrollY;
+                const scrollPercentage = Math.round((scrollPosition / scrollHeight) * 100);
+
+                // Track when user reaches 95% or more of the page
+                if (scrollPercentage >= 95 && typeof gtag === 'function') {
+                    const sourceType = getSourceTypeFromURL();
+                    const isSourceTypePage = document.body.className.includes('source-type') ||
+                                           window.location.pathname.includes('/how-to-cite-');
+
+                    if (isSourceTypePage && sourceType !== 'unknown') {
+                        gtag('event', 'guide_completed', {
+                            source_type: sourceType,
+                            page_path: window.location.pathname
+                        });
+                        guideCompletedTracked = true;
+                    }
+                }
+            });
+        });
     </script>
 </body>
 </html>
