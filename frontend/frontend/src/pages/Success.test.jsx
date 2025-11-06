@@ -1,16 +1,30 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Success from './Success';
+import { CreditProvider } from '../contexts/CreditContext';
 
 // Mock the creditStorage utility
 vi.mock('../utils/creditStorage', () => ({
   saveToken: vi.fn(),
+  getToken: vi.fn(),
 }));
 
 // Mock fetch
 global.fetch = vi.fn();
 
-describe.skip('Success', () => {
+// Mock analytics
+vi.mock('../utils/analytics', () => ({
+  trackEvent: vi.fn(),
+}));
+
+// Mock useAnalyticsTracking hook
+vi.mock('../hooks/useAnalyticsTracking', () => ({
+  useAnalyticsTracking: () => ({
+    trackCTAClick: vi.fn(),
+  }),
+}));
+
+describe('Success', () => {
   const originalLocation = window.location;
 
   beforeEach(() => {
@@ -28,7 +42,11 @@ describe.skip('Success', () => {
     window.location.search = '';
 
     // Act
-    render(<Success />);
+    render(
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    );
 
     // Assert
     expect(screen.getByText('Error: Credits not activated. Please contact support.')).toBeInTheDocument();
@@ -42,7 +60,11 @@ describe.skip('Success', () => {
     });
 
     // Act
-    render(<Success />);
+    render(
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    );
 
     // Assert
     expect(screen.getByText('Activating your credits...')).toBeInTheDocument();
@@ -56,7 +78,11 @@ describe.skip('Success', () => {
     });
 
     // Act
-    render(<Success />);
+    render(
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    );
 
     // Assert - Token extraction and API call should work
     expect(fetch).toHaveBeenCalledWith('/api/credits?token=abc-123');
@@ -68,7 +94,11 @@ describe.skip('Success', () => {
     window.location.search = '?token=abc-123';
 
     // Act
-    render(<Success />);
+    render(
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    );
 
     // Assert - Should show activating state initially
     expect(screen.getByText('Activating your credits...')).toBeInTheDocument();
@@ -80,7 +110,11 @@ describe.skip('Success', () => {
     fetch.mockRejectedValueOnce(new Error('Network error'));
 
     // Act
-    render(<Success />);
+    render(
+      <CreditProvider>
+        <Success />
+      </CreditProvider>
+    );
 
     // Should not crash and should show activating state
     expect(screen.getByText('Activating your credits...')).toBeInTheDocument();
