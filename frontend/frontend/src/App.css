@@ -31,8 +31,9 @@
 }
 
 .logo-text {
+  font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #1f2937;
   margin: 0;
   letter-spacing: -0.02em;
@@ -194,7 +195,7 @@ button[type="submit"]:active:not(:disabled) {
 }
 
 textarea {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-mono);
   white-space: pre-wrap;
   word-wrap: break-word;
   line-height: 1.5;
@@ -206,7 +207,7 @@ textarea {
   border-radius: 0.5rem;
   padding: 1rem;
   min-height: 250px;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-mono);
   line-height: 1.6;
   text-align: left;
   outline: none;
@@ -276,7 +277,9 @@ textarea {
 }
 
 .results-summary h2 {
+  font-family: var(--font-heading);
   font-size: 1.5rem;
+  font-weight: 600;
   margin-bottom: 1rem;
   text-align: center;
   color: #1f2937;
@@ -319,6 +322,7 @@ textarea {
 }
 
 .citation-result h3 {
+  font-family: var(--font-heading);
   font-size: 1rem;
   margin-bottom: 0.75rem;
   color: #1f2937;
@@ -338,7 +342,7 @@ textarea {
 }
 
 .citation-html {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: var(--font-mono);
   font-size: 0.875rem;
   line-height: 1.5;
   background: #f9fafb;
@@ -722,7 +726,9 @@ textarea {
 }
 
 .why-card h4 {
+  font-family: var(--font-heading);
   font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--primary-color);
 }

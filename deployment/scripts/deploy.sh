@@ -64,6 +64,12 @@ echo "🗺️  Copying sitemap..."
 cp ../../content/dist/sitemap.xml ../../frontend/frontend/dist/sitemap.xml
 echo "✓ Sitemap copied"
 
+# Run deployment sanity tests before finalizing deployment
+echo "🧪 Running deployment sanity tests..."
+source venv/bin/activate
+python3 -m pytest tests/test_deployment_sanity.py -v
+echo "✅ All deployment sanity tests passed!"
+
 cd ../..
 
 # Restart Nginx

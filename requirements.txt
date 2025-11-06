@@ -10,3 +10,4 @@ dspy-ai>=2.4.0
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
 polar-sdk==0.27.3
+requests>=2.31.0

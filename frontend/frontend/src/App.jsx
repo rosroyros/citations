@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -561,19 +560,23 @@ function AppContent() {
 }
 
 function App() {
-  return (
-    <Router>
-      <CreditProvider>
-        <Routes>
-          <Route path="/" element={<AppContent />} />
-          <Route path="/success" element={<Success />} />
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<TermsOfService />} />
-          <Route path="/contact" element={<ContactUs />} />
-        </Routes>
-      </CreditProvider>
-    </Router>
-  )
+  const pathname = window.location.pathname
+
+  if (pathname === '/success') {
+    return <CreditProvider><Success /></CreditProvider>
+  }
+  if (pathname === '/privacy') {
+    return <CreditProvider><PrivacyPolicy /></CreditProvider>
+  }
+  if (pathname === '/terms') {
+    return <CreditProvider><TermsOfService /></CreditProvider>
+  }
+  if (pathname === '/contact') {
+    return <CreditProvider><ContactUs /></CreditProvider>
+  }
+
+  // Default: main app (lets nginx handle PSEO pages)
+  return <CreditProvider><AppContent /></CreditProvider>
 }
 
 export default App
