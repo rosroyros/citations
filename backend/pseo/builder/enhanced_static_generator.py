@@ -388,7 +388,6 @@ class EnhancedStaticSiteGenerator:
         <ul>
             <li><a href="/">Citation Checker</a></li>
             <li><a href="/generator/">Format Generator</a></li>
-            <li><a href="/tools/doi-lookup/">DOI Lookup</a></li>
             <li><a href="/tools/style-comparison/">Style Comparison</a></li>
         </ul>
     </div>

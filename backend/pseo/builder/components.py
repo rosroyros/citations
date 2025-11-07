@@ -210,7 +210,6 @@ class SidebarComponent:
             quick_tools = [
                 {"title": "Citation Checker", "url": "/checker/"},
                 {"title": "Format Generator", "url": "/generator/"},
-                {"title": "DOI Lookup", "url": "/doi-lookup/"},
                 {"title": "Style Comparison", "url": "/style-comparison/"}
             ]
 
