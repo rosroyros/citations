@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-11-07 RECALCULATED_FROM_RAW",
+  "test_type": "DETAILED_121_CITATION_TEST_RECALCULATED",
+  "citations_tested": 121,
+  "models_tested": 4,
+  "combinations": 8,
+  "accuracies": {
+    "GPT-4o_baseline": 0.512396694214876,
+    "GPT-4o_optimized": 0.6363636363636364,
+    "GPT-4o-mini_baseline": 0.5454545454545454,
+    "GPT-4o-mini_optimized": 0.5702479338842975,
+    "GPT-5_baseline": 0.5702479338842975,
+    "GPT-5_optimized": 0.7520661157024794,
+    "GPT-5-mini_baseline": 0.5950413223140496,
+    "GPT-5-mini_optimized": 0.7768595041322314
+  },
+  "ranking": [
+    [
+      "GPT-5-mini_optimized",
+      0.7768595041322314
+    ],
+    [
+      "GPT-5_optimized",
+      0.7520661157024794
+    ],
+    [
+      "GPT-4o_optimized",
+      0.6363636363636364
+    ],
+    [
+      "GPT-5-mini_baseline",
+      0.5950413223140496
+    ],
+    [
+      "GPT-4o-mini_optimized",
+      0.5702479338842975
+    ],
+    [
+      "GPT-5_baseline",
+      0.5702479338842975
+    ],
+    [
+      "GPT-4o-mini_baseline",
+      0.5454545454545454
+    ],
+    [
+      "GPT-4o_baseline",
+      0.512396694214876
+    ]
+  ]
+}

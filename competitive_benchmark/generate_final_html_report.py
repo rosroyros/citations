@@ -1,4 +1,56 @@
+"""
+Generate comprehensive HTML report for competitive benchmark.
+Uses the valid 30-citation results and documents the debugging journey.
+"""
+import json
+import time
+from pathlib import Path
 
+def load_results():
+    """Load all available benchmark results."""
+    results = {}
+
+    # Load the valid 30-citation results
+    try:
+        with open('detailed_30_test_summary.json', 'r') as f:
+            results['30_citation_fixed'] = json.load(f)
+    except FileNotFoundError:
+        print("❌ Could not find detailed_30_test_summary.json")
+        return None
+
+    # Load the broken 121-citation results for comparison
+    try:
+        with open('detailed_121_test_summary_fixed.json', 'r') as f:
+            results['121_citation_broken'] = json.load(f)
+    except FileNotFoundError:
+        print("⚠️  Could not find 121-citation results")
+
+    return results
+
+def generate_html_report(results):
+    """Generate comprehensive HTML report."""
+
+    # Get the valid 30-citation results
+    valid_results = results['30_citation_fixed']
+
+    # Format the ranking data
+    ranking_html = ""
+    for i, (model, acc) in enumerate(valid_results['ranking'], 1):
+        model_name, prompt_type = model.rsplit('_', 1)
+        accuracy_pct = acc * 100
+        # Highlight the winner
+        row_class = "winner" if i == 1 else ""
+        ranking_html += f"""
+        <tr class="{row_class}">
+            <td>{i}</td>
+            <td>{model_name.replace('-', ' ').title()}</td>
+            <td>{prompt_type.title()}</td>
+            <td>{accuracy_pct:.1f}%</td>
+            <td>{int(acc * valid_results['citations_tested'])}/{valid_results['citations_tested']}</td>
+        </tr>
+        """
+
+    html_content = f"""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,84 +58,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Competitive Benchmark Report - Citation Validation</title>
     <style>
-        body {
+        body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 20px;
             background-color: #f5f5f5;
-        }
-        .container {
+        }}
+        .container {{
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
+        }}
+        h1 {{
             color: #2c3e50;
             border-bottom: 3px solid #3498db;
             padding-bottom: 10px;
-        }
-        h2 {
+        }}
+        h2 {{
             color: #34495e;
             margin-top: 30px;
-        }
-        .summary-box {
+        }}
+        .summary-box {{
             background: #ecf0f1;
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
-        }
-        .winner {
+        }}
+        .winner {{
             background-color: #d4edda;
             font-weight: bold;
-        }
-        table {
+        }}
+        table {{
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-        }
-        th, td {
+        }}
+        th, td {{
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #ddd;
-        }
-        th {
+        }}
+        th {{
             background-color: #3498db;
             color: white;
-        }
-        .bug-report {
+        }}
+        .bug-report {{
             background: #fff3cd;
             border: 1px solid #ffeaa7;
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
-        }
-        .success {
+        }}
+        .success {{
             background: #d1f2eb;
             border: 1px solid #00b894;
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
-        }
-        .technical-details {
+        }}
+        .technical-details {{
             background: #f8f9fa;
             border-left: 4px solid #6c757d;
             padding: 15px;
             margin: 15px 0;
-        }
-        .timestamp {
+        }}
+        .timestamp {{
             color: #6c757d;
             font-size: 0.9em;
-        }
+        }}
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🏆 Competitive Benchmark Report</h1>
-        <p class="timestamp">Generated: 2025-11-07 19:15:32</p>
+        <p class="timestamp">Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}</p>
 
         <div class="summary-box">
             <h2>📊 Executive Summary</h2>
@@ -115,71 +167,7 @@
                 </tr>
             </thead>
             <tbody>
-                
-        <tr class="winner">
-            <td>1</td>
-            <td>Gpt 5</td>
-            <td>Optimized</td>
-            <td>86.7%</td>
-            <td>26/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>2</td>
-            <td>Gpt 5 Mini</td>
-            <td>Optimized</td>
-            <td>80.0%</td>
-            <td>24/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>3</td>
-            <td>Gpt 4O</td>
-            <td>Optimized</td>
-            <td>70.0%</td>
-            <td>21/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>4</td>
-            <td>Gpt 5 Mini</td>
-            <td>Baseline</td>
-            <td>70.0%</td>
-            <td>21/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>5</td>
-            <td>Gpt 5</td>
-            <td>Baseline</td>
-            <td>56.7%</td>
-            <td>17/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>6</td>
-            <td>Gpt 4O Mini</td>
-            <td>Optimized</td>
-            <td>53.3%</td>
-            <td>16/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>7</td>
-            <td>Gpt 4O Mini</td>
-            <td>Baseline</td>
-            <td>50.0%</td>
-            <td>15/30</td>
-        </tr>
-        
-        <tr class="">
-            <td>8</td>
-            <td>Gpt 4O</td>
-            <td>Baseline</td>
-            <td>43.3%</td>
-            <td>13/30</td>
-        </tr>
-        
+                {ranking_html}
             </tbody>
         </table>
 
@@ -294,4 +282,29 @@
     </div>
 </body>
 </html>
-    
+    """
+
+    return html_content
+
+def main():
+    print("📊 Generating comprehensive HTML benchmark report...")
+
+    # Load results
+    results = load_results()
+    if not results:
+        print("❌ Could not load results")
+        return
+
+    # Generate HTML
+    html_content = generate_html_report(results)
+
+    # Save report
+    report_filename = 'competitive_benchmark_report.html'
+    with open(report_filename, 'w') as f:
+        f.write(html_content)
+
+    print(f"✅ HTML report generated: {report_filename}")
+    print(f"📁 Open in browser: file://{Path.cwd()}/{report_filename}")
+
+if __name__ == "__main__":
+    main()
