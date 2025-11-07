@@ -5,8 +5,12 @@ __pycache__/
 .DS_Store
 *.log
 node_modules/
-dist/
+# Ignore build outputs except content/dist (generated guides to be committed)
+frontend/**/dist/
+backend/**/dist/
 build/
+# But track content/dist (generated guides)
+!content/dist/
 .pytest_cache/
 
 # PSEO work archive
