@@ -1,14 +1,14 @@
 {
-  "timestamp": "2025-11-07 09:48:27",
+  "timestamp": "2025-11-07 11:04:45",
   "test_type": "REAL_API_TESTS",
   "citations_tested": 121,
   "models_tested": 4,
   "combinations": 8,
   "results": {
-    "GPT-4o_baseline": 0.47107438016528924,
-    "GPT-4o_optimized": 0.6776859504132231,
-    "GPT-4o-mini_baseline": 0.49586776859504134,
-    "GPT-4o-mini_optimized": 0.6446280991735537,
+    "GPT-4o_baseline": 0.512396694214876,
+    "GPT-4o_optimized": 0.6528925619834711,
+    "GPT-4o-mini_baseline": 0.5371900826446281,
+    "GPT-4o-mini_optimized": 0.5785123966942148,
     "GPT-5_baseline": 0.5702479338842975,
     "GPT-5_optimized": 0.5702479338842975,
     "GPT-5-mini_baseline": 0.5702479338842975,
@@ -17,11 +17,11 @@
   "ranking": [
     [
       "GPT-4o_optimized",
-      0.6776859504132231
+      0.6528925619834711
     ],
     [
       "GPT-4o-mini_optimized",
-      0.6446280991735537
+      0.5785123966942148
     ],
     [
       "GPT-5_baseline",
@@ -41,11 +41,11 @@
     ],
     [
       "GPT-4o-mini_baseline",
-      0.49586776859504134
+      0.5371900826446281
     ],
     [
       "GPT-4o_baseline",
-      0.47107438016528924
+      0.512396694214876
     ]
   ]
 }

@@ -21,17 +21,52 @@ client = openai.OpenAI(api_key=OPENAI_API_KEY)
 # Real prompts
 BASELINE_PROMPT = """Is this citation valid or invalid? Respond with exactly one word: "valid" or "invalid".
 
+Note: Italics in citations are indicated by underscores (e.g., _Journal Title_ represents italicized text).
+
 Citation: {citation}"""
 
-OPTIMIZED_PROMPT = """As an expert academic librarian specializing in citation validation, evaluate this citation according to APA 7th edition standards.
+# Full production prompt from validator_prompt_optimized.txt
+OPTIMIZED_PROMPT = """You are an APA 7th edition citation validator. Your task is to validate whether a given citation adheres to the APA 7th edition format rules.
 
-Consider:
-- Required elements completeness (author, title, source, date)
-- Format accuracy and consistency
-- Source credibility and accessibility
-- DOI/publisher information when applicable
+━━━ INSTRUCTIONS ━━━
 
-Respond with exactly one word: "valid" or "invalid"
+1. Analyze the components of the given citation to determine if they follow APA 7th edition guidelines. Different types of sources may have different formatting requirements.
+
+2. For a web page citation, ensure it includes:
+   - The author, which can be an organization like Wikipedia if no specific author is listed.
+   - The date of publication in the order: year, month day.
+   - The title of the page in italics.
+   - The website name and then the URL.
+
+3. For a book citation, verify:
+   - The authors' last names followed by their initials.
+   - The publication year in parentheses.
+   - The title of the work in italics.
+   - The publisher's name included at the end.
+
+4. For an unpublished doctoral dissertation, ensure:
+   - The author's last name and initials are provided.
+   - The year of publication is in parentheses.
+   - The title of the dissertation is in italics.
+   - It is specified as an unpublished doctoral dissertation.
+   - The institution's name is included where the dissertation was completed.
+
+5. For a journal article, verify:
+   - The authors' last names followed by their initials.
+   - The publication year in parentheses.
+   - The article title (not italicized).
+   - The journal name in italics.
+   - Volume number (italicized) and issue number (in parentheses, not italicized).
+   - Page numbers and DOI or URL.
+
+━━━ FORMATTING NOTES ━━━
+
+IMPORTANT: In the input citations, italic formatting is indicated using markdown underscores.
+Example: _Journal of Studies_ means the text should be italicized.
+
+━━━ OUTPUT FORMAT ━━━
+
+For this benchmark test, respond with ONLY ONE WORD: "valid" or "invalid"
 
 Citation: {citation}"""
 
