@@ -59,6 +59,12 @@ for cite_dir in ../../content/dist/cite-*-apa; do
 done
 echo "✓ Copied $(find ../../content/dist -maxdepth 1 -name 'cite-*-apa' -type d | wc -l) cite-* directories"
 
+# Copy guides directory
+echo "📚 Copying guides directory..."
+mkdir -p ../../frontend/frontend/dist/guides
+cp -r ../../content/dist/guides/* ../../frontend/frontend/dist/guides/
+echo "✓ Guides directory copied"
+
 # Copy sitemap
 echo "🗺️  Copying sitemap..."
 cp ../../content/dist/sitemap.xml ../../frontend/frontend/dist/sitemap.xml
