@@ -72,6 +72,11 @@ echo "✅ All deployment sanity tests passed!"
 
 cd ../..
 
+# Update Nginx configuration
+echo "🌐 Updating Nginx configuration..."
+sudo cp deployment/nginx/citations.conf /etc/nginx/sites-available/citations.conf
+sudo nginx -t
+
 # Restart Nginx
 echo "🌐 Restarting Nginx..."
 sudo systemctl reload nginx
