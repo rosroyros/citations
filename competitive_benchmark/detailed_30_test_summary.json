@@ -1,0 +1,51 @@
+{
+  "timestamp": "2025-11-07 12:11:45",
+  "test_type": "DETAILED_30_CITATION_TEST",
+  "citations_tested": 30,
+  "models_tested": 4,
+  "combinations": 8,
+  "accuracies": {
+    "GPT-4o_baseline": 0.43333333333333335,
+    "GPT-4o_optimized": 0.7,
+    "GPT-4o-mini_baseline": 0.5,
+    "GPT-4o-mini_optimized": 0.5333333333333333,
+    "GPT-5_baseline": 0.5666666666666667,
+    "GPT-5_optimized": 0.8666666666666667,
+    "GPT-5-mini_baseline": 0.7,
+    "GPT-5-mini_optimized": 0.8
+  },
+  "ranking": [
+    [
+      "GPT-5_optimized",
+      0.8666666666666667
+    ],
+    [
+      "GPT-5-mini_optimized",
+      0.8
+    ],
+    [
+      "GPT-4o_optimized",
+      0.7
+    ],
+    [
+      "GPT-5-mini_baseline",
+      0.7
+    ],
+    [
+      "GPT-5_baseline",
+      0.5666666666666667
+    ],
+    [
+      "GPT-4o-mini_optimized",
+      0.5333333333333333
+    ],
+    [
+      "GPT-4o-mini_baseline",
+      0.5
+    ],
+    [
+      "GPT-4o_baseline",
+      0.43333333333333335
+    ]
+  ]
+}
