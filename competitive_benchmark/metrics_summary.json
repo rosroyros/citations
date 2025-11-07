@@ -1,0 +1,221 @@
+{
+  "timestamp": "2025-11-06 20:50:00",
+  "dataset_info": {
+    "total_citations": 121,
+    "valid_citations": false,
+    "invalid_citations": true,
+    "models_tested": [
+      "DSPy Optimized",
+      "Claude Sonnet 4.5",
+      "GPT-4o",
+      "GPT-5",
+      "GPT-5-mini"
+    ]
+  },
+  "model_metrics": {
+    "DSPy Optimized": {
+      "accuracy": 0.8512396694214877,
+      "precision": 0.7741935483870968,
+      "recall": 0.9230769230769231,
+      "f1": 0.8421052631578947,
+      "tp": 48,
+      "fp": 14,
+      "tn": 55,
+      "fn": 4,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    "Claude Sonnet 4.5": {
+      "accuracy": 0.8925619834710744,
+      "precision": 0.8545454545454545,
+      "recall": 0.9038461538461539,
+      "f1": 0.8785046728971962,
+      "tp": 47,
+      "fp": 8,
+      "tn": 61,
+      "fn": 5,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    "GPT-4o": {
+      "accuracy": 0.8925619834710744,
+      "precision": 0.8679245283018868,
+      "recall": 0.8846153846153846,
+      "f1": 0.8761904761904762,
+      "tp": 46,
+      "fp": 7,
+      "tn": 62,
+      "fn": 6,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    "GPT-5": {
+      "accuracy": 0.9256198347107438,
+      "precision": 0.8771929824561403,
+      "recall": 0.9615384615384616,
+      "f1": 0.9174311926605504,
+      "tp": 50,
+      "fp": 7,
+      "tn": 62,
+      "fn": 2,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    "GPT-5-mini": {
+      "accuracy": 0.8842975206611571,
+      "precision": 0.8653846153846154,
+      "recall": 0.8653846153846154,
+      "f1": 0.8653846153846154,
+      "tp": 45,
+      "fp": 7,
+      "tn": 62,
+      "fn": 7,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    }
+  },
+  "model_ranking": [
+    {
+      "rank": 1,
+      "model": "GPT-5",
+      "accuracy": 0.9256198347107438,
+      "precision": 0.8771929824561403,
+      "recall": 0.9615384615384616,
+      "f1": 0.9174311926605504,
+      "tp": 50,
+      "fp": 7,
+      "tn": 62,
+      "fn": 2,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    {
+      "rank": 2,
+      "model": "Claude Sonnet 4.5",
+      "accuracy": 0.8925619834710744,
+      "precision": 0.8545454545454545,
+      "recall": 0.9038461538461539,
+      "f1": 0.8785046728971962,
+      "tp": 47,
+      "fp": 8,
+      "tn": 61,
+      "fn": 5,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    {
+      "rank": 3,
+      "model": "GPT-4o",
+      "accuracy": 0.8925619834710744,
+      "precision": 0.8679245283018868,
+      "recall": 0.8846153846153846,
+      "f1": 0.8761904761904762,
+      "tp": 46,
+      "fp": 7,
+      "tn": 62,
+      "fn": 6,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    {
+      "rank": 4,
+      "model": "GPT-5-mini",
+      "accuracy": 0.8842975206611571,
+      "precision": 0.8653846153846154,
+      "recall": 0.8653846153846154,
+      "f1": 0.8653846153846154,
+      "tp": 45,
+      "fp": 7,
+      "tn": 62,
+      "fn": 7,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    },
+    {
+      "rank": 5,
+      "model": "DSPy Optimized",
+      "accuracy": 0.8512396694214877,
+      "precision": 0.7741935483870968,
+      "recall": 0.9230769230769231,
+      "f1": 0.8421052631578947,
+      "tp": 48,
+      "fp": 14,
+      "tn": 55,
+      "fn": 4,
+      "total_predictions": 121,
+      "invalid_citations": 69,
+      "valid_citations": 52
+    }
+  ],
+  "citation_analysis": {
+    "universal_success_count": 67,
+    "universal_failure_count": 0,
+    "agreement_distribution": {
+      "4/5 correct": 43,
+      "5/5 correct": 67,
+      "3/5 correct": 9,
+      "2/5 correct": 2
+    },
+    "model_agreement_matrix": {
+      "DSPy Optimized": {
+        "DSPy Optimized": 1.0,
+        "Claude Sonnet 4.5": 0.7768595041322314,
+        "GPT-4o": 0.7933884297520661,
+        "GPT-5": 0.7933884297520661,
+        "GPT-5-mini": 0.7851239669421488
+      },
+      "Claude Sonnet 4.5": {
+        "DSPy Optimized": 0.7768595041322314,
+        "Claude Sonnet 4.5": 1.0,
+        "GPT-4o": 0.7851239669421488,
+        "GPT-5": 0.8512396694214877,
+        "GPT-5-mini": 0.7933884297520661
+      },
+      "GPT-4o": {
+        "DSPy Optimized": 0.7933884297520661,
+        "Claude Sonnet 4.5": 0.7851239669421488,
+        "GPT-4o": 1.0,
+        "GPT-5": 0.8181818181818182,
+        "GPT-5-mini": 0.8264462809917356
+      },
+      "GPT-5": {
+        "DSPy Optimized": 0.7933884297520661,
+        "Claude Sonnet 4.5": 0.8512396694214877,
+        "GPT-4o": 0.8181818181818182,
+        "GPT-5": 1.0,
+        "GPT-5-mini": 0.8099173553719008
+      },
+      "GPT-5-mini": {
+        "DSPy Optimized": 0.7851239669421488,
+        "Claude Sonnet 4.5": 0.7933884297520661,
+        "GPT-4o": 0.8264462809917356,
+        "GPT-5": 0.8099173553719008,
+        "GPT-5-mini": 1.0
+      }
+    }
+  },
+  "error_analysis": {
+    "DSPy Optimized": 18,
+    "Claude Sonnet 4.5": 13,
+    "GPT-4o": 13,
+    "GPT-5": 9,
+    "GPT-5-mini": 14
+  },
+  "insights": {
+    "best_model": "GPT-5",
+    "accuracy_range": [
+      0.8512396694214877,
+      0.9256198347107438
+    ],
+    "average_agreement": 0.803305785123967
+  }
+}

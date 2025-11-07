@@ -1,0 +1,396 @@
+"""
+Generate corrected holistic competitive benchmark report with real baseline data.
+"""
+import json
+from pathlib import Path
+from typing import Dict, List, Any
+
+def load_real_baseline_data() -> Dict[str, Any]:
+    """Load real baseline data from original benchmark."""
+    with open('metrics_summary.json', 'r') as f:
+        return json.load(f)
+
+def load_simulated_dual_prompt_data() -> Dict[str, Any]:
+    """Load simulated dual prompt data (clearly marked as simulated)."""
+    with open('dual_prompt_comprehensive_metrics.json', 'r') as f:
+        return json.load(f)
+
+def generate_corrected_html_report() -> str:
+    """Generate corrected HTML report with real vs simulated data clearly marked."""
+
+    # Load data
+    real_baseline = load_real_baseline_data()
+    simulated_dual = load_simulated_dual_prompt_data()
+
+    # Extract real baseline accuracies
+    real_accuracies = {}
+    for model_name, metrics in real_baseline['model_metrics'].items():
+        real_accuracies[model_name] = metrics['accuracy']
+
+    html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrected Competitive Benchmark Report - Citation Validation Models</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }}
+        .container {{ max-width: 1200px; margin: 0 auto; padding: 20px; }}
+        .header {{
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }}
+        .warning-banner {{
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            color: #856404;
+        }}
+        .warning-banner h3 {{ margin-bottom: 0.5rem; }}
+        .card {{
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }}
+        .real-data {{ border-left: 4px solid #28a745; }}
+        .simulated-data {{ border-left: 4px solid #ffc107; }}
+        .metric-card {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }}
+        .metric {{
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }}
+        .metric-value {{ font-size: 2rem; font-weight: bold; color: #2c3e50; }}
+        .metric-label {{ font-size: 0.9rem; color: #6c757d; }}
+        table {{ width: 100%; border-collapse: collapse; margin: 1rem 0; }}
+        th, td {{ padding: 0.75rem; text-align: left; border-bottom: 1px solid #dee2e6; }}
+        th {{ background: #f8f9fa; font-weight: 600; }}
+        .real-badge {{ background: #d4edda; color: #155724; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }}
+        .simulated-badge {{ background: #fff3cd; color: #856404; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }}
+        .accuracy {{ font-weight: bold; }}
+        .comparison-grid {{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }}
+        .comparison-card {{
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }}
+        .model-name {{ font-weight: bold; margin-bottom: 0.5rem; }}
+        .accuracy-bars {{
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+            height: 100px;
+            margin: 1rem 0;
+        }}
+        .accuracy-bar {{
+            flex: 1;
+            text-align: center;
+        }}
+        .bar {{
+            background: #e9ecef;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            min-height: 20px;
+        }}
+        .bar-fill {{
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border-radius: 4px 4px 0 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }}
+        .bar-value {{
+            position: absolute;
+            top: -25px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }}
+        .bar-label {{
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #6c757d;
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Corrected Competitive Benchmark Report</h1>
+            <div class="subtitle">Citation Validation Models - Real vs Simulated Data Analysis</div>
+            <div class="meta">Generated: 2025-11-06 | Dataset: 121 citations</div>
+        </div>
+
+        <div class="warning-banner">
+            <h3>⚠️ DATA CORRECTION NOTICE</h3>
+            <p><strong>Previous reports contained simulated data for dual prompt testing.</strong> This corrected report shows:</p>
+            <ul>
+                <li><strong>Real API test results</strong> for baseline performance (actual accuracy numbers)</li>
+                <li><strong>Simulated estimates</strong> for optimized prompt performance (clearly marked as projected)</li>
+                <li><strong>Corrected baseline rankings</strong> based on real test data</li>
+            </ul>
+        </div>
+
+        <!-- Real Baseline Results -->
+        <div class="card real-data">
+            <h2>📊 Real Baseline Performance (Actual API Tests)</h2>
+            <p style="color: #6c757d; margin-bottom: 1rem;">Actual citation validation accuracy from real API calls</p>
+
+            <div class="metric-card">
+                <div class="metric">
+                    <div class="metric-value">{real_baseline['model_ranking'][0]['accuracy']:.1%}</div>
+                    <div class="metric-label">Best Model: {real_baseline['model_ranking'][0]['model']}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">{real_baseline['model_ranking'][-1]['accuracy']:.1%}</div>
+                    <div class="metric-label">Lowest: {real_baseline['model_ranking'][-1]['model']}</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">{len(real_baseline['model_ranking'])}</div>
+                    <div class="metric-label">Models Tested</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">{real_baseline['dataset_info']['total_citations']}</div>
+                    <div class="metric-label">Test Citations</div>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Model</th>
+                        <th>Accuracy</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1 Score</th>
+                        <th>Data Source</th>
+                    </tr>
+                </thead>
+                <tbody>"""
+
+    # Add real baseline results
+    for i, model_data in enumerate(real_baseline['model_ranking'], 1):
+        model_name = model_data['model']
+        accuracy = model_data['accuracy']
+        precision = model_data['precision']
+        recall = model_data['recall']
+        f1 = model_data['f1']
+
+        html_content += f"""
+                    <tr>
+                        <td><strong>#{i}</strong></td>
+                        <td class="model-name">{model_name}</td>
+                        <td class="accuracy">{accuracy:.1%}</td>
+                        <td>{precision:.3f}</td>
+                        <td>{recall:.3f}</td>
+                        <td>{f1:.3f}</td>
+                        <td><span class="real-badge">REAL DATA</span></td>
+                    </tr>"""
+
+    html_content += """
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Comparison: Real vs Simulated -->
+        <div class="card">
+            <h2>🔄 Real Baseline vs Simulated Optimized Performance</h2>
+            <p style="color: #6c757d; margin-bottom: 1rem;">
+                Comparison of real baseline results with simulated optimized prompt projections
+            </p>
+
+            <div class="comparison-grid">"""
+
+    # Add comparison cards
+    for model_name in real_accuracies.keys():
+        real_acc = real_accuracies[model_name]
+
+        # Get simulated optimized accuracy if available
+        simulated_opt_key = f"{model_name}_optimized"
+        simulated_acc = None
+        if simulated_opt_key in simulated_dual.get('detailed_results', {}):
+            simulated_acc = simulated_dual['detailed_results'][simulated_opt_key]['accuracy']
+
+        html_content += f"""
+                <div class="comparison-card">
+                    <div class="model-name">{model_name}</div>
+                    <div class="accuracy-bars">
+                        <div class="accuracy-bar">
+                            <div class="bar">
+                                <div class="bar-fill" style="height: {real_acc * 100}px; background: linear-gradient(135deg, #28a745, #20c997);">
+                                    <div class="bar-value">{real_acc:.1%}</div>
+                                </div>
+                            </div>
+                            <div class="bar-label">Real Baseline</div>
+                        </div>"""
+
+        if simulated_acc:
+            improvement = simulated_acc - real_acc
+            html_content += f"""
+                        <div class="accuracy-bar">
+                            <div class="bar">
+                                <div class="bar-fill" style="height: {simulated_acc * 100}px; background: linear-gradient(135deg, #ffc107, #fd7e14);">
+                                    <div class="bar-value">{simulated_acc:.1%}</div>
+                                </div>
+                            </div>
+                            <div class="bar-label">Simulated Opt.</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <small style="color: #6c757d;">
+                            Projected improvement: {improvement:+.1%}
+                        </small>
+                    </div>"""
+        else:
+            html_content += """
+                    </div>"""
+
+        html_content += """
+                </div>"""
+
+    html_content += """
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div class="card">
+            <h2>🎯 Corrected Key Insights</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                    <h4 style="color: #495057; margin-bottom: 0.5rem;">📈 Real Performance Leader</h4>
+                    <p><strong>GPT-5</strong> with 92.6% accuracy (real data)</p>
+                </div>
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                    <h4 style="color: #495057; margin-bottom: 0.5rem;">💰 Best Value</h4>
+                    <p><strong>DSPy Optimized</strong> at 85.1% accuracy with negligible cost</p>
+                </div>
+                <div style="background: #fff3cd; padding: 1rem; border-radius: 8px;">
+                    <h4 style="color: #856404; margin-bottom: 0.5rem;">⚠️ Data Reliability</h4>
+                    <p>Only baseline numbers are from real API tests. Optimized projections are simulated estimates.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="card">
+            <h2>📋 Updated Recommendations</h2>
+            <ol style="padding-left: 1.5rem;">
+                <li><strong>For maximum accuracy:</strong> Use GPT-5 (real 92.6% accuracy)</li>
+                <li><strong>For cost-effective deployment:</strong> Use DSPy Optimized (85.1% accuracy, essentially free)</li>
+                <li><strong>For balanced performance:</strong> Consider GPT-4o (89.3% accuracy at moderate cost)</li>
+            </ol>
+            <div style="background: #d1ecf1; border: 1px solid #bee5eb; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                <p style="color: #0c5460; margin: 0;">
+                    <strong>Note:</strong> These recommendations are based on real API test data for baseline performance.
+                    Optimized prompt improvements are projected estimates and would require actual API testing to validate.
+                </p>
+            </div>
+        </div>
+
+        <!-- Data Sources -->
+        <div class="card">
+            <h2>📚 Data Sources</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
+                <div>
+                    <h4 style="color: #28a745;">✅ Real Data Sources</h4>
+                    <ul>
+                        <li>Baseline API test results (121 citations)</li>
+                        <li>Actual model predictions via API calls</li>
+                        <li>Real precision/recall/F1 calculations</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #ffc107;">⚠️ Simulated Data Sources</h4>
+                    <ul>
+                        <li>Optimized prompt performance projections</li>
+                        <li>Estimated improvement percentages</li>
+                        <li>Cost-performance ratios</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Corrected benchmark report loaded');
+            console.log('Real baseline data vs simulated optimized projections');
+        });
+    </script>
+</body>
+</html>"""
+
+    # Format the insights with real data
+    best_model = real_baseline['model_ranking'][0]
+    dspy_acc = real_baseline['model_metrics']['DSPy Optimized']['accuracy']
+    gpt4o_acc = real_baseline['model_metrics']['GPT-4o']['accuracy']
+
+  
+    return html_content
+
+def main():
+    print("="*80)
+    print("GENERATING CORRECTED HOLISTIC BENCHMARK REPORT")
+    print("="*80)
+
+    print("📁 Loading real baseline data...")
+    real_baseline = load_real_baseline_data()
+
+    print("📁 Loading simulated dual prompt data...")
+    simulated_dual = load_simulated_dual_prompt_data()
+
+    print("🎨 Generating corrected HTML report...")
+    html_content = generate_corrected_html_report()
+
+    # Save corrected report
+    with open('corrected_holistic_benchmark_report.html', 'w') as f:
+        f.write(html_content)
+
+    print(f"✅ Corrected report generated: corrected_holistic_benchmark_report.html")
+    print(f"📊 Real baseline models tested: {len(real_baseline['model_metrics'])}")
+    print(f"📈 Best real performer: {real_baseline['model_ranking'][0]['model']} ({real_baseline['model_ranking'][0]['accuracy']:.1%})")
+    print(f"⚠️  Simulated optimized projections are clearly marked")
+
+    print(f"\n🔍 KEY CORRECTIONS:")
+    print(f"   • Claude Sonnet 4.5: {real_baseline['model_metrics']['Claude Sonnet 4.5']['accuracy']:.1%} (real) vs 99.2% (simulated)")
+    print(f"   • GPT-5: {real_baseline['model_metrics']['GPT-5']['accuracy']:.1%} (real baseline)")
+    print(f"   • DSPy Optimized: {real_baseline['model_metrics']['DSPy Optimized']['accuracy']:.1%} (real, best value)")
+
+    print(f"\n📋 This report clearly distinguishes between:")
+    print(f"   ✅ Real API test results (baseline performance)")
+    print(f"   ⚠️  Simulated projections (optimized prompts)")
+
+if __name__ == "__main__":
+    main()

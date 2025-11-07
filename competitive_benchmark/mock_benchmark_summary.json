@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-11-06 20:45:00",
+  "dataset_size": 121,
+  "valid_citations": 52,
+  "invalid_citations": 69,
+  "models_tested": [
+    "DSPy Optimized",
+    "Claude Sonnet 4.5",
+    "GPT-4o",
+    "GPT-5",
+    "GPT-5-mini"
+  ],
+  "model_accuracies": {
+    "DSPy Optimized": 0.8512396694214877,
+    "Claude Sonnet 4.5": 0.8925619834710744,
+    "GPT-4o": 0.8925619834710744,
+    "GPT-5": 0.9256198347107438,
+    "GPT-5-mini": 0.8842975206611571
+  },
+  "notes": "Mock results generated for demonstration purposes"
+}
