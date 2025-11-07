@@ -1,0 +1,1550 @@
+{
+  "scan_date": "/Users/roy/Documents/Projects/citations",
+  "analysis_summary": {
+    "total_internal_links": 3769,
+    "total_pages_analyzed": 273,
+    "orphaned_pages_count": 235,
+    "missing_pages_with_references": 15,
+    "broken_urls_with_references": 8
+  },
+  "detailed_analysis": {
+    "statistics": {
+      "total_internal_links": 3769,
+      "total_pages": 273,
+      "outgoing_links_per_page": {
+        "average": 15.108433734939759,
+        "minimum": 5,
+        "maximum": 17,
+        "median": 16
+      },
+      "incoming_links_per_page": {
+        "average": 69.44736842105263,
+        "minimum": 1,
+        "maximum": 249,
+        "median": 15
+      }
+    },
+    "most_linked_pages": [
+      {
+        "page": "/",
+        "incoming_links": 249
+      },
+      {
+        "page": "/checker/",
+        "incoming_links": 249
+      },
+      {
+        "page": "/guides/",
+        "incoming_links": 249
+      },
+      {
+        "page": "/guide/apa-7th-edition/",
+        "incoming_links": 245
+      },
+      {
+        "page": "/how-to-check-capitalization-apa/",
+        "incoming_links": 195
+      },
+      {
+        "page": "/how-to-check-url-apa/",
+        "incoming_links": 195
+      },
+      {
+        "page": "/how-to-check-author-format-apa/",
+        "incoming_links": 195
+      },
+      {
+        "page": "/citation-checker/",
+        "incoming_links": 195
+      },
+      {
+        "page": "/cite-similar-source-apa/",
+        "incoming_links": 179
+      },
+      {
+        "page": "/how-to-cite-journal-article-apa/",
+        "incoming_links": 176
+      },
+      {
+        "page": "/how-to-check-doi-apa/",
+        "incoming_links": 165
+      },
+      {
+        "page": "/how-to-cite-website-apa/",
+        "incoming_links": 60
+      },
+      {
+        "page": "/how-to-cite-book-apa/",
+        "incoming_links": 50
+      },
+      {
+        "page": "/how-to-cite-newspaper-apa/",
+        "incoming_links": 35
+      },
+      {
+        "page": "/how-to-cite-chapter-apa/",
+        "incoming_links": 35
+      },
+      {
+        "page": "/how-to-cite-dataset-apa/",
+        "incoming_links": 35
+      },
+      {
+        "page": "/guides/common-errors/",
+        "incoming_links": 15
+      },
+      {
+        "page": "/guides/apa-style/",
+        "incoming_links": 15
+      },
+      {
+        "page": "/generator/",
+        "incoming_links": 15
+      },
+      {
+        "page": "/tools/doi-lookup/",
+        "incoming_links": 15
+      }
+    ],
+    "least_linked_pages": [
+      {
+        "page": "/cite-jstor-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/cite-google-scholar-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/how-to-cite-youtube-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/cite-ted-talks-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/cite-vimeo-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/how-to-check-video-citations-apa/",
+        "incoming_links": 1
+      },
+      {
+        "page": "/how-to-cite-social_media-apa/",
+        "incoming_links": 2
+      },
+      {
+        "page": "/how-to-cite-academic_database-apa/",
+        "incoming_links": 3
+      },
+      {
+        "page": "/cite-dictionary-com-apa/",
+        "incoming_links": 4
+      },
+      {
+        "page": "/cite-encyclopedia-britannica-apa/",
+        "incoming_links": 4
+      },
+      {
+        "page": "/how-to-cite-newspaper-article-apa/",
+        "incoming_links": 4
+      },
+      {
+        "page": "/cite-washington-post-apa/",
+        "incoming_links": 4
+      },
+      {
+        "page": "/cite-wall-street-journal-apa/",
+        "incoming_links": 4
+      },
+      {
+        "page": "/how-to-cite-government-report-apa/",
+        "incoming_links": 6
+      },
+      {
+        "page": "/cite-nih-apa/",
+        "incoming_links": 6
+      },
+      {
+        "page": "/cite-fda-apa/",
+        "incoming_links": 6
+      },
+      {
+        "page": "/how-to-cite-conference_paper-apa/",
+        "incoming_links": 8
+      },
+      {
+        "page": "/guides/common-errors/",
+        "incoming_links": 15
+      },
+      {
+        "page": "/guides/apa-style/",
+        "incoming_links": 15
+      },
+      {
+        "page": "/generator/",
+        "incoming_links": 15
+      }
+    ],
+    "orphaned_pages": [
+      "/cite-developmental-psychology-apa/",
+      "/cite-corporate-social-responsibility-and-environmental-management-apa/",
+      "/how-to-cite-conference-paper-apa/",
+      "/cite-computers-education-apa/",
+      "/cite-meeting-of-the-association-for-computational-linguistics-acl-apa/",
+      "/cite-cell-apa/",
+      "/guide/apa-graduate-students/",
+      "/cite-finance-research-letters-apa/",
+      "/cite-tourism-management-apa/",
+      "/cite-chemosphere-apa/",
+      "/cite-journal-of-business-ethics-apa/",
+      "/how-to-cite-encyclopedia-apa/",
+      "/guide/check-apa-citations/",
+      "/cite-journal-of-the-american-chemical-society-apa/",
+      "/cite-science-advances-apa/",
+      "/cite-conference-on-empirical-methods-in-natural-language-processing-emnlp-apa/",
+      "/guide/apa-7th-edition-changes/",
+      "/cite-proceedings-of-the-national-academy-of-sciences-apa/",
+      "/cite-aaai-conference-on-artificial-intelligence-apa/",
+      "/cite-journal-of-medical-internet-research-apa/",
+      "/how-to-cite-edited-book-apa/",
+      "/cite-communications-on-pure-and-applied-mathematics-apa/",
+      "/cite-advances-in-physics-apa/",
+      "/guide/apa-citations-psychology/",
+      "/cite-chemical-reviews-apa/",
+      "/cite-review-educational-research-apa/",
+      "/cite-the-lancet-infectious-diseases-apa/",
+      "/cite-nano-energy-apa/",
+      "/cite-journal-of-cleaner-production-apa/",
+      "/cite-international-journal-of-environmental-research-and-public-health-apa/",
+      "/cite-ieee-transactions-on-pattern-analysis-and-machine-intelligence-apa/",
+      "/cite-science-apa/",
+      "/cite-nature-machine-intelligence-apa/",
+      "/cite-energy-economics-apa/",
+      "/how-to-cite-magazine-apa/",
+      "/cite-the-new-england-journal-of-medicine-apa/",
+      "/cite-international-journal-of-biological-macromolecules-apa/",
+      "/guide/apa-title-page/",
+      "/cite-energy-environmental-science-apa/",
+      "/cite-acs-catalysis-apa/",
+      "/guide/apa-citation-errors/",
+      "/cite-plos-one-apa/",
+      "/cite-journal-chemical-physics-apa/",
+      "/cite-industrial-marketing-management-apa/",
+      "/cite-harvard-business-review-apa/",
+      "/how-to-cite-press-release-apa/",
+      "/cite-sensors-apa/",
+      "/how-to-cite-wikipedia-apa/",
+      "/cite-trends-in-food-science-technology-apa/",
+      "/cite-ecology-letters-apa/",
+      "/cite-britannica-apa/",
+      "/cite-advanced-energy-materials-apa/",
+      "/cite-frontiers-in-psychology-apa/",
+      "/cite-political-analysis-apa/",
+      "/how-to-cite-ted-talk-apa/",
+      "/cite-bbc-news-apa/",
+      "/cite-cnn-apa/",
+      "/cite-angewandte-chemie-international-edition-apa/",
+      "/cite-molecules-apa/",
+      "/cite-new-york-times-apa/",
+      "/cite-nature-apa/",
+      "/cite-joule-apa/",
+      "/cite-chemical-engineering-journal-apa/",
+      "/cite-bmc-biology-apa/",
+      "/cite-science-of-the-total-environment-apa/",
+      "/cite-acs-applied-materials-interfaces-apa/",
+      "/cite-youtube-apa/",
+      "/how-to-cite-blog-apa/",
+      "/cite-academy-management-review-apa/",
+      "/cite-journal-of-mathematical-physics-apa/",
+      "/cite-advanced-functional-materials-apa/",
+      "/cite-plant-physiology-apa/",
+      "/cite-nucleic-acids-research-apa/",
+      "/cite-journal-marketing-apa/",
+      "/cite-applied-sciences-apa/",
+      "/cite-journal-of-materials-chemistry-a-apa/",
+      "/cite-ieee-transactions-on-industrial-informatics-apa/",
+      "/cite-energy-storage-materials-apa/",
+      "/cite-machine-learning-apa/",
+      "/cite-construction-and-building-materials-apa/",
+      "/cite-acm-computing-surveys-apa/",
+      "/cite-nature-energy-apa/",
+      "/how-to-validate-doi-apa/",
+      "/cite-environmental-pollution-apa/",
+      "/cite-educational-psychologist-apa/",
+      "/cite-clinical-infectious-diseases-apa/",
+      "/cite-lancet-apa/",
+      "/cite-sociology-health-illness-apa/",
+      "/cite-learning-instruction-apa/",
+      "/cite-nature-clinical-practice-apa/",
+      "/cite-international-journal-of-contemporary-hospitality-management-apa/",
+      "/cite-signal-transduction-and-targeted-therapy-apa/",
+      "/cite-new-england-journal-medicine-apa/",
+      "/cite-washington_post-apa/",
+      "/cite-the-review-of-financial-studies-apa/",
+      "/guide/apa-reference-list/",
+      "/cite-world-development-apa/",
+      "/cite-renewable-energy-apa/",
+      "/cite-the_guardian-apa/",
+      "/cite-bioresource-technology-apa/",
+      "/how-to-cite-book-chapter-apa/",
+      "/how-to-verify-author-names-apa/",
+      "/cite-neural-information-processing-systems-apa/",
+      "/how-to-cite-dictionary-apa/",
+      "/cite-chemical-society-reviews-apa/",
+      "/how-to-cite-how-to-cite-conference-paper-apa-apa/",
+      "/how-to-cite-facebook-apa/",
+      "/guide/apa-citations-education/",
+      "/cite-journal-of-hazardous-materials-apa/",
+      "/cite-international-conference-on-learning-representations-apa/",
+      "/cite-european-conference-on-computer-vision-apa/",
+      "/cite-acs-nano-apa/",
+      "/cite-clinical-psychological-science-apa/",
+      "/cite-environmental-science-technology-apa/",
+      "/cite-the-lancet-oncology-apa/",
+      "/guide/fix-apa-citation-errors/",
+      "/guide/apa-citations-nursing/",
+      "/cite-the-quarterly-journal-of-economics-apa/",
+      "/cite-international-organization-apa/",
+      "/cite-linkedin-apa/",
+      "/cite-nature-medicine-apa/",
+      "/cite-applied-catalysis-b-environmental-apa/",
+      "/guide/apa-citation-workflow/",
+      "/cite-psychological-bulletin-apa/",
+      "/cite-wikipedia-apa/",
+      "/cite-journal-of-political-economy-apa/",
+      "/how-to-cite-patent-apa/",
+      "/cite-scientific-reports-apa/",
+      "/cite-technological-forecasting-and-social-change-apa/",
+      "/cite-ieee-access-apa/",
+      "/how-to-cite-instagram-apa/",
+      "/how-to-cite-twitter-apa/",
+      "/cite-nature-materials-apa/",
+      "/cite-renewable-and-sustainable-energy-reviews-apa/",
+      "/cite-nutrients-apa/",
+      "/guide/apa-in-text-citations/",
+      "/cite-advanced-science-apa/",
+      "/cite-journal-of-environmental-management-apa/",
+      "/guide/validate-reference-list/",
+      "/cite-jama-apa/",
+      "/cite-journal-of-business-research-apa/",
+      "/cite-ieeecvf-international-conference-on-computer-vision-apa/",
+      "/guide/apa-vs-mla-vs-chicago/",
+      "/cite-npr-apa/",
+      "/how-to-cite-white-paper-apa/",
+      "/cite-pubmed-apa/",
+      "/cite-nature-reviews-disease-primers-apa/",
+      "/cite-jama-network-open-apa/",
+      "/cite-small-apa/",
+      "/cite-applied-energy-apa/",
+      "/cite-physical-review-letters-apa/",
+      "/cite-cells-apa/",
+      "/how-to-cite-podcast-apa/",
+      "/cite-world-politics-apa/",
+      "/cite-cdc-apa/",
+      "/cite-merriam-webster-apa/",
+      "/how-to-cite-artwork-apa/",
+      "/cite-tiktok-apa/",
+      "/cite-circulation-apa/",
+      "/how-to-cite-dissertation-apa/",
+      "/how-to-cite-working-paper-apa/",
+      "/cite-the-lancet-apa/",
+      "/cite-wall_street_journal-apa/",
+      "/cite-white-house-apa/",
+      "/cite-journal-of-financial-economics-apa/",
+      "/cite-business-strategy-and-the-environment-apa/",
+      "/how-to-check-italics-apa/",
+      "/cite-the-astrophysical-journal-apa/",
+      "/cite-epa-apa/",
+      "/cite-strategic-management-journal-apa/",
+      "/cite-expert-systems-with-applications-apa/",
+      "/cite-international-conference-on-machine-learning-apa/",
+      "/cite-journal-experimental-psychology-apa/",
+      "/cite-acs-energy-letters-apa/",
+      "/cite-reuters-apa/",
+      "/cite-consulting-clinical-psychology-apa/",
+      "/cite-journal-health-social-behavior-apa/",
+      "/cite-annals-of-mathematics-apa/",
+      "/cite-coordination-chemistry-reviews-apa/",
+      "/cite-ieeecvf-conference-on-computer-vision-and-pattern-recognition-apa/",
+      "/cite-gastroenterology-apa/",
+      "/cite-cognitive-psychology-apa/",
+      "/cite-ieee-internet-of-things-journal-apa/",
+      "/how-to-cite-ebook-apa/",
+      "/cite-journal-of-retailing-and-consumer-services-apa/",
+      "/cite-morbidity-and-mortality-weekly-report-apa/",
+      "/how-to-cite-music-apa/",
+      "/cite-social-psychology-personality-apa/",
+      "/cite-european-heart-journal-apa/",
+      "/cite-american-economic-review-apa/",
+      "/cite-nature-communications-apa/",
+      "/cite-arxiv-apa/",
+      "/cite-nature-nanotechnology-apa/",
+      "/cite-journal-politics-apa/",
+      "/cite-social-forces-apa/",
+      "/cite-journal-educational-psychology-apa/",
+      "/cite-journal-american-medical-association-apa/",
+      "/how-to-cite-software-apa/",
+      "/cite-nature-biotechnology-apa/",
+      "/cite-international-journal-of-production-economics-apa/",
+      "/cite-bloomberg-apa/",
+      "/how-to-cite-report-apa/",
+      "/cite-american-sociological-review-apa/",
+      "/how-to-cite-thesis-apa/",
+      "/cite-journal-of-machine-learning-research-apa/",
+      "/cite-nature-genetics-apa/",
+      "/cite-management-science-apa/",
+      "/cite-reviews-of-modern-physics-apa/",
+      "/cite-journal-of-the-american-college-of-cardiology-apa/",
+      "/cite-bmj-apa/",
+      "/cite-physical-review-b-apa/",
+      "/cite-physical-review-a-apa/",
+      "/cite-frontiers-in-immunology-apa/",
+      "/cite-associated-press-apa/",
+      "/cite-american-political-science-review-apa/",
+      "/how-to-cite-linkedin-apa/",
+      "/cite-international-journal-of-hydrogen-energy-apa/",
+      "/cite-proceedings-national-academy-sciences-apa/",
+      "/cite-sustainability-apa/",
+      "/cite-environmental-science-and-pollution-research-apa/",
+      "/cite-journal-of-clinical-oncology-apa/",
+      "/cite-energy-apa/",
+      "/cite-apa-journal-apa/",
+      "/cite-water-research-apa/",
+      "/how-to-cite-film-apa/",
+      "/cite-educational-researcher-apa/",
+      "/cite-supreme-court-apa/",
+      "/cite-journal-business-research-apa/",
+      "/cite-international-journal-of-hospitality-management-apa/",
+      "/cite-journal-of-molecular-biology-apa/",
+      "/cite-american-educational-research-journal-apa/",
+      "/cite-international-journal-of-molecular-sciences-apa/",
+      "/cite-nature-physics-apa/",
+      "/cite-advanced-materials-apa/",
+      "/how-to-cite-tv-episode-apa/"
+    ],
+    "missing_page_priority": [
+      {
+        "page": "/how-to-check-author-format-apa/",
+        "reference_count": 195
+      },
+      {
+        "page": "/how-to-check-url-apa/",
+        "reference_count": 195
+      },
+      {
+        "page": "/cite-similar-source-apa/",
+        "reference_count": 179
+      },
+      {
+        "page": "/how-to-check-doi-apa/",
+        "reference_count": 165
+      },
+      {
+        "page": "/how-to-cite-chapter-apa/",
+        "reference_count": 35
+      },
+      {
+        "page": "/how-to-cite-conference_paper-apa/",
+        "reference_count": 8
+      },
+      {
+        "page": "/how-to-cite-newspaper-article-apa/",
+        "reference_count": 4
+      },
+      {
+        "page": "/cite-wall-street-journal-apa/",
+        "reference_count": 4
+      },
+      {
+        "page": "/cite-encyclopedia-britannica-apa/",
+        "reference_count": 4
+      },
+      {
+        "page": "/cite-washington-post-apa/",
+        "reference_count": 4
+      },
+      {
+        "page": "/how-to-cite-academic_database-apa/",
+        "reference_count": 3
+      },
+      {
+        "page": "/how-to-cite-social_media-apa/",
+        "reference_count": 2
+      },
+      {
+        "page": "/how-to-check-video-citations-apa/",
+        "reference_count": 1
+      },
+      {
+        "page": "/cite-ted-talks-apa/",
+        "reference_count": 1
+      },
+      {
+        "page": "/cite-vimeo-apa/",
+        "reference_count": 1
+      }
+    ],
+    "broken_url_analysis": {
+      "/citation-checker/": 195,
+      "/guides/common-errors/": 15,
+      "/generator/": 15,
+      "/guides/": 249,
+      "/guides/apa-style/": 15,
+      "/tools/doi-lookup/": 15,
+      "/checker/": 249,
+      "/tools/style-comparison/": 15
+    },
+    "page_distribution": {
+      "high_outgoing": [],
+      "medium_outgoing": [
+        {
+          "page": "/cite-bmj-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-reviews-of-modern-physics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-physical-review-b-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-title-page/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-graduate-students/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/validate-reference-list/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/fix-apa-citation-errors/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-reference-list/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-citations-nursing/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-citations-education/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-7th-edition/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-vs-mla-vs-chicago/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-7th-edition-changes/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-citations-psychology/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/check-apa-citations/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-citation-workflow/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-in-text-citations/",
+          "link_count": 16
+        },
+        {
+          "page": "/guide/apa-citation-errors/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-gastroenterology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-proceedings-of-the-national-academy-of-sciences-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-clinical-infectious-diseases-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-conference-on-learning-representations-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-journal-chemical-physics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-software-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-merriam-webster-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-arxiv-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-journal-of-business-ethics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-american-educational-research-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-educational-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-construction-and-building-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-molecular-sciences-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-lancet-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-clinical-practice-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-physical-review-a-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-facebook-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-the_guardian-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-international-journal-of-environmental-research-and-public-health-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-american-medical-association-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-podcast-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-frontiers-in-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-molecular-biology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-new-england-journal-medicine-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-ebook-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-angewandte-chemie-international-edition-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-industrial-marketing-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-small-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-learning-instruction-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-materials-chemistry-a-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-government-report-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-political-analysis-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-experimental-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-website-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-nano-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-molecules-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-wall_street_journal-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-journal-marketing-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-bloomberg-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-morbidity-and-mortality-weekly-report-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-ieee-access-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-jama-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-cdc-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-journal-article-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-educational-researcher-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-pubmed-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-nature-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-chemosphere-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-health-social-behavior-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-cell-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-epa-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-advanced-science-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-lancet-infectious-diseases-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-bioresource-technology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-review-educational-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-environmental-science-technology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-developmental-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-dataset-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-chemical-engineering-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-magazine-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-conference-on-empirical-methods-in-natural-language-processing-emnlp-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-neural-information-processing-systems-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-american-sociological-review-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-environmental-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-bbc-news-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-supreme-court-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-academy-management-review-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-science-of-the-total-environment-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-acs-energy-letters-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-signal-transduction-and-targeted-therapy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-white-house-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-environmental-pollution-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-energy-environmental-science-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-business-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-organization-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-reviews-disease-primers-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-energy-economics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-renewable-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-financial-economics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-astrophysical-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-proceedings-national-academy-sciences-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-business-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-sustainability-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-advanced-energy-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-physics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-communications-on-pure-and-applied-mathematics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-frontiers-in-immunology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-science-advances-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-lancet-oncology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-fda-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-linkedin-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/how-to-cite-working-paper-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-lancet-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-expert-systems-with-applications-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-european-heart-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-business-strategy-and-the-environment-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-edited-book-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-applied-catalysis-b-environmental-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-biological-macromolecules-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-chemical-society-reviews-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-machine-intelligence-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-ieee-transactions-on-industrial-informatics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-annals-of-mathematics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-book-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-new-england-journal-of-medicine-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-medicine-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-contemporary-hospitality-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-music-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-sensors-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-applied-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-book-chapter-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-jstor-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/how-to-cite-dissertation-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-social-psychology-personality-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-thesis-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/how-to-cite-how-to-cite-conference-paper-apa-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/cite-cognitive-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-ieee-internet-of-things-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-science-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-associated-press-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-dictionary-com-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-press-release-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-trends-in-food-science-technology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-genetics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-white-paper-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-psychological-bulletin-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-aaai-conference-on-artificial-intelligence-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-nih-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-technological-forecasting-and-social-change-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-acs-catalysis-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-acm-computing-surveys-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-plos-one-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-cleaner-production-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-political-economy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-environmental-science-and-pollution-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-renewable-and-sustainable-energy-reviews-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-meeting-of-the-association-for-computational-linguistics-acl-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-social-forces-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-corporate-social-responsibility-and-environmental-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-google-scholar-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-world-politics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-world-development-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-britannica-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-washington_post-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-acs-nano-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-ted-talk-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-finance-research-letters-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-hazardous-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-american-economic-review-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-newspaper-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-cnn-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-jama-network-open-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-npr-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-tourism-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-management-science-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-energy-storage-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-advanced-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-youtube-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-reuters-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-nucleic-acids-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-retailing-and-consumer-services-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-tiktok-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-new-york-times-apa/",
+          "link_count": 17
+        },
+        {
+          "page": "/cite-the-quarterly-journal-of-economics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-twitter-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-ieee-transactions-on-pattern-analysis-and-machine-intelligence-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-patent-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-ecology-letters-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-ieeecvf-international-conference-on-computer-vision-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/how-to-cite-instagram-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-water-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-joule-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-biotechnology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-harvard-business-review-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-encyclopedia-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-bmc-biology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-machine-learning-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-strategic-management-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-physical-review-letters-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-wikipedia-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/how-to-cite-youtube-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-journal-of-the-american-chemical-society-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-computers-education-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-hydrogen-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-energy-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-nanotechnology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-mathematical-physics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-consulting-clinical-psychology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-report-apa/",
+          "link_count": 12
+        },
+        {
+          "page": "/how-to-cite-blog-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-advanced-functional-materials-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-european-conference-on-computer-vision-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-sociology-health-illness-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-hospitality-management-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-plant-physiology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-clinical-psychological-science-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-apa-journal-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-machine-learning-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-the-review-of-financial-studies-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-artwork-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-ieeecvf-conference-on-computer-vision-and-pattern-recognition-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-international-conference-on-machine-learning-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-chemical-reviews-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-linkedin-apa/",
+          "link_count": 15
+        },
+        {
+          "page": "/cite-advances-in-physics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-scientific-reports-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-american-political-science-review-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-medical-internet-research-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-cells-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-dictionary-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-journal-of-clinical-oncology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-acs-applied-materials-interfaces-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-applied-sciences-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-of-the-american-college-of-cardiology-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nutrients-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-educational-psychologist-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-international-journal-of-production-economics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-journal-politics-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-film-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-wikipedia-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-circulation-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/how-to-cite-conference-paper-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/how-to-cite-tv-episode-apa/",
+          "link_count": 11
+        },
+        {
+          "page": "/cite-coordination-chemistry-reviews-apa/",
+          "link_count": 16
+        },
+        {
+          "page": "/cite-nature-communications-apa/",
+          "link_count": 16
+        }
+      ],
+      "low_outgoing": [
+        {
+          "page": "/how-to-check-capitalization-apa/",
+          "link_count": 5
+        },
+        {
+          "page": "/how-to-check-italics-apa/",
+          "link_count": 5
+        },
+        {
+          "page": "/how-to-verify-author-names-apa/",
+          "link_count": 5
+        },
+        {
+          "page": "/how-to-validate-doi-apa/",
+          "link_count": 5
+        }
+      ]
+    },
+    "insights": [
+      "Critical: Link health below 50% - immediate action needed",
+      "High number of orphaned pages (235) - consider internal linking strategy",
+      "Found 5 high-priority missing pages (10+ references)"
+    ],
+    "recommendations": [
+      "Link to 235 orphaned pages from relevant content",
+      "Priority: Create 5 most-referenced missing pages",
+      "Fix 8 broken links affecting user experience"
+    ]
+  },
+  "action_items": {
+    "immediate_fixes": [
+      "Fix broken URL: /citation-checker/ (referenced by 195 pages)",
+      "Fix broken URL: /guides/common-errors/ (referenced by 15 pages)",
+      "Fix broken URL: /generator/ (referenced by 15 pages)",
+      "Fix broken URL: /guides/ (referenced by 249 pages)",
+      "Fix broken URL: /guides/apa-style/ (referenced by 15 pages)",
+      "Fix broken URL: /tools/doi-lookup/ (referenced by 15 pages)",
+      "Fix broken URL: /checker/ (referenced by 249 pages)",
+      "Fix broken URL: /tools/style-comparison/ (referenced by 15 pages)"
+    ],
+    "content_opportunities": [
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)",
+      "Create missing page: page (referenced by reference_count pages)"
+    ],
+    "link_building_tasks": [
+      "Add internal links to: /cite-developmental-psychology-apa/",
+      "Add internal links to: /cite-corporate-social-responsibility-and-environmental-management-apa/",
+      "Add internal links to: /how-to-cite-conference-paper-apa/",
+      "Add internal links to: /cite-computers-education-apa/",
+      "Add internal links to: /cite-meeting-of-the-association-for-computational-linguistics-acl-apa/",
+      "Add internal links to: /cite-cell-apa/",
+      "Add internal links to: /guide/apa-graduate-students/",
+      "Add internal links to: /cite-finance-research-letters-apa/",
+      "Add internal links to: /cite-tourism-management-apa/",
+      "Add internal links to: /cite-chemosphere-apa/"
+    ]
+  }
+}
