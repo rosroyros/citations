@@ -65,10 +65,10 @@ mkdir -p ../../frontend/frontend/dist/guides
 cp -r ../../content/dist/guides/* ../../frontend/frontend/dist/guides/
 echo "✓ Guides directory copied"
 
-# Copy sitemap
-echo "🗺️  Copying sitemap..."
-cp ../../content/dist/sitemap.xml ../../frontend/frontend/dist/sitemap.xml
-echo "✓ Sitemap copied"
+# Copy sitemap (Vite already copies from public/ to dist/ during build)
+echo "🗺️  Sitemap ready (copied by Vite build)"
+# Vite automatically copies public/sitemap.xml to dist/sitemap.xml during build
+echo "✓ Sitemap location: ../../frontend/frontend/dist/sitemap.xml"
 
 # Run deployment sanity tests before finalizing deployment
 echo "🧪 Running deployment sanity tests..."
