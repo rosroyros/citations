@@ -11,7 +11,7 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Tuple
 
-from .components import ComponentRegistry
+from components import ComponentRegistry
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
