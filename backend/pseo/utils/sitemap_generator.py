@@ -114,12 +114,29 @@ class SitemapGenerator:
             tree = ET.parse(self.sitemap_path)
             root = tree.getroot()
 
+            # Handle XML namespace
+            ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+
             entries = []
-            for url in root.findall('url'):
-                loc = url.find('loc').text
-                lastmod = url.find('lastmod').text if url.find('lastmod') is not None else None
-                changefreq = url.find('changefreq').text if url.find('changefreq') is not None else 'monthly'
-                priority = url.find('priority').text if url.find('priority') is not None else '0.5'
+            # Try with namespace first
+            urls = root.findall('sm:url', ns)
+            if not urls:
+                # Fallback to without namespace
+                urls = root.findall('url')
+
+            for url in urls:
+                loc_elem = url.find('sm:loc', ns) or url.find('loc')
+                if loc_elem is None or loc_elem.text is None:
+                    continue
+
+                loc = loc_elem.text
+                lastmod_elem = url.find('sm:lastmod', ns) or url.find('lastmod')
+                changefreq_elem = url.find('sm:changefreq', ns) or url.find('changefreq')
+                priority_elem = url.find('sm:priority', ns) or url.find('priority')
+
+                lastmod = lastmod_elem.text if lastmod_elem is not None else None
+                changefreq = changefreq_elem.text if changefreq_elem is not None else 'monthly'
+                priority = priority_elem.text if priority_elem is not None else '0.5'
 
                 entries.append({
                     'url': loc,

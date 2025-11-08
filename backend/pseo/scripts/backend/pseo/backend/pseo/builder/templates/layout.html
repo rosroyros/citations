@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
+    <link rel="canonical" href="{{ base_url }}{{ url }}">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "{{ meta_title }}",
+        "description": "{{ meta_description }}"
+    }
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/mini-checker.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="logo-text">Citation Checker</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/checker/">Check Citations</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> >
+        <a href="/guides/">Citation Guides</a> >
+        <span class="current">{{ breadcrumb_title or meta_title }}</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper {% if page_type %}{{ page_type }}{% endif %}">
+        <main class="main-content">
+            {{ content | safe }}
+
+            {% if page_type == 'source_type' or not page_type %}
+            <!-- Related Resources Grid (for source type pages) -->
+            <div class="related-box">
+                <h3>Related Source Types</h3>
+                <div class="related-grid">
+                    {% if related_resources %}
+                        {% for resource in related_resources %}
+                        <a href="{{ resource.url }}" class="related-link">{{ resource.title }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <a href="/how-to-cite-book-apa/" class="related-link">📖 How to Cite Books</a>
+                        <a href="/how-to-cite-website-apa/" class="related-link">🌐 How to Cite Websites</a>
+                        <a href="/how-to-cite-newspaper-apa/" class="related-link">📰 How to Cite Newspapers</a>
+                        <a href="/how-to-cite-chapter-apa/" class="related-link">📚 How to Cite Book Chapters</a>
+                        <a href="/how-to-cite-dataset-apa/" class="related-link">💾 How to Cite Datasets</a>
+                        <a href="/guide/apa-7th-edition/" class="related-link">📋 Complete APA Guide</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </main>
+
+        {% if page_type == 'mega_guide' %}
+        <!-- Enhanced Sidebar (for mega guide pages only) -->
+        {{ sidebar_content | safe }}
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="site-footer-content">
+            <p>&copy; 2025 Citation Checker. Last updated: {{ last_updated or '2025' }}</p>
+            <p class="footer-links">
+                <a href="/privacy">Privacy Policy</a> |
+                <a href="/terms">Terms of Service</a> |
+                <a href="/contact">Contact Us</a>
+            </p>
+            <p class="footer-tagline">Built for researchers, by researchers</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Helper function to extract source type from URL
+        function getSourceTypeFromURL() {
+            const path = window.location.pathname;
+
+            // Extract source type from URL patterns like /how-to-cite-[source]-[style]/
+            const match = path.match(/\/how-to-cite-([^-]+)-/);
+            if (match && match[1]) {
+                return match[1].toLowerCase();
+            }
+
+            // Extract source type from specific source URLs like /source/[source-type]/
+            const sourceMatch = path.match(/\/source\/([^\/]+)/);
+            if (sourceMatch && sourceMatch[1]) {
+                return sourceMatch[1].toLowerCase();
+            }
+
+            return 'unknown';
+        }
+
+        // Citation checking function for MiniChecker components
+        function checkCitation(button) {
+            const textarea = button.previousElementSibling;
+            const citation = textarea.value.trim();
+
+            if (!citation) {
+                alert('Please enter a citation to check.');
+                return;
+            }
+
+            // Track mini_checker_opened event
+            if (typeof gtag === 'function') {
+                const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                               document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                const sourceType = getSourceTypeFromURL();
+
+                gtag('event', 'mini_checker_opened', {
+                    page_type: pageType,
+                    source_type: sourceType
+                });
+            }
+
+            // For now, redirect to full checker
+            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+        }
+
+        // Analytics tracking for PSEO guides
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track guide viewed on page load for source type pages
+            if (typeof gtag === 'function') {
+                const sourceType = getSourceTypeFromURL();
+                const isSourceTypePage = document.body.className.includes('source-type') ||
+                                       window.location.pathname.includes('/how-to-cite-');
+
+                if (isSourceTypePage && sourceType !== 'unknown') {
+                    gtag('event', 'guide_viewed', {
+                        source_type: sourceType,
+                        page_path: window.location.pathname
+                    });
+                }
+            }
+
+            // Track guide completion when user scrolls to bottom
+            let guideCompletedTracked = false;
+
+            window.addEventListener('scroll', function() {
+                if (guideCompletedTracked) return;
+
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPosition = window.scrollY;
+                const scrollPercentage = Math.round((scrollPosition / scrollHeight) * 100);
+
+                // Track when user reaches 95% or more of the page
+                if (scrollPercentage >= 95 && typeof gtag === 'function') {
+                    const sourceType = getSourceTypeFromURL();
+                    const isSourceTypePage = document.body.className.includes('source-type') ||
+                                           window.location.pathname.includes('/how-to-cite-');
+
+                    if (isSourceTypePage && sourceType !== 'unknown') {
+                        gtag('event', 'guide_completed', {
+                            source_type: sourceType,
+                            page_path: window.location.pathname
+                        });
+                        guideCompletedTracked = true;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
