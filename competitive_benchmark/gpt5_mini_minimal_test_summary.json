@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-11-08 09:30:38",
+  "test_type": "GPT-5-MINI-MINIMAL-REASONING-TEST",
+  "citations_tested": 121,
+  "model": "GPT-5-mini",
+  "prompt_type": "optimized",
+  "reasoning_effort": "minimal",
+  "accuracy": 0.0,
+  "correct_count": 0,
+  "previous_accuracy": 0.7768595041322314,
+  "accuracy_difference": -0.7768595041322314,
+  "detailed_file": "GPT-5-mini_optimized_minimal_detailed_121.jsonl"
+}
