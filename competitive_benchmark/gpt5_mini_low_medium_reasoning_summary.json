@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-11-08 10:45:40",
+  "test_type": "GPT-5-MINI-LOW-MEDIUM-REASONING-TEST",
+  "citations_tested": 121,
+  "model": "GPT-5-mini",
+  "prompt_type": "optimized",
+  "baseline_accuracy": 0.7768595041322314,
+  "minimal_accuracy": 0.0,
+  "results": {
+    "GPT-5-mini_optimized_low": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "detailed_file": "GPT-5-mini_optimized_low_detailed_121.jsonl"
+    },
+    "GPT-5-mini_optimized_medium": {
+      "accuracy": 0.0,
+      "correct": 0,
+      "detailed_file": "GPT-5-mini_optimized_medium_detailed_121.jsonl"
+    }
+  },
+  "best_option": "baseline",
+  "best_accuracy": 0.7768595041322314
+}
