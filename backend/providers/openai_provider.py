@@ -53,16 +53,24 @@ class OpenAIProvider(CitationValidator):
         api_start = time.time()
 
         try:
-            response = await self.client.chat.completions.create(
-                model=self.model,
-                messages=[
+            # GPT-5 models require max_completion_tokens instead of max_tokens
+            completion_kwargs = {
+                "model": self.model,
+                "messages": [
                     {"role": "system", "content": "You are an expert APA 7th edition citation validator."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.1,
-                max_tokens=4000,  # Increased to handle ~10+ citations
-                timeout=30.0  # 30 second timeout
-            )
+                "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
+                "timeout": 30.0  # 30 second timeout
+            }
+
+            # Use appropriate parameter based on model family
+            if self.model.startswith("gpt-5"):
+                completion_kwargs["max_completion_tokens"] = 4000
+            else:
+                completion_kwargs["max_tokens"] = 4000
+
+            response = await self.client.chat.completions.create(**completion_kwargs)
 
             api_time = time.time() - api_start
             logger.info(f"OpenAI API call completed in {api_time:.3f}s")
