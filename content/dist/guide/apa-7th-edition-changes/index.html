@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/mini-checker.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZWHZQP8N9"></script>
@@ -72,7 +74,8 @@
 
 <hr />
 <div class="toc">
-<h2>📑 Table of Contents</h2>
+<section class="content-section" id="-table-of-contents">
+<h2 >📑 Table of Contents</h2>
 <ol>
 <li><a href="#tldr---quick-summary">Quick Summary</a></li>
 <li><a href="#introduction">Introduction</a></li>
@@ -86,9 +89,9 @@
 </div>
 
 <hr />
-<h2 id="tldr-quick-summary">⚡ TL;DR - Quick Summary</h2>
+<h2 id="-tldr---quick-summary">⚡ TL;DR - Quick Summary</h2>
 <div class="tldr-box">
-<h3>⚡ Key Points</h3>
+<h3 id="-key-points">⚡ Key Points</h3>
 <ul>
 <li>Master APA 7th edition citation formatting</li>
 <li>Identify and fix common citation errors</li>
@@ -100,23 +103,32 @@
 </div>
 
 <hr />
-<h2 id="introduction">Introduction</h2>
+</section>
+<section class="content-section" id="introduction">
+<h2 >Introduction</h2>
 <p>The transition from the sixth to the seventh edition of the APA Publication Manual can feel overwhelming. If you are accustomed to the guidelines of APA 6, you may find yourself puzzled by the changes introduced in APA 7. This guide is designed to help you navigate the updates, clarify any confusion, and ensure that your citations are accurate and compliant with the latest standards.</p>
 <p>One of the most significant shifts in APA 7 is related to author formatting. For instance, while APA 6 allowed the use of "et al." for works with seven or more authors, APA 7 requires you to list all authors for works with three to twenty contributors. This change emphasizes the importance of acknowledging each individual's contribution, which can be a relief for those who want to ensure proper attribution. Additionally, the formatting for both single and two-author citations has been streamlined to create consistency and ease of use.</p>
 <p>Another notable update involves how organizations are treated as authors. In APA 7, you are encouraged to use the full official name of the organization, rather than abbreviating it. This adjustment may seem minor, but it enhances clarity for readers who may not be familiar with specific acronyms. </p>
 <p>Throughout this guide, you will find detailed explanations of these changes, along with practical examples to help you implement the new rules effectively. Whether you are a student turning in your first research paper or a seasoned academic revising your manuscript, this guide aims to alleviate the frustrations that come with updating your citation practices. </p>
 <p>By the end of this guide, you will feel more confident in your understanding of APA 7 changes compared to APA 6. You will be well-equipped to tackle your citations with clarity and precision. Let us dive into the specifics and ensure that you are fully prepared to embrace the latest in APA citation standards.</p>
 <hr />
-<div class="cta-placement" id="mini-checker-intro">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Quick Check Your Citation</h4>
+<p>Paste a single citation to instantly validate APA formatting</p>
+<textarea placeholder="Smith, J. A. (2020). Article title goes here. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example" name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
-<h2 id="understanding-apa-7-changes-from-apa-6">Understanding Apa 7 Changes From Apa 6</h2>
-<h2 id="comprehensive-guide-to-changes-from-apa-6-to-apa-7">Comprehensive Guide to Changes from APA 6 to APA 7</h2>
+</section>
+<section class="content-section" id="understanding-apa-7-changes-from-apa-6">
+<h2 >Understanding Apa 7 Changes From Apa 6</h2>
+</section>
+<section class="content-section" id="comprehensive-guide-to-changes-from-apa-6-to-apa-7">
+<h2 >Comprehensive Guide to Changes from APA 6 to APA 7</h2>
 <p>The American Psychological Association (APA) recently updated its citation style from the 6th to the 7th edition. This guide provides a detailed overview of the key changes in formatting and citation rules. Understanding these changes is essential for students, educators, and researchers who must adhere to APA style in their writing. </p>
 <h3 id="author-formatting">Author Formatting</h3>
-<h4 id="single-author-format">Single Author Format</h4>
+<h4>Single Author Format</h4>
 <p>In the 7th edition, the formatting for a single author remains largely unchanged from the 6th edition. The author’s last name is followed by a comma and their first and middle initials. The initials should be separated by periods but not spaces. This format applies to all reference types, including journal articles, books, and webpages. </p>
 <p><strong>Examples:</strong><br />
 - Correct: Johnson, M. K.<br />
@@ -124,19 +136,19 @@
 - Incorrect: M. K. Johnson<br />
 - Incorrect: Johnson, M.K.</p>
 <p>This rule ensures consistency in citation formats and improves the alphabetical ordering of references.</p>
-<h4 id="two-authors-format">Two Authors Format</h4>
+<h4>Two Authors Format</h4>
 <p>For works with two authors, both names should be inverted and separated by an ampersand (&amp;). This replaces the previous use of 'and' in reference lists. </p>
 <p><strong>Examples:</strong><br />
 - Correct: Smith, J. D., &amp; Brown, A. M.<br />
 - Incorrect: Smith, J. D. and Brown, A. M.</p>
 <p>The change to using an ampersand maintains clarity and consistency across citations.</p>
-<h4 id="three-to-twenty-authors">Three to Twenty Authors</h4>
+<h4>Three to Twenty Authors</h4>
 <p>A significant change in APA 7 is that all authors of a work with three to twenty authors must be listed in the reference list. Each author's name should be inverted with initials, separated by commas, with an ampersand before the last author's name.</p>
 <p><strong>Examples:</strong><br />
 - Correct: Anderson, K. L., Williams, J. M., Davis, S. R., &amp; Thompson, B. P.<br />
 - Incorrect: Anderson, K. L., et al.</p>
 <p>This change aims to give proper credit to all contributors and improves readability for moderately sized author groups.</p>
-<h4 id="twenty-or-more-authors">Twenty or More Authors</h4>
+<h4>Twenty or More Authors</h4>
 <p>When a work has 21 or more authors, the format changes significantly. The first 19 authors are listed, followed by an ellipsis (...), and then the final author's name. </p>
 <p><strong>Examples:</strong><br />
 - Correct: Author1, A. A., Author2, B. B., ..., LastAuthor, Z. Z.<br />
@@ -160,19 +172,19 @@
 - Incorrect: S.J. (Ed.). (2020). The complete guide.</p>
 <p>This flexibility ensures that references can still be created even when author information is incomplete.</p>
 <h3 id="date-formatting-changes">Date Formatting Changes</h3>
-<h4 id="basic-year-format">Basic Year Format</h4>
+<h4>Basic Year Format</h4>
 <p>In APA 7, the publication year is placed in parentheses following the author's name. This format has remained consistent from APA 6, but with minor clarifications regarding copyright versus publication year.</p>
 <p><strong>Examples:</strong><br />
 - Correct: Smith, J. (2023). Research methods in psychology.<br />
 - Incorrect: Smith, J. 2023. Research methods in psychology.</p>
 <p>This consistency helps standardize the way years are presented across various types of sources.</p>
-<h4 id="no-date-format">No Date Format</h4>
+<h4>No Date Format</h4>
 <p>When no publication date is available, (n.d.) should be used in place of the year. This format remains unchanged from APA 6 but offers clearer guidance on when to use (n.d.) versus seeking approximate dates.</p>
 <p><strong>Examples:</strong><br />
 - Correct: Ancient Writing Institute. (n.d.). Cuneiform tablet translations.<br />
 - Incorrect: Ancient Writing Institute. (no date). Cuneiform tablet translations.</p>
 <p>This rule allows for proper citation even when dates are not available.</p>
-<h4 id="in-press-format">In Press Format</h4>
+<h4>In Press Format</h4>
 <p>For works that have been accepted for publication but not yet published, the phrase (in press) is used instead of a year. This change clarifies that it applies only to works formally accepted for publication, not merely submitted.</p>
 <p><strong>Examples:</strong><br />
 - Correct: Thompson, R. K. (in press). Neural mechanisms of memory consolidation.<br />
@@ -198,7 +210,9 @@
 </ol>
 <p>In conclusion, the transition from APA 6 to APA 7 includes several significant changes that enhance clarity and consistency in academic writing. By understanding these changes, writers can improve their citation practices and ensure their work adheres to the latest standards.</p>
 <hr />
-<h2 id="comprehensive-examples">📚 Comprehensive Examples</h2>
+</section>
+<section class="content-section" id="-comprehensive-examples">
+<h2 >📚 Comprehensive Examples</h2>
 <div class="example-box">
 <div class="example-variation">The impact of social media on adolescent mental health: A longitudinal study</div>
 <div class="citation-example">
@@ -350,12 +364,17 @@ Kim, S. H., O'Connor, M. P., & Wilson, R. T. (2020). Evidence-based practice imp
 </div>
 
 <hr />
-<div class="cta-placement" id="mini-checker-test">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Test What You've Learned</h4>
+<p>Try checking one of your own citations</p>
+<textarea placeholder="Paste your citation here..." name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
-<h2 id="common-errors-to-avoid">❌ Common Errors to Avoid</h2>
+</section>
+<section class="content-section" id="-common-errors-to-avoid">
+<h2 >❌ Common Errors to Avoid</h2>
 <div class="error-example">
 <h4>❌ Article Title Title Case Error</h4>
 <div class="wrong-example">
@@ -576,7 +595,9 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="validation-checklist">✅ Validation Checklist</h2>
+</section>
+<section class="content-section" id="-validation-checklist">
+<h2 >✅ Validation Checklist</h2>
 <div class="checklist">
 <p>Use this checklist to verify your citations before submission:</p>
 <ul>
@@ -594,7 +615,9 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="frequently-asked-questions">🙋 Frequently Asked Questions</h2>
+</section>
+<section class="content-section" id="-frequently-asked-questions">
+<h2 >🙋 Frequently Asked Questions</h2>
 <div class="faq-item">
 <div class="faq-question">What are the major changes in referencing electronic sources from APA 6 to APA 7?</div>
 <div class="faq-answer">In APA 7, the formatting for electronic sources has been simplified. For instance, the inclusion of 'Retrieved from' before the URL is no longer necessary unless a retrieval date is required for the source. Additionally, if a DOI is available, it should be presented as a clickable link, following the format 'https://doi.org/xxxx'. This change is practical for academic writing as it improves accessibility and readability. For more detailed information, you can refer to the official APA Style website at https://apastyle.apa.org.</div>
@@ -651,14 +674,18 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="related-resources">🔗 Related Resources</h2>
+</section>
+<section class="content-section" id="-related-resources">
+<h2 >🔗 Related Resources</h2>
 <ul>
 <li><a href="/checker/">APA Citation Checker</a></li>
 <li><a href="/guides/common-errors/">Common APA Errors</a></li>
 <li><a href="/guides/apa-style/">APA Style Guide</a></li>
 </ul>
 <hr />
-<h2 id="conclusion">✨ Conclusion</h2>
+</section>
+<section class="content-section" id="-conclusion">
+<h2 >✨ Conclusion</h2>
 <p>This guide provides you with comprehensive knowledge to master APA 7th edition citation format. By following the guidelines and examples provided, you'll be able to create accurate citations that demonstrate academic rigor and professionalism.</p>
 <p>Remember to:<br />
 - Always double-check author names and publication dates<br />
@@ -667,8 +694,11 @@ Mindfulness practices for stress reduction: A beginner's guide
 - Validate your citations before submission</p>
 <p>Taking the time to ensure citation accuracy shows attention to detail and respect for academic standards.</p>
 <hr />
-<div class="cta-placement" id="mini-checker-final">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Quick Check Your Citation</h4>
+<p>Validate APA formatting instantly</p>
+<textarea placeholder="Enter your citation here..." name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
@@ -678,6 +708,7 @@ Mindfulness practices for stress reduction: A beginner's guide
 <div class="author-info">
     <p>This guide was created to help students and researchers master APA 7th edition citation format. For more help with specific citation types, browse our complete collection of citation guides.</p>
 </div>
+</section>
 
             <!-- MiniChecker CTA placements (will be populated by JavaScript) -->
             <div class="cta-placement" id="mini-checker-1">
@@ -709,7 +740,6 @@ Mindfulness practices for stress reduction: A beginner's guide
                 <ul>
                     <li><a href="/">Citation Checker</a></li>
                     <li><a href="/generator/">Format Generator</a></li>
-                    <li><a href="/tools/doi-lookup/">DOI Lookup</a></li>
                     <li><a href="/tools/style-comparison/">Style Comparison</a></li>
                 </ul>
             </div>
@@ -732,12 +762,7 @@ Mindfulness practices for stress reduction: A beginner's guide
     <!-- Footer -->
     <footer class="site-footer">
         <div class="site-footer-content">
-            <p>&copy; 2025 Citation Checker. Last updated: 2025-10-25</p>
-            <p class="footer-links">
-                <a href="/privacy">Privacy Policy</a> |
-                <a href="/terms">Terms of Service</a> |
-                <a href="/contact">Contact Us</a>
-            </p>
+            <p>&copy; 2024 Citation Checker. Last updated: 2025-10-25</p>
             <p class="footer-tagline">Built for researchers, by researchers</p>
         </div>
     </footer>
@@ -748,8 +773,27 @@ Mindfulness practices for stress reduction: A beginner's guide
         window.process = { env: { NODE_ENV: 'production' } };
     </script>
     <script>
+        // Helper function to extract source type from URL
+        function getSourceTypeFromURL() {
+            const path = window.location.pathname;
+
+            // Extract source type from URL patterns like /how-to-cite-[source]-[style]/
+            const match = path.match(/\/how-to-cite-([^-]+)-/);
+            if (match && match[1]) {
+                return match[1].toLowerCase();
+            }
+
+            // Extract source type from specific source URLs like /source/[source-type]/
+            const sourceMatch = path.match(/\/source\/([^\/]+)/);
+            if (sourceMatch && sourceMatch[1]) {
+                return sourceMatch[1].toLowerCase();
+            }
+
+            return 'unknown';
+        }
+
         // Citation checking function for static MiniChecker components in markdown
-        function checkCitation(button) {
+        async function checkCitation(button) {
             // Find the textarea within the same mini-checker container
             const miniChecker = button.closest('.mini-checker');
             const textarea = miniChecker ? miniChecker.querySelector('textarea') : null;
@@ -767,8 +811,91 @@ Mindfulness practices for stress reduction: A beginner's guide
                 return;
             }
 
-            // Redirect to full checker
-            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+            // Track mini_checker_opened event
+            if (typeof gtag === 'function') {
+                const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                               document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                const sourceType = getSourceTypeFromURL();
+
+                gtag('event', 'mini_checker_opened', {
+                    page_type: pageType,
+                    source_type: sourceType
+                });
+            }
+
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Checking...';
+
+            // Remove previous results
+            const existingResults = miniChecker.querySelector('.mini-checker-results');
+            if (existingResults) {
+                existingResults.remove();
+            }
+
+            try {
+                // Call validation API
+                const response = await fetch('/api/validate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        citations: citation,
+                        style: 'apa7',
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Validation failed');
+                }
+
+                const data = await response.json();
+
+                // Extract errors from response (API returns {results: [{errors: [...]}]})
+                const errors = data.results && data.results[0] && data.results[0].errors ? data.results[0].errors : [];
+
+                // Track mini_checker_validated event
+                if (typeof gtag === 'function') {
+                    const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                                   document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                    const sourceType = getSourceTypeFromURL();
+
+                    gtag('event', 'mini_checker_validated', {
+                        page_type: pageType,
+                        source_type: sourceType,
+                        validation_result: errors.length > 0 ? 'errors_found' : 'valid',
+                        errors_count: errors.length
+                    });
+                }
+
+                // Show results inline
+                const resultsDiv = document.createElement('div');
+                resultsDiv.className = 'mini-checker-results';
+                resultsDiv.style.marginTop = '1rem';
+                resultsDiv.style.padding = '1rem';
+                resultsDiv.style.backgroundColor = '#f9fafb';
+                resultsDiv.style.borderRadius = '0.5rem';
+                resultsDiv.style.border = '1px solid #e5e7eb';
+
+                if (errors.length > 0) {
+                    resultsDiv.innerHTML = '<h5 style="color: #dc2626; margin-bottom: 0.5rem;">❌ Issues Found:</h5><ul style="margin: 0; padding-left: 1.5rem;">' +
+                        errors.map(err => '<li style="color: #dc2626; margin-bottom: 0.25rem;"><strong>' + err.component + ':</strong> ' + err.problem + '</li>').join('') +
+                        '</ul><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                } else {
+                    resultsDiv.innerHTML = '<p style="color: #059669; margin: 0;">✅ Citation looks good!</p><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                }
+
+                miniChecker.appendChild(resultsDiv);
+
+            } catch (err) {
+                console.error('Validation error:', err);
+                alert('Error checking citation. Please try again or use the main checker.');
+            } finally {
+                // Reset button
+                button.disabled = false;
+                button.textContent = button.getAttribute('data-original-text') || 'Check Citation';
+            }
         }
 
         // Initialize static mini-checkers when page loads
@@ -786,6 +913,9 @@ Mindfulness practices for stress reduction: A beginner's guide
                 });
 
                 if (button && textarea) {
+                    // Store original button text
+                    button.setAttribute('data-original-text', button.textContent);
+
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
                         console.log('Mini-checker button clicked');

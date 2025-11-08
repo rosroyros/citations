@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="/assets/css/mini-checker.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZWHZQP8N9"></script>
@@ -72,7 +74,8 @@
 
 <hr />
 <div class="toc">
-<h2>📑 Table of Contents</h2>
+<section class="content-section" id="-table-of-contents">
+<h2 >📑 Table of Contents</h2>
 <ol>
 <li><a href="#tldr---quick-summary">Quick Summary</a></li>
 <li><a href="#introduction">Introduction</a></li>
@@ -86,9 +89,9 @@
 </div>
 
 <hr />
-<h2 id="tldr-quick-summary">⚡ TL;DR - Quick Summary</h2>
+<h2 id="-tldr---quick-summary">⚡ TL;DR - Quick Summary</h2>
 <div class="tldr-box">
-<h3>⚡ Key Points</h3>
+<h3 id="-key-points">⚡ Key Points</h3>
 <ul>
 <li>Master APA 7th edition citation formatting</li>
 <li>Identify and fix common citation errors</li>
@@ -100,22 +103,31 @@
 </div>
 
 <hr />
-<h2 id="introduction">Introduction</h2>
+</section>
+<section class="content-section" id="introduction">
+<h2 >Introduction</h2>
 <p>Creating an accurate APA reference list can be a daunting task, especially when you are managing multiple sources and trying to adhere to specific formatting rules. You may find yourself frustrated by missing errors that are not discovered until it is too late, often resulting in feedback from instructors that you wish you could have avoided. This guide is designed to help you validate your reference list and ensure its accuracy. By following the guidelines outlined here, you will gain confidence in your ability to create a well-organized and correctly formatted APA bibliography.</p>
 <p>In this guide, we will explore various aspects of reference verification, focusing on the most common pitfalls that students encounter. You will learn how to check for format consistency issues, ensuring that every entry in your reference list adheres to the latest APA 7th edition rules. From single authors to multiple contributors, the formatting requirements can vary significantly, and understanding these nuances is crucial for avoiding common mistakes.</p>
 <p>We will break down essential rules, such as the proper formatting for single authors and how to handle works with two or more authors. Additionally, we will address the importance of correctly citing organizations as authors and how to navigate the challenges of long author lists. You will find practical examples throughout the guide to illustrate the correct formats and clarify any uncertainties you may have.</p>
 <p>By the end of this guide, you will possess the tools necessary to validate your APA reference list effectively. You will feel empowered to check your bibliography with a critical eye, reducing the likelihood of receiving unexpected feedback and increasing your confidence in your academic work. Let us embark on this journey to ensure that your reference list is as polished and professional as your writing.</p>
 <hr />
-<div class="cta-placement" id="mini-checker-intro">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Quick Check Your Citation</h4>
+<p>Paste a single citation to instantly validate APA formatting</p>
+<textarea placeholder="Smith, J. A. (2020). Article title goes here. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example" name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
-<h2 id="understanding-validate-apa-reference-list">Understanding Validate Apa Reference List</h2>
-<h2 id="comprehensive-guide-to-validate-an-apa-reference-list">Comprehensive Guide to Validate an APA Reference List</h2>
+</section>
+<section class="content-section" id="understanding-validate-apa-reference-list">
+<h2 >Understanding Validate Apa Reference List</h2>
+</section>
+<section class="content-section" id="comprehensive-guide-to-validate-an-apa-reference-list">
+<h2 >Comprehensive Guide to Validate an APA Reference List</h2>
 <p>Creating a reference list in APA style requires careful attention to detail. The American Psychological Association (APA) has established specific formatting rules that ensure clarity and consistency. This guide provides an overview of essential rules for validating an APA reference list, along with practical examples and common pitfalls.</p>
 <h3 id="author-formatting">Author Formatting</h3>
-<h4 id="single-author-format">Single Author Format</h4>
+<h4>Single Author Format</h4>
 <p>In APA 7th edition, a single author's name should appear in the format of last name followed by a comma and the first initial, along with the middle initial if applicable. The initials must be separated by periods but not spaces.</p>
 <p><strong>Correct Format Examples:</strong><br />
 - Johnson, M. K.<br />
@@ -129,7 +141,7 @@ This rule promotes uniformity across citation formats. Inverting the author's na
 - Forgetting to invert the name (putting first name first)<br />
 - Omitting the comma after the last name<br />
 - Adding spaces between initials</p>
-<h4 id="two-authors-format">Two Authors Format</h4>
+<h4>Two Authors Format</h4>
 <p>For works with two authors, both names should be inverted and separated by an ampersand (&amp;), not the word "and." </p>
 <p><strong>Correct Format Examples:</strong><br />
 - Smith, J. D., &amp; Brown, A. M.<br />
@@ -144,7 +156,7 @@ This formatting distinction helps differentiate APA style from other citation fo
 - Failing to invert the second author's name<br />
 - Missing the comma before the ampersand</p>
 <h3 id="handling-multiple-authors">Handling Multiple Authors</h3>
-<h4 id="three-to-twenty-authors">Three to Twenty Authors</h4>
+<h4>Three to Twenty Authors</h4>
 <p>When a work has three to twenty authors, all authors should be listed in the reference list. Each author's name should be inverted and separated by commas, with an ampersand before the final author's name.</p>
 <p><strong>Correct Format Examples:</strong><br />
 - Anderson, K. L., Williams, J. M., Davis, S. R., &amp; Thompson, B. P.<br />
@@ -158,7 +170,7 @@ Listing all authors properly gives credit to everyone involved in the work. This
 - Using "et al." too soon<br />
 - Inaccurate author separation<br />
 - Omitting any authors</p>
-<h4 id="twenty-or-more-authors">Twenty or More Authors</h4>
+<h4>Twenty or More Authors</h4>
 <p>For works with twenty-one or more authors, list the first 19 authors, insert an ellipsis (...), and then include the final author's name.</p>
 <p><strong>Correct Format Examples:</strong><br />
 - Author1, A. A., Author2, B. B., Author3, C. C., Author4, D. D., Author5, E. E., Author6, F. F., Author7, G. G., Author8, H. H., Author9, I. I., Author10, J. J., Author11, K. K., Author12, L. L., Author13, M. M., Author14, N. N., Author15, O. O., Author16, P. P., Author17, Q. Q., Author18, R. R., Author19, S. S., ... LastAuthor, Z. Z.<br />
@@ -203,7 +215,9 @@ This allows readers to identify works by their titles when authorship is unclear
 <h3 id="conclusion">Conclusion</h3>
 <p>Validating an APA reference list involves comprehensively applying the formatting rules established by the APA. Each rule has specific importance in ensuring clarity and consistency across citations. By adhering to these guidelines and being aware of common pitfalls, you can create a reference list that is not only accurate but also clear for readers. Always remember to double-check your references against the latest APA Manual for any updates or changes.</p>
 <hr />
-<h2 id="comprehensive-examples">📚 Comprehensive Examples</h2>
+</section>
+<section class="content-section" id="-comprehensive-examples">
+<h2 >📚 Comprehensive Examples</h2>
 <div class="example-box">
 <div class="example-variation">The impact of social media on adolescent mental health: A longitudinal study</div>
 <div class="citation-example">
@@ -355,12 +369,17 @@ Kim, S. H., O'Connor, M. P., & Wilson, R. T. (2020). Evidence-based practice imp
 </div>
 
 <hr />
-<div class="cta-placement" id="mini-checker-test">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Test What You've Learned</h4>
+<p>Try checking one of your own citations</p>
+<textarea placeholder="Paste your citation here..." name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
-<h2 id="common-errors-to-avoid">❌ Common Errors to Avoid</h2>
+</section>
+<section class="content-section" id="-common-errors-to-avoid">
+<h2 >❌ Common Errors to Avoid</h2>
 <div class="error-example">
 <h4>❌ Article Title Title Case Error</h4>
 <div class="wrong-example">
@@ -581,7 +600,9 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="validation-checklist">✅ Validation Checklist</h2>
+</section>
+<section class="content-section" id="-validation-checklist">
+<h2 >✅ Validation Checklist</h2>
 <div class="checklist">
 <p>Use this checklist to verify your citations before submission:</p>
 <ul>
@@ -599,7 +620,9 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="frequently-asked-questions">🙋 Frequently Asked Questions</h2>
+</section>
+<section class="content-section" id="-frequently-asked-questions">
+<h2 >🙋 Frequently Asked Questions</h2>
 <div class="faq-item">
 <div class="faq-question">How do I format a book reference in APA style?</div>
 <div class="faq-answer">To format a book reference in APA style, you need to include the author's last name, first initial, publication year, title of the book in italics, the edition if it is not the first, and the publisher's name. For example, a basic book reference would look like this: Author, A. A. (Year). Title of the book. Publisher. If the book has a DOI or if it is an e-book, include that information at the end. For detailed examples, you can refer to the APA Publication Manual or the APA Style website.</div>
@@ -656,14 +679,18 @@ Mindfulness practices for stress reduction: A beginner's guide
 </div>
 
 <hr />
-<h2 id="related-resources">🔗 Related Resources</h2>
+</section>
+<section class="content-section" id="-related-resources">
+<h2 >🔗 Related Resources</h2>
 <ul>
 <li><a href="/checker/">APA Citation Checker</a></li>
 <li><a href="/guides/common-errors/">Common APA Errors</a></li>
 <li><a href="/guides/apa-style/">APA Style Guide</a></li>
 </ul>
 <hr />
-<h2 id="conclusion_1">✨ Conclusion</h2>
+</section>
+<section class="content-section" id="-conclusion">
+<h2 >✨ Conclusion</h2>
 <p>This guide provides you with comprehensive knowledge to master APA 7th edition citation format. By following the guidelines and examples provided, you'll be able to create accurate citations that demonstrate academic rigor and professionalism.</p>
 <p>Remember to:<br />
 - Always double-check author names and publication dates<br />
@@ -672,8 +699,11 @@ Mindfulness practices for stress reduction: A beginner's guide
 - Validate your citations before submission</p>
 <p>Taking the time to ensure citation accuracy shows attention to detail and respect for academic standards.</p>
 <hr />
-<div class="cta-placement" id="mini-checker-final">
-<!-- MiniChecker component will be rendered here -->
+<div class="mini-checker">
+<h4>🔍 Quick Check Your Citation</h4>
+<p>Validate APA formatting instantly</p>
+<textarea placeholder="Enter your citation here..." name="citation" rows="4" style="width: 100%; border: 2px solid #e5e7eb; border-radius: 0.5rem; padding: 0.75rem; font-family: 'Courier New', Courier, monospace; font-size: 0.875rem; resize: vertical; min-height: 80px;"></textarea>
+<button onclick="checkCitation(this)" style="width: 100%; background: #9333ea; color: white; border: none; padding: 0.75rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.2s; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">Check Citation</button>
 </div>
 
 <hr />
@@ -683,6 +713,7 @@ Mindfulness practices for stress reduction: A beginner's guide
 <div class="author-info">
     <p>This guide was created to help students and researchers master APA 7th edition citation format. For more help with specific citation types, browse our complete collection of citation guides.</p>
 </div>
+</section>
 
             <!-- MiniChecker CTA placements (will be populated by JavaScript) -->
             <div class="cta-placement" id="mini-checker-1">
@@ -714,7 +745,6 @@ Mindfulness practices for stress reduction: A beginner's guide
                 <ul>
                     <li><a href="/">Citation Checker</a></li>
                     <li><a href="/generator/">Format Generator</a></li>
-                    <li><a href="/tools/doi-lookup/">DOI Lookup</a></li>
                     <li><a href="/tools/style-comparison/">Style Comparison</a></li>
                 </ul>
             </div>
@@ -737,12 +767,7 @@ Mindfulness practices for stress reduction: A beginner's guide
     <!-- Footer -->
     <footer class="site-footer">
         <div class="site-footer-content">
-            <p>&copy; 2025 Citation Checker. Last updated: 2025-10-25</p>
-            <p class="footer-links">
-                <a href="/privacy">Privacy Policy</a> |
-                <a href="/terms">Terms of Service</a> |
-                <a href="/contact">Contact Us</a>
-            </p>
+            <p>&copy; 2024 Citation Checker. Last updated: 2025-10-25</p>
             <p class="footer-tagline">Built for researchers, by researchers</p>
         </div>
     </footer>
@@ -753,8 +778,27 @@ Mindfulness practices for stress reduction: A beginner's guide
         window.process = { env: { NODE_ENV: 'production' } };
     </script>
     <script>
+        // Helper function to extract source type from URL
+        function getSourceTypeFromURL() {
+            const path = window.location.pathname;
+
+            // Extract source type from URL patterns like /how-to-cite-[source]-[style]/
+            const match = path.match(/\/how-to-cite-([^-]+)-/);
+            if (match && match[1]) {
+                return match[1].toLowerCase();
+            }
+
+            // Extract source type from specific source URLs like /source/[source-type]/
+            const sourceMatch = path.match(/\/source\/([^\/]+)/);
+            if (sourceMatch && sourceMatch[1]) {
+                return sourceMatch[1].toLowerCase();
+            }
+
+            return 'unknown';
+        }
+
         // Citation checking function for static MiniChecker components in markdown
-        function checkCitation(button) {
+        async function checkCitation(button) {
             // Find the textarea within the same mini-checker container
             const miniChecker = button.closest('.mini-checker');
             const textarea = miniChecker ? miniChecker.querySelector('textarea') : null;
@@ -772,8 +816,91 @@ Mindfulness practices for stress reduction: A beginner's guide
                 return;
             }
 
-            // Redirect to full checker
-            window.location.href = '/checker/?citation=' + encodeURIComponent(citation);
+            // Track mini_checker_opened event
+            if (typeof gtag === 'function') {
+                const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                               document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                const sourceType = getSourceTypeFromURL();
+
+                gtag('event', 'mini_checker_opened', {
+                    page_type: pageType,
+                    source_type: sourceType
+                });
+            }
+
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Checking...';
+
+            // Remove previous results
+            const existingResults = miniChecker.querySelector('.mini-checker-results');
+            if (existingResults) {
+                existingResults.remove();
+            }
+
+            try {
+                // Call validation API
+                const response = await fetch('/api/validate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        citations: citation,
+                        style: 'apa7',
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Validation failed');
+                }
+
+                const data = await response.json();
+
+                // Extract errors from response (API returns {results: [{errors: [...]}]})
+                const errors = data.results && data.results[0] && data.results[0].errors ? data.results[0].errors : [];
+
+                // Track mini_checker_validated event
+                if (typeof gtag === 'function') {
+                    const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                                   document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                    const sourceType = getSourceTypeFromURL();
+
+                    gtag('event', 'mini_checker_validated', {
+                        page_type: pageType,
+                        source_type: sourceType,
+                        validation_result: errors.length > 0 ? 'errors_found' : 'valid',
+                        errors_count: errors.length
+                    });
+                }
+
+                // Show results inline
+                const resultsDiv = document.createElement('div');
+                resultsDiv.className = 'mini-checker-results';
+                resultsDiv.style.marginTop = '1rem';
+                resultsDiv.style.padding = '1rem';
+                resultsDiv.style.backgroundColor = '#f9fafb';
+                resultsDiv.style.borderRadius = '0.5rem';
+                resultsDiv.style.border = '1px solid #e5e7eb';
+
+                if (errors.length > 0) {
+                    resultsDiv.innerHTML = '<h5 style="color: #dc2626; margin-bottom: 0.5rem;">❌ Issues Found:</h5><ul style="margin: 0; padding-left: 1.5rem;">' +
+                        errors.map(err => '<li style="color: #dc2626; margin-bottom: 0.25rem;"><strong>' + err.component + ':</strong> ' + err.problem + '</li>').join('') +
+                        '</ul><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                } else {
+                    resultsDiv.innerHTML = '<p style="color: #059669; margin: 0;">✅ Citation looks good!</p><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                }
+
+                miniChecker.appendChild(resultsDiv);
+
+            } catch (err) {
+                console.error('Validation error:', err);
+                alert('Error checking citation. Please try again or use the main checker.');
+            } finally {
+                // Reset button
+                button.disabled = false;
+                button.textContent = button.getAttribute('data-original-text') || 'Check Citation';
+            }
         }
 
         // Initialize static mini-checkers when page loads
@@ -791,6 +918,9 @@ Mindfulness practices for stress reduction: A beginner's guide
                 });
 
                 if (button && textarea) {
+                    // Store original button text
+                    button.setAttribute('data-original-text', button.textContent);
+
                     button.addEventListener('click', function(e) {
                         e.preventDefault();
                         console.log('Mini-checker button clicked');
