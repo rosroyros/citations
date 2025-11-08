@@ -15,13 +15,13 @@ class OpenAIProvider(CitationValidator):
     OpenAI-based citation validator using GPT models.
     """
 
-    def __init__(self, api_key: str = None, model: str = "gpt-4o-mini"):
+    def __init__(self, api_key: str = None, model: str = "gpt-5-mini"):
         """
         Initialize OpenAI provider.
 
         Args:
             api_key: OpenAI API key (defaults to OPENAI_API_KEY env var)
-            model: Model name to use (default: gpt-4o-mini)
+            model: Model name to use (default: gpt-5-mini)
         """
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.model = model

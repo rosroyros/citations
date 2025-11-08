@@ -26,12 +26,12 @@ class LLMWriter:
     Pricing: $0.15/1M input tokens, $0.60/1M output tokens
     """
 
-    def __init__(self, model: str = "gpt-4o-mini", api_key: Optional[str] = None):
+    def __init__(self, model: str = "gpt-5-mini", api_key: Optional[str] = None):
         """
         Initialize LLM writer
 
         Args:
-            model: OpenAI model to use (default: gpt-4o-mini)
+            model: OpenAI model to use (default: gpt-5-mini)
             api_key: OpenAI API key (optional, uses env var if not provided)
         """
         logger.info(f"Initializing LLMWriter with model: {model}")
