@@ -66,7 +66,8 @@ class OpenAIProvider(CitationValidator):
 
             # Use appropriate parameter based on model family
             if self.model.startswith("gpt-5"):
-                completion_kwargs["max_completion_tokens"] = 4000
+                completion_kwargs["max_completion_tokens"] = 4000  # ~25-30 citations worth of responses
+                completion_kwargs["reasoning_effort"] = "minimal"  # Citation validation is deterministic/lightweight task
             else:
                 completion_kwargs["max_tokens"] = 4000
 
