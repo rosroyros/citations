@@ -87,9 +87,17 @@ const Success = () => {
       console.log('API response status:', response.status)
 
       if (!response.ok) {
-        const errorData = await response.json()
-        // FastAPI uses 'detail', but support both 'detail' and 'error' keys
-        throw new Error(errorData.detail || errorData.error || 'Validation failed')
+        // Check content-type before calling .json() to avoid "string did not match" errors
+        const contentType = response.headers.get('content-type')
+        if (contentType?.includes('application/json')) {
+          const errorData = await response.json()
+          // FastAPI uses 'detail', but support both 'detail' and 'error' keys
+          throw new Error(errorData.detail || errorData.error || 'Validation failed')
+        } else {
+          // Handle non-JSON error responses (502, 504, timeout errors, etc.)
+          const text = await response.text()
+          throw new Error(`Server error (${response.status}): ${text || 'Request failed'}`)
+        }
       }
 
       const data = await response.json()

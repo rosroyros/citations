@@ -61,7 +61,7 @@ class OpenAIProvider(CitationValidator):
                     {"role": "user", "content": prompt}
                 ],
                 "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
-                "timeout": 30.0  # 30 second timeout
+                "timeout": 120.0  # 120 second timeout (increased to handle complex citations)
             }
 
             # Use appropriate parameter based on model family
@@ -75,6 +75,12 @@ class OpenAIProvider(CitationValidator):
 
             api_time = time.time() - api_start
             logger.info(f"OpenAI API call completed in {api_time:.3f}s")
+
+            # Warn about slow requests (>30s)
+            if api_time > 30:
+                logger.warning(f"SLOW REQUEST: OpenAI API call took {api_time:.1f}s (>30s threshold)")
+                logger.warning(f"Citation preview: {citations[:200]}...")
+
             logger.info(f"Token usage: {response.usage.prompt_tokens} prompt + {response.usage.completion_tokens} completion = {response.usage.total_tokens} total")
 
             # Extract response text
