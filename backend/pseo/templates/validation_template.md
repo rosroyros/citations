@@ -265,8 +265,8 @@ These examples show common {{ validation_element_display }} errors and their cor
 {% endfor %}
 
 ### Complete Checking Guides:
-- **Complete Citation Checking Guide** → [Link]
-- **Reference List Validation** → [Link]
+- **Complete Citation Checking Guide** → [/guides/](https://citationformatchecker.com/guides/)
+- **Reference List Validation** → [/how-to-check-reference-list-apa/](https://citationformatchecker.com/how-to-check-reference-list-apa/)
 
 ### Related Errors:
 {% for error in related_errors %}
