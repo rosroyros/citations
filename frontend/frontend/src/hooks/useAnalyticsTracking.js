@@ -6,6 +6,9 @@ import { trackEvent } from '../utils/analytics';
  * Tracks scroll depth, navigation clicks, CTA clicks, and source type guide content
  */
 export const useAnalyticsTracking = () => {
+  // DEBUG: Log hook mount
+  console.log('🎯 [Analytics] useAnalyticsTracking hook mounted');
+
   const scrollDepthTracked = useRef(new Set());
   const lastScrollDepth = useRef(0);
   const contentInteractionTracked = useRef(new Set());
@@ -21,6 +24,7 @@ export const useAnalyticsTracking = () => {
 
     milestones.forEach(milestone => {
       if (scrollPercentage >= milestone && !scrollDepthTracked.current.has(milestone)) {
+        console.log('📜 [Analytics] Scroll milestone reached:', milestone, '%');
         scrollDepthTracked.current.add(milestone);
         trackEvent('scroll_depth', {
           depth_percentage: milestone,
@@ -34,6 +38,7 @@ export const useAnalyticsTracking = () => {
 
   // Track navigation and CTA clicks
   const trackNavigationClick = useCallback((element, url) => {
+    console.log('🔗 [Analytics] trackNavigationClick called:', element, url);
     trackEvent('nav_link_clicked', {
       element_type: element,
       destination_url: url,
@@ -84,6 +89,7 @@ export const useAnalyticsTracking = () => {
 
   // Track page view on mount
   useEffect(() => {
+    console.log('📄 [Analytics] Page view tracking on mount');
     trackEvent('page_view', {
       page: window.location.pathname,
       page_title: document.title
