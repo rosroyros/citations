@@ -658,6 +658,46 @@
             color: #9ca3af;
         }
 
+        /* PSEO Pages Footer */
+        .site-footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .site-footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .site-footer-content p {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            margin: 0.5rem 0;
+        }
+
+        .site-footer-content .footer-links {
+            margin: 0.75rem 0;
+        }
+
+        .site-footer-content .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .site-footer-content .footer-links a:hover {
+            color: white;
+        }
+
+        .site-footer-content .footer-tagline {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 1rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .content-wrapper {
