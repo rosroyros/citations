@@ -37,11 +37,67 @@
   margin: 0;
 }
 
+.footer-tagline {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+/* Citation Guides Section */
+.footer-guides {
+  margin-bottom: 2rem;
+}
+
+.footer-section-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.footer-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.footer-guide-link {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color 0.2s ease;
+  display: block;
+}
+
+.footer-guide-link:hover {
+  color: white;
+}
+
+.footer-divider {
+  border-top: 1px solid #374151;
+  margin: 2rem 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .footer {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .footer-guides-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .footer-section-title {
+    text-align: center;
+  }
+
+  .footer-guide-link {
+    text-align: center;
   }
 
   .footer-links {
