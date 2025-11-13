@@ -1,0 +1,14 @@
+{
+  "total_citations": 602,
+  "validation_set_size": 122,
+  "corrections_applied": 12,
+  "corrections_by_type": {
+    "VALID_to_INVALID": 9,
+    "INVALID_to_VALID": 3
+  },
+  "corrected_validation_distribution": {
+    "valid": 51,
+    "invalid": 71
+  },
+  "corrections_in_validation_set": 2
+}
