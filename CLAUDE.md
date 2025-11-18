@@ -1,10 +1,15 @@
-**Note**: This project uses [bd (beads)](https://github.com/steveyegge/beads) for issue tracking. Use `bd` commands instead of markdown TODOs. See AGENTS.md for workflow details.
+**Note**: This project uses [bd (beads)](https://github.com/steveyegge/beads) for issue tracking. Use `bd` commands instead of markdown TODOs.
 
 # Development Workflow
 WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE ARE UNEXPECTED ISSUES ALWAYS STOP AND ASK FOR GUIDANCE AND NEVER CONTINUE BEFORE GETTING ANSWERS.
 ## Core Principles
-- **One task at a time**: Focus on single task, update status as you progress
-- **Test-driven development**: Write test → implement → verify → commit
+- **Beads-first workflow**: Always `bd show <id>` before starting, update description during work, close with summary
+- **One task at a time**: Focus on single task, update bd status as you progress
+- **Test-driven development**: Use `superpowers:test-driven-development` skill
+- **Testing best practices**: Use `superpowers:testing-anti-patterns` skill
+- **Debugging**: Use `superpowers:systematic-debugging` skill
+- **Verification**: Use `superpowers:verification-before-completion` before commits/PRs
+- **Code review**: Use `superpowers:requesting-code-review` when ready
 - **Meaningful commits**: One commit per logical change, easy to revert
 - **No long-lived branches**: Direct commits to main with clear messages
 
@@ -13,7 +18,7 @@ WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE
 bd supports 4 statuses: `open`, `in_progress`, `blocked`, `closed`
 
 Quality gate labels track review workflow:
-- `needs-review` - Code complete, awaiting review
+- `needs-review` - Code complete, awaiting review (trigger `superpowers:requesting-code-review`)
 - `approved` - Reviewed and approved, ready to deploy
 
 ### Workflow States
@@ -32,6 +37,110 @@ Quality gate labels track review workflow:
 - Remove label: `bd label remove <id> needs-review`
 
 Use `/dev-start` to begin work on a task. Other workflow commands: `/architect`, `/dev-review`, `/deploy`
+
+## Beads Workflow Integration
+
+### Starting Any Task
+
+**MANDATORY before starting work**:
+1. `bd show <id>` - Read COMPLETE description and context
+2. `bd dep tree <id>` - Check dependencies and blockers
+3. `bd update <id> --status in_progress`
+4. Create TodoWrite todos based on issue requirements
+5. Check which superpowers skills apply (TDD, debugging, etc.)
+
+**Alternative**: Use `/bd-start <id>` slash command to run this workflow
+
+### During Work
+
+**Update description with progress** (append to original):
+```bash
+bd update <id> -d "$(bd show <id> --format description)
+
+## Progress - [Date]
+- Implemented X
+- Discovered Y issue
+- Changed approach from A to B because [reason]
+
+## Key Decisions
+- Chose [option] over [alternative] because [reasoning]
+"
+```
+
+**When discovering new issues/bugs**:
+```bash
+# Create issue
+NEW_ID=$(bd create "Bug: [title]" -t bug -p 0 --json | jq -r '.id')
+
+# Link to current work
+bd dep add $NEW_ID <current-id> --type discovered-from
+```
+
+**When blocked**:
+```bash
+bd update <id> --status blocked
+# Create blocker issue and link it
+bd dep add <id> <blocker-id> --type blocks
+```
+
+### Completing Work
+
+1. Update description with final summary
+2. Add review label: `bd label add <id> needs-review`
+3. Use `superpowers:requesting-code-review` skill
+4. After approval: `bd close <id> --reason "[Summary of what was done]"`
+5. Sync: `bd sync`
+
+### Finding Work
+
+```bash
+bd ready                    # Show all ready issues
+bd ready --json | jq '.[0]' # Get top priority programmatically
+bd list --status open -p 0  # Show all P0 open issues
+```
+
+### Issue Description Template
+
+When creating issues, use structured format:
+```markdown
+## Context
+[Why this exists, background, problem statement]
+
+## Requirements
+- [ ] Requirement 1
+- [ ] Requirement 2
+
+## Implementation Approach
+[Technical approach, constraints, considerations]
+
+## Dependencies
+- Blocks: [issue-ids if any]
+- Blocked by: [issue-ids if any]
+
+## Verification Criteria
+- [ ] Tests pass
+- [ ] Deployed successfully
+- [ ] [Other success criteria]
+```
+
+### Label Standards
+
+**Technical areas**:
+- `backend` - Python backend code
+- `frontend` - React frontend code
+- `pseo` - PSEO page generation
+- `deployment` - Infrastructure/deployment
+
+**Workflow**:
+- `needs-review` - Code complete, awaiting review
+- `approved` - Review passed, ready to deploy
+- `needs-context` - Missing information to proceed
+
+**Type** (use issue_type field, not labels):
+- `bug` - Defect to fix
+- `feature` - New capability
+- `task` - General work item
+- `epic` - Large multi-issue effort
 
 ## Update Sitemap (If New Page)
 
@@ -93,18 +202,6 @@ Examples:
 - **Agent commands** (`/deploy`, `/restart-backend`) are for me to execute via SSH
 - **Manual deployment**: Run `./deployment/scripts/deploy.sh` directly on VPS
 - Both approaches accomplish the same thing - updating production
-
-## Logging
-- **Verbose logging throughout**: Use Python logging module
-- **Log levels**: DEBUG for detailed flow, INFO for key steps, ERROR for issues
-- **Help with debugging**: Makes it easy to troubleshoot issues
-
-## Testing
-- **Unit tests**: Core validation logic
-- **Integration tests**: API endpoints with real functionality (no mocking internal code)
-- **E2E tests**: Full flow (input � LLM � output)
-- **Run tests before commit**: `python3 -m pytest`
-- **Mock only external services**: External APIs can be mocked in tests to avoid costs/rate limits
 
 ## Model Selection Priority
 - Balance performance vs cost
