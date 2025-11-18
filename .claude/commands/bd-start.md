@@ -4,14 +4,50 @@ You are starting work on a beads issue following the beads-first workflow.
 TASK_ID="{{arg:1}}"
 
 if [ -z "$TASK_ID" ]; then
-    echo "❌ No task ID provided"
+    echo "📋 Open Issues"
     echo ""
+
+    bd list --status open --json 2>/dev/null | python3 -c '\''
+import sys, json
+
+issues = json.load(sys.stdin)
+open_issues = sorted([i for i in issues if i.get("status") == "open"],
+                     key=lambda x: x.get("priority", 2))
+
+if not open_issues:
+    print("No open issues available")
+    sys.exit(0)
+
+for issue in open_issues:
+    id = issue.get("id", "")
+    title = issue.get("title", "")
+    priority = issue.get("priority", 2)
+    labels = issue.get("labels", [])
+    dep_count = issue.get("dependency_count", 0)
+    dependent_count = issue.get("dependent_count", 0)
+    issue_type = issue.get("issue_type", "task")
+
+    print(f"{id} [P{priority}] {title}")
+
+    # Show type if not task
+    if issue_type != "task":
+        print(f"  Type: {issue_type}")
+
+    # Show labels if any
+    if labels:
+        print(f"  Labels: {", ".join(labels)}")
+
+    # Show dependencies if any
+    if dep_count > 0:
+        print(f"  ⚠️  Has {dep_count} blocker(s)")
+    if dependent_count > 0:
+        print(f"  🔗 Blocks {dependent_count} other issue(s)")
+
+    print()
+'\''
+
     echo "Usage: /bd-start <issue-id>"
-    echo ""
-    echo "Find ready work:"
-    echo "  bd ready"
-    echo "  bd list --status open -p 0"
-    exit 1
+    exit 0
 fi
 
 echo "=== 📋 ISSUE CONTEXT ==="
