@@ -5,6 +5,8 @@ import Underline from '@tiptap/extension-underline'
 import { CreditDisplay } from './components/CreditDisplay'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
+import ValidationTable from './components/ValidationTable'
+import ValidationLoadingState from './components/ValidationLoadingState'
 import Footer from './components/Footer'
 import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
@@ -22,6 +24,7 @@ function AppContent() {
   const [error, setError] = useState(null)
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [submittedText, setSubmittedText] = useState('')
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const { refreshCredits } = useCredits()
@@ -149,6 +152,9 @@ function AppContent() {
 
     console.log('Form submitted with citations:', textContent)
     console.log('HTML content:', htmlContent)
+
+    // Capture submitted text for loading state
+    setSubmittedText(htmlContent)
 
     setLoading(true)
     setError(null)
@@ -342,7 +348,11 @@ function AppContent() {
         </div>
       )}
 
-      {results && (
+      {loading && submittedText && (
+        <ValidationLoadingState submittedHtml={submittedText} />
+      )}
+
+      {results && !loading && (
         results.isPartial ? (
           <PartialResults
             results={results.results}
@@ -355,73 +365,7 @@ function AppContent() {
             }}
           />
         ) : (
-          <div className="results">
-            <div className="results-summary">
-              <h2>Validation Results</h2>
-              <div className="summary-stats">
-                <div className="summary-stat">
-                  <span className="stat-number">{results.results.length}</span>
-                  <span className="stat-label">Citations Checked</span>
-                </div>
-                <div className="summary-stat">
-                  <span className="stat-number">
-                    {results.results.filter(r => r.errors.length === 0).length}
-                  </span>
-                  <span className="stat-label">Perfect</span>
-                </div>
-                <div className="summary-stat">
-                  <span className="stat-number">
-                    {results.results.filter(r => r.errors.length > 0).length}
-                  </span>
-                  <span className="stat-label">Need Fixes</span>
-                </div>
-              </div>
-            </div>
-
-            {results.results.map((result) => (
-              <div key={result.citation_number} className="citation-result">
-                <h3>
-                  Citation #{result.citation_number}
-                  {result.errors.length === 0 ? ' ✅' : ' ❌'}
-                </h3>
-
-                <div className="original-citation">
-                  <strong>Original:</strong>
-                  <div
-                    className="citation-html"
-                    dangerouslySetInnerHTML={{ __html: result.original }}
-                  />
-                </div>
-
-                <div className="source-type">
-                  <em>Source type: {result.source_type}</em>
-                </div>
-
-                {result.errors.length === 0 ? (
-                  <div className="no-errors">
-                    <p>✅ No errors found - this citation follows APA 7th edition guidelines!</p>
-                  </div>
-                ) : (
-                  <div className="errors-list">
-                    <strong>Errors found:</strong>
-                    {result.errors.map((error, index) => (
-                      <div key={index} className="error-item">
-                        <div className="error-component">
-                          <strong>❌ {error.component}:</strong>
-                        </div>
-                        <div className="error-problem">
-                          <em>Problem:</em> {error.problem}
-                        </div>
-                        <div className="error-correction">
-                          <em>Correction:</em> {error.correction}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <ValidationTable results={results.results} />
         )
       )}
 
