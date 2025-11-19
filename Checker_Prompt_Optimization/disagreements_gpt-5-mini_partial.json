@@ -1,0 +1,178 @@
+[
+  {
+    "citation_index": 4,
+    "citation": "O\u2019Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 8,
+    "citation": "David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 17,
+    "citation": "Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 31,
+    "citation": "Bronfenbrenner, U. (2005). The social ecology of human development: A retrospective conclusion. In U. Bronfenbrenner (Ed.), _Making human beings human: Bioecological perspectives on human development_ (pp. 27\u201340). SAGE Publications.",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 44,
+    "citation": "Stine, R. L. [RL_Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 47,
+    "citation": "Aron, L., Botella, M., & Lubart, T. (2019). Culinary arts: Talent and their development. In R. F. Subotnik, P. Olszewski-Kubilius, & F. C. Worrell (Eds.), _The psychology of high performance: Developing human potential into domain-specific talent_ (pp. 345\u2013359). American Psychological Association. https://doi.org/10.1037/0000120-016",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 49,
+    "citation": "Stine, R. L., & Smith, J. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 54,
+    "citation": "American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 59,
+    "citation": "Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67\u201398.",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 62,
+    "citation": "Merriam-Webster. (2003). Litmus test. In _Merriam-Webster\u2019s collegiate dictionary_ (11th ed., p. 727).",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 66,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 72,
+    "citation": "American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). https://www.apa.org/ethics/code/",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 74,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 76,
+    "citation": "National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 86,
+    "citation": "Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 89,
+    "citation": "Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34\u201341). American University.",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 93,
+    "citation": "Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 94,
+    "citation": "Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 101,
+    "citation": "American Psychological Association. (n.d.). Just-world hypothesis. In _APA dictionary of psychology_. Retrieved January 18, 2020, from https://dictionary.apa.org/just-world-hypothesis",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 118,
+    "citation": "Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.",
+    "ground_truth": false,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 119,
+    "citation": "Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 120,
+    "citation": "Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  }
+]

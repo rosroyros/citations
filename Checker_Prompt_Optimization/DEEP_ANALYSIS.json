@@ -1,0 +1,203 @@
+{
+  "overview": {
+    "total_errors": 27,
+    "correct_fresh": 5,
+    "wrong_fresh": 22
+  },
+  "error_patterns": {
+    "capitalization": {
+      "count": 16,
+      "errors": [
+        1,
+        2,
+        3,
+        6,
+        9,
+        10,
+        11,
+        12,
+        14,
+        15,
+        16,
+        17,
+        21,
+        22,
+        24,
+        25
+      ]
+    },
+    "volume_formatting": {
+      "count": 6,
+      "errors": [
+        1,
+        4,
+        8,
+        12,
+        21,
+        25
+      ]
+    },
+    "italics": {
+      "count": 15,
+      "errors": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        12,
+        15,
+        16,
+        17,
+        19,
+        21,
+        25
+      ]
+    },
+    "author_format": {
+      "count": 13,
+      "errors": [
+        2,
+        4,
+        6,
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        21,
+        22,
+        25,
+        26
+      ]
+    },
+    "punctuation": {
+      "count": 6,
+      "errors": [
+        2,
+        4,
+        10,
+        14,
+        16,
+        21
+      ]
+    },
+    "brackets": {
+      "count": 11,
+      "errors": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        14,
+        19,
+        22,
+        24,
+        26
+      ]
+    },
+    "retrieval_date": {
+      "count": 3,
+      "errors": [
+        5,
+        19,
+        26
+      ]
+    }
+  },
+  "model_reasoning": {
+    "false_positives": 19,
+    "false_negatives": 3,
+    "fp_examples": [
+      {
+        "error_num": 1,
+        "citation": "David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The M",
+        "reason": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nCITATION #1\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\nORIGINAL:\nDavid, A., Simpson, J., &"
+      },
+      {
+        "error_num": 2,
+        "citation": "joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the",
+        "reason": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nCITATION #1\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\nORIGINAL:\njoachimr., & smithj. (201"
+      },
+      {
+        "error_num": 3,
+        "citation": "Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & M\u00e1rquez-Greene, N. (2019, Augu",
+        "reason": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nCITATION #1\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\nORIGINAL:\nEvans, A. C., Jr., Garbar"
+      },
+      {
+        "error_num": 4,
+        "citation": "Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments",
+        "reason": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nCITATION #1\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\nORIGINAL:\nJoly, J. F., Stapel, D. A"
+      },
+      {
+        "error_num": 5,
+        "citation": "U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings",
+        "reason": "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\nCITATION #1\n\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\n\nORIGINAL:\nU.S. Department of the In"
+      }
+    ],
+    "fn_examples": [
+      {
+        "error_num": 9,
+        "citation": "Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained gradu",
+        "reason": "Model missed the error"
+      },
+      {
+        "error_num": 18,
+        "citation": "Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytim",
+        "reason": "Model missed the error"
+      },
+      {
+        "error_num": 20,
+        "citation": "Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement",
+        "reason": "Model missed the error"
+      }
+    ]
+  },
+  "inconsistency": {
+    "originally_all_wrong": 27,
+    "fresh_run_correct": 5,
+    "improvement": 5,
+    "still_wrong": 22
+  },
+  "ground_truth_issues": {
+    "suspicious_count": 5,
+    "examples": [
+      {
+        "error_num": 1,
+        "issue": "Model flags title capitalization - may be legitimate",
+        "ground_truth": "VALID",
+        "model_says": "INVALID"
+      },
+      {
+        "error_num": 12,
+        "issue": "Model flags title capitalization - may be legitimate",
+        "ground_truth": "VALID",
+        "model_says": "INVALID"
+      },
+      {
+        "error_num": 21,
+        "issue": "Missing comma: 'Urdan T.' should be 'Urdan, T.'",
+        "ground_truth": "VALID",
+        "model_says": "INVALID"
+      },
+      {
+        "error_num": 24,
+        "issue": "Model flags title capitalization - may be legitimate",
+        "ground_truth": "VALID",
+        "model_says": "INVALID"
+      },
+      {
+        "error_num": 25,
+        "issue": "Model flags title capitalization - may be legitimate",
+        "ground_truth": "VALID",
+        "model_says": "INVALID"
+      }
+    ]
+  }
+}

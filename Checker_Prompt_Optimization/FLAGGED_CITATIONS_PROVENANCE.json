@@ -1,0 +1,1028 @@
+[
+  {
+    "citation_num": 4,
+    "citation": "I. O. for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231216953",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "International Organization for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+    "alterations": "SEED:\nInternational Organization for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html\n\nSYNTHETIC:\nI. O. for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+    "audit_findings": {
+      "citation_num": 4,
+      "citation": "I. O. for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 6,
+    "citation": "Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231748162",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Lushi, K. [Korab Lushi]. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s",
+    "alterations": "SEED:\nLushi, K. [Korab Lushi]. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s\n\nSYNTHETIC:\nLushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s",
+    "audit_findings": {
+      "citation_num": 6,
+      "citation": "Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 7,
+    "citation": "World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230479407",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "World Health Organization. (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int/",
+    "alterations": "SEED:\nWorld Health Organization. (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int/\n\nSYNTHETIC:\nWorld Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int",
+    "audit_findings": {
+      "citation_num": 7,
+      "citation": "World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 9,
+    "citation": "Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231246619",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Furst, M., & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_[White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf",
+    "alterations": "SEED:\nFurst, M., & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_[White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf\n\nSYNTHETIC:\nFurst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf",
+    "audit_findings": {
+      "citation_num": 9,
+      "citation": "Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 10,
+    "citation": "Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231574847",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Price, D. (2018, March 23). _Laziness does not exist_. Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+    "alterations": "SEED:\nPrice, D. (2018, March 23). _Laziness does not exist_. Medium. https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01\n\nSYNTHETIC:\nPrice D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+    "audit_findings": {
+      "citation_num": 10,
+      "citation": "Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 11,
+    "citation": "American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230431126",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Psychiatric Association. (1987). _Diagnostic and statistical manual of mental disorders_ (3rd ed., rev.).",
+    "alterations": "SEED:\nAmerican Psychiatric Association. (1987). _Diagnostic and statistical manual of mental disorders_ (3rd ed., rev.).\n\nSYNTHETIC:\nAmerican Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.",
+    "audit_findings": {
+      "citation_num": 11,
+      "citation": "American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 14,
+    "citation": "Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231221137",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Occupational Safety and Health Administration. (1970). _Occupational safety and health standards: Occupational health and environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95). United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95",
+    "alterations": "SEED:\nOccupational Safety and Health Administration. (1970). _Occupational safety and health standards: Occupational health and environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95). United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95\n\nSYNTHETIC:\nOccupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95",
+    "audit_findings": {
+      "citation_num": 14,
+      "citation": "Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 15,
+    "citation": "Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761230869866",
+      "source_type": "journal article",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T14:47:49.866Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 15,
+      "citation": "Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'A Journal of Rhetoric, Technology, and Pedagogy'",
+      "issues_found": [
+        "Possible title case in title: 'A Journal of Rhetoric, Technology, and Pedagogy'"
+      ]
+    }
+  },
+  {
+    "citation_num": 16,
+    "citation": "American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230437777",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Psychiatric Association. (1994). _Diagnostic and statistical manual of mental disorders_ (4th ed.). https://doi.org/10.1176/appi.books.9780890420614.dsm-iv",
+    "alterations": "SEED:\nAmerican Psychiatric Association. (1994). _Diagnostic and statistical manual of mental disorders_ (4th ed.). https://doi.org/10.1176/appi.books.9780890420614.dsm-iv\n\nSYNTHETIC:\nAmerican Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv",
+    "audit_findings": {
+      "citation_num": 16,
+      "citation": "American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 17,
+    "citation": "Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761231499898",
+      "source_type": "journal article",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T14:58:19.898Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 17,
+      "citation": "Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'Journal of Personality and Social Psychology, 117'; DOI should start with https://doi.org/",
+      "issues_found": [
+        "Possible title case in title: 'Journal of Personality and Social Psychology, 117'",
+        "DOI should start with https://doi.org/"
+      ]
+    }
+  },
+  {
+    "citation_num": 18,
+    "citation": "Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231426516",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.",
+    "alterations": "SEED:\nBelcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.\n\nSYNTHETIC:\nBelcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.",
+    "audit_findings": {
+      "citation_num": 18,
+      "citation": "Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 21,
+    "citation": "Svendsen, S., & L\u00f8ber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230324578",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Svendsen, S., & L\u00f8ber, L. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag. https://thebigpicture-academicwriting.digi.hansreitzel.dk/",
+    "alterations": "SEED:\nSvendsen, S., & L\u00f8ber, L. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag. https://thebigpicture-academicwriting.digi.hansreitzel.dk/\n\nSYNTHETIC:\nSvendsen, S., & L\u00f8ber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.",
+    "audit_findings": {
+      "citation_num": 21,
+      "citation": "Svendsen, S., & L\u00f8ber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 22,
+    "citation": "Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11\u201316.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231540482",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Baniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. _Purdue Journal of Service-Learning and International Engagement_,_ __6_(1), 11\u201316. https://doi.org/10.5703/1288284316979",
+    "alterations": "SEED:\nBaniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. _Purdue Journal of Service-Learning and International Engagement_,_ __6_(1), 11\u201316. https://doi.org/10.5703/1288284316979\n\nSYNTHETIC:\nBaniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11\u201316.",
+    "audit_findings": {
+      "citation_num": 22,
+      "citation": "Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11\u201316.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 25,
+    "citation": "joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post \u201cThe transition to seventh edition APA Style\u201d]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231050431",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "joachimr. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post \u201cThe transition to seventh edition APA Style\u201d]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690",
+    "alterations": "SEED:\njoachimr. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post \u201cThe transition to seventh edition APA Style\u201d]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690\n\nSYNTHETIC:\njoachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post \u201cThe transition to seventh edition APA Style\u201d]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690",
+    "audit_findings": {
+      "citation_num": 25,
+      "citation": "joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post \u201cThe transition to seventh edition APA Style\u201d]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 28,
+    "citation": "Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231289185",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Zambrano-Vazquez, L. (2016). _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona]. UA Campus Repository. https://repository.arizona.edu/handle/10150/620615",
+    "alterations": "SEED:\nZambrano-Vazquez, L. (2016). _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona]. UA Campus Repository. https://repository.arizona.edu/handle/10150/620615\n\nSYNTHETIC:\nZambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615",
+    "audit_findings": {
+      "citation_num": 28,
+      "citation": "Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 30,
+    "citation": "R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231404449",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Stoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.",
+    "alterations": "SEED:\nStoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.\n\nSYNTHETIC:\nR. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press",
+    "audit_findings": {
+      "citation_num": 30,
+      "citation": "R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 31,
+    "citation": "Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761230989899",
+      "source_type": "other",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T14:49:49.899Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 31,
+      "citation": "Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'The Washington Post'",
+      "issues_found": [
+        "Possible title case in title: 'The Washington Post'"
+      ]
+    }
+  },
+  {
+    "citation_num": 34,
+    "citation": "Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047\u20131056.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230887067",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047\u20131056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)",
+    "alterations": "SEED:\nJoly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047\u20131056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)\n\nSYNTHETIC:\nJoly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047\u20131056.",
+    "audit_findings": {
+      "citation_num": 34,
+      "citation": "Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047\u20131056.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 37,
+    "citation": "Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents\u2019 perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231268585",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017). _Autism and bilingualism: A qualitative interview study of parents\u2019 perspectives and experiences_. PsyArXiv. https://doi.org/10.31234/osf.io/76xfs",
+    "alterations": "SEED:\nHampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017). _Autism and bilingualism: A qualitative interview study of parents\u2019 perspectives and experiences_. PsyArXiv. https://doi.org/10.31234/osf.io/76xfs\n\nSYNTHETIC:\nHampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents\u2019 perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs",
+    "audit_findings": {
+      "citation_num": 37,
+      "citation": "Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents\u2019 perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 38,
+    "citation": "Stine, R. L. [RL_Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231708248",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Stine, R. L. [RL__Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything! _[Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "alterations": "SEED:\nStine, R. L. [RL__Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything! _[Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/\n\nSYNTHETIC:\nStine, R. L. [RL_Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "audit_findings": {
+      "citation_num": 38,
+      "citation": "Stine, R. L. [RL_Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible missing space after author initial period",
+      "issues_found": [
+        "Possible missing space after author initial period"
+      ]
+    }
+  },
+  {
+    "citation_num": 42,
+    "citation": "Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231857445",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": null,
+    "alterations": "Synthetic citation but seed not found.\n- Seed ID: manual_1761231857445",
+    "audit_findings": {
+      "citation_num": 42,
+      "citation": "Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 43,
+    "citation": "Stine, R. L., & Smith, J. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231708248",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Stine, R. L. [RL__Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything! _[Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "alterations": "SEED:\nStine, R. L. [RL__Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything! _[Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/\n\nSYNTHETIC:\nStine, R. L., & Smith, J. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "audit_findings": {
+      "citation_num": 43,
+      "citation": "Stine, R. L., & Smith, J. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible missing space after author initial period",
+      "issues_found": [
+        "Possible missing space after author initial period"
+      ]
+    }
+  },
+  {
+    "citation_num": 44,
+    "citation": "Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34\u201341). American University",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230581988",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34\u201341). American University.",
+    "alterations": "SEED:\nElders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34\u201341). American University.\n\nSYNTHETIC:\nElders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34\u201341). American University",
+    "audit_findings": {
+      "citation_num": 44,
+      "citation": "Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34\u201341). American University",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 45,
+    "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231857445",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": null,
+    "alterations": "Synthetic citation but seed not found.\n- Seed ID: manual_1761231857445",
+    "audit_findings": {
+      "citation_num": 45,
+      "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 46,
+    "citation": "A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231338618",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Bedenel, A.-L., Jourdan, L., & Biernacki, C. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21",
+    "alterations": "SEED:\nBedenel, A.-L., Jourdan, L., & Biernacki, C. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21\n\nSYNTHETIC:\nA.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21",
+    "audit_findings": {
+      "citation_num": 46,
+      "citation": "A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 50,
+    "citation": "Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761230845819",
+      "source_type": "journal article",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T14:47:25.819Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 50,
+      "citation": "Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'Behaviour Research and Therapy'",
+      "issues_found": [
+        "Possible title case in title: 'Behaviour Research and Therapy'"
+      ]
+    }
+  },
+  {
+    "citation_num": 54,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230839817",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., & Schaefer, J. R. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "alterations": "SEED:\nJerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., & Schaefer, J. R. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972\n\nSYNTHETIC:\nJerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972.",
+    "audit_findings": {
+      "citation_num": 54,
+      "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 56,
+    "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231857445",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": null,
+    "alterations": "Synthetic citation but seed not found.\n- Seed ID: manual_1761231857445",
+    "audit_findings": {
+      "citation_num": 56,
+      "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 59,
+    "citation": "King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230785686",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "_King James Bible_. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)",
+    "alterations": "SEED:\n_King James Bible_. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)\n\nSYNTHETIC:\nKing, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)",
+    "audit_findings": {
+      "citation_num": 59,
+      "citation": "King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 60,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230839817",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., & Schaefer, J. R. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "alterations": "SEED:\nJerrentrup, A., Mueller, T., Glowalla, U., Herder, M., Henrichs, N., Neubauer, A., & Schaefer, J. R. (2018). Teaching medicine with the help of \u201cDr. House.\u201d _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972\n\nSYNTHETIC:\nJerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+    "audit_findings": {
+      "citation_num": 60,
+      "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 64,
+    "citation": "American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230487856",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Psychiatric Association. (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05",
+    "alterations": "SEED:\nAmerican Psychiatric Association. (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05\n\nSYNTHETIC:\nAmerican Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05",
+    "audit_findings": {
+      "citation_num": 64,
+      "citation": "American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 65,
+    "citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231079609",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+    "alterations": "SEED:\nThestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192\n\nSYNTHETIC:\nThestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+    "audit_findings": {
+      "citation_num": 65,
+      "citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 66,
+    "citation": "Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231299035",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ [Unpublished doctoral dissertation]. University of Virginia.",
+    "alterations": "SEED:\nHarris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ [Unpublished doctoral dissertation]. University of Virginia.\n\nSYNTHETIC:\nHarris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia",
+    "audit_findings": {
+      "citation_num": 66,
+      "citation": "Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 69,
+    "citation": "Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5\u201313.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231535699",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Scruton, R. (1996). The eclipse of listening. _The New Criterion, 15_(3), 5\u201313.",
+    "alterations": "SEED:\nScruton, R. (1996). The eclipse of listening. _The New Criterion, 15_(3), 5\u201313.\n\nSYNTHETIC:\nScruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5\u201313.",
+    "audit_findings": {
+      "citation_num": 69,
+      "citation": "Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5\u201313.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 72,
+    "citation": "Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231489966",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Soto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096",
+    "alterations": "SEED:\nSoto, C. J., & John, O. P. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096\n\nSYNTHETIC:\nSoto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096",
+    "audit_findings": {
+      "citation_num": 72,
+      "citation": "Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'Journal of Personality and Social Psychology'; DOI should start with https://doi.org/",
+      "issues_found": [
+        "Possible title case in title: 'Journal of Personality and Social Psychology'",
+        "DOI should start with https://doi.org/"
+      ]
+    }
+  },
+  {
+    "citation_num": 74,
+    "citation": "Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231143621",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/",
+    "alterations": "SEED:\nBaral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/\n\nSYNTHETIC:\nBaral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia",
+    "audit_findings": {
+      "citation_num": 74,
+      "citation": "Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'Restoration financing in Southeast Asia'",
+      "issues_found": [
+        "Possible title case in title: 'Restoration financing in Southeast Asia'"
+      ]
+    }
+  },
+  {
+    "citation_num": 75,
+    "citation": "Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207\u2013217. https://doi.org/10.1037/ppm0000185",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230810071",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Grady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207\u2013217. https://doi.org/10.1037/ppm0000185",
+    "alterations": "SEED:\nGrady, J. S., Her, M., Moreno, G., Perez, C., & Yelinek, J. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207\u2013217. https://doi.org/10.1037/ppm0000185\n\nSYNTHETIC:\nGrady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207\u2013217. https://doi.org/10.1037/ppm0000185",
+    "audit_findings": {
+      "citation_num": 75,
+      "citation": "Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207\u2013217. https://doi.org/10.1037/ppm0000185",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'Psychology of Popular Media Culture'",
+      "issues_found": [
+        "Possible title case in title: 'Psychology of Popular Media Culture'"
+      ]
+    }
+  },
+  {
+    "citation_num": 76,
+    "citation": "Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231404449",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Stoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.",
+    "alterations": "SEED:\nStoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.\n\nSYNTHETIC:\nStoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.",
+    "audit_findings": {
+      "citation_num": 76,
+      "citation": "Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 77,
+    "citation": "Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231420966",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+    "alterations": "SEED:\nPlato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385-378 BCE)\n\nSYNTHETIC:\nPlato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+    "audit_findings": {
+      "citation_num": 77,
+      "citation": "Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 80,
+    "citation": "American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761231583114",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Society for the Prevention of Cruelty to Animals. (2019, November 21). _Justice served: Case closed for over 40 dogfighting victims_. https://www.aspca.org/news/justice-served-case-closed-over-40-dogfighting-victims",
+    "alterations": "SEED:\nAmerican Society for the Prevention of Cruelty to Animals. (2019, November 21). _Justice served: Case closed for over 40 dogfighting victims_. https://www.aspca.org/news/justice-served-case-closed-over-40-dogfighting-victims\n\nSYNTHETIC:\nAmerican Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.",
+    "audit_findings": {
+      "citation_num": 80,
+      "citation": "American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 81,
+    "citation": "American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230463725",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Psychiatric Association. (2022). _Diagnostic and statistical manual of mental disorders_ (5th ed., text rev.). https://doi.org/10.1176/appi.books.9780890425787",
+    "alterations": "SEED:\nAmerican Psychiatric Association. (2022). _Diagnostic and statistical manual of mental disorders_ (5th ed., text rev.). https://doi.org/10.1176/appi.books.9780890425787\n\nSYNTHETIC:\nAmerican Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)",
+    "audit_findings": {
+      "citation_num": 81,
+      "citation": "American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 85,
+    "citation": "American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230426957",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.).",
+    "alterations": "SEED:\nAmerican Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.).\n\nSYNTHETIC:\nAmerican Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).",
+    "audit_findings": {
+      "citation_num": 85,
+      "citation": "American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 87,
+    "citation": "BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a \u201cwolf moon\u201d-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761231739861",
+      "source_type": "social media",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T15:02:19.861Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 87,
+      "citation": "BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a \u201cwolf moon\u201d-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Year might be missing parentheses: 2020",
+      "issues_found": [
+        "Year might be missing parentheses: 2020"
+      ]
+    }
+  },
+  {
+    "citation_num": 88,
+    "citation": "Lyons, D. (2009, June 15). Don\u2019t \u2018iTune\u2019 us: It\u2019s geeks versus writers: Guess who\u2019s winning. _Newsweek_, 153(24), 27.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230957550",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Lyons, D. (2009, June 15). Don\u2019t \u2018iTune\u2019 us: It\u2019s geeks versus writers. Guess who\u2019s winning. _Newsweek_, _153_(24), 27.",
+    "alterations": "SEED:\nLyons, D. (2009, June 15). Don\u2019t \u2018iTune\u2019 us: It\u2019s geeks versus writers. Guess who\u2019s winning. _Newsweek_, _153_(24), 27.\n\nSYNTHETIC:\nLyons, D. (2009, June 15). Don\u2019t \u2018iTune\u2019 us: It\u2019s geeks versus writers: Guess who\u2019s winning. _Newsweek_, 153(24), 27.",
+    "audit_findings": {
+      "citation_num": 88,
+      "citation": "Lyons, D. (2009, June 15). Don\u2019t \u2018iTune\u2019 us: It\u2019s geeks versus writers: Guess who\u2019s winning. _Newsweek_, 153(24), 27.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 93,
+    "citation": "Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.",
+    "ground_truth": "INVALID",
+    "metadata": {
+      "source": "synthetic_expansion",
+      "seed_id": "manual_1761230523625",
+      "model": "gpt-4o"
+    },
+    "provenance_type": "SYNTHETIC",
+    "seed_citation": "Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.). Candlewick Press.",
+    "alterations": "SEED:\nCrimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.). Candlewick Press.\n\nSYNTHETIC:\nCrimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.",
+    "audit_findings": {
+      "citation_num": 93,
+      "citation": "Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.",
+      "ground_truth": "INVALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_VALID",
+      "reason": "No APA 7 formatting errors found",
+      "issues_found": []
+    }
+  },
+  {
+    "citation_num": 94,
+    "citation": "Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)",
+    "ground_truth": "VALID",
+    "metadata": {
+      "source": "manual_curation",
+      "seed_id": "manual_1761230367828",
+      "source_type": "book",
+      "original_metadata": {
+        "source": "Manual Input",
+        "date_collected": "2025-10-23T14:39:27.828Z",
+        "formatting_preserved": true,
+        "verified_against_kb": false
+      }
+    },
+    "provenance_type": "MANUAL/ORIGINAL",
+    "seed_citation": null,
+    "alterations": "This IS the original manually curated seed citation (not synthetic)",
+    "audit_findings": {
+      "citation_num": 94,
+      "citation": "Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)",
+      "ground_truth": "VALID",
+      "audit_verdict": "GT_ERROR_SHOULD_BE_INVALID",
+      "reason": "Possible title case in title: 'The case of Little Albert'",
+      "issues_found": [
+        "Possible title case in title: 'The case of Little Albert'"
+      ]
+    }
+  }
+]

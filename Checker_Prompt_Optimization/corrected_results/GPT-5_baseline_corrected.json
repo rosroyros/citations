@@ -1,0 +1,27 @@
+{
+  "model": "GPT-5_baseline",
+  "test_set_size": 121,
+  "accuracy": 61.98,
+  "correct": 75,
+  "errors": 46,
+  "metrics": {
+    "invalid": {
+      "precision": 68.83,
+      "recall": 70.67,
+      "f1": 69.74,
+      "support": 75
+    },
+    "valid": {
+      "precision": 50.0,
+      "recall": 47.83,
+      "f1": 48.89,
+      "support": 46
+    }
+  },
+  "confusion_matrix": {
+    "true_negative": 53,
+    "false_positive": 22,
+    "false_negative": 24,
+    "true_positive": 22
+  }
+}

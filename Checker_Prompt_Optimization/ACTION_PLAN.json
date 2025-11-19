@@ -1,0 +1,214 @@
+{
+  "recommendation": {
+    "primary_approach": "Combined: Prompt Refinement + Higher Reasoning",
+    "secondary_approaches": [
+      "Hybrid approach if still short after Phase 2"
+    ],
+    "immediate_actions": [
+      "Review citations-3xo error analysis (21 cases, 16 FP)",
+      "Add relaxed rules for false positive patterns (DOI, article numbers, dates)",
+      "Enable reasoning_effort=high for better judgment",
+      "Test combined approach on validation set",
+      "Generate synthetic test set for holdout validation"
+    ],
+    "reasoning": "12.4% gap with high consistency (81.8%) means model logic is sound. Primary issue: too strict (16/21 FP). Prompt refinement + reasoning should bridge gap."
+  },
+  "roadmap": {
+    "goal": "Achieve 95% accuracy on APA 7 citation validation",
+    "current_state": {
+      "accuracy": 82.64,
+      "gap": 12.36,
+      "error_bias": "too_strict",
+      "consistency": {
+        "high_agreement": true,
+        "ensemble_helps": true,
+        "ensemble_worthwhile": false,
+        "flip_flop_citations": 22,
+        "variance": 4.95867768595042
+      }
+    },
+    "approach": "Combined: Prompt Refinement + Higher Reasoning",
+    "phases": [
+      {
+        "phase": 1,
+        "name": "Targeted Prompt Refinement",
+        "duration": "1-2 weeks",
+        "tasks": [
+          "Review citations-3xo analysis (21 errors: 16 FP, 5 FN)",
+          "Add rules for false positive patterns (DOI, article numbers, date ranges)",
+          "Relax overly strict validation rules",
+          "Add few-shot examples of valid edge cases",
+          "Test refined prompt on corrected test set"
+        ],
+        "success_criteria": "Reduce false positives by 50%+ (8+ errors fixed)",
+        "estimated_impact": "+5-8%"
+      },
+      {
+        "phase": 2,
+        "name": "Enable Enhanced Reasoning",
+        "duration": "1 week",
+        "tasks": [
+          "Test GPT-5-mini with reasoning_effort=high",
+          "Measure accuracy improvement vs cost increase",
+          "Check if reasoning reduces flip-flop cases",
+          "Benchmark latency impact",
+          "Decide on cost/benefit tradeoff"
+        ],
+        "success_criteria": "Additional +3-6% accuracy gain",
+        "estimated_impact": "+3-6%"
+      },
+      {
+        "phase": 3,
+        "name": "Validate & Iterate",
+        "duration": "1 week",
+        "tasks": [
+          "Test combined approach on full test set",
+          "Analyze remaining errors",
+          "Generate synthetic test citations for holdout validation",
+          "Fine-tune based on new error patterns",
+          "Confirm 95%+ on both original and synthetic sets"
+        ],
+        "success_criteria": "Achieve 95% on corrected test set + synthetic validation",
+        "estimated_impact": "+1-3%"
+      },
+      {
+        "phase": 4,
+        "name": "Production Deployment",
+        "duration": "1 week",
+        "tasks": [
+          "Update production validator prompt",
+          "Deploy to staging environment",
+          "Monitor accuracy on real traffic",
+          "A/B test if desired",
+          "Gradual rollout to production"
+        ],
+        "success_criteria": "95% accuracy maintained in production"
+      }
+    ]
+  },
+  "approaches_evaluated": [
+    {
+      "name": "Targeted Prompt Refinement",
+      "feasibility": "MEDIUM",
+      "estimated_improvement": "5-8%",
+      "cost": "LOW",
+      "time": "1-2 weeks",
+      "steps": [
+        "Manual review of 21 remaining errors (from citations-3xo)",
+        "Add specific rules for top error patterns (DOI, article numbers, date ranges)",
+        "Add few-shot examples of edge cases",
+        "Test refined prompt on validation set"
+      ],
+      "notes": "Primary issue is too strict (16/21 errors are false positives)"
+    },
+    {
+      "name": "Ensemble Approach (3x voting)",
+      "feasibility": "MEDIUM",
+      "estimated_improvement": "0.5-1%",
+      "cost": "HIGH (3x API calls)",
+      "time": "1 week",
+      "steps": [
+        "Implement 3-run validation with temperature=1",
+        "Use majority voting for final decision",
+        "Target flip-flop cases for improvement"
+      ],
+      "notes": "Consistency test showed only +0.55% gain, efficiency 0.18. NOT cost-effective alone."
+    },
+    {
+      "name": "Upgrade to GPT-5-mini with reasoning_effort=high",
+      "feasibility": "HIGH",
+      "estimated_improvement": "3-6%",
+      "cost": "MEDIUM (2x cost)",
+      "time": "1 week",
+      "steps": [
+        "Test current prompt with reasoning_effort=high",
+        "Compare accuracy improvement vs cost increase",
+        "Benchmark latency impact",
+        "Measure if it reduces flip-flop cases"
+      ],
+      "notes": "May improve consistency and accuracy simultaneously"
+    },
+    {
+      "name": "Hybrid Rule-Based + LLM",
+      "feasibility": "MEDIUM",
+      "estimated_improvement": "8-12%",
+      "cost": "MEDIUM",
+      "time": "3-4 weeks",
+      "steps": [
+        "Implement deterministic checks (DOI regex, author format, etc.)",
+        "Use LLM only for ambiguous cases",
+        "Create multi-stage validation pipeline",
+        "Test accuracy and performance"
+      ],
+      "notes": "Addresses false positive issue with deterministic rules for clear cases"
+    },
+    {
+      "name": "Combined: Prompt Refinement + Higher Reasoning",
+      "feasibility": "HIGH",
+      "estimated_improvement": "8-14%",
+      "cost": "MEDIUM",
+      "time": "2-3 weeks",
+      "steps": [
+        "Refine prompt based on error analysis",
+        "Enable reasoning_effort=high",
+        "Test on corrected test set",
+        "Validate on synthetic citations"
+      ],
+      "notes": "Best combination of approaches for gap > 10%"
+    }
+  ],
+  "consistency_insights": {
+    "high_agreement": true,
+    "ensemble_helps": true,
+    "ensemble_worthwhile": false,
+    "flip_flop_citations": 22,
+    "variance": 4.95867768595042
+  },
+  "analysis_summary": {
+    "summary": {
+      "total_models_tested": 8,
+      "best_model": "GPT-5-mini_optimized",
+      "best_accuracy": 82.64,
+      "gap_to_goal": 12.36,
+      "errors_to_fix": 15
+    },
+    "top_5_models": [
+      {
+        "model": "GPT-5-mini_optimized",
+        "accuracy": 82.64,
+        "f1_invalid": 86.96,
+        "f1_valid": 74.07
+      },
+      {
+        "model": "GPT-5_optimized",
+        "accuracy": 80.17,
+        "f1_invalid": 85.37,
+        "f1_valid": 69.23
+      },
+      {
+        "model": "GPT-5-mini_baseline",
+        "accuracy": 66.12,
+        "f1_invalid": 72.11,
+        "f1_valid": 56.84
+      },
+      {
+        "model": "GPT-4o_optimized",
+        "accuracy": 65.29,
+        "f1_invalid": 74.07,
+        "f1_valid": 47.5
+      },
+      {
+        "model": "GPT-5_baseline",
+        "accuracy": 61.98,
+        "f1_invalid": 69.74,
+        "f1_valid": 48.89
+      }
+    ],
+    "error_analysis": {
+      "total_errors": 21,
+      "false_positives": 16,
+      "false_negatives": 5,
+      "bias": "too_strict"
+    }
+  }
+}

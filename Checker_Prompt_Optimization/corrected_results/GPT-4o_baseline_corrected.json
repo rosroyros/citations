@@ -1,0 +1,27 @@
+{
+  "model": "GPT-4o_baseline",
+  "test_set_size": 121,
+  "accuracy": 51.24,
+  "correct": 62,
+  "errors": 59,
+  "metrics": {
+    "invalid": {
+      "precision": 80.77,
+      "recall": 28.0,
+      "f1": 41.58,
+      "support": 75
+    },
+    "valid": {
+      "precision": 43.16,
+      "recall": 89.13,
+      "f1": 58.16,
+      "support": 46
+    }
+  },
+  "confusion_matrix": {
+    "true_negative": 21,
+    "false_positive": 54,
+    "false_negative": 5,
+    "true_positive": 41
+  }
+}

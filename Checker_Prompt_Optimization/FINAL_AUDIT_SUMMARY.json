@@ -1,0 +1,164 @@
+[
+  {
+    "error_num": 1,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Book title should be sentence case",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 2,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Author name 'joachimr.' violates APA 7: should be capitalized and have comma after surname",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 3,
+    "status": "MODEL_ERROR",
+    "reason": "APA 7: Conference titles are italicized, sentence case. Citation appears correct per APA 7 conf rules",
+    "correct_label": "VALID"
+  },
+  {
+    "error_num": 4,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 5,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 6,
+    "status": "AMBIGUOUS",
+    "reason": "Date range format: APA says 'hyphen' but example shows '\u2013'. Need to verify en-dash vs hyphen",
+    "correct_label": "NEEDS_VERIFICATION"
+  },
+  {
+    "error_num": 7,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 8,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 9,
+    "status": "GT_CORRECT_PENDING",
+    "reason": "Model missed error. Need to identify what the actual error is",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 10,
+    "status": "GT_CORRECT",
+    "reason": "Model prediction matches ground truth",
+    "correct_label": "VALID"
+  },
+  {
+    "error_num": 11,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 12,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Article title incorrectly italicized",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 13,
+    "status": "GT_CORRECT",
+    "reason": "Model prediction matches ground truth",
+    "correct_label": "VALID"
+  },
+  {
+    "error_num": 14,
+    "status": "AMBIGUOUS",
+    "reason": "Date range format: APA says 'hyphen' but example shows '\u2013'. Need to verify en-dash vs hyphen",
+    "correct_label": "NEEDS_VERIFICATION"
+  },
+  {
+    "error_num": 15,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 16,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 17,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 18,
+    "status": "GT_CORRECT_PENDING",
+    "reason": "Model missed error. Need to identify what the actual error is",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 19,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 20,
+    "status": "GT_CORRECT_PENDING",
+    "reason": "Model missed error. Need to identify what the actual error is",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 21,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Missing comma: 'Urdan T.' should be 'Urdan, T.'",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 22,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 23,
+    "status": "GT_CORRECT_PENDING",
+    "reason": "Model missed error. Need to identify what the actual error is",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 24,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Article title should be sentence case",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 25,
+    "status": "GT_ERROR_CONFIRMED",
+    "reason": "Article title incorrectly italicized",
+    "correct_label": "INVALID"
+  },
+  {
+    "error_num": 26,
+    "status": "NEEDS_MANUAL_REVIEW",
+    "reason": "Requires citation-specific APA 7 rule verification",
+    "correct_label": "PENDING"
+  },
+  {
+    "error_num": 27,
+    "status": "GT_CORRECT",
+    "reason": "Model prediction matches ground truth",
+    "correct_label": "VALID"
+  }
+]

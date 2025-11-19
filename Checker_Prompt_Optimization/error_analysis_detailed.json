@@ -1,0 +1,11 @@
+{
+  "total_errors": 21,
+  "false_positives": 16,
+  "false_negatives": 5,
+  "primary_issue": "Model too strict - incorrectly flags valid citations as invalid (76% of errors)",
+  "estimated_impact": {
+    "high_priority_fixes": "10-12 errors fixed, +8-10% accuracy",
+    "high_and_medium_fixes": "All 21 errors fixed, +17% accuracy to reach 100%",
+    "recommended_target": "95%+ accuracy achievable with high + medium priority fixes"
+  }
+}

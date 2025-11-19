@@ -1,0 +1,162 @@
+[
+  {
+    "citation_index": 3,
+    "citation": "I. O. for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 4,
+    "citation": "O\u2019Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 9,
+    "citation": "Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 17,
+    "citation": "Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 26,
+    "citation": "International Organization for Standardization. (2018). _Occupational Health and Safety Management Systems\u2014Requirements with Guidance for Use_ (ISO Standard No. 45001:2018).",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 37,
+    "citation": "Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 44,
+    "citation": "Stine, R. L. [RL_Stine]. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 49,
+    "citation": "Stine, R. L., & Smith, J. (2013, October 23). _I\u2019m R.L. Stine and it\u2019s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 54,
+    "citation": "American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 55,
+    "citation": "A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225\u2013240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 58,
+    "citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 75,
+    "citation": "Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456",
+    "ground_truth": false,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 79,
+    "citation": "Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 84,
+    "citation": "Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 85,
+    "citation": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise",
+    "ground_truth": true,
+    "run1": false,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 94,
+    "citation": "Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/",
+    "ground_truth": false,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 96,
+    "citation": "Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143\u2013168. https://doi.org/10.1037/0021-9010.76.1.143",
+    "ground_truth": false,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 97,
+    "citation": "Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 102,
+    "citation": "Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater",
+    "ground_truth": false,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 120,
+    "citation": "Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678",
+    "ground_truth": true,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  }
+]

@@ -16,7 +16,11 @@ import Success from './pages/Success'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
+import { mockValidationAPI } from './utils/mockData'
 import './App.css'
+
+// Set to true to test frontend without backend
+const MOCK_MODE = import.meta.env.VITE_MOCK_MODE === 'true'
 
 function AppContent() {
   const [loading, setLoading] = useState(false)
@@ -161,40 +165,48 @@ function AppContent() {
     setResults(null)
 
     try {
-      console.log('Calling API: /api/validate')
+      let data
 
-      // Build headers
-      const headers = { 'Content-Type': 'application/json' }
-      if (token) {
-        headers['X-User-Token'] = token
-      }
+      if (MOCK_MODE) {
+        console.log('🎭 MOCK MODE: Simulating API call (3s delay)')
+        data = await mockValidationAPI(3000)
+      } else {
+        console.log('Calling API: /api/validate')
 
-      const response = await fetch('/api/validate', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          citations: htmlContent,
-          style: 'apa7',
-        }),
-      })
-
-      console.log('API response status:', response.status)
-
-      if (!response.ok) {
-        // Check content-type before calling .json() to avoid "string did not match" errors
-        const contentType = response.headers.get('content-type')
-        if (contentType?.includes('application/json')) {
-          const errorData = await response.json()
-          // FastAPI uses 'detail', but support both 'detail' and 'error' keys
-          throw new Error(errorData.detail || errorData.error || 'Validation failed')
-        } else {
-          // Handle non-JSON error responses (502, 504, timeout errors, etc.)
-          const text = await response.text()
-          throw new Error(`Server error (${response.status}): ${text || 'Request failed'}`)
+        // Build headers
+        const headers = { 'Content-Type': 'application/json' }
+        if (token) {
+          headers['X-User-Token'] = token
         }
+
+        const response = await fetch('/api/validate', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            citations: htmlContent,
+            style: 'apa7',
+          }),
+        })
+
+        console.log('API response status:', response.status)
+
+        if (!response.ok) {
+          // Check content-type before calling .json() to avoid "string did not match" errors
+          const contentType = response.headers.get('content-type')
+          if (contentType?.includes('application/json')) {
+            const errorData = await response.json()
+            // FastAPI uses 'detail', but support both 'detail' and 'error' keys
+            throw new Error(errorData.detail || errorData.error || 'Validation failed')
+          } else {
+            // Handle non-JSON error responses (502, 504, timeout errors, etc.)
+            const text = await response.text()
+            throw new Error(`Server error (${response.status}): ${text || 'Request failed'}`)
+          }
+        }
+
+        data = await response.json()
       }
 
-      const data = await response.json()
       console.log('API response data:', data)
 
       // Handle response

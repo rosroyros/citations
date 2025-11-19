@@ -1,0 +1,74 @@
+[
+  {
+    "citation_index": 1,
+    "citation": "Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 3,
+    "citation": "I. O. for Standardization. (2018). _Occupational health and safety management systems\u2014Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html",
+    "ground_truth": false,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 58,
+    "citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192",
+    "ground_truth": true,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 91,
+    "citation": "Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1\u20133). American Psychological Association.",
+    "ground_truth": false,
+    "run1": false,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 96,
+    "citation": "Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143\u2013168. https://doi.org/10.1037/0021-9010.76.1.143",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": false
+  },
+  {
+    "citation_index": 108,
+    "citation": "Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers\u2019 and the general publics\u2019 perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239\u2013248. https://doi.org/10.1037/cbs0000411",
+    "ground_truth": false,
+    "run1": true,
+    "run2": false,
+    "run3": true
+  },
+  {
+    "citation_index": 113,
+    "citation": "Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin, 34_(8), 1047\u20131056. https://doi.org/10.1177/0146167208318401",
+    "ground_truth": false,
+    "run1": false,
+    "run2": true,
+    "run3": false
+  },
+  {
+    "citation_index": 117,
+    "citation": "US Food and Drug Administration. (2024, September 12). _FDA Authorizes First Over-the-Counter Hearing Aid Software_ [Press release]. https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software",
+    "ground_truth": false,
+    "run1": false,
+    "run2": true,
+    "run3": true
+  },
+  {
+    "citation_index": 120,
+    "citation": "Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678",
+    "ground_truth": true,
+    "run1": true,
+    "run2": true,
+    "run3": false
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "model": "GPT-4o-mini_optimized",
+  "test_set_size": 121,
+  "accuracy": 57.02,
+  "correct": 69,
+  "errors": 52,
+  "metrics": {
+    "invalid": {
+      "precision": 79.49,
+      "recall": 41.33,
+      "f1": 54.39,
+      "support": 75
+    },
+    "valid": {
+      "precision": 46.34,
+      "recall": 82.61,
+      "f1": 59.38,
+      "support": 46
+    }
+  },
+  "confusion_matrix": {
+    "true_negative": 31,
+    "false_positive": 44,
+    "false_negative": 8,
+    "true_positive": 38
+  }
+}

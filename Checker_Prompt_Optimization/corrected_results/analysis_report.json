@@ -1,0 +1,47 @@
+{
+  "summary": {
+    "total_models_tested": 8,
+    "best_model": "GPT-5-mini_optimized",
+    "best_accuracy": 82.64,
+    "gap_to_goal": 12.36,
+    "errors_to_fix": 15
+  },
+  "top_5_models": [
+    {
+      "model": "GPT-5-mini_optimized",
+      "accuracy": 82.64,
+      "f1_invalid": 86.96,
+      "f1_valid": 74.07
+    },
+    {
+      "model": "GPT-5_optimized",
+      "accuracy": 80.17,
+      "f1_invalid": 85.37,
+      "f1_valid": 69.23
+    },
+    {
+      "model": "GPT-5-mini_baseline",
+      "accuracy": 66.12,
+      "f1_invalid": 72.11,
+      "f1_valid": 56.84
+    },
+    {
+      "model": "GPT-4o_optimized",
+      "accuracy": 65.29,
+      "f1_invalid": 74.07,
+      "f1_valid": 47.5
+    },
+    {
+      "model": "GPT-5_baseline",
+      "accuracy": 61.98,
+      "f1_invalid": 69.74,
+      "f1_valid": 48.89
+    }
+  ],
+  "error_analysis": {
+    "total_errors": 21,
+    "false_positives": 16,
+    "false_negatives": 5,
+    "bias": "too_strict"
+  }
+}

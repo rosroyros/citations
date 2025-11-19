@@ -1,0 +1,27 @@
+{
+  "model": "GPT-5_optimized",
+  "test_set_size": 121,
+  "accuracy": 80.17,
+  "correct": 97,
+  "errors": 24,
+  "metrics": {
+    "invalid": {
+      "precision": 78.65,
+      "recall": 93.33,
+      "f1": 85.37,
+      "support": 75
+    },
+    "valid": {
+      "precision": 84.38,
+      "recall": 58.7,
+      "f1": 69.23,
+      "support": 46
+    }
+  },
+  "confusion_matrix": {
+    "true_negative": 70,
+    "false_positive": 5,
+    "false_negative": 19,
+    "true_positive": 27
+  }
+}

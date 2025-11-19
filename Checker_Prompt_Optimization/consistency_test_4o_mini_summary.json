@@ -1,0 +1,24 @@
+{
+  "test_date": "2025-11-13T17:00:09.781388",
+  "test_set": "Checker_Prompt_Optimization/test_set_121_corrected.jsonl",
+  "num_citations": 121,
+  "model": "GPT-4o-mini_optimized",
+  "runs": [
+    {
+      "run": 1,
+      "output_file": "Checker_Prompt_Optimization/consistency_test_gpt-4o-mini_run_1.jsonl",
+      "accuracy": 67.76859504132231
+    },
+    {
+      "run": 2,
+      "output_file": "Checker_Prompt_Optimization/consistency_test_gpt-4o-mini_run_2.jsonl",
+      "accuracy": 64.46280991735537
+    },
+    {
+      "run": 3,
+      "output_file": "Checker_Prompt_Optimization/consistency_test_gpt-4o-mini_run_3.jsonl",
+      "accuracy": 65.28925619834712
+    }
+  ],
+  "avg_accuracy": 65.84022038567493
+}

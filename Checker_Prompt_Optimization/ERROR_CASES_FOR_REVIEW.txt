@@ -1,0 +1,77 @@
+================================================================================
+FALSE POSITIVES (Model too strict - flags valid as invalid)
+================================================================================
+
+Total: 16 cases
+
+
+1. joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+   Source: unknown
+
+2. Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & Márquez-Greene, N. (2019, August 8–11). _Gun violence: An event on the power of community_ [Conference presentation]. APA 2019 Convention, Chicago, IL, USA. doi:10.1037/con2019-1234
+   Source: unknown
+
+3. Cacioppo, S. (2019, April 25–28). _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, California, United States. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+   Source: unknown
+
+4. Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA_, _116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+   Source: unknown
+
+5. Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9
+   Source: unknown
+
+6. Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+   Source: unknown
+
+7. American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr
+   Source: unknown
+
+8. Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+   Source: manual_curation
+
+9. Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+   Source: synthetic_expansion
+
+10. Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+   Source: unknown
+
+11. Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+   Source: unknown
+
+12. Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+   Source: unknown
+
+13. National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf
+   Source: unknown
+
+14. Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+   Source: unknown
+
+15. Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf
+   Source: unknown
+
+16. Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+   Source: unknown
+
+
+================================================================================
+FALSE NEGATIVES (Model too lenient - approves invalid)
+================================================================================
+
+Total: 5 cases
+
+
+1. Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_. (Publication No. 27542827) [Doctoral dissertation, Pepperdine University] PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+   Source: unknown
+
+2. Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and future [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, CA. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+   Source: unknown
+
+3. Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html
+   Source: unknown
+
+4. Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy, 185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+   Source: unknown
+
+5. Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/
+   Source: unknown

@@ -1,0 +1,225 @@
+{
+  "task": "citations-wzc",
+  "description": "Recalculated accuracy for all models using corrected ground truth",
+  "models_tested": 8,
+  "test_set_size": 121,
+  "corrections_applied": 12,
+  "results": [
+    {
+      "model": "GPT-4o-mini_baseline",
+      "test_set_size": 121,
+      "accuracy": 52.89,
+      "correct": 64,
+      "errors": 57,
+      "metrics": {
+        "invalid": {
+          "precision": 90.91,
+          "recall": 26.67,
+          "f1": 41.24,
+          "support": 75
+        },
+        "valid": {
+          "precision": 44.44,
+          "recall": 95.65,
+          "f1": 60.69,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 20,
+        "false_positive": 55,
+        "false_negative": 2,
+        "true_positive": 44
+      }
+    },
+    {
+      "model": "GPT-4o-mini_optimized",
+      "test_set_size": 121,
+      "accuracy": 57.02,
+      "correct": 69,
+      "errors": 52,
+      "metrics": {
+        "invalid": {
+          "precision": 79.49,
+          "recall": 41.33,
+          "f1": 54.39,
+          "support": 75
+        },
+        "valid": {
+          "precision": 46.34,
+          "recall": 82.61,
+          "f1": 59.38,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 31,
+        "false_positive": 44,
+        "false_negative": 8,
+        "true_positive": 38
+      }
+    },
+    {
+      "model": "GPT-4o_baseline",
+      "test_set_size": 121,
+      "accuracy": 51.24,
+      "correct": 62,
+      "errors": 59,
+      "metrics": {
+        "invalid": {
+          "precision": 80.77,
+          "recall": 28.0,
+          "f1": 41.58,
+          "support": 75
+        },
+        "valid": {
+          "precision": 43.16,
+          "recall": 89.13,
+          "f1": 58.16,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 21,
+        "false_positive": 54,
+        "false_negative": 5,
+        "true_positive": 41
+      }
+    },
+    {
+      "model": "GPT-4o_optimized",
+      "test_set_size": 121,
+      "accuracy": 65.29,
+      "correct": 79,
+      "errors": 42,
+      "metrics": {
+        "invalid": {
+          "precision": 68.97,
+          "recall": 80.0,
+          "f1": 74.07,
+          "support": 75
+        },
+        "valid": {
+          "precision": 55.88,
+          "recall": 41.3,
+          "f1": 47.5,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 60,
+        "false_positive": 15,
+        "false_negative": 27,
+        "true_positive": 19
+      }
+    },
+    {
+      "model": "GPT-5-mini_baseline",
+      "test_set_size": 121,
+      "accuracy": 66.12,
+      "correct": 80,
+      "errors": 41,
+      "metrics": {
+        "invalid": {
+          "precision": 73.61,
+          "recall": 70.67,
+          "f1": 72.11,
+          "support": 75
+        },
+        "valid": {
+          "precision": 55.1,
+          "recall": 58.7,
+          "f1": 56.84,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 53,
+        "false_positive": 22,
+        "false_negative": 19,
+        "true_positive": 27
+      }
+    },
+    {
+      "model": "GPT-5-mini_optimized",
+      "test_set_size": 121,
+      "accuracy": 82.64,
+      "correct": 100,
+      "errors": 21,
+      "metrics": {
+        "invalid": {
+          "precision": 81.4,
+          "recall": 93.33,
+          "f1": 86.96,
+          "support": 75
+        },
+        "valid": {
+          "precision": 85.71,
+          "recall": 65.22,
+          "f1": 74.07,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 70,
+        "false_positive": 5,
+        "false_negative": 16,
+        "true_positive": 30
+      }
+    },
+    {
+      "model": "GPT-5_baseline",
+      "test_set_size": 121,
+      "accuracy": 61.98,
+      "correct": 75,
+      "errors": 46,
+      "metrics": {
+        "invalid": {
+          "precision": 68.83,
+          "recall": 70.67,
+          "f1": 69.74,
+          "support": 75
+        },
+        "valid": {
+          "precision": 50.0,
+          "recall": 47.83,
+          "f1": 48.89,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 53,
+        "false_positive": 22,
+        "false_negative": 24,
+        "true_positive": 22
+      }
+    },
+    {
+      "model": "GPT-5_optimized",
+      "test_set_size": 121,
+      "accuracy": 80.17,
+      "correct": 97,
+      "errors": 24,
+      "metrics": {
+        "invalid": {
+          "precision": 78.65,
+          "recall": 93.33,
+          "f1": 85.37,
+          "support": 75
+        },
+        "valid": {
+          "precision": 84.38,
+          "recall": 58.7,
+          "f1": 69.23,
+          "support": 46
+        }
+      },
+      "confusion_matrix": {
+        "true_negative": 70,
+        "false_positive": 5,
+        "false_negative": 19,
+        "true_positive": 27
+      }
+    }
+  ]
+}

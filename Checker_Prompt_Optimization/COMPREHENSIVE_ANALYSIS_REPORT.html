@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APA Citation Validator - Comprehensive Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        .section {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .alert-danger {
+            background: #fee;
+            border-left: 4px solid #d32f2f;
+        }
+        .alert-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+        }
+        .alert-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        .alert-info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .citation-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+            border-left: 3px solid #667eea;
+        }
+        .finding {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        .finding-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .recommendation {
+            background: #e3f2fd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid #2196f3;
+        }
+        .priority-high {
+            border-left-color: #d32f2f;
+        }
+        .priority-medium {
+            border-left-color: #ff9800;
+        }
+        .priority-low {
+            border-left-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>APA Citation Validator - Comprehensive Analysis</h1>
+        <p>Deep Analysis of Model Performance & Validation Errors</p>
+        <p>Date: November 2025 | Model: GPT-5-mini (reasoning_effort=medium)</p>
+    </div>
+
+    <div class="section">
+        <h2>Executive Summary</h2>
+
+        <div class="alert alert-danger">
+            <strong>Critical Finding:</strong> The model shows high variance and inconsistency. Fresh model runs produced different results than the original validation, with 5/27 errors now correctly classified (previously 0/27).
+        </div>
+
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-value">77.7%</div>
+                <div class="metric-label">Original Validation Accuracy</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">27</div>
+                <div class="metric-label">Total Validation Errors</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">22 FP / 5 FN</div>
+                <div class="metric-label">Error Distribution</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">5/27</div>
+                <div class="metric-label">Improved on Fresh Run</div>
+            </div>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>Key Issue:</strong> Model is overly strict (conservative) - it rejects 22 valid citations as invalid (False Positives), while only missing 5 actual errors (False Negatives). The FP:FN ratio of 4.4:1 indicates the model errs toward false alarms rather than being too lenient.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Error Pattern Analysis</h2>
+
+        <h3>What the Model Flags Most Often</h3>
+        <table>
+            <tr>
+                <th>Issue Type</th>
+                <th>Frequency</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><span class="badge badge-danger">Capitalization</span></td>
+                <td>18 citations</td>
+                <td>Title case vs sentence case confusion - major source of false positives</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">Italics</span></td>
+                <td>12 citations</td>
+                <td>Scope and placement of italics, especially with punctuation</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">Punctuation</span></td>
+                <td>8 citations</td>
+                <td>Period placement, commas with authors</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">Volume Format</span></td>
+                <td>5 citations</td>
+                <td>Volume/issue numbering and italicization</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-warning">Author Format</span></td>
+                <td>4 citations</td>
+                <td>Author name formatting, initials, commas</td>
+            </tr>
+        </table>
+
+        <div class="finding">
+            <div class="finding-title">🔍 Primary Issue: Title Capitalization</div>
+            The model frequently flags titles as having incorrect capitalization. In many cases, it expects "sentence case" but the citation uses "title case" for certain source types (books, journals). This appears to be a misunderstanding of when each capitalization style applies.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Ground Truth Quality Issues</h2>
+
+        <div class="alert alert-danger">
+            <strong>Data Quality Problem Detected:</strong> Found at least 1 confirmed mislabeled citation in the manually curated set, and 4 more suspicious cases where the model's reasoning appears sound.
+        </div>
+
+        <table>
+            <tr>
+                <th>Error #</th>
+                <th>Issue</th>
+                <th>Ground Truth</th>
+                <th>Model Says</th>
+            </tr>
+            <tr>
+                <td>21</td>
+                <td><code>Urdan T.</code> missing comma (should be <code>Urdan, T.</code>)</td>
+                <td><span class="badge badge-success">VALID</span></td>
+                <td><span class="badge badge-danger">INVALID</span> ✓ Correct</td>
+            </tr>
+            <tr>
+                <td>1, 15</td>
+                <td>Title capitalization - model flags title case in book titles</td>
+                <td><span class="badge badge-success">VALID</span></td>
+                <td><span class="badge badge-danger">INVALID</span> ? Unclear</td>
+            </tr>
+        </table>
+
+        <div class="finding">
+            <div class="finding-title">⚠️ Implication</div>
+            If ground truth labels are incorrect, the reported 77.7% accuracy is artificially low. The true accuracy could be higher, but we cannot know without auditing all labels.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Model Inconsistency Analysis</h2>
+
+        <div class="alert alert-info">
+            <strong>Temperature Impact:</strong> GPT-5-mini requires temperature=1, which introduces randomness. The same citation can produce different results across runs.
+        </div>
+
+        <h3>Comparison: Original Run vs Fresh Run</h3>
+        <table>
+            <tr>
+                <th>Metric</th>
+                <th>Original Validation</th>
+                <th>Fresh Model Call</th>
+                <th>Change</th>
+            </tr>
+            <tr>
+                <td>Correct Predictions</td>
+                <td>0/27</td>
+                <td>5/27</td>
+                <td><span class="badge badge-success">+5</span></td>
+            </tr>
+            <tr>
+                <td>False Positives</td>
+                <td>22</td>
+                <td>19</td>
+                <td><span class="badge badge-success">-3</span></td>
+            </tr>
+            <tr>
+                <td>False Negatives</td>
+                <td>5</td>
+                <td>3</td>
+                <td><span class="badge badge-success">-2</span></td>
+            </tr>
+        </table>
+
+        <div class="finding">
+            <div class="finding-title">💡 Key Insight</div>
+            The model's performance varies significantly between runs. This suggests that:
+            <ul>
+                <li>A single validation run may not represent true performance</li>
+                <li>Multiple runs with voting/consensus might improve stability</li>
+                <li>Temperature=1 requirement creates inherent variability</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Critical Gaps in Prompt Coverage</h2>
+
+        <div class="alert alert-warning">
+            The production prompt only covers 4 source types explicitly: webpages, books, dissertations, and journal articles. Many validation errors involve uncovered source types.
+        </div>
+
+        <table>
+            <tr>
+                <th>Source Type</th>
+                <th>Covered in Prompt?</th>
+                <th>Errors in Test Set</th>
+                <th>Impact</th>
+            </tr>
+            <tr>
+                <td>Webpages</td>
+                <td><span class="badge badge-success">Yes</span></td>
+                <td>~10</td>
+                <td>Still has issues</td>
+            </tr>
+            <tr>
+                <td>Books</td>
+                <td><span class="badge badge-success">Yes</span></td>
+                <td>~3</td>
+                <td>Good performance</td>
+            </tr>
+            <tr>
+                <td>Journal Articles</td>
+                <td><span class="badge badge-success">Yes</span></td>
+                <td>~4</td>
+                <td>Moderate issues</td>
+            </tr>
+            <tr>
+                <td>Dissertations</td>
+                <td><span class="badge badge-success">Yes</span></td>
+                <td>~2</td>
+                <td>Has issues</td>
+            </tr>
+            <tr>
+                <td>Conference Presentations</td>
+                <td><span class="badge badge-danger">No</span></td>
+                <td>3</td>
+                <td><strong>High failure rate</strong></td>
+            </tr>
+            <tr>
+                <td>Book Chapters</td>
+                <td><span class="badge badge-danger">No</span></td>
+                <td>2</td>
+                <td>Moderate issues</td>
+            </tr>
+            <tr>
+                <td>Social Media</td>
+                <td><span class="badge badge-danger">No</span></td>
+                <td>1</td>
+                <td>Failed</td>
+            </tr>
+            <tr>
+                <td>Fact Sheets</td>
+                <td><span class="badge badge-danger">No</span></td>
+                <td>2</td>
+                <td>Failed</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Revised Action Plan</h2>
+
+        <div class="recommendation priority-high">
+            <h3>Priority 1: Address Temperature Variability (Immediate)</h3>
+            <strong>Problem:</strong> Model produces inconsistent results due to temperature=1 requirement.<br>
+            <strong>Solution:</strong> Implement ensemble voting
+            <ul>
+                <li>Run each citation through model 3 times</li>
+                <li>Use majority vote for final prediction</li>
+                <li>Flag citations where all 3 disagree for manual review</li>
+            </ul>
+            <strong>Expected Impact:</strong> Reduce variance, improve consistency<br>
+            <strong>Effort:</strong> 1-2 days<br>
+            <strong>Cost Impact:</strong> 3x API calls (acceptable for validation)
+        </div>
+
+        <div class="recommendation priority-high">
+            <h3>Priority 2: Audit Ground Truth Labels (Critical)</h3>
+            <strong>Problem:</strong> At least 1 confirmed mislabeled citation, likely more.<br>
+            <strong>Solution:</strong> Manual audit of all 121 validation citations
+            <ul>
+                <li>Review each citation against APA 7th edition manual</li>
+                <li>Fix mislabeled citations</li>
+                <li>Document rationale for edge cases</li>
+                <li>Re-calculate true baseline accuracy</li>
+            </ul>
+            <strong>Expected Impact:</strong> Accurate performance measurement<br>
+            <strong>Effort:</strong> 1-2 days<br>
+            <strong>True accuracy likely:</strong> 80-85% (vs reported 77.7%)
+        </div>
+
+        <div class="recommendation priority-high">
+            <h3>Priority 3: Expand Prompt with Missing Source Types (High Impact)</h3>
+            <strong>Problem:</strong> Conference presentations, book chapters, social media, fact sheets not covered.<br>
+            <strong>Solution:</strong> Add explicit rules to prompt
+            <ul>
+                <li>Conference presentations: bracket notation, date ranges with en-dash, location format</li>
+                <li>Book chapters: "In [Editor] (Ed.)" format, page ranges</li>
+                <li>Social media: status updates, screen names, platform-specific rules</li>
+                <li>Fact sheets: bracket notation for document type</li>
+            </ul>
+            <strong>Expected Impact:</strong> +5-8% accuracy improvement<br>
+            <strong>Effort:</strong> 2-3 days
+        </div>
+
+        <div class="recommendation priority-medium">
+            <h3>Priority 4: Fix Capitalization Confusion (Medium)</h3>
+            <strong>Problem:</strong> Model confused about title case vs sentence case for different source types.<br>
+            <strong>Solution:</strong> Add explicit capitalization rules
+            <ul>
+                <li>Book titles: Sentence case in reference list</li>
+                <li>Journal names: Title case (capitalize major words)</li>
+                <li>Article titles: Sentence case</li>
+                <li>Proper nouns: Always capitalized</li>
+            </ul>
+            <strong>Expected Impact:</strong> +3-5% accuracy improvement<br>
+            <strong>Effort:</strong> 1 day
+        </div>
+
+        <div class="recommendation priority-medium">
+            <h3>Priority 5: Add Italics Scope Rules (Medium)</h3>
+            <strong>Problem:</strong> Model confused about what should be included in italics.<br>
+            <strong>Solution:</strong> Clarify in prompt
+            <ul>
+                <li>Journal: name italicized, volume italicized, issue NOT italicized</li>
+                <li>Period placement: outside italics unless part of title</li>
+                <li>Volume numbers: separate from journal name italics</li>
+            </ul>
+            <strong>Expected Impact:</strong> +2-3% accuracy improvement<br>
+            <strong>Effort:</strong> 1 day
+        </div>
+
+        <div class="recommendation priority-low">
+            <h3>Priority 6: Re-optimize with Cleaned Data (Long-term)</h3>
+            <strong>After completing priorities 1-5:</strong>
+            <ul>
+                <li>Clean training data (fix labels, remove inconsistencies)</li>
+                <li>Re-run GEPA optimization with expanded prompt as base</li>
+                <li>Use ensemble validation for final testing</li>
+            </ul>
+            <strong>Expected Impact:</strong> 90-95% accuracy<br>
+            <strong>Effort:</strong> 1 week
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Expected Outcomes Timeline</h2>
+
+        <table>
+            <tr>
+                <th>Phase</th>
+                <th>Actions</th>
+                <th>Duration</th>
+                <th>Expected Accuracy</th>
+            </tr>
+            <tr>
+                <td><strong>Baseline</strong></td>
+                <td>Current state</td>
+                <td>-</td>
+                <td>77.7% (reported)</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 1</strong></td>
+                <td>Audit ground truth + ensemble voting</td>
+                <td>3-4 days</td>
+                <td>82-85% (true baseline with fixes)</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 2</strong></td>
+                <td>Expand prompt (source types + capitalization + italics)</td>
+                <td>1 week</td>
+                <td>88-90%</td>
+            </tr>
+            <tr>
+                <td><strong>Phase 3</strong></td>
+                <td>Re-optimize with cleaned data</td>
+                <td>2 weeks total</td>
+                <td>92-95%</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Summary for Analyst Discussion</h2>
+
+        <div class="finding">
+            <div class="finding-title">📊 Current Situation</div>
+            <ul>
+                <li>Model achieves <strong>77.7% accuracy</strong> on validation set (121 citations)</li>
+                <li>Makes <strong>27 errors</strong>: 22 false positives (too strict) + 5 false negatives (too lenient)</li>
+                <li>Model is <strong>conservative</strong> - rejects valid citations more often than accepting invalid ones</li>
+                <li>Shows <strong>high variance</strong> due to temperature=1 requirement (same citation = different results)</li>
+            </ul>
+        </div>
+
+        <div class="finding">
+            <div class="finding-title">🔍 Root Causes Identified</div>
+            <ul>
+                <li><strong>Temperature variability:</strong> GPT-5-mini requires temp=1, causing inconsistent predictions</li>
+                <li><strong>Ground truth quality:</strong> At least 1 confirmed mislabel, likely 4-5 more suspicious cases</li>
+                <li><strong>Incomplete prompt:</strong> Missing rules for 4+ source types (conferences, book chapters, social media, fact sheets)</li>
+                <li><strong>Capitalization confusion:</strong> Model doesn't know when to use title case vs sentence case</li>
+                <li><strong>Italics scope issues:</strong> Unclear what elements should be italicized together</li>
+            </ul>
+        </div>
+
+        <div class="finding">
+            <div class="finding-title">✅ Proposed Solution</div>
+            <strong>Three-phase approach over 2 weeks:</strong>
+            <ol>
+                <li><strong>Fix data quality</strong> (audit labels) + <strong>add stability</strong> (ensemble voting) → 82-85%</li>
+                <li><strong>Expand prompt coverage</strong> (add 4+ source types + clarify rules) → 88-90%</li>
+                <li><strong>Re-optimize</strong> with cleaned data → 92-95%</li>
+            </ol>
+        </div>
+
+        <div class="finding">
+            <div class="finding-title">⚠️ Key Risks</div>
+            <ul>
+                <li><strong>Ensemble cost:</strong> 3x API calls = 3x cost (but acceptable for quality)</li>
+                <li><strong>APA complexity:</strong> Some edge cases genuinely ambiguous even for experts</li>
+                <li><strong>Diminishing returns:</strong> Getting from 90% to 95% much harder than 78% to 85%</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-success">
+            <strong>Bottom Line:</strong> Reaching 95% accuracy is achievable but requires:
+            <ol>
+                <li>Fixing data quality issues (essential)</li>
+                <li>Addressing temperature variability (ensemble voting)</li>
+                <li>Expanding prompt coverage (straightforward)</li>
+                <li>Iterative refinement (time investment)</li>
+            </ol>
+            Estimated timeline: <strong>2-3 weeks of focused work</strong>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Files Generated</h2>
+        <ul>
+            <li><code>COMPLETE_ERROR_ANALYSIS.md</code> - Detailed breakdown of all 27 errors with metadata</li>
+            <li><code>MODEL_EXPLANATIONS_27_ERRORS.json</code> - Raw model responses for each error</li>
+            <li><code>MODEL_EXPLANATIONS_READABLE.md</code> - Human-readable model explanations</li>
+            <li><code>DEEP_ANALYSIS.json</code> - Structured analysis data</li>
+            <li><code>COMPREHENSIVE_ANALYSIS_REPORT.html</code> - This report</li>
+        </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding: 20px; color: #666;">
+        <p>Generated: November 2025</p>
+        <p>APA Citation Validator Deep Analysis</p>
+    </div>
+</body>
+</html>

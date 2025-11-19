@@ -1,0 +1,178 @@
+[
+  {
+    "error_num": 2,
+    "citation": "joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "GT_ERROR",
+    "audit_reason": "Author names incorrect: 'joachimr.' should be 'Joachimr, R.' (or similar). Missing comma and capitalization."
+  },
+  {
+    "error_num": 3,
+    "citation": "Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & M\u00e1rquez-Greene, N. (2019, Augu...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_CONFERENCE_RULES",
+    "audit_reason": "Conference presentation - need to fetch specific APA rules"
+  },
+  {
+    "error_num": 4,
+    "citation": "Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_RETRACTION_RULES",
+    "audit_reason": "Retraction formatting - need specific APA rules"
+  },
+  {
+    "error_num": 5,
+    "citation": "U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_WEBPAGE_RULES",
+    "audit_reason": "Webpage/social media - need specific rules"
+  },
+  {
+    "error_num": 6,
+    "citation": "Cacioppo, S. (2019, April 25\u201328). _Evolutionary theory of social connections: Past, present, and fut...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_CONFERENCE_RULES",
+    "audit_reason": "Conference with date range - model may be wrong about en-dash vs hyphen"
+  },
+  {
+    "error_num": 7,
+    "citation": "Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cogni...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_ADVANCE_PUB_RULES",
+    "audit_reason": "Advance online publication note - need rules"
+  },
+  {
+    "error_num": 8,
+    "citation": "Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory ...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "CHECK_MANUALLY",
+    "audit_reason": "Book title capitalization - check if sentence case"
+  },
+  {
+    "error_num": 9,
+    "citation": "Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained gradu...",
+    "ground_truth": "INVALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "Ground truth says INVALID - model missed error. Need to verify what error."
+  },
+  {
+    "error_num": 10,
+    "citation": "American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4...",
+    "ground_truth": "VALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_ERROR",
+    "audit_reason": "Model caught this correctly - DSM abbreviation/title issue"
+  },
+  {
+    "error_num": 11,
+    "citation": "Thestrup, K. (2010). To transform, to communicate, to play\u2014The experimenting community in action. In...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "CHECK_MANUALLY",
+    "audit_reason": "Check title capitalization against sentence case rule"
+  },
+  {
+    "error_num": 13,
+    "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help...",
+    "ground_truth": "VALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "Model correctly identified as valid"
+  },
+  {
+    "error_num": 14,
+    "citation": "Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and futu...",
+    "ground_truth": "INVALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "CHECK_DATE_FORMAT",
+    "audit_reason": "Date range: April 25-28 - verify hyphen vs en-dash requirement"
+  },
+  {
+    "error_num": 15,
+    "citation": "Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_CHAPTER_RULES",
+    "audit_reason": "Book chapter - need specific formatting rules"
+  },
+  {
+    "error_num": 16,
+    "citation": "Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.10...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_PODCAST_RULES",
+    "audit_reason": "Podcast/audio - need specific rules"
+  },
+  {
+    "error_num": 17,
+    "citation": "National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_FACTSHEET_RULES",
+    "audit_reason": "Fact sheet - need specific rules"
+  },
+  {
+    "error_num": 18,
+    "citation": "Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytim...",
+    "ground_truth": "INVALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "GT says INVALID, model said VALID - model missed error"
+  },
+  {
+    "error_num": 19,
+    "citation": "Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retriev...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_DATABASE_RULES",
+    "audit_reason": "UpToDate database - need specific rules"
+  },
+  {
+    "error_num": 20,
+    "citation": "Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement...",
+    "ground_truth": "INVALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "GT says INVALID, model said VALID - model missed error"
+  },
+  {
+    "error_num": 22,
+    "citation": "Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you ca...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_FACTSHEET_RULES",
+    "audit_reason": "Fact sheet - need rules"
+  },
+  {
+    "error_num": 23,
+    "citation": "Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration fina...",
+    "ground_truth": "INVALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "GT says INVALID, model correctly identified"
+  },
+  {
+    "error_num": 26,
+    "citation": "Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you ca...",
+    "ground_truth": "VALID",
+    "model_prediction": "INVALID",
+    "audit_decision": "NEEDS_FACTSHEET_RULES",
+    "audit_reason": "Fact sheet - need rules"
+  },
+  {
+    "error_num": 27,
+    "citation": "Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in s...",
+    "ground_truth": "VALID",
+    "model_prediction": "VALID",
+    "audit_decision": "GT_CORRECT",
+    "audit_reason": "Model correctly identified as valid"
+  }
+]

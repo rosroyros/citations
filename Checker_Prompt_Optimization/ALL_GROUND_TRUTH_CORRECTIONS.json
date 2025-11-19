@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "created_date": "2025-11-13T09:27:03.192987",
+    "total_dataset_size": 121,
+    "validation_set_size": 121,
+    "model_errors_analyzed": 27,
+    "model_correct_analyzed": 94,
+    "total_gt_errors_found": 12,
+    "gt_error_rate": "9.9%",
+    "gt_accuracy": "90.1%",
+    "source_audits": [
+      {
+        "audit": "27_model_errors",
+        "description": "Analyzed 27 citations where GPT-5-mini made errors",
+        "gt_errors_found": 9,
+        "notes": "Found 9 GT errors: citations marked VALID that should be INVALID"
+      },
+      {
+        "audit": "94_model_correct",
+        "description": "Audited 94 citations model got correct to verify GT labels",
+        "gt_errors_found": 3,
+        "automated_flags": 46,
+        "false_positive_rate": "93.5%",
+        "notes": "Manual audit found 3 GT errors: citations marked INVALID that should be VALID"
+      }
+    ]
+  },
+  "ground_truth_corrections": [
+    {
+      "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.",
+      "current_ground_truth": "INVALID",
+      "corrected_ground_truth": "VALID",
+      "reason": "Citation is correctly formatted per APA 7. Translation properly credited.",
+      "source": "94_citations_audit",
+      "audit_citation_number": 45,
+      "provenance": "SYNTHETIC",
+      "seed_id": "manual_1761231857445"
+    },
+    {
+      "citation": "Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)",
+      "current_ground_truth": "INVALID",
+      "corrected_ground_truth": "VALID",
+      "reason": "Citation is correctly formatted per APA 7. Translation and original work publication date properly noted.",
+      "source": "94_citations_audit",
+      "audit_citation_number": 56,
+      "provenance": "SYNTHETIC",
+      "seed_id": "manual_1761231857445"
+    },
+    {
+      "citation": "Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972",
+      "current_ground_truth": "INVALID",
+      "corrected_ground_truth": "VALID",
+      "reason": "Synthetic change removed 2 authors correctly per APA 7 rules. Citation remains valid despite missing italics/quotation marks.",
+      "source": "94_citations_audit",
+      "audit_citation_number": 60,
+      "provenance": "SYNTHETIC",
+      "seed_id": "manual_1761230839817"
+    },
+    {
+      "citation": "David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Added editor 'Lee, C.' to synthetic variant - model correctly identified as different from valid seed",
+      "source": "27_model_errors_audit",
+      "error_number": 1
+    },
+    {
+      "citation": "Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047\u20131056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Retraction note has formatting issues with parentheses placement",
+      "source": "27_model_errors_audit",
+      "error_number": 4
+    },
+    {
+      "citation": "U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Uses 'Retrieved from' which was removed in APA 7 for most cases",
+      "source": "27_model_errors_audit",
+      "error_number": 5
+    },
+    {
+      "citation": "Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11\u201316. https://doi.org/10.5703/1288284316979",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Article title incorrectly italicized (should not be italicized)",
+      "source": "27_model_errors_audit",
+      "error_number": 12
+    },
+    {
+      "citation": "Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Uses placeholder/fake DOI (10.1000/xyz456)",
+      "source": "27_model_errors_audit",
+      "error_number": 16
+    },
+    {
+      "citation": "Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1\u20133). American Psychological Association.",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Missing comma after author initial: 'Urdan T.' should be 'Urdan, T.'",
+      "source": "27_model_errors_audit",
+      "error_number": 21
+    },
+    {
+      "citation": "Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143\u2013168. https://doi.org/10.1037/0021-9010.76.1.143",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Article title uses title case instead of sentence case: 'The Nomological Validity...'",
+      "source": "27_model_errors_audit",
+      "error_number": 24
+    },
+    {
+      "citation": "Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers\u2019 and the general publics\u2019 perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239\u2013248. https://doi.org/10.1037/cbs0000411",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Extra period before closing italic underscore in title",
+      "source": "27_model_errors_audit",
+      "error_number": 25
+    },
+    {
+      "citation": "Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. doi:10.1234/atsdr.5678",
+      "current_ground_truth": "VALID",
+      "corrected_ground_truth": "INVALID",
+      "reason": "Uses 'doi:' format instead of 'https://doi.org/' AND has '&' in organization name (should be 'and')",
+      "source": "27_model_errors_audit",
+      "error_number": 26
+    }
+  ],
+  "audit_summary": {
+    "total_citations_audited": 121,
+    "model_correct_predictions": 94,
+    "model_incorrect_predictions": 27,
+    "gt_errors_in_model_correct": 3,
+    "gt_errors_in_model_incorrect": 9,
+    "key_findings": [
+      "Ground truth is 90.1% accurate (109/121 correct)",
+      "Found 12 total GT errors across both audits",
+      "9 GT errors were in citations model got WRONG (marked VALID, should be INVALID)",
+      "3 GT errors were in citations model got RIGHT (marked INVALID, should be VALID)",
+      "Most GT errors involve subtle APA 7 formatting violations",
+      "Model was often correct when GT was wrong"
+    ]
+  }
+}

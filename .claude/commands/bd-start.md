@@ -1,7 +1,10 @@
-You are starting work on a beads issue following the beads-first workflow.
+---
+description: Start work on a beads issue following beads-first workflow
+argument-hint: "issue-id (optional - shows list if omitted)"
+---
 
-{{shell: bash -c '
-TASK_ID="{{arg:1}}"
+!bash -c '
+TASK_ID="$1"
 
 if [ -z "$TASK_ID" ]; then
     echo "📋 Open Issues"
@@ -101,4 +104,4 @@ echo "3. Use superpowers:requesting-code-review skill"
 echo "4. After approval: bd close $TASK_ID --reason \"[summary]\""
 echo "5. Run: bd sync"
 echo ""
-'}}
+' "$1"
