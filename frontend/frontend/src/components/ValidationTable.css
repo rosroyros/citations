@@ -116,13 +116,10 @@
 }
 
 .validation-table tbody tr.expanded {
-  background: #f9fafb;
+  background: var(--color-bg-tertiary);
 }
 
-.validation-table tbody tr.expanded.has-errors {
-  background: #fffbeb;
-  border-left: 3px solid #fcd34d;
-}
+/* Error rows - no special row styling, yellow is only on error-details box */
 
 .validation-table tbody td {
   padding: 0.75rem 1rem;
@@ -234,35 +231,40 @@
   border-radius: 4px;
 }
 
-.error-list {
+/* Scope all error styles with .validation-table to override App.css globals */
+.validation-table .error-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.error-item {
+.validation-table .error-item {
+  background: none;
+  padding: 0;
+  border-left: none;
+  border-radius: 0;
   margin-bottom: 1rem;
 }
 
-.error-item:last-child {
+.validation-table .error-item:last-child {
   margin-bottom: 0;
 }
 
-.error-component {
+.validation-table .error-component {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--color-error);
   margin-bottom: 0.25rem;
 }
 
-.error-problem {
+.validation-table .error-problem {
   font-size: 0.8125rem;
   color: var(--color-text-secondary);
   margin-bottom: 0.25rem;
   padding-left: 1rem;
 }
 
-.error-correction {
+.validation-table .error-correction {
   font-size: 0.8125rem;
   color: var(--color-text-primary);
   font-family: var(--font-mono);
@@ -272,7 +274,7 @@
   margin-top: 0.375rem;
 }
 
-.error-correction strong {
+.validation-table .error-correction strong {
   color: var(--color-text-tertiary);
   font-weight: 500;
 }
