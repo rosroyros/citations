@@ -163,6 +163,19 @@ if (data.partial) {
 // }
 ```
 
+**Location 4:** Remove pre-check (line 148-153)
+
+```javascript
+// DELETE these lines - blocks conversion teaser for users at limit
+// if (!token && freeUsed >= 10) {
+//   trackEvent('upgrade_modal_shown', { trigger: 'free_limit' })
+//   setShowUpgradeModal(true)
+//   return
+// }
+```
+
+**Rationale:** Removing pre-check allows users at limit to see locked results teaser, driving conversions. Trade-off: LLM costs for submissions at limit, but conversion value likely outweighs cost.
+
 ## Edge Cases
 
 ### Missing/Invalid Header
