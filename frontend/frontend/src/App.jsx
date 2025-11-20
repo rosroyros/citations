@@ -303,7 +303,7 @@ function AppContent() {
         <div className="hero-content">
           <div className="hero-text">
             <h2 className="hero-title">
-              Stop wasting 5 minutes on every citation
+              Stop wasting 5 minutes on every{'\u00A0'}citation
             </h2>
             <p className="hero-subtitle">
               The fastest, most accurate APA citation checker.

@@ -213,8 +213,10 @@
 }
 
 .action-btn:hover {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--color-bg-secondary) !important;
+  color: var(--color-text-secondary) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .action-btn svg {
