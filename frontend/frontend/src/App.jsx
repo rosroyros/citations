@@ -29,6 +29,7 @@ function AppContent() {
   const [hasPlaceholder, setHasPlaceholder] = useState(true)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [submittedText, setSubmittedText] = useState('')
+  const [fadingOut, setFadingOut] = useState(false)
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const { refreshCredits } = useCredits()
@@ -275,9 +276,20 @@ function AppContent() {
       }
 
       console.log('Displaying user-facing error:', userMessage)
-      setError(userMessage)
+
+      // Fade out loading state before showing error
+      setFadingOut(true)
+      setTimeout(() => {
+        setLoading(false)
+        setFadingOut(false)
+        setError(userMessage)
+      }, 400) // Match fadeOut animation duration
     } finally {
-      setLoading(false)
+      // For success case only, disable loading immediately
+      // Error case handles loading state in setTimeout above
+      if (!error && !fadingOut) {
+        setLoading(false)
+      }
     }
   }
 
@@ -361,7 +373,7 @@ function AppContent() {
       )}
 
       {loading && submittedText && (
-        <div className="validation-results-section">
+        <div className={`validation-results-section ${fadingOut ? 'fade-out' : ''}`}>
           <ValidationLoadingState submittedHtml={submittedText} />
         </div>
       )}

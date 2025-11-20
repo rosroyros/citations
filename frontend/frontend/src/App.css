@@ -157,6 +157,10 @@
   padding: 2rem;
   background: var(--color-bg-primary);
   border-radius: 12px;
+}
+
+.validation-results-section.fade-out {
+  animation: fadeOut 0.4s ease-out forwards;
   box-shadow: var(--shadow-md);
 }
 
@@ -253,6 +257,7 @@ textarea {
   border-left: 3px solid var(--color-error);
   border-radius: 8px;
   color: var(--color-error);
+  animation: fadeIn 0.3s ease-in;
 }
 
 .error-message strong {
@@ -655,6 +660,16 @@ textarea {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 .error-message {
