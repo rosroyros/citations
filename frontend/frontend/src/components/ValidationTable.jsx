@@ -6,7 +6,7 @@ function ValidationTable({ results }) {
     // Initialize with error rows expanded
     const initial = {}
     results.forEach(result => {
-      initial[result.citation_number] = result.errors.length > 0
+      initial[result.citation_number] = (result.errors?.length || 0) > 0
     })
     return initial
   })
@@ -18,8 +18,8 @@ function ValidationTable({ results }) {
     }))
   }
 
-  const perfectCount = results.filter(r => r.errors.length === 0).length
-  const errorCount = results.filter(r => r.errors.length > 0).length
+  const perfectCount = results.filter(r => (r.errors?.length || 0) === 0).length
+  const errorCount = results.filter(r => (r.errors?.length || 0) > 0).length
 
   return (
     <div className="validation-table-container">
@@ -54,26 +54,24 @@ function ValidationTable({ results }) {
         <tbody>
           {results.map((result) => {
             const isExpanded = expandedRows[result.citation_number]
-            const hasErrors = result.errors.length > 0
+            const hasErrors = (result.errors?.length || 0) > 0
 
             return (
               <tr
                 key={result.citation_number}
-                className={isExpanded && hasErrors ? 'expanded' : ''}
+                className={`${isExpanded ? 'expanded' : ''} ${hasErrors ? 'has-errors' : ''}`}
               >
                 <td>
                   <span className="citation-num">{result.citation_number}</span>
                 </td>
                 <td>
                   <div
-                    className={`citation-text ${!hasErrors && !isExpanded ? 'truncated' : ''}`}
+                    className={`citation-text ${!isExpanded ? 'truncated' : ''}`}
                     dangerouslySetInnerHTML={{ __html: result.original }}
                   />
-                  {isExpanded && (
-                    <div className="source-type">
-                      {result.source_type}
-                    </div>
-                  )}
+                  <div className="source-type">
+                    {result.source_type}
+                  </div>
 
                   {hasErrors && isExpanded && (
                     <div className="error-details">
@@ -103,7 +101,7 @@ function ValidationTable({ results }) {
                       {hasErrors ? '✗' : '✓'}
                     </div>
                     <span className="status-text">
-                      {hasErrors ? `${result.errors.length} issue${result.errors.length > 1 ? 's' : ''}` : 'Perfect'}
+                      {hasErrors ? `${result.errors?.length || 0} issue${(result.errors?.length || 0) > 1 ? 's' : ''}` : 'Perfect'}
                     </span>
                   </div>
                 </td>

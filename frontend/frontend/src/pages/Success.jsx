@@ -306,7 +306,7 @@ const Success = () => {
       </section>
 
       {error && (
-        <div className="error">
+        <div className="error-message">
           <strong>Error:</strong> {error}
         </div>
       )}

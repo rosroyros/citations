@@ -30,31 +30,29 @@ function ValidationLoadingState({ submittedHtml }) {
         return temp.textContent.trim().length > 0
       })
 
-    // Progressive reveal
-    let currentIndex = 0
-    const revealNextLine = () => {
-      if (currentIndex < lines.length) {
-        setRevealedLines(prev => [...prev, {
-          html: lines[currentIndex],
-          number: prev.length + 1
-        }])
-        currentIndex++
+    // Reset state
+    setRevealedLines([])
+    setIsRevealing(true)
 
-        // Vary timing - slower on blank lines (already filtered), normal otherwise
-        const delay = 250
-        timerRef.current = setTimeout(revealNextLine, delay)
+    // Progressive reveal using interval instead of recursive setTimeout
+    let currentIndex = 0
+
+    const interval = setInterval(() => {
+      if (currentIndex < lines.length) {
+        const lineToAdd = {
+          html: lines[currentIndex],
+          number: currentIndex + 1
+        }
+        setRevealedLines(prev => [...prev, lineToAdd])
+        currentIndex++
       } else {
-        // All lines revealed, start rotating status messages
+        clearInterval(interval)
         setIsRevealing(false)
       }
-    }
-
-    revealNextLine()
+    }, 600)
 
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current)
-      }
+      clearInterval(interval)
     }
   }, [submittedHtml])
 
@@ -93,7 +91,7 @@ function ValidationLoadingState({ submittedHtml }) {
         </thead>
         <tbody>
           {revealedLines.map((line, index) => (
-            <tr key={index} className="loading-row" style={{ animationDelay: `${index * 0.1}s` }}>
+            <tr key={`line-${line.number}`} className="loading-row">
               <td>
                 <span className="citation-num">{line.number}</span>
               </td>

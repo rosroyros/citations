@@ -149,6 +149,16 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Validation Results Section */
+.validation-results-section {
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+  padding: 2rem;
+  background: var(--color-bg-primary);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+}
+
 .input-section label {
   display: block;
   font-family: var(--font-heading);
@@ -232,7 +242,8 @@ textarea {
   white-space: pre-line;
 }
 
-.error {
+/* Error message display */
+.error-message {
   max-width: 900px;
   margin: 2rem auto;
   padding: var(--space-lg);
@@ -243,7 +254,7 @@ textarea {
   color: var(--color-error);
 }
 
-.error strong {
+.error-message strong {
   display: block;
   margin-bottom: 0.5rem;
   font-size: 1.125rem;

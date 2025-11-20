@@ -168,8 +168,8 @@ function AppContent() {
       let data
 
       if (MOCK_MODE) {
-        console.log('🎭 MOCK MODE: Simulating API call (3s delay)')
-        data = await mockValidationAPI(3000)
+        console.log('🎭 MOCK MODE: Simulating API call (10s delay)')
+        data = await mockValidationAPI(10000)
       } else {
         console.log('Calling API: /api/validate')
 
@@ -355,30 +355,34 @@ function AppContent() {
       </section>
 
       {error && (
-        <div className="error">
+        <div className="error-message">
           <strong>Error:</strong> {error}
         </div>
       )}
 
       {loading && submittedText && (
-        <ValidationLoadingState submittedHtml={submittedText} />
+        <div className="validation-results-section">
+          <ValidationLoadingState submittedHtml={submittedText} />
+        </div>
       )}
 
       {results && !loading && (
-        results.isPartial ? (
-          <PartialResults
-            results={results.results}
-            partial={results.partial}
-            citations_checked={results.citations_checked}
-            citations_remaining={results.citations_remaining}
-            onUpgrade={() => {
-              trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
-              setShowUpgradeModal(true)
-            }}
-          />
-        ) : (
-          <ValidationTable results={results.results} />
-        )
+        <div className="validation-results-section">
+          {results.isPartial ? (
+            <PartialResults
+              results={results.results}
+              partial={results.partial}
+              citations_checked={results.citations_checked}
+              citations_remaining={results.citations_remaining}
+              onUpgrade={() => {
+                trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
+                setShowUpgradeModal(true)
+              }}
+            />
+          ) : (
+            <ValidationTable results={results.results} />
+          )}
+        </div>
       )}
 
       {/* Benefits Section */}
