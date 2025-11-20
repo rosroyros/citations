@@ -397,64 +397,41 @@ function AppContent() {
         </div>
       )}
 
-      {/* Benefits Section */}
-      <section className="benefits">
-        <div className="benefits-content">
-          <h3 className="benefits-title">Why researchers choose Citation Format Checker</h3>
-          <div className="benefits-grid">
-            <div className="benefit-card">
-              <div className="benefit-icon">🎯</div>
-              <h4 className="benefit-title">Catches 99% of errors</h4>
-              <p className="benefit-text">
-                Our AI validates against official APA 7th Edition rules — more accurate than any generator or LLM.
-              </p>
+      {/* Why It Works Section */}
+      <section className="why-it-works">
+        <div className="why-it-works-content">
+          <h3 className="why-it-works-title">Why Citation Format Checker Works</h3>
+          <div className="featured-bento-refined">
+            <div className="featured-hero-refined">
+              <h4>Catches 99% of citation errors</h4>
+              <p>Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.</p>
             </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">🎯</div>
-              <h4 className="benefit-title">Catch generator errors</h4>
-              <p className="benefit-text">
-                Zotero, EasyBib, and ChatGPT make formatting mistakes. We find them before your professor does.
-              </p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">✅</div>
-              <h4 className="benefit-title">Never lose points</h4>
-              <p className="benefit-text">
-                Submit with confidence. No more losing grades on formatting mistakes.
-              </p>
-            </div>
-            <div className="benefit-card">
-              <div className="benefit-icon">💜</div>
-              <h4 className="benefit-title">Trusted by researchers worldwide</h4>
-              <p className="benefit-text">
-                Join thousands of students and academics who rely on us to perfect their citations.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Why We're Different Section */}
-      <section className="why-different">
-        <div className="why-different-content">
-          <h3 className="why-different-title">Why Citation Format Checker is Different</h3>
-          <div className="why-grid">
-            <div className="why-card">
-              <h4>Custom AI Models</h4>
+            <div className="secondary-gradient secondary-teal">
+              <h5>Never lose points</h5>
+              <p>Submit with confidence. No more losing grades on formatting mistakes.</p>
+            </div>
+
+            <div className="secondary-gradient secondary-emerald">
+              <h5>Finds generator mistakes</h5>
+              <p>Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.</p>
+            </div>
+
+            <div className="bottom-card">
+              <h6>Custom AI Models</h6>
               <p>Trained on thousands of expert-verified citations for each source type</p>
             </div>
-            <div className="why-card">
-              <h4>APA Expert Verified</h4>
+
+            <div className="bottom-card">
+              <h6>APA Expert Verified</h6>
               <p>Every error type validated against official APA 7th Edition manual</p>
             </div>
-            <div className="why-card">
-              <h4>99% Accuracy</h4>
-              <p>Significantly more accurate than ChatGPT, Zotero, and EasyBib</p>
+
+            <div className="bottom-card">
+              <h6>Trusted Worldwide</h6>
+              <p>Join thousands of students and academics who rely on us</p>
             </div>
           </div>
-          <p className="why-footnote">
-            Unlike general AI tools, our models specialize exclusively in citation formatting
-          </p>
         </div>
       </section>
 
