@@ -66,10 +66,10 @@ class OpenAIProvider(CitationValidator):
 
             # Use appropriate parameter based on model family
             if self.model.startswith("gpt-5"):
-                completion_kwargs["max_completion_tokens"] = 4000  # ~25-30 citations worth of responses
+                completion_kwargs["max_completion_tokens"] = 10000  # Increased to handle large batches without truncation
                 completion_kwargs["reasoning_effort"] = "medium"  # 75.2% accuracy, only -2.5% vs baseline for better latency
             else:
-                completion_kwargs["max_tokens"] = 4000
+                completion_kwargs["max_tokens"] = 10000
 
             response = await self.client.chat.completions.create(**completion_kwargs)
 
