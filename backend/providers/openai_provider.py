@@ -61,7 +61,7 @@ class OpenAIProvider(CitationValidator):
                     {"role": "user", "content": prompt}
                 ],
                 "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
-                "timeout": 85.0  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
+                "timeout": 180.0  # 180 second timeout for large batches (10k tokens)
             }
 
             # Use appropriate parameter based on model family
