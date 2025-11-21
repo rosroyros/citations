@@ -44,6 +44,169 @@ function AppContent() {
     }
   }, [])
 
+  // Recover existing job on component mount
+  useEffect(() => {
+    const existingJobId = localStorage.getItem('current_job_id')
+    if (existingJobId) {
+      console.log('Found existing job ID:', existingJobId)
+
+      const token = getToken()
+
+      // Start loading state
+      setLoading(true)
+      setError(null)
+      setResults(null)
+      setSubmittedText('') // Will be populated when job completes
+
+      // Start polling for existing job
+      pollForResults(existingJobId, token)
+    }
+  }, [])
+
+  // Poll for job results
+  const pollForResults = async (jobId, token) => {
+    const MAX_ATTEMPTS = 90 // 3 minutes at 2s intervals
+    const POLL_INTERVAL = 2000 // 2 seconds
+
+    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+      try {
+        console.log(`Polling attempt ${attempt + 1}/${MAX_ATTEMPTS} for job ${jobId}`)
+
+        const response = await fetch(`/api/jobs/${jobId}`)
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Job not found - please try again')
+          }
+          throw new Error(`Server error (${response.status}): Please try again`)
+        }
+
+        const jobData = await response.json()
+        console.log('Job status:', jobData.status, jobData)
+
+        if (jobData.status === 'completed') {
+          console.log('Job completed successfully')
+          localStorage.removeItem('current_job_id')
+
+          // Handle successful completion
+          const data = jobData.results
+
+          // Sync localStorage with backend's authoritative count
+          if (data.free_used_total !== undefined) {
+            localStorage.setItem('citation_checker_free_used', String(data.free_used_total))
+            console.log(`Updated free usage to: ${data.free_used_total}`)
+          }
+
+          // Handle response
+          if (data.partial) {
+            setResults({ ...data, isPartial: true })
+          } else {
+            setResults(data)
+
+            // Track citation validation event
+            const citationsCount = data.results.length
+            const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
+            const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
+            const userType = token ? 'paid' : 'free'
+
+            trackEvent('citation_validated', {
+              citations_count: citationsCount,
+              errors_found: errorsFound,
+              perfect_count: perfectCount,
+              user_type: userType
+            })
+          }
+
+          // Refresh credits for paid users
+          if (token) {
+            setTimeout(() => {
+              refreshCredits().catch(err =>
+                console.error('Failed to refresh credits:', err)
+              )
+            }, 100)
+          }
+
+          setLoading(false)
+          return
+
+        } else if (jobData.status === 'failed') {
+          console.log('Job failed:', jobData.error)
+          localStorage.removeItem('current_job_id')
+
+          const errorMessage = jobData.error || 'Validation failed'
+
+          // Track validation error
+          let errorType = 'job_failed'
+          if (errorMessage.includes('credits') || errorMessage.includes('402')) {
+            errorType = 'out_of_credits'
+          }
+
+          trackEvent('validation_error', {
+            error_type: errorType,
+            error_message: errorMessage.substring(0, 100)
+          })
+
+          setFadingOut(true)
+          setTimeout(() => {
+            setLoading(false)
+            setFadingOut(false)
+            setError(errorMessage)
+          }, 400)
+
+          return
+
+        } else {
+          // Job still pending or processing, continue polling
+          if (attempt < MAX_ATTEMPTS - 1) {
+            await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL))
+          }
+        }
+
+      } catch (err) {
+        console.error('Polling error:', err)
+
+        // Track polling error
+        let errorType = 'polling_error'
+        if (err.message.includes('Job not found')) {
+          errorType = 'job_not_found'
+        } else if (err.message.includes('402')) {
+          errorType = 'out_of_credits'
+        }
+
+        trackEvent('validation_error', {
+          error_type: errorType,
+          error_message: err.message.substring(0, 100)
+        })
+
+        localStorage.removeItem('current_job_id')
+        setFadingOut(true)
+        setTimeout(() => {
+          setLoading(false)
+          setFadingOut(false)
+          setError(err.message)
+        }, 400)
+
+        return
+      }
+    }
+
+    // Max attempts reached
+    console.log('Job timed out after maximum attempts')
+    localStorage.removeItem('current_job_id')
+
+    trackEvent('validation_error', {
+      error_type: 'timeout',
+      error_message: 'Validation timed out after 3 minutes'
+    })
+
+    setFadingOut(true)
+    setTimeout(() => {
+      setLoading(false)
+      setFadingOut(false)
+      setError('Validation timed out. Please try again.')
+    }, 400)
+  }
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -165,7 +328,7 @@ function AppContent() {
         console.log('🎭 MOCK MODE: Simulating API call (10s delay)')
         data = await mockValidationAPI(10000)
       } else {
-        console.log('Calling API: /api/validate')
+        console.log('Calling API: /api/validate/async')
 
         // Build headers
         const headers = { 'Content-Type': 'application/json' }
@@ -177,7 +340,7 @@ function AppContent() {
           headers['X-Free-Used'] = btoa(String(freeUsed))
         }
 
-        const response = await fetch('/api/validate', {
+        const response = await fetch('/api/validate/async', {
           method: 'POST',
           headers,
           body: JSON.stringify({
@@ -202,7 +365,15 @@ function AppContent() {
           }
         }
 
-        data = await response.json()
+        const asyncData = await response.json()
+        console.log('Async job created:', asyncData)
+
+        // Store job_id in localStorage for recovery
+        localStorage.setItem('current_job_id', asyncData.job_id)
+
+        // Start polling for results
+        await pollForResults(asyncData.job_id, token)
+        return // Exit early, polling will handle results
       }
 
       console.log('API response data:', data)

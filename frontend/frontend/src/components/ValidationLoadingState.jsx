@@ -80,6 +80,22 @@ function ValidationLoadingState({ submittedHtml }) {
         </div>
       </div>
 
+      <div className="async-warning" style={{
+        backgroundColor: '#fef3c7',
+        border: '1px solid #f59e0b',
+        borderRadius: '6px',
+        padding: '12px 16px',
+        margin: '16px 0',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
+      }}>
+        <span style={{ fontSize: '18px' }}>⚠️</span>
+        <span style={{ color: '#92400e', fontSize: '14px' }}>
+          <strong>Don't refresh this page</strong> while validation is in progress. Your results will appear shortly.
+        </span>
+      </div>
+
       <table className="validation-table loading">
         <thead>
           <tr>
