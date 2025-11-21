@@ -20,8 +20,14 @@ load_dotenv()
 # Initialize logger
 logger = setup_logger("citation_validator")
 
-# Initialize LLM provider with GEPA-optimized prompt
-llm_provider = OpenAIProvider()
+# Initialize LLM provider (mock for E2E tests, real for production)
+if os.getenv('MOCK_LLM', '').lower() == 'true':
+    from providers.mock_provider import MockProvider
+    llm_provider = MockProvider()
+    logger.info("Using MockProvider for LLM (fast E2E testing mode)")
+else:
+    llm_provider = OpenAIProvider()
+    logger.info("Using OpenAIProvider for LLM (production mode)")
 
 # Initialize Polar client
 polar = Polar(
@@ -318,11 +324,15 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             logger.info(f"Free tier: used={free_used}, submitting={citation_count}, affordable={affordable}")
 
             if affordable == 0:
-                # Already at limit - reject with 402
-                logger.warning("Free tier limit reached - returning 402 error")
-                raise HTTPException(
-                    status_code=402,  # Payment Required
-                    detail=f"Free tier limit of {FREE_LIMIT} citations reached. Purchase more to continue."
+                # Already at limit - return empty partial results to show locked teaser
+                logger.info("Free tier limit reached - returning empty partial results")
+                return ValidationResponse(
+                    results=[],
+                    partial=True,
+                    citations_checked=0,
+                    citations_remaining=citation_count,
+                    free_used=FREE_LIMIT,
+                    free_used_total=FREE_LIMIT
                 )
             elif affordable >= citation_count:
                 # Under limit - return all results

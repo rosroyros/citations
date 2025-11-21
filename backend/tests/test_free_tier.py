@@ -7,6 +7,7 @@ import json
 import sys
 import os
 import asyncio
+import base64
 
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -14,6 +15,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from app import app
 
 client = TestClient(app)
+
+
+def encode_free_used(value: int) -> str:
+    """Encode free usage count as base64 for X-Free-Used header."""
+    return base64.b64encode(str(value).encode('utf-8')).decode('utf-8')
 
 
 class TestFreeTierEnforcement:
@@ -62,7 +68,7 @@ class TestFreeTierEnforcement:
         response = client.post(
             "/api/validate",
             json={"citations": "Smith, 2023\nJones, 2022\nBrown, 2021\nDavis, 2020\nWilson, 2019", "style": "apa7"},
-            headers={"X-Free-Used": "0"}
+            headers={"X-Free-Used": encode_free_used(0)}
         )
 
         # Assertions
@@ -97,7 +103,7 @@ class TestFreeTierEnforcement:
         response = client.post(
             "/api/validate",
             json={"citations": "Smith, 2023\nJones, 2022", "style": "apa7"},
-            headers={"X-Free-Used": "8"}
+            headers={"X-Free-Used": encode_free_used(8)}
         )
 
         # Assertions
@@ -122,7 +128,7 @@ class TestFreeTierEnforcement:
         response = client.post(
             "/api/validate",
             json={"citations": "8 citations here", "style": "apa7"},
-            headers={"X-Free-Used": "5"}
+            headers={"X-Free-Used": encode_free_used(5)}
         )
 
         # Assertions - should only process 5 more citations (5 used + 5 new = 10 total)
@@ -136,19 +142,30 @@ class TestFreeTierEnforcement:
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
     def test_free_user_already_at_limit_5_requested_10_used(self, mock_llm):
-        """Test free user already at limit (5 citations requested, 10 used) should reject."""
+        """Test free user already at limit (5 citations requested, 10 used) should return empty partial results."""
+        # Setup - return 5 potential results
+        mock_llm.return_value = {
+            "results": [
+                {"citation_number": i+1, "original": f"Source {i+1}", "source_type": "journal", "errors": []}
+                for i in range(5)
+            ]
+        }
+
         # Request with X-Free-Used header showing 10 citations used (already at limit)
         response = client.post(
             "/api/validate",
             json={"citations": "5 citations here", "style": "apa7"},
-            headers={"X-Free-Used": "10"}
+            headers={"X-Free-Used": encode_free_used(10)}
         )
 
-        # Assertions - should reject with 402 Payment Required
-        assert response.status_code == 402
-        error_data = response.json()
-        assert "Free tier limit" in error_data["detail"]
-        assert "10 citations" in error_data["detail"]
+        # Assertions - should return empty partial results with locked teaser
+        assert response.status_code == 200
+        data = response.json()
+        assert data["partial"] is True
+        assert data["citations_checked"] == 0
+        assert data["citations_remaining"] == 5
+        assert len(data["results"]) == 0
+        assert data["free_used"] == 10
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
     def test_missing_free_used_header_treated_as_0(self, mock_llm):

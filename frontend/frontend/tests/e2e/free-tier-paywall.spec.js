@@ -28,10 +28,11 @@ test.describe('Free Tier Paywall', () => {
   test.beforeEach(async ({ page }) => {
     // Clear local storage before each test to start fresh
     await page.context().clearCookies();
-    await page.goto('/');
-    await page.evaluate(() => {
+    // Add script to clear localStorage before page loads
+    await page.addInitScript(() => {
       localStorage.clear();
     });
+    await page.goto('/');
   });
 
   test('first-time user submits 5 citations', async ({ page }) => {
@@ -85,15 +86,22 @@ test.describe('Free Tier Paywall', () => {
     await expect(submitButton).toBeVisible();
     await submitButton.click();
 
-    // Should show paywall modal
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
-
     // Should show partial results (up to free tier limit)
-    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
 
-    // Verify free usage was updated
+    // Verify free usage was updated to 10 (5 + 5 allowed)
     const freeUsage = await page.evaluate(() => parseInt(localStorage.getItem('citation_checker_free_used') || '0', 10));
-    expect(freeUsage).toBeGreaterThan(5);
+    expect(freeUsage).toBe(10);
+
+    // Modal should NOT auto-show - user must click "Upgrade Now" button
+    await expect(page.locator('[data-testid="upgrade-modal"]')).not.toBeVisible();
+
+    // Click "Upgrade Now" button in partial results
+    const upgradeButton = page.locator('.upgrade-button').filter({ hasText: /upgrade/i });
+    await upgradeButton.click();
+
+    // NOW modal should appear
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible();
   });
 
   test('user at limit tries to submit', async ({ page }) => {
@@ -117,11 +125,21 @@ test.describe('Free Tier Paywall', () => {
     await expect(submitButton).toBeVisible();
     await submitButton.click();
 
-    // Should show paywall modal immediately
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
+    // Should show partial results with 0 results and locked teaser
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
 
-    // Should not show any results
-    await expect(page.locator('[data-testid="results"]')).not.toBeVisible();
+    // Verify banner shows "1 more citation available"
+    await expect(page.locator('.upgrade-banner')).toContainText('1 more citation');
+
+    // Modal should NOT auto-show - requires button click
+    await expect(page.locator('[data-testid="upgrade-modal"]')).not.toBeVisible();
+
+    // Click upgrade button to show modal
+    const upgradeButton = page.locator('.upgrade-button').filter({ hasText: /upgrade/i });
+    await upgradeButton.click();
+
+    // NOW modal appears
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible();
   });
 
   test('user submits 100 citations (first time)', async ({ page }) => {
@@ -140,15 +158,18 @@ test.describe('Free Tier Paywall', () => {
     await expect(submitButton).toBeVisible();
     await submitButton.click();
 
-    // Should show paywall modal
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
-
     // Should show partial results (up to free tier limit)
-    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Verify free usage was capped at tier limit
     const freeUsage = await page.evaluate(() => parseInt(localStorage.getItem('citation_checker_free_used') || '0', 10));
-    expect(freeUsage).toBeGreaterThanOrEqual(10); // Should be at the limit
+    expect(freeUsage).toBe(10); // Exactly at limit
+
+    // Verify banner shows "90 more citations available"
+    await expect(page.locator('.upgrade-banner')).toContainText('90 more citation');
+
+    // Modal should NOT auto-show
+    await expect(page.locator('[data-testid="upgrade-modal"]')).not.toBeVisible();
   });
 
   test('backend sync overrides frontend', async ({ page }) => {
@@ -178,7 +199,7 @@ test.describe('Free Tier Paywall', () => {
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
     await expect(editor).toBeVisible();
 
-    // Submit 3 citations (8 + 3 = 11, which exceeds free tier limit)
+    // Submit 3 citations (8 + 3 = 11, which exceeds free tier limit by 1)
     const citationText = Object.values(citations).slice(0, 3).join('\n');
     await editor.fill(citationText);
 
@@ -187,11 +208,11 @@ test.describe('Free Tier Paywall', () => {
     await expect(submitButton).toBeVisible();
     await submitButton.click();
 
-    // Should show paywall because backend count takes precedence
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
+    // Should show partial results (2 citations processed, 1 locked)
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
 
-    // Verify frontend was updated with backend count
+    // Verify frontend was updated to 10 (backend synced, then 2 more checked)
     const freeUsage = await page.evaluate(() => parseInt(localStorage.getItem('citation_checker_free_used') || '0', 10));
-    expect(freeUsage).toBe(8); // Should match backend count
+    expect(freeUsage).toBe(10); // 8 from backend + 2 allowed = 10 at limit
   });
 });
