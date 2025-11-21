@@ -9,6 +9,7 @@ import os
 import uuid
 import json
 import base64
+import time
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
@@ -34,6 +35,9 @@ polar = Polar(
     access_token=os.getenv('POLAR_ACCESS_TOKEN')
     # No server parameter = production API
 )
+
+# Global in-memory job storage
+jobs = {}
 
 
 class HTMLToTextConverter(HTMLParser):
@@ -406,6 +410,60 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         # Unexpected errors
         logger.error(f"Unexpected validation error: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
+
+
+async def process_validation_job(job_id: str, citations: str, style: str):
+    """
+    Background task to process validation.
+    No HTTP timeout applies here.
+    """
+    pass
+
+
+@app.post("/api/validate/async")
+async def validate_citations_async(http_request: Request, request: ValidationRequest):
+    """
+    Create async validation job.
+
+    Returns immediately with job_id.
+    Background worker processes validation.
+    """
+    # Generate job ID
+    job_id = str(uuid.uuid4())
+
+    # Create job entry
+    jobs[job_id] = {
+        "status": "pending",
+        "created_at": time.time(),
+        "results": None,
+        "error": None,
+        "token": None,
+        "free_used": 0,
+        "citation_count": 0
+    }
+
+    return {"job_id": job_id, "status": "pending"}
+
+
+@app.get("/api/jobs/{job_id}")
+async def get_job_status(job_id: str):
+    """
+    Get job status and results.
+
+    Returns:
+    - pending: Still processing
+    - processing: LLM call in progress
+    - completed: Results ready
+    - failed: Error occurred
+    """
+    if job_id not in jobs:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    job = jobs[job_id]
+
+    return {
+        "status": job["status"]
+    }
 
 
 @app.post("/api/polar-webhook")
