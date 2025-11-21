@@ -143,14 +143,7 @@ function AppContent() {
     }
 
     const token = getToken()
-    const freeUsed = getFreeUsage()
-
-    // Check free tier limit
-    if (!token && freeUsed >= 10) {
-      trackEvent('upgrade_modal_shown', { trigger: 'free_limit' })
-      setShowUpgradeModal(true)
-      return
-    }
+    // Free tier pre-check removed - allows users at limit to see locked results teaser
 
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
@@ -178,6 +171,10 @@ function AppContent() {
         const headers = { 'Content-Type': 'application/json' }
         if (token) {
           headers['X-User-Token'] = token
+        } else {
+          // Free tier - send usage count
+          const freeUsed = getFreeUsage()
+          headers['X-Free-Used'] = btoa(String(freeUsed))
         }
 
         const response = await fetch('/api/validate', {
@@ -210,6 +207,12 @@ function AppContent() {
 
       console.log('API response data:', data)
 
+      // Sync localStorage with backend's authoritative count
+      if (data.free_used_total !== undefined) {
+        localStorage.setItem('citation_checker_free_used', String(data.free_used_total))
+        console.log(`Updated free usage to: ${data.free_used_total}`)
+      }
+
       // Handle response
       if (data.partial) {
         // Partial results (insufficient credits)
@@ -231,10 +234,7 @@ function AppContent() {
           user_type: userType
         })
 
-        // Increment free counter if no token
-        if (!token) {
-          incrementFreeUsage(data.results.length)
-        }
+        // Free counter increment removed - now handled by free_used_total sync
       }
 
       // Refresh credits for paid users (with small delay to ensure state updates)
