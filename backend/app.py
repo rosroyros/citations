@@ -147,7 +147,7 @@ class ValidationResponse(BaseModel):
     citations_remaining: Optional[int] = None
     credits_remaining: Optional[int] = None
     free_used: Optional[int] = None
-   free_used_total: Optional[int] = None  # NEW - authoritative count for frontend
+    free_used_total: Optional[int] = None  # NEW - authoritative count for frontend
 
 
 @app.get("/health")
