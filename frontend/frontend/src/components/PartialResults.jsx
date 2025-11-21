@@ -16,7 +16,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
   }, [results, trackSourceTypeView]);
 
   return (
-    <div className="partial-results-container">
+    <div className="partial-results-container" data-testid="partial-results">
       <ValidationTable results={results} />
 
       <div className="upgrade-banner">

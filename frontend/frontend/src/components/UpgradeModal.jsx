@@ -57,7 +57,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
     <div
       className="upgrade-modal-overlay"
       onClick={handleOverlayClick}
-      data-testid="modal-overlay"
+      data-testid="upgrade-modal"
     >
       <div
         className="upgrade-modal-content"

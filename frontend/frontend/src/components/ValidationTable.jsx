@@ -22,7 +22,7 @@ function ValidationTable({ results }) {
   const errorCount = results.filter(r => (r.errors?.length || 0) > 0).length
 
   return (
-    <div className="validation-table-container">
+    <div className="validation-table-container" data-testid="results">
       <div className="table-header">
         <h2>Validation Results</h2>
         <div className="table-stats">
