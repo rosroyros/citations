@@ -14,12 +14,16 @@ from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
+from database import get_credits, deduct_credits
 
 # Load environment variables
 load_dotenv()
 
 # Initialize logger
 logger = setup_logger("citation_validator")
+
+# Free tier limit
+FREE_LIMIT = 10
 
 # Initialize LLM provider (mock for E2E tests, real for production)
 if os.getenv('MOCK_LLM', '').lower() == 'true':
@@ -433,7 +437,6 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         free_used = jobs[job_id]["free_used"]
 
         if token:
-            from database import get_credits
             user_credits = get_credits(token)
             if user_credits == 0:
                 jobs[job_id]["status"] = "failed"
@@ -442,7 +445,6 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 return
         else:
             # Free tier - check limit
-            FREE_LIMIT = 10
             if free_used >= FREE_LIMIT:
                 jobs[job_id]["status"] = "failed"
                 jobs[job_id]["error"] = "Free tier limit reached. Purchase credits to continue."
@@ -463,7 +465,6 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         # Handle credit/free tier logic (same as existing /api/validate)
         if not token:
             # Free tier
-            FREE_LIMIT = 10
             affordable = max(0, FREE_LIMIT - free_used)
 
             if affordable >= citation_count:
@@ -483,14 +484,13 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 }
         else:
             # Paid tier
-            from database import get_credits, deduct_credits
             user_credits = get_credits(token)
 
             if user_credits >= citation_count:
                 # Can afford all
                 success = deduct_credits(token, citation_count)
                 if not success:
-                    raise Exception("Failed to deduct credits")
+                    raise ValueError(f"Failed to deduct {citation_count} credits from user {token[:8]}...")
 
                 jobs[job_id]["results"] = {
                     "results": results,
@@ -501,7 +501,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 affordable = user_credits
                 success = deduct_credits(token, affordable)
                 if not success:
-                    raise Exception("Failed to deduct credits")
+                    raise ValueError(f"Failed to deduct {affordable} credits from user {token[:8]}...")
 
                 jobs[job_id]["results"] = {
                     "results": results[:affordable],
@@ -553,7 +553,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     try:
         free_used = int(base64.b64decode(free_used_header).decode('utf-8'))
-    except:
+    except (ValueError, UnicodeDecodeError, base64.binascii.Error):
         free_used = 0
 
     # Validate input
