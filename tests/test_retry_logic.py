@@ -95,7 +95,7 @@ class TestOpenAIRetryLogic:
         provider.client = mock_client
 
         with patch('asyncio.sleep'):
-            with pytest.raises(ValueError, match="Request timed out after multiple retries"):
+            with pytest.raises(ValueError, match="Request failed after multiple retries due to timeout errors"):
                 await provider.validate_citations("test citation")
 
         # Should have made exactly 3 attempts

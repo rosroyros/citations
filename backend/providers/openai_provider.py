@@ -89,7 +89,8 @@ class OpenAIProvider(CitationValidator):
                     continue  # Retry attempted
                 else:
                     # Max retries exceeded
-                    raise ValueError("Request timed out after multiple retries. Please try again later.") from e
+                    error_type = "timeout" if isinstance(e, APITimeoutError) else "rate limit"
+                    raise ValueError(f"Request failed after multiple retries due to {error_type} errors. Please try again later.") from e
 
             except APIError as e:
                 logger.error(f"OpenAI API error: {str(e)}", exc_info=True)
@@ -125,11 +126,14 @@ class OpenAIProvider(CitationValidator):
         """
         Handle retryable errors with exponential backoff.
 
+        Specifically handles APITimeoutError and RateLimitError from OpenAI API calls.
+        Logs retry attempts with warning level and applies exponential backoff delays.
+
         Args:
-            error: The exception that occurred
+            error: The exception that occurred (APITimeoutError or RateLimitError)
             attempt: Current attempt number (0-based)
             max_retries: Maximum number of retry attempts
-            retry_delay: Initial delay in seconds
+            retry_delay: Initial delay in seconds (multiplied by 2^attempt for backoff)
 
         Returns:
             True if retry should be attempted, False if max retries exceeded
