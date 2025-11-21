@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 
+// Constants
+const TIMEOUT = 30000;
+
 // Test data
 const citations = {
   valid1: 'Smith, J. (2023). Understanding machine learning. Journal of AI, 15(2), 123-145.',
@@ -11,25 +14,28 @@ const citations = {
   valid7: 'Wilson, S. (2023). Network security essentials. Security Focus, 9(4), 201-223.',
   valid8: 'Moore, L. (2023). Mobile app development. App Developer Journal, 7(3), 134-156.',
   valid9: 'Taylor, J. (2023). DevOps best practices. Ops Weekly, 11(2), 78-92.',
-  valid10: 'Anderson, P. (2023). UX design principles. Design Today, 6(1), 34-56.',
-  // Generate 90 more for the 100 citation test
-  ...(Array.from({ length: 90 }, (_, i) => ({
-    [`valid${i + 11}`]: `Author${i + 11}, A. (2023). Research article ${i + 11}. Academic Journal, 1(1), 1-20.`
-  })).reduce((acc, curr) => ({ ...acc, ...curr }), {}))
+  valid10: 'Anderson, P. (2023). UX design principles. Design Today, 6(1), 34-56.'
 };
 
+// Generate additional citations for the 100 citation test
+for (let i = 11; i <= 100; i++) {
+  citations[`valid${i}`] = `Author${i}, A. (2023). Research article ${i}. Academic Journal, 1(1), 1-20.`;
+}
+
 test.describe('Free Tier Paywall', () => {
+  test.use({ baseURL: 'http://localhost:5173' });
+
   test.beforeEach(async ({ page }) => {
     // Clear local storage before each test to start fresh
     await page.context().clearCookies();
+    await page.goto('/');
     await page.evaluate(() => {
       localStorage.clear();
     });
   });
 
   test('first-time user submits 5 citations', async ({ page }) => {
-    // Navigate to local app
-    await page.goto('http://localhost:5173');
+    // Already navigated to baseURL in beforeEach
 
     // Wait for app to load
     await expect(page.locator('body')).toBeVisible();
@@ -48,7 +54,7 @@ test.describe('Free Tier Paywall', () => {
     await submitButton.click();
 
     // Should succeed without paywall (under free tier limit)
-    await expect(page.locator('[data-testid="results"]')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('[data-testid="results"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Verify no upgrade modal is shown
     await expect(page.locator('[data-testid="upgrade-modal"]')).not.toBeVisible();
@@ -59,8 +65,7 @@ test.describe('Free Tier Paywall', () => {
   });
 
   test('user with 5 used submits 8 citations', async ({ page }) => {
-    // Navigate to local app
-    await page.goto('http://localhost:5173');
+    // Already navigated to baseURL in beforeEach
 
     // Set up initial state: user has already used 5 citations
     await page.evaluate(() => {
@@ -81,7 +86,7 @@ test.describe('Free Tier Paywall', () => {
     await submitButton.click();
 
     // Should show paywall modal
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Should show partial results (up to free tier limit)
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
@@ -92,8 +97,7 @@ test.describe('Free Tier Paywall', () => {
   });
 
   test('user at limit tries to submit', async ({ page }) => {
-    // Navigate to local app
-    await page.goto('http://localhost:5173');
+    // Already navigated to baseURL in beforeEach
 
     // Set up initial state: user has already used 10 citations (at free tier limit)
     await page.evaluate(() => {
@@ -114,15 +118,14 @@ test.describe('Free Tier Paywall', () => {
     await submitButton.click();
 
     // Should show paywall modal immediately
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Should not show any results
     await expect(page.locator('[data-testid="results"]')).not.toBeVisible();
   });
 
   test('user submits 100 citations (first time)', async ({ page }) => {
-    // Navigate to local app
-    await page.goto('http://localhost:5173');
+    // Already navigated to baseURL in beforeEach
 
     // Find the editor
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
@@ -138,7 +141,7 @@ test.describe('Free Tier Paywall', () => {
     await submitButton.click();
 
     // Should show paywall modal
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Should show partial results (up to free tier limit)
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
@@ -149,8 +152,7 @@ test.describe('Free Tier Paywall', () => {
   });
 
   test('backend sync overrides frontend', async ({ page }) => {
-    // Navigate to local app
-    await page.goto('http://localhost:5173');
+    // Already navigated to baseURL in beforeEach
 
     // Set up conflicting state: frontend shows 5 used, but backend will report different
     await page.evaluate(() => {
@@ -170,7 +172,7 @@ test.describe('Free Tier Paywall', () => {
     });
 
     // Reload page to trigger credit sync
-    await page.reload();
+    await page.goto('/');
 
     // Find the editor
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
@@ -186,7 +188,7 @@ test.describe('Free Tier Paywall', () => {
     await submitButton.click();
 
     // Should show paywall because backend count takes precedence
-    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: 30000 });
+    await expect(page.locator('[data-testid="upgrade-modal"]')).toBeVisible({ timeout: TIMEOUT });
 
     // Verify frontend was updated with backend count
     const freeUsage = await page.evaluate(() => parseInt(localStorage.getItem('citation_checker_free_used') || '0', 10));
