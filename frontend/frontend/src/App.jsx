@@ -22,6 +22,13 @@ import './App.css'
 // Set to true to test frontend without backend
 const MOCK_MODE = import.meta.env.VITE_MOCK_MODE === 'true'
 
+// Polling configuration constants
+const POLLING_CONFIG = {
+  MAX_ATTEMPTS: 90, // 3 minutes at 2s intervals
+  POLL_INTERVAL: 2000, // 2 seconds
+  LOCAL_STORAGE_KEY: 'current_job_id'
+}
+
 function AppContent() {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -46,7 +53,7 @@ function AppContent() {
 
   // Recover existing job on component mount
   useEffect(() => {
-    const existingJobId = localStorage.getItem('current_job_id')
+    const existingJobId = localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
     if (existingJobId) {
       console.log('Found existing job ID:', existingJobId)
 
@@ -65,12 +72,10 @@ function AppContent() {
 
   // Poll for job results
   const pollForResults = async (jobId, token) => {
-    const MAX_ATTEMPTS = 90 // 3 minutes at 2s intervals
-    const POLL_INTERVAL = 2000 // 2 seconds
 
-    for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    for (let attempt = 0; attempt < POLLING_CONFIG.MAX_ATTEMPTS; attempt++) {
       try {
-        console.log(`Polling attempt ${attempt + 1}/${MAX_ATTEMPTS} for job ${jobId}`)
+        console.log(`Polling attempt ${attempt + 1}/${POLLING_CONFIG.MAX_ATTEMPTS} for job ${jobId}`)
 
         const response = await fetch(`/api/jobs/${jobId}`)
 
@@ -86,7 +91,7 @@ function AppContent() {
 
         if (jobData.status === 'completed') {
           console.log('Job completed successfully')
-          localStorage.removeItem('current_job_id')
+          localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
 
           // Handle successful completion
           const data = jobData.results
@@ -131,7 +136,7 @@ function AppContent() {
 
         } else if (jobData.status === 'failed') {
           console.log('Job failed:', jobData.error)
-          localStorage.removeItem('current_job_id')
+          localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
 
           const errorMessage = jobData.error || 'Validation failed'
 
@@ -157,8 +162,8 @@ function AppContent() {
 
         } else {
           // Job still pending or processing, continue polling
-          if (attempt < MAX_ATTEMPTS - 1) {
-            await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL))
+          if (attempt < POLLING_CONFIG.MAX_ATTEMPTS - 1) {
+            await new Promise(resolve => setTimeout(resolve, POLLING_CONFIG.POLL_INTERVAL))
           }
         }
 
@@ -178,7 +183,7 @@ function AppContent() {
           error_message: err.message.substring(0, 100)
         })
 
-        localStorage.removeItem('current_job_id')
+        localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
         setFadingOut(true)
         setTimeout(() => {
           setLoading(false)
@@ -192,7 +197,7 @@ function AppContent() {
 
     // Max attempts reached
     console.log('Job timed out after maximum attempts')
-    localStorage.removeItem('current_job_id')
+    localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
 
     trackEvent('validation_error', {
       error_type: 'timeout',
@@ -369,7 +374,7 @@ function AppContent() {
         console.log('Async job created:', asyncData)
 
         // Store job_id in localStorage for recovery
-        localStorage.setItem('current_job_id', asyncData.job_id)
+        localStorage.setItem(POLLING_CONFIG.LOCAL_STORAGE_KEY, asyncData.job_id)
 
         // Start polling for results
         await pollForResults(asyncData.job_id, token)
