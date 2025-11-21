@@ -207,6 +207,8 @@ textarea {
   border-radius: 8px;
   padding: 1rem;
   min-height: 250px;
+  max-height: 300px;
+  overflow-y: auto;
   font-family: var(--font-mono);
   line-height: 1.6;
   text-align: left;

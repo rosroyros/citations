@@ -47,7 +47,7 @@ function AppContent() {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
-        // Disable underline from StarterKit to avoid duplicate
+        // StarterKit doesn't include underline, so we add it separately
       }),
       Underline,
     ],

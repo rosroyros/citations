@@ -296,16 +296,73 @@
     margin-bottom: var(--space-md);
     border: 1px solid var(--border-color);
     border-radius: 8px;
+    background: white;
+  }
+
+  .validation-table tbody tr:nth-child(even) {
+    background: white;
+  }
+
+  .validation-table tbody tr:hover {
+    background: #fafbfc;
   }
 
   .validation-table tbody td {
     display: block;
     padding: var(--space-sm);
+    border-bottom: none;
+  }
+
+  /* Citation number with label */
+  .validation-table tbody td:first-child {
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
   }
 
   .validation-table tbody td:first-child::before {
     content: "Citation #";
     font-weight: 600;
     margin-right: 0.5rem;
+    color: var(--color-text-tertiary);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Citation text cell */
+  .validation-table tbody td:nth-child(2) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  /* Status cell */
+  .validation-table tbody td:nth-child(3) {
+    padding: 0.75rem var(--space-sm);
+    border-top: 1px solid #f3f4f6;
+  }
+
+  /* Actions cell - increase touch target */
+  .validation-table tbody td:last-child {
+    padding: 0.75rem var(--space-sm);
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  /* Increase action button size for mobile touch targets */
+  .action-btn {
+    padding: 0.75rem;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .action-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Error details on mobile */
+  .error-details {
+    margin: 0.5rem var(--space-sm) 0.75rem;
   }
 }
