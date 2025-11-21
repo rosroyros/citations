@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import asyncio
 from typing import Dict, Any, List
 from openai import AsyncOpenAI, APIError, APITimeoutError, RateLimitError, AuthenticationError
 from providers.base import CitationValidator
@@ -48,75 +49,100 @@ class OpenAIProvider(CitationValidator):
         prompt = self.prompt_manager.build_prompt(citations)
         logger.debug(f"Built prompt in {time.time() - start_time:.3f}s")
 
-        # Call OpenAI API
+        # Call OpenAI API with retry logic
         logger.info(f"Calling OpenAI API with model: {self.model}")
         api_start = time.time()
 
-        try:
-            # GPT-5 models require max_completion_tokens instead of max_tokens
-            completion_kwargs = {
-                "model": self.model,
-                "messages": [
-                    {"role": "system", "content": "You are an expert APA 7th edition citation validator."},
-                    {"role": "user", "content": prompt}
-                ],
-                "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
-                "timeout": 85.0  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
-            }
+        # Build completion kwargs
+        completion_kwargs = {
+            "model": self.model,
+            "messages": [
+                {"role": "system", "content": "You are an expert APA 7th edition citation validator."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
+            "timeout": 85.0  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
+        }
 
-            # Use appropriate parameter based on model family
-            if self.model.startswith("gpt-5"):
-                completion_kwargs["max_completion_tokens"] = 10000  # Increased to handle large batches without truncation
-                completion_kwargs["reasoning_effort"] = "medium"  # 75.2% accuracy, only -2.5% vs baseline for better latency
-            else:
-                completion_kwargs["max_tokens"] = 10000
+        # Use appropriate parameter based on model family
+        if self.model.startswith("gpt-5"):
+            completion_kwargs["max_completion_tokens"] = 10000  # Increased to handle large batches without truncation
+            completion_kwargs["reasoning_effort"] = "medium"  # 75.2% accuracy, only -2.5% vs baseline for better latency
+        else:
+            completion_kwargs["max_tokens"] = 10000
 
-            response = await self.client.chat.completions.create(**completion_kwargs)
+        # Retry logic with exponential backoff
+        max_retries = 3
+        retry_delay = 2  # Initial delay in seconds
 
-            api_time = time.time() - api_start
-            logger.info(f"OpenAI API call completed in {api_time:.3f}s")
+        for attempt in range(max_retries):
+            try:
+                response = await self.client.chat.completions.create(**completion_kwargs)
+                break  # Success, exit retry loop
 
-            # Warn about slow requests (>30s)
-            if api_time > 30:
-                logger.warning(f"SLOW REQUEST: OpenAI API call took {api_time:.1f}s (>30s threshold)")
-                logger.warning(f"Citation preview: {citations[:200]}...")
+            except AuthenticationError as e:
+                logger.error(f"OpenAI authentication failed: {str(e)}", exc_info=True)
+                raise ValueError("Invalid OpenAI API key. Please check your configuration.") from e
 
-            logger.info(f"Token usage: {response.usage.prompt_tokens} prompt + {response.usage.completion_tokens} completion = {response.usage.total_tokens} total")
+            except (APITimeoutError, RateLimitError) as e:
+                if await self._handle_retry_error(e, attempt, max_retries, retry_delay):
+                    continue  # Retry attempted
+                else:
+                    # Max retries exceeded
+                    raise ValueError("Request timed out after multiple retries. Please try again later.") from e
 
-            # Extract response text
-            response_text = response.choices[0].message.content
-            logger.debug(f"Response text length: {len(response_text)} characters")
-            logger.debug(f"Response preview: {response_text[:300]}...")
+            except APIError as e:
+                logger.error(f"OpenAI API error: {str(e)}", exc_info=True)
+                raise ValueError(f"OpenAI API error: {str(e)}") from e
 
-            # Parse response into structured format
-            parse_start = time.time()
-            results = self._parse_response(response_text)
-            logger.info(f"Parsed response in {time.time() - parse_start:.3f}s")
-            logger.info(f"Found {len(results)} citation result(s)")
+        # API call successful - process response
+        api_time = time.time() - api_start
+        logger.info(f"OpenAI API call completed in {api_time:.3f}s")
 
-            return {
-                "results": results
-            }
+        # Warn about slow requests (>30s)
+        if api_time > 30:
+            logger.warning(f"SLOW REQUEST: OpenAI API call took {api_time:.1f}s (>30s threshold)")
+            logger.warning(f"Citation preview: {citations[:200]}...")
 
-        except AuthenticationError as e:
-            logger.error(f"OpenAI authentication failed: {str(e)}", exc_info=True)
-            raise ValueError("Invalid OpenAI API key. Please check your configuration.") from e
+        logger.info(f"Token usage: {response.usage.prompt_tokens} prompt + {response.usage.completion_tokens} completion = {response.usage.total_tokens} total")
 
-        except RateLimitError as e:
-            logger.error(f"OpenAI rate limit exceeded: {str(e)}", exc_info=True)
-            raise ValueError("OpenAI rate limit exceeded. Please try again later.") from e
+        # Extract response text
+        response_text = response.choices[0].message.content
+        logger.debug(f"Response text length: {len(response_text)} characters")
+        logger.debug(f"Response preview: {response_text[:300]}...")
 
-        except APITimeoutError as e:
-            logger.error(f"OpenAI API timeout: {str(e)}", exc_info=True)
-            raise ValueError("Request timed out. The citation text may be too long or the service is slow.") from e
+        # Parse response into structured format
+        parse_start = time.time()
+        results = self._parse_response(response_text)
+        logger.info(f"Parsed response in {time.time() - parse_start:.3f}s")
+        logger.info(f"Found {len(results)} citation result(s)")
 
-        except APIError as e:
-            logger.error(f"OpenAI API error: {str(e)}", exc_info=True)
-            raise ValueError(f"OpenAI API error: {str(e)}") from e
+        return {
+            "results": results
+        }
 
-        except Exception as e:
-            logger.error(f"Unexpected error during validation: {str(e)}", exc_info=True)
-            raise
+    async def _handle_retry_error(self, error: Exception, attempt: int, max_retries: int, retry_delay: int) -> bool:
+        """
+        Handle retryable errors with exponential backoff.
+
+        Args:
+            error: The exception that occurred
+            attempt: Current attempt number (0-based)
+            max_retries: Maximum number of retry attempts
+            retry_delay: Initial delay in seconds
+
+        Returns:
+            True if retry should be attempted, False if max retries exceeded
+        """
+        if attempt == max_retries - 1:  # Last attempt
+            logger.error(f"OpenAI API error after {max_retries} attempts: {str(error)}", exc_info=True)
+            return False
+
+        # Log retry attempt with exponential backoff
+        wait_time = retry_delay * (2 ** attempt)
+        logger.warning(f"OpenAI API error (attempt {attempt + 1}/{max_retries}): {str(error)}. Retrying in {wait_time}s...")
+        await asyncio.sleep(wait_time)
+        return True
 
     def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:
         """
