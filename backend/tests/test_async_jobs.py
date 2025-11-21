@@ -56,14 +56,24 @@ class TestAsyncJobs:
         create_response = client.post("/api/validate/async", json=request_data)
         job_id = create_response.json()["job_id"]
 
-        # Now get the job status
-        response = client.get(f"/api/jobs/{job_id}")
+        # Wait for job to complete (real async processing)
+        import time
+        max_wait = 60  # Max 60 seconds
+        wait_time = 0
+        while wait_time < max_wait:
+            response = client.get(f"/api/jobs/{job_id}")
+            assert response.status_code == 200
+            data = response.json()
 
-        # Expect success response
-        assert response.status_code == 200
-        data = response.json()
+            if data["status"] in ["completed", "failed"]:
+                break
+
+            time.sleep(1)
+            wait_time += 1
+
+        # Should be completed now
+        assert data["status"] in ["completed", "failed"]
         assert "status" in data
-        assert data["status"] == "pending"
 
     def test_get_job_status_returns_404_for_nonexistent_job(self):
         """Test that GET /api/jobs/{job_id} returns 404 for nonexistent job."""

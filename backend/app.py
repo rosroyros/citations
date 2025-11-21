@@ -1,10 +1,10 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Request, Response
+from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from html.parser import HTMLParser
-from typing import Optional
+from typing import Optional, Dict, Any
 import os
 import uuid
 import json
@@ -37,7 +37,7 @@ polar = Polar(
 )
 
 # Global in-memory job storage
-jobs = {}
+jobs: Dict[str, Dict[str, Any]] = {}
 
 
 class HTMLToTextConverter(HTMLParser):
@@ -97,6 +97,12 @@ def html_to_text_with_formatting(html: str) -> str:
 async def lifespan(app: FastAPI):
     """Handle application lifespan events."""
     logger.info("Citation Validator API starting up")
+
+    # Start background job cleanup task
+    import asyncio
+    asyncio.create_task(cleanup_old_jobs())
+    logger.info("Started job cleanup task")
+
     yield
     logger.info("Citation Validator API shutting down")
 
@@ -417,19 +423,147 @@ async def process_validation_job(job_id: str, citations: str, style: str):
     Background task to process validation.
     No HTTP timeout applies here.
     """
-    pass
+    try:
+        # Update status
+        jobs[job_id]["status"] = "processing"
+        logger.info(f"Job {job_id}: Starting validation")
+
+        # Check credits BEFORE starting job (fail fast)
+        token = jobs[job_id]["token"]
+        free_used = jobs[job_id]["free_used"]
+
+        if token:
+            from database import get_credits
+            user_credits = get_credits(token)
+            if user_credits == 0:
+                jobs[job_id]["status"] = "failed"
+                jobs[job_id]["error"] = "You have 0 Citation Credits remaining. Purchase more to continue."
+                logger.warning(f"Job {job_id}: Failed - user has zero credits")
+                return
+        else:
+            # Free tier - check limit
+            FREE_LIMIT = 10
+            if free_used >= FREE_LIMIT:
+                jobs[job_id]["status"] = "failed"
+                jobs[job_id]["error"] = "Free tier limit reached. Purchase credits to continue."
+                logger.warning(f"Job {job_id}: Failed - free tier limit reached")
+                return
+
+        # Call LLM (can take 120s+)
+        logger.info(f"Job {job_id}: Calling LLM provider")
+        validation_results = await llm_provider.validate_citations(
+            citations=citations,
+            style=style
+        )
+
+        results = validation_results["results"]
+        citation_count = len(results)
+        jobs[job_id]["citation_count"] = citation_count
+
+        # Handle credit/free tier logic (same as existing /api/validate)
+        if not token:
+            # Free tier
+            FREE_LIMIT = 10
+            affordable = max(0, FREE_LIMIT - free_used)
+
+            if affordable >= citation_count:
+                # Return all results
+                jobs[job_id]["results"] = {
+                    "results": results,
+                    "free_used_total": free_used + citation_count
+                }
+            else:
+                # Partial results
+                jobs[job_id]["results"] = {
+                    "results": results[:affordable],
+                    "partial": True,
+                    "citations_checked": affordable,
+                    "citations_remaining": citation_count - affordable,
+                    "free_used_total": FREE_LIMIT
+                }
+        else:
+            # Paid tier
+            from database import get_credits, deduct_credits
+            user_credits = get_credits(token)
+
+            if user_credits >= citation_count:
+                # Can afford all
+                success = deduct_credits(token, citation_count)
+                if not success:
+                    raise Exception("Failed to deduct credits")
+
+                jobs[job_id]["results"] = {
+                    "results": results,
+                    "credits_remaining": user_credits - citation_count
+                }
+            else:
+                # Partial results
+                affordable = user_credits
+                success = deduct_credits(token, affordable)
+                if not success:
+                    raise Exception("Failed to deduct credits")
+
+                jobs[job_id]["results"] = {
+                    "results": results[:affordable],
+                    "partial": True,
+                    "citations_checked": affordable,
+                    "citations_remaining": citation_count - affordable,
+                    "credits_remaining": 0
+                }
+
+        jobs[job_id]["status"] = "completed"
+        logger.info(f"Job {job_id}: Completed successfully")
+
+    except Exception as e:
+        logger.error(f"Job {job_id}: Failed with error: {str(e)}", exc_info=True)
+        jobs[job_id]["status"] = "failed"
+        jobs[job_id]["error"] = str(e)
+
+
+async def cleanup_old_jobs():
+    """Delete jobs older than 30 minutes."""
+    import asyncio
+    while True:
+        await asyncio.sleep(300)  # Run every 5 minutes
+
+        now = time.time()
+        threshold = 30 * 60  # 30 minutes
+
+        jobs_to_delete = [
+            job_id for job_id, job in jobs.items()
+            if now - job["created_at"] > threshold
+        ]
+
+        for job_id in jobs_to_delete:
+            del jobs[job_id]
+            logger.info(f"Cleaned up old job: {job_id}")
 
 
 @app.post("/api/validate/async")
-async def validate_citations_async(http_request: Request, request: ValidationRequest):
+async def validate_citations_async(http_request: Request, request: ValidationRequest, background_tasks: BackgroundTasks):
     """
     Create async validation job.
 
     Returns immediately with job_id.
     Background worker processes validation.
     """
+    # Extract token/free_used from headers
+    token = http_request.headers.get('X-User-Token')
+    free_used_header = http_request.headers.get('X-Free-Used', '')
+
+    try:
+        free_used = int(base64.b64decode(free_used_header).decode('utf-8'))
+    except:
+        free_used = 0
+
+    # Validate input
+    if not request.citations or not request.citations.strip():
+        logger.warning("Empty citations submitted to async endpoint")
+        raise HTTPException(status_code=400, detail="Citations cannot be empty")
+
     # Generate job ID
     job_id = str(uuid.uuid4())
+    logger.info(f"Creating async job {job_id} for {'paid' if token else 'free'} user")
 
     # Create job entry
     jobs[job_id] = {
@@ -437,10 +571,16 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "created_at": time.time(),
         "results": None,
         "error": None,
-        "token": None,
-        "free_used": 0,
+        "token": token,
+        "free_used": free_used,
         "citation_count": 0
     }
+
+    # Convert HTML to text with formatting markers
+    citations_text = html_to_text_with_formatting(request.citations)
+
+    # Start background processing
+    background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)
 
     return {"job_id": job_id, "status": "pending"}
 
@@ -461,9 +601,20 @@ async def get_job_status(job_id: str):
 
     job = jobs[job_id]
 
-    return {
-        "status": job["status"]
-    }
+    if job["status"] == "completed":
+        return {
+            "status": "completed",
+            "results": job["results"]
+        }
+    elif job["status"] == "failed":
+        return {
+            "status": "failed",
+            "error": job["error"]
+        }
+    else:
+        return {
+            "status": job["status"]
+        }
 
 
 @app.post("/api/polar-webhook")
