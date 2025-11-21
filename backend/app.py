@@ -8,6 +8,7 @@ from typing import Optional
 import os
 import uuid
 import json
+import base64
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
@@ -145,6 +146,8 @@ class ValidationResponse(BaseModel):
     citations_checked: Optional[int] = None
     citations_remaining: Optional[int] = None
     credits_remaining: Optional[int] = None
+    free_used: Optional[int] = None
+   free_used_total: Optional[int] = None  # NEW - authoritative count for frontend
 
 
 @app.get("/health")
@@ -290,9 +293,54 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
         # Handle credit logic
         if not token:
-            # Free tier - return everything (frontend enforces 10 limit)
-            logger.info("Free tier request - returning all results")
-            return ValidationResponse(results=results)
+            # Free tier - enforce 10 citation limit
+            free_used_header = http_request.headers.get('X-Free-Used', '')
+
+            # Decode base64 header if present (as per design spec)
+            if free_used_header:
+                try:
+                    import base64
+                    decoded_bytes = base64.b64decode(free_used_header)
+                    free_used = int(decoded_bytes.decode('utf-8'))
+                except (ValueError, TypeError, base64.binascii.Error, UnicodeDecodeError):
+                    logger.warning(f"Invalid X-Free-Used header: {free_used_header}")
+                    raise HTTPException(
+                        status_code=400,  # Bad Request
+                        detail=f"Invalid X-Free-Used header: {free_used_header}. Must be a base64-encoded non-negative integer."
+                    )
+            else:
+                free_used = 0
+
+            FREE_LIMIT = 10
+            citation_count = len(results)
+            affordable = max(0, FREE_LIMIT - free_used)
+
+            logger.info(f"Free tier: used={free_used}, submitting={citation_count}, affordable={affordable}")
+
+            if affordable == 0:
+                # Already at limit - reject with 402
+                logger.warning("Free tier limit reached - returning 402 error")
+                raise HTTPException(
+                    status_code=402,  # Payment Required
+                    detail=f"Free tier limit of {FREE_LIMIT} citations reached. Purchase more to continue."
+                )
+            elif affordable >= citation_count:
+                # Under limit - return all results
+                return ValidationResponse(
+                    results=results,
+                    free_used=free_used + citation_count,
+                    free_used_total=free_used + citation_count
+                )
+            else:
+                # Over limit - partial results (same as paid tier)
+                return ValidationResponse(
+                    results=results[:affordable],
+                    partial=True,
+                    citations_checked=affordable,
+                    citations_remaining=citation_count - affordable,
+                    free_used=FREE_LIMIT,  # Capped at limit
+                    free_used_total=FREE_LIMIT  # Authoritative total for frontend sync
+                )
 
         # Paid tier - check credits
         from database import get_credits, deduct_credits
