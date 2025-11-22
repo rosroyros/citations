@@ -4,6 +4,12 @@ Provides sample citations in different sizes (small, medium, large batches)
 for testing async job processing with real LLM calls.
 """
 
+# Citation batch size constants
+SMALL_BATCH_SIZE = 3
+MEDIUM_BATCH_SIZE = 8
+LARGE_BATCH_SIZE = 15
+VERY_LARGE_BATCH_SIZE = 25
+
 # Small batch fixtures (1-3 citations)
 SMALL_BATCH_SINGLE = "<p>Smith, J. (2020). Example journal article. Journal of Testing, 15(2), 123-145.</p>"
 
@@ -99,11 +105,11 @@ def get_citation_batch(size: str = "small"):
         ValueError: If size is not recognized
     """
     if size == "small":
-        return SMALL_BATCH_TRIPLE
+        return SMALL_BATCH_TRIPLE  # Contains SMALL_BATCH_SIZE (3) citations
     elif size == "medium":
-        return MEDIUM_BATCH_EIGHT
+        return MEDIUM_BATCH_EIGHT  # Contains MEDIUM_BATCH_SIZE (8) citations
     elif size == "large":
-        return LARGE_BATCH_FIFTEEN
+        return LARGE_BATCH_FIFTEEN  # Contains LARGE_BATCH_SIZE (15) citations
     else:
         raise ValueError(f"Unknown size: {size}. Use 'small', 'medium', or 'large'.")
 
