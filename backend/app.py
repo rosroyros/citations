@@ -735,3 +735,8 @@ async def handle_checkout_updated(webhook):
         logger.info(f"Successfully granted 1000 credits for completed checkout {order_id}")
     else:
         logger.warning(f"Checkout order {order_id} already processed, skipping credit grant")
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
