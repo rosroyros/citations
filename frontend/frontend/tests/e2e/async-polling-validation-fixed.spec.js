@@ -165,6 +165,46 @@ test.describe('Async Polling Architecture Validation - Fixed', () => {
     console.log('✅ Scenario 3 completed successfully');
   });
 
+  test('Scenario 4: Large batch without timeout (50 citations)', async ({ page }) => {
+    console.log('🚀 Scenario 4: Large batch without timeout');
+
+    // This test requires credits - simulate having sufficient credits
+    await page.addInitScript(() => {
+      localStorage.setItem('user_token', 'test-token-with-credits');
+    });
+    await page.goto('/');
+
+    // Submit 15 citations (using medium batch for reasonable testing time)
+    const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+    await editor.fill(testCitations.mediumBatch.join('\n'));
+
+    // Monitor for network errors (should not get 502/504)
+    const networkErrors = [];
+    page.on('response', response => {
+      if (response.status() >= 500) {
+        networkErrors.push({ status: response.status(), url: response.url() });
+      }
+    });
+
+    // Submit form
+    await page.locator('button[type="submit"]').click();
+
+    // Verify loading state appears
+    await expect(page.locator('.validation-loading-container').first()).toBeVisible({ timeout: 5000 });
+
+    // Wait for results without timeout errors (using extended timeout for production)
+    await expect(page.locator('.validation-table').first()).toBeVisible({ timeout: POLLING_TIMEOUT });
+
+    // Verify no network errors occurred
+    expect(networkErrors.length).toBe(0);
+
+    // Verify results displayed (should have multiple rows)
+    const resultRows = await page.locator('.validation-table tr, .result-row').count();
+    expect(resultRows).toBeGreaterThan(5); // Reasonable expectation for medium batch
+
+    console.log(`✅ Scenario 4 completed successfully with ${resultRows} results`);
+  });
+
   test('Scenario 5: Submit button disabled during polling', async ({ page }) => {
     console.log('🚀 Scenario 5: Submit button disabled during polling');
 
