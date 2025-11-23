@@ -298,4 +298,44 @@ test.describe('ValidationTable Header Display - Mobile', () => {
       maxDiffPixels: 100
     });
   });
+
+  test('Mobile - Keyboard accessibility for partial indicator', async ({ page }) => {
+    // Simulate user at free tier limit
+    await page.addInitScript(() => {
+      localStorage.setItem('citation_checker_free_used', '10');
+    });
+    await page.goto('/');
+
+    // Submit citations to trigger partial results
+    const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+    await editor.fill(
+      'Smith, J. (2023). Test citation. *Journal of Testing*, 1(1), 1-10.\n\n' +
+      'Doe, J. (2023). Another test. *Journal of Testing*, 1(2), 11-20.'
+    );
+
+    await page.locator('button[type="submit"]').click();
+    await expect(page.locator('[data-testid="partial-results"], .partial-results-container').first()).toBeVisible({ timeout: 30000 });
+
+    // Tab to partial indicator
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Tab');
+
+    const partialIndicator = page.locator('.partial-indicator.clickable');
+
+    // Test Enter key scrolls to upgrade banner
+    const upgradeBanner = page.locator('.upgrade-banner');
+    await page.keyboard.press('Enter');
+    await expect(upgradeBanner).toBeInViewport();
+
+    // Reset scroll
+    await page.evaluate(() => window.scrollTo(0, 0));
+
+    // Re-focus partial indicator
+    await partialIndicator.focus();
+
+    // Test Space key also scrolls (without scrolling page)
+    await page.keyboard.press('Space');
+    await expect(upgradeBanner).toBeInViewport();
+  });
 });
