@@ -211,8 +211,8 @@ test.describe('Google Analytics 4 Event Validation', () => {
     console.log(`   🎯 Milestones: ${capturedMilestones.sort((a, b) => a - b).join(', ')}%`);
   });
 
-  test('CTA click analytics tracking', async ({ page }) => {
-    console.log('🧪 Testing CTA click analytics tracking...');
+  test('validation started analytics tracking', async ({ page }) => {
+    console.log('🧪 Testing validation started analytics tracking...');
 
     // Navigate to home page
     const testUrl = buildTestUrl('/');
@@ -222,113 +222,63 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Wait for initial page view to fire
     await page.waitForTimeout(2000);
 
-    // Clear initial page view events to focus on CTA events
+    // Clear initial page view events to focus on validation events
     const initialLength = capturedRequests.length;
 
-    // Try to find CTA buttons using multiple selectors
-    const ctaSelectors = [
-      'a:has-text("Try")',  // Links are usually clickable immediately
-      'a:has-text("Get")',
-      'a:has-text("Start")',
-      'a:has-text("Free")',
-      'button:not([disabled]):has-text("Try")',
-      'button:not([disabled]):has-text("Start")',
-      'button:not([disabled]):has-text("Get")',
-      '.cta-button:not([disabled])',
-      '.btn-primary:not([disabled])',
-      '[data-cta]'
-    ];
+    // Fill the citation form to enable the submit button
+    try {
+      await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
+      await page.waitForTimeout(1000);
 
-    let ctaFound = false;
-    let ctaText = '';
-    let ctaSelector = '';
+      // Check if the submit button is now enabled
+      const submitButton = await page.locator('button[type="submit"]:not([disabled])').first();
+      if (await submitButton.isVisible()) {
+        console.log(`🎯 Found enabled submit button`);
 
-    // Try each selector to find a CTA
-    for (const selector of ctaSelectors) {
-      try {
-        const element = await page.waitForSelector(selector, { timeout: 3000 });
-        if (element) {
-          ctaFound = true;
-          ctaSelector = selector;
-          ctaText = await element.textContent();
-          console.log(`🎯 Found CTA: "${ctaText.trim()}" using selector: ${selector}`);
-          break;
-        }
-      } catch (e) {
-        // Selector didn't find anything, continue to next
-        continue;
+        // Click the submit button
+        console.log(`🖱️  Clicking validation button...`);
+        await page.click('button[type="submit"]:not([disabled])');
+        await page.waitForTimeout(3000);
       }
-    }
-
-    if (!ctaFound) {
-      console.log('📝 No immediate CTAs found, trying to enable form submission...');
-
-      // Try to fill the citation form to enable the submit button
-      try {
-        await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
-        await page.waitForTimeout(1000);
-
-        // Check if the submit button is now enabled
-        const submitButton = await page.locator('button[type="submit"]:not([disabled])').first();
-        if (await submitButton.isVisible()) {
-          ctaFound = true;
-          ctaSelector = 'button[type="submit"]:not([disabled])';
-          ctaText = await submitButton.textContent();
-          console.log(`🎯 Found enabled submit button: "${ctaText.trim()}"`);
-        }
-      } catch (e) {
-        console.log('Could not fill form or enable submit button');
-      }
-    }
-
-    if (!ctaFound) {
-      console.log('⚠️  No CTA buttons found, skipping CTA click test');
+    } catch (e) {
+      console.log('Could not fill form or enable submit button');
       test.skip();
       return;
     }
 
-    // Click the CTA button
-    console.log(`🖱️  Clicking CTA: "${ctaText.trim()}"...`);
-    await page.click(ctaSelector);
-    await page.waitForTimeout(3000);
-
-    // Get CTA click events (excluding the initial page view)
+    // Get validation started events (excluding the initial page view)
     const allEvents = capturedRequests.slice(initialLength);
-    const ctaEvents = getEventsByName(allEvents, 'cta_clicked');
+    const validationStartedEvents = getEventsByName(allEvents, 'validation_started');
 
     console.log(`📊 Total new events captured: ${allEvents.length}`);
-    console.log(`📊 CTA events captured: ${ctaEvents.length}`);
+    console.log(`📊 Validation started events captured: ${validationStartedEvents.length}`);
 
-    // If no CTA events were captured, CTA tracking may not be implemented
-    if (ctaEvents.length === 0) {
-      console.log('⚠️  No CTA click events captured - CTA tracking may not be implemented');
-      console.log('✅ CTA click analytics test completed (no CTA tracking detected)');
+    // If no validation started events were captured, tracking may not be implemented
+    if (validationStartedEvents.length === 0) {
+      console.log('⚠️  No validation_started events captured - tracking may not be implemented');
+      console.log('✅ Validation started analytics test completed (no tracking detected)');
       return;
     }
 
-    // Validate CTA event parameters
-    const ctaEvent = ctaEvents[0];
-    const eventUrl = ctaEvent.url();
+    // Validate event parameters
+    const validationEvent = validationStartedEvents[0];
+    const eventUrl = validationEvent.url();
 
-    const ctaParamText = getEventParam(eventUrl, 'cta_text');
-    const ctaParamLocation = getEventParam(eventUrl, 'cta_location');
-    const ctaParamPage = getEventParam(eventUrl, 'page');
+    const interfaceSource = getEventParam(eventUrl, 'interface_source');
+    const formContentLength = getEventParam(eventUrl, 'form_content_length');
 
-    console.log('📊 CTA Event Details:');
+    console.log('📊 Validation Started Event Details:');
     console.log(`   🆔 Tracking ID: ${getTrackingId(eventUrl)}`);
-    console.log(`   📝 CTA Text: ${ctaParamText}`);
-    console.log(`   📍 CTA Location: ${ctaParamLocation}`);
-    console.log(`   📄 Page: ${ctaParamPage}`);
+    console.log(`   📍 Interface Source: ${interfaceSource}`);
+    console.log(`   📏 Form Content Length: ${formContentLength}`);
 
     // Verify required parameters are present
-    expect(ctaParamText).toBeTruthy();
-    expect(ctaParamLocation).toBeTruthy();
-    expect(ctaParamPage).toBeTruthy();
+    expect(interfaceSource).toBeTruthy();
+    expect(formContentLength).toBeTruthy();
 
-    console.log('✅ CTA click analytics test passed!');
-    console.log(`   🎯 CTA Text: "${ctaParamText}"`);
-    console.log(`   📍 Location: ${ctaParamLocation}`);
-    console.log(`   📄 Page: ${ctaParamPage}`);
+    console.log('✅ Validation started analytics test passed!');
+    console.log(`   📍 Interface Source: ${interfaceSource}`);
+    console.log(`   📏 Content Length: ${formContentLength}`);
   });
 
   test('navigation click analytics tracking', async ({ page }) => {

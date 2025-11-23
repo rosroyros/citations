@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react';
 import './PartialResults.css';
 import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking';
+import { trackEvent } from '../utils/analytics';
+import { getToken } from '../utils/creditStorage';
 import ValidationTable from './ValidationTable';
 
 export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade }) {
-  const { trackSourceTypeView, trackCTAClick } = useAnalyticsTracking();
+  const { trackSourceTypeView } = useAnalyticsTracking();
+
+  // Track partial results viewed
+  useEffect(() => {
+    const token = getToken();
+    trackEvent('partial_results_viewed', {
+      citations_shown: citations_checked,
+      citations_locked: citations_remaining,
+      user_type: token ? 'paid' : 'free'
+    });
+  }, [citations_checked, citations_remaining]);
 
   // Track source type views when results are displayed
   useEffect(() => {
@@ -25,7 +37,10 @@ export function PartialResults({ results, partial, citations_checked, citations_
           <p>Upgrade to see validation results for all your citations</p>
           <button
             onClick={() => {
-              trackCTAClick('Upgrade Now', 'partial_results_upsell');
+              trackEvent('upgrade_clicked', {
+                trigger_location: 'partial_results',
+                citations_locked: citations_remaining
+              });
               onUpgrade();
             }}
             className="upgrade-button"

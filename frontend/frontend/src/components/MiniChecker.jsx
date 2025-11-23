@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { trackEvent } from '../utils/analytics'
 import './MiniChecker.css'
 
 /**
@@ -55,10 +56,22 @@ function MiniChecker({
       // Extract first result (single citation)
       if (data.results && data.results.length > 0) {
         setResult(data.results[0])
+
+        // Track mini checker validation
+        trackEvent('mini_checker_validated', {
+          citation_length: citation.length,
+          validation_successful: true
+        })
       }
     } catch (err) {
       console.error('Validation error:', err)
       setError('Validation failed. Please try again.')
+
+      // Track failed validation
+      trackEvent('mini_checker_validated', {
+        citation_length: citation.length,
+        validation_successful: false
+      })
     } finally {
       setIsValidating(false)
     }
@@ -135,7 +148,10 @@ function MiniChecker({
               <strong>Check your entire reference list →</strong>
             </p>
             <button
-              onClick={onFullChecker}
+              onClick={() => {
+                trackEvent('mini_checker_to_main_clicked', {})
+                onFullChecker()
+              }}
               className="full-checker-button"
             >
               Open Citation Checker

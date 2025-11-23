@@ -8,7 +8,7 @@ import { PartialResults } from './components/PartialResults'
 import ValidationTable from './components/ValidationTable'
 import ValidationLoadingState from './components/ValidationLoadingState'
 import Footer from './components/Footer'
-import { getToken, getFreeUsage, incrementFreeUsage } from './utils/creditStorage'
+import { getToken, getFreeUsage } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent } from './utils/analytics'
 import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
@@ -40,7 +40,8 @@ function AppContent() {
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const { refreshCredits } = useCredits()
-  const { trackCTAClick, trackNavigationClick } = useAnalyticsTracking()
+  // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
+  useAnalyticsTracking()
 
   // Cleanup timer on component unmount
   useEffect(() => {
@@ -105,6 +106,15 @@ function AppContent() {
           // Handle response
           if (data.partial) {
             setResults({ ...data, isPartial: true })
+
+            // Track free limit reached
+            const freeUsed = data.free_used_total || getFreeUsage()
+            const citationsCount = data.citations_checked + data.citations_remaining
+            trackEvent('free_limit_reached', {
+              current_usage: freeUsed,
+              limit: 10,
+              attempted_citations: citationsCount
+            })
           } else {
             setResults(data)
 
@@ -118,7 +128,8 @@ function AppContent() {
               citations_count: citationsCount,
               errors_found: errorsFound,
               perfect_count: perfectCount,
-              user_type: userType
+              user_type: userType,
+              interface_source: 'main_page'
             })
           }
 
@@ -319,6 +330,12 @@ function AppContent() {
     console.log('Form submitted with citations:', textContent)
     console.log('HTML content:', htmlContent)
 
+    // Track validation attempt
+    trackEvent('validation_attempted', {
+      form_content_length: textContent.length,
+      interface_source: 'main_page'
+    })
+
     // Capture submitted text for loading state
     setSubmittedText(htmlContent)
 
@@ -393,6 +410,15 @@ function AppContent() {
       if (data.partial) {
         // Partial results (insufficient credits)
         setResults({ ...data, isPartial: true })
+
+        // Track free limit reached
+        const freeUsed = data.free_used_total || getFreeUsage()
+        const citationsCount = data.citations_checked + data.citations_remaining
+        trackEvent('free_limit_reached', {
+          current_usage: freeUsed,
+          limit: 10,
+          attempted_citations: citationsCount
+        })
       } else {
         // Full results
         setResults(data)
@@ -407,7 +433,8 @@ function AppContent() {
           citations_count: citationsCount,
           errors_found: errorsFound,
           perfect_count: perfectCount,
-          user_type: userType
+          user_type: userType,
+          interface_source: 'main_page'
         })
 
         // Free counter increment removed - now handled by free_used_total sync
@@ -521,7 +548,10 @@ function AppContent() {
             disabled={loading || !editor || hasPlaceholder}
             onClick={() => {
               if (!loading && editor && !hasPlaceholder) {
-                trackCTAClick('Check My Citations', 'main_form')
+                trackEvent('validation_started', {
+                  interface_source: 'main_page',
+                  form_content_length: editor.getText().length
+                })
               }
             }}
           >
