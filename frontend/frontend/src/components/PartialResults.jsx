@@ -8,7 +8,7 @@ import ValidationTable from './ValidationTable';
 export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade }) {
   const { trackSourceTypeView } = useAnalyticsTracking();
 
-  // Track partial results viewed
+  // Track partial results viewed (only on component mount)
   useEffect(() => {
     const token = getToken();
     trackEvent('partial_results_viewed', {
@@ -16,7 +16,8 @@ export function PartialResults({ results, partial, citations_checked, citations_
       citations_locked: citations_remaining,
       user_type: token ? 'paid' : 'free'
     });
-  }, [citations_checked, citations_remaining]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Track source type views when results are displayed
   useEffect(() => {

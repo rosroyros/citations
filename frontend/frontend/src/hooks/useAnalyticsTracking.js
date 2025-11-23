@@ -46,15 +46,6 @@ export const useAnalyticsTracking = () => {
     });
   }, []);
 
-  // Track CTA clicks
-  const trackCTAClick = useCallback((ctaText, ctaLocation) => {
-    trackEvent('cta_clicked', {
-      cta_text: ctaText,
-      cta_location: ctaLocation,
-      page: window.location.pathname
-    });
-  }, []);
-
   // Track source type guide content interaction
   const trackSourceTypeView = useCallback((sourceType, citationNumber) => {
     const trackKey = `${sourceType}-${citationNumber}`;
@@ -98,7 +89,6 @@ export const useAnalyticsTracking = () => {
 
   return {
     trackNavigationClick,
-    trackCTAClick,
     trackSourceTypeView,
     getMaxScrollDepth: () => lastScrollDepth.current
   };

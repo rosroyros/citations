@@ -546,14 +546,6 @@ function AppContent() {
           <button
             type="submit"
             disabled={loading || !editor || hasPlaceholder}
-            onClick={() => {
-              if (!loading && editor && !hasPlaceholder) {
-                trackEvent('validation_started', {
-                  interface_source: 'main_page',
-                  form_content_length: editor.getText().length
-                })
-              }
-            }}
           >
             {loading ? 'Validating...' : 'Check My Citations'}
           </button>
