@@ -30,7 +30,12 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
   return (
     <div className="partial-results-container" data-testid="partial-results">
-      <ValidationTable results={results} />
+      <ValidationTable
+        results={results}
+        isPartial={true}
+        totalSubmitted={citations_checked + citations_remaining}
+        citationsRemaining={citations_remaining}
+      />
 
       <div className="upgrade-banner">
         <div className="upgrade-content">

@@ -66,6 +66,26 @@
   color: var(--color-error);
 }
 
+/* Partial Results Styling */
+.partial-indicator {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #f59e0b;
+  margin-left: 0.5rem;
+}
+
+.partial-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.partial-breakdown {
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+  font-weight: 400;
+}
+
 /* Table Structure */
 .validation-table {
   width: 100%;

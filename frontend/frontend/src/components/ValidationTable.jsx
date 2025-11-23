@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ValidationTable.css'
 
-function ValidationTable({ results }) {
+function ValidationTable({ results, isPartial = false, totalSubmitted = null, citationsRemaining = 0 }) {
   const [expandedRows, setExpandedRows] = useState(() => {
     // Initialize with error rows expanded
     const initial = {}
@@ -21,14 +21,32 @@ function ValidationTable({ results }) {
   const perfectCount = results.filter(r => (r.errors?.length || 0) === 0).length
   const errorCount = results.filter(r => (r.errors?.length || 0) > 0).length
 
+  // Calculate display counts
+  const processedCount = results.length
+  const displayTotal = totalSubmitted !== null ? totalSubmitted : processedCount
+
   return (
     <div className="validation-table-container" data-testid="results">
       <div className="table-header">
-        <h2>Validation Results</h2>
+        <h2>Validation Results {isPartial && <span className="partial-indicator">⚠️ Partial</span>}</h2>
         <div className="table-stats">
-          <span className="stat-item">
-            <strong>{results.length}</strong> citations
-          </span>
+          {isPartial ? (
+            // Partial results display
+            <>
+              <span className="stat-item partial-info">
+                <strong>{displayTotal}</strong> submitted
+                <span className="partial-breakdown">
+                  ({processedCount} processed • {citationsRemaining} remaining)
+                </span>
+              </span>
+              <span className="stat-separator">•</span>
+            </>
+          ) : (
+            // Full results display
+            <span className="stat-item">
+              <strong>{displayTotal}</strong> citations
+            </span>
+          )}
           <span className="stat-separator">•</span>
           <span className="stat-item">
             <span className="stat-badge success">{perfectCount}</span>
