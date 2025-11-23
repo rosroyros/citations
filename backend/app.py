@@ -446,9 +446,21 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         else:
             # Free tier - check limit
             if free_used >= FREE_LIMIT:
-                jobs[job_id]["status"] = "failed"
-                jobs[job_id]["error"] = "Free tier limit reached. Purchase credits to continue."
-                logger.warning(f"Job {job_id}: Failed - free tier limit reached")
+                # Return partial results with all citations locked (user can see upgrade prompt)
+                # Simple citation parsing: split by double newlines and filter empty lines
+                citation_entries = [c.strip() for c in citations.split('\n\n') if c.strip()]
+                citation_count = len(citation_entries)
+
+                jobs[job_id]["status"] = "completed"
+                jobs[job_id]["result"] = ValidationResponse(
+                    results=[],  # Empty array - all locked
+                    partial=True,
+                    citations_checked=0,
+                    citations_remaining=citation_count,
+                    free_used=FREE_LIMIT,
+                    free_used_total=FREE_LIMIT
+                ).dict()
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results")
                 return
 
         # Call LLM (can take 120s+)

@@ -31,6 +31,7 @@
 .stat-separator {
   color: var(--border-color);
   font-weight: 300;
+  margin: 0 0.25rem;
 }
 
 .stat-item {
@@ -305,6 +306,7 @@
 @media (max-width: 768px) {
   .table-header {
     padding: var(--space-md);
+    display: block;
   }
 
   .validation-table thead {
@@ -379,6 +381,27 @@
   .action-btn svg {
     width: 24px;
     height: 24px;
+  }
+
+  /* Mobile table stats improvements */
+  .table-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .stat-item {
+    width: 100%;
+  }
+
+  .partial-info {
+    gap: 0.5rem;
+  }
+
+  .partial-breakdown {
+    font-size: 0.875rem;
+    line-height: 1.4;
   }
 
   /* Error details on mobile */
