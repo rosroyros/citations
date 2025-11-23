@@ -96,12 +96,16 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     // Verify partial results header with indicator
     await expect(page.locator('.table-header h2')).toContainText('Validation Results ⚠️ Partial');
 
-    // Verify partial results breakdown
+    // Verify partial results format: X citations • Y perfect • Z need fixes • N remaining
     const statsText = await page.locator('.table-stats').textContent();
-    expect(statsText).toContain('8 submitted'); // 8 new submissions
-    expect(statsText).toContain('(5 processed • 3 remaining)'); // Free tier limit applied
-    expect(statsText).toMatch(/\d+perfect/);
-    expect(statsText).toMatch(/\d+need fixes/);
+    expect(statsText).toContain('5 citations'); // 5 processed (not "submitted")
+    expect(statsText).toContain('3 remaining'); // Free tier limit applied
+    expect(statsText).toMatch(/\d+\s*perfect/);
+    expect(statsText).toMatch(/\d+\s*need fixes/);
+
+    // Should NOT show old format
+    expect(statsText).not.toContain('submitted');
+    expect(statsText).not.toContain('processed');
 
     console.log('✅ Partial results header displays correctly');
 
@@ -111,8 +115,8 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     });
   });
 
-  test('Partial results visual styling is applied', async ({ page }) => {
-    console.log('🧪 Testing partial results visual styling');
+  test('Partial results visual styling and clickability', async ({ page }) => {
+    console.log('🧪 Testing partial results visual styling and click behavior');
 
     // Simulate user at free tier limit
     await page.addInitScript(() => {
@@ -133,14 +137,25 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     // Verify CSS classes for partial results
     const partialIndicator = page.locator('.partial-indicator');
     await expect(partialIndicator).toContainText('⚠️ Partial');
+    await expect(partialIndicator).toHaveClass(/clickable/);
 
-    const partialInfo = page.locator('.partial-info');
-    await expect(partialInfo).toBeVisible();
+    // Verify "remaining" stat is displayed with reddish styling
+    const remainingStat = page.locator('.stat-remaining');
+    await expect(remainingStat).toBeVisible();
+    await expect(remainingStat).toContainText('remaining');
 
-    const partialBreakdown = page.locator('.partial-breakdown');
-    await expect(partialBreakdown).toBeVisible();
-    await expect(partialBreakdown).toContainText('processed');
-    await expect(partialBreakdown).toContainText('remaining');
+    const remainingBadge = page.locator('.stat-badge.remaining');
+    await expect(remainingBadge).toBeVisible();
+
+    // Test clicking partial indicator scrolls to upgrade banner
+    const upgradeBanner = page.locator('.upgrade-banner');
+    await expect(upgradeBanner).toBeVisible();
+
+    // Click the partial indicator
+    await partialIndicator.click();
+
+    // Wait a moment for scroll animation
+    await page.waitForTimeout(500);
 
     console.log('✅ Partial results visual styling applied correctly');
 
@@ -244,11 +259,13 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     await expect(page.locator('.table-header h2')).toContainText('Validation Results ⚠️ Partial');
 
     // Verify stats are visible on mobile (may wrap)
-    const partialInfo = page.locator('.partial-info');
-    await expect(partialInfo).toBeVisible();
+    const statsText = await page.locator('.table-stats').textContent();
+    expect(statsText).toContain('citations');
+    expect(statsText).toContain('remaining');
 
-    const partialBreakdown = page.locator('.partial-breakdown');
-    await expect(partialBreakdown).toBeVisible();
+    // Verify remaining badge is visible
+    const remainingBadge = page.locator('.stat-badge.remaining');
+    await expect(remainingBadge).toBeVisible();
 
     console.log('✅ Mobile partial results header displays correctly');
 

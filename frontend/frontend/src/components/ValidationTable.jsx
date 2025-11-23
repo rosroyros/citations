@@ -22,31 +22,38 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
   const errorCount = results.filter(r => (r.errors?.length || 0) > 0).length
 
   // Calculate display counts
-  const processedCount = results.length
-  const displayTotal = totalSubmitted !== null ? totalSubmitted : processedCount
+  const citationCount = results.length
+
+  const handlePartialClick = () => {
+    if (isPartial) {
+      const upgradeBanner = document.querySelector('.upgrade-banner')
+      if (upgradeBanner) {
+        upgradeBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }
+    }
+  }
 
   return (
     <div className="validation-table-container" data-testid="results">
       <div className="table-header">
-        <h2>Validation Results {isPartial && <span className="partial-indicator">⚠️ Partial</span>}</h2>
-        <div className="table-stats">
-          {isPartial ? (
-            // Partial results display
-            <>
-              <span className="stat-item partial-info">
-                <strong>{displayTotal}</strong> submitted
-                <span className="partial-breakdown">
-                  ({processedCount} processed • {citationsRemaining} remaining)
-                </span>
-              </span>
-              <span className="stat-separator">•</span>
-            </>
-          ) : (
-            // Full results display
-            <span className="stat-item">
-              <strong>{displayTotal}</strong> citations
+        <h2>
+          Validation Results {isPartial && (
+            <span
+              className="partial-indicator clickable"
+              onClick={handlePartialClick}
+              role="button"
+              tabIndex={0}
+              onKeyPress={(e) => e.key === 'Enter' && handlePartialClick()}
+              title="Click to see upgrade options"
+            >
+              ⚠️ Partial
             </span>
           )}
+        </h2>
+        <div className="table-stats">
+          <span className="stat-item">
+            <strong>{citationCount}</strong> citations
+          </span>
           <span className="stat-separator">•</span>
           <span className="stat-item">
             <span className="stat-badge success">{perfectCount}</span>
@@ -57,6 +64,15 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
             <span className="stat-badge error">{errorCount}</span>
             need fixes
           </span>
+          {isPartial && citationsRemaining > 0 && (
+            <>
+              <span className="stat-separator">•</span>
+              <span className="stat-item stat-remaining">
+                <span className="stat-badge remaining">{citationsRemaining}</span>
+                remaining
+              </span>
+            </>
+          )}
         </div>
       </div>
 
