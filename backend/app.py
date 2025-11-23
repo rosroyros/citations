@@ -447,20 +447,32 @@ async def process_validation_job(job_id: str, citations: str, style: str):
             # Free tier - check limit
             if free_used >= FREE_LIMIT:
                 # Return partial results with all citations locked (user can see upgrade prompt)
-                # Simple citation parsing: split by double newlines and filter empty lines
-                citation_entries = [c.strip() for c in citations.split('\n\n') if c.strip()]
-                citation_count = len(citation_entries)
+                # We need to call LLM just to count citations properly, but return empty results
+                logger.info(f"Job {job_id}: Free tier limit reached, counting citations to show partial results")
+
+                try:
+                    validation_results = await llm_provider.validate_citations(
+                        citations=citations,
+                        style=style
+                    )
+                    citation_count = len(validation_results["results"])
+                    logger.debug(f"Job {job_id}: Counted {citation_count} citations via LLM")
+                except Exception as e:
+                    logger.error(f"Job {job_id}: Failed to count citations: {str(e)}")
+                    # Fallback: estimate by splitting on double newlines
+                    citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
+                    logger.debug(f"Job {job_id}: Fallback citation count: {citation_count}")
 
                 jobs[job_id]["status"] = "completed"
-                jobs[job_id]["result"] = ValidationResponse(
+                jobs[job_id]["results"] = ValidationResponse(
                     results=[],  # Empty array - all locked
                     partial=True,
                     citations_checked=0,
                     citations_remaining=citation_count,
                     free_used=FREE_LIMIT,
                     free_used_total=FREE_LIMIT
-                ).dict()
-                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results")
+                ).model_dump()
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
                 return
 
         # Call LLM (can take 120s+)
