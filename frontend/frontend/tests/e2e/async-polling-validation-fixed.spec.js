@@ -32,6 +32,35 @@ const testCitations = {
     'White, M. (2023). Data privacy regulations. Privacy Law Journal, 15(4), 345-378.',
     'Harris, D. (2023). Machine learning ethics. AI Ethics Review, 3(1), 23-45.',
     'Martin, S. (2023). Cybersecurity best practices. Security Today, 22(3), 189-212.'
+  ],
+
+  // 25 citations for large batch/page refresh test
+  largeBatch: [
+    'Smith, J. (2023). The impact of artificial intelligence on modern society. Journal of Technology Studies, 45(2), 123-145.',
+    'Johnson, M. K. (2023). Climate change and renewable energy: A comprehensive review. Environmental Science Quarterly, 78(4), 567-589.',
+    'Williams, R. A. (2023). Educational psychology in the digital age. Learning and Instruction, 67, 101-115.',
+    'Brown, T. L. (2023). Global supply chain management: Challenges and opportunities. Business Logistics Review, 12(3), 234-251.',
+    'Davis, S. M. (2023). Public health in post-pandemic era. Health Policy Journal, 23(1), 45-67.',
+    'Miller, T. (2023). Database design patterns. Data Today, 14(1), 45-67.',
+    'Wilson, S. (2023). Network security essentials. Security Focus, 9(4), 201-223.',
+    'Moore, L. (2023). Mobile app development. App Developer Journal, 7(3), 134-156.',
+    'Taylor, J. (2023). DevOps best practices. Ops Weekly, 11(2), 78-92.',
+    'Anderson, P. (2023). UX design principles. Design Today, 6(1), 34-56.',
+    'Thomas, E. (2023). Software architecture patterns. Architecture Monthly, 18(3), 234-267.',
+    'Jackson, R. (2023). Cloud native applications. Cloud Computing Review, 9(2), 145-178.',
+    'White, M. (2023). Data privacy regulations. Privacy Law Journal, 15(4), 345-378.',
+    'Harris, D. (2023). Machine learning ethics. AI Ethics Review, 3(1), 23-45.',
+    'Martin, S. (2023). Cybersecurity best practices. Security Today, 22(3), 189-212.',
+    'Thompson, K. (2023). Blockchain technology fundamentals. Tech Innovation, 12(4), 456-489.',
+    'Garcia, L. (2023). Quantum computing applications. Quantum Journal, 7(2), 123-156.',
+    'Martinez, C. (2023). Big data analytics. Data Science Review, 19(1), 67-89.',
+    'Robinson, J. (2023). IoT security challenges. Internet of Things, 8(3), 234-267.',
+    'Clark, A. (2023). Digital transformation strategies. Business Tech, 16(2), 145-178.',
+    'Rodriguez, M. (2023). Artificial intelligence in healthcare. Medical Tech Journal, 14(4), 289-312.',
+    'Lewis, D. (2023). Sustainable technology practices. Green Computing, 6(1), 34-56.',
+    'Lee, S. (2023). Robotics automation. Robotics Today, 11(3), 189-223.',
+    'Walker, K. (2023). Cloud migration strategies. Cloud Strategies, 9(4), 345-378.',
+    'Hall, B. (2023). Edge computing benefits. Distributed Systems, 15(2), 167-189.'
   ]
 };
 
