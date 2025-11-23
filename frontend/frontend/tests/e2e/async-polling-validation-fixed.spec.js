@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 // Constants for async polling tests
-const TIMEOUT = 120000; // 2 minutes for large batches
-const POLLING_TIMEOUT = 180000; // 3 minutes for very large batches
+const TIMEOUT = 180000; // 3 minutes for large batches (increased for production safety)
+const POLLING_TIMEOUT = 300000; // 5 minutes for very large batches (extended for production latency variations)
 
 // Test data for different scenarios
 const testCitations = {
@@ -36,7 +36,9 @@ const testCitations = {
 };
 
 test.describe('Async Polling Architecture Validation - Fixed', () => {
-  test.use({ baseURL: 'http://localhost:5173' });
+  test.use({
+    baseURL: process.env.CI ? 'https://citationformatchecker.com' : 'http://localhost:5173'
+  });
 
   test.beforeEach(async ({ page }) => {
     // Clear cookies and localStorage before each test
@@ -174,9 +176,20 @@ test.describe('Async Polling Architecture Validation - Fixed', () => {
     });
     await page.goto('/');
 
-    // Submit 15 citations (using medium batch for reasonable testing time)
+    // Generate 50 citations for large batch test (combining existing + generated)
+    const largeBatchCitations = [];
+
+    // Add the 25 existing citations
+    largeBatchCitations.push(...testCitations.largeBatch);
+
+    // Generate additional citations to reach 50 total
+    for (let i = 26; i <= 50; i++) {
+      largeBatchCitations.push(`Author${i}, A. (2023). Research article ${i}. Academic Journal, ${i}(1), 1-20.`);
+    }
+
+    // Submit 50 citations
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
-    await editor.fill(testCitations.mediumBatch.join('\n'));
+    await editor.fill(largeBatchCitations.join('\n'));
 
     // Monitor for network errors (should not get 502/504)
     const networkErrors = [];
@@ -195,14 +208,14 @@ test.describe('Async Polling Architecture Validation - Fixed', () => {
     // Wait for results without timeout errors (using extended timeout for production)
     await expect(page.locator('.validation-table').first()).toBeVisible({ timeout: POLLING_TIMEOUT });
 
-    // Verify no network errors occurred
+    // Verify no network errors occurred (this is the key test - no 502/504 timeout errors)
     expect(networkErrors.length).toBe(0);
 
-    // Verify results displayed (should have multiple rows)
+    // Verify results displayed (should have significant number of rows for 50 citations)
     const resultRows = await page.locator('.validation-table tr, .result-row').count();
-    expect(resultRows).toBeGreaterThan(5); // Reasonable expectation for medium batch
+    expect(resultRows).toBeGreaterThan(40); // Expect at least most of the 50 citations to be processed
 
-    console.log(`✅ Scenario 4 completed successfully with ${resultRows} results`);
+    console.log(`✅ Scenario 4 completed successfully with ${resultRows} results - no timeout errors!`);
   });
 
   test('Scenario 5: Submit button disabled during polling', async ({ page }) => {
