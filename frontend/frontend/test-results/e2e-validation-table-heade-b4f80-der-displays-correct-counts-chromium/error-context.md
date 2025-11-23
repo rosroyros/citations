@@ -1,0 +1,233 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - img [ref=e7]
+      - heading "Citation Format Checker" [level=1] [ref=e10]
+  - generic [ref=e13]:
+    - heading "Stop wasting 5 minutes on every citation" [level=2] [ref=e14]
+    - paragraph [ref=e15]: The fastest, most accurate APA citation checker.
+    - generic [ref=e17]: ⚡ Instant validation • Catches citation generator errors • No sign up required
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]: Paste your citations below (APA 7th edition)
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10.
+        - paragraph [ref=e25]
+        - paragraph [ref=e26]: Doe, J. (2023). Second test. *Journal of Testing*, 1(2), 11-20.
+        - paragraph [ref=e27]
+        - paragraph [ref=e28]: Brown, A. (2023). Third test. *Journal of Testing*, 1(3), 21-30.
+        - paragraph [ref=e29]
+        - paragraph [ref=e30]: Wilson, B. (2023). Fourth test. *Journal of Testing*, 1(4), 31-40.
+        - paragraph [ref=e31]
+        - paragraph [ref=e32]: Taylor, C. (2023). Fifth test. *Journal of Testing*, 1(5), 41-50.
+      - paragraph [ref=e33]: Paste one or multiple citations. We'll check each one.
+    - button "Check My Citations" [ref=e34] [cursor=pointer]
+    - paragraph [ref=e35]: No login required • Get results in seconds
+    - generic [ref=e36]:
+      - generic [ref=e37]: ✓ Capitalization check
+      - generic [ref=e38]: ✓ Italics validation
+      - generic [ref=e39]: ✓ DOI formatting
+      - generic [ref=e40]: ✓ Punctuation rules
+  - generic [ref=e42]:
+    - generic [ref=e43]:
+      - heading "Validation Results" [level=2] [ref=e44]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - strong [ref=e47]: "5"
+          - text: citations
+        - generic [ref=e48]: •
+        - generic [ref=e49]:
+          - generic [ref=e50]: "2"
+          - text: perfect
+        - generic [ref=e51]: •
+        - generic [ref=e52]:
+          - generic [ref=e53]: "3"
+          - text: need fixes
+    - table [ref=e54]:
+      - rowgroup [ref=e55]:
+        - row "# Citation Status" [ref=e56]:
+          - cell "#" [ref=e57]
+          - cell "Citation" [ref=e58]
+          - cell "Status" [ref=e59]
+          - cell [ref=e60]
+      - rowgroup [ref=e61]:
+        - row "1 Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10. journal ✓ Perfect Expand" [ref=e62]:
+          - cell "1" [ref=e63]
+          - cell "Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10. journal" [ref=e64]:
+            - generic [ref=e65]: Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10.
+            - generic [ref=e66]: journal
+          - cell "✓ Perfect" [ref=e67]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: ✓
+              - generic [ref=e70]: Perfect
+          - cell "Expand" [ref=e71]:
+            - button "Expand" [ref=e72] [cursor=pointer]:
+              - img [ref=e73]
+        - 'row "2 Doe, J. (2023). Second test. *Journal of Testing*, 1(2), 11-20. book Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: doe, j. (2023). second test. *journal of testing*, 1(2), 11-20. ✗ 1 issue Collapse" [ref=e75]':
+          - cell "2" [ref=e76]
+          - 'cell "Doe, J. (2023). Second test. *Journal of Testing*, 1(2), 11-20. book Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: doe, j. (2023). second test. *journal of testing*, 1(2), 11-20." [ref=e77]':
+            - generic [ref=e78]: Doe, J. (2023). Second test. *Journal of Testing*, 1(2), 11-20.
+            - generic [ref=e79]: book
+            - list [ref=e81]:
+              - listitem [ref=e82]:
+                - generic [ref=e83]: Title
+                - generic [ref=e84]: Journal article title should use sentence case (only first word and proper nouns capitalized)
+                - generic [ref=e85]:
+                  - strong [ref=e86]: "Should be:"
+                  - text: doe, j. (2023). second test. *journal of testing*, 1(2), 11-20.
+          - cell "✗ 1 issue" [ref=e87]:
+            - generic [ref=e88]:
+              - generic [ref=e89]: ✗
+              - generic [ref=e90]: 1 issue
+          - cell "Collapse" [ref=e91]:
+            - button "Collapse" [ref=e92] [cursor=pointer]:
+              - img [ref=e93]
+        - 'row "3 Brown, A. (2023). Third test. *Journal of Testing*, 1(3), 21-30. journal Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: brown, a. (2023). third test. *journal of testing*, 1(3), 21-30. ✗ 1 issue Collapse" [ref=e95]':
+          - cell "3" [ref=e96]
+          - 'cell "Brown, A. (2023). Third test. *Journal of Testing*, 1(3), 21-30. journal Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: brown, a. (2023). third test. *journal of testing*, 1(3), 21-30." [ref=e97]':
+            - generic [ref=e98]: Brown, A. (2023). Third test. *Journal of Testing*, 1(3), 21-30.
+            - generic [ref=e99]: journal
+            - list [ref=e101]:
+              - listitem [ref=e102]:
+                - generic [ref=e103]: Title
+                - generic [ref=e104]: Journal article title should use sentence case (only first word and proper nouns capitalized)
+                - generic [ref=e105]:
+                  - strong [ref=e106]: "Should be:"
+                  - text: brown, a. (2023). third test. *journal of testing*, 1(3), 21-30.
+          - cell "✗ 1 issue" [ref=e107]:
+            - generic [ref=e108]:
+              - generic [ref=e109]: ✗
+              - generic [ref=e110]: 1 issue
+          - cell "Collapse" [ref=e111]:
+            - button "Collapse" [ref=e112] [cursor=pointer]:
+              - img [ref=e113]
+        - row "4 Wilson, B. (2023). Fourth test. *Journal of Testing*, 1(4), 31-40. journal ✓ Perfect Expand" [ref=e115]:
+          - cell "4" [ref=e116]
+          - cell "Wilson, B. (2023). Fourth test. *Journal of Testing*, 1(4), 31-40. journal" [ref=e117]:
+            - generic [ref=e118]: Wilson, B. (2023). Fourth test. *Journal of Testing*, 1(4), 31-40.
+            - generic [ref=e119]: journal
+          - cell "✓ Perfect" [ref=e120]:
+            - generic [ref=e121]:
+              - generic [ref=e122]: ✓
+              - generic [ref=e123]: Perfect
+          - cell "Expand" [ref=e124]:
+            - button "Expand" [ref=e125] [cursor=pointer]:
+              - img [ref=e126]
+        - 'row "5 Taylor, C. (2023). Fifth test. *Journal of Testing*, 1(5), 41-50. journal Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: taylor, c. (2023). fifth test. *journal of testing*, 1(5), 41-50. ✗ 1 issue Collapse" [ref=e128]':
+          - cell "5" [ref=e129]
+          - 'cell "Taylor, C. (2023). Fifth test. *Journal of Testing*, 1(5), 41-50. journal Title Journal article title should use sentence case (only first word and proper nouns capitalized) Should be: taylor, c. (2023). fifth test. *journal of testing*, 1(5), 41-50." [ref=e130]':
+            - generic [ref=e131]: Taylor, C. (2023). Fifth test. *Journal of Testing*, 1(5), 41-50.
+            - generic [ref=e132]: journal
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - generic [ref=e136]: Title
+                - generic [ref=e137]: Journal article title should use sentence case (only first word and proper nouns capitalized)
+                - generic [ref=e138]:
+                  - strong [ref=e139]: "Should be:"
+                  - text: taylor, c. (2023). fifth test. *journal of testing*, 1(5), 41-50.
+          - cell "✗ 1 issue" [ref=e140]:
+            - generic [ref=e141]:
+              - generic [ref=e142]: ✗
+              - generic [ref=e143]: 1 issue
+          - cell "Collapse" [ref=e144]:
+            - button "Collapse" [ref=e145] [cursor=pointer]:
+              - img [ref=e146]
+  - generic [ref=e149]:
+    - heading "Why Citation Format Checker Works" [level=3] [ref=e150]
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - heading "Catches 99% of citation errors" [level=4] [ref=e153]
+        - paragraph [ref=e154]: Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.
+      - generic [ref=e155]:
+        - heading "Never lose points" [level=5] [ref=e156]
+        - paragraph [ref=e157]: Submit with confidence. No more losing grades on formatting mistakes.
+      - generic [ref=e158]:
+        - heading "Finds generator mistakes" [level=5] [ref=e159]
+        - paragraph [ref=e160]: Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.
+      - generic [ref=e161]:
+        - heading "Custom AI Models" [level=6] [ref=e162]
+        - paragraph [ref=e163]: Trained on thousands of expert-verified citations for each source type
+      - generic [ref=e164]:
+        - heading "APA Expert Verified" [level=6] [ref=e165]
+        - paragraph [ref=e166]: Every error type validated against official APA 7th Edition manual
+      - generic [ref=e167]:
+        - heading "Trusted Worldwide" [level=6] [ref=e168]
+        - paragraph [ref=e169]: Join thousands of students and academics who rely on us
+  - generic [ref=e171]:
+    - heading "Frequently Asked Questions" [level=3] [ref=e172]
+    - generic [ref=e173]:
+      - generic [ref=e174]:
+        - heading "How do I check my APA citations?" [level=4] [ref=e175]
+        - paragraph [ref=e176]: Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
+      - generic [ref=e177]:
+        - heading "Is this citation checker free?" [level=4] [ref=e178]
+        - paragraph [ref=e179]: Yes! You get 10 free citation checks to try the tool. For unlimited checking, you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
+      - generic [ref=e180]:
+        - heading "What citation style does this tool support?" [level=4] [ref=e181]
+        - paragraph [ref=e182]: Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
+      - generic [ref=e183]:
+        - heading "What types of errors does this tool catch?" [level=4] [ref=e184]
+        - paragraph [ref=e185]: Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
+      - generic [ref=e186]:
+        - heading "Can I check multiple citations at once?" [level=4] [ref=e187]
+        - paragraph [ref=e188]: Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
+      - generic [ref=e189]:
+        - heading "What are Citation Credits and how do they work?" [level=4] [ref=e190]
+        - paragraph [ref=e191]: Each citation you check uses 1 credit. When you purchase 1,000 credits for $8.99, you can check 1,000 citations. Credits never expire and can be used anytime.
+      - generic [ref=e192]:
+        - heading "Do Citation Credits expire?" [level=4] [ref=e193]
+        - paragraph [ref=e194]: No! Your credits never expire. Use them at your own pace — whether that's all at once or over several years.
+      - generic [ref=e195]:
+        - heading "Can I get a refund?" [level=4] [ref=e196]
+        - paragraph [ref=e197]: Absolutely! We offer a no-questions-asked refund policy. If you're not completely satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
+      - generic [ref=e198]:
+        - heading "How is this different from ChatGPT or citation generators?" [level=4] [ref=e199]
+        - paragraph [ref=e200]: ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not specialized for citation validation. Our AI models are custom-trained exclusively on APA 7th Edition rules with expert verification, achieving 99% accuracy.
+  - contentinfo [ref=e201]:
+    - generic [ref=e202]:
+      - generic [ref=e203]:
+        - heading "Citation Guides" [level=3] [ref=e204]
+        - generic [ref=e205]:
+          - link "APA for Graduate Students" [ref=e206] [cursor=pointer]:
+            - /url: /guide/apa-graduate-students/
+          - link "APA Title Page" [ref=e207] [cursor=pointer]:
+            - /url: /guide/apa-title-page/
+          - link "APA Reference List" [ref=e208] [cursor=pointer]:
+            - /url: /guide/apa-reference-list/
+          - link "In-Text Citations" [ref=e209] [cursor=pointer]:
+            - /url: /guide/apa-in-text-citations/
+          - link "Common Citation Errors" [ref=e210] [cursor=pointer]:
+            - /url: /guide/apa-citation-errors/
+          - link "Fix Citation Errors" [ref=e211] [cursor=pointer]:
+            - /url: /guide/fix-apa-citation-errors/
+          - link "Check Citations" [ref=e212] [cursor=pointer]:
+            - /url: /guide/check-apa-citations/
+          - link "Validate Reference List" [ref=e213] [cursor=pointer]:
+            - /url: /guide/validate-reference-list/
+          - link "APA for Psychology" [ref=e214] [cursor=pointer]:
+            - /url: /guide/apa-citations-psychology/
+          - link "APA for Education" [ref=e215] [cursor=pointer]:
+            - /url: /guide/apa-citations-education/
+          - link "APA for Nursing" [ref=e216] [cursor=pointer]:
+            - /url: /guide/apa-citations-nursing/
+          - link "APA 7th Edition Changes" [ref=e217] [cursor=pointer]:
+            - /url: /guide/apa-7th-edition-changes/
+          - link "APA vs MLA vs Chicago" [ref=e218] [cursor=pointer]:
+            - /url: /guide/apa-vs-mla-vs-chicago/
+          - link "Citation Workflow" [ref=e219] [cursor=pointer]:
+            - /url: /guide/apa-citation-workflow/
+      - generic [ref=e221]:
+        - link "Privacy Policy" [ref=e222] [cursor=pointer]:
+          - /url: /privacy
+        - text: •
+        - link "Terms of Service" [ref=e223] [cursor=pointer]:
+          - /url: /terms
+        - text: •
+        - link "Contact Us" [ref=e224] [cursor=pointer]:
+          - /url: /contact
+      - paragraph [ref=e225]: © 2025 Citation Checker. All rights reserved.
+      - paragraph [ref=e226]: Built for researchers, by researchers
+```

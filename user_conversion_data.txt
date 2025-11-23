@@ -1,0 +1,184 @@
+================================================================================
+USER CONVERSION DATA - November 23, 2025 (6:00-7:00 AM)
+================================================================================
+
+TRAFFIC SOURCE: Yahoo Search (https://search.yahoo.com/)
+DEVICE: Windows 10, Chrome 142.0.0.0
+LANDED: 6:00:19 AM
+CONVERTED: 6:21:08 AM (checkout initiated)
+CREDITS GRANTED: 6:23:00 AM (1,000 credits for $8.99)
+
+================================================================================
+PRE-PURCHASE CITATIONS (Free Tier - 10 citations used)
+================================================================================
+
+Citation #1 (6:01:19 AM):
+County Health Rankings & Roadmaps. (2025). _Coryell, Texas_.        https://www.countyhealthrankings.org/health-data/texas/coryell?year=2025
+
+Citation #2 (6:02:15 AM):
+CDC. (2024, May 10). _Preventing Excessive Alcohol Use with Proven Strategies_. Alcohol Use.  https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Citation #3 (6:08:43 AM):
+Centers for Disease Control. (2024, May 10). _Preventing excessive alcohol use with proven strategies_. https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Citation #4 (6:10:13 AM):
+Centers for Disease Control and Prevention. (2024, May 10). _Preventing excessive alcohol use with proven strategies_. https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Citation #5 (6:11:15 AM):
+Roberts-Lewis, S., Baxter, H., Mein, G., Quirke-McFarlane, S., Leggat, F. J., Garner, H., Powell, M., White, S., & Bearne, L. (2024). _Examining the Effectiveness of Social Media for the Dissemination...
+
+Citation #6 (6:12:09 AM):
+Public Health Institute (2025, June 24). _Brief 1: "Improving Population Health Through Multisector Collaboration"_. Population Health Innovation Lab. Retrieved November 16, 25, from https://pophealth...
+
+Citation #7 (6:14:46 AM):
+Public Health Institute (2025, June 24). _Brief 1: "Improving population health through multisector collaboration"_. Population Health Innovation Lab.https://pophealthinnovationlab.org/aligning-brief-...
+
+Citation #8 (6:17:16 AM):
+Public Health Institute. (2025, June 24). _Brief 1: Improving population health through multisector collaboration_. Population Health Innovation Lab.https://pophealthinnovationlab.org/aligning-brief-s...
+
+Citation #9 (6:18:26 AM):
+Public Health Institute. (2025, June 24). _Brief 1: Improving population health through multisector collaboration_. Population Health Innovation Labhttps://pophealthinnovationlab.org/aligning-brief-se...
+
+Citation #10 (6:19:36 AM):
+Public Health Institute. (2025, June 24). _Brief 1: Improving population health through multisector collaboration_. Population Health Innovation Lab.https://pophealthinnovationlab.org/aligning-brief-s...
+
+Citation #11 (6:20:24 AM) - **FREE TIER LIMIT HIT - PARTIAL RESULTS RETURNED**:
+Public Health Institute. (2025, June 24). _Brief 1: Improving population health through multisector collaboration_. Population Health Innovation Lab. https://pophealthinnovationlab.org/aligning-brief-...
+
+================================================================================
+CONVERSION EVENT
+================================================================================
+Time between hitting limit and checkout: 44 seconds
+Checkout created: 6:21:08 AM
+Order completed: 6:23:00 AM
+Credits granted: 1,000
+Order ID: b1c4c2db-c981-465c-855d-2b3f85dd6b07
+Token: 054deeca-5dc0-4fce-a957-2f66fc97bcad
+
+================================================================================
+POST-PURCHASE CITATIONS (Paid User - Token: 054deeca...)
+================================================================================
+
+Citation #12 (6:24:01 AM) - First paid validation:
+SAMHSA. (2024). _Screening, Brief Intervention, and Referral to Treatment (SBIRT)_. Samhsa.gov. _https://www.samhsa.gov/substance-use/treatment/sbirt_
+
+Citation #13 (6:29:06 AM):
+Substance Abuse and Mental Health Services Administration (SAMHSA). (2024). _Screening, brief intervention, and referral to treatment (_SBIRT_)_. _https://www.samhsa.gov/substance-use/treatment/sbirt_
+
+Citation #14 (6:31:43 AM):
+Substance Abuse and Mental Health Services Administration. (2024). _Screening, brief intervention, and referral to treatment (_SBIRT_)_. _https://www.samhsa.gov/substance-use/treatment/sbirt_
+
+Citation #15 (6:34:07 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November  4). _Screening, brief intervention, and referral to treatment (_SBIRT_)_. _https://www.samhsa.gov/substance-use/treatment/sb...
+
+Citation #16 (6:37:02 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November  7). _Screening, brief intervention, and referral to treatment (SBIRT)._ _https://www.samhsa.gov/substance-use/treatment/sbir...
+
+Citation #17 (6:39:46 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November7). Screening, brief intervention, and referral to treatment (SBIRT)_._ _https://www.samhsa.gov/substance-use/treatment/sbirt_
+
+Citation #18 (6:42:43 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November 7)._ Screening, brief intervention, and referral to treatment (SBIRT). _https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Citation #19 (6:46:12 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November 7)__Screening, brief intervention, and referral to treatment (SBIRT)_ _https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Citation #20 (6:49:31 AM):
+Substance Abuse and Mental Health Services Administration.(2024, November 7). _Screening, brief intervention, and referral to treatment (SBIRT) _https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Citation #21 (6:51:18 AM):
+Substance Abuse and Mental Health Services Administration. (2024, November 7). _Screening, brief intervention, and referral to treatment (SBIRT).  _https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Citation #22 (6:52:22 AM):
+Krzeminski, J. (2025). _Subject Guides: Evidence-Based Practice Nursing Toolkit: 7. Plan the Budget_. Henryford.libguides.com. https://henryford.libguides.com/nursingebp/budget
+
+Citation #23 (6:57:53 AM):
+Krzeminski, J. (2025, Oct 17). _Subject guides: Evidence-based practice nursing toolkit: 7. Plan the budget_. Henry Ford Health. https://henryford.libguides.com/nursingebp/budget
+
+Citation #24 (6:59:33 AM):
+Alkhuzaimi, F., Rainey, D., Christine Brown Wilson, & Bloomfield, J. (2024). _The impact of mobile health interventions on service users' health outcomes and the role of health professions: a systemat...
+
+Citation #25 (7:00+ AM):
+Alkhuzaimi, F., Rainey, D., Christine Brown Wilson, & Bloomfield, J. (2024, July 27). _The impact of mobile health interventions on service users' health outcomes and the role of health professions: a...
+
+================================================================================
+COPY/PASTE READY FORMAT - ALL CITATIONS
+================================================================================
+
+County Health Rankings & Roadmaps. (2025). _Coryell, Texas_.        https://www.countyhealthrankings.org/health-data/texas/coryell?year=2025
+
+CDC. (2024, May 10). _Preventing Excessive Alcohol Use with Proven Strategies_. Alcohol Use.  https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Centers for Disease Control. (2024, May 10). _Preventing excessive alcohol use with proven strategies_. https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Centers for Disease Control and Prevention. (2024, May 10). _Preventing excessive alcohol use with proven strategies_. https://www.cdc.gov/alcohol/prevention/proven-strategies.html
+
+Roberts-Lewis, S., Baxter, H., Mein, G., Quirke-McFarlane, S., Leggat, F. J., Garner, H., Powell, M., White, S., & Bearne, L. (2024). _Examining the Effectiveness of Social Media for the Dissemination of Physical Activity and Health Promotion Information to People Living With Long-Term Health Conditions: Systematic Scoping Review_. _Journal of Medical Internet Research_.
+
+Public Health Institute. (2025, June 24). _Brief 1: Improving population health through multisector collaboration_. Population Health Innovation Lab. https://pophealthinnovationlab.org/aligning-brief-series-1/
+
+SAMHSA. (2024). _Screening, Brief Intervention, and Referral to Treatment (SBIRT)_. https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Substance Abuse and Mental Health Services Administration. (2024). _Screening, brief intervention, and referral to treatment (SBIRT)_. https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Substance Abuse and Mental Health Services Administration. (2024, November 7). _Screening, brief intervention, and referral to treatment (SBIRT)_. https://www.samhsa.gov/substance-use/treatment/sbirt
+
+Krzeminski, J. (2025). _Subject Guides: Evidence-Based Practice Nursing Toolkit: 7. Plan the Budget_. https://henryford.libguides.com/nursingebp/budget
+
+Alkhuzaimi, F., Rainey, D., Christine Brown Wilson, & Bloomfield, J. (2024). _The impact of mobile health interventions on service users' health outcomes and the role of health professions: a systematic review_.
+
+================================================================================
+VALIDATION RESULTS METADATA
+================================================================================
+
+Token usage patterns show varying complexity:
+- Simple citations: ~1,500-2,000 tokens total
+- Complex citations: ~2,500-3,400 tokens total
+- Response lengths: 500-2,600 characters
+
+All validations returned 1 citation result per request (user checked one at a time)
+
+The user was iterating heavily on:
+1. CDC citation (checked 3 times in different formats)
+2. Public Health Institute citation (checked 6 times)
+3. SAMHSA citation (checked 9+ times post-purchase)
+
+This iteration pattern suggests the user was:
+- Learning proper APA format through trial and error
+- Making corrections based on validation feedback
+- Working towards getting citations perfect for submission
+
+================================================================================
+USER BEHAVIOR INSIGHTS
+================================================================================
+
+1. **High Intent**: Arrived with citations ready, started validating within 60 seconds
+2. **Fast Conversion**: Only 44 seconds from hitting limit to checkout
+3. **Power User**: Validated 25+ citations in first hour after landing
+4. **Iterative Learning**: Checked same citations multiple times to perfect format
+5. **Sticky Engagement**: Never left site, stayed on success page to continue work
+6. **Research Topic**: Public health, alcohol prevention, health interventions
+7. **Likely Profile**: Graduate student or researcher with deadline pressure (working at 6 AM)
+8. **Geographic**: US-based (from Yahoo Search traffic patterns)
+
+================================================================================
+CONVERSION FUNNEL SUMMARY
+================================================================================
+
+Landing Page (6:00:19 AM)
+    ↓ 60 seconds
+First Citation Validation (6:01:19 AM)
+    ↓ 19 minutes, 10 validations
+Free Tier Limit Hit (6:20:24 AM)
+    ↓ 44 seconds
+Checkout Initiated (6:21:08 AM)
+    ↓ 1 minute 52 seconds
+Credits Granted (6:23:00 AM)
+    ↓ 1 minute
+Continued Validation (6:24:01 AM+)
+
+Total time from landing to conversion: 20 minutes 49 seconds
+Total time from first validation to conversion: 19 minutes 49 seconds
+Total time on site in first hour: Continuous engagement
+
+================================================================================

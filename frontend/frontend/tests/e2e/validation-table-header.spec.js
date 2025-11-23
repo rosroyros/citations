@@ -24,7 +24,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
   });
 
   test('Full results header displays correct counts', async ({ page }) => {
-    console.log('🧪 Testing full results header display');
 
     // Submit 5 citations (under free tier limit)
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
@@ -57,7 +56,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     expect(statsText).not.toContain('processed');
     expect(statsText).not.toContain('remaining');
 
-    console.log('✅ Full results header displays correctly');
 
     // Visual regression check - desktop layout
     await expect(page.locator('.validation-table-container')).toHaveScreenshot('desktop-full-results-header.png', {
@@ -66,7 +64,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
   });
 
   test('Partial results header displays accurate counts and breakdown', async ({ page }) => {
-    console.log('🧪 Testing partial results header display');
 
     // Simulate user with existing usage to trigger partial results
     await page.addInitScript(() => {
@@ -107,7 +104,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     expect(statsText).not.toContain('submitted');
     expect(statsText).not.toContain('processed');
 
-    console.log('✅ Partial results header displays correctly');
 
     // Visual regression check - desktop partial results layout
     await expect(page.locator('.partial-results-container')).toHaveScreenshot('desktop-partial-results-header.png', {
@@ -116,7 +112,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
   });
 
   test('Partial results visual styling and clickability', async ({ page }) => {
-    console.log('🧪 Testing partial results visual styling and click behavior');
 
     // Simulate user at free tier limit
     await page.addInitScript(() => {
@@ -157,7 +152,6 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     // Wait a moment for scroll animation
     await page.waitForTimeout(500);
 
-    console.log('✅ Partial results visual styling applied correctly');
 
     // Visual regression check - desktop styling details
     await expect(page.locator('.table-header')).toHaveScreenshot('desktop-partial-indicator-styling.png', {
@@ -190,7 +184,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
   });
 
   test('Mobile - Full results header displays correctly', async ({ page }) => {
-    console.log('📱 Testing mobile full results header display');
 
     // Submit 5 citations (under free tier limit)
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
@@ -219,7 +212,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     const statsText = await page.locator('.table-stats').textContent();
     expect(statsText).toContain('5 citations');
 
-    console.log('✅ Mobile full results header displays correctly');
 
     // Visual regression check - mobile layout
     await expect(page.locator('.validation-table-container')).toHaveScreenshot('mobile-full-results-header.png', {
@@ -228,7 +220,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
   });
 
   test('Mobile - Partial results header displays with proper wrapping', async ({ page }) => {
-    console.log('📱 Testing mobile partial results header display');
 
     // Simulate user with existing usage to trigger partial results
     await page.addInitScript(() => {
@@ -267,7 +258,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     const remainingBadge = page.locator('.stat-badge.remaining');
     await expect(remainingBadge).toBeVisible();
 
-    console.log('✅ Mobile partial results header displays correctly');
 
     // Visual regression check - mobile partial results layout
     await expect(page.locator('.partial-results-container')).toHaveScreenshot('mobile-partial-results-header.png', {
@@ -276,7 +266,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
   });
 
   test('Mobile - Upgrade banner is properly sized and accessible', async ({ page }) => {
-    console.log('📱 Testing mobile upgrade banner layout');
 
     // Simulate user at free tier limit
     await page.addInitScript(() => {
@@ -303,7 +292,6 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     expect(buttonBox.height).toBeGreaterThanOrEqual(44);
     expect(buttonBox.width).toBeGreaterThanOrEqual(100); // Reasonable minimum width
 
-    console.log('✅ Mobile upgrade banner properly sized');
 
     // Visual regression check - mobile upgrade banner
     await expect(page.locator('.upgrade-banner')).toHaveScreenshot('mobile-upgrade-banner.png', {

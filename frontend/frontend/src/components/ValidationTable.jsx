@@ -24,8 +24,12 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
   // Calculate display counts
   const citationCount = results.length
 
-  const handlePartialClick = () => {
+  const handlePartialClick = (e) => {
     if (isPartial) {
+      // Prevent default for Space key to avoid page scroll
+      if (e && e.key === ' ') {
+        e.preventDefault()
+      }
       const upgradeBanner = document.querySelector('.upgrade-banner')
       if (upgradeBanner) {
         upgradeBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -43,7 +47,7 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
               onClick={handlePartialClick}
               role="button"
               tabIndex={0}
-              onKeyPress={(e) => e.key === 'Enter' && handlePartialClick()}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handlePartialClick(e)}
               title="Click to see upgrade options"
             >
               ⚠️ Partial
