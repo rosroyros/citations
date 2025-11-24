@@ -64,7 +64,7 @@ function AppContent() {
       // Small delay to ensure the validation content is rendered
       const scrollTimer = setTimeout(() => {
         // Check for user's motion preference (accessibility)
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
 
         validationSectionRef.current.scrollIntoView({
           behavior: prefersReducedMotion ? 'auto' : 'smooth',
