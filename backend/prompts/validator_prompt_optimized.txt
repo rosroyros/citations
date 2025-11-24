@@ -63,7 +63,7 @@ VALIDATION RESULTS:
 [Or list each error as:]
 
 ❌ [Component]: [What's wrong]
-   Should be: [Correct format]
+   Should be: [Correct format using markdown: _text_ for italics, **text** for bold]
 
 ───────────────────────────────────────────────────────────────────────────
 
