@@ -39,6 +39,7 @@ function AppContent() {
   const [fadingOut, setFadingOut] = useState(false)
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
+  const validationSectionRef = useRef(null)
   const { refreshCredits } = useCredits()
   // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
   useAnalyticsTracking()
@@ -51,6 +52,21 @@ function AppContent() {
       }
     }
   }, [])
+
+  // Auto-scroll to validation results when loading starts
+  useEffect(() => {
+    if (loading && submittedText && validationSectionRef.current) {
+      // Small delay to ensure the validation content is rendered
+      const scrollTimer = setTimeout(() => {
+        validationSectionRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }, 100) // 100ms delay to ensure DOM is updated
+
+      return () => clearTimeout(scrollTimer)
+    }
+  }, [loading, submittedText])
 
   // Recover existing job on component mount
   useEffect(() => {
@@ -571,7 +587,7 @@ function AppContent() {
       )}
 
       {loading && submittedText && (
-        <div className={`validation-results-section ${fadingOut ? 'fade-out' : ''}`}>
+        <div ref={validationSectionRef} className={`validation-results-section ${fadingOut ? 'fade-out' : ''}`}>
           <ValidationLoadingState submittedHtml={submittedText} />
         </div>
       )}
