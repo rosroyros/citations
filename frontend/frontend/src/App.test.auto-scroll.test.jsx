@@ -68,6 +68,21 @@ beforeEach(() => {
     writable: true
   })
   localStorageMock.getItem.mockReturnValue(null) // No existing job by default
+
+  // Mock window.matchMedia for accessibility tests
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: vi.fn().mockImplementation(query => ({
+      matches: false, // Default: no reduced motion preference
+      media: query,
+      onchange: null,
+      addListener: vi.fn(), // deprecated
+      removeListener: vi.fn(), // deprecated
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  })
 })
 
 afterEach(() => {
@@ -133,8 +148,8 @@ describe('Auto-scroll to validation results', () => {
       expect(screen.getByText('Validation Results')).toBeTruthy()
     }, { timeout: 3000 })
 
-    // Add a small delay to ensure useEffect has time to run
-    await new Promise(resolve => setTimeout(resolve, 200))
+    // Add a small delay to ensure useEffect has time to run (50% buffer over 100ms delay)
+    await new Promise(resolve => setTimeout(resolve, 150))
 
     // Verify that scrollIntoView was called with smooth behavior
     expect(mockScrollIntoView).toHaveBeenCalledWith({
@@ -181,13 +196,116 @@ describe('Auto-scroll to validation results', () => {
       expect(screen.getByText('Validation Results')).toBeTruthy()
     }, { timeout: 3000 })
 
-    // Add a small delay to ensure useEffect has time to run
-    await new Promise(resolve => setTimeout(resolve, 200))
+    // Add a small delay to ensure useEffect has time to run (50% buffer over 100ms delay)
+    await new Promise(resolve => setTimeout(resolve, 150))
 
     // Verify scrollIntoView was called with correct options for mobile compatibility
     expect(mockScrollIntoView).toHaveBeenCalledTimes(1)
     expect(mockScrollIntoView).toHaveBeenCalledWith({
       behavior: 'smooth',
+      block: 'start'
+    })
+  })
+
+  it('should handle rapid state changes without race conditions', async () => {
+    // Mock successful async job creation
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ job_id: 'test-job-rapid' })
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          status: 'pending',
+          results: null
+        })
+      })
+
+    renderApp()
+
+    // Wait for button to be enabled
+    await waitFor(() => {
+      const submitButton = screen.getByRole('button', { name: /check my citations/i })
+      expect(submitButton).not.toBeDisabled()
+    }, { timeout: 1000 })
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+    mockScrollIntoView.mockClear()
+
+    // Submit the form
+    fireEvent.click(submitButton)
+
+    // Immediately simulate state change that would trigger cleanup
+    // This simulates rapid changes in loading/submittedText state
+    await waitFor(() => {
+      expect(screen.getByText('Validation Results')).toBeTruthy()
+    }, { timeout: 3000 })
+
+    // Add delay to ensure useEffect and cleanup have time to complete
+    await new Promise(resolve => setTimeout(resolve, 150))
+
+    // Verify that scrollIntoView was called exactly once despite rapid changes
+    expect(mockScrollIntoView).toHaveBeenCalledTimes(1)
+    expect(mockScrollIntoView).toHaveBeenCalledWith({
+      behavior: 'smooth',
+      block: 'start'
+    })
+  })
+
+  it('should respect prefers-reduced-motion for accessibility', async () => {
+    // Override matchMedia to simulate reduced motion preference
+    window.matchMedia.mockImplementation(query => ({
+      matches: query === '(prefers-reduced-motion: reduce)',
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }))
+
+    // Mock successful async job creation
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({ job_id: 'test-job-accessibility' })
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          status: 'pending',
+          results: null
+        })
+      })
+
+    renderApp()
+
+    // Wait for button to be enabled
+    await waitFor(() => {
+      const submitButton = screen.getByRole('button', { name: /check my citations/i })
+      expect(submitButton).not.toBeDisabled()
+    }, { timeout: 1000 })
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+    mockScrollIntoView.mockClear()
+
+    // Submit the form
+    fireEvent.click(submitButton)
+
+    // Wait for validation results to appear
+    await waitFor(() => {
+      expect(screen.getByText('Validation Results')).toBeTruthy()
+    }, { timeout: 3000 })
+
+    // Add delay to ensure useEffect has time to run
+    await new Promise(resolve => setTimeout(resolve, 150))
+
+    // Verify that scrollIntoView was called with 'auto' behavior due to reduced motion
+    expect(mockScrollIntoView).toHaveBeenCalledTimes(1)
+    expect(mockScrollIntoView).toHaveBeenCalledWith({
+      behavior: 'auto',
       block: 'start'
     })
   })

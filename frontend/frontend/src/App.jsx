@@ -29,6 +29,11 @@ const POLLING_CONFIG = {
   LOCAL_STORAGE_KEY: 'current_job_id'
 }
 
+// Scroll configuration constants
+const SCROLL_CONFIG = {
+  DELAY_MS: 100 // Delay to ensure DOM is updated before scrolling
+}
+
 function AppContent() {
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -58,11 +63,14 @@ function AppContent() {
     if (loading && submittedText && validationSectionRef.current) {
       // Small delay to ensure the validation content is rendered
       const scrollTimer = setTimeout(() => {
+        // Check for user's motion preference (accessibility)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
         validationSectionRef.current.scrollIntoView({
-          behavior: 'smooth',
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
           block: 'start'
         })
-      }, 100) // 100ms delay to ensure DOM is updated
+      }, SCROLL_CONFIG.DELAY_MS)
 
       return () => clearTimeout(scrollTimer)
     }
@@ -80,7 +88,7 @@ function AppContent() {
       setLoading(true)
       setError(null)
       setResults(null)
-      setSubmittedText('') // Will be populated when job completes
+      setSubmittedText('Recovering validation...') // Enable auto-scroll during recovery
 
       // Start polling for existing job
       pollForResults(existingJobId, token)
