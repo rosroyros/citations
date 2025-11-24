@@ -134,7 +134,7 @@ function MiniChecker({
                     <strong>{error.component}:</strong> {error.problem}
                     {error.correction && (
                       <div className="error-suggestion">
-                        💡 <em>Suggestion: {error.correction}</em>
+                        💡 <em>Suggestion: <span dangerouslySetInnerHTML={{ __html: error.correction }} /></em>
                       </div>
                     )}
                   </li>

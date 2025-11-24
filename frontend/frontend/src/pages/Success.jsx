@@ -382,7 +382,7 @@ const Success = () => {
                           <em>Problem:</em> {error.problem}
                         </div>
                         <div className="error-correction">
-                          <em>Correction:</em> {error.correction}
+                          <em>Correction:</em> <span dangerouslySetInnerHTML={{ __html: error.correction }} />
                         </div>
                       </div>
                     ))}

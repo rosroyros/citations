@@ -251,4 +251,12 @@ class OpenAIProvider(CitationValidator):
             # Convert italics (_text_) to HTML <em>
             result["original"] = re.sub(r'_([^_]+)_', r'<em>\1</em>', result["original"])
 
+        # Apply same markdown→HTML conversion to error corrections
+        for error in result["errors"]:
+            if error.get("correction"):
+                # Convert bold (**text**) to HTML <strong>
+                error["correction"] = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', error["correction"])
+                # Convert italics (_text_) to HTML <em>
+                error["correction"] = re.sub(r'_([^_]+)_', r'<em>\1</em>', error["correction"])
+
         return result

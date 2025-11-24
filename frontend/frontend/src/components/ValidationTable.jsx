@@ -124,7 +124,7 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
                             </div>
                             {error.correction && (
                               <div className="error-correction">
-                                <strong>Should be:</strong> {error.correction}
+                                <strong>Should be:</strong> <span dangerouslySetInnerHTML={{ __html: error.correction }} />
                               </div>
                             )}
                           </li>
