@@ -7,8 +7,9 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load OpenAI API key
-load_dotenv('../backend/.env')
+# Load OpenAI API key with configurable path
+ENV_PATH = os.getenv('ENV_FILE_PATH', '../backend/.env')
+load_dotenv(ENV_PATH)
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 if not OPENAI_API_KEY:
@@ -67,9 +68,18 @@ def test_model_high_reasoning(citations):
                 reasoning_effort="high"
             )
 
-            # Parse response
+            # Parse response with stricter validation
             response_text = response.choices[0].message.content.strip().lower()
-            predicted = 'valid' in response_text
+
+            # Look for explicit "valid" or "invalid" in response
+            if response_text.startswith('valid'):
+                predicted = True
+            elif response_text.startswith('invalid'):
+                predicted = False
+            else:
+                # Fallback to containment check but with warning
+                predicted = 'valid' in response_text and 'invalid' not in response_text
+
             correct = (predicted == item['ground_truth'])
 
             # Store result
@@ -86,14 +96,49 @@ def test_model_high_reasoning(citations):
             correct_so_far = sum(1 for r in results if r['correct'])
             print(f"  [{i:3d}/{len(citations)}] {item['ground_truth']:5s} -> {predicted:5s} {'✓' if correct else '✗'} ({correct_so_far}/{i} = {100*correct_so_far/i:.1f}%)")
 
-        except Exception as e:
-            print(f"  ❌ Error on citation {i}: {e}")
+        except openai.RateLimitError as e:
+            print(f"  ⏱️  Rate limit on citation {i}: {e}")
             result = {
                 'citation': item['citation'],
                 'ground_truth': item['ground_truth'],
                 'predicted': None,
                 'correct': False,
-                'error': str(e)
+                'error': 'RateLimitError',
+                'error_details': str(e)
+            }
+            results.append(result)
+            time.sleep(5)  # Back off on rate limit
+        except openai.AuthenticationError as e:
+            print(f"  🔑 Auth error on citation {i}: {e}")
+            result = {
+                'citation': item['citation'],
+                'ground_truth': item['ground_truth'],
+                'predicted': None,
+                'correct': False,
+                'error': 'AuthenticationError',
+                'error_details': str(e)
+            }
+            results.append(result)
+        except openai.APIError as e:
+            print(f"  🌐 API error on citation {i}: {e}")
+            result = {
+                'citation': item['citation'],
+                'ground_truth': item['ground_truth'],
+                'predicted': None,
+                'correct': False,
+                'error': 'APIError',
+                'error_details': str(e)
+            }
+            results.append(result)
+        except Exception as e:
+            print(f"  ❌ Unexpected error on citation {i}: {e}")
+            result = {
+                'citation': item['citation'],
+                'ground_truth': item['ground_truth'],
+                'predicted': None,
+                'correct': False,
+                'error': 'UnexpectedError',
+                'error_details': str(e)
             }
             results.append(result)
 
