@@ -60,22 +60,57 @@ function AppContent() {
 
   // Auto-scroll to validation results when loading starts
   useEffect(() => {
-    if (loading && submittedText && validationSectionRef.current) {
-      // Small delay to ensure the validation content is rendered
-      const scrollTimer = setTimeout(() => {
-        // Check for user's motion preference (accessibility)
-        const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
+    if (loading && submittedText) {
+      // Use requestAnimationFrame to wait for React to complete rendering
+      const performScroll = () => {
+        // Try both React ref and DOM query to find validation section
+        const validationElement = validationSectionRef.current || document.querySelector('.validation-results-section')
 
-        validationSectionRef.current.scrollIntoView({
-          behavior: prefersReducedMotion ? 'auto' : 'smooth',
-          block: 'start'
-        })
-      }, SCROLL_CONFIG.DELAY_MS)
+        if (validationElement) {
+          // Check for user's motion preference (accessibility)
+          const prefersReducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches ?? false
 
-      return () => clearTimeout(scrollTimer)
+          // Use manual scroll calculation instead of scrollIntoView (avoids CSS overflow conflicts)
+          try {
+            const elementRect = validationElement.getBoundingClientRect()
+            const elementTop = elementRect.top + window.scrollY
+
+            // Account for fixed header/nav elements
+            const headerOffset = 80
+            const scrollToPosition = Math.max(0, elementTop - headerOffset)
+
+            window.scrollTo({
+              top: scrollToPosition,
+              behavior: prefersReducedMotion ? 'auto' : 'smooth'
+            })
+          } catch (error) {
+            console.error('Auto-scroll error:', error)
+          }
+        } else {
+          // Retry if element not found yet
+          setTimeout(performScroll, 50)
+        }
+      }
+
+      // Use multiple attempts with requestAnimationFrame to ensure the DOM is ready
+      let attempts = 0
+      const maxAttempts = 6 // ~300ms total
+
+      const tryScroll = () => {
+        if (validationSectionRef.current || document.querySelector('.validation-results-section')) {
+          performScroll()
+        } else if (attempts < maxAttempts) {
+          attempts++
+          requestAnimationFrame(tryScroll)
+        }
+      }
+
+      // Start the retry process
+      requestAnimationFrame(tryScroll)
     }
   }, [loading, submittedText])
 
+  
   // Recover existing job on component mount
   useEffect(() => {
     const existingJobId = localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
@@ -337,7 +372,9 @@ function AppContent() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (!editor) return
+    if (!editor) {
+      return
+    }
 
     // Clear abandonment timer on form submission
     if (abandonmentTimerRef.current) {
@@ -351,9 +388,7 @@ function AppContent() {
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
 
-    console.log('Form submitted with citations:', textContent)
-    console.log('HTML content:', htmlContent)
-
+    
     // Track validation attempt
     trackEvent('validation_attempted', {
       form_content_length: textContent.length,
@@ -362,7 +397,6 @@ function AppContent() {
 
     // Capture submitted text for loading state
     setSubmittedText(htmlContent)
-
     setLoading(true)
     setError(null)
     setResults(null)
