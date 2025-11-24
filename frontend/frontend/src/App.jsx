@@ -330,7 +330,7 @@ function AppContent() {
 
       abandonmentTimerRef.current = timer
     },
-    onBlur: ({ editor }) => {
+    onBlur: () => {
       // Clear the abandonment timer when editor loses focus
       if (abandonmentTimerRef.current) {
         clearTimeout(abandonmentTimerRef.current)
