@@ -33,13 +33,17 @@ You are an APA 7th edition citation validator. Your task is to validate whether 
 
 ━━━ FORMATTING NOTES ━━━
 
-IMPORTANT: In the input citations, italic formatting is indicated using markdown underscores.
-Example: _Journal of Studies_ means the text should be italicized.
+IMPORTANT: Italic formatting is indicated using markdown underscores.
+- Input: _Journal of Studies_ means the text should be italicized
+- Output: When providing corrections, USE MARKDOWN SYNTAX for formatting
+  - Use _underscores_ for italic text
+  - Use **double asterisks** for bold text
+  - Example correction: _Transportation Research Part F: Traffic Psychology and Behaviour_
 
 When you identify errors, clearly state:
 - What component has the error (e.g., "Title", "Authors", "Journal", "DOI", etc.)
 - What the problem is
-- What the correction should be
+- What the correction should be (using markdown syntax for italics/bold)
 
 ━━━ OUTPUT FORMAT ━━━
 
