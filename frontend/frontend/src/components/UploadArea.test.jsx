@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UploadArea } from './UploadArea';
+import { MAX_FILE_SIZE } from '../constants/fileValidation.js';
 
 describe('UploadArea', () => {
   const mockOnFileSelected = vi.fn();
@@ -48,7 +49,7 @@ describe('UploadArea', () => {
   });
 
   it('should validate file size', () => {
-    const largeFile = new File(['x'.repeat(11 * 1024 * 1024)], 'large.pdf', { type: 'application/pdf' });
+    const largeFile = new File(['x'.repeat(MAX_FILE_SIZE + 1024)], 'large.pdf', { type: 'application/pdf' });
 
     render(<UploadArea onFileSelected={mockOnFileSelected} />);
 

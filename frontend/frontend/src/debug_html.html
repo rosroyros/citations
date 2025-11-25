@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML Debug Test</title>
+    <script>
+        // Test 1: Direct HTML injection
+        function testDirectHTML() {
+            const testData = 'Smith, J. <strong>2009</strong>. <em>Journal article</em>.';
+            document.getElementById('test1').innerHTML = testData;
+            console.log('Test 1 - Direct HTML:', testData);
+        }
+
+        // Test 2: dangerouslySetInnerHTML simulation
+        function testDangerouslySetInnerHTML() {
+            const testData = 'Smith, J. <strong>2009</strong>. <em>Journal article</em>.';
+            const div = document.createElement('div');
+            div.innerHTML = testData;
+            document.getElementById('test2').appendChild(div);
+            console.log('Test 2 - Simulated dangerouslySetInnerHTML:', div.innerHTML);
+        }
+
+        // Test 3: React-style approach
+        function testReactStyle() {
+            const testData = 'Smith, J. <strong>2009</strong>. <em>Journal article</em>.';
+            const div = document.createElement('div');
+            div.textContent = 'React-style test: ';
+            const span = document.createElement('span');
+            span.innerHTML = testData;
+            div.appendChild(span);
+            document.getElementById('test3').appendChild(div);
+            console.log('Test 3 - React-style approach:', span.innerHTML);
+        }
+    </script>
+</head>
+<body>
+    <h1>HTML Rendering Debug</h1>
+
+    <div>
+        <h2>Test 1: Direct HTML injection</h2>
+        <div id="test1">Loading...</div>
+    </div>
+
+    <div>
+        <h2>Test 2: Simulated dangerouslySetInnerHTML</h2>
+        <div id="test2">Loading...</div>
+    </div>
+
+    <div>
+        <h2>Test 3: React-style approach</h2>
+        <div id="test3">Loading...</div>
+    </div>
+
+    <button onclick="testDirectHTML()">Test 1</button>
+    <button onclick="testDangerouslySetInnerHTML()">Test 2</button>
+    <button onclick="testReactStyle()">Test 3</button>
+</body>
+</html>

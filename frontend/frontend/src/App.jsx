@@ -16,6 +16,7 @@ import Success from './pages/Success'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
+import DebugHTMLTest from './components/DebugHTMLTest'
 import { mockValidationAPI } from './utils/mockData'
 import './App.css'
 
@@ -775,6 +776,9 @@ function AppContent() {
 function App() {
   const pathname = window.location.pathname
 
+  if (pathname === '/debug-html') {
+    return <DebugHTMLTest />
+  }
   if (pathname === '/success') {
     return <CreditProvider><Success /></CreditProvider>
   }

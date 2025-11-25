@@ -82,4 +82,16 @@ label:focus {
   border: 1px solid var(--color-error-border);
   border-radius: 4px;
   padding: var(--space-sm);
+  animation: errorSlideIn 0.3s ease-out;
+}
+
+@keyframes errorSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

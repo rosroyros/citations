@@ -1,14 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styles from './UploadArea.module.css';
-
-const VALID_FILE_TYPES = [
-  'application/pdf',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'text/plain',
-  'application/rtf',
-];
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+import { VALID_FILE_TYPES, MAX_FILE_SIZE, ACCEPTED_FILE_EXTENSIONS } from '../constants/fileValidation.js';
 
 export const UploadArea = ({ onFileSelected }) => {
   const [dragState, setDragState] = useState(false);
@@ -73,6 +65,16 @@ export const UploadArea = ({ onFileSelected }) => {
       onDragOver={(e) => e.preventDefault()}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
+      aria-label={dragState ? "File drop zone - active" : "File drop zone"}
+      aria-describedby={error ? "error-message" : undefined}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          document.getElementById('file-input')?.click();
+        }
+      }}
     >
       <div className={styles.content}>
         <div className={styles.icon}>📄</div>
@@ -80,15 +82,15 @@ export const UploadArea = ({ onFileSelected }) => {
         <p>or click to browse</p>
         <input
           type="file"
-          accept=".pdf,.docx,.txt,.rtf"
+          accept={ACCEPTED_FILE_EXTENSIONS}
           onChange={handleFileInputChange}
           style={{ display: 'none' }}
           id="file-input"
         />
-        <label htmlFor="file-input" role="button" tabIndex={0}>
+        <label htmlFor="file-input" role="button" tabIndex={-1}>
           Choose File
         </label>
-        {error && <div className={styles.error}>{error}</div>}
+        {error && <div id="error-message" className={styles.error}>{error}</div>}
       </div>
     </div>
   );
