@@ -8,6 +8,8 @@ import { PartialResults } from './components/PartialResults'
 import ValidationTable from './components/ValidationTable'
 import ValidationLoadingState from './components/ValidationLoadingState'
 import Footer from './components/Footer'
+import { UploadArea } from './components/UploadArea'
+import { ComingSoonModal } from './components/ComingSoonModal'
 import { getToken, getFreeUsage } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent } from './utils/analytics'
@@ -43,6 +45,9 @@ function AppContent() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [submittedText, setSubmittedText] = useState('')
   const [fadingOut, setFadingOut] = useState(false)
+  // Upload state
+  const [showComingSoonModal, setShowComingSoonModal] = useState(false)
+  const [selectedFile, setSelectedFile] = useState(null)
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const validationSectionRef = useRef(null)
@@ -281,6 +286,33 @@ function AppContent() {
       setFadingOut(false)
       setError('Validation timed out. Please try again.')
     }, 400)
+  }
+
+  // Handle file selection from UploadArea
+  const handleFileSelected = (file) => {
+    // Track upload file selection
+    trackEvent('upload_file_selected', {
+      file_type: file.type,
+      file_size: file.size,
+      file_name: file.name
+    })
+
+    // Show coming soon modal
+    setSelectedFile(file)
+    setShowComingSoonModal(true)
+  }
+
+  // Handle coming soon modal close
+  const handleComingSoonClose = (dismissMethod) => {
+    setShowComingSoonModal(false)
+    setSelectedFile(null)
+
+    // Track analytics for modal close
+    trackEvent('upload_modal_closed', {
+      dismiss_method: dismissMethod,
+      file_type: selectedFile?.type,
+      file_size: selectedFile?.size
+    })
   }
 
   const editor = useEditor({
@@ -594,12 +626,18 @@ function AppContent() {
       {/* Input Section */}
       <section className="input-section">
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>Paste your citations below (APA 7th edition)</label>
-            <EditorContent editor={editor} />
-            <p className="input-helper">
-              Paste one or multiple citations. We'll check each one.
-            </p>
+          <div className="input-layout">
+            <div className="editor-column">
+              <label>Paste your citations below (APA 7th edition)</label>
+              <EditorContent editor={editor} />
+              <p className="input-helper">
+                Paste one or multiple citations. We'll check each one.
+              </p>
+            </div>
+
+            <div className="upload-column">
+              <UploadArea onFileSelected={handleFileSelected} />
+            </div>
           </div>
 
           <button
@@ -768,6 +806,11 @@ function AppContent() {
       <Footer />
 
       <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
+      <ComingSoonModal
+        isOpen={showComingSoonModal}
+        file={selectedFile}
+        onClose={handleComingSoonClose}
+      />
     </div>
     </>
   )
