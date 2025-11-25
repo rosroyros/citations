@@ -38,18 +38,22 @@ review_valid_prompt = Path('../backend/prompts/validator_prompt_recursive_review
 
 def parse_decision(response_text):
     """Parse VALID/INVALID from response."""
-    if '✓ No APA 7 formatting errors detected' in response_text:
+    # Remove markdown formatting for robust parsing
+    cleaned = response_text.replace('*', '').replace('_', '').lower()
+
+    if '✓ no apa 7 formatting errors detected' in response_text.lower():
         return True  # VALID
     elif '❌' in response_text:
         return False  # INVALID
-    elif 'no apa 7 formatting errors' in response_text.lower():
+    elif 'no apa 7 formatting errors' in cleaned:
         return True  # VALID
-    elif 'final decision: valid' in response_text.lower():
+    elif 'final decision: valid' in cleaned:
         return True  # VALID
-    elif 'final decision: invalid' in response_text.lower():
+    elif 'final decision: invalid' in cleaned:
         return False  # INVALID
     else:
-        return False  # INVALID (default)
+        # Default to INVALID if unparseable
+        return False
 
 def extract_errors(response_text):
     """Extract list of errors from response."""
