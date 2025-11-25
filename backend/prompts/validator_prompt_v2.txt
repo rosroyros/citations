@@ -174,3 +174,5 @@ This instruction requires knowledge of the specific formatting requirements of A
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 CITATIONS TO VALIDATE:
+
+{citation}
