@@ -1,6 +1,10 @@
 import { useState, useRef, useCallback } from 'react';
 import { trackEvent } from '../utils/analytics';
 
+// Constants for file processing
+const PROCESSING_DURATION_MS = 1500; // 1.5 seconds
+const PROGRESS_UPDATE_INTERVAL_MS = 50; // Update every 50ms for smooth animation
+
 export const useFileProcessing = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -60,9 +64,7 @@ export const useFileProcessing = () => {
     }
 
     // Set up progress animation over 1.5 seconds
-    const PROCESSING_DURATION = 1500; // 1.5 seconds
-    const PROGRESS_UPDATE_INTERVAL = 50; // Update every 50ms for smooth animation
-    const totalSteps = PROCESSING_DURATION / PROGRESS_UPDATE_INTERVAL;
+    const totalSteps = PROCESSING_DURATION_MS / PROGRESS_UPDATE_INTERVAL_MS;
     const progressIncrement = 100 / totalSteps;
     let currentStep = 0;
 
@@ -75,7 +77,7 @@ export const useFileProcessing = () => {
         clearInterval(progressInterval.current);
         completeProcessing(file);
       }
-    }, PROGRESS_UPDATE_INTERVAL);
+    }, PROGRESS_UPDATE_INTERVAL_MS);
   }, []);
 
   const completeProcessing = useCallback((file) => {
@@ -113,7 +115,9 @@ export const useFileProcessing = () => {
     if (progressInterval.current) {
       clearInterval(progressInterval.current);
     }
-    if (fileReader.current && fileReader.readyState !== FileReader.DONE) {
+    if (fileReader.current &&
+        fileReader.current.readyState !== undefined &&
+        fileReader.current.readyState !== FileReader.DONE) {
       fileReader.current.abort();
     }
     setIsProcessing(false);

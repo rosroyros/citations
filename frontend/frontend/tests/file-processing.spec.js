@@ -40,24 +40,28 @@ test.describe('File Processing UI Tests', () => {
         page.locator('[role="progressbar"]')
       ]
 
-      // Wait for potential processing state to appear
-      await page.waitForTimeout(100)
-
-      // Check if any processing indicators are visible
-      let hasProcessingState = false
-      for (const indicator of processingIndicators) {
-        if (await indicator.isVisible().catch(() => false)) {
-          hasProcessingState = true
-          break
-        }
+      // Wait for processing state to appear or timeout
+      try {
+        await page.waitForSelector('[data-testid="processing-indicator"], [role="progressbar"], .progress-bar', {
+          timeout: 200
+        })
+        hasProcessingState = true
+      } catch (e) {
+        // No processing state appeared within timeout
+        hasProcessingState = false
       }
 
       if (hasProcessingState) {
         // Monitor processing duration
         const processingStartTime = Date.now()
 
-        // Wait for processing to complete (should take ~1.5 seconds)
-        await page.waitForTimeout(1600) // Slightly longer than 1.5s to account for rendering
+        // Wait for processing to complete - wait for completion state instead of fixed timeout
+        await page.waitForSelector('[data-testid="processing-complete"], .processed-file', {
+          timeout: 2000
+        }).catch(() => {
+          // Fallback to timing if completion selector not found
+          return page.waitForTimeout(1600)
+        })
 
         const processingEndTime = Date.now()
         const actualDuration = processingEndTime - processingStartTime

@@ -142,13 +142,13 @@ label:focus {
 .fileName {
   font-weight: 600;
   color: #10b981;
-  margin: var(--space-xs) 0 !important;
+  margin: var(--space-xs) 0;
 }
 
 .fileInfo {
-  font-size: 0.8rem !important;
+  font-size: 0.8rem;
   color: var(--color-text-tertiary);
-  margin: var(--space-xs) 0 !important;
+  margin: var(--space-xs) 0;
 }
 
 .resetButton {
