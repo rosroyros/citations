@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { trackEvent } from '../utils/analytics.js';
 import './ComingSoonModal.css';
 
-export const ComingSoonModal = ({ isOpen, file, onClose }) => {
+export const ComingSoonModal = ({ isOpen, file, onClose, textInputId = 'main-text-input' }) => {
   const modalStartTime = useRef(null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const ComingSoonModal = ({ isOpen, file, onClose }) => {
     });
 
     // Focus text input after closing
-    const textInput = document.getElementById('main-text-input');
+    const textInput = document.getElementById(textInputId);
     if (textInput) {
       textInput.focus();
     }
@@ -50,7 +50,12 @@ export const ComingSoonModal = ({ isOpen, file, onClose }) => {
   };
 
   const formatFileSize = (bytes) => {
-    if (!bytes || bytes === 0) return '0.0 B';
+    if (!bytes || bytes === 0) return '0 B';
+
+    // For very small files (< 1KB), show exact bytes
+    if (bytes < 1024) {
+      return `${bytes} B`;
+    }
 
     const k = 1024;
     const sizes = ['B', 'KB', 'MB', 'GB'];
