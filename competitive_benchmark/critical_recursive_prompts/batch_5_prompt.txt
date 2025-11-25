@@ -1,0 +1,358 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Stine, R. L. [RL_Stine]. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L. [RL_Stine]. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Merriam-Webster; 2003. Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster; 2003. Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author should be formatted with the last name followed by initials.
+   Should be: Merriam-Webster, Inc.
+
+❌ Date: The date should be in parentheses and formatted as (Year).
+   Should be: (2003).
+
+❌ Title: The title of the work should be in italics and followed by a period.
+   Should be: _Merriam-Webster’s collegiate dictionary_.
+
+❌ Edition: The edition information should be placed after the title and should not include a page number in parentheses.
+   Should be: (11th ed.).
+
+❌ Page Number: The page number should not be included in the citation for the book reference.
+   Should be omitted.
+
+❌ Publisher: The publisher's name should be included at the end of the citation.
+   Should be: Merriam-Webster, Inc.
+
+Corrected citation:
+Merriam-Webster, Inc. (2003). _Merriam-Webster’s collegiate dictionary_ (11th ed.). Merriam-Webster, Inc.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Aron, L., Botella, M., & Lubart, T. (2019). Culinary arts: Talent and their development. In R. F. Subotnik, P. Olszewski-Kubilius, & F. C. Worrell (Eds.), _The psychology of high performance: Developing human potential into domain-specific talent_ (pp. 345–359). American Psychological Association. https://doi.org/10.1037/0000120-016
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Aron, L., Botella, M., & Lubart, T. (2019). Culinary arts: Talent and their development. In R. F. Subotnik, P. Olszewski-Kubilius, & F. C. Worrell (Eds.), _The psychology of high performance: Developing human potential into domain-specific talent_ (pp. 345–359). American Psychological Association. https://doi.org/10.1037/0000120-016
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should not have a comma after the last name.
+   Should be: Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)
+
+❌ Publisher: The semicolon before the original work publication note is incorrect.
+   Should be: Hackett Publishing Company. (Original work published ca. 385-378 BCE)
+
+❌ Original work publication note: The original work publication note should be placed in parentheses after the title and should not be included in the citation as a separate sentence.
+   Should be: _Symposium_ (A. Nehamas & P. Woodruff, Trans) (Original work published ca. 385-378 BCE). Hackett Publishing Company.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Stine, R. L., & Smith, J. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L., & Smith, J. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34–41). American University
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34–41). American University
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Page Numbers: The page range should have a hyphen instead of an en dash.
+   Should be: (pp. 34-41)
+
+❌ Publisher: The publisher's name should be presented without the word "University."
+   Should be: American University Press
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not correctly formatted according to APA 7th edition guidelines.
+   Should be: _Lecture Notes in Computer Science: Vol. 9562. Theory of Cryptography_
+
+❌ Publisher: The publisher's name should be presented without the period at the end.
+   Should be: Springer
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: Plato, A. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+
+❌ Publisher: The publisher's name should be presented without the word "Company."
+   Should be: Hackett Publishing.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_. (Publication No. 27542827) [Doctoral dissertation, Pepperdine University] PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_. (Publication No. 27542827) [Doctoral dissertation, Pepperdine University] PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+
+SOURCE TYPE: dissertation
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not be italicized.
+   Should be: Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development.
+
+❌ Publication Number: The publication number should appear after the bracketed description.
+   Should be: [Doctoral dissertation, Pepperdine University]. (Publication No. 27542827)
+
+❌ Publisher: The publisher's name (PQDT Open) should not be included in the citation.
+   Should be omitted.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title should be in sentence case, meaning only the first word and proper nouns should be capitalized.
+   Should be: _Diagnostic and statistical manual of mental disorders_ 
+
+❌ Edition Information: The edition information should be placed after the title and should not be italicized.
+   Should be: _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.).
+
+---------------------------------------------------------------------------
+

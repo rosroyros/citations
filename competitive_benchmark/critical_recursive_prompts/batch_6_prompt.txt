@@ -1,0 +1,331 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225–240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225–240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Grady, J. S., & Her, M. (2019). Emotions in Storybooks: A Comparison of Storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, 8(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., & Her, M. (2019). Emotions in Storybooks: A Comparison of Storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, 8(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Ouellette J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_ https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_ https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Journal: The journal name is not properly formatted.
+   Should be: _Ars Technica_ (italicized and followed by a comma)
+
+❌ DOI/URL: There is no space before the URL.
+   Should be: _Ars Technica_, https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Publisher: The publisher's name should be formatted as "Hans Reitzels Forlag" without the period at the end.
+   Should be: Hans Reitzels Forlag
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: Hans Reitzels Forlag https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Year: The publication year is in the future (2025).
+   Should be: A valid year (e.g., 2023 or earlier)
+
+❌ DOI: The DOI is formatted incorrectly.
+   Should be: https://doi.org/10.1016/j.brat.2024.104678 (if the year were valid)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+American Psychological Association. (2017). _Ethical Principles of Psychologists and Code of Conduct_ (2002, amended effective June 1, 2010, and January 1, 2017) http://www.apa.org/ethics/code
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical Principles of Psychologists and Code of Conduct_ (2002, amended effective June 1, 2010, and January 1, 2017) http://www.apa.org/ethics/code
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not include the amendment details in parentheses.
+   Should be: _Ethical Principles of Psychologists and Code of Conduct_
+
+❌ URL: There is a missing space before the URL.
+   Should be: _Ethical Principles of Psychologists and Code of Conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). http://www.apa.org/ethics/code
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title of the work should not be italicized when it is a part of a larger work (dictionary).
+   Should be: Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+❌ Publisher: The publisher's name is missing.
+   Should be: Merriam-Webster, Inc.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Department for Business Innovation & Skills. (2016). _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. Crown. https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/523396/bis-16-265-success-as-a-knowledge-economy.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department for Business Innovation & Skills. (2016). _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. Crown. https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/523396/bis-16-265-success-as-a-knowledge-economy.pdf
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not be italicized when it is followed by a bracketed description.
+   Should be: _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. Crown. 
+
+❌ Publisher: The publisher's name should not be included after the bracketed description.
+   Should be: _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/523396/bis-16-265-success-as-a-knowledge-economy.pdf
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+

@@ -1,0 +1,355 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+_King James Bible_ (2017) King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published: 1769)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_King James Bible_ (2017) King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published: 1769)
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not in the correct position and is not italicized correctly.
+   Should be: _King James Bible_ (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+❌ Date: The date should be placed after the title and followed by a period.
+   Should be: _King James Bible_ (2017). 
+
+❌ Original work published: The phrase "Original work published" should not be included in parentheses.
+   Should be: Original work published 1769.
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: King James Bible Online. https://www.kingjamesbibleonline.org/
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Leitch, M. G., & Rushton, C. J. (Eds.). 2019. _A New Companion to Malory_. D. S. Brewer.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Leitch, M. G., & Rushton, C. J. (Eds.). 2019. _A New Companion to Malory_. D. S. Brewer.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Date: The date is incorrectly formatted.
+   Should be: (2019).
+
+❌ Punctuation: There is a missing period after "Eds." and before the year.
+   Should be: (Eds.). (2019).
+
+❌ Title: The title should be in sentence case.
+   Should be: _A new companion to Malory_.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+I. O. for Standardization. (2018). _Occupational health and safety management systems—Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+I. O. for Standardization. (2018). _Occupational health and safety management systems—Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html
+
+SOURCE TYPE: other
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+O’Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Date: The date format is incorrect.
+   Should be: (2016, July 3)
+
+❌ Title: The title should not include the bracketed description.
+   Should be: _Albatross culture 1_
+
+❌ Website Name: The website name should be included before the URL without a period.
+   Should be: YouTube
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: YouTube https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ URL: The URL is not formatted correctly.
+   Should be: The URL should not have any trailing characters or spaces. Ensure it is a complete and valid URL.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Stobbe, M. (2020, January 8). Cancer Death Rate in U.S. Sees Largest One-Year Drop Ever. _Chicago Tribune_
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stobbe, M. (2020, January 8). Cancer Death Rate in U.S. Sees Largest One-Year Drop Ever. _Chicago Tribune_
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Website Name: The website name is missing before the URL.
+   Should be: _Chicago Tribune_ [followed by the URL]
+
+(Note: Since the URL is not provided in the citation, it cannot be fully validated. Ensure to include the URL for complete compliance with APA 7th edition guidelines.)
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf
+
+SOURCE TYPE: other
+
+VALIDATION RESULTS:
+
+❌ Authors: The ampersand (&) should not be used in the author list when there are only two authors. 
+   Should be: Furst, M., & DeMillo, R. A.
+
+❌ Publisher: The publisher's name should not be included in the citation for a white paper. 
+   Should be: Remove "Georgia Tech College of Computing."
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: https://cis.temple.edu/~giorgio/threads_whitepaper.pdf (ensure there is a space before the URL)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Authors: The authors' names are not in the correct format.
+   Should be: Joachim, R., & Smith, J.
+
+❌ Title: The title is not properly capitalized according to APA style.
+   Should be: We are relying on APA as our university style format - the university is located in Germany (Kassel). So I
+
+❌ Website Name: The website name should not be italicized.
+   Should be: APA Style
+
+❌ URL: There is a period immediately before the URL.
+   Should be: https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690 (remove the period before the URL)
+
+---------------------------------------------------------------------------
+

@@ -1,0 +1,381 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Pegion, K., et al. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pegion, K., et al. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Authors: The use of "et al." is incorrect in this context. In APA 7th edition, "et al." should only be used in in-text citations or when there are more than 20 authors in the reference list. 
+   Should be: List all authors up to 20. If there are more than 20, list the first 19, followed by an ellipsis (...) and then the last author's name.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Stoneman R. 2008 _Alexander the Great: A life in legend_ Yale University Press
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman R. 2008 _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name is incorrectly formatted.
+   Should be: Stoneman, R.
+
+❌ Date: The publication year is missing parentheses.
+   Should be: (2008)
+
+❌ Title: The title should be in sentence case.
+   Should be: _Alexander the great: A life in legend_
+
+❌ Publisher: There should be a period after the publisher's name.
+   Should be: Yale University Press.
+
+---------------------------------------------------------------------------
+
+Corrected citation:
+Stoneman, R. (2008). _Alexander the great: A life in legend_. Yale University Press.
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Component: Publication Year
+   What's wrong: There is a missing period after the year.
+   Should be: (2019).
+
+❌ Component: Article Title
+   What's wrong: The article title should be in sentence case (only the first word and proper nouns capitalized).
+   Should be: Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance.
+
+❌ Component: DOI
+   What's wrong: The DOI should be formatted as a URL.
+   Should be: https://doi.org/10.1037/pspa0000166
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name followed by initials.
+   Should be: American Psychiatric Association.
+
+❌ Title: The title of the chapter should not be italicized.
+   Should be: Anxiety disorders.
+
+❌ Book Title: The title of the book should be in italics and in sentence case.
+   Should be: _Diagnostic and statistical manual of mental disorders_.
+
+❌ Edition Information: The edition information should be placed after the book title and should be in parentheses.
+   Should be: (5th ed.).
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: https://doi.org/10.1176/appi.books.9780890425596.dsm05 (remove the period before the URL).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Authors: The editors' names should not have a comma before the parentheses.
+   Should be: In Hygum, E. & Pedersen, P. M. (Eds.), _Early childhood education: Values and practices in Denmark_.
+
+❌ Publisher: The publisher's name should be formatted without a period at the end.
+   Should be: Hans Reitzels Forlag
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: Hans Reitzels Forlag https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia
+
+SOURCE TYPE: dissertation
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not properly formatted.
+   Should be: _Instructional leadership perceptions and practices of elementary school leaders_ [Unpublished doctoral dissertation]. University of Virginia
+
+❌ Description: The description of the dissertation is not in brackets.
+   Should be: [Unpublished doctoral dissertation]
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name followed by initials only.
+   Should be: Beaton, K. 
+
+❌ Title: The title should not include the illustrator's name in parentheses.
+   Should be: _King baby_
+
+✓ No APA 7 formatting errors detected for the publication year and publisher.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Retrieval Date: The retrieval date is included, but it is not necessary for this type of source.
+   Should be: Remove "Retrieved January 12, 2020, from"
+
+❌ URL Formatting: The URL should not be preceded by "from".
+   Should be: https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+Corrected citation:
+Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Publication Year: The original publication date is included but is not formatted correctly for APA 7th edition.
+   Should be: The original publication date should be included in a note after the title, formatted as " (Original work published 1985)" but should not be in parentheses at the end of the citation.
+
+Correction:
+Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.) (Original work published 1985). Laura Geringer Books. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy, 185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy, 185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Year: The publication year is incorrect.
+   Should be: (2024) instead of (2025) since the DOI indicates the article was published in 2024.
+
+---------------------------------------------------------------------------
+

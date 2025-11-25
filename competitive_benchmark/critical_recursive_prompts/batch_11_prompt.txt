@@ -1,0 +1,367 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+_The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not in the correct format.
+   Should be: _The Norton Anthology of English Literature: The Middle Ages_
+
+❌ Edition Information: The edition information should be placed after the title and before the publication year.
+   Should be: _The Norton Anthology of English Literature: The Middle Ages_ (8th ed.; Vol. A). (2006).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not correctly formatted.
+   Should be: _Skywatchers have been treated to the first full moon of 2020—known as a “wolf moon”—at the same time as a_ [Photograph]. (Note the correct use of em dash instead of hyphen)
+
+❌ Website Name: The website name should not be included in the citation.
+   Should be: Instagram
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: Instagram https://www.instagram.com/p/B7OkWqbBwcf/
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Lyons, D. (2009, June 15). Don’t ‘iTune’ us: It’s geeks versus writers: Guess who’s winning. _Newsweek_, 153(24), 27.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lyons, D. (2009, June 15). Don’t ‘iTune’ us: It’s geeks versus writers: Guess who’s winning. _Newsweek_, 153(24), 27.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin, 34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin, 34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Authors: The authors' initials should not have a space before the last name.
+   Should be: Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). 
+
+❌ Journal: The journal name should be followed by a comma, and the volume number should be visually separate from the journal name.
+   Should be: _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Sapolsky, R. M. (2017). _Behave: The biology of humans at our best and worst_. Penguin Books.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sapolsky, R. M. (2017). _Behave: The biology of humans at our best and worst_. Penguin Books.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Kushilevitz, E. & Malkin T. (Eds.). 2016. _Lecture notes in computer science_ Vol. 9562. Theory of cryptography. Springer
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E. & Malkin T. (Eds.). 2016. _Lecture notes in computer science_ Vol. 9562. Theory of cryptography. Springer
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The ampersand (&) should be used only before the last author's name. 
+   Should be: Kushilevitz, E., & Malkin, T. (Eds.).
+
+❌ Date: The date should be in parentheses and followed by a period.
+   Should be: (2016).
+
+❌ Title: The title should be in sentence case, and the volume number should be in parentheses after the title.
+   Should be: _Lecture notes in computer science_ (Vol. 9562). Theory of cryptography.
+
+❌ Publisher: The publisher's name should be followed by a period.
+   Should be: Springer.
+
+Corrected citation:
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science_ (Vol. 9562). Theory of cryptography. Springer. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. doi:10.1234/atsdr.5678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. doi:10.1234/atsdr.5678
+
+SOURCE TYPE: government publication
+
+VALIDATION RESULTS:
+
+❌ DOI: The DOI format is incorrect.
+   Should be: https://doi.org/10.1234/atsdr.5678
+
+❌ Publisher: The publisher's name should not include an ampersand (&) but rather "and."
+   Should be: U.S. Department of Health and Human Services
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+US Food and Drug Administration. (2024, September 12). _FDA Authorizes First Over-the-Counter Hearing Aid Software_ [Press release]. https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+US Food and Drug Administration. (2024, September 12). _FDA Authorizes First Over-the-Counter Hearing Aid Software_ [Press release]. https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not correctly formatted.
+   Should be: _FDA authorizes first over-the-counter hearing aid software_
+
+❌ URL: There is a punctuation error before the URL.
+   Should be: https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software (remove the period before the URL)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's initials should follow the last name without a comma.
+   Should be: Crimi, C.
+
+❌ Title: The title should be in sentence case, meaning only the first word and proper nouns should be capitalized.
+   Should be: _Weird little robots_
+
+❌ Publisher: The publisher's name should not include "Press" as part of the name.
+   Should be: Candlewick
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not include the editor's name in parentheses.
+   Should be: _Conditioned emotional reactions: The case of Little Albert_
+
+❌ Publication Year: The original publication date should not be included in parentheses at the end of the citation.
+   Should be: (1920)
+
+❌ URL: The URL should not have a period immediately before it.
+   Should be: CreateSpace Independent Publishing Platform. http://a.co/06Se6Na
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ DOI: The DOI is presented as a URL, which is acceptable, but it should be formatted as "https://doi.org/10.1234/5678" without the "doi:" prefix.
+   Should be: https://doi.org/10.1234/5678
+
+❌ Journal: The journal name should be followed by a comma before the volume number.
+   Should be: _Ars Technica_, 
+
+---------------------------------------------------------------------------
+

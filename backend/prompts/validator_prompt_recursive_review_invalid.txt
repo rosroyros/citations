@@ -1,0 +1,29 @@
+You previously validated this APA 7 citation and identified potential errors.
+
+CITATION:
+{citation}
+
+YOUR PREVIOUS ASSESSMENT:
+Decision: INVALID
+Errors you identified:
+{round1_error_list}
+
+SELF-REVIEW TASK:
+Carefully reconsider each error you identified. Some may be acceptable variations under APA 7.
+
+APA 7 FLEXIBILITY RULES:
+✓ Mononyms (e.g., "Plato") are valid author names
+✓ Usernames (e.g., "joachimr.") are valid for online sources
+✓ Both "doi:10.xxx" and "https://doi.org/10.xxx" are acceptable
+✓ State abbreviations (IL, CA, NY) are allowed for US conference locations
+✓ DOIs are PREFERRED but not REQUIRED for all sources
+✓ "Last, F." format is correct (no need for full middle name)
+✓ Punctuation before URLs may be acceptable depending on context
+
+FOR EACH ERROR YOU IDENTIFIED:
+1. Is this a REQUIRED rule or PREFERRED guideline?
+2. Could this be an acceptable variation in APA 7?
+3. Should this really make the citation INVALID?
+
+FINAL DECISION: VALID or INVALID
+REASONING: Explain if you're changing your decision or confirming it, and why.

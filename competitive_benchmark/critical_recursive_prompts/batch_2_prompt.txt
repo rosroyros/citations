@@ -1,0 +1,379 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & Márquez-Greene, N. (2019, August 8–11). _Gun violence: An event on the power of community_ [Conference presentation]. APA 2019 Convention, Chicago, IL, USA. doi:10.1037/con2019-1234
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & Márquez-Greene, N. (2019, August 8–11). _Gun violence: An event on the power of community_ [Conference presentation]. APA 2019 Convention, Chicago, IL, USA. doi:10.1037/con2019-1234
+
+SOURCE TYPE: conference presentation
+
+VALIDATION RESULTS:
+
+❌ Date: The date format is incorrect.
+   Should be: (2019, August 8–11).
+
+❌ Location: The state name must be spelled out in full.
+   Should be: Chicago, Illinois, USA.
+
+❌ DOI: The DOI format is incorrect.
+   Should be: https://doi.org/10.1037/con2019-1234
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Website Name: The website name should be italicized.
+   Should be: _Medium_
+
+❌ URL: There should be a space before the URL, and no punctuation immediately before it.
+   Should be: Medium _https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01_
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not in italics.
+   Should be: _Diagnostic and statistical manual of mental disorders, Third Edition, Revised._
+
+❌ Publisher: The publisher's name is missing.
+   Should be: American Psychiatric Association.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Belcher, W (2019). _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed) University of Chicago Press.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W (2019). _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed) University of Chicago Press.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's initials should be followed by a period.
+   Should be: Belcher, W.
+
+❌ Publication Year: There should be a space before the opening parenthesis.
+   Should be: (2019).
+
+❌ Title: The edition information should be in parentheses and placed after the title, with a period following the closing parenthesis.
+   Should be: _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed.).
+
+❌ Publisher: There should be a period after the publisher's name.
+   Should be: University of Chicago Press.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not be italicized when it is a video.
+   Should be: Albatross culture 1
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: YouTube https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95
+
+SOURCE TYPE: government publication
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not formatted correctly.
+   Should be: _Occupational Safety and Health Standards: Occupational Health & Environmental Control: Occupational Noise Exposure_
+
+❌ Publisher: The publisher's name should not be included in the citation for government documents.
+   Should be: Remove "United States Department of Labor."
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ DOI: The citation does not include a DOI, which is required for journal articles when available.
+   Should be: Include the DOI in the format "https://doi.org/..." if available, or indicate that there is no DOI.
+
+❌ Journal Formatting: The volume number should be visually separate from the journal name.
+   Should be: _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1) (with a space before the volume number).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: American Psychiatric Association.
+
+❌ Date: The publication year should be in parentheses.
+   Should be: (1994).
+
+❌ Title: The title should be in italics and only the first word of the title and subtitle should be capitalized.
+   Should be: _Diagnostic and statistical manual of mental disorders_.
+
+❌ Edition: The edition information should be in parentheses and follow the title.
+   Should be: (4th ed.).
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: https://doi.org/10.1176/appi.books.9780890420614.dsm-iv (with a space before the URL).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Publisher: The publisher's name should be preceded by a period.
+   Should be: University of Chicago Press.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+American Psychiatric Association, 1980 _Diagnostic and statistical manual of mental disorders_ (3rd ed..)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association, 1980 _Diagnostic and statistical manual of mental disorders_ (3rd ed..)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name followed by initials.
+   Should be: American Psychiatric Association.
+
+❌ Year: The year should be in parentheses.
+   Should be: (1980).
+
+❌ Title: The title should be in italics and only the first word of the title and subtitle should be capitalized.
+   Should be: _Diagnostic and statistical manual of mental disorders_.
+
+❌ Edition: The edition information should be formatted correctly and should not have extra periods.
+   Should be: (3rd ed.).
+
+❌ Publisher: The publisher's name is missing.
+   Should be: American Psychiatric Association.
+
+---------------------------------------------------------------------------
+

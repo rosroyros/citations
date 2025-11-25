@@ -1,0 +1,340 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and future [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, CA. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and future [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, CA. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: other
+
+VALIDATION RESULTS:
+
+❌ Date: The date format is incorrect.
+   Should be: (2019, April 25-28). The date should not include a range; it should specify a single date.
+
+❌ Title: The title is not in the correct format.
+   Should be: _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract].
+
+❌ Location: The location should not include the state abbreviation.
+   Should be: Pasadena, California, United States.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.). https://doi.org/10.1176/appi.books.9780890420249
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.). https://doi.org/10.1176/appi.books.9780890420249
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: Plato, A.
+
+❌ Publication Year: The year of the original work should not be included in parentheses after the publication year of the translation.
+   Should be: (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+❌ Original Work Date: The original work date should be placed in a separate sentence or as a footnote, not in parentheses at the end.
+   Should be: _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Title: The title of the chapter should not be italicized.
+   Should be: Malory and Character
+
+❌ Publisher: The publisher's name should not include a period at the end.
+   Should be: D. S. Brewer
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton, Eds., _A new Companion to Malory_ (pp. 144-163). D. S. Brewer.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton, Eds., _A new Companion to Malory_ (pp. 144-163). D. S. Brewer.
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Authors: The abbreviation "Eds." should not be included in the citation.
+   Should be: "In M. G. Leitch & C. J. Rushton (Eds.), _A new Companion to Malory_ (pp. 144-163). D. S. Brewer."
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). https://www.apa.org/ethics/code/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). https://www.apa.org/ethics/code/
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title is not formatted correctly.
+   Should be: _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017) [Note: The year of the original publication and amendments should not be included in the title itself; it should be placed in a bracketed description after the title.]
+
+❌ URL: There is a period immediately before the URL.
+   Should be: https://www.apa.org/ethics/code/ (remove the period before the URL)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name is incorrectly formatted. 
+   Should be: King, J. (Note: "Bible" should not be included as part of the author's name)
+
+❌ Title: The title of the webpage should be in italics.
+   Should be: _King James Bible Online_
+
+❌ Date: The publication date should not include the original work publication date in parentheses.
+   Should be: (2017)
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: King James Bible Online. https://www.kingjamesbibleonline.org/
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf
+
+SOURCE TYPE: government publication
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+

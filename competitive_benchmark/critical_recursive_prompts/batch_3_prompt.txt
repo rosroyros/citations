@@ -1,0 +1,381 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Ganster D. C., Schaubroeck J., Sime W. E. & Mayes B. T. 1991 The nomological validity of the Type A personality among employed adults _Journal of Applied Psychology_ 76 1 143–168
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster D. C., Schaubroeck J., Sime W. E. & Mayes B. T. 1991 The nomological validity of the Type A personality among employed adults _Journal of Applied Psychology_ 76 1 143–168
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Authors: The ampersand (&) should not be used before the last author's name when there are more than two authors.
+   Should be: Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T.
+
+❌ Year: The year should be in parentheses.
+   Should be: (1991)
+
+❌ Title: The title should be in sentence case (only the first word and proper nouns capitalized) and not italicized.
+   Should be: The nomological validity of the Type A personality among employed adults
+
+❌ Journal: The journal name should be italicized and followed by a comma.
+   Should be: _Journal of Applied Psychology_, 
+
+❌ Volume: The volume number should be italicized and followed by the issue number in parentheses (not italicized).
+   Should be: _Journal of Applied Psychology_, 76(1),
+
+❌ Page numbers: The page range should be preceded by "pp." and should not have an en dash.
+   Should be: pp. 143–168
+
+❌ DOI: If available, a DOI should be included at the end of the citation.
+
+The corrected citation should look like this:
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The nomological validity of the Type A personality among employed adults. _Journal of Applied Psychology_, _76_(1), pp. 143–168. https://doi.org/xxxxxx (if applicable)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Svendsen, S., & Løber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Svendsen, S., & Løber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The use of multiple ampersands (&) is incorrect.
+   Should be: Svendsen, S., Løber, L., and Jensen, M. (or use only one ampersand before the last author)
+
+❌ Edition Information: The abbreviation for "edition" should be formatted correctly.
+   Should be: (3rd ed.) instead of (3rd digital ed.)
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ DOI: The DOI is incorrectly formatted as it is followed by additional information without proper separation.
+   Should be: https://doi.org/10.1177/0146167208318401
+
+❌ Additional Information: The retraction note is included in the citation without proper formatting.
+   Should be: This information should be presented in a separate citation or as a footnote, not included in the main citation.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11–16.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11–16.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Journal: The journal name should be in title case.
+   Should be: _Purdue Journal of Service-Learning and International Engagement_
+
+❌ Volume: The volume number must be visually separate from the journal name.
+   Should be: _Purdue Journal of Service-Learning and International Engagement_ _6_ (1), 11–16.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+International Organization for Standardization. (2018). _Occupational Health and Safety Management Systems—Requirements with Guidance for Use_ (ISO Standard No. 45001:2018).
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+International Organization for Standardization. (2018). _Occupational Health and Safety Management Systems—Requirements with Guidance for Use_ (ISO Standard No. 45001:2018).
+
+SOURCE TYPE: other
+
+VALIDATION RESULTS:
+
+❌ Component: Publication Number
+   Should be: [ISO Standard No. 45001:2018]. (Publication No. X) [ISO Standard]
+
+❌ Component: Bracketed Description
+   Should be: [ISO Standard]. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ URL: The phrase "Retrieved from" is not needed in APA 7th edition for most sources, including social media posts.
+   Should be: https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Sendak, M. (2012). _Where the wild things are_ (50th anniversary ed.). HarperCollins Publishers. https://doi.org/10.1234/5678
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sendak, M. (2012). _Where the wild things are_ (50th anniversary ed.). HarperCollins Publishers. https://doi.org/10.1234/5678
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Author: The author's name should be formatted with the last name followed by initials.
+   Should be: Joachim, R.
+
+❌ Date: The date should be formatted with the year first, followed by the month and day.
+   Should be: (2019, November 19)
+
+❌ Title: The title of the comment should be in sentence case and not italicized.
+   Should be: We are relying on APA as our university style format - the university is located in Germany (Kassel). So I
+
+❌ Website Name: The website name should not be italicized.
+   Should be: APA Style
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: APA Style https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Dillard, J. P. (2020). Currents in the study of persuasion. In M. B. Oliver, A. A. Raney, & J. Bryant (Eds.), _Media effects: Advances in theory and research_ (4th ed., pp. 115–129). Routledge.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Dillard, J. P. (2020). Currents in the study of persuasion. In M. B. Oliver, A. A. Raney, & J. Bryant (Eds.), _Media effects: Advances in theory and research_ (4th ed., pp. 115–129). Routledge.
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Bronfenbrenner, U. (2005). The social ecology of human development: A retrospective conclusion. In U. Bronfenbrenner (Ed.), _Making human beings human: Bioecological perspectives on human development_ (pp. 27–40). SAGE Publications.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Bronfenbrenner, U. (2005). The social ecology of human development: A retrospective conclusion. In U. Bronfenbrenner (Ed.), _Making human beings human: Bioecological perspectives on human development_ (pp. 27–40). SAGE Publications.
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615
+
+SOURCE TYPE: dissertation
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: Zambrano-Vazquez, L.
+
+❌ Year: The year should be placed immediately after the author's name and before the title.
+   Should be: (2016).
+
+❌ Title: The title should not be italicized in the citation.
+   Should be: The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms
+
+❌ Bracketed Description: The bracketed description should appear after the title and before the publication number.
+   Should be: [Unpublished doctoral dissertation, University of Arizona].
+
+❌ Publication Number: The publication number should be included after the bracketed description.
+   Should be: (Publication No. 10150/620615).
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: https://repository.arizona.edu/handle/10150/620615
+
+---------------------------------------------------------------------------
+
+Corrected Citation:
+Zambrano-Vazquez, L. (2016). The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms [Unpublished doctoral dissertation, University of Arizona]. (Publication No. 10150/620615). https://repository.arizona.edu/handle/10150/620615
+

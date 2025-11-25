@@ -1,0 +1,373 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The authors' names should be formatted with the last name first, followed by initials.
+   Should be: Plato, A. Nehamas, & P. Woodruff
+
+❌ Publication Year: The original work publication date should not be included in parentheses at the end. Instead, it should be mentioned in the text or as a note.
+   Should be: (Original work published ca. 385-378 BCE) should be omitted from the citation.
+
+❌ Title: The title should be in sentence case, meaning only the first word and proper nouns should be capitalized.
+   Should be: _Symposium_
+
+❌ Publisher: The publisher's name should be formatted without "Trans." and should not include the translators in the citation.
+   Should be: Hackett Publishing Company
+
+Corrected citation:
+Plato. (1989). _Symposium_. Hackett Publishing Company. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+American Psychological Association. (n.d.). Just-world hypothesis. In _APA dictionary of psychology_. Retrieved January 18, 2020, from https://dictionary.apa.org/just-world-hypothesis
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (n.d.). Just-world hypothesis. In _APA dictionary of psychology_. Retrieved January 18, 2020, from https://dictionary.apa.org/just-world-hypothesis
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Date: The date is listed as "(n.d.)" which is acceptable, but the retrieval date is not formatted correctly for APA 7th edition.
+   Should be: "Retrieved January 18, 2020, from" should be removed as retrieval dates are not required for stable sources like dictionaries.
+
+❌ Title: The title should not be italicized since it is part of a larger work.
+   Should be: Just-world hypothesis.
+
+❌ Website Name: The website name should be included after the title.
+   Should be: _APA dictionary of psychology_.
+
+---------------------------------------------------------------------------
+
+Corrected citation:
+American Psychological Association. (n.d.). Just-world hypothesis. _APA dictionary of psychology_. https://dictionary.apa.org/just-world-hypothesis
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not include bracketed descriptions.
+   Should be: Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah
+
+❌ Website Name: The website name should not be included in the citation.
+   Should be: Facebook
+
+❌ URL: There should be no punctuation immediately before the URL.
+   Should be: Facebook https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Title: The title should not have a period at the end.
+   Should be: _Justice served: Case closed for over 40 dogfighting victims_
+
+❌ URL: The citation is missing the website name and URL.
+   Should be: American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_. American Society for the Prevention of Cruelty to Animals. [URL]
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Publisher: Missing
+   Should be: Include the publisher's name at the end of the citation.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Kübler-Ross, E. (with Byock, I.). (2014). _On death & dying: What the dying have to teach doctors, nurses, clergy & their own families_ (50th anniversary ed.). Scribner. (Original work published 1969)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kübler-Ross, E. (with Byock, I.). (2014). _On death & dying: What the dying have to teach doctors, nurses, clergy & their own families_ (50th anniversary ed.). Scribner. (Original work published 1969)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The format for the authors is incorrect. The phrase "with" should not be included in the author listing.
+   Should be: Kübler-Ross, E., & Byock, I.
+
+❌ Publication Year: The original work publication date should not be included in the citation.
+   Should be: (2014).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Scruton, Roger. (1996) The eclipse of listening. _The New Criterion_ 15(3): 5-13.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, Roger. (1996) The eclipse of listening. _The New Criterion_ 15(3): 5-13.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: Scruton, R.
+
+❌ Date: The publication year should be in parentheses immediately after the author's name, with a period following the closing parenthesis.
+   Should be: (1996).
+
+❌ Journal: The journal name should be italicized and followed by a comma.
+   Should be: _The New Criterion_, 
+
+❌ Volume: The volume number should be italicized and visually separate from the journal name.
+   Should be: _The New Criterion_, _15_(3), 
+
+❌ Page numbers: The page range should not have a colon before it.
+   Should be: _The New Criterion_, _15_(3), 5-13.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+American Psychological Association. (1987). _Diagnostic & Statistical Manual of Mental Disorders_ (3rd ed., rev.)
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (1987). _Diagnostic & Statistical Manual of Mental Disorders_ (3rd ed., rev.)
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Title: The title should be in sentence case, not title case.
+   Should be: _Diagnostic and statistical manual of mental disorders_ (3rd ed., rev.)
+
+❌ Publisher: The publisher's name is missing.
+   Should be: American Psychological Association.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers’ and the general publics’ perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239–248. https://doi.org/10.1037/cbs0000411
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers’ and the general publics’ perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239–248. https://doi.org/10.1037/cbs0000411
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Edition Information: The edition information is incorrectly formatted.
+   Should be: _Diagnostic and statistical manual of mental disorders_ (3rd ed).
+
+❌ Publisher: The publisher's name is missing.
+   Should be: American Psychiatric Association.
+
+---------------------------------------------------------------------------
+

@@ -1,0 +1,376 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Cacioppo, S. (2019, April 25–28). _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, California, United States. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25–28). _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, California, United States. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: conference presentation
+
+VALIDATION RESULTS:
+
+❌ Date: The date format is incorrect.
+   Should be: (2019, April 25–28). [The date should be in the format: Year, Month Day]
+
+❌ Location: The location format is incorrect.
+   Should be: Pasadena, California, United States [State names must be spelled out in full, not abbreviated]
+
+❌ URL: There is a punctuation error before the URL.
+   Should be: ...California, United States https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf [No punctuation immediately before the URL]
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Jackson, L.M. (2019) The psychology of prejudice: from attitudes to social action. (2nd ed) American Psychological Association, https://doi.org/10.1037/0000168-000
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jackson, L.M. (2019) The psychology of prejudice: from attitudes to social action. (2nd ed) American Psychological Association, https://doi.org/10.1037/0000168-000
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Publication Year: The year should be followed by a period.
+   Should be: (2019).
+
+❌ Title: The title should be in italics and only the first word of the title and subtitle should be capitalized.
+   Should be: _The psychology of prejudice: From attitudes to social action_.
+
+❌ Edition Information: The edition information should be placed before the title and should be abbreviated correctly.
+   Should be: _The psychology of prejudice: From attitudes to social action_ (2nd ed.).
+
+❌ Publisher: The publisher's name should be followed by a period.
+   Should be: American Psychological Association.
+
+❌ DOI: There should be no comma before the DOI.
+   Should be: https://doi.org/10.1037/0000168-000
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA_, _116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA_, _116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: Stoneman, R.
+
+❌ Date: The publication year should be in parentheses and followed by a period.
+   Should be: (2008).
+
+❌ Title: The title should be in italics and followed by a period.
+   Should be: _Alexander the Great: A life in legend._
+
+❌ Publisher: The publisher's name should be included after the title, with a period at the end.
+   Should be: Yale University Press.
+
+Corrected citation:
+Stoneman, R. (2008). _Alexander the Great: A life in legend._ Yale University Press. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Page Numbers: The page numbers should not be included in the citation for a newspaper article in APA 7th edition.
+   Should be: Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_. 
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA, 116_(47), 23499–23504 https://doi.org/10.1073/pnas.1910510116
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA, 116_(47), 23499–23504 https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ DOI: Missing punctuation before the DOI
+   Should be: 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Grady, J. S., Her, M., Moreno, G., Perez, C., Yelinek, J., & Lewis, T. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., Perez, C., Yelinek, J., & Lewis, T. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047–1056.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047–1056.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Punctuation: There is a missing period after the publication year.
+   Should be: Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047–1056.
+
+❌ Journal Title: The journal title should be in title case.
+   Should be: _Personality and Social Psychology Bulletin_
+
+❌ Volume Formatting: The volume number should be visually separate from the journal name.
+   Should be: _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+O’Connor, J. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+American Psychiatric Association (2013) _Diagnostic and Statistical Manual of Mental Disorders_ 5th ed https://doi.org/10.1176/appi.books.9780890425596
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013) _Diagnostic and Statistical Manual of Mental Disorders_ 5th ed https://doi.org/10.1176/appi.books.9780890425596
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The author's name should be formatted with the last name first, followed by initials.
+   Should be: American Psychiatric Association.
+
+❌ Publication Year: The publication year should be in parentheses.
+   Should be: (2013).
+
+❌ Title: The title should be followed by a period and the edition information should be in parentheses.
+   Should be: _Diagnostic and Statistical Manual of Mental Disorders_ (5th ed).
+
+❌ Publisher: The publisher's name is missing.
+   Should be: American Psychiatric Association.
+
+❌ DOI: There should be a space before the DOI.
+   Should be: https://doi.org/10.1176/appi.books.9780890425596.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Date: The date is incorrectly formatted.
+   Should be: (2017).
+
+❌ Title: The title should not be italicized.
+   Should be: Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences.
+
+❌ Journal: The journal name should be italicized and followed by a period.
+   Should be: _PsyArXiv_.
+
+❌ DOI: There should be no punctuation immediately before the DOI.
+   Should be: https://doi.org/10.31234/osf.io/76xfs
+
+---------------------------------------------------------------------------
+

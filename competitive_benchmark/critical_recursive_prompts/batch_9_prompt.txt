@@ -1,0 +1,333 @@
+You are an APA 7th edition citation validation EXPERT with 20+ years of experience. Your task is to conduct a CRITICAL REVIEW of citations that were previously validated by a JUNIOR VALIDATOR.
+
+━━━ SENIOR EXPERT REVIEW INSTRUCTIONS ━━━
+
+You are reviewing the work of a junior validator who may have missed subtle APA 7 requirements or made systematic errors.
+
+CRITICAL REVIEW APPROACH:
+- **Be highly skeptical** of the junior validator's conclusions
+- **Scrutinize every detail** - they often miss edge cases and special requirements
+- **Question their reasoning** - junior validators frequently overgeneralize rules
+- **Look for what they missed** - not just what they identified
+- **Be extra thorough** with unusual source types (standards, anthologies, online comments, etc.)
+
+COMMON JUNIOR VALIDATOR MISTAKES TO WATCH FOR:
+❌ Missing unusual author formats (organizations, abbreviations, usernames)
+❌ Incorrect handling of ISO standards and technical documents
+❌ Multi-volume work formatting errors
+❌ Online source specific requirements (retrieval dates, usernames, etc.)
+❌ Edge case punctuation and spacing rules
+❌ Over-strictness on acceptable variations
+❌ Missing source-type specific requirements
+
+━━━ EXPERT VALIDATION PRINCIPLES ━━━
+
+PRINCIPLE 1: Format Flexibility
+APA 7 allows multiple valid formats. Distinguish between actual errors vs acceptable variations.
+
+PRINCIPLE 2: Source-Type Specific Requirements
+Different sources have unique requirements (ISO standards, anthologies, online comments, etc.)
+
+PRINCIPLE 3: Strict Ordering and Punctuation
+Some elements have mandatory rules that MUST be enforced.
+
+PRINCIPLE 4: Location Specificity
+Geographic locations require specific formatting standards.
+
+━━━ CRITICAL REVIEW FORMAT ━━━
+
+For each citation, provide:
+
+═══════════════════════════════════════════════════════════════════════════
+SENIOR EXPERT REVIEW # [number]
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL CITATION:
+[citation text]
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: [VALID/INVALID]
+Analysis: [junior's complete reasoning]
+
+SENIOR EXPERT ASSESSMENT:
+[CRITICAL analysis of junior's work - be thorough and skeptical]
+
+[If you AGREE with junior:]
+✅ JUNIOR CORRECT: After careful review, the junior validator's assessment is accurate
+Brief confirmation: [1-2 sentence summary of why they were correct]
+
+[If you DISAGREE with junior:]
+❌ JUNIOR ERROR: The junior validator missed important APA 7 requirements
+Detailed correction:
+❌ [Specific error the junior missed]
+   APA 7 requirement: [Correct rule/application]
+❌ [Another error if applicable]
+   APA 7 requirement: [Correct rule/application]
+
+EXPERT FINAL DECISION: VALID or INVALID
+EXPERT REASONING: [Comprehensive explanation of your decision and why junior was right/wrong]
+
+───────────────────────────────────────────────────────────────────────────
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CITATIONS FOR SENIOR EXPERT REVIEW:
+
+SENIOR EXPERT REVIEW #1:
+
+ORIGINAL CITATION:
+Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5–13.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5–13.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Date: The date is not correctly formatted.
+   Should be: (1996).
+
+❌ Title: The title is not properly punctuated.
+   Should be: _The eclipse of listening_.
+
+❌ Journal: The journal name is not properly punctuated.
+   Should be: _The New Criterion_.
+
+❌ Volume: The volume number is not visually separate from the journal name.
+   Should be: _The New Criterion_, 15(3), 5–13.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #2:
+
+ORIGINAL CITATION:
+Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+SOURCE TYPE: book chapter
+
+VALIDATION RESULTS:
+
+❌ Authors: The editor's name should not be repeated in the author position.
+   Should be: Elders, M. (2019). Neighborhood watch: Social media in the community. In _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+❌ Title: The title of the chapter should be in sentence case.
+   Should be: Neighborhood watch: Social media in the community.
+
+❌ Publisher: The publisher's name should be presented without the designation "American University."
+   Should be: American University Press.
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #3:
+
+ORIGINAL CITATION:
+McNally, R. J., & Held, P. (2025). Using Network Analysis to Characterize Clinical Improvement During Cognitive Processing Therapy. _Behaviour Research and Therapy_, _185_, Article 104678.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+McNally, R. J., & Held, P. (2025). Using Network Analysis to Characterize Clinical Improvement During Cognitive Processing Therapy. _Behaviour Research and Therapy_, _185_, Article 104678.
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+❌ Year: The year of publication is in the future (2025).
+   Should be: A valid year of publication (e.g., 2023 or earlier).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #4:
+
+ORIGINAL CITATION:
+Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1–3). American Psychological Association.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1–3). American Psychological Association.
+
+SOURCE TYPE: book
+
+VALIDATION RESULTS:
+
+❌ Authors: The last name of the third author is missing a comma before the initial.
+   Should be: Harris, K. R., Graham, S., & Urdan, T. (Eds.).
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #5:
+
+ORIGINAL CITATION:
+Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #6:
+
+ORIGINAL CITATION:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Publisher: The ampersand (&) in "Health & Human Services" should be replaced with "and".
+   Should be: U.S. Department of Health and Human Services
+
+---------------------------------------------------------------------------
+
+SENIOR EXPERT REVIEW #7:
+
+ORIGINAL CITATION:
+Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #8:
+
+ORIGINAL CITATION:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your Environment: What You Can Do to Limit Exposure_ [Fact sheet]. U.S. Department of Health & Human Services.
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: INVALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your Environment: What You Can Do to Limit Exposure_ [Fact sheet]. U.S. Department of Health & Human Services.
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+❌ Date: The date is listed as (n.d.), which is acceptable when no publication date is given, but it should be noted that this is not a formatting error.
+   Should be: (n.d.) is acceptable if no date is available.
+
+❌ Publisher: The publisher's name should not include an ampersand (&) but rather the word "and."
+   Should be: U.S. Department of Health and Human Services.
+
+---------------------------------------------------------------------------
+
+Overall, the citation is mostly correct, but the publisher's name needs to be adjusted for proper APA formatting.
+
+SENIOR EXPERT REVIEW #9:
+
+ORIGINAL CITATION:
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143–168. https://doi.org/10.1037/0021-9010.76.1.143
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143–168. https://doi.org/10.1037/0021-9010.76.1.143
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #10:
+
+ORIGINAL CITATION:
+Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia
+
+SOURCE TYPE: webpage
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+
+SENIOR EXPERT REVIEW #11:
+
+ORIGINAL CITATION:
+Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+JUNIOR VALIDATOR'S FINDINGS:
+Decision: VALID
+Analysis: ═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: journal article
+
+VALIDATION RESULTS:
+
+✓ No APA 7 formatting errors detected
+

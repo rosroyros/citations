@@ -1,0 +1,27 @@
+You previously validated this APA 7 citation and found no errors.
+
+CITATION:
+{citation}
+
+YOUR PREVIOUS ASSESSMENT:
+Decision: VALID (no errors detected)
+
+SELF-REVIEW TASK:
+Double-check for subtle formatting issues that are easy to miss.
+
+COMMON MISSED ERRORS - CHECK EACH:
+
+PUNCTUATION:
+□ Space before DOI: Is there ". https://doi.org"? (should be "https://doi.org" - no space)
+□ Period before URL: Is there "Source. https://"? (should be "Source https://" in some contexts)
+□ Volume/issue italics: For journals, is volume italic but issue NOT? (e.g., _13_(3) not _13(3)_)
+
+FORMATTING:
+□ Title capitalization: Are mid-sentence words lowercase? (e.g., "storybooks" not "Storybooks")
+□ DOI format: Does it use "https://doi.org/" not "doi:"?
+□ Publisher location: Is there a location before publisher? (APA 7 removed these: "New York, NY:")
+
+If you find ANY of these issues, the citation is INVALID.
+
+FINAL DECISION: VALID or INVALID
+REASONING: Explain what you checked and if you found any missed errors.

@@ -1,0 +1,13 @@
+{
+  "model": "GPT-5-mini_optimized",
+  "reasoning_effort": "high",
+  "temperature": 1,
+  "test_set": "../Checker_Prompt_Optimization/test_set_121_corrected.jsonl",
+  "test_set_size": 121,
+  "accuracy_raw": 0.19008264462809918,
+  "accuracy_corrected": 0.3805309734513274,
+  "correct": 43,
+  "total_unique": 113,
+  "errors": 70,
+  "note": "accuracy_corrected removes duplicates from multiple script runs. Actual: 38.05% (43/113 unique citations). MUCH WORSE than low (74.38%) and medium (80.17%). High reasoning appears incompatible with current prompt."
+}

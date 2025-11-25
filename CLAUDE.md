@@ -7,9 +7,10 @@ WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE
 - **One task at a time**: Focus on single task, update bd status as you progress
 - **Test-driven development**: Use `superpowers:test-driven-development` skill
 - **Testing best practices**: Use `superpowers:testing-anti-patterns` skill
+- **Frontend visual/UX changes**: MUST include Playwright tests for visual or user interaction changes
 - **Debugging**: Use `superpowers:systematic-debugging` skill
 - **Verification**: Use `superpowers:verification-before-completion` before commits/PRs
-- **Code review**: Use `superpowers:requesting-code-review` when ready
+- **Code review**: Use `/oracle-review` when ready
 - **Meaningful commits**: One commit per logical change, easy to revert
 - **No long-lived branches**: Direct commits to main with clear messages
 
@@ -18,7 +19,7 @@ WHEN IMPLEMENTING A PLAN FROM A DOCUMENT OR AGREED UPON WITH THE USER - IF THERE
 bd supports 4 statuses: `open`, `in_progress`, `blocked`, `closed`
 
 Quality gate labels track review workflow:
-- `needs-review` - Code complete, awaiting review (trigger `superpowers:requesting-code-review`)
+- `needs-review` - Code complete, awaiting review (use `/oracle-review`)
 - `approved` - Reviewed and approved, ready to deploy
 
 ### Workflow States
@@ -36,7 +37,6 @@ Quality gate labels track review workflow:
 - Add label: `bd label add <id> needs-review`
 - Remove label: `bd label remove <id> needs-review`
 
-Use `/dev-start` to begin work on a task. Other workflow commands: `/architect`, `/dev-review`, `/deploy`
 
 ## Beads Workflow Integration
 
@@ -85,11 +85,12 @@ bd dep add <id> <blocker-id> --type blocks
 
 ### Completing Work
 
-1. Update description with final summary
-2. Add review label: `bd label add <id> needs-review`
-3. Use `superpowers:requesting-code-review` skill
-4. After approval: `bd close <id> --reason "[Summary of what was done]"`
-5. Sync: `bd sync`
+1. Commit all changes (oracle-review needs committed code)
+2. Update description with final summary
+3. Add review label: `bd label add <id> needs-review`
+4. Use `/oracle-review` (external review using claude -p)
+5. After approval: `bd close <id> --reason "[Summary of what was done]"`
+6. Sync: `bd sync`
 
 ### Finding Work
 

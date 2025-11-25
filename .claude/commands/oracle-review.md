@@ -5,6 +5,13 @@ External code review using `claude -p` with iterative refinement (up to 3 rounds
 - Do NOT use the Task tool to dispatch code reviewers
 - Instead, follow the external review process below which uses `claude -p`
 
+## Prerequisites
+
+**COMMIT YOUR CHANGES FIRST**: This process reviews committed changes. Uncommitted work will not be reviewed.
+```bash
+git status  # Verify clean state or commit pending changes
+```
+
 ## Step 1: Determine Issue ID
 
 - Check conversation context - what issue are we working on?
@@ -12,9 +19,16 @@ External code review using `claude -p` with iterative refinement (up to 3 rounds
 - If unclear, ask the user
 - **Once determined, use this issue ID consistently throughout the review process**
 
-## Step 2: Understand Review Format
+## Step 2: Prepare Review Request
 
-Read the `superpowers:requesting-code-review` skill to understand how to structure the review request. You'll create a prompt similar to what the code-reviewer subagent would receive.
+**Read the `superpowers:requesting-code-review` skill** to understand:
+- When and how to request reviews
+- What information to gather
+- How to structure the review prompt
+- Review checklist categories
+- Output format requirements
+
+Use the Skill tool to load it if needed.
 
 ## Step 3: Execute Review Loop (max 3 rounds)
 
@@ -31,7 +45,7 @@ Start with ROUND=1, increment after each iteration.
 
 **2. Create review prompt:**
 
-Save to `./tmp/<issue-id>-review-request-round-<N>.md` with content similar to code-reviewer subagent format:
+Following the template from `superpowers:requesting-code-review` skill, save to `./tmp/<issue-id>-review-request-round-<N>.md`:
 
 ```
 You are conducting a code review.
@@ -82,6 +96,7 @@ Evaluate the implementation against these criteria:
 - Tests written and passing
 - Coverage adequate
 - Tests verify actual behavior
+- **Frontend visual/UX changes: Playwright tests REQUIRED for any visual or user interaction changes**
 
 **Performance & Documentation:**
 - No obvious performance issues
@@ -105,22 +120,45 @@ Be specific with file:line references for all issues.
 
 Pipe the prompt to a fresh Claude session and save the response:
 
+```bash
+cat ./tmp/<issue-id>-review-request-round-<N>.md | claude -p --dangerously-skip-permissions 2>&1 | tee ./tmp/<issue-id>-review-response-round-<N>.md
 ```
-cat ./tmp/<issue-id>-review-request-round-<N>.md | claude -p --dangerously-skip-permissions > ./tmp/<issue-id>-review-response-round-<N>.md &
-CLAUDE_PID=$!
-( sleep 600; kill $CLAUDE_PID 2>/dev/null ) &
-TIMEOUT_PID=$!
-wait $CLAUDE_PID 2>/dev/null
-kill $TIMEOUT_PID 2>/dev/null
+
+Note: Use `tee` instead of `>` redirect to properly capture streaming output.
+
+**IMPORTANT**:
+- Use Bash tool with `timeout: 300000` (5 minutes) when running this command
+- Wait for the review to complete (may take several minutes)
+- After completion, verify output is not truncated:
+
+```bash
+RESPONSE_FILE="./tmp/<issue-id>-review-response-round-<N>.md"
+LINE_COUNT=$(wc -l < "$RESPONSE_FILE")
+
+if [ ! -s "$RESPONSE_FILE" ] || [ "$LINE_COUNT" -lt 10 ]; then
+  echo "⚠️  Review output seems truncated ($LINE_COUNT lines). Retry the claude command."
+else
+  echo "✓ Review complete ($LINE_COUNT lines)"
+fi
 ```
+
+If truncated, re-run the claude command.
 
 **4. Process feedback:**
 
+**Read the `superpowers:receiving-code-review` skill** for detailed methodology on:
+- 6-step verification pattern (READ → UNDERSTAND → VERIFY → EVALUATE → RESPOND → IMPLEMENT)
+- How to verify technical claims against codebase
+- When and how to push back with technical reasoning
+- Handling unclear feedback (stop and clarify first)
+- Implementation order (one at a time, test each)
+- YAGNI checks
+
+Then apply to the review response:
 - Read `./tmp/<issue-id>-review-response-round-<N>.md`
-- Use `superpowers:receiving-code-review` skill to process the feedback
-- Verify technical claims (don't blindly accept)
-- Categorize and prioritize issues
-- Push back with reasoning if reviewer is wrong
+- Follow the receiving-code-review methodology
+- Categorize issues: Critical (must fix), Important (should fix), Minor (nice to have)
+- Document disagreements clearly if pushing back
 
 **5. Apply fixes for Critical and Important issues:**
 
@@ -147,8 +185,10 @@ When review is satisfactory:
 
 ## Key Principles
 
-- Use requesting-code-review and receiving-code-review skills for process
+- Use `superpowers:requesting-code-review` skill for structuring review requests
+- Use `superpowers:receiving-code-review` skill for processing feedback
 - Create fresh review prompt each round (captures new changes)
 - Verify reviewer claims (they can be wrong)
 - Stop after 3 rounds max
 - Stop early if no actionable issues or disagreement
+- Document all review artifacts in `./tmp/` for traceability

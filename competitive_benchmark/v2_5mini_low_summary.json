@@ -1,0 +1,30 @@
+{
+  "model": "GPT-5-mini",
+  "prompt": "v2",
+  "reasoning_effort": "low",
+  "temperature": 1,
+  "test_set": "../Checker_Prompt_Optimization/test_set_121_corrected.jsonl",
+  "test_set_size": 121,
+  "rounds": {
+    "round1": {
+      "accuracy": 0.7603305785123967,
+      "correct": 92,
+      "errors": 29,
+      "output_file": "GPT-5-mini_v2_low_round1_detailed_121.jsonl"
+    },
+    "round2": {
+      "accuracy": 0.7520661157024794,
+      "correct": 91,
+      "errors": 30,
+      "output_file": "GPT-5-mini_v2_low_round2_detailed_121.jsonl"
+    },
+    "round3": {
+      "accuracy": 0.7272727272727273,
+      "correct": 88,
+      "errors": 33,
+      "output_file": "GPT-5-mini_v2_low_round3_detailed_121.jsonl"
+    }
+  },
+  "avg_accuracy": 0.7465564738292011,
+  "std_dev": 0.014046885712376823
+}
