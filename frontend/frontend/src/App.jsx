@@ -302,14 +302,22 @@ function AppContent() {
     setShowComingSoonModal(true)
   }
 
+  // Handle upload area click
+  const handleUploadAreaClick = () => {
+    trackEvent('upload_area_clicked', {
+      interface_source: 'main_page'
+    })
+  }
+
   // Handle coming soon modal close
-  const handleComingSoonClose = (dismissMethod) => {
+  const handleComingSoonClose = ({ dismissMethod, duration }) => {
     setShowComingSoonModal(false)
     setSelectedFile(null)
 
     // Track analytics for modal close
     trackEvent('upload_modal_closed', {
       dismiss_method: dismissMethod,
+      duration: duration,
       file_type: selectedFile?.type,
       file_size: selectedFile?.size
     })
@@ -629,14 +637,16 @@ function AppContent() {
           <div className="input-layout">
             <div className="editor-column">
               <label>Paste your citations below (APA 7th edition)</label>
-              <EditorContent editor={editor} />
+              <div data-testid="editor">
+                <EditorContent editor={editor} />
+              </div>
               <p className="input-helper">
                 Paste one or multiple citations. We'll check each one.
               </p>
             </div>
 
             <div className="upload-column">
-              <UploadArea onFileSelected={handleFileSelected} />
+              <UploadArea onFileSelected={handleFileSelected} onUploadAreaClick={handleUploadAreaClick} />
             </div>
           </div>
 

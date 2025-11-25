@@ -49,7 +49,7 @@ vi.mock('@tiptap/react', () => ({
       setContent: vi.fn()
     }
   }),
-  EditorContent: ({ editor }) => <div data-testid="editor">{editor?.getText?.() || ''}</div>
+  EditorContent: ({ editor }) => <div>{editor?.getText?.() || ''}</div>
 }))
 
 const renderAppWithProvider = () => {
