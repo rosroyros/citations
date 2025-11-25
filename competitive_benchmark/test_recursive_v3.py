@@ -21,20 +21,20 @@ sys.stdout.reconfigure(line_buffering=True)
 sys.stderr.reconfigure(line_buffering=True)
 
 # Load OpenAI API key
-ENV_PATH = os.getenv('ENV_FILE_PATH', 'backend/.env')
+ENV_PATH = os.getenv('ENV_FILE_PATH', '../backend/.env')
 load_dotenv(ENV_PATH)
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
 # Configuration
 MODEL = 'gpt-4o-mini'
 TEMPERATURE = 0
-TEST_SET = Path('Checker_Prompt_Optimization/test_set_121_corrected.jsonl')
+TEST_SET = Path('../Checker_Prompt_Optimization/test_set_121_corrected.jsonl')
 ROUND = int(sys.argv[1]) if len(sys.argv) > 1 else 1
 
-# Load prompts
-v2_prompt = Path('backend/prompts/validator_prompt_v2.txt').read_text()
-review_invalid_prompt = Path('backend/prompts/validator_prompt_recursive_review_invalid.txt').read_text()
-review_valid_prompt = Path('backend/prompts/validator_prompt_recursive_review_valid.txt').read_text()
+# Load prompts - all in parent backend/prompts dir
+v2_prompt = Path('../backend/prompts/validator_prompt_v2.txt').read_text()
+review_invalid_prompt = Path('../backend/prompts/validator_prompt_recursive_review_invalid.txt').read_text()
+review_valid_prompt = Path('../backend/prompts/validator_prompt_recursive_review_valid.txt').read_text()
 
 def parse_decision(response_text):
     """Parse VALID/INVALID from response."""
