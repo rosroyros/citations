@@ -1,0 +1,275 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.3;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.messaging {
+  margin-bottom: 20px;
+}
+
+.highlight-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2563eb;
+  margin: 0 0 12px 0;
+}
+
+.messaging p:not(.highlight-text) {
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.file-info {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
+.file-info h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.file-info ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-info li {
+  padding: 4px 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.alternative-action {
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 8px;
+  border: 1px solid #f59e0b;
+}
+
+.alternative-action p {
+  margin: 0 0 12px 0;
+  font-weight: 500;
+  color: #92400e;
+}
+
+.text-input-placeholder {
+  background-color: #fffbeb;
+  border: 2px dashed #f59e0b;
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.arrow-indicator {
+  font-size: 24px;
+  color: #f59e0b;
+}
+
+.placeholder-text {
+  font-style: italic;
+  color: #92400e;
+  font-weight: 500;
+}
+
+.feedback-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.feedback-text p {
+  margin: 0;
+  color: #059669;
+  font-weight: 500;
+}
+
+.modal-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #eee;
+  background-color: #f9fafb;
+}
+
+.action-button {
+  width: 100%;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #1d4ed8;
+}
+
+.action-button:active {
+  background-color: #1e40af;
+  transform: translateY(1px);
+}
+
+/* Mobile responsive design */
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 10px;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+    margin: 10px;
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .highlight-text {
+    font-size: 16px;
+  }
+
+  .alternative-action {
+    margin: 20px 0;
+    padding: 16px;
+  }
+
+  .close-button {
+    top: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    margin: 0;
+    border-radius: 12px 12px 0 0;
+    max-height: 100vh;
+  }
+
+  .modal-header {
+    padding-top: 20px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-content {
+    border: 2px solid #000;
+  }
+
+  .close-button {
+    border: 2px solid #666;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .modal-content {
+    animation: none;
+  }
+
+  .close-button,
+  .action-button {
+    transition: none;
+  }
+}

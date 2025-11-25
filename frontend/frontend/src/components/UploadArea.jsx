@@ -1,10 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import styles from './UploadArea.module.css';
 import { VALID_FILE_TYPES, MAX_FILE_SIZE, ACCEPTED_FILE_EXTENSIONS } from '../constants/fileValidation.js';
+import { useFileProcessing } from '../hooks/useFileProcessing.js';
 
 export const UploadArea = ({ onFileSelected }) => {
   const [dragState, setDragState] = useState(false);
   const [error, setError] = useState('');
+  const { processFile, isProcessing, progress, processedFile, reset } = useFileProcessing();
 
   const validateFile = (file) => {
     if (!VALID_FILE_TYPES.includes(file.type)) {
@@ -23,9 +25,10 @@ export const UploadArea = ({ onFileSelected }) => {
 
   const handleFileSelect = useCallback((file) => {
     if (validateFile(file)) {
-      onFileSelected(file);
+      // Use the file processing hook
+      processFile(file);
     }
-  }, [onFileSelected]);
+  }, [processFile]);
 
   const handleDragEnter = useCallback((e) => {
     e.preventDefault();
@@ -56,6 +59,65 @@ export const UploadArea = ({ onFileSelected }) => {
       handleFileSelect(files[0]);
     }
   }, [handleFileSelect]);
+
+  // Call onFileSelected when processing completes
+  React.useEffect(() => {
+    if (processedFile && onFileSelected) {
+      onFileSelected(processedFile);
+    }
+  }, [processedFile, onFileSelected]);
+
+  // Show processing state
+  if (isProcessing) {
+    return (
+      <div
+        data-testid="processing-indicator"
+        className={`${styles.uploadArea} ${styles.processing}`}
+        role="progressbar"
+        aria-valuenow={progress}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Processing file: ${Math.round(progress)}% complete`}
+      >
+        <div className={styles.content}>
+          <div className={styles.icon}>⏳</div>
+          <h3>Processing your document...</h3>
+          <div className={styles.progressBar}>
+            <div
+              className={styles.progressFill}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p>{Math.round(progress)}% complete</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show completed state
+  if (processedFile) {
+    return (
+      <div
+        data-testid="processing-complete"
+        className={`${styles.uploadArea} ${styles.completed}`}
+      >
+        <div className={styles.content}>
+          <div className={styles.icon}>✅</div>
+          <h3>File processed successfully!</h3>
+          <p className={styles.fileName}>{processedFile.name}</p>
+          <p className={styles.fileInfo}>
+            {processedFile.type} • {(processedFile.size / 1024 / 1024).toFixed(2)} MB
+          </p>
+          <button
+            onClick={reset}
+            className={styles.resetButton}
+          >
+            Upload Another File
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

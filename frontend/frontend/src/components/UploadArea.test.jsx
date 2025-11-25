@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UploadArea } from './UploadArea';
 import { MAX_FILE_SIZE } from '../constants/fileValidation.js';
@@ -9,6 +9,11 @@ describe('UploadArea', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
   });
 
   it('should render upload area with correct text', () => {
@@ -24,9 +29,29 @@ describe('UploadArea', () => {
     render(<UploadArea onFileSelected={mockOnFileSelected} />);
 
     const fileInput = screen.getByLabelText(/Choose File/i);
-    await userEvent.upload(fileInput, file);
 
-    expect(mockOnFileSelected).toHaveBeenCalledWith(file);
+    // Use fireEvent instead of userEvent for more reliable file upload simulation
+    fireEvent.change(fileInput, {
+      target: { files: [file] }
+    });
+
+    // Check that processing state appears
+    expect(screen.getByText(/Processing your document/i)).toBeInTheDocument();
+
+    // Wait for processing to complete (1.5 seconds)
+    act(() => {
+      vi.advanceTimersByTime(1500);
+    });
+
+    // Now onFileSelected should be called with processed file metadata
+    expect(mockOnFileSelected).toHaveBeenCalledWith(
+      expect.objectContaining({
+        file: file,
+        name: 'test.pdf',
+        type: 'application/pdf',
+        size: 4
+      })
+    );
   });
 
   it('should validate file types via programmatic file selection', () => {
@@ -78,7 +103,7 @@ describe('UploadArea', () => {
     expect(uploadArea.className).not.toContain('dragOver');
   });
 
-  it('should handle file drop', () => {
+  it('should handle file drop', async () => {
     const file = new File(['test'], 'test.pdf', { type: 'application/pdf' });
 
     render(<UploadArea onFileSelected={mockOnFileSelected} />);
@@ -91,6 +116,22 @@ describe('UploadArea', () => {
       },
     });
 
-    expect(mockOnFileSelected).toHaveBeenCalledWith(file);
+    // Check that processing state appears
+    expect(screen.getByText(/Processing your document/i)).toBeInTheDocument();
+
+    // Wait for processing to complete (1.5 seconds)
+    act(() => {
+      vi.advanceTimersByTime(1500);
+    });
+
+    // Now onFileSelected should be called with processed file metadata
+    expect(mockOnFileSelected).toHaveBeenCalledWith(
+      expect.objectContaining({
+        file: file,
+        name: 'test.pdf',
+        type: 'application/pdf',
+        size: 4
+      })
+    );
   });
 });
