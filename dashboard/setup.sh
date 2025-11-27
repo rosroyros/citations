@@ -28,9 +28,13 @@ cat <<'EOF' | sudo tee /etc/cron.d/citations-dashboard > /dev/null
 EOF
 sudo chmod 644 /etc/cron.d/citations-dashboard
 
+# Initialize database
+echo "🗄️  Initializing database..."
+source venv/bin/activate
+PYTHONPATH=/opt/citations python3 -c "from dashboard.database import DatabaseManager; DatabaseManager('/opt/citations/dashboard/data/validations.db')"
+
 # Run initial data load
 echo "📊 Loading initial data (last 3 days)..."
-source venv/bin/activate
 PYTHONPATH=/opt/citations python3 dashboard/parse_logs_cron.py --initial --days=3
 
 # Start dashboard service
