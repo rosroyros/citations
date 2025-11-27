@@ -97,7 +97,11 @@ async def get_validations(
 ):
     """Get validations with filtering and pagination"""
 
-    # Validate parameters
+    # Validate input parameters
+    if limit < 0:
+        raise HTTPException(status_code=400, detail="Limit cannot be negative")
+    if offset < 0:
+        raise HTTPException(status_code=400, detail="Offset cannot be negative")
     if limit > 200:
         limit = 200
     if order_dir not in ["ASC", "DESC"]:
