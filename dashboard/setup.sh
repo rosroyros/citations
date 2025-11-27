@@ -16,13 +16,16 @@ mkdir -p dashboard/static
 
 # Install systemd service
 echo "⚙️  Installing systemd service..."
-sudo cp dashboard/citations-dashboard.service /etc/systemd/system/
+sudo cp deployment/systemd/citations-dashboard.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable citations-dashboard
 
 # Install cron job
 echo "⏰ Installing cron job..."
-sudo cp dashboard/citations-dashboard.cron /etc/cron.d/citations-dashboard
+cat <<'EOF' | sudo tee /etc/cron.d/citations-dashboard > /dev/null
+# Incremental log parsing every 5 minutes
+*/5 * * * * deploy /opt/citations/venv/bin/python3 /opt/citations/dashboard/parse_logs_cron.py >> /opt/citations/logs/dashboard-cron.log 2>&1
+EOF
 sudo chmod 644 /etc/cron.d/citations-dashboard
 
 # Run initial data load
