@@ -181,6 +181,116 @@ def extract_failure(log_line: str) -> Optional[tuple]:
     return None
 
 
+def sanitize_text(text: str, max_length: int) -> tuple[str, bool]:
+    """
+    Sanitize text for security and length limits.
+
+    Args:
+        text: Text to sanitize
+        max_length: Maximum allowed length
+
+    Returns:
+        tuple of (sanitized_text, was_truncated)
+    """
+    # Remove script tags
+    text = re.sub(r'<script.*?</script>', '', text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r'<iframe.*?</iframe>', '', text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r'<object.*?</object>', '', text, flags=re.IGNORECASE | re.DOTALL)
+
+    # Remove SQL injection patterns
+    sql_patterns = [
+        r"' OR '1'='1",
+        r'" OR "1"="1',
+        r'DROP TABLE',
+        r'INSERT INTO',
+        r'DELETE FROM',
+        r'UPDATE.*SET',
+        r'UNION SELECT',
+        r'--',
+        r'/\*.*\*/'
+    ]
+
+    for pattern in sql_patterns:
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+
+    # HTML escaping
+    text = text.replace('<', '&lt;').replace('>', '&gt;')
+    text = text.replace('"', '&quot;').replace("'", '&#x27;')
+
+    # Length limit and truncation
+    was_truncated = len(text) > max_length
+    if was_truncated:
+        text = text[:max_length] + '[TRUNCATED]'
+
+    # Remove null bytes and control characters
+    text = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', text)
+
+    return text, was_truncated
+
+
+def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
+    """
+    Extract citation preview text from a log line.
+
+    Args:
+        log_line: The log line to extract citation preview from
+
+    Returns:
+        tuple of (extracted_text, was_truncated) if found, None otherwise
+    """
+    # Pattern matches: Citation text preview: <text>
+    preview_pattern = r'Citation text preview: (.+?)(?:\.{3})?$'
+    match = re.search(preview_pattern, log_line)
+
+    if match:
+        raw_text = match.group(1).strip()
+        sanitized_text, was_truncated = sanitize_text(raw_text, 5000)
+        return sanitized_text, was_truncated
+
+    return None
+
+
+def extract_full_citations(log_lines: List[str], start_index: int) -> Optional[tuple[str, bool]]:
+    """
+    Extract full citation text from multiline ORIGINAL: pattern.
+
+    Args:
+        log_lines: List of log lines to search through
+        start_index: Index to start searching from (should be ORIGINAL: line)
+
+    Returns:
+        tuple of (extracted_text, was_truncated) if found, None otherwise
+    """
+    # Check if start_index is valid and line contains ORIGINAL:
+    if start_index >= len(log_lines):
+        return None
+
+    original_line = log_lines[start_index].strip()
+    if not original_line.startswith("ORIGINAL:"):
+        return None
+
+    # Collect citation text until next log timestamp pattern
+    citation_lines = []
+    timestamp_pattern = r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}'
+
+    # Start from line after ORIGINAL:
+    for i in range(start_index + 1, len(log_lines)):
+        line = log_lines[i].strip()
+
+        # Stop at next timestamp or empty line
+        if re.match(timestamp_pattern, line) or not line:
+            break
+
+        citation_lines.append(line)
+
+    if citation_lines:
+        full_text = '\n'.join(citation_lines)
+        sanitized_text, was_truncated = sanitize_text(full_text, 10000)
+        return sanitized_text, was_truncated
+
+    return None
+
+
 def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
     """
     Pass 1: Extract job lifecycle events from log lines.
@@ -303,6 +413,53 @@ def parse_metrics(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict
             job["token_usage_completion"] = token_usage["completion"]
             job["token_usage_total"] = token_usage["total"]
 
+        # Extract citation preview (single line)
+        preview_result = extract_citations_preview(line)
+        if preview_result is not None:
+            citations_preview, preview_truncated = preview_result
+            job["citations_preview"] = citations_preview
+            job["citations_preview_truncated"] = preview_truncated
+
+    return jobs
+
+
+def extract_citations_from_all_lines(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    """
+    Pass 3: Extract full citations from multiline ORIGINAL: patterns.
+
+    Args:
+        log_lines: List of log lines to parse for full citations
+        jobs: Dictionary of jobs from Pass 1/2
+
+    Returns:
+        Updated jobs dictionary with full citations added
+    """
+    for i, line in enumerate(log_lines):
+        # Look for ORIGINAL: pattern
+        if line.strip() == "ORIGINAL:":
+            # Get timestamp from previous line (if available)
+            timestamp = None
+            if i > 0:
+                timestamp = extract_timestamp(log_lines[i-1])
+
+            # If no timestamp in previous line, try to find next timestamp
+            if not timestamp:
+                for j in range(i + 1, len(log_lines)):
+                    timestamp = extract_timestamp(log_lines[j])
+                    if timestamp:
+                        break
+
+            # Find which job this citation belongs to
+            if timestamp:
+                job = find_job_by_timestamp(jobs, timestamp)
+                if job:
+                    # Extract full citations
+                    full_result = extract_full_citations(log_lines, i)
+                    if full_result is not None:
+                        citations_full, full_truncated = full_result
+                        job["citations_full"] = citations_full
+                        job["citations_full_truncated"] = full_truncated
+
     return jobs
 
 
@@ -340,6 +497,9 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
     # Pass 2: Match metrics to jobs
     jobs = parse_metrics(log_lines, jobs)
 
+    # Pass 3: Extract full citations from multiline patterns
+    jobs = extract_citations_from_all_lines(log_lines, jobs)
+
     # Convert to list format and add default values
     result = []
     for job in jobs.values():
@@ -350,6 +510,10 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
         job.setdefault("token_usage_prompt", None)
         job.setdefault("token_usage_completion", None)
         job.setdefault("token_usage_total", None)
+        job.setdefault("citations_preview", None)
+        job.setdefault("citations_preview_truncated", False)
+        job.setdefault("citations_full", None)
+        job.setdefault("citations_full_truncated", False)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):

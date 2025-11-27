@@ -14,6 +14,8 @@ from log_parser import (
     extract_citation_count,
     extract_token_usage,
     extract_failure,
+    extract_citations_preview,
+    extract_full_citations,
     parse_job_events,
     find_job_by_timestamp,
     parse_metrics,
@@ -246,6 +248,187 @@ class TestLogParser(unittest.TestCase):
         self.assertEqual(job["token_usage_total"], 2022)
         self.assertEqual(job["duration_seconds"], 47.0)
         self.assertEqual(job["citation_count"], 1)
+
+    def test_extract_citations_preview_basic(self):
+        """Test extracting citation preview from log line."""
+        log_line = "2025-11-04 21:42:48 - citation_validator - DEBUG - app.py:275 - Citation text preview: Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu's sociocultural theory. _Linguistics_, _51_(3), 473-515."
+        result = extract_citations_preview(log_line)
+        expected = "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu&#x27;s sociocultural theory. _Linguistics_, _51_(3), 473-515."
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        self.assertEqual(citations_text, expected)
+        self.assertFalse(was_truncated)
+
+    def test_extract_citations_preview_with_ellipsis(self):
+        """Test extracting citation preview that ends with ellipsis."""
+        log_line = "2025-11-04 21:42:48 - citation_validator - DEBUG - app.py:275 - Citation text preview: Adli, A. (2013). Syntactic variation in French Wh-questions. Agarwal, D., Naaman, M., & Vashis..."
+        result = extract_citations_preview(log_line)
+        expected = "Adli, A. (2013). Syntactic variation in French Wh-questions. Agarwal, D., Naaman, M., & Vashis"
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        self.assertEqual(citations_text, expected)
+        self.assertFalse(was_truncated)
+
+    def test_extract_citations_preview_no_match(self):
+        """Test extracting citation preview from line without pattern."""
+        log_line = "2025-11-04 21:42:48 - citation_validator - INFO - app.py:539 - Job abc-123: Completed successfully"
+        result = extract_citations_preview(log_line)
+        self.assertIsNone(result)
+
+    def test_extract_citations_preview_security_xss(self):
+        """Test that XSS content is sanitized in citation preview."""
+        log_line = "2025-11-04 21:42:48 - citation_validator - DEBUG - app.py:275 - Citation text preview: <script>alert('xss')</script>Adli, A. (2013). <b>Bold text</b>"
+        result = extract_citations_preview(log_line)
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        # Check HTML escaping and script removal
+        self.assertNotIn("<script>", citations_text)
+        self.assertNotIn("</script>", citations_text)
+        self.assertIn("&lt;b&gt;Bold text&lt;/b&gt;", citations_text)
+
+    def test_extract_citations_preview_sql_injection(self):
+        """Test that SQL injection patterns are neutralized."""
+        log_line = "2025-11-04 21:42:48 - citation_validator - DEBUG - app.py:275 - Citation text preview: Adli, A. (2013). ' OR '1'='1; DROP TABLE users; --"
+        result = extract_citations_preview(log_line)
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        # Check SQL injection patterns are removed/neutralized
+        self.assertNotIn("' OR '1'='1", citations_text)
+        self.assertNotIn("DROP TABLE", citations_text)
+
+    def test_extract_full_citations_basic(self):
+        """Test extracting full citation from multiline pattern."""
+        log_lines = [
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response into structured format",
+            "ORIGINAL:",
+            "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu's sociocultural theory. _Linguistics_, _51_(3), 473-515.",
+            "Agarwal, D., Naaman, M., & Vashistha, V. (2013). Content credibility on Twitter. _WWW '13_: 549-558.",
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:79 - Parsed response in 0.001s"
+        ]
+        result = extract_full_citations(log_lines, 1)  # Start from line index 1 (ORIGINAL: line)
+        expected = "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu&#x27;s sociocultural theory. _Linguistics_, _51_(3), 473-515.\nAgarwal, D., Naaman, M., & Vashistha, V. (2013). Content credibility on Twitter. _WWW &#x27;13_: 549-558."
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        self.assertEqual(citations_text, expected)
+        self.assertFalse(was_truncated)
+
+    def test_extract_full_citations_single_line(self):
+        """Test extracting full citation that spans only one line."""
+        log_lines = [
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response into structured format",
+            "ORIGINAL:",
+            "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu's sociocultural theory. _Linguistics_, _51_(3), 473-515.",
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:79 - Parsed response in 0.001s"
+        ]
+        result = extract_full_citations(log_lines, 1)
+        expected = "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu&#x27;s sociocultural theory. _Linguistics_, _51_(3), 473-515."
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        self.assertEqual(citations_text, expected)
+        self.assertFalse(was_truncated)
+
+    def test_extract_full_citations_no_original(self):
+        """Test extracting full citations when no ORIGINAL: pattern found."""
+        log_lines = [
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response",
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:79 - Parsed response in 0.001s"
+        ]
+        result = extract_full_citations(log_lines, 0)
+        self.assertIsNone(result)
+
+    def test_extract_full_citations_with_security_content(self):
+        """Test extracting full citations with malicious content."""
+        log_lines = [
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response",
+            "ORIGINAL:",
+            "<script>alert('xss')</script>Adli, A. (2013). <b>Bold text</b> ' OR '1'='1; DROP TABLE users;",
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:79 - Parsed response"
+        ]
+        result = extract_full_citations(log_lines, 1)
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        # Check security sanitization
+        self.assertNotIn("<script>", citations_text)
+        self.assertNotIn("</script>", citations_text)
+        self.assertNotIn("' OR '1'='1", citations_text)
+        self.assertNotIn("DROP TABLE", citations_text)
+        self.assertIn("&lt;b&gt;Bold text&lt;/b&gt;", citations_text)
+
+    def test_extract_full_citations_length_truncation(self):
+        """Test that long citations are truncated properly."""
+        # Create very long citation content
+        long_citation = "A" * 15000  # Much longer than 10000 limit
+        log_lines = [
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response",
+            "ORIGINAL:",
+            long_citation,
+            "2025-11-04 21:43:04 - openai_provider - INFO - openai_provider.py:79 - Parsed response"
+        ]
+        result = extract_full_citations(log_lines, 1)
+        self.assertIsNotNone(result)
+        citations_text, was_truncated = result
+        self.assertTrue(was_truncated)
+        self.assertTrue(len(citations_text) <= 10000 + len('[TRUNCATED]'))
+        self.assertIn('[TRUNCATED]', citations_text)
+
+    def test_integration_citations_with_parse_logs(self):
+        """Test integration of citation extraction with complete log parsing workflow."""
+        log_lines = [
+            "2025-11-27 07:57:46 - citation_validator - INFO - app.py:590 - Creating async job abc-123 for free user",
+            "2025-11-27 07:57:46 - citation_validator - DEBUG - app.py:275 - Citation text preview: Adli, A. (2013). Syntactic variation in French Wh-questions. Agarwal, D., Naaman, M., & Vashis...",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:43 - Starting validation for 1310 characters of citation text",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:116 - Parsing LLM response into structured format",
+            "ORIGINAL:",
+            "Adli, A. (2013). Syntactic variation in French Wh-questions: A quantitative study from the angle of Bourdieu's sociocultural theory. _Linguistics_, _51_(3), 473-515.",
+            "Agarwal, D., Naaman, M., & Vashistha, V. (2013). Content credibility on Twitter. _WWW '13_: 549-558.",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:79 - Parsed response in 0.001s",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:101 - OpenAI API call completed in 47.0s",
+            "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Found 2 citation results",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 prompt + 997 completion = 2022 total",
+            "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Job abc-123: Completed successfully"
+        ]
+
+        # Create temporary log file
+        import tempfile
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.log') as f:
+            f.write('\n'.join(log_lines))
+            temp_log_path = f.name
+
+        try:
+            # Test complete parsing workflow
+            jobs = parse_logs(temp_log_path)
+
+            # Should have parsed 1 job
+            self.assertEqual(len(jobs), 1)
+            job = jobs[0]
+
+            # Check basic job info
+            self.assertEqual(job["job_id"], "abc-123")
+            self.assertEqual(job["user_type"], "free")
+            self.assertEqual(job["status"], "completed")
+
+            # Check citation preview extraction
+            self.assertIsNotNone(job["citations_preview"])
+            self.assertIn("Syntactic variation in French Wh-questions", job["citations_preview"])
+            self.assertFalse(job["citations_preview_truncated"])
+
+            # Check full citations extraction
+            self.assertIsNotNone(job["citations_full"])
+            self.assertIn("Adli, A. (2013)", job["citations_full"])
+            self.assertIn("Agarwal, D., Naaman, M.", job["citations_full"])
+            self.assertFalse(job["citations_full_truncated"])
+
+            # Check other metrics still work
+            self.assertEqual(job["duration_seconds"], 47.0)
+            self.assertEqual(job["citation_count"], 2)
+            self.assertEqual(job["token_usage_prompt"], 1025)
+            self.assertEqual(job["token_usage_completion"], 997)
+            self.assertEqual(job["token_usage_total"], 2022)
+
+        finally:
+            # Clean up temp file
+            import os
+            os.unlink(temp_log_path)
 
 
 if __name__ == '__main__':
