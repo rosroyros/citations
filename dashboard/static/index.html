@@ -90,6 +90,7 @@
             pointer-events: none;
             z-index: -1;
             animation: subtlePulse 20s ease-in-out infinite;
+            will-change: opacity;
         }
 
         @keyframes subtlePulse {
@@ -581,6 +582,7 @@
             position: relative;
             overflow: hidden;
             animation: pulse 2s ease-in-out infinite;
+            will-change: opacity;
         }
 
         .status-pending::before {
@@ -610,6 +612,7 @@
             transform: translateY(-50%);
             font-size: 12px;
             animation: blink 2s ease-in-out infinite;
+            will-change: opacity;
         }
 
         @keyframes blink {
