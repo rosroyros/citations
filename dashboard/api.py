@@ -24,8 +24,30 @@ from database import get_database, DatabaseManager
 # Initialize FastAPI app
 app = FastAPI(
     title="Citations Dashboard API",
-    description="Operational dashboard for monitoring citation validation activity",
-    version="1.0.0"
+    description="""
+# Citations Dashboard API
+
+Operational dashboard for monitoring citation validation activity and system performance.
+
+## Features
+- Real-time validation monitoring
+- Comprehensive statistics and analytics
+- Advanced filtering and pagination
+- Parser error tracking
+- System health monitoring
+
+## Authentication
+Currently requires no authentication for development. Production endpoints will be restricted by CORS configuration.
+
+## Rate Limiting
+No rate limiting implemented yet. Consider adding for production deployment.
+
+## Database
+Uses SQLite with WAL mode for optimal read/write performance.
+""",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
 # Add CORS middleware
@@ -243,14 +265,32 @@ async def serve_dashboard():
     """)
 
 
-@app.get("/api/health", response_model=HealthResponse)
-async def health_check(database: DatabaseManager = Depends(get_db)):
-    """
-    Health check endpoint
+@app.get(
+    "/api/health",
+    response_model=HealthResponse,
+    summary="Health Check",
+    description="""
+Check the operational status of the dashboard API service.
 
-    Returns service status, database connectivity, and basic metrics.
-    Used for monitoring and service discovery.
-    """
+**Response includes:**
+- Service health status
+- Database connectivity verification
+- Total validation records count
+- Timestamp of health check
+
+**Use Cases:**
+- Load balancer health checks
+- Monitoring and alerting systems
+- Service discovery in containerized environments
+- Application startup verification
+
+**Status Codes:**
+- `200 OK`: Service healthy
+- `503 Service Unavailable`: Database connection failed
+"""
+)
+async def health_check(database: DatabaseManager = Depends(get_db)):
+    """Health check endpoint implementation"""
     try:
         # Test database connection
         total_records = database.get_validations_count()
