@@ -17,6 +17,14 @@ echo "🔄 Restarting backend service..."
 sudo systemctl restart citations-backend
 sudo systemctl status citations-backend --no-pager
 
+# Dashboard deployment (if exists)
+if [ -d "dashboard" ] && [ -f "dashboard/api.py" ]; then
+    echo "🔄 Deploying dashboard updates..."
+    sudo systemctl restart citations-dashboard
+    sudo systemctl status citations-dashboard --no-pager
+    echo "✅ Dashboard deployed"
+fi
+
 # Update frontend
 echo "⚛️ Building frontend..."
 cd frontend/frontend
