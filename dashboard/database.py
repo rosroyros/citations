@@ -26,9 +26,16 @@ class DatabaseManager:
         self._create_schema()
 
     def _connect(self):
-        """Establish database connection"""
+        """Establish database connection with optimizations"""
         self.conn = sqlite3.connect(self.db_path)
         self.conn.row_factory = sqlite3.Row  # Enable dict-like access to rows
+
+        # Enable WAL mode for better concurrent access
+        self.conn.execute("PRAGMA journal_mode=WAL")
+        # Optimize for dashboard workloads
+        self.conn.execute("PRAGMA synchronous=NORMAL")
+        self.conn.execute("PRAGMA cache_size=10000")
+        self.conn.execute("PRAGMA temp_store=memory")
 
     def _create_schema(self):
         """Create database tables and indexes if they don't exist"""

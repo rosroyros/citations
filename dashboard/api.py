@@ -5,6 +5,7 @@ Provides REST API for querying validation data and serving frontend
 """
 import os
 import sys
+import re
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any, List
 import json
@@ -13,7 +14,7 @@ from fastapi import FastAPI, HTTPException, Query, Request, Depends
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 
 # Add dashboard directory to path for imports
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -28,9 +29,20 @@ app = FastAPI(
 )
 
 # Add CORS middleware
+# In production, restrict to specific origins
+if os.getenv("DASHBOARD_ENV") == "production":
+    allowed_origins = [
+        "https://citationformatchecker.com",
+        "https://admin.citationformatchecker.com",
+        "https://www.citationformatchecker.com"
+    ]
+else:
+    # Allow all origins for development
+    allowed_origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, restrict to specific origins
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -42,13 +54,84 @@ if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
-# Dependency to get database connection per request
+# Input validation functions
+def validate_date_format(date_str: str, field_name: str) -> None:
+    """Validate ISO date format (YYYY-MM-DD)"""
+    if date_str and not re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z?$', date_str):
+        raise HTTPException(status_code=400, detail=f"Invalid {field_name} format. Use ISO 8601 format (YYYY-MM-DDTHH:MM:SSZ)")
+
+def validate_date_range(from_date: str, to_date: str) -> None:
+    """Validate that from_date is not after to_date"""
+    if from_date and to_date:
+        try:
+            from_dt = datetime.fromisoformat(from_date.rstrip('Z'))
+            to_dt = datetime.fromisoformat(to_date.rstrip('Z'))
+            if from_dt > to_dt:
+                raise HTTPException(status_code=400, detail="from_date cannot be after to_date")
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Invalid date format in range")
+
+def validate_pagination_params(limit: int, offset: int) -> None:
+    """Validate pagination parameters"""
+    if limit < 1:
+        raise HTTPException(status_code=400, detail="limit must be at least 1")
+    if limit > 1000:
+        raise HTTPException(status_code=400, detail="limit cannot exceed 1000")
+    if offset < 0:
+        raise HTTPException(status_code=400, detail="offset cannot be negative")
+
+def validate_search_term(search: str) -> None:
+    """Validate search term"""
+    if search and len(search.strip()) < 2:
+        raise HTTPException(status_code=400, detail="search term must be at least 2 characters")
+
+def validate_status(status: Optional[str]) -> None:
+    """Validate status parameter"""
+    if status and status not in ['completed', 'failed', 'pending']:
+        raise HTTPException(status_code=400, detail="status must be one of: completed, failed, pending")
+
+def validate_user_type(user_type: Optional[str]) -> None:
+    """Validate user_type parameter"""
+    if user_type and user_type not in ['free', 'paid']:
+        raise HTTPException(status_code=400, detail="user_type must be one of: free, paid")
+
+def validate_order_by(order_by: str) -> None:
+    """Validate order_by parameter"""
+    valid_columns = ['created_at', 'completed_at', 'duration_seconds', 'citation_count', 'job_id']
+    if order_by not in valid_columns:
+        raise HTTPException(status_code=400, detail=f"order_by must be one of: {', '.join(valid_columns)}")
+
+# Connection pool for better performance under load
+class DatabaseConnectionPool:
+    """Simple connection pool for database instances"""
+
+    def __init__(self, max_connections: int = 5):
+        self.max_connections = max_connections
+        self._pool = []
+        self._in_use = set()
+
+    def get_connection(self):
+        """Get database connection from pool or create new one"""
+        from database import DatabaseManager
+
+        dashboard_dir = os.path.dirname(os.path.abspath(__file__))
+        data_dir = os.path.join(dashboard_dir, "data")
+        os.makedirs(data_dir, exist_ok=True)
+        db_path = os.path.join(data_dir, "validations.db")
+
+        # Return new connection for now (SQLite doesn't benefit much from connection pooling)
+        # This is prepared for future migration to PostgreSQL/MySQL if needed
+        return DatabaseManager(db_path)
+
+# Global connection pool (disabled for SQLite, but ready for future use)
+_connection_pool = None
+
 def get_db():
     """
     Get database connection for the current request
-    Ensures thread-safe database access
+    Ensures thread-safe database access with optimized SQLite settings
     """
-    # Create new database instance for each request
+    # For SQLite, create new connection per request (this is actually optimal)
     from database import DatabaseManager
     dashboard_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(dashboard_dir, "data")
@@ -59,7 +142,7 @@ def get_db():
     try:
         yield db
     finally:
-        # Close connection to prevent thread issues
+        # Close connection to prevent thread issues and free resources
         db.close()
 
 
@@ -209,13 +292,13 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
 
 @app.get("/api/validations", response_model=ValidationsListResponse)
 async def get_validations(
-    limit: int = Query(100, ge=1, le=1000, description="Maximum number of records to return"),
-    offset: int = Query(0, ge=0, description="Number of records to skip"),
+    limit: int = Query(100, description="Maximum number of records to return"),
+    offset: int = Query(0, description="Number of records to skip"),
     status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
     user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
     search: Optional[str] = Query(None, description="Search in job_id field"),
-    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format)"),
-    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format)"),
+    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     order_by: str = Query("created_at", description="Column to sort by"),
     order_dir: str = Query("DESC", regex="^(ASC|DESC)$", description="Sort direction"),
     database: DatabaseManager = Depends(get_db)
@@ -228,14 +311,24 @@ async def get_validations(
     Query Parameters:
     - limit: Maximum number of records (1-1000)
     - offset: Number of records to skip for pagination
-    - status: Filter by validation status
+    - status: Filter by validation status (completed, failed, pending)
     - user_type: Filter by user type (free/paid)
-    - search: Search in job_id field (partial match)
-    - from_date: Include only validations created after this date
-    - to_date: Include only validations created before this date
+    - search: Search in job_id field (partial match, min 2 chars)
+    - from_date: Include only validations created after this date (ISO 8601)
+    - to_date: Include only validations created before this date (ISO 8601)
     - order_by: Column to sort by (created_at, duration_seconds, etc.)
     - order_dir: Sort direction (ASC/DESC)
     """
+    # Input validation
+    validate_pagination_params(limit, offset)
+    validate_status(status)
+    validate_user_type(user_type)
+    validate_search_term(search)
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+    validate_order_by(order_by)
+
     try:
         validations = database.get_validations(
             limit=limit,
@@ -276,8 +369,8 @@ async def get_validations_count(
     status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
     user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
     search: Optional[str] = Query(None, description="Search in job_id field"),
-    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format)"),
-    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format)"),
+    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
@@ -286,6 +379,14 @@ async def get_validations_count(
     Returns the total count of validations that match the specified filters.
     Useful for pagination UI and analytics.
     """
+    # Input validation
+    validate_status(status)
+    validate_user_type(user_type)
+    validate_search_term(search)
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+
     try:
         count = database.get_validations_count(
             status=status,
@@ -301,8 +402,8 @@ async def get_validations_count(
 
 @app.get("/api/stats", response_model=StatsResponse)
 async def get_stats(
-    from_date: Optional[str] = Query(None, description="Start date (ISO format)"),
-    to_date: Optional[str] = Query(None, description="End date (ISO format)"),
+    from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
@@ -318,6 +419,11 @@ async def get_stats(
     - from_date: Filter validations created after this date
     - to_date: Filter validations created before this date
     """
+    # Input validation
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+
     try:
         stats = database.get_stats(from_date=from_date, to_date=to_date)
         return StatsResponse(**stats)
