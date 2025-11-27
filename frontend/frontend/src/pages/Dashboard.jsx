@@ -3,8 +3,8 @@ import { CreditDisplay } from '../components/CreditDisplay'
 import Footer from '../components/Footer'
 import './Dashboard.css'
 
-// API base URL - use environment variable or default
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+// API base URL - use environment variable or production-ready default
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000')
 
 // Function to fetch dashboard data from API
 const fetchDashboardData = async (filters = {}) => {
@@ -17,24 +17,54 @@ const fetchDashboardData = async (filters = {}) => {
     }
   })
 
-  const response = await fetch(`${API_BASE_URL}/api/dashboard?${params}`)
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch dashboard data: ${response.status}`)
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/dashboard?${params}`, {
+      signal: controller.signal
+    })
+
+    clearTimeout(timeoutId)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch dashboard data: ${response.status}`)
+    }
+
+    return response.json()
+  } catch (error) {
+    clearTimeout(timeoutId)
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout - please try again')
+    }
+    throw error
   }
-
-  return response.json()
 }
 
 // Function to fetch dashboard stats from API
 const fetchDashboardStats = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/dashboard/stats`)
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch dashboard stats: ${response.status}`)
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/dashboard/stats`, {
+      signal: controller.signal
+    })
+
+    clearTimeout(timeoutId)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch dashboard stats: ${response.status}`)
+    }
+
+    return response.json()
+  } catch (error) {
+    clearTimeout(timeoutId)
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout - please try again')
+    }
+    throw error
   }
-
-  return response.json()
 }
 
 export default function Dashboard() {

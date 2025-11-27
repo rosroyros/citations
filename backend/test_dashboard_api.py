@@ -6,10 +6,11 @@ import pytest
 from fastapi.testclient import TestClient
 from unittest.mock import patch
 import json
+import time
 from datetime import datetime, timedelta
 
 # Import the app - this will fail initially as we haven't created the endpoints yet
-from app import app
+from app import app, jobs
 
 client = TestClient(app)
 
