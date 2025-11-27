@@ -36,7 +36,8 @@ class TestCronLogParser:
             with get_database() as db:
                 # Set last parsed timestamp to between old and new entries
                 last_parsed = old_timestamp + timedelta(hours=12)
-                db.set_metadata("last_parsed_timestamp", last_parsed.isoformat())
+                # Store as naive datetime to match extract_timestamp() return type
+                db.set_metadata("last_parsed_timestamp", last_parsed.strftime("%Y-%m-%d %H:%M:%S"))
 
                 # Create parser and run incremental parse
                 parser = CronLogParser(db_path=db.db_path)
@@ -115,7 +116,7 @@ class TestCronLogParser:
                 assert job is not None, "Job should be parsed and inserted"
 
                 updated_timestamp_str = db.get_metadata("last_parsed_timestamp")
-                updated_timestamp = datetime.fromisoformat(updated_timestamp_str)
+                updated_timestamp = datetime.strptime(updated_timestamp_str, "%Y-%m-%d %H:%M:%S")
 
                 # Should be close to the log entry timestamp (allow small buffer)
                 time_diff = abs((updated_timestamp - recent_timestamp).total_seconds())
