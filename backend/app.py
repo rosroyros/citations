@@ -10,6 +10,7 @@ import uuid
 import json
 import base64
 import time
+from datetime import datetime
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
@@ -639,6 +640,178 @@ async def get_job_status(job_id: str):
         return {
             "status": job["status"]
         }
+
+
+@app.get("/api/dashboard")
+async def get_dashboard_data(
+    status: Optional[str] = None,
+    date_range: Optional[str] = None,
+    user: Optional[str] = None,
+    search: Optional[str] = None
+):
+    """
+    Get dashboard data for monitoring validation requests and system health.
+
+    Args:
+        status: Filter by job status (completed, failed, processing)
+        date_range: Filter by time range (1h, 24h, 7d, 30d)
+        user: Filter by user email
+        search: Search in user email, session ID, or validation ID
+
+    Returns:
+        dict: {"jobs": list of job objects}
+    """
+    logger.info("Dashboard data request received")
+    logger.debug(f"Filters: status={status}, date_range={date_range}, user={user}, search={search}")
+
+    try:
+        # Validate filters
+        valid_statuses = ["completed", "failed", "processing", "all"]
+        if status and status not in valid_statuses:
+            raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid_statuses}")
+
+        valid_date_ranges = ["1h", "24h", "7d", "30d", "all"]
+        if date_range and date_range not in valid_date_ranges:
+            raise HTTPException(status_code=400, detail=f"Invalid date_range. Must be one of: {valid_date_ranges}")
+
+        # Get all jobs from global storage
+        all_jobs = []
+        now = time.time()
+
+        for job_id, job in jobs.items():
+            # Convert job data to dashboard format
+            job_data = {
+                "id": job_id,
+                "timestamp": datetime.fromtimestamp(job.get("created_at", now)).strftime("%Y-%m-%d %H:%M:%S"),
+                "status": job.get("status", "unknown"),
+                "user": job.get("user_email", "unknown"),  # This will need to be added to job creation
+                "citations": job.get("citation_count", 0),
+                "errors": _count_errors(job),
+                "processing_time": job.get("processing_time"),
+                "source_type": job.get("source_type", "paste"),
+                "ip_address": job.get("ip_address", "unknown"),  # This will need to be added to job creation
+                "session_id": job.get("token", "unknown"),  # Use token as session ID for now
+                "validation_id": job_id,  # Use job_id as validation_id for now
+                "api_version": "v1.2.0"
+            }
+
+            # Apply filters
+            if status and status != "all" and job_data["status"] != status:
+                continue
+
+            if date_range and date_range != "all" and not _is_in_date_range(job_data["timestamp"], date_range):
+                continue
+
+            if user and user.lower() not in job_data["user"].lower():
+                continue
+
+            if search:
+                search_lower = search.lower()
+                if (search_lower not in job_data["user"].lower() and
+                    search_lower not in job_data["session_id"].lower() and
+                    search_lower not in job_data["validation_id"].lower()):
+                    continue
+
+            all_jobs.append(job_data)
+
+        # Sort by timestamp (newest first)
+        all_jobs.sort(key=lambda x: x["timestamp"], reverse=True)
+
+        logger.info(f"Returning {len(all_jobs)} jobs for dashboard")
+        return {"jobs": all_jobs}
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting dashboard data: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to get dashboard data")
+
+
+@app.get("/api/dashboard/stats")
+async def get_dashboard_stats():
+    """
+    Get dashboard statistics.
+
+    Returns:
+        dict: Statistics about jobs and system health
+    """
+    logger.info("Dashboard stats request received")
+
+    try:
+        # Calculate stats from jobs
+        total = len(jobs)
+        completed = sum(1 for job in jobs.values() if job.get("status") == "completed")
+        failed = sum(1 for job in jobs.values() if job.get("status") == "failed")
+        processing = sum(1 for job in jobs.values() if job.get("status") == "processing")
+        total_citations = sum(job.get("citation_count", 0) for job in jobs.values())
+        total_errors = sum(_count_errors(job) for job in jobs.values())
+
+        # Calculate average processing time for completed jobs
+        completed_jobs_with_time = [
+            job for job in jobs.values()
+            if job.get("status") == "completed" and job.get("processing_time")
+        ]
+        avg_processing_time = 0.0
+        if completed_jobs_with_time:
+            times = [
+                float(str(job.get("processing_time", "0")).replace("s", ""))
+                for job in completed_jobs_with_time
+            ]
+            avg_processing_time = sum(times) / len(times)
+
+        stats = {
+            "total_requests": total,
+            "completed": completed,
+            "failed": failed,
+            "processing": processing,
+            "total_citations": total_citations,
+            "total_errors": total_errors,
+            "avg_processing_time": f"{avg_processing_time:.1f}s"
+        }
+
+        logger.info(f"Dashboard stats: {stats}")
+        return stats
+
+    except Exception as e:
+        logger.error(f"Error getting dashboard stats: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Failed to get dashboard stats")
+
+
+def _count_errors(job: dict) -> int:
+    """Count errors in a job result."""
+    results = job.get("results", {})
+    if isinstance(results, dict):
+        return results.get("error_count", 0)
+    elif isinstance(results, list):
+        # Count errors in a list of validation results
+        error_count = 0
+        for result in results:
+            if isinstance(result, dict) and "errors" in result:
+                error_count += len(result["errors"])
+        return error_count
+    return 0
+
+
+def _is_in_date_range(timestamp: str, date_range: str) -> bool:
+    """Check if timestamp is within date range."""
+    try:
+        # Parse timestamp (format: "YYYY-MM-DD HH:MM:SS")
+        job_date = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
+        now = datetime.now()
+
+        if date_range == "1h":
+            return (now - job_date).total_seconds() <= 3600
+        elif date_range == "24h":
+            return (now - job_date).total_seconds() <= 86400
+        elif date_range == "7d":
+            return (now - job_date).days <= 7
+        elif date_range == "30d":
+            return (now - job_date).days <= 30
+
+        return True
+    except Exception:
+        # If we can't parse timestamp, include it
+        return True
 
 
 @app.post("/api/polar-webhook")

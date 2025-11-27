@@ -1,112 +1,48 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { CreditDisplay } from '../components/CreditDisplay'
 import Footer from '../components/Footer'
 import './Dashboard.css'
 
-// Mock data for demonstration
-const mockData = [
-  {
-    id: 1,
-    timestamp: '2025-01-27 10:23:45',
-    status: 'completed',
-    user: 'john.doe@university.edu',
-    citations: 15,
-    errors: 3,
-    processing_time: '2.3s',
-    source_type: 'paste',
-    user_agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-    ip_address: '192.168.1.100',
-    session_id: 'sess_abc123',
-    validation_id: 'val_789xyz',
-    api_version: 'v1.2.0',
-    error_details: [
-      { type: 'capitalization', count: 2 },
-      { type: 'italics', count: 1 }
-    ]
-  },
-  {
-    id: 2,
-    timestamp: '2025-01-27 10:21:12',
-    status: 'completed',
-    user: 'student@college.edu',
-    citations: 8,
-    errors: 0,
-    processing_time: '1.1s',
-    source_type: 'paste',
-    user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    ip_address: '192.168.1.101',
-    session_id: 'sess_def456',
-    validation_id: 'val_012abc',
-    api_version: 'v1.2.0',
-    error_details: []
-  },
-  {
-    id: 3,
-    timestamp: '2025-01-27 10:18:33',
-    status: 'failed',
-    user: 'researcher@institute.edu',
-    citations: 25,
-    errors: null,
-    processing_time: '5.7s',
-    source_type: 'paste',
-    user_agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
-    ip_address: '192.168.1.102',
-    session_id: 'sess_ghi789',
-    validation_id: 'val_345def',
-    api_version: 'v1.2.0',
-    error_details: [],
-    failure_reason: 'Timeout during processing'
-  },
-  {
-    id: 4,
-    timestamp: '2025-01-27 10:15:20',
-    status: 'completed',
-    user: 'professor@university.edu',
-    citations: 12,
-    errors: 7,
-    processing_time: '3.8s',
-    source_type: 'paste',
-    user_agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
-    ip_address: '192.168.1.103',
-    session_id: 'sess_jkl012',
-    validation_id: 'val_678ghi',
-    api_version: 'v1.2.0',
-    error_details: [
-      { type: 'capitalization', count: 3 },
-      { type: 'italics', count: 2 },
-      { type: 'doi_format', count: 2 }
-    ]
-  },
-  {
-    id: 5,
-    timestamp: '2025-01-27 10:12:08',
-    status: 'processing',
-    user: 'graduate@university.edu',
-    citations: 18,
-    errors: null,
-    processing_time: null,
-    source_type: 'paste',
-    user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-    ip_address: '192.168.1.104',
-    session_id: 'sess_mno345',
-    validation_id: 'val_901jkl',
-    api_version: 'v1.2.0',
-    error_details: []
-  }
-]
+// API base URL - use environment variable or default
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
-export default function Dashboard({
-  // Props for API integration
-  initialData = [],
-  isLoading = false,
-  loadError = null,
-  onDataUpdate = () => {},
-  // Mock mode flag for development/testing
-  mockMode = true
-}) {
-  const [data, setData] = useState(initialData)
-  const [loading, setLoading] = useState(isLoading)
-  const [error, setError] = useState(loadError)
+// Function to fetch dashboard data from API
+const fetchDashboardData = async (filters = {}) => {
+  const params = new URLSearchParams()
+
+  // Add filter parameters if they have values
+  Object.entries(filters).forEach(([key, value]) => {
+    if (value && value !== 'all') {
+      params.append(key, value)
+    }
+  })
+
+  const response = await fetch(`${API_BASE_URL}/api/dashboard?${params}`)
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch dashboard data: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+// Function to fetch dashboard stats from API
+const fetchDashboardStats = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/dashboard/stats`)
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch dashboard stats: ${response.status}`)
+  }
+
+  return response.json()
+}
+
+export default function Dashboard() {
+  const [data, setData] = useState([])
+  const [stats, setStats] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [lastRefresh, setLastRefresh] = useState(new Date())
   const [filters, setFilters] = useState({
     dateRange: '24h',
     status: 'all',
@@ -121,113 +57,65 @@ export default function Dashboard({
   const [selectedRow, setSelectedRow] = useState(null)
   const rowsPerPage = 10
 
-  // Load data (mock for now, ready for API integration)
-  useEffect(() => {
-    if (mockMode && data.length === 0) {
-      const loadData = async () => {
+  // Load data from API
+  const loadData = async (showLoading = true) => {
+    try {
+      if (showLoading) {
         setLoading(true)
-        setError(null)
-
-        try {
-          // Simulate API call
-          await new Promise(resolve => setTimeout(resolve, 500))
-
-          // Use mock data for now
-          setData(mockData)
-          onDataUpdate(mockData)
-        } catch (err) {
-          setError('Failed to load dashboard data')
-          console.error('Dashboard data loading error:', err)
-        } finally {
-          setLoading(false)
-        }
       }
+      setError(null)
 
-      loadData()
+      // Fetch both data and stats in parallel
+      const [dataResult, statsResult] = await Promise.all([
+        fetchDashboardData(filters),
+        fetchDashboardStats()
+      ])
+
+      setData(dataResult.jobs || [])
+      setStats(statsResult)
+      setLastRefresh(new Date())
+    } catch (err) {
+      setError(err.message)
+      console.error('Dashboard data loading error:', err)
+    } finally {
+      if (showLoading) {
+        setLoading(false)
+      }
     }
-  }, [mockMode, data.length, onDataUpdate])
+  }
+
+  // Initial data load
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  // Refresh data when filters change
+  useEffect(() => {
+    setCurrentPage(1) // Reset to first page when filters change
+    loadData(false)
+  }, [filters.dateRange, filters.status, filters.user, filters.search])
+
+  // Manual refresh function
+  const handleRefresh = () => {
+    loadData()
+  }
 
   // Retry function for error state
   const handleRetry = () => {
-    if (mockMode) {
-      // Reload mock data
-      setData(mockData)
-      setError(null)
-      setLoading(false)
-    } else {
-      // Let parent handle retry through props
-      onDataUpdate([])
-    }
+    loadData()
   }
 
-  // Function to update data from API integration
-  const updateData = (newData) => {
-    setData(newData)
-    setError(null)
-    setLoading(false)
+  // Function to update filters from filter section
+  const updateFilter = (key, value) => {
+    setFilters(prev => ({ ...prev, [key]: value }))
   }
 
-  // Expose data update function to parent
-  useEffect(() => {
-    if (onDataUpdate) {
-      onDataUpdate(data)
-    }
-  }, [data, onDataUpdate])
+  // Apply client-side filtering and sorting
+  const processedData = useMemo(() => {
+    let filtered = [...data]
 
-  // Helper function to parse date and apply date range filter
-  const isInDateRange = (timestamp, dateRange) => {
-    const itemDate = new Date(timestamp.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:$6'))
-    const now = new Date()
-
-    switch (dateRange) {
-      case '1h':
-        return (now - itemDate) <= (60 * 60 * 1000) // 1 hour
-      case '24h':
-        return (now - itemDate) <= (24 * 60 * 60 * 1000) // 24 hours
-      case '7d':
-        return (now - itemDate) <= (7 * 24 * 60 * 60 * 1000) // 7 days
-      case '30d':
-        return (now - itemDate) <= (30 * 24 * 60 * 60 * 1000) // 30 days
-      default:
-        return true
-    }
-  }
-
-  // Filter data based on filters
-  const filteredData = useMemo(() => {
-    return data.filter(item => {
-      // Date range filter
-      if (!isInDateRange(item.timestamp, filters.dateRange)) {
-        return false
-      }
-
-      // Status filter
-      if (filters.status !== 'all' && item.status !== filters.status) {
-        return false
-      }
-
-      // User filter
-      if (filters.user && !item.user.toLowerCase().includes(filters.user.toLowerCase())) {
-        return false
-      }
-
-      // Search filter
-      if (filters.search) {
-        const searchLower = filters.search.toLowerCase()
-        return (
-          item.user.toLowerCase().includes(searchLower) ||
-          item.validation_id.toLowerCase().includes(searchLower) ||
-          item.session_id.toLowerCase().includes(searchLower)
-        )
-      }
-
-      return true
-    })
-  }, [data, filters])
-
-  // Sort data
-  const sortedData = useMemo(() => {
-    return [...filteredData].sort((a, b) => {
+    // Sort data
+    filtered.sort((a, b) => {
       let aValue = a[sortConfig.key]
       let bValue = b[sortConfig.key]
 
@@ -246,41 +134,17 @@ export default function Dashboard({
         return aValue > bValue ? -1 : aValue < bValue ? 1 : 0
       }
     })
-  }, [filteredData, sortConfig])
+
+    return filtered
+  }, [data, sortConfig])
 
   // Pagination
   const paginatedData = useMemo(() => {
     const startIndex = (currentPage - 1) * rowsPerPage
-    return sortedData.slice(startIndex, startIndex + rowsPerPage)
-  }, [sortedData, currentPage, rowsPerPage])
+    return processedData.slice(startIndex, startIndex + rowsPerPage)
+  }, [processedData, currentPage, rowsPerPage])
 
-  const totalPages = Math.ceil(sortedData.length / rowsPerPage)
-
-  // Calculate stats
-  const stats = useMemo(() => {
-    const total = data.length
-    const completed = data.filter(item => item.status === 'completed').length
-    const failed = data.filter(item => item.status === 'failed').length
-    const processing = data.filter(item => item.status === 'processing').length
-    const totalCitations = data.reduce((sum, item) => sum + (item.citations || 0), 0)
-    const totalErrors = data.reduce((sum, item) => sum + (item.errors || 0), 0)
-    const avgProcessingTime = data
-      .filter(item => item.processing_time)
-      .reduce((sum, item, _, arr) => {
-        const time = parseFloat(item.processing_time.replace('s', ''))
-        return sum + time / arr.length
-      }, 0)
-
-    return {
-      total,
-      completed,
-      failed,
-      processing,
-      totalCitations,
-      totalErrors,
-      avgProcessingTime: avgProcessingTime.toFixed(1)
-    }
-  }, [data])
+  const totalPages = Math.ceil(processedData.length / rowsPerPage)
 
   const handleSort = (key) => {
     setSortConfig(prevConfig => ({
@@ -321,7 +185,20 @@ export default function Dashboard({
             <h1 className="dashboard-title">Operations Dashboard</h1>
             <p className="dashboard-subtitle">Monitor validation requests and system health</p>
           </div>
-          <CreditDisplay />
+          <div className="header-actions">
+            <div className="last-refresh">
+              Last updated: {lastRefresh.toLocaleTimeString()}
+            </div>
+            <button
+              onClick={handleRefresh}
+              className="refresh-button"
+              disabled={loading}
+              aria-label="Refresh dashboard data"
+            >
+              {loading ? '⟳ Refreshing...' : '🔄 Refresh'}
+            </button>
+            <CreditDisplay />
+          </div>
         </div>
       </header>
 
@@ -333,7 +210,7 @@ export default function Dashboard({
             <select
               id="dateRange"
               value={filters.dateRange}
-              onChange={(e) => setFilters(prev => ({ ...prev, dateRange: e.target.value }))}
+              onChange={(e) => updateFilter('dateRange', e.target.value)}
               className="filter-select"
               aria-label="Select time range for filtering validation requests"
             >
@@ -349,7 +226,7 @@ export default function Dashboard({
             <select
               id="status"
               value={filters.status}
-              onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+              onChange={(e) => updateFilter('status', e.target.value)}
               className="filter-select"
               aria-label="Filter validation requests by status"
             >
@@ -367,7 +244,7 @@ export default function Dashboard({
               type="text"
               placeholder="Filter by user email..."
               value={filters.user}
-              onChange={(e) => setFilters(prev => ({ ...prev, user: e.target.value }))}
+              onChange={(e) => updateFilter('user', e.target.value)}
               className="filter-input"
               aria-label="Filter by user email"
               aria-describedby="user-filter-description"
@@ -384,7 +261,7 @@ export default function Dashboard({
               type="text"
               placeholder="Search by user, session ID, or validation ID..."
               value={filters.search}
-              onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+              onChange={(e) => updateFilter('search', e.target.value)}
               className="filter-input"
               aria-label="Search validation requests"
               aria-describedby="search-description"
@@ -403,7 +280,7 @@ export default function Dashboard({
             <div className="stat-icon">📊</div>
             <div className="stat-content">
               <h3>Total Requests</h3>
-              <p className="stat-value">{stats.total}</p>
+              <p className="stat-value">{stats.total_requests || 0}</p>
             </div>
           </div>
 
@@ -411,7 +288,7 @@ export default function Dashboard({
             <div className="stat-icon">✅</div>
             <div className="stat-content">
               <h3>Completed</h3>
-              <p className="stat-value">{stats.completed}</p>
+              <p className="stat-value">{stats.completed || 0}</p>
             </div>
           </div>
 
@@ -419,7 +296,7 @@ export default function Dashboard({
             <div className="stat-icon">❌</div>
             <div className="stat-content">
               <h3>Failed</h3>
-              <p className="stat-value">{stats.failed}</p>
+              <p className="stat-value">{stats.failed || 0}</p>
             </div>
           </div>
 
@@ -427,7 +304,7 @@ export default function Dashboard({
             <div className="stat-icon">📄</div>
             <div className="stat-content">
               <h3>Total Citations</h3>
-              <p className="stat-value">{stats.totalCitations}</p>
+              <p className="stat-value">{stats.total_citations || 0}</p>
             </div>
           </div>
 
@@ -435,7 +312,7 @@ export default function Dashboard({
             <div className="stat-icon">⚠️</div>
             <div className="stat-content">
               <h3>Total Errors</h3>
-              <p className="stat-value">{stats.totalErrors}</p>
+              <p className="stat-value">{stats.total_errors || 0}</p>
             </div>
           </div>
 
@@ -443,7 +320,7 @@ export default function Dashboard({
             <div className="stat-icon">⏱️</div>
             <div className="stat-content">
               <h3>Avg Processing</h3>
-              <p className="stat-value">{stats.avgProcessingTime}s</p>
+              <p className="stat-value">{stats.avg_processing_time || '0.0s'}</p>
             </div>
           </div>
         </div>
@@ -475,122 +352,123 @@ export default function Dashboard({
               <div className="table-header">
                 <h2>Validation Requests</h2>
                 <p className="table-info">
-                  Showing {paginatedData.length} of {sortedData.length} results
+                  Showing {paginatedData.length} of {processedData.length} results
                 </p>
               </div>
 
-          <div className="table-wrapper">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('timestamp')}
-                  >
-                    Timestamp {getSortIcon('timestamp')}
-                  </th>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('status')}
-                  >
-                    Status {getSortIcon('status')}
-                  </th>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('user')}
-                  >
-                    User {getSortIcon('user')}
-                  </th>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('citations')}
-                  >
-                    Citations {getSortIcon('citations')}
-                  </th>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('errors')}
-                  >
-                    Errors {getSortIcon('errors')}
-                  </th>
-                  <th
-                    className="sortable-header"
-                    onClick={() => handleSort('processing_time')}
-                  >
-                    Processing Time {getSortIcon('processing_time')}
-                  </th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className={selectedRow?.id === item.id ? 'selected-row' : ''}
-                  >
-                    <td className="timestamp-cell">{item.timestamp}</td>
-                    <td className="status-cell">{getStatusBadge(item.status)}</td>
-                    <td className="user-cell" title={item.user}>
-                      {item.user.length > 25 ? `${item.user.substring(0, 25)}...` : item.user}
-                    </td>
-                    <td className="number-cell">{item.citations}</td>
-                    <td className="number-cell error-cell">
-                      {item.errors !== null ? item.errors : '-'}
-                    </td>
-                    <td className="time-cell">{item.processing_time || '-'}</td>
-                    <td className="actions-cell">
-                      <button
-                        onClick={() => setSelectedRow(item)}
-                        className="details-button"
+              <div className="table-wrapper">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('timestamp')}
                       >
-                        Details
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-              )}
-            </div>
+                        Timestamp {getSortIcon('timestamp')}
+                      </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('status')}
+                      >
+                        Status {getSortIcon('status')}
+                      </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('user')}
+                      >
+                        User {getSortIcon('user')}
+                      </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('citations')}
+                      >
+                        Citations {getSortIcon('citations')}
+                      </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('errors')}
+                      >
+                        Errors {getSortIcon('errors')}
+                      </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('processing_time')}
+                      >
+                        Processing Time {getSortIcon('processing_time')}
+                      </th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {paginatedData.map((item) => (
+                      <tr
+                        key={item.id}
+                        className={selectedRow?.id === item.id ? 'selected-row' : ''}
+                      >
+                        <td className="timestamp-cell">{item.timestamp}</td>
+                        <td className="status-cell">{getStatusBadge(item.status)}</td>
+                        <td className="user-cell" title={item.user}>
+                          {item.user.length > 25 ? `${item.user.substring(0, 25)}...` : item.user}
+                        </td>
+                        <td className="number-cell">{item.citations}</td>
+                        <td className="number-cell error-cell">
+                          {item.errors !== null ? item.errors : '-'}
+                        </td>
+                        <td className="time-cell">{item.processing_time || '-'}</td>
+                        <td className="actions-cell">
+                          <button
+                            onClick={() => setSelectedRow(item)}
+                            className="details-button"
+                          >
+                            Details
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            {/* Pagination */}
-            {totalPages > 1 && (
-              <div className="pagination">
-              <div className="pagination-info">
-                Page {currentPage} of {totalPages}
-              </div>
-              <div className="pagination-controls">
-                <button
-                  onClick={() => setCurrentPage(1)}
-                  disabled={currentPage === 1}
-                  className="pagination-button"
-                >
-                  First
-                </button>
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                  disabled={currentPage === 1}
-                  className="pagination-button"
-                >
-                  Previous
-                </button>
-                <span className="pagination-current">{currentPage}</span>
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                  disabled={currentPage === totalPages}
-                  className="pagination-button"
-                >
-                  Next
-                </button>
-                <button
-                  onClick={() => setCurrentPage(totalPages)}
-                  disabled={currentPage === totalPages}
-                  className="pagination-button"
-                >
-                  Last
-                </button>
-              </div>
-            </div>
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="pagination">
+                  <div className="pagination-info">
+                    Page {currentPage} of {totalPages}
+                  </div>
+                  <div className="pagination-controls">
+                    <button
+                      onClick={() => setCurrentPage(1)}
+                      disabled={currentPage === 1}
+                      className="pagination-button"
+                    >
+                      First
+                    </button>
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                      className="pagination-button"
+                    >
+                      Previous
+                    </button>
+                    <span className="pagination-current">{currentPage}</span>
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                      className="pagination-button"
+                    >
+                      Next
+                    </button>
+                    <button
+                      onClick={() => setCurrentPage(totalPages)}
+                      disabled={currentPage === totalPages}
+                      className="pagination-button"
+                    >
+                      Last
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
@@ -676,32 +554,6 @@ export default function Dashboard({
                 <div className="detail-group">
                   <label>Processing Time</label>
                   <p>{selectedRow.processing_time || 'N/A'}</p>
-                </div>
-
-                {selectedRow.failure_reason && (
-                  <div className="detail-group detail-group-full">
-                    <label>Failure Reason</label>
-                    <p className="failure-reason">{selectedRow.failure_reason}</p>
-                  </div>
-                )}
-
-                {selectedRow.error_details && selectedRow.error_details.length > 0 && (
-                  <div className="detail-group detail-group-full">
-                    <label>Error Breakdown</label>
-                    <div className="error-breakdown">
-                      {selectedRow.error_details.map((error, index) => (
-                        <div key={index} className="error-item">
-                          <span className="error-type">{error.type}</span>
-                          <span className="error-count">{error.count} occurrences</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <div className="detail-group detail-group-full">
-                  <label>User Agent</label>
-                  <p className="user-agent">{selectedRow.user_agent}</p>
                 </div>
               </div>
             </div>
