@@ -42,7 +42,7 @@ class OpenAIProvider(CitationValidator):
             Validation results dictionary with structured errors
         """
         logger.info(f"Starting validation for {len(citations)} characters of citation text")
-        logger.debug(f"Citations to validate: {citations[:200]}...")
+        logger.debug(f"Citations to validate: {citations[:2000]}...")
 
         # Build prompt with validation rules + citations
         start_time = time.time()
