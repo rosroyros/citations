@@ -1072,7 +1072,8 @@
         function getDateRange(days) {
             const date = new Date();
             date.setDate(date.getDate() - parseInt(days));
-            return date.toISOString().split('T')[0];
+            date.setHours(0, 0, 0, 0); // Set to start of day
+            return date.toISOString(); // Return full ISO format
         }
 
         function updateStats(stats) {
