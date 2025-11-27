@@ -95,8 +95,18 @@ const mockData = [
   }
 ]
 
-export default function Dashboard() {
-  const [data] = useState(mockData)
+export default function Dashboard({
+  // Props for API integration
+  initialData = [],
+  isLoading = false,
+  loadError = null,
+  onDataUpdate = () => {},
+  // Mock mode flag for development/testing
+  mockMode = true
+}) {
+  const [data, setData] = useState(initialData)
+  const [loading, setLoading] = useState(isLoading)
+  const [error, setError] = useState(loadError)
   const [filters, setFilters] = useState({
     dateRange: '24h',
     status: 'all',
@@ -111,9 +121,86 @@ export default function Dashboard() {
   const [selectedRow, setSelectedRow] = useState(null)
   const rowsPerPage = 10
 
+  // Load data (mock for now, ready for API integration)
+  useEffect(() => {
+    if (mockMode && data.length === 0) {
+      const loadData = async () => {
+        setLoading(true)
+        setError(null)
+
+        try {
+          // Simulate API call
+          await new Promise(resolve => setTimeout(resolve, 500))
+
+          // Use mock data for now
+          setData(mockData)
+          onDataUpdate(mockData)
+        } catch (err) {
+          setError('Failed to load dashboard data')
+          console.error('Dashboard data loading error:', err)
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      loadData()
+    }
+  }, [mockMode, data.length, onDataUpdate])
+
+  // Retry function for error state
+  const handleRetry = () => {
+    if (mockMode) {
+      // Reload mock data
+      setData(mockData)
+      setError(null)
+      setLoading(false)
+    } else {
+      // Let parent handle retry through props
+      onDataUpdate([])
+    }
+  }
+
+  // Function to update data from API integration
+  const updateData = (newData) => {
+    setData(newData)
+    setError(null)
+    setLoading(false)
+  }
+
+  // Expose data update function to parent
+  useEffect(() => {
+    if (onDataUpdate) {
+      onDataUpdate(data)
+    }
+  }, [data, onDataUpdate])
+
+  // Helper function to parse date and apply date range filter
+  const isInDateRange = (timestamp, dateRange) => {
+    const itemDate = new Date(timestamp.replace(/(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/, '$1-$2-$3T$4:$5:$6'))
+    const now = new Date()
+
+    switch (dateRange) {
+      case '1h':
+        return (now - itemDate) <= (60 * 60 * 1000) // 1 hour
+      case '24h':
+        return (now - itemDate) <= (24 * 60 * 60 * 1000) // 24 hours
+      case '7d':
+        return (now - itemDate) <= (7 * 24 * 60 * 60 * 1000) // 7 days
+      case '30d':
+        return (now - itemDate) <= (30 * 24 * 60 * 60 * 1000) // 30 days
+      default:
+        return true
+    }
+  }
+
   // Filter data based on filters
   const filteredData = useMemo(() => {
     return data.filter(item => {
+      // Date range filter
+      if (!isInDateRange(item.timestamp, filters.dateRange)) {
+        return false
+      }
+
       // Status filter
       if (filters.status !== 'all' && item.status !== filters.status) {
         return false
@@ -248,6 +335,7 @@ export default function Dashboard() {
               value={filters.dateRange}
               onChange={(e) => setFilters(prev => ({ ...prev, dateRange: e.target.value }))}
               className="filter-select"
+              aria-label="Select time range for filtering validation requests"
             >
               <option value="1h">Last Hour</option>
               <option value="24h">Last 24 Hours</option>
@@ -263,6 +351,7 @@ export default function Dashboard() {
               value={filters.status}
               onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
               className="filter-select"
+              aria-label="Filter validation requests by status"
             >
               <option value="all">All Status</option>
               <option value="completed">Completed</option>
@@ -280,7 +369,12 @@ export default function Dashboard() {
               value={filters.user}
               onChange={(e) => setFilters(prev => ({ ...prev, user: e.target.value }))}
               className="filter-input"
+              aria-label="Filter by user email"
+              aria-describedby="user-filter-description"
             />
+            <span id="user-filter-description" className="sr-only">
+              Enter a user email to filter validation requests by user
+            </span>
           </div>
 
           <div className="filter-group filter-group-full">
@@ -292,7 +386,12 @@ export default function Dashboard() {
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               className="filter-input"
+              aria-label="Search validation requests"
+              aria-describedby="search-description"
             />
+            <span id="search-description" className="sr-only">
+              Search validation requests by user email, session ID, or validation ID
+            </span>
           </div>
         </div>
       </section>
@@ -353,12 +452,32 @@ export default function Dashboard() {
       {/* Data Table */}
       <section className="table-section">
         <div className="table-container">
-          <div className="table-header">
-            <h2>Validation Requests</h2>
-            <p className="table-info">
-              Showing {paginatedData.length} of {sortedData.length} results
-            </p>
-          </div>
+          {loading ? (
+            <div className="loading-state">
+              <div className="loading-spinner"></div>
+              <p>Loading dashboard data...</p>
+            </div>
+          ) : error ? (
+            <div className="error-state">
+              <h3>Failed to load dashboard data</h3>
+              <p>{error}</p>
+              <button onClick={handleRetry} className="retry-button">
+                Retry
+              </button>
+            </div>
+          ) : data.length === 0 ? (
+            <div className="empty-state">
+              <h3>No validation requests found</h3>
+              <p>Try adjusting your filters or check back later.</p>
+            </div>
+          ) : (
+            <>
+              <div className="table-header">
+                <h2>Validation Requests</h2>
+                <p className="table-info">
+                  Showing {paginatedData.length} of {sortedData.length} results
+                </p>
+              </div>
 
           <div className="table-wrapper">
             <table className="data-table">
@@ -431,11 +550,12 @@ export default function Dashboard() {
                 ))}
               </tbody>
             </table>
-          </div>
+              )}
+            </div>
 
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="pagination">
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="pagination">
               <div className="pagination-info">
                 Page {currentPage} of {totalPages}
               </div>
@@ -477,13 +597,25 @@ export default function Dashboard() {
 
       {/* Details Modal */}
       {selectedRow && (
-        <div className="modal-overlay" onClick={() => setSelectedRow(null)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setSelectedRow(null)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setSelectedRow(null)
+            }
+          }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>Validation Request Details</h2>
+              <h2 id="modal-title">Validation Request Details</h2>
               <button
                 onClick={() => setSelectedRow(null)}
                 className="modal-close"
+                aria-label="Close details modal"
               >
                 ×
               </button>
