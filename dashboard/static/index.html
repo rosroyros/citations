@@ -14,6 +14,7 @@
             --color-brand-hover: #7c3aed;
             --color-brand-light: rgba(147, 51, 234, 0.1);
             --color-brand-lighter: #f3e8ff;
+            --color-brand-glow: rgba(147, 51, 234, 0.2);
 
             /* Typography - Matching main site */
             --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -653,7 +654,7 @@
             padding: 60px;
             color: var(--color-text-muted);
             font-size: 16px;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: var(--font-body);
             position: relative;
         }
 
@@ -672,7 +673,7 @@
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 24px;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: var(--font-body);
             position: relative;
             overflow: hidden;
         }
