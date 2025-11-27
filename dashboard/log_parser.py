@@ -198,11 +198,15 @@ def find_job_by_timestamp(jobs: Dict[str, Dict[str, Any]], timestamp: datetime, 
         completed_at = job.get("completed_at")
 
         if created_at and created_at <= timestamp:
-            # If job has completion time, check if it's within window
+            # For metrics that occur during job execution (not at completion),
+            # check if timestamp is between creation and completion OR within window of creation
             if completed_at:
-                time_diff = abs((timestamp - completed_at).total_seconds())
-                if time_diff <= window_seconds:
-                    return job
+                # If job has completion time, check if timestamp is within the job's lifecycle
+                if created_at <= timestamp <= completed_at:
+                    time_diff = min(abs((timestamp - created_at).total_seconds()),
+                                   abs((timestamp - completed_at).total_seconds()))
+                    if time_diff <= window_seconds:
+                        return job
             else:
                 # Job hasn't completed yet, check if within window of creation
                 time_diff = (timestamp - created_at).total_seconds()
