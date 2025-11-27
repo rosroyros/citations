@@ -12,6 +12,8 @@ from log_parser import (
     extract_completion,
     extract_duration,
     extract_citation_count,
+    extract_token_usage,
+    extract_failure,
     parse_job_events,
     find_job_by_timestamp,
     parse_metrics,
@@ -195,6 +197,55 @@ class TestLogParser(unittest.TestCase):
         except FileNotFoundError:
             # Log file doesn't exist in test environment, skip test
             self.skipTest("Log file not found in test environment")
+
+    def test_extract_token_usage_valid(self):
+        line = "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 prompt + 997 completion = 2022 total"
+        result = extract_token_usage(line)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["prompt"], 1025)
+        self.assertEqual(result["completion"], 997)
+        self.assertEqual(result["total"], 2022)
+
+    def test_extract_token_usage_invalid_line(self):
+        line = "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - No token usage here"
+        result = extract_token_usage(line)
+        self.assertIsNone(result)
+
+    def test_extract_failure_valid(self):
+        line = "2025-11-27 07:58:45 - citation_validator - ERROR - app.py:542 - Job abc-123: Failed with error: OpenAI API timeout"
+        result = extract_failure(line)
+        self.assertIsNotNone(result)
+        job_id, timestamp, error_message = result
+        self.assertEqual(job_id, "abc-123")
+        self.assertEqual(error_message, "OpenAI API timeout")
+        self.assertIsNotNone(timestamp)
+
+    def test_extract_failure_invalid_line(self):
+        line = "2025-11-27 07:58:45 - citation_validator - INFO - app.py:542 - Job abc-123: Completed successfully"
+        result = extract_failure(line)
+        self.assertIsNone(result)
+
+    def test_parse_metrics_includes_token_usage(self):
+        log_lines = [
+            "2025-11-27 07:57:46 - citation_validator - INFO - app.py:590 - Creating async job abc-123 for free user",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 prompt + 997 completion = 2022 total",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:101 - OpenAI API call completed in 47.0s",
+            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Found 1 citation result(s)",
+            "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Job abc-123: Completed successfully"
+        ]
+
+        # First pass to create jobs
+        jobs = parse_job_events(log_lines)
+
+        # Second pass to match metrics
+        jobs = parse_metrics(log_lines, jobs)
+
+        job = jobs["abc-123"]
+        self.assertEqual(job["token_usage_prompt"], 1025)
+        self.assertEqual(job["token_usage_completion"], 997)
+        self.assertEqual(job["token_usage_total"], 2022)
+        self.assertEqual(job["duration_seconds"], 47.0)
+        self.assertEqual(job["citation_count"], 1)
 
 
 if __name__ == '__main__':

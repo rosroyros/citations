@@ -1,201 +1,374 @@
 #!/usr/bin/env python3
 """
-FastAPI application for dashboard API
-Serves validation data and static files for internal operational dashboard
+FastAPI application for operational dashboard
+Provides REST API for querying validation data and serving frontend
 """
-from fastapi import FastAPI, HTTPException
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
-from typing import Optional, Dict, Any, List
 import os
-from datetime import datetime
-from database import get_database
+import sys
+from datetime import datetime, timedelta
+from typing import Optional, Dict, Any, List
+import json
+
+from fastapi import FastAPI, HTTPException, Query, Request, Depends
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+
+# Add dashboard directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from database import get_database, DatabaseManager
 
 # Initialize FastAPI app
 app = FastAPI(
     title="Citations Dashboard API",
-    description="Internal operational dashboard for citation validation monitoring",
-    version="1.0.0",
+    description="Operational dashboard for monitoring citation validation activity",
+    version="1.0.0"
 )
 
-# Get database instance
-db = get_database()
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # In production, restrict to specific origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-# Mount static files if directory exists
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
-
-
-@app.get("/")
-async def read_root():
-    """Serve the main dashboard page"""
-    static_file = "static/index.html"
-    if os.path.exists(static_file):
-        return FileResponse(static_file)
-    return {
-        "message": "Citations Dashboard API",
-        "status": "running",
-        "endpoints": {
-            "validations": "/api/validations",
-            "stats": "/api/stats",
-            "health": "/api/health"
-        }
-    }
+# Mount static files directory
+static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
-@app.get("/api/health")
-async def health_check():
-    """Health check endpoint"""
+# Dependency to get database connection per request
+def get_db():
+    """
+    Get database connection for the current request
+    Ensures thread-safe database access
+    """
+    # Create new database instance for each request
+    from database import DatabaseManager
+    dashboard_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.join(dashboard_dir, "data")
+    os.makedirs(data_dir, exist_ok=True)
+    db_path = os.path.join(data_dir, "validations.db")
+
+    db = DatabaseManager(db_path)
     try:
-        # Get recent parser errors for health status
-        recent_errors = db.get_parser_errors(limit=5)
-        last_parsed = db.get_metadata("last_parsed_timestamp")
+        yield db
+    finally:
+        # Close connection to prevent thread issues
+        db.close()
 
-        return {
-            "status": "ok",
-            "last_parsed": last_parsed,
-            "recent_errors": recent_errors,
-            "timestamp": datetime.now().isoformat() + "Z"
-        }
+
+# Pydantic models for API responses
+class ValidationResponse(BaseModel):
+    """Validation record response model"""
+    job_id: str
+    created_at: str
+    completed_at: Optional[str] = None
+    duration_seconds: Optional[float] = None
+    citation_count: Optional[int] = None
+    token_usage_prompt: Optional[int] = None
+    token_usage_completion: Optional[int] = None
+    token_usage_total: Optional[int] = None
+    user_type: str
+    status: str
+    error_message: Optional[str] = None
+
+
+class StatsResponse(BaseModel):
+    """Statistics response model"""
+    total_validations: int
+    completed: int
+    failed: int
+    pending: int
+    total_citations: int
+    free_users: int
+    paid_users: int
+    avg_duration_seconds: float
+    avg_citations_per_validation: float
+
+
+class HealthResponse(BaseModel):
+    """Health check response model"""
+    status: str
+    timestamp: str
+    database_connected: bool
+    total_records: int
+
+
+class ValidationError(BaseModel):
+    """Parser error response model"""
+    id: int
+    timestamp: str
+    error_message: str
+    log_line: Optional[str] = None
+
+
+class ValidationsListResponse(BaseModel):
+    """Validations list response model with pagination"""
+    validations: List[ValidationResponse]
+    total: int
+    limit: int
+    offset: int
+
+
+@app.get("/", response_class=HTMLResponse)
+async def serve_dashboard():
+    """
+    Serve the main dashboard HTML page
+
+    Returns dashboard frontend HTML. Serves from static/index.html
+    if it exists, otherwise returns a basic HTML template.
+    """
+    index_file = os.path.join(static_dir, "index.html")
+    if os.path.exists(index_file):
+        with open(index_file, 'r') as f:
+            return HTMLResponse(content=f.read())
+
+    # Fallback basic HTML if static/index.html doesn't exist
+    return HTMLResponse(content="""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Citations Dashboard</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body { font-family: Arial, sans-serif; margin: 40px; }
+            .container { max-width: 1200px; margin: 0 auto; }
+            .status { padding: 20px; background: #f0f8ff; border-radius: 8px; }
+            .api-link { color: #0066cc; text-decoration: none; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Citations Dashboard</h1>
+            <div class="status">
+                <h2>API Status</h2>
+                <p>Dashboard API is running successfully!</p>
+                <p><a href="/api/health" class="api-link">Check API Health</a></p>
+                <p><a href="/api/stats" class="api-link">View Statistics</a></p>
+                <p><a href="/api/validations?limit=10" class="api-link">Sample Validations</a></p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """)
+
+
+@app.get("/api/health", response_model=HealthResponse)
+async def health_check(database: DatabaseManager = Depends(get_db)):
+    """
+    Health check endpoint
+
+    Returns service status, database connectivity, and basic metrics.
+    Used for monitoring and service discovery.
+    """
+    try:
+        # Test database connection
+        total_records = database.get_validations_count()
+        database_connected = True
     except Exception as e:
-        return {
-            "status": "error",
-            "error": str(e),
-            "timestamp": datetime.now().isoformat() + "Z"
-        }
+        print(f"Database connection failed: {e}")
+        database_connected = False
+        total_records = 0
+
+    return HealthResponse(
+        status="healthy" if database_connected else "unhealthy",
+        timestamp=datetime.utcnow().isoformat() + "Z",
+        database_connected=database_connected,
+        total_records=total_records
+    )
 
 
-@app.get("/api/validations/{job_id}")
-async def get_validation(job_id: str):
-    """Get details for a specific validation"""
-    validation = db.get_validation(job_id)
-    if not validation:
-        raise HTTPException(status_code=404, detail="Validation not found")
+@app.get("/api/validations/{job_id}", response_model=ValidationResponse)
+async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db)):
+    """
+    Get a single validation by job ID
 
-    # Format token usage if present
-    if validation.get("token_usage_total"):
-        validation["token_usage"] = {
-            "prompt": validation.get("token_usage_prompt", 0),
-            "completion": validation.get("token_usage_completion", 0),
-            "total": validation["token_usage_total"]
-        }
+    Returns detailed information for a specific validation job.
+    Used for drill-down views and debugging.
 
-    return validation
+    Path Parameters:
+    - job_id: The unique identifier for the validation job
+    """
+    try:
+        validation = database.get_validation(job_id)
+        if not validation:
+            raise HTTPException(status_code=404, detail=f"Validation {job_id} not found")
+        return ValidationResponse(**validation)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get validation: {str(e)}")
 
 
-@app.get("/api/validations")
+@app.get("/api/validations", response_model=ValidationsListResponse)
 async def get_validations(
-    limit: int = 100,
-    offset: int = 0,
-    status: Optional[str] = None,
-    user_type: Optional[str] = None,
-    search: Optional[str] = None,
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None,
-    order_by: str = "created_at",
-    order_dir: str = "DESC"
+    limit: int = Query(100, ge=1, le=1000, description="Maximum number of records to return"),
+    offset: int = Query(0, ge=0, description="Number of records to skip"),
+    status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
+    user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
+    search: Optional[str] = Query(None, description="Search in job_id field"),
+    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format)"),
+    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format)"),
+    order_by: str = Query("created_at", description="Column to sort by"),
+    order_dir: str = Query("DESC", regex="^(ASC|DESC)$", description="Sort direction"),
+    database: DatabaseManager = Depends(get_db)
 ):
-    """Get validations with filtering and pagination"""
+    """
+    Get validations with filtering and pagination
 
-    # Validate input parameters
-    if limit < 0:
-        raise HTTPException(status_code=400, detail="Limit cannot be negative")
-    if offset < 0:
-        raise HTTPException(status_code=400, detail="Offset cannot be negative")
-    if limit > 200:
-        limit = 200
-    if order_dir not in ["ASC", "DESC"]:
-        order_dir = "DESC"
-    if status and status not in ["completed", "failed", "pending"]:
-        raise HTTPException(status_code=400, detail="Invalid status")
-    if user_type and user_type not in ["free", "paid"]:
-        raise HTTPException(status_code=400, detail="Invalid user_type")
+    Returns a list of validation records with optional filtering and pagination.
 
-    validations = db.get_validations(
-        limit=limit,
-        offset=offset,
-        status=status,
-        user_type=user_type,
-        search=search,
-        from_date=from_date,
-        to_date=to_date,
-        order_by=order_by,
-        order_dir=order_dir
-    )
+    Query Parameters:
+    - limit: Maximum number of records (1-1000)
+    - offset: Number of records to skip for pagination
+    - status: Filter by validation status
+    - user_type: Filter by user type (free/paid)
+    - search: Search in job_id field (partial match)
+    - from_date: Include only validations created after this date
+    - to_date: Include only validations created before this date
+    - order_by: Column to sort by (created_at, duration_seconds, etc.)
+    - order_dir: Sort direction (ASC/DESC)
+    """
+    try:
+        validations = database.get_validations(
+            limit=limit,
+            offset=offset,
+            status=status,
+            user_type=user_type,
+            search=search,
+            from_date=from_date,
+            to_date=to_date,
+            order_by=order_by,
+            order_dir=order_dir
+        )
 
-    # Get total count for pagination
-    total = db.get_validations_count(
-        status=status,
-        user_type=user_type,
-        search=search,
-        from_date=from_date,
-        to_date=to_date
-    )
+        # Get total count for pagination
+        total = database.get_validations_count(
+            status=status,
+            user_type=user_type,
+            search=search,
+            from_date=from_date,
+            to_date=to_date
+        )
 
-    # Format validations for frontend
-    formatted_validations = []
-    for validation in validations:
-        # Format token usage
-        token_usage = None
-        if validation.get("token_usage_total"):
-            token_usage = {
-                "prompt": validation.get("token_usage_prompt", 0),
-                "completion": validation.get("token_usage_completion", 0),
-                "total": validation["token_usage_total"]
-            }
+        # Convert to response models
+        validation_responses = [ValidationResponse(**validation) for validation in validations]
 
-        formatted_validation = {
-            "job_id": validation["job_id"],
-            "created_at": validation["created_at"],
-            "completed_at": validation.get("completed_at"),
-            "duration_seconds": validation.get("duration_seconds"),
-            "citation_count": validation.get("citation_count"),
-            "user_type": validation["user_type"],
-            "status": validation["status"],
-            "error_message": validation.get("error_message"),
-            "token_usage": token_usage
-        }
-        formatted_validations.append(formatted_validation)
-
-    return {
-        "validations": formatted_validations,
-        "total": total,
-        "limit": limit,
-        "offset": offset
-    }
+        return ValidationsListResponse(
+            validations=validation_responses,
+            total=total,
+            limit=limit,
+            offset=offset
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get validations: {str(e)}")
 
 
-@app.get("/api/stats")
+@app.get("/api/validations/count")
+async def get_validations_count(
+    status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
+    user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
+    search: Optional[str] = Query(None, description="Search in job_id field"),
+    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format)"),
+    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format)"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get count of validations matching filters
+
+    Returns the total count of validations that match the specified filters.
+    Useful for pagination UI and analytics.
+    """
+    try:
+        count = database.get_validations_count(
+            status=status,
+            user_type=user_type,
+            search=search,
+            from_date=from_date,
+            to_date=to_date
+        )
+        return {"count": count}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get validation count: {str(e)}")
+
+
+@app.get("/api/stats", response_model=StatsResponse)
 async def get_stats(
-    from_date: Optional[str] = None,
-    to_date: Optional[str] = None
+    from_date: Optional[str] = Query(None, description="Start date (ISO format)"),
+    to_date: Optional[str] = Query(None, description="End date (ISO format)"),
+    database: DatabaseManager = Depends(get_db)
 ):
-    """Get summary statistics for validations"""
-    stats = db.get_stats(from_date=from_date, to_date=to_date)
+    """
+    Get dashboard statistics
 
-    return {
-        "total_validations": stats["total_validations"],
-        "completed": stats["completed"],
-        "failed": stats["failed"],
-        "pending": stats["pending"],
-        "total_citations": stats["total_citations"],
-        "free_users": stats["free_users"],
-        "paid_users": stats["paid_users"],
-        "avg_duration_seconds": stats["avg_duration_seconds"],
-        "avg_citations_per_validation": stats["avg_citations_per_validation"]
-    }
+    Provides summary statistics for validations, including:
+    - Total, completed, failed, pending counts
+    - Citation metrics
+    - User type breakdown
+    - Average duration and citation count
+
+    Query Parameters:
+    - from_date: Filter validations created after this date
+    - to_date: Filter validations created before this date
+    """
+    try:
+        stats = database.get_stats(from_date=from_date, to_date=to_date)
+        return StatsResponse(**stats)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get statistics: {str(e)}")
 
 
-@app.get("/api/parser-errors")
-async def get_parser_errors(limit: int = 50):
-    """Get recent parser errors"""
-    if limit > 200:
-        limit = 200
+@app.get("/api/errors", response_model=List[ValidationError])
+async def get_parser_errors(
+    limit: int = Query(50, ge=1, le=200, description="Maximum number of errors to return"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get recent parser errors
 
-    errors = db.get_parser_errors(limit=limit)
-    return {"errors": errors}
+    Returns a list of recent parsing errors for debugging and monitoring.
+    Shows what went wrong during log parsing.
+
+    Query Parameters:
+    - limit: Maximum number of errors to return (1-200)
+    """
+    try:
+        errors = database.get_parser_errors(limit=limit)
+        return [ValidationError(**error) for error in errors]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get parser errors: {str(e)}")
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """
+    Global exception handler for unhandled exceptions
+
+    Returns a standardized error response for any unhandled exceptions.
+    Prevents stack traces from leaking to clients in production.
+    """
+    print(f"Unhandled exception: {exc}")
+    return HTTPException(
+        status_code=500,
+        detail="Internal server error. Check logs for details."
+    )
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=4646)
+
+    # Run API server
+    uvicorn.run(
+        "api:app",
+        host="0.0.0.0",
+        port=4646,
+        reload=False,  # Set to True for development
+        log_level="info"
+    )

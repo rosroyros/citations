@@ -127,6 +127,60 @@ def extract_citation_count(log_line: str) -> Optional[int]:
     return None
 
 
+def extract_token_usage(log_line: str) -> Optional[Dict[str, int]]:
+    """
+    Extract token usage from a log line.
+
+    Args:
+        log_line: The log line to extract token usage from
+
+    Returns:
+        dict with prompt, completion, total if found, None otherwise
+    """
+    # Pattern matches: Token usage: 1025 prompt + 997 completion = 2022 total
+    token_pattern = r'Token usage: (\d+) prompt \+ (\d+) completion = (\d+) total'
+    match = re.search(token_pattern, log_line)
+
+    if match:
+        try:
+            return {
+                "prompt": int(match.group(1)),
+                "completion": int(match.group(2)),
+                "total": int(match.group(3))
+            }
+        except ValueError:
+            return None
+
+    return None
+
+
+def extract_failure(log_line: str) -> Optional[tuple]:
+    """
+    Extract job failure information from a log line.
+
+    Args:
+        log_line: The log line to extract job failure info from
+
+    Returns:
+        tuple of (job_id, timestamp, error_message) if found, None otherwise
+    """
+    # Pattern matches: Job abc-123: Failed with error: <error message>
+    failure_pattern = r'Job ([a-f0-9-]+): Failed with error: (.+)'
+    match = re.search(failure_pattern, log_line)
+
+    if match:
+        job_id = match.group(1)
+        error_message = match.group(2)
+
+        # Extract timestamp from the beginning of the line
+        timestamp = extract_timestamp(log_line)
+
+        if timestamp:
+            return job_id, timestamp, error_message
+
+    return None
+
+
 def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
     """
     Pass 1: Extract job lifecycle events from log lines.
@@ -161,19 +215,14 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["status"] = "completed"
             continue
 
-        # Check for job failure (basic implementation)
-        if "Failed" in line and "Job" in line:
-            failure_pattern = r'Job ([a-f0-9-]+): Failed with error: (.+)'
-            match = re.search(failure_pattern, line)
-            if match:
-                job_id = match.group(1)
-                error_message = match.group(2)
-                timestamp = extract_timestamp(line)
-                if job_id in jobs:
-                    jobs[job_id]["status"] = "failed"
-                    jobs[job_id]["error_message"] = error_message
-                    if timestamp:
-                        jobs[job_id]["completed_at"] = timestamp
+        # Check for job failure
+        failure_result = extract_failure(line)
+        if failure_result:
+            job_id, timestamp, error_message = failure_result
+            if job_id in jobs:
+                jobs[job_id]["status"] = "failed"
+                jobs[job_id]["error_message"] = error_message
+                jobs[job_id]["completed_at"] = timestamp
 
     return jobs
 
@@ -247,6 +296,13 @@ def parse_metrics(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict
         if citation_count is not None:
             job["citation_count"] = citation_count
 
+        # Extract token usage
+        token_usage = extract_token_usage(line)
+        if token_usage is not None:
+            job["token_usage_prompt"] = token_usage["prompt"]
+            job["token_usage_completion"] = token_usage["completion"]
+            job["token_usage_total"] = token_usage["total"]
+
     return jobs
 
 
@@ -291,12 +347,15 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
         job.setdefault("duration_seconds", None)
         job.setdefault("citation_count", None)
         job.setdefault("error_message", None)
+        job.setdefault("token_usage_prompt", None)
+        job.setdefault("token_usage_completion", None)
+        job.setdefault("token_usage_total", None)
 
-        # Convert datetime objects to ISO format strings
+        # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):
-            job["created_at"] = job["created_at"].isoformat() + "Z"
+            job["created_at"] = job["created_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
         if "completed_at" in job and isinstance(job["completed_at"], datetime):
-            job["completed_at"] = job["completed_at"].isoformat() + "Z"
+            job["completed_at"] = job["completed_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
 
         result.append(job)
 

@@ -1,0 +1,2192 @@
+{
+  "baseline_analysis": {
+    "total": 121,
+    "correct": 88,
+    "accuracy": 0.7272727272727273,
+    "predicted_true": 17,
+    "predicted_false": 104,
+    "true_accuracy": 0.8823529411764706,
+    "false_accuracy": 0.7019230769230769
+  },
+  "confidence_results": [
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        false,
+        true,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 1,
+        "true": 2
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        false,
+        true,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 1,
+        "true": 2
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": true,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        true
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": true,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 2,
+        "false": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": true,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": true,
+      "individual_votes": [
+        true,
+        true,
+        true
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "true": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        true,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "false": 2,
+        "true": 1
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": false,
+      "gpt5_decision": false,
+      "gpt5_correct": true,
+      "gpt4o_correct": true
+    },
+    {
+      "confidence_score": 1.0,
+      "majority_decision": false,
+      "individual_votes": [
+        false,
+        false,
+        false
+      ],
+      "has_variance": false,
+      "decision_counts": {
+        "false": 3
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    },
+    {
+      "confidence_score": 0.6666666666666666,
+      "majority_decision": false,
+      "individual_votes": [
+        true,
+        false,
+        false
+      ],
+      "has_variance": true,
+      "decision_counts": {
+        "true": 1,
+        "false": 2
+      },
+      "ground_truth": true,
+      "gpt5_decision": false,
+      "gpt5_correct": false,
+      "gpt4o_correct": false
+    }
+  ],
+  "threshold_analysis": {
+    "0.5": {
+      "threshold": 0.5,
+      "cascade_accuracy": 0.6859504132231405,
+      "escalation_rate": 0.0,
+      "cost_per_citation": 0.0004499999999999994,
+      "primary_used": 121,
+      "escalated": 0,
+      "improvement_over_4o": 0.0,
+      "improvement_over_gpt5": -0.04132231404958675
+    },
+    "0.6": {
+      "threshold": 0.6,
+      "cascade_accuracy": 0.6859504132231405,
+      "escalation_rate": 0.0,
+      "cost_per_citation": 0.0004499999999999994,
+      "primary_used": 121,
+      "escalated": 0,
+      "improvement_over_4o": 0.0,
+      "improvement_over_gpt5": -0.04132231404958675
+    },
+    "0.67": {
+      "threshold": 0.67,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    },
+    "0.7": {
+      "threshold": 0.7,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    },
+    "0.75": {
+      "threshold": 0.75,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    },
+    "0.8": {
+      "threshold": 0.8,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    },
+    "0.9": {
+      "threshold": 0.9,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    },
+    "1.0": {
+      "threshold": 1.0,
+      "cascade_accuracy": 0.6776859504132231,
+      "escalation_rate": 0.18181818181818182,
+      "cost_per_citation": 0.0009045454545454554,
+      "primary_used": 99,
+      "escalated": 22,
+      "improvement_over_4o": -0.008264462809917439,
+      "improvement_over_gpt5": -0.04958677685950419
+    }
+  },
+  "optimal_threshold": 0.5,
+  "optimal_performance": {
+    "threshold": 0.5,
+    "cascade_accuracy": 0.6859504132231405,
+    "escalation_rate": 0.0,
+    "cost_per_citation": 0.0004499999999999994,
+    "primary_used": 121,
+    "escalated": 0,
+    "improvement_over_4o": 0.0,
+    "improvement_over_gpt5": -0.04132231404958675
+  },
+  "recommendation": "Below target (<75%)",
+  "success_recommendation": "\u274c NEEDS IMPROVEMENT - Consider different approach",
+  "temperature_used": 1.0,
+  "execution_time": {
+    "confidence_calculation": 1617.7216839790344,
+    "total": 1617.722963809967
+  }
+}

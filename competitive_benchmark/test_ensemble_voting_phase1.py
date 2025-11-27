@@ -31,7 +31,7 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 MODEL = 'gpt-4o-mini'
 TEMPERATURE = 0.7  # Higher temperature for variance
 NUM_SAMPLES = 5
-BASELINE_FILE = Path('competitive_benchmark/GPT-4o-mini_baseline_detailed_121.jsonl')
+BASELINE_FILE = Path('GPT-4o-mini_v2_default_round1_detailed_121.jsonl')
 TEST_SET_FILE = Path('../Checker_Prompt_Optimization/test_set_121_corrected.jsonl')
 PROMPT_FILE = Path('../backend/prompts/validator_prompt_v2.txt')
 
@@ -146,6 +146,16 @@ def main():
     with open(PROMPT_FILE) as f:
         prompt = f.read()
 
+    # Load ground truth data once to avoid repeated file I/O
+    print("📋 Loading ground truth data...")
+    ground_truth_data = {}
+    with open(TEST_SET_FILE) as f:
+        for line in f:
+            if line.strip():
+                item = json.loads(line)
+                ground_truth_data[item['citation']] = item['ground_truth']
+    print(f"   ✓ Loaded {len(ground_truth_data)} ground truth entries")
+
     # Initialize OpenAI client
     client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -167,9 +177,7 @@ def main():
             'agreement': ensemble_result['agreement'],
             'variance': ensemble_result['variance'],
             'decision_counts': ensemble_result['decision_counts'],
-            'ensemble_correct': (ensemble_result['majority_decision'] ==
-                               [item for item in json.load(open(TEST_SET_FILE))
-                                if item['citation'] == citation][0]['ground_truth'])
+            'ensemble_correct': ensemble_result['majority_decision'] == ground_truth_data[citation]
         }
         results.append(result)
 
@@ -246,7 +254,7 @@ def main():
     print(f"{'='*70}")
 
     # Save results
-    output_file = 'competitive_benchmark/ensemble_voting_phase1_30.jsonl'
+    output_file = 'ensemble_voting_phase1_30.jsonl'
     with open(output_file, 'w') as f:
         for result in results:
             json.dump(result, f)

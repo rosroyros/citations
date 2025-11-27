@@ -1,0 +1,1650 @@
+════════════════════════════════════════════════════════════════════════
+CITATION #1
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_King James Bible_ (2017) King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published: 1769)
+
+SOURCE TYPE: Other (classical/religious work)
+
+VALIDATION RESULTS:
+❌ Reference structure: Not in proper APA format (missing clear author/title placement, missing period after date).
+   Should be something like:
+   King James Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #2
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #3
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Leitch, M. G., & Rushton, C. J. (Eds.). 2019. _A New Companion to Malory_. D. S. Brewer.
+
+SOURCE TYPE: Book (edited)
+
+VALIDATION RESULTS:
+❌ Year format: Missing parentheses around the year.  
+   Should be: (2019).  
+❌ Book title in Title Case: Must be sentence case.  
+   Should be: A new companion to Malory.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #4
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+I. O. for Standardization. (2018). _Occupational health and safety management systems—Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html
+
+SOURCE TYPE: Other (standard)
+
+VALIDATION RESULTS:
+❌ Author name: Abbreviated incorrectly.  
+   Should be the full group name: International Organization for Standardization. (2018).  
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #5
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #6
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: Other (YouTube video)
+
+VALIDATION RESULTS:
+❌ Date format: Should include a comma and parentheses.  
+   Should be: (2016, July 3).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #7
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int
+
+SOURCE TYPE: Other (reference work)
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year.  
+   Should be: World Health Organization. (2019).  
+❌ Missing period after author name.  
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #8
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stobbe, M. (2020, January 8). Cancer Death Rate in U.S. Sees Largest One-Year Drop Ever. _Chicago Tribune_
+
+SOURCE TYPE: Newspaper article
+
+VALIDATION RESULTS:
+❌ Title in Title Case: Must be sentence case.  
+   Should be: Cancer death rate in U.S. sees largest one-year drop ever.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #9
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.
+
+SOURCE TYPE: Book (edited)
+
+VALIDATION RESULTS:
+❌ Title in Title Case: Must be sentence case.  
+   For example: The Norton anthology of English literature: The Middle Ages
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #10
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf
+
+SOURCE TYPE: Report / White paper
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #11
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: Blog comment
+
+VALIDATION RESULTS:
+❌ Author usernames not in correct format (should be capitalized or treated as usernames consistently).
+❌ Title/punctuation formatting is awkward (should be a coherent sentence case title).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #12
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & Márquez-Greene, N. (2019, August 8–11). _Gun violence: An event on the power of community_ [Conference presentation]. APA 2019 Convention, Chicago, IL, USA. doi:10.1037/con2019-1234
+
+SOURCE TYPE: Conference presentation
+
+VALIDATION RESULTS:
+❌ Title incorrectly italicized for conference presentation.  
+❌ DOI format: Should be https://doi.org/10.1037/con2019-1234 (not “doi:”).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #13
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01
+
+SOURCE TYPE: Webpage / Blog post
+
+VALIDATION RESULTS:
+❌ Missing comma after “Price” → should be Price, D.  
+❌ Title is italicized; for a blog post, use sentence case in plain text.  
+❌ Website name “Medium” should be italicized per webpage rules.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #14
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title not italicized.  
+   Should be: _Diagnostic and statistical manual of mental disorders, third edition, revised_.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #15
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W (2019). _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed) University of Chicago Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year → (2019).  
+❌ Missing period after “W.” → should be “Belcher, W.”  
+❌ Title in Title Case; must be sentence case.  
+❌ Edition missing period → (2nd ed.).  
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #16
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: Other (YouTube video)
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #17
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95
+
+SOURCE TYPE: Other (standard)
+
+VALIDATION RESULTS:
+❌ Punctuation after the standard number should be a period, not a comma.  
+   Should be … (OSHA Standard No. 1910.95). United States Department of Labor. …
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #18
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #19
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing period after author and missing parentheses for year.  
+   Should be: American Psychiatric Association. (1994).  
+❌ Title in Title Case; must be sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #20
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Old DOI format (http://dx.doi…).  
+   Should be: https://doi.org/10.1037/pspa0000166
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #21
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Book title must be italicized.  
+❌ Edition should end with (2nd ed.). (period inside the parenthesis)  
+❌ Missing a period before the publisher.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #22
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association, 1980 _Diagnostic and statistical manual of mental disorders_ (3rd ed..)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year.  
+❌ Edition has extra period → (3rd ed.).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #23
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster D. C., Schaubroeck J., Sime W. E. & Mayes B. T. 1991 The nomological validity of the Type A personality among employed adults _Journal of Applied Psychology_ 76 1 143–168
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Authors need commas and an ampersand before final author.  
+   Should be: Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T.  
+❌ Year not in parentheses.  
+❌ Missing parentheses around issue (should be 76(1), 143–168).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #24
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Svendsen, S., & Løber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Extra ampersand in authors (only use one & before the last author).  
+❌ Title in Title Case; must be sentence case (e.g., The big picture/academic writing: The one-hour guide).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #25
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Retraction note needs proper spacing.  
+   Should have a space or period before (Retraction published 2012…).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #26
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11–16.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Article title is italicized; journal articles should have the title in plain text, sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #27
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+International Organization for Standardization. (2018). _Occupational Health and Safety Management Systems—Requirements with Guidance for Use_ (ISO Standard No. 45001:2018).
+
+SOURCE TYPE: Other (standard)
+
+VALIDATION RESULTS:
+❌ Title in Title Case; must be sentence case.  
+   Should be: Occupational health and safety management systems—Requirements with guidance for use.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #28
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: Social media post
+
+VALIDATION RESULTS:
+❌ Post text is italicized; social media post text should not be italicized.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #29
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sendak, M. (2012). _Where the wild things are_ (50th anniversary ed.). HarperCollins Publishers. https://doi.org/10.1234/5678
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #30
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: Blog comment
+
+VALIDATION RESULTS:
+❌ Date format missing comma and proper parentheses → (2019, November 19).  
+❌ Comment title/punctuation needs standard sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #31
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Dillard, J. P. (2020). Currents in the study of persuasion. In M. B. Oliver, A. A. Raney, & J. Bryant (Eds.), _Media effects: Advances in theory and research_ (4th ed., pp. 115–129). Routledge.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Book title in Title Case; should be sentence case.  
+   Should be: Media effects: Advances in theory and research
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #32
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Bronfenbrenner, U. (2005). The social ecology of human development: A retrospective conclusion. In U. Bronfenbrenner (Ed.), _Making human beings human: Bioecological perspectives on human development_ (pp. 27–40). SAGE Publications.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #33
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615
+
+SOURCE TYPE: Dissertation
+
+VALIDATION RESULTS:
+❌ Author name format: Should be “Zambrano-Vazquez, L.”  
+❌ Year should appear in parentheses right after the name → (2016).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #34
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25–28). _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, California, United States. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: Conference presentation abstract
+
+VALIDATION RESULTS:
+❌ Title is italicized; for a presentation/abstract, typically use plain text in sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #35
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jackson, L.M. (2019) The psychology of prejudice: from attitudes to social action. (2nd ed) American Psychological Association, https://doi.org/10.1037/0000168-000
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year → (2019).  
+❌ Book title not italicized.  
+❌ Edition missing period → (2nd ed.).  
+❌ Should end with a period before the DOI (rather than a comma).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #36
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA_, _116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #37
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Author format: Should be Stoneman, R.  
+❌ Missing parentheses around year → (2008).  
+❌ Title in sentence case → Alexander the Great: A life in legend (keeping “Alexander the Great” as a proper noun, but “a life in legend” lowercased after colon).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #38
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.
+
+SOURCE TYPE: Newspaper article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #39
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA, 116_(47), 23499–23504 https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing ampersand before final author (should be Kelly, D. R., & Matthews, M. D.).  
+❌ Also missing comma before the ampersand.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #40
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., Perez, C., Yelinek, J., & Lewis, T. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #41
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047–1056.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing ampersand for final author → …D. A., & Lindenberg…  
+❌ Missing parentheses around (2008).  
+❌ Journal name not in Title Case → Personality and Social Psychology Bulletin.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #42
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #43
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013) _Diagnostic and Statistical Manual of Mental Disorders_ 5th ed https://doi.org/10.1176/appi.books.9780890425596
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Year missing parentheses → (2013).  
+❌ Title in Title Case; should be sentence case.  
+❌ Edition needs parentheses → (5th ed.).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #44
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs
+
+SOURCE TYPE: Preprint
+
+VALIDATION RESULTS:
+❌ Year missing parentheses → (2017).  
+❌ Typically preprint titles are not italicized; a bracketed note like “[Preprint]” could be used.  
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #45
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L. [RL_Stine]. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: Online forum post
+
+VALIDATION RESULTS:
+❌ Forum post title improperly italicized; should be plain text in sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #46
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #47
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster; 2003. Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: Reference book entry
+
+VALIDATION RESULTS:
+❌ Year not in parentheses and semicolon used improperly.  
+   Should be: Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #48
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Aron, L., Botella, M., & Lubart, T. (2019). Culinary arts: Talent and their development. In R. F. Subotnik, P. Olszewski-Kubilius, & F. C. Worrell (Eds.), _The psychology of high performance: Developing human potential into domain-specific talent_ (pp. 345–359). American Psychological Association. https://doi.org/10.1037/0000120-016
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #49
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: Book (classical work)
+
+VALIDATION RESULTS:
+❌ Extra comma after Plato; should be Plato. (1989).  
+❌ Need a period after (Trans.)  
+❌ Use a period before (Original work published…).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #50
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L., & Smith, J. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: Online forum post
+
+VALIDATION RESULTS:
+❌ Title is italicized; for a forum post, it should not be italic.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #51
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34–41). American University
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Chapter title in Title Case; use sentence case → Neighborhood watch: Social media in the community.  
+❌ Missing comma after (Ed.),  
+❌ Book title must be italicized and in sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #52
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9
+
+SOURCE TYPE: Edited book
+
+VALIDATION RESULTS:
+Possibly minor Title Case vs. sentence case issue, but typically this series title is used as is.  
+✓ No major APA 7 errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #53
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+
+SOURCE TYPE: Book (classical work)
+
+VALIDATION RESULTS:
+❌ Missing period after author → Plato. (1989).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #54
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_. (Publication No. 27542827) [Doctoral dissertation, Pepperdine University] PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+
+SOURCE TYPE: Dissertation
+
+VALIDATION RESULTS:
+Most elements appear correct.  
+✓ No significant APA 7 errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #55
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #56
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225–240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Author format not in standard “LastName, Initials.” style. Should be something like:  
+   Bedenel, A.-L., Jourdan, L., & Biernacki, C. (2019). …
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #57
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., & Her, M. (2019). Emotions in Storybooks: A Comparison of Storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, 8(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Title in Title Case (“Emotions in Storybooks…”). Must be sentence case: Emotions in storybooks: A comparison…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #58
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_ https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+SOURCE TYPE: Web article
+
+VALIDATION RESULTS:
+❌ Missing comma after “Ouellette”: should be Ouellette, J.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #59
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Book title in Title Case: should be sentence case (Early childhood education: Values and practices in Denmark).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #60
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #61
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #62
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical Principles of Psychologists and Code of Conduct_ (2002, amended effective June 1, 2010, and January 1, 2017) http://www.apa.org/ethics/code
+
+SOURCE TYPE: Other / Governing document
+
+VALIDATION RESULTS:
+❌ Title in Title Case → should be sentence case: Ethical principles of psychologists and code of conduct.  
+❌ Missing punctuation prior to the URL (typically a period after the parenthetical).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #63
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: Reference book entry
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #64
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Article title is italicized; should be plain text in sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #65
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department for Business Innovation & Skills. (2016). _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. Crown. https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/523396/bis-16-265-success-as-a-knowledge-economy.pdf
+
+SOURCE TYPE: Government white paper
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #66
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #67
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #68
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and future [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, CA. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: Conference presentation abstract
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #69
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.). https://doi.org/10.1176/appi.books.9780890420249
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #70
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+SOURCE TYPE: Book (classical work)
+
+VALIDATION RESULTS:
+❌ Missing period after author name → Plato. (1989).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #71
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Chapter title in Title Case; should be sentence case → Malory and character.  
+❌ Book title in Title Case; should be sentence case → A new companion to Malory.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #72
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton, Eds., _A new Companion to Malory_ (pp. 144-163). D. S. Brewer.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Editors should be in parentheses → In M. G. Leitch & C. J. Rushton (Eds.),  
+❌ Book title is in Title Case → should be a new companion to Malory.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #73
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). https://www.apa.org/ethics/code/
+
+SOURCE TYPE: Other / Policy document
+
+VALIDATION RESULTS:
+❌ Title in Title Case → should be sentence case: Ethical principles of psychologists and code of conduct.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #74
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+SOURCE TYPE: Other (religious text)
+
+VALIDATION RESULTS:
+❌ Author format incorrect (“King, J. Bible.” is not correct).  
+   Should be something like: King James Bible. (2017). …
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #75
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Journal name should be italicized → _PLoS ONE_, 13(3), …
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #76
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456
+
+SOURCE TYPE: Magazine article
+
+VALIDATION RESULTS:
+❌ Article title should not be italicized.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #77
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf
+
+SOURCE TYPE: Government report
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #78
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pegion, K., et al. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ “et al.” in the reference list is incorrect if the total authors are 20 or fewer; APA 7 wants full author listing up to 20 authors.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #79
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman R. 2008 _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year.  
+❌ Author format → Stoneman, R.  
+❌ Title in sentence case → Alexander the Great: A life in legend.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #80
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Author list commas missing (e.g., Nguyen, T., Carnevale, J. J., Scholer, A. A., …).  
+❌ Old DOI format; should be https://doi.org/…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #81
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05
+
+SOURCE TYPE: Book section
+
+VALIDATION RESULTS:
+❌ Missing parentheses around the year → (2013).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #82
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Editor names need correct order: In E. Hygum & P. M. Pedersen (Eds.),  
+❌ Book title likely in Title Case; must be sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #83
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia
+
+SOURCE TYPE: Unpublished doctoral dissertation
+
+VALIDATION RESULTS:
+❌ Missing period after the italicized title.  
+   Should be: …school leaders. Unpublished doctoral dissertation…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #84
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html
+
+SOURCE TYPE: Newspaper article (online)
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #85
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #86
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+SOURCE TYPE: Webpage (dynamic medical resource)
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #87
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #88
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy, 185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #89
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5–13.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing parentheses around (1996).  
+❌ Article title incorrectly italicized (should be plain text).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #90
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected (assuming the course title remains italicized as the book title)
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #91
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+McNally, R. J., & Held, P. (2025). Using Network Analysis to Characterize Clinical Improvement During Cognitive Processing Therapy. _Behaviour Research and Therapy_, _185_, Article 104678.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Title in Title Case; should be sentence case → Using network analysis to characterize clinical improvement…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #92
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1–3). American Psychological Association.
+
+SOURCE TYPE: Edited book
+
+VALIDATION RESULTS:
+❌ Missing comma after “Urdan”: should be Urdan, T.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #93
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Old DOI format → use https://doi.org/…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #94
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf
+
+SOURCE TYPE: Report / Fact sheet
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #95
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/
+
+SOURCE TYPE: Report
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #96
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your Environment: What You Can Do to Limit Exposure_ [Fact sheet]. U.S. Department of Health & Human Services.
+
+SOURCE TYPE: Fact sheet
+
+VALIDATION RESULTS:
+❌ Title in Title Case; should be sentence case → Asbestos in your environment: What you can do to limit exposure
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #97
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143–168. https://doi.org/10.1037/0021-9010.76.1.143
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Title in Title Case; must be sentence case → The nomological validity of the Type A personality among employed adults
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #98
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia
+
+SOURCE TYPE: Report
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #99
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #100
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Publisher location included; APA 7 omits locations.  
+   Should be: Yale University Press (no “New Haven, CT:”).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #101
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: Book (classical work)
+
+VALIDATION RESULTS:
+❌ Translators should be in parentheses → (A. Nehamas & P. Woodruff, Trans.).  
+❌ Typically add a period before (Original work published…).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #102
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (n.d.). Just-world hypothesis. In _APA dictionary of psychology_. Retrieved January 18, 2020, from https://dictionary.apa.org/just-world-hypothesis
+
+SOURCE TYPE: Online dictionary entry
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #103
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: Social media post
+
+VALIDATION RESULTS:
+❌ Corporate author name reversed; should be U.S. Department of the Interior.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #104
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.
+
+SOURCE TYPE: Webpage or online article (no URL provided)
+
+VALIDATION RESULTS:
+❌ Date missing parentheses → (2019, November).  
+❌ No URL or further publication info included (appears incomplete).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #105
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title not italicized.  
+   Should be: _Diagnostic and statistical manual of mental disorders_ (5th ed., text rev.)
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #106
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kübler-Ross, E. (with Byock, I.). (2014). _On death & dying: What the dying have to teach doctors, nurses, clergy & their own families_ (50th anniversary ed.). Scribner. (Original work published 1969)
+
+SOURCE TYPE: Book (reissued)
+
+VALIDATION RESULTS:
+❌ Title appears capitalized as “On Death & Dying” in many references, but APA wants sentence case → On death & dying: What the dying have to teach…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #107
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, Roger. (1996) The eclipse of listening. _The New Criterion_ 15(3): 5-13.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Author name format → Scruton, R.  
+❌ Missing parentheses around (1996).  
+❌ Volume/issue punctuation should be 15(3), 5–13.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #108
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (1987). _Diagnostic & Statistical Manual of Mental Disorders_ (3rd ed., rev.)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title in Title Case; should be sentence case: Diagnostic and statistical manual…  
+❌ Use “and” not ampersand in the official title if following standard DSM wording.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #109
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers’ and the general publics’ perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239–248. https://doi.org/10.1037/cbs0000411
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Article title is italicized; should be plain text in sentence case.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #110
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around (1980).  
+❌ Edition punctuation should be (3rd ed.).
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #111
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing editor or author.  
+❌ Title in Title Case; APA wants sentence case → The Norton anthology of English literature: The Middle Ages
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #112
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/
+
+SOURCE TYPE: Social media (Instagram)
+
+VALIDATION RESULTS:
+❌ Caption/title is italicized; should be plain text.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #113
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lyons, D. (2009, June 15). Don’t ‘iTune’ us: It’s geeks versus writers: Guess who’s winning. _Newsweek_, 153(24), 27.
+
+SOURCE TYPE: Magazine article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #114
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin, 34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing ampersand before final author → …D. A., & Lindenberg, S. M.  
+❌ Journal formatting (volume/issue) could be streamlined as _Personality and Social Psychology Bulletin, 34_(8),…
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #115
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sapolsky, R. M. (2017). _Behave: The biology of humans at our best and worst_. Penguin Books.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #116
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E. & Malkin T. (Eds.). 2016. _Lecture notes in computer science_ Vol. 9562. Theory of cryptography. Springer
+
+SOURCE TYPE: Edited book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year: (2016).  
+❌ Title formatting should be italic and in sentence case (and combined), e.g., _Lecture notes in computer science: Vol. 9562. Theory of cryptography_.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #117
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. doi:10.1234/atsdr.5678
+
+SOURCE TYPE: Fact sheet
+
+VALIDATION RESULTS:
+❌ Old “doi:” format → Should be https://doi.org/10.1234/atsdr.5678
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #118
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+US Food and Drug Administration. (2024, September 12). _FDA Authorizes First Over-the-Counter Hearing Aid Software_ [Press release]. https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software
+
+SOURCE TYPE: Press release
+
+VALIDATION RESULTS:
+❌ Title in Title Case and italicized; should be sentence case, not italic.  
+   E.g., FDA authorizes first over-the-counter hearing aid software [Press release].
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #119
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Punctuation: After (C. Luyken, Illus.) should be a period, then the publisher.  
+   …(C. Luyken, Illus.). Candlewick Press.
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #120
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)
+
+SOURCE TYPE: Reprint of classic study (treated as a book)
+
+VALIDATION RESULTS:
+✓ No significant APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────
+
+CITATION #121
+════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+
+SOURCE TYPE: Web article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+────────────────────────────────────────────────────────────────────────

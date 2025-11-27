@@ -1,0 +1,1725 @@
+═══════════════════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_King James Bible_ (2017) King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published: 1769)
+
+SOURCE TYPE: Other (classical religious work, treated similarly to a book with no individual author)
+
+VALIDATION RESULTS:
+❌ Year formatting and punctuation: Missing period after the year; and the phrase “(Original work published: 1769)” should not have a colon.
+   Should be: King James Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #2
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Malory, T. (2017). _Le morte d'Arthur_ (P. J. C. Field, Ed.). D. S. Brewer.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #3
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Leitch, M. G., & Rushton, C. J. (Eds.). 2019. _A New Companion to Malory_. D. S. Brewer.
+
+SOURCE TYPE: Book (edited)
+
+VALIDATION RESULTS:
+❌ Year formatting/punctuation: The year should be in parentheses followed by a period.
+   Should be: Leitch, M. G., & Rushton, C. J. (Eds.). (2019). _A new companion to Malory_. D. S. Brewer.
+❌ Title case for book: The subtitle should be in sentence case, but “A New Companion to Malory” uses capital “N,” “C,” “M.” Only the first word and proper nouns should be capitalized. “Malory” is a proper noun, but “New” and “Companion” are not.
+   Should be: _A new companion to Malory_
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #4
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+I. O. for Standardization. (2018). _Occupational health and safety management systems—Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html
+
+SOURCE TYPE: Other (ISO standard; treat as a standard or corporate author reference)
+
+VALIDATION RESULTS:
+❌ Corporate author name: “I. O. for Standardization” is incomplete. The full name is “International Organization for Standardization.”  
+   Should be: International Organization for Standardization. (2018).  
+❌ Title casing: Sentence case is required for the title of the standard. The text after the dash should also be lowercased (unless proper noun).
+   Should be: _Occupational health and safety management systems—Requirements with guidance for use_ 
+Corrected example:  
+International Organization for Standardization. (2018). _Occupational health and safety management systems—Requirements with guidance for use_ (ISO Standard No. 45001:2018). https://www.iso.org/standard/63787.html
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #5
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J., & Smith, L. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #6
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. [Korab Lushi] (2016 July 3) _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: Online video (e.g., YouTube)
+
+VALIDATION RESULTS:
+❌ Missing punctuation/date format: Year should be in parentheses, and there should be commas after the date elements.
+   Should be: Lushi, K. [Korab Lushi]. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #7
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+World Health Organization (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int
+
+SOURCE TYPE: Book (organizational author)
+
+VALIDATION RESULTS:
+❌ Missing comma after author and parentheses around year: Should be “World Health Organization. (2019).”
+   Should be: World Health Organization. (2019). _International statistical classification of diseases and related health problems_ (11th ed.). https://icd.who.int
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #8
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stobbe, M. (2020, January 8). Cancer Death Rate in U.S. Sees Largest One-Year Drop Ever. _Chicago Tribune_
+
+SOURCE TYPE: Newspaper article
+
+VALIDATION RESULTS:
+❌ Article title casing: Should be sentence case, not title case.
+   Should be: Cancer death rate in U.S. sees largest one-year drop ever.
+❌ Italics on newspaper name missing final punctuation. Also missing a period at the end of the reference.  
+   Should be: Stobbe, M. (2020, January 8). Cancer death rate in U.S. sees largest one-year drop ever. _Chicago Tribune_.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #9
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+David, A., Simpson, J., & Lee, C. (Eds.). (2006). _The Norton Anthology of English Literature: The Middle Ages_ (8th ed., Vol. A). W. W. Norton & Company.
+
+SOURCE TYPE: Book (anthology)
+
+VALIDATION RESULTS:
+❌ Title casing: For a book title in APA, use sentence case. However, “Norton,” “Anthology,” and “English Literature,” “Middle Ages” are proper nouns or official series titles, which complicates normal sentence-case rules. “English Literature” is a subject, but it’s also part of the official anthology title. Typically, for a widely recognized edition like “The Norton Anthology of English Literature,” the official title is generally capitalized as is (though APA guidelines lean to sentence case). Both styles appear, but strictly speaking, APA 7 calls for sentence case in references.  
+   Correct approach: _The Norton anthology of English literature: The Middle Ages_  
+(But the official title often remains capitalized. This is a borderline case in practice.)
+Otherwise:
+✓ Everything else looks acceptable (publisher name only, edition italicized, etc.).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #10
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Furst, M. & DeMillo, R. A. (2006). _Creating symphonic-thinking computer science graduates for an increasingly competitive global environment_ [White paper]. Georgia Tech College of Computing. https://cis.temple.edu/~giorgio/threads_whitepaper.pdf
+
+SOURCE TYPE: Gray literature/White paper
+
+VALIDATION RESULTS:
+❌ Ampersand usage: Should use an ampersand before the final author. “Furst, M. & DeMillo, R. A.” is okay, but missing a comma after “M.”  
+   Should be: Furst, M., & DeMillo, R. A.
+Otherwise:
+✓ Title is italicized in sentence case.  
+✓ No major errors beyond that punctuation.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #11
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr., & smithj. (2019, November 19). We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: Blog comment
+
+VALIDATION RESULTS:
+❌ Author names formatting: Usernames should be capitalized if they appear that way, or at least the first letter of each name. Also, each name’s initials or best approximate reference form should be used.  
+   Should be: joachimr., & smithj. (2019, November 19).  
+❌ Punctuation after “So I” is not fully incorrect, but typically the bracketed description is appended right after. This is acceptable, but the main error is the author formatting.  
+Otherwise looks fine for a comment citation.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #12
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Evans, A. C., Jr., Garbarino, J., Bocanegra, E., Kinscherff, R. T., & Márquez-Greene, N. (2019, August 8–11). _Gun violence: An event on the power of community_ [Conference presentation]. APA 2019 Convention, Chicago, IL, USA. doi:10.1037/con2019-1234
+
+SOURCE TYPE: Conference presentation
+
+VALIDATION RESULTS:
+❌ DOI formatting: Should be “https://doi.org/10.1037/con2019-1234,” not “doi:10.1037…”
+   Should be: https://doi.org/10.1037/con2019-1234
+Everything else looks correct for a conference presentation reference.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #13
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Price D. (2018, March 23). _laziness does not exist_. Medium https://humanparts.medium.com/laziness-does-not-exist-3af27e312d01
+
+SOURCE TYPE: Webpage/blog
+
+VALIDATION RESULTS:
+❌ Missing punctuation/formatting around author’s name: Should have a comma after last name and initial.  
+   Should be: Price, D. (2018, March 23).  
+❌ Title casing: The title should be sentence case, “laziness does not exist” is indeed in sentence case, but it requires capitalization of the first letter at the beginning if it is the first word in the title. Even if it’s a stylistic choice, APA typically capitalizes the first word.  
+   Should be: Laziness does not exist.  
+❌ Missing period after Medium (website name). The website name should be italicized.  
+   Should be: Medium. https://humanparts.medium.com…
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #14
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1987). Diagnostic and statistical manual of mental disorders, Third Edition, Revised.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Italics for book title missing:
+   Should be: American Psychiatric Association. (1987). _Diagnostic and statistical manual of mental disorders_ (3rd ed., rev.).  
+❌ Edition formatting: “Third Edition, Revised” in APA 7 is abbreviated as “(3rd ed., rev.).”  
+No publisher given, depends on whether it’s known or if a DOI is available. If none, no location.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #15
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W (2019). _Writing Your Journal Article in Twelve Weeks: A Guide to Academic Publishing Success_ (2nd ed) University of Chicago Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing punctuation: Comma after “W” and period after the year.  
+   Should be: Belcher, W. (2019).  
+❌ Title casing: The book title should be in sentence case.  
+   Should be: _Writing your journal article in twelve weeks: A guide to academic publishing success_  
+❌ Missing period after (2nd ed.).  
+❌ Missing publisher punctuation: The publisher name should be followed by a period.  
+   Correct full: Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #16
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lushi, K. (2016, July 3). _Albatross culture 1_ [Video]. YouTube. https://www.youtube.com/watch?v=_AMrJRQDPjk&t=148s
+
+SOURCE TYPE: Online video
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected (this is already correct, properly punctuated, and includes the date in parentheses).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #17
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95), United States Department of Labor. https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95
+
+SOURCE TYPE: Standard/regulation
+
+VALIDATION RESULTS:
+❌ Publisher location: In APA 7, we do not include the location (like “United States Department of Labor”) after the title if it’s the parent agency. If wanting to identify the agency that houses the standard, it could be within the reference, but typically the publisher is “Occupational Safety & Health Administration.”  
+   Should be: Occupational Safety & Health Administration. (1970). _Occupational safety and health standards: Occupational health & environmental control: Occupational noise exposure_ (OSHA Standard No. 1910.95). https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.95
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #18
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Butler, J. (2017). Where access meets multimodality: The case of ASL music videos. _Kairos: A Journal of Rhetoric, Technology, and Pedagogy_, _21_(1). http://technorhetoric.net/21.1/topoi/butler/index.html
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Title case: The article title should be sentence case. It is sentence case, so “Where access meets multimodality: The case of ASL music videos” is correct.  
+❌ Journal name: Should appear in title case and be italicized. The citation has “Kairos: A Journal of Rhetoric, Technology, and Pedagogy,” which is correct in title case and italicized.  
+❌ Missing page range or article identifier: If none is provided by the journal, that is acceptable.  
+This reference actually appears correct.  
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #19
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1994) Diagnostic and Statistical Manual of Mental Disorders (4th ed.) https://doi.org/10.1176/appi.books.9780890420614.dsm-iv
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around the year and missing period.  
+❌ Title should be italicized and in sentence case. “Diagnostic and Statistical Manual of Mental Disorders” should be “_Diagnostic and statistical manual of mental disorders_” (4th ed.).  
+❌ Should include a period before the DOI.  
+Correct form:  
+American Psychiatric Association. (1994). _Diagnostic and statistical manual of mental disorders_ (4th ed.). https://doi.org/10.1176/appi.books.9780890420614.dsm-iv
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #20
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology, 117_(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ DOI format: Should use “https://doi.org/...” not “http://dx.doi.org/...”  
+   Should be: https://doi.org/10.1037/pspa0000166
+All other details are good (sentence case for article title, italicized journal, volume in italics, issue in parentheses, pages). 
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #21
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Belcher, W. (2019). Writing your journal article in twelve weeks: A guide to academic publishing success (2nd ed.) University of Chicago Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Italics missing: Book title must be italicized.  
+❌ Missing period after “(2nd ed.).”  
+❌ Missing punctuation after publisher.  
+Correct form:  
+Belcher, W. (2019). _Writing your journal article in twelve weeks: A guide to academic publishing success_ (2nd ed.). University of Chicago Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #22
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association, 1980 _Diagnostic and statistical manual of mental disorders_ (3rd ed..)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year, missing period, missing “. (3rd ed.).” with correct punctuation.  
+❌ Title should be italicized.  
+Correct form:  
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #23
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster D. C., Schaubroeck J., Sime W. E. & Mayes B. T. 1991 The nomological validity of the Type A personality among employed adults _Journal of Applied Psychology_ 76 1 143–168
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Punctuation and formatting: Missing parentheses around the year, missing periods, missing commas, missing ampersand before final author.  
+❌ Article title should be in sentence case.  
+❌ Journal name and volume must be italicized, issue in parentheses, pages with no “pp.”.  
+Correct form:  
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The nomological validity of the type A personality among employed adults. _Journal of Applied Psychology_, _76_(1), 143–168.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #24
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Svendsen, S., & Løber, L., & Jensen, M. (2020). _The big picture/Academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Repeated ampersand: There are two ampersands. For three authors, it should be “Svendsen, S., Løber, L., & Jensen, M.”  
+   Should be: Svendsen, S., Løber, L., & Jensen, M. (2020). _The big picture/academic writing: The one-hour guide_ (3rd digital ed.). Hans Reitzel Forlag.  
+❌ Sentence casing in the title: After the slash, “Academic writing” should be lowercased unless it is a proper noun.  
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #25
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401(Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)
+
+SOURCE TYPE: Journal article (with retraction note)
+
+VALIDATION RESULTS:
+❌ Spacing before the parenthetical retraction note: Per APA 7, retraction notice can be placed in parentheses, but there should be a space or period before it.  
+   Correct approach: …1056. https://doi.org/10.1177/0146167208318401 (Retraction published 2012, _Personality and Social Psychology Bulletin, 38_[10], 1378)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #26
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning._ _Purdue Journal of Service-Learning and International Engagement,_ _6_(1), 11–16.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Title punctuation: There is an extra period/underscore after “learning.”  
+❌ The article title should not be italicized in the reference list.  
+Correct would be:  
+Baniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. _Purdue Journal of Service-Learning and International Engagement_, _6_(1), 11–16.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #27
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+International Organization for Standardization. (2018). _Occupational Health and Safety Management Systems—Requirements with Guidance for Use_ (ISO Standard No. 45001:2018).
+
+SOURCE TYPE: Standard
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case for the standard title.  
+   Should be: _Occupational health and safety management systems—Requirements with guidance for use_  
+Otherwise looks fine (publisher is the same as the author in this case, so reference is typically complete). A URL or retrieval info might be included if available.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #28
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+U.S. Department of the Interior. (2020, January 10). _Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah_ [Image attached] [Status update]. Facebook. Retrieved from https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: Social media post
+
+VALIDATION RESULTS:
+❌ Retrieval statement: APA 7 typically does not require “Retrieved from” unless the content is likely to change. Social media might be changing content, so including “Retrieved from” can be acceptable, but the 7th edition typically just uses “Retrieved January X, 2020, from …” if the content is likely to change. If the user is applying a simpler format, we usually do not need “Retrieved from.” However, it’s optional if the content is ephemeral.  
+❌ Title casing: The text “Like frosting … Utah” is a sentence, but it’s currently in italics. For a social media post, the post text is not italicized in the reference.  
+Overall recommended:  
+U.S. Department of the Interior. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #29
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sendak, M. (2012). _Where the wild things are_ (50th anniversary ed.). HarperCollins Publishers. https://doi.org/10.1234/5678
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case (though “Where the Wild Things Are” is a proper title of a children’s book—APA typically still uses sentence case).  
+   Should be: _Where the wild things are_  
+Otherwise the rest is acceptable, including the anniversary edition in parentheses and the DOI.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #30
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+joachimr. (2019 November 19) We are relying on APA as our university style format - the university is located in Germany (Kassel). So I [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+SOURCE TYPE: Blog comment
+
+VALIDATION RESULTS:
+❌ Missing punctuation after the date. The date should be in parentheses with a comma.  
+   Should be: joachimr. (2019, November 19).  
+❌ Sentence case for comment text is fine, but typically we might put a period after “So I.”  
+Overall example:  
+joachimr. (2019, November 19). We are relying on APA as our university style format … [Comment on the blog post “The transition to seventh edition APA Style”]. _APA Style_. https://apastyle.apa.org/blog/transition-seventh-edition#comment-4694866690
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #31
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Dillard, J. P. (2020). Currents in the study of persuasion. In M. B. Oliver, A. A. Raney, & J. Bryant (Eds.), _Media effects: Advances in theory and research_ (4th ed., pp. 115–129). Routledge.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #32
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Bronfenbrenner, U. (2005). The social ecology of human development: A retrospective conclusion. In U. Bronfenbrenner (Ed.), _Making human beings human: Bioecological perspectives on human development_ (pp. 27–40). SAGE Publications.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #33
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Zambrano-Vazquez, Lisa. _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona] (2016). UA Campus Repository. https://repository.arizona.edu/handle/10150/620615
+
+SOURCE TYPE: Doctoral dissertation
+
+VALIDATION RESULTS:
+❌ Author name format: Should be “Zambrano-Vazquez, L.” (last name first, then initials).  
+❌ Year should be in parentheses after the author.  
+❌ Title in sentence case and italicized, with bracketed statement about the dissertation.  
+Correct form example:  
+Zambrano-Vazquez, L. (2016). _The interaction of state and trait worry on response monitoring in those with worry and obsessive-compulsive symptoms_ [Doctoral dissertation, University of Arizona]. UA Campus Repository. https://repository.arizona.edu/handle/10150/620615
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #34
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25–28). _Evolutionary theory of social connections: Past, present, and future_ [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, California, United States. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: Conference presentation abstract
+
+VALIDATION RESULTS:
+❌ No major APA 7 issues detected. The punctuation is correct, italicized title is acceptable for a presentation or poster.  
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #35
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jackson, L.M. (2019) The psychology of prejudice: from attitudes to social action. (2nd ed) American Psychological Association, https://doi.org/10.1037/0000168-000
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing punctuation: Need a period after (2019).  
+❌ Title in sentence case, but “from” after the colon is not capitalized, which is correct. However, it needs to be fully italicized and we typically do not capitalize “From.”  
+❌ Missing period after (2nd ed.).  
+❌ The reference to the publisher: Should be “American Psychological Association.” followed by the DOI.  
+Correct form:  
+Jackson, L. M. (2019). _The psychology of prejudice: From attitudes to social action_ (2nd ed.). American Psychological Association. https://doi.org/10.1037/0000168-000
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #36
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA_, _116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Journal name formatting: “Proceedings of the National Academy of Sciences” is correct, but “USA” is usually appended in parentheses or simply as part of the official journal name. The AMA style sometimes uses “PNAS USA,” but in APA, the main official title is “Proceedings of the National Academy of Sciences of the United States of America.” However, many references shorten it.  
+Because the original reference uses a comma, some style guides place “PNAS” plus “USA.” This is not standard in APA, but not necessarily an error if that’s how the journal is commonly referred to.  
+Otherwise, it looks fine: volume italicized, issue in parentheses, pages, correct DOI format.  
+✓ No direct APA 7 formatting errors that require changing.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #37
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+R. Stoneman. (2008) _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Author name format: Should be “Stoneman, R.”  
+❌ Missing parentheses around year, missing period after year.  
+❌ Title in sentence case and italicized.  
+❌ Missing publisher punctuation.  
+Correct form:  
+Stoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #38
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harlan, C. (2013, April 2). North Korea vows to restart shuttered nuclear reactor that can make bomb-grade plutonium. _The Washington Post_, A1, A4.
+
+SOURCE TYPE: Newspaper article
+
+VALIDATION RESULTS:
+❌ Title case should be sentence case. However, it appears to be in sentence case except for “North,” “Korea,” which are proper nouns. So that’s correct.  
+❌ Pages are separated by a comma—this is acceptable since the story continued on page A4.  
+✓ No major APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #39
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences_, _USA, 116_(47), 23499–23504 https://doi.org/10.1073/pnas.1910510116
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing ampersand before final author. Also missing a comma after “M. D.”  
+❌ Missing period before DOI or at least no punctuation separating the pages and the URL.  
+Correct form:  
+Duckworth, A. L., Quirk, A., Gallop, R., Hoyle, R. H., Kelly, D. R., & Matthews, M. D. (2019). Cognitive and noncognitive predictors of success. _Proceedings of the National Academy of Sciences, USA, 116_(47), 23499–23504. https://doi.org/10.1073/pnas.1910510116
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #40
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., Perez, C., Yelinek, J., & Lewis, T. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #41
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008) Silence and table manners: When environments activate norms. _personality and social psychology bulletin_, _34_(8), 1047–1056.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing punctuation after year. Should be “(2008).”  
+❌ The journal name must be capitalized in title case.  
+Correct form:  
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #42
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+O’Connor, J. (2017). _Nancy Clancy, late-breaking news!_ (R. Preiss Glasser, Illus.). HarperCollins Publishers.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #43
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013) _Diagnostic and Statistical Manual of Mental Disorders_ 5th ed https://doi.org/10.1176/appi.books.9780890425596
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing punctuation: Need a period after “(2013).”  
+❌ Title italicization and sentence case required.  
+❌ Edition in parentheses: “(5th ed.).”  
+Correct form:  
+American Psychiatric Association. (2013). _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #44
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017) _Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences_ PsyArXiv. https://doi.org/10.31234/osf.io/76xfs
+
+SOURCE TYPE: Preprint (unpublished manuscript in a repository)
+
+VALIDATION RESULTS:
+❌ Missing period after (2017).  
+❌ Title should be sentence case and italicized.  
+❌ Add bracket or “Preprint” note if desired, e.g., [Preprint].  
+Correct form example:  
+Hampton, S., Rabagliati, H., Sorace, A., & Fletcher-Watson, S. (2017). _Autism and bilingualism: A qualitative interview study of parents’ perspectives and experiences_. PsyArXiv. https://doi.org/10.31234/osf.io/76xfs
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #45
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L. [RL_Stine]. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: Online forum post (Reddit AMA)
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #46
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Drollinger, T., Comer, L. B., & Warrington, P. T. (2006). Development and validation of the active empathetic listening scale. _Psychology & Marketing, 23_(2), 161-180. https://doi.org/10.1002/mar.20105
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Punctuation around volume and issue: The volume (23) should be italicized, followed immediately by the issue in parentheses, not italicized.  
+   Should be: _Psychology & Marketing_, _23_(2), 161–180.  
+Otherwise correct.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #47
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster; 2003. Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: Dictionary entry
+
+VALIDATION RESULTS:
+❌ Year in parentheses.  
+❌ Missing period or parentheses around the date.  
+❌ Publisher or author name is inconsistent. Usually references are “Merriam-Webster. (2003).” 
+Correct form in APA 7 would be:  
+Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727). [No location, no punctuation after dictionary entry if not needed]
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #48
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Aron, L., Botella, M., & Lubart, T. (2019). Culinary arts: Talent and their development. In R. F. Subotnik, P. Olszewski-Kubilius, & F. C. Worrell (Eds.), _The psychology of high performance: Developing human potential into domain-specific talent_ (pp. 345–359). American Psychological Association. https://doi.org/10.1037/0000120-016
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #49
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato, (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans), Hackett Publishing Company; (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: Book (classical work, translation)
+
+VALIDATION RESULTS:
+❌ Comma after author’s name: Should be “Plato. (1989).”  
+❌ Need a period after “Trans.”  
+❌ The phrase “(Original work published ca. 385–378 BCE)” should be in parentheses with period at the end.  
+Example:  
+Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385–378 BCE)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #50
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stine, R. L., & Smith, J. (2013, October 23). _I’m R.L. Stine and it’s my job to terrify kids. Ask me anything!_ [Online forum post]. Reddit. https://www.reddit.com/r/IAmA/comments/1p32dl/
+
+SOURCE TYPE: Online forum post
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #51
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood Watch: Social Media in the community. In M. Elders (Ed.) POL 241: Politics and Activism in the 21st Century (pp 34–41). American University
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Chapter title should be sentence case and not italicized.  
+   Should be: Neighborhood watch: Social media in the community.  
+❌ Missing parentheses around (Ed.).  
+❌ Book title should be italicized using sentence case: _POL 241: Politics and activism in the 21st century_  
+❌ Missing period after publisher.  
+Correct form:  
+Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #52
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9
+
+SOURCE TYPE: Edited book (series)
+
+VALIDATION RESULTS:
+❌ Title should be in sentence case aside from any proper nouns. “Theory of cryptography” is correct in sentence case, but “Lecture notes in computer science” can remain capitalized as it’s a series title.  
+Actually, overall:  
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer. https://doi.org/10.1007/978-3-662-49096-9  
+✓ This seems acceptable. No major issues.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #53
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company.
+
+SOURCE TYPE: Book (classical work, translation)
+
+VALIDATION RESULTS:
+❌ Missing period after “Plato” and parentheses around date.  
+   Should be: Plato. (1989).  
+Otherwise:
+✓ Title italicized, translator in parentheses with period, publisher named. If original publication date was known, might add. So minimal fix needed.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #54
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_. (Publication No. 27542827) [Doctoral dissertation, Pepperdine University] PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+
+SOURCE TYPE: Doctoral dissertation (ProQuest)
+
+VALIDATION RESULTS:
+❌ Typically the bracketed description after the title is in the same parentheses as the publication number.  
+❌ Needs a period after “Pepperdine University].”  
+Correct form:  
+Miranda, C., & Smith, J. (2019). _Exploring the lived experiences of foster youth who obtained graduate level degrees: Self-efficacy, resilience, and the impact on identity development_ (Publication No. 27542827) [Doctoral dissertation, Pepperdine University]. PQDT Open. https://pqdtopen.proquest.com/doc/2309521814.html
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #55
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2000). _Diagnostic and statistical manual of mental disorders_ (4th ed., text rev.). https://doi.org/10.1176/appi.books.9780890420249.dsm-iv-tr
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #56
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+A.-L. Bedenel, L. Jourdan, & C. Biernacki. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225–240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21
+
+SOURCE TYPE: Book chapter in a series
+
+VALIDATION RESULTS:
+❌ Author name format: Should be “Bedenel, A.-L., Jourdan, L., & Biernacki, C.”  
+❌ The year is correct, the title is in sentence case, the volume: _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ is italicized.  
+Correct reference example:  
+Bedenel, A.-L., Jourdan, L., & Biernacki, C. (2019). Probability estimation by an adapted genetic algorithm in web insurance. In R. Battiti, M. Brunato, I. Kotsireas, & P. Pardalos (Eds.), _Lecture notes in computer science: Vol. 11353. Learning and intelligent optimization_ (pp. 225–240). Springer. https://doi.org/10.1007/978-3-030-05348-2_21
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #57
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., & Her, M. (2019). Emotions in Storybooks: A Comparison of Storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, 8(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Article title should be sentence case: “Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States.”  
+Otherwise it’s fine.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #58
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_ https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+SOURCE TYPE: News/Online article
+
+VALIDATION RESULTS:
+❌ Missing comma after last name and initial. Should be “Ouellette, J. (2019, November 15).”  
+❌ Missing period before URL. Typically we place a period after the source name, unless style differs.  
+Correct form:  
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://arstechnica.com/science/2019/11/study-you-can-tie-a-quantum-knot-in-a-superfluid-but-it-will-soon-untie-itself/
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #59
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected (title in sentence case, editors, book title in sentence case italicized, publisher not italicized, URL included).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #60
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Denny, H., Nordlof, J., & Salem, L. (2018). Tell me exactly what it was that I was doing that was so bad: Understanding the needs and expectations of working-class students in writing centers. _Writing Center Journal_, 37(1), 67–98.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #61
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., McNally, R. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy_, _185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: Future publication (journal article in press, presumably)
+
+VALIDATION RESULTS:
+✓ APA 7 style allows a future date. Everything else is correct: volume italicized, issue not needed if it’s an article number, article number label acceptable, correct DOI format.  
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #62
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical Principles of Psychologists and Code of Conduct_ (2002, amended effective June 1, 2010, and January 1, 2017) http://www.apa.org/ethics/code
+
+SOURCE TYPE: Legal/ethical guidelines (organizational policy)
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case, e.g., _Ethical principles of psychologists and code of conduct_.  
+❌ Missing period before URL.  
+Correct form:  
+American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). http://www.apa.org/ethics/code
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #63
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Merriam-Webster. (2003). Litmus test. In _Merriam-Webster’s collegiate dictionary_ (11th ed., p. 727).
+
+SOURCE TYPE: Dictionary entry
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #64
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Smith, J. A., Baniya, S., & Weech, S. (2019). _Data and experience design: Negotiating community-oriented digital research with service-learning_. _Purdue Journal of Service-Learning and International Engagement, 6_(1), 11–16. https://doi.org/10.5703/1288284316979
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ The article title should not be italicized.  
+❌ The journal title should be italicized. Volume 6 should be italicized with issue in parentheses.  
+Correct form:  
+Smith, J. A., Baniya, S., & Weech, S. (2019). Data and experience design: Negotiating community-oriented digital research with service-learning. _Purdue Journal of Service-Learning and International Engagement_, _6_(1), 11–16. https://doi.org/10.5703/1288284316979
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #65
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department for Business Innovation & Skills. (2016). _Success as a knowledge economy: Teaching excellence, social mobility and student choice_ [White paper]. Crown. https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/523396/bis-16-265-success-as-a-knowledge-economy.pdf
+
+SOURCE TYPE: Government white paper
+
+VALIDATION RESULTS:
+❌ The department name was changed to “Department for Business, Innovation & Skills,” typically. Possibly missing a comma.  
+Otherwise, the reference is acceptable as a government document.  
+Recommended correction if the official name is “Department for Business, Innovation & Skills.”—the “Crown” is the publisher name in the UK. This is acceptable to list.  
+✓ Otherwise acceptable.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #66
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing DOI or URL if it’s available (PLoS ONE articles typically have a DOI). Possibly an incomplete reference. If no DOI was provided, that might be acceptable.  
+Otherwise:  
+✓ Title in sentence case.  
+✓ Journal name italicized, volume italicized, issue in parentheses.  
+✓ No direct APA style error in the text given, except that typically PLoS is stylized “PLOS ONE,” but that’s minor.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #67
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., & Schaefer, J. R. (2018). Teaching medicine with the help of “Dr. House.” _PLoS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected (title is sentence case, journal is italicized properly, volume (issue) format correct, correct DOI format).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #68
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Cacioppo, S. (2019, April 25-28). Evolutionary theory of social connections: Past, present, and future [Conference presentation abstract]. Ninety-ninth annual convention of the Western Psychological Association, Pasadena, CA. https://westernpsych.org/wp-content/uploads/2019/04/WPA-Program-2019-Final-2.pdf
+
+SOURCE TYPE: Conference presentation abstract
+
+VALIDATION RESULTS:
+❌ Use an en dash or an en rule for date ranges: “April 25–28.”  
+Otherwise fine. If no major issues, the main difference is punctuation for date range.  
+✓ Otherwise acceptable.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #69
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.). https://doi.org/10.1176/appi.books.9780890420249
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #70
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385-378 BCE)
+
+SOURCE TYPE: Book (classical)
+
+VALIDATION RESULTS:
+❌ Missing period after “Plato.”  
+❌ Should be “Hackett Publishing Company.” or “Hackett Publishing Co.” is fine, but typically with a period.  
+Correct form:  
+Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Co. (Original work published 385–378 BCE)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #71
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and Character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144-163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Chapter title should be sentence case: “Malory and character.”  
+Correct form: Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144–163). D. S. Brewer. https://doi.org/10.1234/abcd.5678
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #72
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton, Eds., _A new Companion to Malory_ (pp. 144-163). D. S. Brewer.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Editor listing: Should be (Eds.), not “Eds.,” outside parentheses.  
+❌ Book title casing after “new.” Should be “_A new companion to Malory_.”  
+Correct form: Armstrong, D. (2019). Malory and character. In M. G. Leitch & C. J. Rushton (Eds.), _A new companion to Malory_ (pp. 144–163). D. S. Brewer.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #73
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended effective June 1, 2010, and January 1, 2017). https://www.apa.org/ethics/code/
+
+SOURCE TYPE: Legal/ethical resource
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case.  
+Otherwise correct.  
+Correct form: American Psychological Association. (2017). _Ethical principles of psychologists and code of conduct_ (2002, amended …). https://www.apa.org/ethics/code/
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #74
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+King, J. Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+SOURCE TYPE: Other (religious text)
+
+VALIDATION RESULTS:
+❌ Author-like entry is incorrect. For classical religious works with no traditional author, key the reference by the work's title: “King James Bible.”  
+Correct form: King James Bible. (2017). King James Bible Online. https://www.kingjamesbibleonline.org/ (Original work published 1769)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #75
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. PLoS ONE, 13(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Journal name formatting: Should be italicized, “PLOS ONE.”  
+Correct form:  
+Jerrentrup, A., Mueller, T., Glowalla, U., Herder, M., & Henrichs, N. (2018). Teaching medicine with the help of Dr. House. _PLOS ONE_, _13_(3), Article e0193972. https://doi.org/10.1371/journal.pone.0193972
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #76
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schulman, M. (2019, September 9). _Superfans: A love story_. _The New Yorker_. https://doi.org/10.1000/xyz456
+
+SOURCE TYPE: Magazine/Newspaper article (with a DOI?)
+
+VALIDATION RESULTS:
+❌ Magazine/newspaper articles rarely have DOIs, but if it does, that’s acceptable.  
+❌ Article title is italicized in the example, but for an article, it should not be italicized. The magazine name is italicized.  
+Correct form:  
+Schulman, M. (2019, September 9). Superfans: A love story. _The New Yorker_. https://doi.org/10.1000/xyz456
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #77
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+National Cancer Institute. (2019). _Taking time_: Support for people with cancer (NIH Publication No. 18-2059). U.S. Department of Health and Human Services, National Institutes of Health. https://www.cancer.gov/publications/patient-education/takingtime.pdf
+
+SOURCE TYPE: Government publication
+
+VALIDATION RESULTS:
+❌ Title should be in sentence case: Taking time: Support for people with cancer  
+Everything else is generally correct. A location is not needed; “U.S. Department of Health and Human Services, National Institutes of Health” can be considered the publisher. That is acceptable.  
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #78
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pegion, K., et al. (2019). The subseasonal experiment (SubX): A multimodel subseasonal prediction experiment. _Bulletin of the American Meteorological Society_, _100_(10), 2043-2061. https://doi.org/10.1175/BAMS-D-18-0270.1
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ “et al.” can be used only if there are three or more additional authors after the first. However, in the reference list, typically list all up to 20 authors, or up to 19 + ellipsis + final author. If the style is intentionally shortened, that might be acceptable if the authors exceed 20.  
+Otherwise the reference is correct.  
+✓ No direct APA errors beyond possible author listing completeness.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #79
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman R. 2008 _Alexander the Great: A life in legend_ Yale University Press
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing punctuation for author, date, missing italics.  
+Correct:  
+Stoneman, R. (2008). _Alexander the Great: A life in legend_. Yale University Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #80
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Nguyen, T., Carnevale, J.J., Scholer, A.A., Miele, D.B., & Fujita, K. (2019) Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879-899. http://dx.doi.org/10.1037/pspa0000166
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing period after (2019).  
+❌ DOI format should be “https://doi.org/10.1037/...”  
+Correct:  
+Nguyen, T., Carnevale, J. J., Scholer, A. A., Miele, D. B., & Fujita, K. (2019). Metamotivational knowledge of the role of high-level and low-level construal in goal-relevant task performance. _Journal of Personality and Social Psychology_, 117(5), 879–899. https://doi.org/10.1037/pspa0000166
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #81
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05
+
+SOURCE TYPE: Book section (DSM-5)
+
+VALIDATION RESULTS:
+❌ Missing period after association name and parentheses around year.  
+❌ Should be: American Psychiatric Association. (2013). Anxiety disorders. In _Diagnostic and statistical manual of mental disorders_ (5th ed.). https://doi.org/10.1176/appi.books.9780890425596.dsm05
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #82
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In Hygum, E. & Pedersen, P. M., (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+❌ Editors’ names missing correct “In E. Hygum & P. M. Pedersen (Eds.),” format.  
+Correct form:  
+Thestrup, K. (2010). To transform, to communicate, to play—The experimenting community in action. In E. Hygum & P. M. Pedersen (Eds.), _Early childhood education: Values and practices in Denmark_. Hans Reitzels Forlag. https://earlychildhoodeducation.digi.hansreitzel.dk/?id=192
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #83
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ Unpublished doctoral dissertation. University of Virginia
+
+SOURCE TYPE: Unpublished doctoral dissertation
+
+VALIDATION RESULTS:
+❌ Missing period after the italicized title.  
+❌ Typically bracket or statement: [Unpublished doctoral dissertation].  
+❌ No city/state needed.  
+Correct form:  
+Harris, L. (2014). _Instructional leadership perceptions and practices of elementary school leaders_ [Unpublished doctoral dissertation]. University of Virginia.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #84
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times._ https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html
+
+SOURCE TYPE: Newspaper article (online)
+
+VALIDATION RESULTS:
+❌ Title case check: Title is in sentence case, which is correct for a question.  
+❌ Period after newspaper name might be removed (some style guides do keep it).  
+Acceptable as is:  
+Carey, B. (2019, March 22). Can we get better at forgetting? _The New York Times_. https://www.nytimes.com/2019/03/22/health/memory-forgetting-psychology.html  
+✓ Looks good.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #85
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title in sentence case: “King Baby” is a children’s book, but APA would still do “King baby.”  
+Everything else looks okay.  
+Correct form: Beaton, K. (2016). _King baby_ (K. Beaton, Illus.). Arthur A. Levine Books.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #86
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Perreault, L. (2019). Obesity in adults: Role of physical activity and exercise. _UpToDate_. Retrieved January 12, 2020, from https://www.uptodate.com/contents/obesity-in-adults-role-of-physical-activity-and-exercise
+
+SOURCE TYPE: Webpage (UpToDate is continuously updated, so retrieval date is needed)
+
+VALIDATION RESULTS:
+❌ No major APA 7 errors. For UpToDate, including a retrieval date is correct because it’s designed to change over time.  
+✓ Looks good.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #87
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title casing: APA references are in sentence case (though this is a known children’s book title).  
+Otherwise correct.  
+Correct form: Numeroff, L. J. (2007). _If you give a mouse a cookie_ (F. Bond, Illus.). Laura Geringer Books. (Original work published 1985)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #88
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Schlesselmann, A. J., & Held, P. (2025). Using network analysis to characterize clinical improvement during cognitive processing therapy. _Behaviour Research and Therapy, 185_, Article 104678. https://doi.org/10.1016/j.brat.2024.104678
+
+SOURCE TYPE: Journal article (future date)
+
+VALIDATION RESULTS:
+❌ Volume and issue formatting: Should be italicized volume, issue optional if none is indicated. If it’s “185,” the reference might just say “_Behaviour Research and Therapy, 185_, Article 104678.” That part is correct if 185 is the volume.  
+Otherwise:  
+✓ No real APA 7 errors.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #89
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, R. (1996) _The eclipse of listening_ The New Criterion, 15(3), 5–13.
+
+SOURCE TYPE: Journal article or magazine article
+
+VALIDATION RESULTS:
+❌ Missing punctuation after year.  
+❌ Article title in sentence case, italicized journal name.  
+Correct form:  
+Scruton, R. (1996). _The eclipse of listening._ _The New Criterion_, 15(3), 5–13.  
+(Article title should not be italicized in APA, so remove the italics from the article title. Journal name is italicized.)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #90
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Elders, M. (2019). Neighborhood watch: Social media in the community. In M. Elders (Ed.), _POL 241: Politics and activism in the 21st century_ (pp. 34–41). American University.
+
+SOURCE TYPE: Book chapter
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected (corrected version of #51 presumably).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #91
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+McNally, R. J., & Held, P. (2025). Using Network Analysis to Characterize Clinical Improvement During Cognitive Processing Therapy. _Behaviour Research and Therapy_, _185_, Article 104678.
+
+SOURCE TYPE: Journal article (future date)
+
+VALIDATION RESULTS:
+❌ Article title in sentence case.  
+   Should be: Using network analysis to characterize clinical improvement during cognitive processing therapy.  
+Otherwise no major issues. Volume italicized, article number is acceptable.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #92
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Harris, K. R., Graham, S., & Urdan T. (Eds.). (2012). _APA educational psychology handbook_ (Vols. 1–3). American Psychological Association.
+
+SOURCE TYPE: Edited book
+
+VALIDATION RESULTS:
+❌ Comma needed before “T.” in authors. 
+   Should be: Harris, K. R., Graham, S., & Urdan, T. (Eds.).  
+Otherwise correct.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #93
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Soto, C. J., John, O. P., & Smith, J. (2017). The next big five inventory (BFI-2): Developing and assessing a hierarchical model with 15 facets to enhance bandwidth, fidelity, and predictive power. _Journal of Personality and Social Psychology_, _113_(1), 117-143. http://dx.doi.org/10.1037/pspp0000096
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ DOI format: Should be https://doi.org/10.1037/pspp0000096  
+Otherwise, correct.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #94
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://www.atsdr.cdc.gov/docs/limitingenvironmentalexposures_factsheet-508.pdf
+
+SOURCE TYPE: Fact sheet (web document)
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #95
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia/
+
+SOURCE TYPE: Report
+
+VALIDATION RESULTS:
+❌ Title should be sentence case.  
+Otherwise correct.  
+Correct form:  
+Baral, P., Larsen, M., Archer, M., & Johnson, T. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://...
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #96
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your Environment: What You Can Do to Limit Exposure_ [Fact sheet]. U.S. Department of Health & Human Services.
+
+SOURCE TYPE: Fact sheet
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case.  
+No URL is provided, might be missing. If none is appropriate, that’s fine.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #97
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ganster, D. C., Schaubroeck, J., Sime, W. E., & Mayes, B. T. (1991). The Nomological Validity of the Type A Personality Among Employed Adults [Monograph]. _Journal of Applied Psychology_, _76_(1), 143–168. https://doi.org/10.1037/0021-9010.76.1.143
+
+SOURCE TYPE: Journal article (monograph note in bracket)
+
+VALIDATION RESULTS:
+❌ Title should be in sentence case: “The nomological validity …”  
+“[Monograph]” is allowable but unusual. Possibly that’s an internal note. If the publication specifically calls it a monograph, it can remain.  
+Correct form: The nomological validity of the type A personality among employed adults [Monograph].
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #98
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Baral, P., Larsen, M., & Archer, M. (2019). _Does money grow on trees? Restoration financing in Southeast Asia_. Atlantic Council. https://www.atlanticcouncil.org/in-depth-research-reports/report/does-money-grow-on-trees-restoring-financing-in-southeast-asia
+
+SOURCE TYPE: Report
+
+VALIDATION RESULTS:
+❌ Title casing: Should be sentence case.  
+Otherwise correct.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #99
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Grady, J. S., Her, M., Moreno, G., & Perez, C. (2019). Emotions in storybooks: A comparison of storybooks that represent ethnic and racial groups in the United States. _Psychology of Popular Media Culture_, _8_(3), 207–217. https://doi.org/10.1037/ppm0000185
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #100
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. New Haven, CT: Yale University Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ APA 7 does not require the location (“New Haven, CT”).  
+Correct form: Stoneman, R., & Brown, T. (2008). _Alexander the Great: A life in legend_. Yale University Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #101
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Plato. (1989). _Symposium_. A. Nehamas & P. Woodruff, Trans. Hackett Publishing Company. (Original work published ca. 385-378 BCE)
+
+SOURCE TYPE: Book (classical)
+
+VALIDATION RESULTS:
+❌ Missing parentheses around translator statement. Should be: “(A. Nehamas & P. Woodruff, Trans.).”  
+Correct form:  
+Plato. (1989). _Symposium_ (A. Nehamas & P. Woodruff, Trans.). Hackett Publishing Company. (Original work published ca. 385–378 BCE)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #102
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (n.d.). Just-world hypothesis. In _APA dictionary of psychology_. Retrieved January 18, 2020, from https://dictionary.apa.org/just-world-hypothesis
+
+SOURCE TYPE: Online dictionary entry
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #103
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Department of the Interior, U.S. (2020, January 10). Like frosting on a cake, snow coats and clings to the hoodoos at Bryce Canyon National Park in Utah [Image attached] [Status update]. Facebook. https://www.facebook.com/USInterior/photos/a.155163054537384/2586475451406120/?type=3&theater
+
+SOURCE TYPE: Social media post
+
+VALIDATION RESULTS:
+❌ Corporate author name: Typically “U.S. Department of the Interior.”  
+❌ Title not italicized. Should be in plain sentence case.  
+Correct form:  
+U.S. Department of the Interior. (2020, January 10). Like frosting on a cake, snow coats … [Image attached] [Status update]. Facebook. https://www.facebook.com/…
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #104
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Society for the Prevention of Cruelty to Animals (2019, November). _Justice served: Case closed for over 40 dogfighting victims_.
+
+SOURCE TYPE: Webpage or organizational bulletin
+
+VALIDATION RESULTS:
+❌ Missing period after the organization name. Should be “American Society for the Prevention of Cruelty to Animals. (2019, November).”  
+❌ Title should be sentence case.  
+No URL given. If no URL is required, that’s fine if it’s an internal doc.  
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #105
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association. (2022). Diagnostic and statistical manual of mental disorders (5th ed., text rev.)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing italics: Should italicize the manual title.  
+❌ Missing period after “text rev.).”  
+Correct form:  
+American Psychiatric Association. (2022). _Diagnostic and statistical manual of mental disorders_ (5th ed., text rev.).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #106
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kübler-Ross, E. (with Byock, I.). (2014). _On death & dying: What the dying have to teach doctors, nurses, clergy & their own families_ (50th anniversary ed.). Scribner. (Original work published 1969)
+
+SOURCE TYPE: Book (reprint with collaborator)
+
+VALIDATION RESULTS:
+❌ Sentence case is correct for the main title except “On death & dying” is often considered a single main phrase.  
+Everything else appears correct, including the “(Original work published 1969)” note.  
+✓ No major APA 7 errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #107
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Scruton, Roger. (1996) The eclipse of listening. _The New Criterion_ 15(3): 5-13.
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Author name format: Should be “Scruton, R.”  
+❌ Missing period after year.  
+❌ Volume and issue formatting: 15(3), 5–13.  
+Correct:  
+Scruton, R. (1996). The eclipse of listening. _The New Criterion_, 15(3), 5–13.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #108
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychological Association. (1987). _Diagnostic & Statistical Manual of Mental Disorders_ (3rd ed., rev.)
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Title in sentence case; remove ampersand from the title.  
+❌ Missing period after (3rd ed., rev.).  
+Correct:  
+American Psychological Association. (1987). _Diagnostic and statistical manual of mental disorders_ (3rd ed., rev.).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #109
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Pope, J. P., & Wall, H. (2025). _Is the goal intrinsic or extrinsic? Examining self-determination theory researchers’ and the general publics’ perceptions of exercise goals._ _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239–248. https://doi.org/10.1037/cbs0000411
+
+SOURCE TYPE: Journal article (future date)
+
+VALIDATION RESULTS:
+❌ Article title should be sentence case, not italicized.  
+Correct form:  
+Pope, J. P., & Wall, H. (2025). Is the goal intrinsic or extrinsic? Examining self-determination theory researchers’ and the general publics’ perceptions of exercise goals. _Canadian Journal of Behavioural Science/Revue canadienne des sciences du comportement_, _57_(3), 239–248. https://doi.org/10.1037/cbs0000411
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #110
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+American Psychiatric Association (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed,).
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing period after year.  
+❌ Edition: (3rd ed.) not “(3rd ed,).”  
+Correct:  
+American Psychiatric Association. (1980). _Diagnostic and statistical manual of mental disorders_ (3rd ed.).
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #111
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+_The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.
+
+SOURCE TYPE: Book (no editor named)
+
+VALIDATION RESULTS:
+❌ When no author or editor is credited, the title moves to the author position. That is done here.  
+❌ For APA 7, the year follows the title in parentheses if there’s no author. Actually, the example places the year afterward. That part is correct. But it’s missing an editor if it truly has one. Possibly it is a known anthology.  
+Strictly: _The Norton anthology of English literature: The Middle Ages_ (8th ed., Vol. A). (2006). W. W. Norton & Company.  
+✓ This is acceptable as a no-author reference. 
+No major errors if that’s truly the official approach.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #112
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+BBC [@bbc]. (2020, January 12). _Skywatchers have been treated to the first full moon of 2020-known as a “wolf moon”-at the same time as a_ [Photograph]. Instagram. https://www.instagram.com/p/B7OkWqbBwcf/
+
+SOURCE TYPE: Social media post
+
+VALIDATION RESULTS:
+❌ Missing spaced dash: “2020—known” ( may want an em dash). Minor style note.  
+❌ Title typically not italicized for social media posts.  
+Correct approach:  
+BBC [@bbc]. (2020, January 12). Skywatchers have been treated… [Photograph]. Instagram. https://www.instagram.com/…
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #113
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Lyons, D. (2009, June 15). Don’t ‘iTune’ us: It’s geeks versus writers: Guess who’s winning. _Newsweek_, 153(24), 27.
+
+SOURCE TYPE: Magazine article
+
+VALIDATION RESULTS:
+❌ Title in sentence case is correct.  
+❌ The rest looks fine.  
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #114
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Joly, J. F., Stapel, D. A., Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin, 34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401
+
+SOURCE TYPE: Journal article
+
+VALIDATION RESULTS:
+❌ Missing ampersand before final author. Correct: “Joly, J. F., Stapel, D. A., & Lindenberg, S. M.”  
+❌ Journal name italicization correct, volume italicized, issue in parentheses. But there’s an extra comma in “Bulletin, 34_(8)”. Should be “Bulletin_, 34_(8).”  
+Correct form:  
+Joly, J. F., Stapel, D. A., & Lindenberg, S. M. (2008). Silence and table manners: When environments activate norms. _Personality and Social Psychology Bulletin_, _34_(8), 1047–1056. https://doi.org/10.1177/0146167208318401
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #115
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Sapolsky, R. M. (2017). _Behave: The biology of humans at our best and worst_. Penguin Books.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #116
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Kushilevitz, E. & Malkin T. (Eds.). 2016. _Lecture notes in computer science_ Vol. 9562. Theory of cryptography. Springer
+
+SOURCE TYPE: Edited book (series)
+
+VALIDATION RESULTS:
+❌ Missing parentheses around year, missing punctuation.  
+❌ Title formatting: Should be italicized as a single title.  
+Correct form:  
+Kushilevitz, E., & Malkin, T. (Eds.). (2016). _Lecture notes in computer science: Vol. 9562. Theory of cryptography_. Springer.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #117
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. doi:10.1234/atsdr.5678
+
+SOURCE TYPE: Fact sheet
+
+VALIDATION RESULTS:
+❌ doi: format is incorrect. Should be “https://doi.org/10.1234/atsdr.5678” if it’s a valid DOI.  
+Correct form:  
+Agency for Toxic Substances and Disease Registry. (n.d.). _Asbestos in your environment: What you can do to limit exposure_ [Fact sheet]. U.S. Department of Health & Human Services. https://doi.org/10.1234/atsdr.5678
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #118
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+US Food and Drug Administration. (2024, September 12). _FDA Authorizes First Over-the-Counter Hearing Aid Software_ [Press release]. https://www.fda.gov/news-events/press-announcements/fda-authorizes-first-over-counter-hearing-aid-software
+
+SOURCE TYPE: Press release
+
+VALIDATION RESULTS:
+❌ Title capping: Should be sentence case: “FDA authorizes first over-the-counter hearing aid software”  
+Otherwise correct.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #119
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.), Candlewick Press.
+
+SOURCE TYPE: Book
+
+VALIDATION RESULTS:
+❌ Missing period after the parenthetical.  
+❌ Title in sentence case.  
+Correct form:  
+Crimi, C. (2019). _Weird little robots_ (C. Luyken, Illus.). Candlewick Press.
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #120
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of Little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)
+
+SOURCE TYPE: Book (reprint)
+
+VALIDATION RESULTS:
+❌ Title should be sentence case.  
+❌ The original year note is correct.  
+Overall:  
+Watson, J. B., & Rayner, R. (2013). _Conditioned emotional reactions: The case of little Albert_ (D. Webb, Ed.). CreateSpace Independent Publishing Platform. http://a.co/06Se6Na (Original work published 1920)
+
+═══════════════════════════════════════════════════════════════════════════
+CITATION #121
+═══════════════════════════════════════════════════════════════════════════
+
+ORIGINAL:
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+
+SOURCE TYPE: Online news article with a DOI
+
+VALIDATION RESULTS:
+❌ The provided DOI is suspicious as “https://doi.org/10.1234/5678,” but if it’s truly a valid DOI, fine.  
+❌ Missing comma after last name. Should be “Ouellette, J.”  
+Correct form:  
+Ouellette, J. (2019, November 15). Physicists capture first footage of quantum knots unraveling in superfluid. _Ars Technica_. https://doi.org/10.1234/5678
+
+═══════════════════════════════════════════════════════════════════════════
+
+Done.

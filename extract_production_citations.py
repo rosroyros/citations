@@ -242,7 +242,7 @@ def main():
     result = {
         'extraction_date': datetime.now().isoformat(),
         'analysis': analysis,
-        'raw_citations': citations[:50]  # First 50 citations for reference
+        'raw_citations': citations  # ALL citations, not just samples
     }
 
     try:
