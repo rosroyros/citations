@@ -1073,7 +1073,7 @@
             const date = new Date();
             date.setDate(date.getDate() - parseInt(days));
             date.setHours(0, 0, 0, 0); // Set to start of day
-            return date.toISOString(); // Return full ISO format
+            return date.toISOString().replace(/\.\d{3}Z$/, 'Z'); // Remove milliseconds
         }
 
         function updateStats(stats) {
