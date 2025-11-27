@@ -108,6 +108,11 @@ class DatabaseManager:
         Returns:
             List of column definitions
         """
+        # Validate table name to prevent SQL injection
+        valid_tables = {'validations', 'parser_metadata', 'parser_errors'}
+        if table_name not in valid_tables:
+            raise ValueError(f"Invalid table name: {table_name}")
+
         cursor = self.conn.cursor()
         cursor.execute(f"PRAGMA table_info({table_name})")
         columns = cursor.fetchall()
@@ -119,7 +124,7 @@ class DatabaseManager:
             if col[5] == 1:  # PRIMARY KEY
                 col_def += " PRIMARY KEY"
                 # Check if it's AUTOINCREMENT by examining the table SQL
-                cursor.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table_name}'")
+                cursor.execute("SELECT sql FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
                 table_sql = cursor.fetchone()
                 if table_sql and 'AUTOINCREMENT' in table_sql[0]:
                     col_def += " AUTOINCREMENT"
