@@ -646,20 +646,26 @@ function AppContent() {
             </div>
 
             <div className="upload-column">
+              <label>Or upload a document</label>
               <UploadArea onFileSelected={handleFileSelected} onUploadAreaClick={handleUploadAreaClick} />
+              <p className="input-helper">
+                We'll automatically find & validate citations.
+              </p>
             </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading || !editor || hasPlaceholder}
-          >
-            {loading ? 'Validating...' : 'Check My Citations'}
-          </button>
+          <div className="button-container">
+            <button
+              type="submit"
+              disabled={loading || !editor || hasPlaceholder}
+            >
+              {loading ? 'Validating...' : 'Check My Citations'}
+            </button>
 
-          <p className="cta-micro-text">
-            No login required • Get results in seconds
-          </p>
+            <p className="cta-micro-text">
+              No login required • Get results in seconds
+            </p>
+          </div>
 
           {/* Feature Pills */}
           <div className="feature-pills">

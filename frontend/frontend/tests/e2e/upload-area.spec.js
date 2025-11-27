@@ -29,8 +29,8 @@ test.describe('UploadArea Component - E2E Tests', () => {
     await expect(uploadArea).toBeVisible();
 
     // Verify the upload area contains expected text
-    await expect(uploadArea.locator('text=Drop your document here')).toBeVisible();
-    await expect(uploadArea.locator('text=or click to browse')).toBeVisible();
+    await expect(uploadArea.locator('text=Drag and drop')).toBeVisible();
+    await expect(uploadArea.locator('text=or browse files')).toBeVisible();
   });
 
   test('File selection via click works correctly', async ({ page }) => {
@@ -126,8 +126,8 @@ test.describe('UploadArea Component - E2E Tests', () => {
     await expect(uploadArea).toBeVisible();
 
     // Verify mobile layout - upload area should still be visible and functional
-    await expect(uploadArea.locator('text=Drop your document here')).toBeVisible();
-    await expect(uploadArea.locator('text=or click to browse')).toBeVisible();
+    await expect(uploadArea.locator('text=Drag and drop')).toBeVisible();
+    await expect(uploadArea.locator('text=or browse files')).toBeVisible();
 
     // Test that file input still works on mobile
     const fileInput = uploadArea.locator('input[type="file"]');

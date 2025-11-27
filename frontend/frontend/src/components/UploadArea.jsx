@@ -60,9 +60,12 @@ export const UploadArea = ({ onFileSelected }) => {
     }
   }, [handleFileSelect]);
 
-  // Call onFileSelected when processing completes
+  // Call onFileSelected when processing completes (only once)
+  const hasCalledOnFileSelected = React.useRef(false);
+
   React.useEffect(() => {
-    if (processedFile && onFileSelected) {
+    if (processedFile && onFileSelected && !hasCalledOnFileSelected.current) {
+      hasCalledOnFileSelected.current = true;
       onFileSelected(processedFile);
     }
   }, [processedFile, onFileSelected]);
@@ -94,26 +97,21 @@ export const UploadArea = ({ onFileSelected }) => {
     );
   }
 
-  // Show completed state
+  // Show completed state - but indicate processing is unavailable
   if (processedFile) {
     return (
       <div
         data-testid="processing-complete"
-        className={`${styles.uploadArea} ${styles.completed}`}
+        className={`${styles.uploadArea} ${styles.unavailable}`}
       >
         <div className={styles.content}>
-          <div className={styles.icon}>✅</div>
-          <h3>File processed successfully!</h3>
           <p className={styles.fileName}>{processedFile.name}</p>
           <p className={styles.fileInfo}>
             {processedFile.type} • {(processedFile.size / 1024 / 1024).toFixed(2)} MB
           </p>
-          <button
-            onClick={reset}
-            className={styles.resetButton}
-          >
-            Upload Another File
-          </button>
+          <p className={styles.unavailableMessage}>
+            Document processing is temporarily unavailable
+          </p>
         </div>
       </div>
     );
@@ -140,8 +138,8 @@ export const UploadArea = ({ onFileSelected }) => {
     >
       <div className={styles.content}>
         <div className={styles.icon}>📄</div>
-        <h3>Drop your document here</h3>
-        <p>or click to browse</p>
+        <p className={styles.mainText}>Drag and drop</p>
+        <p className={styles.orText}>or <label htmlFor="file-input" role="button" tabIndex={-1}>browse files</label></p>
         <input
           type="file"
           accept={ACCEPTED_FILE_EXTENSIONS}
@@ -149,9 +147,7 @@ export const UploadArea = ({ onFileSelected }) => {
           style={{ display: 'none' }}
           id="file-input"
         />
-        <label htmlFor="file-input" role="button" tabIndex={-1}>
-          Choose File
-        </label>
+        <p className={styles.fileTypes}>PDF, DOCX, TXT, or RTF files accepted</p>
         {error && <div id="error-message" className={styles.error}>{error}</div>}
       </div>
     </div>

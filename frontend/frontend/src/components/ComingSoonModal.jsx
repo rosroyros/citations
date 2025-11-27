@@ -30,9 +30,12 @@ export const ComingSoonModal = ({ isOpen, file, onClose, textInputId = 'main-tex
     });
 
     // Focus text input after closing
-    const textInput = document.getElementById(textInputId);
-    if (textInput) {
-      textInput.focus();
+    // Try to find TipTap editor or fallback to textInputId
+    const editor = document.querySelector('[data-testid="editor"] .ProseMirror') ||
+                   document.querySelector('[contenteditable="true"]') ||
+                   document.getElementById(textInputId);
+    if (editor) {
+      editor.focus();
     }
 
     onClose({ dismissMethod, duration });
@@ -96,44 +99,8 @@ export const ComingSoonModal = ({ isOpen, file, onClose, textInputId = 'main-tex
       onClick={handleBackdropClick}
     >
       <div className="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <button
-          className="close-button"
-          onClick={() => handleDismiss('close_button')}
-          aria-label="Close modal"
-        >
-          ×
-        </button>
-
-        <div className="modal-header">
-          <h2 id="modal-title">📄 File Upload Coming Soon</h2>
-        </div>
-
         <div className="modal-body">
-          <div className="messaging">
-            <p className="highlight-text">Great choice!</p>
-            <p>We detected your <strong>{getFileTypeLabel()}</strong> and saved it to help prioritize this feature.</p>
-          </div>
-
-          <div className="file-info">
-            <h4>File Information:</h4>
-            <ul>
-              <li><strong>Name:</strong> {file.name}</li>
-              <li><strong>Size:</strong> {formatFileSize(file.size)}</li>
-              <li><strong>Type:</strong> {getFileTypeLabel()}</li>
-            </ul>
-          </div>
-
-          <div className="alternative-action">
-            <p>For now, you can paste the text from your document here:</p>
-            <div className="text-input-placeholder">
-              <span className="arrow-indicator">↓</span>
-              <span className="placeholder-text">[Text input area highlighted]</span>
-            </div>
-          </div>
-
-          <div className="feedback-text">
-            <p>✨ Your feedback helps us build this faster!</p>
-          </div>
+          <p className="apology-text">We apologize, but document upload is temporarily unavailable. Please paste your citations in the text area instead and we'll validate them all.</p>
         </div>
 
         <div className="modal-footer">
@@ -141,7 +108,7 @@ export const ComingSoonModal = ({ isOpen, file, onClose, textInputId = 'main-tex
             className="action-button"
             onClick={() => handleDismiss('got_it')}
           >
-            Got it, I'll use text input
+            Okay
           </button>
         </div>
       </div>
