@@ -18,6 +18,7 @@ import Success from './pages/Success'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
+import Dashboard from './pages/Dashboard'
 import DebugHTMLTest from './components/DebugHTMLTest'
 import { mockValidationAPI } from './utils/mockData'
 import './App.css'
@@ -837,6 +838,9 @@ function App() {
 
   if (pathname === '/debug-html') {
     return <DebugHTMLTest />
+  }
+  if (pathname === '/dashboard') {
+    return <CreditProvider><Dashboard /></CreditProvider>
   }
   if (pathname === '/success') {
     return <CreditProvider><Success /></CreditProvider>
