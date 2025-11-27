@@ -6,7 +6,7 @@
     <title>Internal Dashboard - Citation Validations</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Brand Colors - Matching main site */
@@ -24,6 +24,7 @@
             --color-text-primary: #1a1f36;
             --color-text-secondary: #4a5568;
             --color-text-tertiary: #718096;
+            --color-text-muted: #94a3b8;
             --color-text-accent: #9333ea;
 
             /* Status Colors - Refined for light theme */
@@ -192,7 +193,7 @@
             color: var(--color-text-muted);
             font-weight: 400;
             opacity: 0.8;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: var(--font-mono);
         }
 
         .refresh-btn {
@@ -689,7 +690,7 @@
 
         .job-details {
             background: var(--color-bg-tertiary);
-            border: 1px solid var(--color-border-glow);
+            border: 1px solid var(--color-border-brand);
             border-radius: 8px;
             padding: 20px;
             font-size: 14px;
