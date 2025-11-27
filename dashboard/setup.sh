@@ -24,14 +24,14 @@ sudo systemctl enable citations-dashboard
 echo "⏰ Installing cron job..."
 cat <<'EOF' | sudo tee /etc/cron.d/citations-dashboard > /dev/null
 # Incremental log parsing every 5 minutes
-*/5 * * * * deploy /opt/citations/venv/bin/python3 /opt/citations/dashboard/parse_logs_cron.py >> /opt/citations/logs/dashboard-cron.log 2>&1
+*/5 * * * * deploy cd /opt/citations && PYTHONPATH=/opt/citations /opt/citations/venv/bin/python3 /opt/citations/dashboard/parse_logs_cron.py >> /opt/citations/logs/dashboard-cron.log 2>&1
 EOF
 sudo chmod 644 /etc/cron.d/citations-dashboard
 
 # Run initial data load
 echo "📊 Loading initial data (last 3 days)..."
 source venv/bin/activate
-python3 dashboard/parse_logs_cron.py --initial --days=3
+PYTHONPATH=/opt/citations python3 dashboard/parse_logs_cron.py --initial --days=3
 
 # Start dashboard service
 echo "🚀 Starting dashboard service..."
