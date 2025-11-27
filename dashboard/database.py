@@ -54,7 +54,8 @@ class DatabaseManager:
                 token_usage_total INTEGER,
                 user_type TEXT NOT NULL,
                 status TEXT NOT NULL,
-                error_message TEXT
+                error_message TEXT,
+                citations_text TEXT
             )
         """)
 
@@ -80,6 +81,20 @@ class DatabaseManager:
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_created_at ON validations(created_at)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON validations(status)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON validations(user_type)")
+
+        # Add citations_text column to existing tables (migration)
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+        if 'citations_text' not in columns:
+            cursor.execute("ALTER TABLE validations ADD COLUMN citations_text TEXT")
+            print("Added citations_text column to validations table")
+
+        # Create partial index for performance optimization on citations_text
+        cursor.execute("""
+            CREATE INDEX IF NOT EXISTS idx_citations_text
+            ON validations(citations_text)
+            WHERE citations_text IS NOT NULL AND length(citations_text) > 0
+        """)
 
         self.conn.commit()
 
@@ -143,8 +158,8 @@ class DatabaseManager:
             INSERT OR REPLACE INTO validations (
                 job_id, created_at, completed_at, duration_seconds,
                 citation_count, token_usage_prompt, token_usage_completion,
-                token_usage_total, user_type, status, error_message
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                token_usage_total, user_type, status, error_message, citations_text
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             validation_data["job_id"],
             validation_data["created_at"],
@@ -156,7 +171,8 @@ class DatabaseManager:
             validation_data.get("token_usage_total"),
             validation_data["user_type"],
             validation_data["status"],
-            validation_data.get("error_message")
+            validation_data.get("error_message"),
+            validation_data.get("citations_text")
         ))
 
         self.conn.commit()
