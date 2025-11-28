@@ -21,6 +21,7 @@ from gating import (
     should_gate_results_sync,
     store_gated_results,
     log_gating_event,
+    log_results_revealed,
     get_gating_summary
 )
 
@@ -314,6 +315,120 @@ class TestFeatureFlagBehavior:
         # Conditions that should not trigger gating
         result = should_gate_results('paid', {'isPartial': False, 'errors': []}, True)
         assert result is False
+
+
+class TestResultsRevealedLogging:
+    """Test logging of results revealed analytics events."""
+
+    @patch('gating.logger')
+    def test_log_results_revealed_success(self, mock_logger):
+        """Test successful logging of results revealed event."""
+        job_id = 'test-job-123'
+        time_to_reveal = 45
+        user_type = 'free'
+
+        log_results_revealed(job_id, time_to_reveal, user_type)
+
+        # Verify the info log was called with correct format
+        mock_logger.info.assert_called_once_with(
+            f"RESULTS_REVEALED: job_id={job_id}, "
+            f"time_to_reveal={time_to_reveal}s, "
+            f"user_type={user_type}"
+        )
+
+    @patch('gating.logger')
+    @patch.dict(os.environ, {'DEBUG_ANALYTICS': 'true'})
+    def test_log_results_revealed_with_debug_logging(self, mock_logger):
+        """Test logging with debug analytics enabled."""
+        job_id = 'test-job-456'
+        time_to_reveal = 120
+        user_type = 'paid'
+
+        log_results_revealed(job_id, time_to_reveal, user_type)
+
+        # Verify both info and debug logs were called
+        assert mock_logger.info.call_count == 1
+        assert mock_logger.debug.call_count == 1
+
+        # Check info log format
+        info_call = mock_logger.info.call_args[0][0]
+        assert f"RESULTS_REVEALED: job_id={job_id}" in info_call
+        assert f"time_to_reveal={time_to_reveal}s" in info_call
+        assert f"user_type={user_type}" in info_call
+
+    @patch('gating.logger')
+    def test_log_results_revealed_invalid_job_id(self, mock_logger):
+        """Test handling of invalid job_id parameter."""
+        invalid_job_ids = [None, '', '   ']
+
+        for job_id in invalid_job_ids:
+            log_results_revealed(job_id, 45, 'free')
+
+        # Should log warning for each invalid job_id
+        assert mock_logger.warning.call_count == len(invalid_job_ids)
+
+        # Verify warning messages
+        warning_calls = [call[0][0] for call in mock_logger.warning.call_args_list]
+        for warning in warning_calls:
+            assert "Invalid job_id in log_results_revealed:" in warning
+
+    @patch('gating.logger')
+    def test_log_results_revealed_invalid_time_to_reveal(self, mock_logger):
+        """Test handling of invalid time_to_reveal parameter."""
+        invalid_times = [-5, 'not-a-number', None]
+
+        for time_val in invalid_times:
+            log_results_revealed('valid-job', time_val, 'free')
+
+        # Should log warning for each invalid time
+        assert mock_logger.warning.call_count == len(invalid_times)
+
+        # Verify warning messages
+        warning_calls = [call[0][0] for call in mock_logger.warning.call_args_list]
+        for warning in warning_calls:
+            assert "Invalid time_to_reveal in log_results_revealed:" in warning
+
+    @patch('gating.logger')
+    def test_log_results_revealed_invalid_user_type(self, mock_logger):
+        """Test handling of invalid user_type parameter."""
+        log_results_revealed('valid-job', 45, 'invalid_type')
+
+        # Should log warning for invalid user type
+        mock_logger.warning.assert_called_once_with(
+            "Invalid user_type in log_results_revealed: invalid_type"
+        )
+
+    @patch('gating.logger')
+    def test_log_results_revealed_exception_handling(self, mock_logger):
+        """Test that exceptions are caught and logged without raising."""
+        # Mock logger to raise an exception
+        mock_logger.info.side_effect = Exception("Logging failed")
+
+        # Should not raise exception
+        log_results_revealed('test-job', 45, 'free')
+
+        # Should log the error
+        mock_logger.error.assert_called_once()
+        error_call = mock_logger.error.call_args[0][0]
+        assert "Failed to log results revealed analytics:" in error_call
+
+    @patch('gating.logger')
+    def test_log_results_revealed_edge_cases(self, mock_logger):
+        """Test edge cases for valid parameters."""
+        # Test boundary values
+        test_cases = [
+            ('job-0', 0, 'anonymous'),  # Zero time
+            ('job-3600', 3600, 'paid'),  # Maximum allowed time
+            ('job-with-dashes', 999, 'free'),  # Job ID with dashes
+        ]
+
+        for job_id, time_to_reveal, user_type in test_cases:
+            log_results_revealed(job_id, time_to_reveal, user_type)
+
+        # Should have logged all cases successfully
+        assert mock_logger.info.call_count == len(test_cases)
+        mock_logger.warning.assert_not_called()
+        mock_logger.error.assert_not_called()
 
 
 if __name__ == '__main__':

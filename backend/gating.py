@@ -223,7 +223,7 @@ def log_results_revealed(job_id: str, time_to_reveal: int, user_type: str) -> No
     """
     try:
         # Validate input parameters
-        if not job_id or not isinstance(job_id, str):
+        if not job_id or not isinstance(job_id, str) or not job_id.strip():
             logger.warning(f"Invalid job_id in log_results_revealed: {job_id}")
             return
 
