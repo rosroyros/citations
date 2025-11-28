@@ -816,6 +816,38 @@ async def get_gating_analytics(days: int = 7, user_type: Optional[str] = None):
         raise HTTPException(status_code=500, detail="Failed to get analytics")
 
 
+@app.get("/api/gating/status/{job_id}")
+async def get_gated_validation_status(job_id: str):
+    """
+    Get gated validation status and results for a specific job.
+
+    Args:
+        job_id: Unique identifier for the validation job
+
+    Returns:
+        dict: Gating status and results data for frontend display
+    """
+    logger.info(f"Gating status request for job {job_id}")
+
+    try:
+        # Import database functions
+        from database import get_gated_validation_results
+
+        # Get gated validation results from database
+        results = get_gated_validation_results(job_id)
+
+        if not results:
+            raise HTTPException(status_code=404, detail=f"Validation job {job_id} not found")
+
+        return results
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting gated validation status for job {job_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get gated validation status")
+
+
 @app.get("/api/dashboard")
 async def get_dashboard_data(
     status: Optional[str] = None,

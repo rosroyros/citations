@@ -10,7 +10,7 @@ analysis to ensure reliability and maintainability.
 """
 
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 from fastapi import Request
 from logger import setup_logger
@@ -128,7 +128,7 @@ def should_gate_results_sync(
     return should_gate_results(user_type, results, validation_success)
 
 
-async def store_gated_results(
+def store_gated_results(
     job_id: str,
     results_gated: bool,
     user_type: str,
@@ -160,7 +160,7 @@ async def store_gated_results(
         cursor = db_conn.cursor()
 
         # Update validation tracking record
-        now = datetime.utcnow().isoformat()
+        now = datetime.now(timezone.utc).isoformat()
         cursor.execute('''
             UPDATE validations
             SET results_gated = ?,

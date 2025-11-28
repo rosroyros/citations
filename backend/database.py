@@ -481,6 +481,85 @@ def get_validation_analytics(
         return {}
 
 
+def get_gated_validation_results(job_id: str) -> Optional[dict]:
+    """
+    Get gated validation results and status for a specific job.
+
+    Args:
+        job_id: Unique identifier for the validation job
+
+    Returns:
+        dict: Validation results with gating information, or None if not found
+    """
+    try:
+        db_path = get_validations_db_path()
+
+        # Ensure database and table exist
+        if not os.path.exists(db_path):
+            logger.debug(f"Validations database does not exist for job {job_id}")
+            return None
+
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            # Query validation record with gating information
+            cursor.execute('''
+                SELECT
+                    job_id,
+                    user_type,
+                    citation_count,
+                    validation_status,
+                    results_gated,
+                    gated_at,
+                    results_ready_at,
+                    created_at,
+                    updated_at,
+                    error_message
+                FROM validations
+                WHERE job_id = ?
+            ''', (job_id,))
+
+            result = cursor.fetchone()
+
+            if not result:
+                logger.debug(f"No validation record found for job {job_id}")
+                return None
+
+            # Convert to dictionary
+            (
+                job_id,
+                user_type,
+                citation_count,
+                validation_status,
+                results_gated,
+                gated_at,
+                results_ready_at,
+                created_at,
+                updated_at,
+                error_message
+            ) = result
+
+            return {
+                'job_id': job_id,
+                'user_type': user_type,
+                'citation_count': citation_count,
+                'validation_status': validation_status,
+                'results_gated': bool(results_gated) if results_gated is not None else None,
+                'gated_at': gated_at,
+                'results_ready_at': results_ready_at,
+                'created_at': created_at,
+                'updated_at': updated_at,
+                'error_message': error_message
+            }
+
+    except sqlite3.Error as e:
+        logger.error(f"Database error getting gated validation results for job {job_id}: {e}")
+        return None
+    except Exception as e:
+        logger.error(f"Unexpected error getting gated validation results for job {job_id}: {e}")
+        return None
+
+
 if __name__ == "__main__":
     init_db()
     print(f"Database initialized at {get_db_path()}")
