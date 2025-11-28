@@ -15,7 +15,7 @@ from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
-from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, record_result_reveal, get_validation_analytics
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, record_result_reveal, get_validation_analytics, get_gated_validation_results
 from gating import get_user_type, should_gate_results_sync, store_gated_results, log_gating_event
 
 # Load environment variables
@@ -830,9 +830,6 @@ async def get_gated_validation_status(job_id: str):
     logger.info(f"Gating status request for job {job_id}")
 
     try:
-        # Import database functions
-        from database import get_gated_validation_results
-
         # Get gated validation results from database
         results = get_gated_validation_results(job_id)
 
