@@ -71,6 +71,15 @@ class CronLogParser:
             parsed_jobs: List of parsed jobs to insert
         """
         for job in parsed_jobs:
+            # Map extracted citation fields to database citations_text field
+            if job.get("citations_preview") or job.get("citations_full"):
+                citations_parts = []
+                if job.get("citations_preview"):
+                    citations_parts.append(f"PREVIEW: {job['citations_preview']}")
+                if job.get("citations_full"):
+                    citations_parts.append(f"FULL: {job['citations_full']}")
+                job["citations_text"] = "\n\n".join(citations_parts)
+
             db.insert_validation(job)
 
     def parse_incremental(self, log_file_path: str):
