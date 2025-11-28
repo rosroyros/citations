@@ -211,39 +211,40 @@ function AppContent() {
 
   // Handle reveal results action
   const handleRevealResults = async () => {
-    const timeToReveal = Math.floor((Date.now() - resultsReadyTimestamp) / 1000)
-
-    try {
-      // Call backend API to track reveal
-      const response = await fetch('/api/reveal-results', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          job_id: jobId,
-          time_to_reveal_seconds: timeToReveal,
-          user_type: userTier
-        })
-      })
-
-      if (!response.ok) {
-        console.warn('Failed to track reveal results:', response.statusText)
-      }
-
-      // Track analytics event
-      trackResultsRevealedSafe(jobId, timeToReveal, userTier)
-
-    } catch (error) {
-      console.warn('Error tracking reveal results:', error)
+    // Validate timestamp before calculation
+    if (!resultsReadyTimestamp || typeof resultsReadyTimestamp !== 'number' || resultsReadyTimestamp <= 0) {
+      console.warn('Invalid resultsReadyTimestamp, skipping tracking')
+      setResultsRevealed(true)
+      return
     }
 
+    const timeToReveal = Math.floor((Date.now() - resultsReadyTimestamp) / 1000)
+
+    // Immediate state update for better UX
     setResultsRevealed(true)
     setTrackingData(prev => ({
       ...prev,
       resultsRevealedAt: new Date().toISOString(),
       timeToRevealSeconds: timeToReveal
     }))
+
+    // Track analytics event
+    trackResultsRevealedSafe(jobId, timeToReveal, userTier)
+
+    // Fire-and-forget API call
+    fetch('/api/reveal-results', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        job_id: jobId,
+        outcome: 'revealed'
+      })
+    }).catch(error => {
+      // Log error but don't break user experience
+      console.warn('Error tracking reveal results:', error)
+    })
   }
 
   // Poll for job results
