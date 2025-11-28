@@ -437,6 +437,176 @@ class DatabaseManager:
             "avg_citations_per_validation": round(result[8] or 0, 1)
         }
 
+    def get_gated_stats(
+        self,
+        from_date: Optional[str] = None,
+        to_date: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Get engagement statistics for gated results
+
+        Args:
+            from_date: Include only validations created after this date
+            to_date: Include only validations created before this date
+
+        Returns:
+            Dictionary with gated results engagement statistics
+        """
+        query = """
+            SELECT
+                COUNT(*) as total_validations,
+                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as total_gated,
+                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed_count,
+                AVG(CASE WHEN results_gated = 1 AND time_to_reveal_seconds IS NOT NULL
+                    THEN time_to_reveal_seconds END) as avg_time_to_reveal_seconds
+            FROM validations
+            WHERE 1=1
+        """
+        params = []
+
+        if from_date:
+            query += " AND created_at >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND created_at <= ?"
+            params.append(to_date)
+
+        cursor = self.conn.cursor()
+        cursor.execute(query, params)
+        result = cursor.fetchone()
+
+        total_validations = result[0] or 0
+        total_gated = result[1] or 0
+        revealed_count = result[2] or 0
+        avg_time_to_reveal = result[3] or 0
+
+        # Calculate reveal rate
+        reveal_rate = (revealed_count / total_gated * 100) if total_gated > 0 else 0
+
+        # Get breakdown by user type
+        user_type_query = """
+            SELECT
+                user_type,
+                COUNT(*) as total,
+                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
+                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed,
+                AVG(CASE WHEN results_gated = 1 AND time_to_reveal_seconds IS NOT NULL
+                    THEN time_to_reveal_seconds END) as avg_time
+            FROM validations
+            WHERE 1=1
+        """
+        user_type_params = []
+        if from_date:
+            user_type_query += " AND created_at >= ?"
+            user_type_params.append(from_date)
+        if to_date:
+            user_type_query += " AND created_at <= ?"
+            user_type_params.append(to_date)
+
+        user_type_query += " GROUP BY user_type"
+
+        cursor.execute(user_type_query, user_type_params)
+        user_type_results = cursor.fetchall()
+
+        by_user_type = {}
+        for row in user_type_results:
+            user_type, total, gated, revealed, avg_time = row
+            gated_rate = (gated / total * 100) if total > 0 else 0
+            reveal_rate_type = (revealed / gated * 100) if gated > 0 else 0
+            by_user_type[user_type] = {
+                "total": total,
+                "gated": gated,
+                "revealed": revealed,
+                "gating_rate": round(gated_rate, 1),
+                "reveal_rate": round(reveal_rate_type, 1),
+                "avg_time_to_reveal_seconds": round(avg_time or 0, 1)
+            }
+
+        # Get breakdown by outcome
+        outcome_query = """
+            SELECT
+                COALESCE(gated_outcome, 'no_outcome') as outcome,
+                COUNT(*) as count
+            FROM validations
+            WHERE results_gated = 1
+        """
+        outcome_params = []
+        if from_date:
+            outcome_query += " AND created_at >= ?"
+            outcome_params.append(from_date)
+        if to_date:
+            outcome_query += " AND created_at <= ?"
+            outcome_params.append(to_date)
+
+        outcome_query += " GROUP BY gated_outcome"
+
+        cursor.execute(outcome_query, outcome_params)
+        outcome_results = cursor.fetchall()
+
+        by_outcome = {row[0]: row[1] for row in outcome_results}
+
+        # Get daily trends for last 30 days
+        trends_query = """
+            SELECT
+                DATE(created_at) as date,
+                COUNT(*) as total,
+                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
+                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed
+            FROM validations
+            WHERE created_at >= DATE('now', '-30 days')
+        """
+        trends_params = []
+        if from_date:
+            trends_query += " AND created_at >= ?"
+            trends_params.append(from_date)
+        if to_date:
+            trends_query += " AND created_at <= ?"
+            trends_params.append(to_date)
+
+        trends_query += " GROUP BY DATE(created_at) ORDER BY date DESC LIMIT 30"
+
+        cursor.execute(trends_query, trends_params)
+        trend_results = cursor.fetchall()
+
+        daily_trends = []
+        for row in trend_results:
+            date, total, gated, revealed = row
+            gated_rate = (gated / total * 100) if total > 0 else 0
+            reveal_rate = (revealed / gated * 100) if gated > 0 else 0
+            daily_trends.append({
+                "date": date,
+                "total": total,
+                "gated": gated,
+                "revealed": revealed,
+                "gating_rate": round(gated_rate, 1),
+                "reveal_rate": round(reveal_rate, 1)
+            })
+
+        # Calculate conversion metrics (estimated)
+        conversion_metrics = {
+            "gating_rate": (total_gated / total_validations * 100) if total_validations > 0 else 0,
+            "reveal_rate": round(reveal_rate, 1),
+            "avg_time_to_reveal_seconds": round(avg_time_to_reveal or 0, 1),
+            "estimated_conversion_funnel": {
+                "total_validations": total_validations,
+                "gated_results": total_gated,
+                "revealed_results": revealed_count,
+                "drop_off_rate": round((total_gated - revealed_count) / total_gated * 100, 1) if total_gated > 0 else 0
+            }
+        }
+
+        return {
+            "total_gated": total_gated,
+            "revealed_count": revealed_count,
+            "reveal_rate": round(reveal_rate, 1),
+            "avg_time_to_reveal_seconds": round(avg_time_to_reveal or 0, 1),
+            "by_user_type": by_user_type,
+            "by_outcome": by_outcome,
+            "daily_trends": daily_trends,
+            "conversion_metrics": conversion_metrics
+        }
+
     def delete_old_records(self, days: int = 90) -> int:
         """
         Delete validation records older than specified days

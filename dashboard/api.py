@@ -218,6 +218,18 @@ class ValidationError(BaseModel):
     log_line: Optional[str] = None
 
 
+class GatedStatsResponse(BaseModel):
+    """Gated results engagement statistics response model"""
+    total_gated: int
+    revealed_count: int
+    reveal_rate: float
+    avg_time_to_reveal_seconds: float
+    by_user_type: Dict[str, Dict[str, Any]]
+    by_outcome: Dict[str, int]
+    daily_trends: List[Dict[str, Any]]
+    conversion_metrics: Dict[str, Any]
+
+
 class ValidationsListResponse(BaseModel):
     """Validations list response model with pagination"""
     validations: List[ValidationResponse]
@@ -507,6 +519,38 @@ async def get_parser_errors(
         return [ValidationError(**error) for error in errors]
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get parser errors: {str(e)}")
+
+
+@app.get("/api/gated-stats", response_model=GatedStatsResponse)
+async def get_gated_stats(
+    from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get gated results engagement statistics
+
+    Provides comprehensive engagement metrics for gated validation results, including:
+    - Overall gating and reveal rates
+    - User type breakdowns (free vs paid)
+    - Daily engagement trends
+    - Conversion funnel metrics
+    - Outcome analysis
+
+    Query Parameters:
+    - from_date: Filter validations created after this date
+    - to_date: Filter validations created before this date
+    """
+    # Input validation
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+
+    try:
+        stats = database.get_gated_stats(from_date=from_date, to_date=to_date)
+        return GatedStatsResponse(**stats)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get gated statistics: {str(e)}")
 
 
 @app.exception_handler(Exception)

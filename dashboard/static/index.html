@@ -1072,6 +1072,51 @@
                 transform: none;
             }
         }
+
+        /* Gated Results Analytics Styles */
+        .stat-toggle-btn {
+            background: var(--color-brand);
+            color: white;
+            border: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-body);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            min-height: 32px;
+        }
+
+        .stat-toggle-btn:hover {
+            background: var(--color-brand-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .gated-details {
+            margin-bottom: var(--space-xl);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .engagement-trend {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            margin-top: 4px;
+        }
+
+        .trend-up {
+            color: var(--color-success);
+        }
+
+        .trend-down {
+            color: var(--color-warning);
+        }
+
+        .trend-neutral {
+            color: var(--color-text-tertiary);
+        }
     </style>
 </head>
 <body>
@@ -1141,6 +1186,65 @@
             </div>
         </div>
 
+        <!-- Gated Results Engagement Metrics -->
+        <div class="stats" id="gatedStats" style="display: none;">
+            <div class="stats-group">
+                <div class="stat highlight">
+                    <span class="stat-label">🔒</span>
+                    <span class="stat-value" id="totalGated">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">👁️</span>
+                    <span class="stat-value" id="revealedCount">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">Reveal Rate:</span>
+                    <span class="stat-value" id="revealRate">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">⏱️</span>
+                    <span class="stat-value" id="avgTimeToReveal">-</span>
+                </div>
+            </div>
+            <div class="stats-group">
+                <div class="stat">
+                    <span class="stat-label">Free Users:</span>
+                    <span class="stat-value" id="freeUserStats">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Paid Users:</span>
+                    <span class="stat-value" id="paidUserStats">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Drop-off:</span>
+                    <span class="stat-value" id="dropOffRate">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">📊</span>
+                    <button class="stat-toggle-btn" onclick="toggleGatedDetails()" title="Show detailed gated results analytics">
+                        Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gated Results Details (collapsible) -->
+        <div class="gated-details" id="gatedDetails" style="display: none;">
+            <div class="glass-card">
+                <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🔒 Gated Results Analytics</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                    <div>
+                        <h4 style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 8px;">User Type Breakdown</h4>
+                        <div id="userTypeBreakdown" style="font-size: 13px; color: var(--color-text-secondary);"></div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 8px;">Outcomes</h4>
+                        <div id="outcomeBreakdown" style="font-size: 13px; color: var(--color-text-secondary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="table-container">
             <table>
                 <thead>
@@ -1200,6 +1304,16 @@
                 const stats = await statsResponse.json();
                 updateStats(stats);
 
+                // Fetch gated stats
+                try {
+                    const gatedResponse = await fetch(`/api/gated-stats?from_date=${from_date}`);
+                    const gatedStats = await gatedResponse.json();
+                    updateGatedStats(gatedStats);
+                } catch (gatedError) {
+                    console.warn('Gated stats not available:', gatedError);
+                    document.getElementById('gatedStats').style.display = 'none';
+                }
+
                 // Fetch validations
                 const validationsResponse = await fetch(
                     `/api/validations?limit=${pageSize}&offset=${(currentPage - 1) * pageSize}&status=${status}&user_type=${userType}&search=${search}&from_date=${from_date}&order_by=${sortBy}&order_dir=${sortDir}`
@@ -1229,6 +1343,88 @@
             document.getElementById('failed').textContent = stats.failed;
             document.getElementById('avgDuration').textContent = stats.avg_duration_seconds + 's';
             document.getElementById('avgCitations').textContent = stats.avg_citations_per_validation;
+        }
+
+        function updateGatedStats(gatedStats) {
+            // Show gated stats section if there are any gated results
+            const gatedStatsElement = document.getElementById('gatedStats');
+            if (gatedStats.total_gated > 0) {
+                gatedStatsElement.style.display = 'block';
+
+                // Update main gated metrics
+                document.getElementById('totalGated').textContent = gatedStats.total_gated;
+                document.getElementById('revealedCount').textContent = gatedStats.revealed_count;
+                document.getElementById('revealRate').textContent = gatedStats.reveal_rate + '%';
+                document.getElementById('avgTimeToReveal').textContent = gatedStats.avg_time_to_reveal_seconds + 's';
+
+                // Update user type stats
+                const freeUserStats = gatedStats.by_user_type?.free || {};
+                const paidUserStats = gatedStats.by_user_type?.paid || {};
+
+                document.getElementById('freeUserStats').innerHTML =
+                    `${freeUserStats.gated || 0} gated (${freeUserStats.reveal_rate || 0}%)`;
+                document.getElementById('paidUserStats').innerHTML =
+                    `${paidUserStats.gated || 0} gated (${paidUserStats.reveal_rate || 0}%)`;
+
+                // Update drop-off rate
+                const dropOffRate = gatedStats.conversion_metrics?.estimated_conversion_funnel?.drop_off_rate || 0;
+                document.getElementById('dropOffRate').textContent = dropOffRate + '%';
+
+                // Store detailed data for the details view
+                window.currentGatedStats = gatedStats;
+            } else {
+                gatedStatsElement.style.display = 'none';
+            }
+        }
+
+        function toggleGatedDetails() {
+            const detailsElement = document.getElementById('gatedDetails');
+            const isVisible = detailsElement.style.display !== 'none';
+
+            if (isVisible) {
+                detailsElement.style.display = 'none';
+            } else {
+                detailsElement.style.display = 'block';
+                populateGatedDetails();
+            }
+        }
+
+        function populateGatedDetails() {
+            const gatedStats = window.currentGatedStats;
+            if (!gatedStats) return;
+
+            // User type breakdown
+            const userTypeBreakdown = document.getElementById('userTypeBreakdown');
+            if (gatedStats.by_user_type) {
+                let userHtml = '';
+                for (const [userType, data] of Object.entries(gatedStats.by_user_type)) {
+                    userHtml += `
+                        <div style="margin-bottom: 8px; padding: 8px; background: var(--color-bg-secondary); border-radius: 6px;">
+                            <strong>${userType.charAt(0).toUpperCase() + userType.slice(1)} Users:</strong><br>
+                            Total: ${data.total} | Gated: ${data.gated} (${data.gating_rate}%)<br>
+                            Revealed: ${data.revealed} (${data.reveal_rate}%)<br>
+                            Avg time: ${data.avg_time_to_reveal_seconds}s
+                        </div>
+                    `;
+                }
+                userTypeBreakdown.innerHTML = userHtml;
+            }
+
+            // Outcome breakdown
+            const outcomeBreakdown = document.getElementById('outcomeBreakdown');
+            if (gatedStats.by_outcome && Object.keys(gatedStats.by_outcome).length > 0) {
+                let outcomeHtml = '';
+                for (const [outcome, count] of Object.entries(gatedStats.by_outcome)) {
+                    outcomeHtml += `
+                        <div style="margin-bottom: 6px; padding: 6px; background: var(--color-bg-secondary); border-radius: 4px;">
+                            ${outcome}: ${count}
+                        </div>
+                    `;
+                }
+                outcomeBreakdown.innerHTML = outcomeHtml;
+            } else {
+                outcomeBreakdown.innerHTML = '<div style="color: var(--color-text-muted);">No outcomes recorded yet</div>';
+            }
         }
 
         function updateTable(validations) {
