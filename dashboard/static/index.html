@@ -780,6 +780,9 @@
             word-break: break-word;
             position: relative;
             transition: all var(--transition-base);
+            /* Accessibility improvements */
+            tabindex: 0;
+            outline: none;
         }
 
         .citations-text:hover {
@@ -821,6 +824,10 @@
             transition: all var(--transition-base);
             align-self: flex-end;
             box-shadow: var(--shadow-sm);
+            /* Accessibility improvements */
+            min-height: 44px;
+            min-width: 44px;
+            border: 2px solid transparent;
         }
 
         .copy-btn:hover {
@@ -957,11 +964,88 @@
             }
         }
 
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Citation item styling for accessibility */
+        .citation-item {
+            padding: var(--space-xs) 0;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .citation-item:hover {
+            background: var(--color-brand-light);
+        }
+
+        .citation-item:focus-within {
+            outline: 2px solid var(--color-brand);
+            outline-offset: 2px;
+        }
+
+        .citation-number {
+            font-weight: 600;
+            color: var(--color-brand);
+            margin-right: var(--space-sm);
+        }
+
+        .citation-text {
+            line-height: 1.4;
+        }
+
+        .citation-error {
+            background: var(--color-error-bg);
+            border: 1px solid var(--color-error-border);
+            color: var(--color-error);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+        }
+
+        .citation-warning {
+            background: var(--color-warning-bg);
+            border: 1px solid var(--color-warning-border);
+            color: var(--color-warning);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+        }
+
+        .citation-empty,
+        .citation-loading {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
+
+        .citation-loading {
+            animation: subtlePulse 2s ease-in-out infinite;
+        }
+
         /* Accessibility improvements */
         .citations-text:focus,
         .copy-btn:focus {
             outline: 2px solid var(--color-brand);
             outline-offset: 2px;
+        }
+
+        .citations-text:focus {
+            border-color: var(--color-brand);
+            box-shadow: 0 0 0 3px var(--color-brand-light);
         }
 
         /* High contrast mode support */
@@ -1266,8 +1350,22 @@
                         <div class="detail-row">
                             <span class="detail-label">Citations Text:</span>
                             <div class="citations-container">
-                                <div class="citations-text" id="citations-text-${validation.job_id}">${formatCitations(validation.citations)}</div>
-                                <button class="copy-btn" onclick="copyCitations('${validation.job_id}')" title="Copy citations to clipboard">
+                                <div class="citations-text"
+                                     id="citations-text-${validation.job_id}"
+                                     tabindex="0"
+                                     role="region"
+                                     aria-label="Citations text for job ${validation.job_id}"
+                                     aria-live="polite"
+                                     aria-describedby="citations-help-${validation.job_id}">
+                                    ${formatCitations(validation.citations)}
+                                </div>
+                                <div id="citations-help-${validation.job_id}" class="sr-only">
+                                    Use Tab to navigate, Arrow keys to scroll, Space to copy citations
+                                </div>
+                                <button class="copy-btn"
+                                        onclick="copyCitations('${validation.job_id}')"
+                                        aria-label="Copy citations for job ${validation.job_id} to clipboard"
+                                        title="Copy citations to clipboard">
                                     📋 Copy
                                 </button>
                             </div>
@@ -1292,6 +1390,11 @@
                         </div>
                         ` : ''}
                     `;
+
+                // Setup keyboard navigation for citations
+                if (validation.citations) {
+                    setupCitationsKeyboardNavigation(validation.job_id);
+                }
                 } catch (error) {
                     detailsContent.innerHTML = 'Error loading job details';
                 }
@@ -1305,47 +1408,121 @@
             // Input validation: ensure citationsText is a string
             if (citationsText !== null && citationsText !== undefined && typeof citationsText !== 'string') {
                 console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
-                return '📝 Invalid citations data format';
+                return '<div class="citation-error" role="alert" aria-live="assertive">📝 Invalid citations data format</div>';
             }
 
             // Handle null, undefined, or empty string
             if (!citationsText || citationsText.trim() === '') {
-                return '📝 No citations found in this validation';
+                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
             }
 
             // Split by newlines and clean up formatting
             const lines = citationsText.split('\n').filter(line => line.trim());
 
             if (lines.length === 0) {
-                return '📝 No citations found in this validation';
+                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
             }
 
             // Check if citations are being processed (loading state)
             if (lines.length === 1 && lines[0].toLowerCase().includes('processing')) {
-                return '⏳ Citations are being processed...';
+                return '<div class="citation-loading" role="status" aria-live="polite" aria-busy="true">⏳ Citations are being processed...</div>';
             }
 
-            // Format each citation line with better visual hierarchy
+            // Format each citation line with better visual hierarchy and accessibility
             return lines.map((line, index) => {
                 const trimmed = line.trim();
 
-                // Handle different citation formats with better icons
+                // Handle different citation formats with better icons and semantic markup
                 if (trimmed.startsWith('PREVIEW:')) {
                     const previewText = trimmed.substring(8).trim();
-                    return previewText ? `📋 ${previewText}` : '';
+                    return previewText ?
+                        `<div class="citation-item" role="listitem" aria-label="Preview citation ${index + 1}">📋 <span class="citation-text">${previewText}</span></div>` : '';
                 } else if (trimmed.startsWith('FULL:')) {
                     const fullText = trimmed.substring(5).trim();
-                    return fullText ? `📖 ${fullText}` : '';
+                    return fullText ?
+                        `<div class="citation-item" role="listitem" aria-label="Full citation ${index + 1}">📖 <span class="citation-text">${fullText}</span></div>` : '';
                 } else if (trimmed.toLowerCase().includes('error') || trimmed.toLowerCase().includes('failed')) {
-                    return `❌ ${trimmed}`;
+                    return
+                        `<div class="citation-item citation-error" role="alert" aria-live="assertive">❌ <span class="citation-text">${trimmed}</span></div>`;
                 } else if (trimmed.toLowerCase().includes('warning')) {
-                    return `⚠️ ${trimmed}`;
+                    return
+                        `<div class="citation-item citation-warning" role="alert" aria-live="polite">⚠️ <span class="citation-text">${trimmed}</span></div>`;
                 } else if (trimmed.trim()) {
-                    // Regular citation - add numbering with proper spacing
-                    return `${index + 1}. ${trimmed}`;
+                    // Regular citation - add numbering with proper spacing and accessibility
+                    return
+                        `<div class="citation-item" role="listitem" aria-label="Citation ${index + 1}"><span class="citation-number">${index + 1}.</span> <span class="citation-text">${trimmed}</span></div>`;
                 }
                 return ''; // Skip empty lines
-            }).filter(line => line.trim()).join('\n\n');
+            }).filter(line => line.trim()).join('');
+        }
+
+        // Keyboard navigation for citations containers
+        function setupCitationsKeyboardNavigation(jobId) {
+            const citationsText = document.getElementById(`citations-text-${jobId}`);
+            if (!citationsText) return;
+
+            citationsText.addEventListener('keydown', function(event) {
+                switch (event.key) {
+                    case 'ArrowDown':
+                        event.preventDefault();
+                        citationsText.scrollTop += 50;
+                        announceToScreenReader('Scrolled down');
+                        break;
+                    case 'ArrowUp':
+                        event.preventDefault();
+                        citationsText.scrollTop -= 50;
+                        announceToScreenReader('Scrolled up');
+                        break;
+                    case 'PageDown':
+                        event.preventDefault();
+                        citationsText.scrollTop += citationsText.clientHeight;
+                        announceToScreenReader('Scrolled page down');
+                        break;
+                    case 'PageUp':
+                        event.preventDefault();
+                        citationsText.scrollTop -= citationsText.clientHeight;
+                        announceToScreenReader('Scrolled page up');
+                        break;
+                    case 'Home':
+                        event.preventDefault();
+                        citationsText.scrollTop = 0;
+                        announceToScreenReader('Scrolled to top');
+                        break;
+                    case 'End':
+                        event.preventDefault();
+                        citationsText.scrollTop = citationsText.scrollHeight;
+                        announceToScreenReader('Scrolled to bottom');
+                        break;
+                    case ' ':
+                    case 'Enter':
+                        event.preventDefault();
+                        // Copy citations when Space or Enter is pressed on citations container
+                        copyCitations(jobId);
+                        break;
+                    case 'Tab':
+                        // Allow normal tab navigation
+                        break;
+                    default:
+                        // Don't prevent default for other keys
+                        break;
+                }
+            });
+        }
+
+        // Screen reader announcement helper
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+
+            document.body.appendChild(announcement);
+
+            // Remove after announcement
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
         }
 
         // Copy citations to clipboard function
