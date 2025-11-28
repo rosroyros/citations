@@ -13,7 +13,7 @@ import { UploadArea } from './components/UploadArea'
 import { ComingSoonModal } from './components/ComingSoonModal'
 import { getToken, getFreeUsage } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
-import { trackEvent } from './utils/analytics'
+import { trackEvent, trackResultsRevealedSafe } from './utils/analytics'
 import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
 import Success from './pages/Success'
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -212,6 +212,31 @@ function AppContent() {
   // Handle reveal results action
   const handleRevealResults = async () => {
     const timeToReveal = Math.floor((Date.now() - resultsReadyTimestamp) / 1000)
+
+    try {
+      // Call backend API to track reveal
+      const response = await fetch('/api/reveal-results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          job_id: jobId,
+          time_to_reveal_seconds: timeToReveal,
+          user_type: userTier
+        })
+      })
+
+      if (!response.ok) {
+        console.warn('Failed to track reveal results:', response.statusText)
+      }
+
+      // Track analytics event
+      trackResultsRevealedSafe(jobId, timeToReveal, userTier)
+
+    } catch (error) {
+      console.warn('Error tracking reveal results:', error)
+    }
 
     setResultsRevealed(true)
     setTrackingData(prev => ({
