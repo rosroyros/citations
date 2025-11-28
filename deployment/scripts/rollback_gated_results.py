@@ -211,7 +211,7 @@ if __name__ == "__main__":
 
     # Ask for confirmation
     response = input("Are you sure you want to proceed? (yes/no): ")
-    if response.lower() != 'yes':
+    if response.strip().lower() != 'yes':
         print("❌ Rollback cancelled")
         sys.exit(0)
 
