@@ -15,7 +15,8 @@ from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
-from database import get_credits, deduct_credits
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, record_result_reveal, get_validation_analytics
+from gating import get_user_type, should_gate_results_sync, store_gated_results, log_gating_event
 
 # Load environment variables
 load_dotenv()
@@ -169,6 +170,47 @@ class ValidationResponse(BaseModel):
     credits_remaining: Optional[int] = None
     free_used: Optional[int] = None
     free_used_total: Optional[int] = None  # NEW - authoritative count for frontend
+    results_gated: Optional[bool] = None  # NEW - gating decision
+    job_id: Optional[str] = None  # NEW - for reveal tracking
+
+
+def build_gated_response(
+    response_data: dict,
+    user_type: str,
+    job_id: str,
+    gating_reason: Optional[str] = None
+) -> ValidationResponse:
+    """
+    Build ValidationResponse with gating decision.
+
+    Args:
+        response_data: Base response data dictionary
+        user_type: Type of user ('paid', 'free', 'anonymous')
+        job_id: Validation job identifier
+        gating_reason: Optional reason for gating decision
+
+    Returns:
+        ValidationResponse with gating information
+    """
+    # Determine if results should be gated
+    results_gated = should_gate_results_sync(user_type, response_data, True)
+
+    # Log gating decision
+    log_gating_event(job_id, user_type, results_gated, gating_reason)
+
+    # Store gating decision in database
+    store_gated_results(job_id, results_gated, user_type, response_data)
+
+    # If gated, clear results but keep metadata
+    if results_gated:
+        response_data['results'] = []
+        response_data['results_gated'] = True
+        response_data['job_id'] = job_id
+    else:
+        response_data['results_gated'] = False
+        response_data['job_id'] = job_id
+
+    return ValidationResponse(**response_data)
 
 
 @app.get("/health")
@@ -282,11 +324,15 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     logger.info(f"Validation request received for style: {request.style}")
     logger.debug(f"Citations length: {len(request.citations)} characters")
 
-    # Extract token from headers
+    # Extract token from headers and determine user type
     token = http_request.headers.get('X-User-Token')
     logger.debug(f"Token present: {bool(token)}")
     if token:
         logger.debug(f"Token preview: {token[:8]}...")
+
+    # Determine user type for gating decisions
+    user_type = get_user_type(http_request)
+    logger.debug(f"User type determined: {user_type}")
 
     # Validate input
     if not request.citations or not request.citations.strip():
@@ -297,6 +343,10 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     citations_text = html_to_text_with_formatting(request.citations)
     logger.debug(f"Converted HTML to text: {len(citations_text)} characters")
     logger.debug(f"Citation text preview: {citations_text[:200]}...")
+
+    # Create validation record for tracking (sync endpoint uses simple ID)
+    job_id = f"sync_{int(time.time())}_{uuid.uuid4().hex[:8]}"
+    create_validation_record(job_id, user_type, 0, 'processing')
 
     try:
         # Call LLM provider for validation
@@ -311,6 +361,9 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         results = validation_results["results"]
         citation_count = len(results)
         logger.debug(f"Citation count: {citation_count}")
+
+        # Update validation record with citation count
+        update_validation_tracking(job_id, validation_status='completed')
 
         # Handle credit logic
         if not token:
@@ -341,31 +394,34 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             if affordable == 0:
                 # Already at limit - return empty partial results to show locked teaser
                 logger.info("Free tier limit reached - returning empty partial results")
-                return ValidationResponse(
-                    results=[],
-                    partial=True,
-                    citations_checked=0,
-                    citations_remaining=citation_count,
-                    free_used=FREE_LIMIT,
-                    free_used_total=FREE_LIMIT
-                )
+                response_data = {
+                    "results": [],
+                    "partial": True,
+                    "citations_checked": 0,
+                    "citations_remaining": citation_count,
+                    "free_used": FREE_LIMIT,
+                    "free_used_total": FREE_LIMIT
+                }
+                return build_gated_response(response_data, user_type, job_id, "Free tier limit reached")
             elif affordable >= citation_count:
                 # Under limit - return all results
-                return ValidationResponse(
-                    results=results,
-                    free_used=free_used + citation_count,
-                    free_used_total=free_used + citation_count
-                )
+                response_data = {
+                    "results": results,
+                    "free_used": free_used + citation_count,
+                    "free_used_total": free_used + citation_count
+                }
+                return build_gated_response(response_data, user_type, job_id, "Free tier under limit")
             else:
                 # Over limit - partial results (same as paid tier)
-                return ValidationResponse(
-                    results=results[:affordable],
-                    partial=True,
-                    citations_checked=affordable,
-                    citations_remaining=citation_count - affordable,
-                    free_used=FREE_LIMIT,  # Capped at limit
-                    free_used_total=FREE_LIMIT  # Authoritative total for frontend sync
-                )
+                response_data = {
+                    "results": results[:affordable],
+                    "partial": True,
+                    "citations_checked": affordable,
+                    "citations_remaining": citation_count - affordable,
+                    "free_used": FREE_LIMIT,  # Capped at limit
+                    "free_used_total": FREE_LIMIT  # Authoritative total for frontend sync
+                }
+                return build_gated_response(response_data, user_type, job_id, "Free tier over limit")
 
         # Paid tier - check credits
         from database import get_credits, deduct_credits
@@ -387,10 +443,11 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 logger.error("Failed to deduct credits")
                 raise HTTPException(status_code=500, detail="Failed to deduct credits")
 
-            return ValidationResponse(
-                results=results,
-                credits_remaining=user_credits - citation_count
-            )
+            response_data = {
+                "results": results,
+                "credits_remaining": user_credits - citation_count
+            }
+            return build_gated_response(response_data, user_type, job_id, "Paid user sufficient credits")
         else:
             # Partial results
             affordable = user_credits
@@ -400,26 +457,31 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 logger.error("Failed to deduct credits")
                 raise HTTPException(status_code=500, detail="Failed to deduct credits")
 
-            return ValidationResponse(
-                results=results[:affordable],
-                partial=True,
-                citations_checked=affordable,
-                citations_remaining=citation_count - affordable,
-                credits_remaining=0
-            )
+            response_data = {
+                "results": results[:affordable],
+                "partial": True,
+                "citations_checked": affordable,
+                "citations_remaining": citation_count - affordable,
+                "credits_remaining": 0
+            }
+            return build_gated_response(response_data, user_type, job_id, "Paid user insufficient credits")
 
     except ValueError as e:
         # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
         logger.error(f"Validation failed with user error: {str(e)}", exc_info=True)
+        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
     except HTTPException as e:
         # Re-raise HTTPExceptions (like 402 Payment Required)
+        if e.status_code != 402:  # Don't log 402 errors as validation failures
+            update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
         raise e
 
     except Exception as e:
         # Unexpected errors
         logger.error(f"Unexpected validation error: {str(e)}", exc_info=True)
+        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
 
@@ -436,6 +498,14 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         # Check credits BEFORE starting job (fail fast)
         token = jobs[job_id]["token"]
         free_used = jobs[job_id]["free_used"]
+
+        # Determine user type for gating decisions
+        user_type = 'paid' if token else 'free'
+        logger.debug(f"Job {job_id}: User type determined as {user_type}")
+
+        # Create validation tracking record
+        citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
+        create_validation_record(job_id, user_type, citation_count, 'processing')
 
         if token:
             user_credits = get_credits(token)
@@ -494,19 +564,21 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
             if affordable >= citation_count:
                 # Return all results
-                jobs[job_id]["results"] = {
+                response_data = {
                     "results": results,
                     "free_used_total": free_used + citation_count
                 }
+                gating_reason = "Free tier under limit"
             else:
                 # Partial results
-                jobs[job_id]["results"] = {
+                response_data = {
                     "results": results[:affordable],
                     "partial": True,
                     "citations_checked": affordable,
                     "citations_remaining": citation_count - affordable,
                     "free_used_total": FREE_LIMIT
                 }
+                gating_reason = "Free tier over limit"
         else:
             # Paid tier
             user_credits = get_credits(token)
@@ -517,10 +589,11 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 if not success:
                     raise ValueError(f"Failed to deduct {citation_count} credits from user {token[:8]}...")
 
-                jobs[job_id]["results"] = {
+                response_data = {
                     "results": results,
                     "credits_remaining": user_credits - citation_count
                 }
+                gating_reason = "Paid user sufficient credits"
             else:
                 # Partial results
                 affordable = user_credits
@@ -528,21 +601,29 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 if not success:
                     raise ValueError(f"Failed to deduct {affordable} credits from user {token[:8]}...")
 
-                jobs[job_id]["results"] = {
+                response_data = {
                     "results": results[:affordable],
                     "partial": True,
                     "citations_checked": affordable,
                     "citations_remaining": citation_count - affordable,
                     "credits_remaining": 0
                 }
+                gating_reason = "Paid user insufficient credits"
 
+        # Apply gating logic and store results
+        gated_response = build_gated_response(response_data, user_type, job_id, gating_reason)
+        jobs[job_id]["results"] = gated_response.model_dump()
         jobs[job_id]["status"] = "completed"
-        logger.info(f"Job {job_id}: Completed successfully")
+
+        logger.info(f"Job {job_id}: Completed successfully with gating={gated_response.results_gated}")
 
     except Exception as e:
         logger.error(f"Job {job_id}: Failed with error: {str(e)}", exc_info=True)
         jobs[job_id]["status"] = "failed"
         jobs[job_id]["error"] = str(e)
+
+        # Update validation tracking
+        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
 
 
 async def cleanup_old_jobs():
@@ -586,9 +667,12 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         logger.warning("Empty citations submitted to async endpoint")
         raise HTTPException(status_code=400, detail="Citations cannot be empty")
 
+    # Determine user type
+    user_type = get_user_type(http_request)
+
     # Generate job ID
     job_id = str(uuid.uuid4())
-    logger.info(f"Creating async job {job_id} for {'paid' if token else 'free'} user")
+    logger.info(f"Creating async job {job_id} for {user_type} user")
 
     # Create job entry
     jobs[job_id] = {
@@ -598,11 +682,16 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "error": None,
         "token": token,
         "free_used": free_used,
-        "citation_count": 0
+        "citation_count": 0,
+        "user_type": user_type
     }
 
     # Convert HTML to text with formatting markers
     citations_text = html_to_text_with_formatting(request.citations)
+
+    # Create initial validation tracking record
+    citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])
+    create_validation_record(job_id, user_type, citation_count, 'pending')
 
     # Start background processing
     background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)
@@ -640,6 +729,91 @@ async def get_job_status(job_id: str):
         return {
             "status": job["status"]
         }
+
+
+@app.post("/api/reveal-results")
+async def reveal_results(request: dict):
+    """
+    Handle result reveal tracking for gated results.
+
+    Called when a user clicks to reveal gated validation results.
+    Records the reveal timing and updates analytics.
+
+    Args:
+        request: Dict containing 'job_id' and optional 'outcome'
+
+    Returns:
+        dict: Success status and timing information
+    """
+    job_id = request.get('job_id')
+    outcome = request.get('outcome', 'revealed')
+
+    if not job_id:
+        raise HTTPException(status_code=400, detail="job_id is required")
+
+    logger.info(f"Results reveal request for job {job_id} with outcome {outcome}")
+
+    try:
+        # Record the reveal in database
+        success = record_result_reveal(job_id, outcome)
+
+        if not success:
+            raise HTTPException(status_code=404, detail=f"Validation job {job_id} not found or not gated")
+
+        logger.info(f"Successfully recorded reveal for job {job_id}")
+        return {
+            "success": True,
+            "job_id": job_id,
+            "outcome": outcome,
+            "message": "Result reveal recorded successfully"
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error recording reveal for job {job_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to record result reveal")
+
+
+@app.get("/api/gating/analytics")
+async def get_gating_analytics(days: int = 7, user_type: Optional[str] = None):
+    """
+    Get analytics data for gated results.
+
+    Args:
+        days: Number of days to look back (default: 7)
+        user_type: Optional filter by user type (free/paid/anonymous)
+
+    Returns:
+        dict: Analytics data for gated results
+    """
+    logger.info(f"Gating analytics request: days={days}, user_type={user_type}")
+
+    try:
+        # Validate parameters
+        if days < 1 or days > 365:
+            raise HTTPException(status_code=400, detail="days must be between 1 and 365")
+
+        if user_type and user_type not in ['free', 'paid', 'anonymous']:
+            raise HTTPException(status_code=400, detail="user_type must be one of: free, paid, anonymous")
+
+        # Get analytics from database
+        analytics = get_validation_analytics(days, user_type)
+
+        # Add gating summary from gating module
+        from gating import get_gating_summary
+        gating_summary = get_gating_summary()
+
+        return {
+            **analytics,
+            **gating_summary
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting gating analytics: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to get analytics")
 
 
 @app.get("/api/dashboard")

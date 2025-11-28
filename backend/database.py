@@ -200,6 +200,288 @@ def deduct_credits(token: str, amount: int) -> bool:
         return False
 
 
+def get_validations_db_path() -> str:
+    """Get validations database path."""
+    # Check for test environment variable
+    test_path = os.getenv('TEST_VALIDATIONS_DB_PATH')
+    if test_path:
+        return test_path
+
+    # Production path (in dashboard directory)
+    return os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        'dashboard',
+        'data',
+        'validations.db'
+    )
+
+
+def create_validation_record(
+    job_id: str,
+    user_type: str,
+    citation_count: int,
+    validation_status: str = 'pending'
+) -> bool:
+    """
+    Create a new validation tracking record.
+
+    Args:
+        job_id: Unique identifier for the validation job
+        user_type: Type of user ('paid', 'free', 'anonymous')
+        citation_count: Number of citations being validated
+        validation_status: Current status of validation
+
+    Returns:
+        bool: True if record created successfully, False otherwise
+    """
+    try:
+        db_path = get_validations_db_path()
+
+        # Ensure directory exists
+        db_dir = os.path.dirname(db_path)
+        if db_dir and not os.path.exists(db_dir):
+            os.makedirs(db_dir, exist_ok=True)
+
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute('''
+                INSERT INTO validations (
+                    job_id, user_type, citation_count, validation_status, created_at
+                ) VALUES (?, ?, ?, ?, datetime('now'))
+            ''', (job_id, user_type, citation_count, validation_status))
+
+            conn.commit()
+            logger.info(f"Created validation record for job {job_id}")
+            return True
+
+    except sqlite3.Error as e:
+        logger.error(f"Database error creating validation record: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"Unexpected error creating validation record: {e}")
+        return False
+
+
+def update_validation_tracking(
+    job_id: str,
+    validation_status: Optional[str] = None,
+    results_gated: Optional[bool] = None,
+    user_type: Optional[str] = None,
+    gated_at: Optional[str] = None,
+    results_ready_at: Optional[str] = None,
+    error_message: Optional[str] = None
+) -> bool:
+    """
+    Update validation tracking record with completion information.
+
+    Args:
+        job_id: Unique identifier for the validation job
+        validation_status: New validation status
+        results_gated: Whether results were gated
+        user_type: Type of user (if needs updating)
+        gated_at: ISO timestamp when results were gated
+        results_ready_at: ISO timestamp when results became ready
+        error_message: Error message if validation failed
+
+    Returns:
+        bool: True if update successful, False otherwise
+    """
+    try:
+        db_path = get_validations_db_path()
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            # Build dynamic update query
+            updates = []
+            params = []
+
+            if validation_status is not None:
+                updates.append("validation_status = ?")
+                params.append(validation_status)
+
+            if results_gated is not None:
+                updates.append("results_gated = ?")
+                params.append(results_gated)
+
+            if user_type is not None:
+                updates.append("user_type = ?")
+                params.append(user_type)
+
+            if gated_at is not None:
+                updates.append("gated_at = ?")
+                params.append(gated_at)
+
+            if results_ready_at is not None:
+                updates.append("results_ready_at = ?")
+                params.append(results_ready_at)
+
+            if error_message is not None:
+                updates.append("error_message = ?")
+                params.append(error_message)
+
+            if updates:
+                updates.append("updated_at = datetime('now')")
+                params.append(job_id)
+
+                sql = f"UPDATE validations SET {', '.join(updates)} WHERE job_id = ?"
+                cursor.execute(sql, params)
+                conn.commit()
+
+                logger.debug(f"Updated validation tracking for job {job_id}")
+                return True
+            else:
+                logger.warning(f"No updates provided for job {job_id}")
+                return False
+
+    except sqlite3.Error as e:
+        logger.error(f"Database error updating validation tracking: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"Unexpected error updating validation tracking: {e}")
+        return False
+
+
+def record_result_reveal(job_id: str, gated_outcome: str = 'revealed') -> bool:
+    """
+    Record when user reveals gated results.
+
+    Args:
+        job_id: Unique identifier for the validation job
+        gated_outcome: Outcome type ('revealed', 'abandoned', etc.)
+
+    Returns:
+        bool: True if record updated successfully, False otherwise
+    """
+    try:
+        db_path = get_validations_db_path()
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            # Get the time results were gated
+            cursor.execute("SELECT gated_at FROM validations WHERE job_id = ?", (job_id,))
+            result = cursor.fetchone()
+
+            if not result:
+                logger.warning(f"No validation record found for job {job_id}")
+                return False
+
+            gated_at = result[0]
+            if not gated_at:
+                logger.warning(f"Results were not gated for job {job_id}")
+                return False
+
+            # Calculate time to reveal
+            from datetime import datetime
+            gated_time = datetime.fromisoformat(gated_at.replace('Z', '+00:00') if gated_at.endswith('Z') else gated_at)
+            reveal_time = datetime.utcnow()
+            time_to_reveal = int((reveal_time - gated_time).total_seconds())
+
+            # Update record
+            cursor.execute('''
+                UPDATE validations
+                SET results_revealed_at = ?,
+                    time_to_reveal_seconds = ?,
+                    gated_outcome = ?,
+                    updated_at = datetime('now')
+                WHERE job_id = ?
+            ''', (reveal_time.isoformat(), time_to_reveal, gated_outcome, job_id))
+
+            conn.commit()
+            logger.info(f"Recorded result reveal for job {job_id}: {time_to_reveal}s")
+            return True
+
+    except sqlite3.Error as e:
+        logger.error(f"Database error recording result reveal: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"Unexpected error recording result reveal: {e}")
+        return False
+
+
+def get_validation_analytics(
+    days: int = 7,
+    user_type: Optional[str] = None
+) -> dict:
+    """
+    Get analytics data for gated results.
+
+    Args:
+        days: Number of days to look back
+        user_type: Optional filter by user type
+
+    Returns:
+        dict: Analytics data
+    """
+    try:
+        db_path = get_validations_db_path()
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            # Build WHERE clause
+            where_conditions = ["created_at >= datetime('now', '-{} days')".format(days)]
+            params = []
+
+            if user_type:
+                where_conditions.append("user_type = ?")
+                params.append(user_type)
+
+            where_clause = " AND ".join(where_conditions)
+
+            # Get base statistics
+            cursor.execute(f'''
+                SELECT
+                    COUNT(*) as total_validations,
+                    COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated_count,
+                    COUNT(CASE WHEN results_revealed_at IS NOT NULL THEN 1 END) as revealed_count,
+                    AVG(time_to_reveal_seconds) as avg_time_to_reveal,
+                    COUNT(CASE WHEN validation_status = 'completed' THEN 1 END) as completed_count,
+                    COUNT(CASE WHEN validation_status = 'failed' THEN 1 END) as failed_count
+                FROM validations
+                WHERE {where_clause}
+            ''', params)
+
+            result = cursor.fetchone()
+            if result:
+                total, gated, revealed, avg_time, completed, failed = result
+
+                # Calculate derived metrics
+                reveal_rate = (revealed / gated * 100) if gated > 0 else 0
+                success_rate = (completed / total * 100) if total > 0 else 0
+
+                return {
+                    'period_days': days,
+                    'user_type': user_type or 'all',
+                    'total_validations': total,
+                    'gated_results': gated,
+                    'revealed_results': revealed,
+                    'reveal_rate': round(reveal_rate, 1),
+                    'avg_time_to_reveal_seconds': round(avg_time, 1) if avg_time else 0,
+                    'success_rate': round(success_rate, 1),
+                    'failed_validations': failed
+                }
+
+            return {
+                'period_days': days,
+                'user_type': user_type or 'all',
+                'total_validations': 0,
+                'gated_results': 0,
+                'revealed_results': 0,
+                'reveal_rate': 0,
+                'avg_time_to_reveal_seconds': 0,
+                'success_rate': 0,
+                'failed_validations': 0
+            }
+
+    except sqlite3.Error as e:
+        logger.error(f"Database error getting analytics: {e}")
+        return {}
+    except Exception as e:
+        logger.error(f"Unexpected error getting analytics: {e}")
+        return {}
+
+
 if __name__ == "__main__":
     init_db()
     print(f"Database initialized at {get_db_path()}")
+    print(f"Validations database path: {get_validations_db_path()}")
