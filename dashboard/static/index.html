@@ -781,7 +781,6 @@
             position: relative;
             transition: all var(--transition-base);
             /* Accessibility improvements */
-            tabindex: 0;
             outline: none;
         }
 
@@ -1429,31 +1428,34 @@
             }
 
             // Format each citation line with better visual hierarchy and accessibility
-            return lines.map((line, index) => {
+            const citationItems = lines.map((line, index) => {
                 const trimmed = line.trim();
 
                 // Handle different citation formats with better icons and semantic markup
                 if (trimmed.startsWith('PREVIEW:')) {
                     const previewText = trimmed.substring(8).trim();
                     return previewText ?
-                        `<div class="citation-item" role="listitem" aria-label="Preview citation ${index + 1}">📋 <span class="citation-text">${previewText}</span></div>` : '';
+                        `<div class="citation-item" role="listitem" aria-label="Preview citation ${escapeHtml(String(index + 1))}">📋 <span class="citation-text">${escapeHtml(previewText)}</span></div>` : '';
                 } else if (trimmed.startsWith('FULL:')) {
                     const fullText = trimmed.substring(5).trim();
                     return fullText ?
-                        `<div class="citation-item" role="listitem" aria-label="Full citation ${index + 1}">📖 <span class="citation-text">${fullText}</span></div>` : '';
+                        `<div class="citation-item" role="listitem" aria-label="Full citation ${escapeHtml(String(index + 1))}">📖 <span class="citation-text">${escapeHtml(fullText)}</span></div>` : '';
                 } else if (trimmed.toLowerCase().includes('error') || trimmed.toLowerCase().includes('failed')) {
                     return
-                        `<div class="citation-item citation-error" role="alert" aria-live="assertive">❌ <span class="citation-text">${trimmed}</span></div>`;
+                        `<div class="citation-item citation-error" role="alert">❌ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
                 } else if (trimmed.toLowerCase().includes('warning')) {
                     return
-                        `<div class="citation-item citation-warning" role="alert" aria-live="polite">⚠️ <span class="citation-text">${trimmed}</span></div>`;
-                } else if (trimmed.trim()) {
+                        `<div class="citation-item citation-warning" role="alert">⚠️ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                } else if (trimmed) {
                     // Regular citation - add numbering with proper spacing and accessibility
                     return
-                        `<div class="citation-item" role="listitem" aria-label="Citation ${index + 1}"><span class="citation-number">${index + 1}.</span> <span class="citation-text">${trimmed}</span></div>`;
+                        `<div class="citation-item" role="listitem" aria-label="Citation ${escapeHtml(String(index + 1))}"><span class="citation-number">${escapeHtml(String(index + 1))}.</span> <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
                 }
                 return ''; // Skip empty lines
             }).filter(line => line.trim()).join('');
+
+        // Wrap citations in proper list container for ARIA structure
+        return `<div role="list" aria-label="Citations list" aria-live="polite">${citationItems}</div>`;
         }
 
         // Keyboard navigation for citations containers
@@ -1461,36 +1463,40 @@
             const citationsText = document.getElementById(`citations-text-${jobId}`);
             if (!citationsText) return;
 
-            citationsText.addEventListener('keydown', function(event) {
+            // Remove existing event listeners to prevent memory leaks
+            const newElement = citationsText.cloneNode(true);
+            citationsText.parentNode.replaceChild(newElement, citationsText);
+
+            newElement.addEventListener('keydown', function(event) {
                 switch (event.key) {
                     case 'ArrowDown':
                         event.preventDefault();
-                        citationsText.scrollTop += 50;
+                        newElement.scrollTop += 50;
                         announceToScreenReader('Scrolled down');
                         break;
                     case 'ArrowUp':
                         event.preventDefault();
-                        citationsText.scrollTop -= 50;
+                        newElement.scrollTop -= 50;
                         announceToScreenReader('Scrolled up');
                         break;
                     case 'PageDown':
                         event.preventDefault();
-                        citationsText.scrollTop += citationsText.clientHeight;
+                        newElement.scrollTop += newElement.clientHeight;
                         announceToScreenReader('Scrolled page down');
                         break;
                     case 'PageUp':
                         event.preventDefault();
-                        citationsText.scrollTop -= citationsText.clientHeight;
+                        newElement.scrollTop -= newElement.clientHeight;
                         announceToScreenReader('Scrolled page up');
                         break;
                     case 'Home':
                         event.preventDefault();
-                        citationsText.scrollTop = 0;
+                        newElement.scrollTop = 0;
                         announceToScreenReader('Scrolled to top');
                         break;
                     case 'End':
                         event.preventDefault();
-                        citationsText.scrollTop = citationsText.scrollHeight;
+                        newElement.scrollTop = newElement.scrollHeight;
                         announceToScreenReader('Scrolled to bottom');
                         break;
                     case ' ':
@@ -1523,6 +1529,13 @@
             setTimeout(() => {
                 document.body.removeChild(announcement);
             }, 1000);
+        }
+
+        // HTML escaping utility function for security
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
         }
 
         // Copy citations to clipboard function
