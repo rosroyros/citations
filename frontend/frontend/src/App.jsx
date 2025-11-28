@@ -7,6 +7,7 @@ import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import ValidationTable from './components/ValidationTable'
 import ValidationLoadingState from './components/ValidationLoadingState'
+import GatedResults from './components/GatedResults'
 import Footer from './components/Footer'
 import { UploadArea } from './components/UploadArea'
 import { ComingSoonModal } from './components/ComingSoonModal'
@@ -797,18 +798,11 @@ function AppContent() {
             />
           ) : isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? (
             // Gated results for free users
-            <div data-testid="gated-results">
-              <div className="gated-results-container">
-                <h3>Your citation results are ready!</h3>
-                <p>Click to reveal your validated citations</p>
-                <button onClick={handleRevealResults} className="reveal-button">
-                  Click to reveal your results
-                </button>
-                {trackingData.timeToRevealSeconds && (
-                  <p>Time to reveal: {trackingData.timeToRevealSeconds} seconds</p>
-                )}
-              </div>
-            </div>
+            <GatedResults
+              results={results.results}
+              onReveal={handleRevealResults}
+              trackingData={trackingData}
+            />
           ) : (
             <ValidationTable results={results.results} />
           )}
