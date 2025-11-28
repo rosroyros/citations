@@ -209,6 +209,48 @@ def log_gating_event(
         logger.info(f"RESULTS_READY_DIRECT: job_id={job_id}, user_type={user_type}, reason={reason or 'No gating needed'}")
 
 
+def log_results_revealed(job_id: str, time_to_reveal: int, user_type: str) -> None:
+    """
+    Structured logging for dashboard parsing when results are revealed.
+
+    This function logs analytics events for user engagement tracking.
+    Uses fire-and-forget approach to maintain performance.
+
+    Args:
+        job_id: Unique identifier for the validation job
+        time_to_reveal: Time in seconds between results ready and reveal
+        user_type: Type of user ('paid', 'free', 'anonymous')
+    """
+    try:
+        # Validate input parameters
+        if not job_id or not isinstance(job_id, str):
+            logger.warning(f"Invalid job_id in log_results_revealed: {job_id}")
+            return
+
+        if not isinstance(time_to_reveal, int) or time_to_reveal < 0:
+            logger.warning(f"Invalid time_to_reveal in log_results_revealed: {time_to_reveal}")
+            return
+
+        if user_type not in ['paid', 'free', 'anonymous']:
+            logger.warning(f"Invalid user_type in log_results_revealed: {user_type}")
+            return
+
+        # Log structured data for dashboard parsing
+        logger.info(f"RESULTS_REVEALED: job_id={job_id}, "
+                   f"time_to_reveal={time_to_reveal}s, "
+                   f"user_type={user_type}")
+
+        # Additional debugging info in development
+        if os.getenv('DEBUG_ANALYTICS') == 'true':
+            logger.debug(f"Analytics event logged - Job: {job_id}, "
+                        f"Time: {time_to_reveal}s, Type: {user_type}")
+
+    except Exception as e:
+        # Never let analytics logging break the main flow
+        logger.error(f"Failed to log results revealed analytics: {str(e)}")
+        # Silently continue - analytics failures should not affect user experience
+
+
 def get_gating_summary() -> Dict[str, Any]:
     """
     Get summary statistics for gated results analytics.
