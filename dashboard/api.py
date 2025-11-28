@@ -9,6 +9,7 @@ import re
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any, List
 import json
+import re
 
 from fastapi import FastAPI, HTTPException, Query, Request, Depends
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
@@ -350,7 +351,7 @@ async def get_validations(
     from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     order_by: str = Query("created_at", description="Column to sort by"),
-    order_dir: str = Query("DESC", regex="^(ASC|DESC)$", description="Sort direction"),
+    order_dir: str = Query("DESC", pattern="^(ASC|DESC)$", description="Sort direction"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
