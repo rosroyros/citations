@@ -16,7 +16,7 @@ from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, record_result_reveal, get_validation_analytics, get_gated_validation_results
-from gating import get_user_type, should_gate_results_sync, store_gated_results, log_gating_event
+from gating import get_user_type, should_gate_results_sync, store_gated_results, log_gating_event, GATED_RESULTS_ENABLED
 
 # Load environment variables
 load_dotenv()
@@ -103,6 +103,22 @@ def html_to_text_with_formatting(html: str) -> str:
 async def lifespan(app: FastAPI):
     """Handle application lifespan events."""
     logger.info("Citation Validator API starting up")
+
+    # Validate and log feature flag status
+    gated_results_env_raw = os.getenv('GATED_RESULTS_ENABLED', 'false')
+    gated_results_env = gated_results_env_raw.lower()
+    if gated_results_env not in ['true', 'false']:
+        logger.warning(f"Invalid GATED_RESULTS_ENABLED value: '{gated_results_env_raw}'. Expected 'true' or 'false'. Defaulting to false.")
+
+    logger.info(f"Gated results feature: {'ENABLED' if GATED_RESULTS_ENABLED else 'DISABLED'}")
+
+    # Validate critical environment variables
+    required_vars = ['OPENAI_API_KEY']
+    missing_vars = [var for var in required_vars if not os.getenv(var)]
+    if missing_vars:
+        logger.error(f"Missing required environment variables: {missing_vars}")
+    else:
+        logger.info("All required environment variables are present")
 
     # Start background job cleanup task
     import asyncio

@@ -28,7 +28,7 @@ import './App.css'
 const MOCK_MODE = import.meta.env.VITE_MOCK_MODE === 'true'
 
 // Gated results feature flag
-const GATED_RESULTS_ENABLED = true
+const GATED_RESULTS_ENABLED = import.meta.env.VITE_GATED_RESULTS_ENABLED === 'true'
 
 // Polling configuration constants
 const POLLING_CONFIG = {

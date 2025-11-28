@@ -7,6 +7,8 @@ Type=simple
 User=deploy
 WorkingDirectory=/opt/citations
 Environment=PATH=/opt/citations/venv/bin
+Environment=PYTHONPATH=/opt/citations
+EnvironmentFile=/opt/citations/deployment/env/.env.production
 ExecStart=/opt/citations/venv/bin/uvicorn backend.app:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=10
