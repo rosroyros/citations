@@ -26,6 +26,9 @@ import './App.css'
 // Set to true to test frontend without backend
 const MOCK_MODE = import.meta.env.VITE_MOCK_MODE === 'true'
 
+// Gated results feature flag
+const GATED_RESULTS_ENABLED = true
+
 // Polling configuration constants
 const POLLING_CONFIG = {
   MAX_ATTEMPTS: 90, // 3 minutes at 2s intervals
@@ -46,6 +49,18 @@ function AppContent() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [submittedText, setSubmittedText] = useState('')
   const [fadingOut, setFadingOut] = useState(false)
+
+  // Gated results state management
+  const [resultsReady, setResultsReady] = useState(false)
+  const [resultsRevealed, setResultsRevealed] = useState(false)
+  const [resultsReadyTimestamp, setResultsReadyTimestamp] = useState(null)
+  const [isGated, setIsGated] = useState(false)
+  const [trackingData, setTrackingData] = useState({
+    jobStartedAt: null,
+    resultsReadyAt: null,
+    resultsRevealedAt: null,
+    isGated: false
+  })
   // Upload state
   const [showComingSoonModal, setShowComingSoonModal] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null)
@@ -55,6 +70,45 @@ function AppContent() {
   const { refreshCredits } = useCredits()
   // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
   useAnalyticsTracking()
+
+  // User type detection
+  const getUserType = () => {
+    // Check for paid user token
+    if (localStorage.getItem('citation_checker_token')) {
+      return 'paid'
+    } else {
+      return 'free'
+    }
+  }
+
+  const isFreeUser = getUserType() === 'free'
+
+  // State flow logic
+  const determineDisplayState = () => {
+    if (loading) {
+      return 'loading'
+    } else if (results && !error) {
+      if (isGated && !resultsRevealed) {
+        return 'gated'
+      } else {
+        return 'results'
+      }
+    } else if (error) {
+      return 'error'
+    } else {
+      return 'idle'
+    }
+  }
+
+  // Gating logic
+  const shouldGateResults = (userIsFree, validationResults) => {
+    if (!userIsFree || !GATED_RESULTS_ENABLED) {
+      return false
+    }
+
+    // Gate all results for free users (simple policy for now)
+    return true
+  }
 
   // Cleanup timer on component unmount
   useEffect(() => {
@@ -137,6 +191,18 @@ function AppContent() {
     }
   }, [])
 
+  // Handle reveal results action
+  const handleRevealResults = async () => {
+    const timeToReveal = Math.floor((Date.now() - resultsReadyTimestamp) / 1000)
+
+    setResultsRevealed(true)
+    setTrackingData(prev => ({
+      ...prev,
+      resultsRevealedAt: new Date().toISOString(),
+      timeToRevealSeconds: timeToReveal
+    }))
+  }
+
   // Poll for job results
   const pollForResults = async (jobId, token) => {
 
@@ -169,7 +235,23 @@ function AppContent() {
             console.log(`Updated free usage to: ${data.free_used_total}`)
           }
 
-          // Handle response
+          // Handle gated results logic
+          const userIsFree = !token
+          const shouldGate = shouldGateResults(userIsFree, data)
+
+          // Set results and gated state
+          setResults(data)
+          setIsGated(shouldGate)
+          setResultsReady(true)
+          setResultsReadyTimestamp(Date.now())
+
+          setTrackingData(prev => ({
+            ...prev,
+            resultsReadyAt: new Date().toISOString(),
+            isGated: shouldGate
+          }))
+
+          // Track partial results vs full results
           if (data.partial) {
             setResults({ ...data, isPartial: true })
 
@@ -182,8 +264,6 @@ function AppContent() {
               attempted_citations: citationsCount
             })
           } else {
-            setResults(data)
-
             // Track citation validation event
             const citationsCount = data.results.length
             const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
@@ -442,6 +522,18 @@ function AppContent() {
     setLoading(true)
     setError(null)
     setResults(null)
+
+    // Reset gated state and initialize tracking data
+    setResultsReady(false)
+    setResultsRevealed(false)
+    setResultsReadyTimestamp(null)
+    setIsGated(false)
+    setTrackingData({
+      jobStartedAt: new Date().toISOString(),
+      resultsReadyAt: null,
+      resultsRevealedAt: null,
+      isGated: false
+    })
 
     try {
       let data
@@ -703,6 +795,20 @@ function AppContent() {
                 setShowUpgradeModal(true)
               }}
             />
+          ) : isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? (
+            // Gated results for free users
+            <div data-testid="gated-results">
+              <div className="gated-results-container">
+                <h3>Your citation results are ready!</h3>
+                <p>Click to reveal your validated citations</p>
+                <button onClick={handleRevealResults} className="reveal-button">
+                  Click to reveal your results
+                </button>
+                {trackingData.timeToRevealSeconds && (
+                  <p>Time to reveal: {trackingData.timeToRevealSeconds} seconds</p>
+                )}
+              </div>
+            </div>
           ) : (
             <ValidationTable results={results.results} />
           )}

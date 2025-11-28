@@ -429,3 +429,149 @@ describe('App - Editor Interaction Tracking', () => {
     expect(screen.getByTestId('editor')).toBeInTheDocument()
   })
 })
+
+describe('App - Gated Results State Management', () => {
+  it('should initialize new gated state variables without breaking existing flow', () => {
+    // This test verifies that the new gated state variables can be added
+    // without breaking the existing component initialization
+
+    const { container } = render(<App />)
+
+    // Basic app renders correctly
+    expect(screen.getByText(/Citation Format Checker/i)).toBeInTheDocument()
+    expect(screen.getByTestId('editor')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /check my citations/i })).toBeInTheDocument()
+
+    // No gated state should be active initially
+    expect(screen.queryByTestId('gated-results')).not.toBeInTheDocument()
+  })
+
+  it('should track timing accurately when results are ready and then revealed', async () => {
+    // Mock the timing APIs
+    const mockDateNow = vi.spyOn(Date, 'now')
+      .mockReturnValueOnce(1000000) // Job completion
+      .mockReturnValueOnce(1005000) // Reveal (5000ms later)
+
+    getToken.mockReturnValue(null) // Free user
+
+    // Mock successful API response
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve({
+          job_id: 'test-job-123',
+          results: [
+            {
+              citation_number: 1,
+              original: 'Smith, J. (2020). Test citation.',
+              source_type: 'journal',
+              errors: []
+            }
+          ]
+        }),
+      })
+    )
+
+    render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+    await userEvent.click(submitButton)
+
+    // Verify timing tracking is working (will fail since we haven't implemented it yet)
+    // This is the RED phase - we expect this test to fail initially
+    await waitFor(() => {
+      expect(mockDateNow).toHaveBeenCalledTimes(2) // Should track timing at completion and reveal
+    })
+
+    // Time to reveal should be calculated correctly (5000ms = 5 seconds)
+    // This assertion will fail until we implement the timing logic
+    expect(screen.getByText(/5 seconds/)).toBeInTheDocument()
+
+    global.fetch.mockRestore()
+    mockDateNow.mockRestore()
+  })
+
+  it('should show gated state for free users and bypass for paid users', async () => {
+    // Test free user sees gated state
+    getToken.mockReturnValue(null) // Free user
+
+    global.fetch = vi.fn()
+      .mockImplementationOnce(() => // Job creation
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ job_id: 'test-job-123' })
+        })
+      )
+      .mockImplementationOnce(() => // Job completed
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            status: 'completed',
+            results: {
+              results: [
+                {
+                  citation_number: 1,
+                  original: 'Smith, J. (2020). Test citation.',
+                  source_type: 'journal',
+                  errors: []
+                }
+              ]
+            }
+          })
+        })
+      )
+
+    const { rerender } = render(<App />)
+
+    const submitButton = screen.getByRole('button', { name: /check my citations/i })
+    await userEvent.click(submitButton)
+
+    await waitFor(() => {
+      // Free user should see gated results (this will fail initially)
+      expect(screen.getByTestId('gated-results')).toBeInTheDocument()
+      expect(screen.getByText(/Click to reveal your results/)).toBeInTheDocument()
+    })
+
+    // Now test paid user bypasses gated state
+    getToken.mockReturnValue('paid-user-token')
+
+    rerender(<App />)
+
+    global.fetch.mockClear()
+      .mockImplementationOnce(() => // Job creation
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ job_id: 'test-job-456' })
+        })
+      )
+      .mockImplementationOnce(() => // Job completed
+        Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({
+            status: 'completed',
+            results: {
+              results: [
+                {
+                  citation_number: 1,
+                  original: 'Jones, M. (2021). Another citation.',
+                  source_type: 'book',
+                  errors: []
+                }
+              ]
+            }
+          })
+        })
+      )
+
+    await userEvent.click(screen.getByRole('button', { name: /check my citations/i }))
+
+    await waitFor(() => {
+      // Paid user should see results directly, bypassing gated state
+      expect(screen.queryByTestId('gated-results')).not.toBeInTheDocument()
+      expect(screen.getByText(/validation results/i)).toBeInTheDocument()
+      expect(screen.getByText(/Jones, M./)).toBeInTheDocument()
+    })
+
+    global.fetch.mockRestore()
+  })
+})
