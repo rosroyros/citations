@@ -119,7 +119,7 @@ def validate_user_type(user_type: Optional[str]) -> None:
 
 def validate_order_by(order_by: str) -> None:
     """Validate order_by parameter"""
-    valid_columns = ['created_at', 'completed_at', 'duration_seconds', 'citation_count', 'job_id']
+    valid_columns = ['created_at', 'completed_at', 'duration_seconds', 'citation_count', 'job_id', 'citations_text']
     if order_by not in valid_columns:
         raise HTTPException(status_code=400, detail=f"order_by must be one of: {', '.join(valid_columns)}")
 
@@ -182,6 +182,10 @@ class ValidationResponse(BaseModel):
     user_type: str
     status: str
     error_message: Optional[str] = None
+    citations: Optional[str] = Field(
+        None,
+        description="Extracted citation information in text format. Contains formatted citations from the validation process."
+    )
 
 
 class StatsResponse(BaseModel):
@@ -323,7 +327,13 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
         validation = database.get_validation(job_id)
         if not validation:
             raise HTTPException(status_code=404, detail=f"Validation {job_id} not found")
-        return ValidationResponse(**validation)
+
+        # Map database column names to API field names
+        validation_data = {
+            **validation,
+            "citations": validation.get("citations_text")  # Map citations_text -> citations
+        }
+        return ValidationResponse(**validation_data)
     except HTTPException:
         raise
     except Exception as e:
@@ -391,8 +401,14 @@ async def get_validations(
             to_date=to_date
         )
 
-        # Convert to response models
-        validation_responses = [ValidationResponse(**validation) for validation in validations]
+        # Convert to response models with field mapping
+        validation_responses = []
+        for validation in validations:
+            validation_data = {
+                **validation,
+                "citations": validation.get("citations_text")  # Map citations_text -> citations
+            }
+            validation_responses.append(ValidationResponse(**validation_data))
 
         return ValidationsListResponse(
             validations=validation_responses,
