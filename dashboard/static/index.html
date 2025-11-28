@@ -77,6 +77,10 @@
             --space-lg: 1.5rem;
             --space-xl: 2rem;
             --space-2xl: 3rem;
+
+            /* Component-specific dimensions */
+            --citations-max-height: 400px;
+            --citations-mobile-max-height: 300px;
         }
 
         * {
@@ -770,7 +774,7 @@
             font-size: 12px;
             line-height: 1.6;
             color: var(--color-text-primary);
-            max-height: 400px;
+            max-height: var(--citations-max-height);
             overflow-y: auto;
             white-space: pre-wrap;
             word-break: break-word;
@@ -941,7 +945,7 @@
             .citations-text {
                 font-size: 11px;
                 padding: 12px;
-                max-height: 300px;
+                max-height: var(--citations-mobile-max-height);
                 line-height: 1.5;
             }
 
@@ -1298,6 +1302,12 @@
 
         // Citations formatting function
         function formatCitations(citationsText) {
+            // Input validation: ensure citationsText is a string
+            if (citationsText !== null && citationsText !== undefined && typeof citationsText !== 'string') {
+                console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
+                return '📝 Invalid citations data format';
+            }
+
             // Handle null, undefined, or empty string
             if (!citationsText || citationsText.trim() === '') {
                 return '📝 No citations found in this validation';
@@ -1340,16 +1350,24 @@
 
         // Copy citations to clipboard function
         async function copyCitations(jobId) {
+            const citationsElement = document.getElementById(`citations-text-${jobId}`);
+            const button = event.target.closest('.copy-btn');
+
+            if (!citationsElement) {
+                console.error('Citations element not found:', jobId);
+                showCopyError(button, 'Citations not found');
+                return;
+            }
+
             try {
-                const citationsElement = document.getElementById(`citations-text-${jobId}`);
-                const button = event.target.closest('.copy-btn');
-
-                if (!citationsElement) {
-                    throw new Error('Citations element not found');
-                }
-
                 // Get the raw text (without formatting markers)
                 const rawText = citationsElement.textContent || citationsElement.innerText;
+
+                if (!rawText || rawText.trim() === '') {
+                    console.warn('No citations text to copy');
+                    showCopyError(button, 'No citations to copy');
+                    return;
+                }
 
                 // Remove formatting markers for clean copy
                 const cleanText = rawText
@@ -1363,90 +1381,62 @@
                 await navigator.clipboard.writeText(cleanText);
 
                 // Visual feedback
-                const originalText = button.textContent;
-                button.textContent = '✅ Copied!';
-                button.classList.add('copied');
-
-                setTimeout(() => {
-                    button.textContent = originalText;
-                    button.classList.remove('copied');
-                }, 2000);
+                showCopySuccess(button, 'Copied to clipboard!');
 
             } catch (error) {
-                console.error('Failed to copy citations:', error);
+                console.error('Modern clipboard API failed:', error);
 
                 // Fallback for older browsers
                 try {
-                    const citationsElement = document.getElementById(`citations-text-${jobId}`);
                     const textArea = document.createElement('textarea');
-                    textArea.value = citationsElement.textContent;
+                    textArea.value = citationsElement.textContent || citationsElement.innerText;
                     document.body.appendChild(textArea);
                     textArea.select();
                     document.execCommand('copy');
                     document.body.removeChild(textArea);
 
-                    const button = event.target.closest('.copy-btn');
-                    const originalText = button.textContent;
-                    button.textContent = '✅ Copied!';
+                    showCopySuccess(button, 'Copied to clipboard!');
 
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                    }, 2000);
                 } catch (fallbackError) {
                     console.error('Fallback copy also failed:', fallbackError);
-                    const button = event.target.closest('.copy-btn');
-                    const originalText = button.textContent;
-                    button.textContent = '❌ Copy failed';
-
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                    }, 2000);
+                    showCopyError(button, 'Copy failed - please select text manually');
                 }
             }
         }
 
-        // Enhanced citations parsing for different APA types
-        function parseCitationsByType(citationsText) {
-            if (!citationsText) {
-                return { journals: [], books: [], websites: [], other: [] };
-            }
+        // Helper function for successful copy feedback
+        function showCopySuccess(button, message) {
+            if (!button) return;
 
-            const lines = citationsText.split('\n').filter(line => line.trim());
-            const result = {
-                journals: [],
-                books: [],
-                websites: [],
-                other: []
-            };
+            const originalText = button.textContent;
+            button.textContent = message || '✅ Copied!';
+            button.classList.add('copied');
 
-            lines.forEach(line => {
-                const trimmed = line.trim();
-
-                // Journal detection (look for volume, issue, page numbers, or DOI patterns)
-                if (trimmed.match(/\d+\(\d+\)|pp?\.\s*\d+|doi:/i) ||
-                    trimmed.match(/\d{4}[A-Z]?\d*|\d+:\d+/)) {
-                    result.journals.push(trimmed);
-                }
-                // Book detection (look for publishers, "ed.", "rev.", or city-state patterns)
-                else if (trimmed.match(/\b(ed\.|rev\.|edition|revised|press|publishing|books)\b/i) ||
-                         trimmed.match(/[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*,\s*[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*/) ||
-                         trimmed.match(/\b[A-Z][A-Z]\b(?:,\s*[A-Z][A-Z]\b)*/)) {
-                    result.books.push(trimmed);
-                }
-                // Website detection (look for URLs, "Retrieved from", or "Available at")
-                else if (trimmed.match(/https?:\/\/|www\.|Retrieved\s+from|Available\s+at/i) ||
-                         trimmed.match(/\.org|\.edu|\.gov/i)) {
-                    result.websites.push(trimmed);
-                }
-                // Everything else
-                else {
-                    result.other.push(trimmed);
-                }
-            });
-
-            return result;
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
         }
 
+        // Helper function for error feedback
+        function showCopyError(button, message) {
+            if (!button) return;
+
+            const originalText = button.textContent;
+            button.textContent = message || '❌ Copy failed';
+            button.style.background = 'var(--color-error-bg)';
+            button.style.borderColor = 'var(--color-error-border)';
+            button.style.color = 'var(--color-error)';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+                button.style.borderColor = '';
+                button.style.color = '';
+            }, 3000);
+        }
+
+  
         // Load data on page load
         loadData();
     </script>
