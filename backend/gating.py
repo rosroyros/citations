@@ -147,11 +147,11 @@ async def store_gated_results(
     """
     try:
         # Import here to avoid circular dependencies
-        from database import init_db
+        from database import get_validations_db_path
         import sqlite3
 
         if not db_conn:
-            db_path = os.path.join(os.path.dirname(__file__), 'validations.db')
+            db_path = get_validations_db_path()
             db_conn = sqlite3.connect(db_path)
             should_close = True
         else:
@@ -218,8 +218,9 @@ def get_gating_summary() -> Dict[str, Any]:
     """
     try:
         import sqlite3
+        from database import get_validations_db_path
 
-        db_path = os.path.join(os.path.dirname(__file__), 'validations.db')
+        db_path = get_validations_db_path()
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
 
