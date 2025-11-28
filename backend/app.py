@@ -110,7 +110,17 @@ async def lifespan(app: FastAPI):
     if gated_results_env not in ['true', 'false']:
         logger.warning(f"Invalid GATED_RESULTS_ENABLED value: '{gated_results_env_raw}'. Expected 'true' or 'false'. Defaulting to false.")
 
-    logger.info(f"Gated results feature: {'ENABLED' if GATED_RESULTS_ENABLED else 'DISABLED'}")
+    # Cross-validate environment variable with module value to ensure consistency
+    expected_flag_state = gated_results_env == 'true'
+    if GATED_RESULTS_ENABLED != expected_flag_state:
+        logger.error(
+            f"Feature flag inconsistency detected! "
+            f"Environment variable: '{gated_results_env_raw}' ({expected_flag_state}), "
+            f"Module value: {GATED_RESULTS_ENABLED}. "
+            f"This indicates a module loading or import issue."
+        )
+    else:
+        logger.info(f"Gated results feature: {'ENABLED' if GATED_RESULTS_ENABLED else 'DISABLED'} (validated)")
 
     # Validate critical environment variables
     required_vars = ['OPENAI_API_KEY']

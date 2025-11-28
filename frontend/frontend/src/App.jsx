@@ -27,8 +27,25 @@ import './App.css'
 // Set to true to test frontend without backend
 const MOCK_MODE = import.meta.env.VITE_MOCK_MODE === 'true'
 
-// Gated results feature flag
-const GATED_RESULTS_ENABLED = import.meta.env.VITE_GATED_RESULTS_ENABLED === 'true'
+// Gated results feature flag with runtime validation
+const validateGatedResultsEnv = () => {
+  const envValue = import.meta.env.VITE_GATED_RESULTS_ENABLED
+  const validValues = ['true', 'false']
+
+  if (envValue === undefined) {
+    console.warn('VITE_GATED_RESULTS_ENABLED not set, defaulting to false')
+    return false
+  }
+
+  if (!validValues.includes(envValue)) {
+    console.warn(`Invalid VITE_GATED_RESULTS_ENABLED value: "${envValue}". Expected "true" or "false", defaulting to false`)
+    return false
+  }
+
+  return envValue === 'true'
+}
+
+const GATED_RESULTS_ENABLED = validateGatedResultsEnv()
 
 // Polling configuration constants
 const POLLING_CONFIG = {
