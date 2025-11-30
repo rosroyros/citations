@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import './GatedResults.css'
+import { useState } from 'react';
+import './GatedResults-landscape1.css';
 
-function GatedResults({ results = [], onReveal, trackingData = {} }) {
+function GatedResults({ results = [], onReveal, trackingData = {}, variant = 'landscape1' }) {
   const [isRevealing, setIsRevealing] = useState(false)
 
   // Calculate statistics
@@ -13,9 +13,6 @@ function GatedResults({ results = [], onReveal, trackingData = {} }) {
     // Prevent form submission if triggered from form
     if (e) {
       e.preventDefault()
-      if (e.key === ' ' && e.target) {
-        e.preventDefault() // Prevent page scroll on space
-      }
     }
 
     setIsRevealing(true)
@@ -34,44 +31,18 @@ function GatedResults({ results = [], onReveal, trackingData = {} }) {
   }
 
   return (
-    <div className="gated-results-container" data-testid="gated-results">
-      {/* Table Header with Statistics */}
-      <div className="table-header">
-        <h2>Validation Results</h2>
-        <div className="table-stats">
-          <span className="stat-item">
-            <strong>{citationCount}</strong> citations
-          </span>
-          <span className="stat-separator">•</span>
-          <span className="stat-item">
-            <span className="stat-badge success">{perfectCount}</span>
-            perfect
-          </span>
-          <span className="stat-separator">•</span>
-          <span className="stat-item">
-            <span className="stat-badge error">{errorCount}</span>
-            need fixes
-          </span>
-        </div>
-      </div>
-
-      {/* Gated Content Area */}
-      <div className="gated-content">
-        {/* Completion Indicator */}
+    <div className="gated-results-overlay gated-variant-landscape1" data-testid="gated-results">
+      <div className="gated-overlay-backdrop" />
+      <div className="gated-overlay-content">
         <div className="completion-indicator">
           <div className="completion-icon">✓</div>
           <div className="completion-text">
             <h3 className="completion-title">Your citation validation is complete</h3>
-            <div className="completion-summary">
-              <span className="results-ready">Results Ready</span>
-              <span className="results-summary">
-                {perfectCount} valid • {errorCount} {errorCount === 1 ? 'error' : 'errors'} found
-              </span>
-            </div>
+            <p className="completion-summary">
+              {perfectCount} valid • {errorCount} {errorCount === 1 ? 'error' : 'errors'} found
+            </p>
           </div>
         </div>
-
-        {/* Reveal Button */}
         <div className="reveal-button-container">
           <button
             className={`reveal-button ${isRevealing ? 'loading' : ''}`}
@@ -81,14 +52,7 @@ function GatedResults({ results = [], onReveal, trackingData = {} }) {
             tabIndex="0"
             aria-label={`View Results (${citationCount} citations)`}
           >
-            {isRevealing ? (
-              <>
-                <span className="loading-spinner"></span>
-                Loading...
-              </>
-            ) : (
-              `View Results (${citationCount} ${citationCount === 1 ? 'citation' : 'citations'})`
-            )}
+            {isRevealing ? 'Loading...' : `View Results (${citationCount} ${citationCount === 1 ? 'citation' : 'citations'})`}
           </button>
         </div>
       </div>
