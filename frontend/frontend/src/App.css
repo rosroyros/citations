@@ -210,6 +210,7 @@
   padding: 2rem;
   background: var(--color-bg-primary);
   border-radius: 12px;
+  min-height: 280px;
 }
 
 .validation-results-section.fade-out {
