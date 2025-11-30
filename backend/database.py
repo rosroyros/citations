@@ -247,7 +247,7 @@ def create_validation_record(
 
             cursor.execute('''
                 INSERT INTO validations (
-                    job_id, user_type, citation_count, validation_status, created_at
+                    job_id, user_type, citation_count, status, created_at
                 ) VALUES (?, ?, ?, ?, datetime('now'))
             ''', (job_id, user_type, citation_count, validation_status))
 
