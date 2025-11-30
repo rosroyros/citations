@@ -229,7 +229,7 @@ def build_gated_response(
 
     # If gated, clear results but keep metadata
     if results_gated:
-        response_data['results'] = []
+        # TEMPORARY FIX: Preserve results data behind gate (Oracle recommendation)        response_data['results'] = []
         response_data['results_gated'] = True
         response_data['job_id'] = job_id
     else:
