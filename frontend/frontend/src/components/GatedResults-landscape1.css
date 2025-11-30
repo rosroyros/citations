@@ -1,6 +1,6 @@
 /* Gated Results - Landscape 1 Variant */
 
-.gated-results-overlay {
+.gated-variant-landscape1.gated-results-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   bottom: 0;
   display: flex;
   align-items: flex-start;
-  padding-top: 10%;
+  padding-top: 3%;
   justify-content: center;
   z-index: 10;
   border-radius: 16px;
@@ -16,7 +16,7 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-.gated-overlay-backdrop {
+.gated-variant-landscape1 .gated-overlay-backdrop {
   position: absolute;
   top: 0;
   left: 0;
@@ -32,8 +32,7 @@
   z-index: 1;
 }
 
-.gated-overlay-content {
-  position: relative;
+.gated-variant-landscape1 .gated-overlay-content {
   z-index: 2;
   display: flex;
   align-items: center;
@@ -50,14 +49,14 @@
   animation: slideInFromLeft 0.4s ease-out;
 }
 
-.completion-indicator {
+.gated-variant-landscape1 .completion-indicator {
   display: flex;
   align-items: center;
   gap: 24px;
   flex: 1;
 }
 
-.completion-icon {
+.gated-variant-landscape1 .completion-icon {
   width: 64px;
   height: 64px;
   background: linear-gradient(135deg, #10b981, #059669);
@@ -72,11 +71,11 @@
   box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
 }
 
-.completion-text {
+.gated-variant-landscape1 .completion-text {
   flex: 1;
 }
 
-.completion-title {
+.gated-variant-landscape1 .completion-title {
   font-family: 'Work Sans', sans-serif;
   font-size: 1.375rem;
   font-weight: 700;
@@ -85,17 +84,17 @@
   line-height: 1.3;
 }
 
-.completion-summary {
+.gated-variant-landscape1 .completion-summary {
   color: #6b7280;
   font-size: 0.9375rem;
   margin-bottom: 0;
 }
 
-.reveal-button-container {
+.gated-variant-landscape1 .reveal-button-container {
   flex-shrink: 0;
 }
 
-.reveal-button {
+.gated-variant-landscape1 .reveal-button {
   background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
   color: white;
   padding: 18px 40px;
@@ -127,7 +126,7 @@
 }
 
 @media (max-width: 768px) {
-  .gated-overlay-content {
+  .gated-variant-landscape1 .gated-overlay-content {
     flex-direction: column;
     gap: 32px;
     padding: 32px 24px;
