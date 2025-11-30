@@ -569,7 +569,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     free_used=FREE_LIMIT,
                     free_used_total=FREE_LIMIT
                 ).model_dump()
-                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
+                jobs[job_id]["results_gated"] = True  # This is a gated response                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
                 return
 
         # Call LLM (can take 120s+)
@@ -640,7 +640,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         gated_response = build_gated_response(response_data, user_type, job_id, gating_reason)
         jobs[job_id]["results"] = gated_response.model_dump()
         jobs[job_id]["status"] = "completed"
-
+        jobs[job_id]["results_gated"] = gated_response.results_gated
         logger.info(f"Job {job_id}: Completed successfully with gating={gated_response.results_gated}")
 
     except Exception as e:
