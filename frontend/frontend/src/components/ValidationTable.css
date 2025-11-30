@@ -2,6 +2,8 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 0;
+  position: relative; /* Establish positioning context for gated overlay */
+  min-height: 280px; /* Reduced minimum height for better proportion */
 }
 
 /* Table Header */
