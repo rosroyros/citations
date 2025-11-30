@@ -368,6 +368,37 @@
   color: var(--editorial-accent-amber);
 }
 
+.reveal-cell {
+  white-space: nowrap;
+}
+
+.reveal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.reveal-status.revealed {
+  background: rgba(5, 150, 105, 0.1);
+  color: var(--editorial-accent-emerald);
+}
+
+.reveal-status.not-revealed {
+  background: rgba(217, 119, 6, 0.1);
+  color: var(--editorial-accent-amber);
+}
+
+.reveal-status.not-applicable {
+  background: rgba(107, 114, 128, 0.1);
+  color: var(--editorial-silver);
+}
+
 .user-cell {
   max-width: 200px;
   overflow: hidden;

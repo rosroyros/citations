@@ -187,6 +187,22 @@ class ValidationResponse(BaseModel):
         None,
         description="Extracted citation information in text format. Contains formatted citations from the validation process."
     )
+    results_gated: Optional[bool] = Field(
+        None,
+        description="Whether results were gated behind paywall"
+    )
+    results_revealed_at: Optional[str] = Field(
+        None,
+        description="Timestamp when user revealed gated results (ISO 8601 format)"
+    )
+    time_to_reveal_seconds: Optional[int] = Field(
+        None,
+        description="Time between results being ready and user revealing them (seconds)"
+    )
+    gated_outcome: Optional[str] = Field(
+        None,
+        description="Outcome of gating interaction (revealed, dismissed, etc.)"
+    )
 
 
 class StatsResponse(BaseModel):
@@ -467,6 +483,89 @@ async def get_validations_count(
         return {"count": count}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get validation count: {str(e)}")
+
+
+@app.get("/api/dashboard")
+async def get_dashboard_data(
+    limit: int = Query(100, description="Maximum number of records to return"),
+    offset: int = Query(0, description="Number of records to skip"),
+    status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
+    user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
+    search: Optional[str] = Query(None, description="Search in job_id field"),
+    from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    order_by: str = Query("created_at", description="Column to sort by"),
+    order_dir: str = Query("DESC", pattern="^(ASC|DESC)$", description="Sort direction"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get dashboard data in format expected by frontend
+
+    Returns validation data with field names mapped for frontend compatibility.
+    Used by the React dashboard frontend.
+    """
+    # Input validation
+    validate_pagination_params(limit, offset)
+    validate_status(status)
+    validate_user_type(user_type)
+    validate_search_term(search)
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+    validate_order_by(order_by)
+
+    try:
+        validations = database.get_validations(
+            limit=limit,
+            offset=offset,
+            status=status,
+            user_type=user_type,
+            search=search,
+            from_date=from_date,
+            to_date=to_date,
+            order_by=order_by,
+            order_dir=order_dir
+        )
+
+        # Map database fields to frontend expected format
+        jobs = []
+        for validation in validations:
+            # Determine reveal status based on user_type and results_revealed_at
+            reveal_status = "N/A"
+            if validation.get("user_type") == "free":
+                if validation.get("results_revealed_at"):
+                    reveal_status = "Yes"
+                elif validation.get("results_gated"):
+                    reveal_status = "No"
+                else:
+                    reveal_status = "N/A"  # Not gated
+
+            job_data = {
+                "id": validation.get("job_id"),
+                "timestamp": validation.get("created_at"),
+                "status": validation.get("validation_status", validation.get("status", "unknown")),
+                "user": validation.get("user_type", "unknown"),
+                "citations": validation.get("citation_count", 0),
+                "errors": None,  # Extract from error_message if needed
+                "processing_time": f"{validation.get('duration_seconds', 0):.1f}s" if validation.get("duration_seconds") else None,
+                "revealed": reveal_status,
+                # Include raw reveal fields for detailed view
+                "results_gated": validation.get("results_gated"),
+                "results_revealed_at": validation.get("results_revealed_at"),
+                "time_to_reveal_seconds": validation.get("time_to_reveal_seconds"),
+                "gated_outcome": validation.get("gated_outcome"),
+                # Additional fields for details modal
+                "validation_id": validation.get("job_id"),
+                "session_id": validation.get("job_id"),  # Use job_id as session_id for now
+                "ip_address": "N/A",  # Not tracked in current schema
+                "source_type": "N/A",  # Not tracked in current schema
+                "api_version": "N/A"  # Not tracked in current schema
+            }
+            jobs.append(job_data)
+
+        return {"jobs": jobs}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get dashboard data: {str(e)}")
 
 
 @app.get("/api/stats", response_model=StatsResponse)

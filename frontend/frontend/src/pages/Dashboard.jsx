@@ -425,6 +425,12 @@ export default function Dashboard() {
                       >
                         Processing Time {getSortIcon('processing_time')}
                       </th>
+                      <th
+                        className="sortable-header"
+                        onClick={() => handleSort('revealed')}
+                      >
+                        Revealed {getSortIcon('revealed')}
+                      </th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -444,6 +450,17 @@ export default function Dashboard() {
                           {item.errors !== null ? item.errors : '-'}
                         </td>
                         <td className="time-cell">{item.processing_time || '-'}</td>
+                        <td className="reveal-cell">
+                          {item.revealed === 'Yes' && (
+                            <span className="reveal-status revealed">Yes</span>
+                          )}
+                          {item.revealed === 'No' && (
+                            <span className="reveal-status not-revealed">No</span>
+                          )}
+                          {item.revealed === 'N/A' && (
+                            <span className="reveal-status not-applicable">N/A</span>
+                          )}
+                        </td>
                         <td className="actions-cell">
                           <button
                             onClick={() => setSelectedRow(item)}
