@@ -1,10 +1,9 @@
 import { useState, useMemo, useEffect } from 'react'
 import { CreditDisplay } from '../components/CreditDisplay'
 import Footer from '../components/Footer'
-import './Dashboard.css'
 
 // API base URL - use environment variable or production-ready default
-const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8000')
+const API_BASE_URL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '' : 'http://localhost:8001')
 
 // Function to fetch dashboard data from API
 const fetchDashboardData = async (filters = {}) => {

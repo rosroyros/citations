@@ -45,7 +45,25 @@ const validateGatedResultsEnv = () => {
   return envValue === 'true'
 }
 
+// Gated results design variant with runtime validation
+const getGatedResultsVariant = () => {
+  const envValue = import.meta.env.VITE_GATED_RESULTS_VARIANT
+  const validVariants = ['original', 'glassmorphism', 'gradient', 'card']
+
+  if (envValue === undefined) {
+    return 'original'
+  }
+
+  if (!validVariants.includes(envValue)) {
+    console.warn(`Invalid VITE_GATED_RESULTS_VARIANT value: "${envValue}". Expected one of ${validVariants.join(', ')}, defaulting to 'original'`)
+    return 'original'
+  }
+
+  return envValue
+}
+
 const GATED_RESULTS_ENABLED = validateGatedResultsEnv()
+const GATED_RESULTS_VARIANT = getGatedResultsVariant()
 
 // Polling configuration constants
 const POLLING_CONFIG = {
@@ -839,15 +857,28 @@ function AppContent() {
                 setShowUpgradeModal(true)
               }}
             />
-          ) : isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? (
-            // Gated results for free users
-            <GatedResults
-              results={results.results}
-              onReveal={handleRevealResults}
-              trackingData={trackingData}
-            />
           ) : (
-            <ValidationTable results={results.results} />
+            <div style={{ position: 'relative' }}>
+              {/* Always render the validation table */}
+              <ValidationTable
+                results={results.results}
+                style={{
+                  filter: isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? 'blur(8px)' : 'none',
+                  transition: 'filter 0.3s ease-out',
+                  opacity: isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? 0.3 : 1
+                }}
+              />
+
+              {/* Gated overlay for free users */}
+              {isGated && !resultsRevealed && GATED_RESULTS_ENABLED && (
+                <GatedResults
+                  results={results.results}
+                  onReveal={handleRevealResults}
+                  trackingData={trackingData}
+                  variant={GATED_RESULTS_VARIANT}
+                />
+              )}
+            </div>
           )}
         </div>
       )}
@@ -983,7 +1014,12 @@ function App() {
     return <DebugHTMLTest />
   }
   if (pathname === '/dashboard') {
-    return <CreditProvider><Dashboard /></CreditProvider>
+    return (
+      <>
+        <link rel="stylesheet" href="/src/pages/Dashboard.css" />
+        <CreditProvider><Dashboard /></CreditProvider>
+      </>
+    )
   }
   if (pathname === '/success') {
     return <CreditProvider><Success /></CreditProvider>
