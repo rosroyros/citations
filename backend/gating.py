@@ -5,12 +5,11 @@ This module implements the business logic for determining when validation result
 should be gated behind user interaction, based on user type, result quality,
 and system configuration.
 
-The approach uses simple, deterministic rules rather than complex behavioral
-analysis to ensure reliability and maintainability.
+The approach uses simple, deterministic rules and relies on structured logging
+for analytics, not database writes.
 """
 
 import os
-from datetime import datetime, timezone
 from typing import Dict, Any, Optional
 from fastapi import Request
 from logger import setup_logger
@@ -30,21 +29,16 @@ def get_user_type(request: Request) -> str:
     Returns:
         str: User type ('paid', 'free', or 'anonymous')
     """
-    # Check for paid user token
     token = request.headers.get('X-User-Token')
     if token:
-        # Could further validate token against database here if needed
-        # For now, any token = paid user
         logger.debug(f"User identified as paid via token: {token[:8]}...")
         return 'paid'
 
-    # Check for free session indicators
     free_used_header = request.headers.get('X-Free-Used')
     if free_used_header is not None:
         logger.debug("User identified as free via X-Free-Used header")
         return 'free'
 
-    # Default to anonymous - treat as free for gating purposes
     logger.debug("User identified as anonymous (defaulting to free behavior)")
     return 'anonymous'
 
@@ -65,35 +59,30 @@ def should_gate_results(
     Returns:
         bool: True if results should be gated, False otherwise
     """
-    # Early exit if feature flag is disabled
     if not GATED_RESULTS_ENABLED:
         logger.debug("Gating disabled - results will be shown directly")
         return False
 
-    # Rule 1: Only gate free/anonymous users
     if user_type not in ['free', 'anonymous']:
         logger.debug(f"User type '{user_type}' bypasses gating")
         return False
 
-    # Rule 2: Don't gate if validation had processing errors
     if not validation_success:
         logger.debug("Validation errors bypass gating")
         return False
 
-    # Rule 3: Don't gate partial results (citation limits reached)
     if results.get('isPartial', False):
         logger.debug("Partial results bypass gating")
         return False
 
-    # Rule 4: Don't gate if there are validation errors in results
-    errors = results.get('errors', [])
-    if errors:
-        logger.debug(f"Validation errors found ({len(errors)}) bypass gating")
-        return False
+    # This check is simplified as the detailed error list is not available here
+    # An empty results list is a strong indicator of a gating scenario (e.g. limit reached)
+    if not results.get('results'):
+        logger.info(f"Results gated for {user_type} user due to empty result set")
+        return True
 
-    # All checks passed - gate the results
-    logger.info(f"Results gated for {user_type} user")
-    return True
+    logger.info(f"Results not gated for {user_type} user")
+    return False
 
 
 def should_gate_results_sync(
@@ -114,78 +103,12 @@ def should_gate_results_sync(
     Returns:
         bool: True if results should be gated, False otherwise
     """
-    # Convert ValidationResponse to expected format
-    results = {
+    results_dict = {
         'isPartial': validation_response.get('partial', False),
-        'errors': []  # ValidationResponse doesn't expose individual errors directly
+        'results': validation_response.get('results', [])
     }
 
-    # Check if results are empty (could indicate citation limit reached)
-    if not validation_response.get('results'):
-        results['isPartial'] = True
-        logger.debug("Empty results indicate citation limit reached")
-
-    return should_gate_results(user_type, results, validation_success)
-
-
-def store_gated_results(
-    job_id: str,
-    results_gated: bool,
-    user_type: str,
-    results: Dict[str, Any],
-    db_conn=None
-) -> None:
-    """
-    Store initial gating decision and metadata in database.
-
-    Args:
-        job_id: Unique identifier for the validation job
-        results_gated: Whether results were gated
-        user_type: Type of user ('paid', 'free', 'anonymous')
-        results: Validation results dictionary
-        db_conn: Optional database connection (for transactions)
-    """
-    try:
-        # Import here to avoid circular dependencies
-        from database import get_validations_db_path
-        import sqlite3
-
-        if not db_conn:
-            db_path = get_validations_db_path()
-            db_conn = sqlite3.connect(db_path)
-            should_close = True
-        else:
-            should_close = False
-
-        cursor = db_conn.cursor()
-
-        # Update validation tracking record
-        now = datetime.now(timezone.utc).isoformat()
-        cursor.execute('''
-            UPDATE validations
-            SET results_gated = ?,
-                user_type = ?,
-                gated_at = ?,
-                updated_at = ?
-            WHERE job_id = ?
-        ''', (
-            results_gated,
-            user_type,
-            now if results_gated else None,
-            now,
-            job_id
-        ))
-
-        db_conn.commit()
-
-        if should_close:
-            db_conn.close()
-
-        logger.info(f"Stored gating decision for job {job_id}: gated={results_gated}, user_type={user_type}")
-
-    except Exception as e:
-        logger.error(f"Failed to store gating decision for job {job_id}: {str(e)}")
-        # Don't raise - gating storage failure shouldn't break validation flow
+    return should_gate_results(user_type, results_dict, validation_success)
 
 
 def log_gating_event(
@@ -195,7 +118,7 @@ def log_gating_event(
     reason: Optional[str] = None
 ) -> None:
     """
-    Log gating decision for dashboard parsing and analytics.
+    Log gating decision for dashboard parsing and analytics using a structured format.
 
     Args:
         job_id: Unique identifier for the validation job
@@ -203,115 +126,7 @@ def log_gating_event(
         results_gated: Whether results were gated
         reason: Optional reason for the decision
     """
-    if results_gated:
-        logger.info(f"RESULTS_READY_GATED: job_id={job_id}, user_type={user_type}")
-    else:
-        logger.info(f"RESULTS_READY_DIRECT: job_id={job_id}, user_type={user_type}, reason={reason or 'No gating needed'}")
-
-
-def log_results_revealed(job_id: str, time_to_reveal: int, user_type: str) -> None:
-    """
-    Structured logging for dashboard parsing when results are revealed.
-
-    This function logs analytics events for user engagement tracking.
-    Uses fire-and-forget approach to maintain performance.
-
-    Args:
-        job_id: Unique identifier for the validation job
-        time_to_reveal: Time in seconds between results ready and reveal
-        user_type: Type of user ('paid', 'free', 'anonymous')
-    """
-    try:
-        # Validate input parameters
-        if not job_id or not isinstance(job_id, str) or not job_id.strip():
-            logger.warning(f"Invalid job_id in log_results_revealed: {job_id}")
-            return
-
-        if not isinstance(time_to_reveal, int) or time_to_reveal < 0:
-            logger.warning(f"Invalid time_to_reveal in log_results_revealed: {time_to_reveal}")
-            return
-
-        if user_type not in ['paid', 'free', 'anonymous']:
-            logger.warning(f"Invalid user_type in log_results_revealed: {user_type}")
-            return
-
-        # Log structured data for dashboard parsing
-        logger.info(f"RESULTS_REVEALED: job_id={job_id}, "
-                   f"time_to_reveal={time_to_reveal}s, "
-                   f"user_type={user_type}")
-
-        # Additional debugging info in development
-        if os.getenv('DEBUG_ANALYTICS') == 'true':
-            logger.debug(f"Analytics event logged - Job: {job_id}, "
-                        f"Time: {time_to_reveal}s, Type: {user_type}")
-
-    except Exception as e:
-        # Never let analytics logging break the main flow
-        logger.error(f"Failed to log results revealed analytics: {str(e)}")
-        # Silently continue - analytics failures should not affect user experience
-
-
-def get_gating_summary() -> Dict[str, Any]:
-    """
-    Get summary statistics for gated results analytics.
-
-    Returns:
-        dict: Summary of gating statistics
-    """
-    try:
-        import sqlite3
-        from database import get_validations_db_path
-
-        db_path = get_validations_db_path()
-        conn = sqlite3.connect(db_path)
-        cursor = conn.cursor()
-
-        # Get gating statistics
-        cursor.execute('''
-            SELECT
-                COUNT(*) as total_validations,
-                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated_count,
-                COUNT(CASE WHEN results_gated = 0 THEN 1 END) as direct_count,
-                COUNT(CASE WHEN user_type = 'free' THEN 1 END) as free_users,
-                COUNT(CASE WHEN user_type = 'paid' THEN 1 END) as paid_users
-            FROM validations
-            WHERE created_at >= datetime('now', '-24 hours')
-        ''')
-
-        stats = cursor.fetchone()
-        conn.close()
-
-        if stats and stats[0] > 0:
-            total, gated, direct, free, paid = stats
-            return {
-                'total_validations': total,
-                'gated_results': gated,
-                'direct_results': direct,
-                'gating_rate': round((gated / total) * 100, 1) if total > 0 else 0,
-                'free_users': free,
-                'paid_users': paid,
-                'feature_enabled': GATED_RESULTS_ENABLED
-            }
-
-        return {
-            'total_validations': 0,
-            'gated_results': 0,
-            'direct_results': 0,
-            'gating_rate': 0,
-            'free_users': 0,
-            'paid_users': 0,
-            'feature_enabled': GATED_RESULTS_ENABLED
-        }
-
-    except Exception as e:
-        logger.error(f"Failed to get gating summary: {str(e)}")
-        return {
-            'total_validations': 0,
-            'gated_results': 0,
-            'direct_results': 0,
-            'gating_rate': 0,
-            'free_users': 0,
-            'paid_users': 0,
-            'feature_enabled': GATED_RESULTS_ENABLED,
-            'error': str(e)
-        }
+    reason_str = reason if reason else "N/A"
+    logger.info(
+        f"GATING_DECISION: job_id={job_id} user_type={user_type} results_gated={results_gated} reason='{reason_str}'"
+    )

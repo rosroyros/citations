@@ -15,8 +15,8 @@ from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
-from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, record_result_reveal, get_validation_analytics, get_gated_validation_results
-from gating import get_user_type, should_gate_results_sync, store_gated_results, log_gating_event, GATED_RESULTS_ENABLED
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
+from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 
 # Load environment variables
 load_dotenv()
@@ -224,12 +224,10 @@ def build_gated_response(
     # Log gating decision
     log_gating_event(job_id, user_type, results_gated, gating_reason)
 
-    # Store gating decision in database
-    store_gated_results(job_id, results_gated, user_type, response_data)
-
     # If gated, clear results but keep metadata
     if results_gated:
-        # TEMPORARY FIX: Preserve results data behind gate (Oracle recommendation)        response_data['results'] = []
+        # TEMPORARY FIX: Preserve results data behind gate (Oracle recommendation)
+        # response_data['results'] = []
         response_data['results_gated'] = True
         response_data['job_id'] = job_id
     else:
@@ -389,7 +387,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         logger.debug(f"Citation count: {citation_count}")
 
         # Update validation record with citation count
-        update_validation_tracking(job_id, validation_status='completed')
+        update_validation_tracking(job_id, status='completed')
 
         # Handle credit logic
         if not token:
@@ -495,19 +493,19 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     except ValueError as e:
         # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
         logger.error(f"Validation failed with user error: {str(e)}", exc_info=True)
-        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
+        update_validation_tracking(job_id, status='failed', error_message=str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
     except HTTPException as e:
         # Re-raise HTTPExceptions (like 402 Payment Required)
         if e.status_code != 402:  # Don't log 402 errors as validation failures
-            update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
+            update_validation_tracking(job_id, status='failed', error_message=str(e.detail))
         raise e
 
     except Exception as e:
         # Unexpected errors
         logger.error(f"Unexpected validation error: {str(e)}", exc_info=True)
-        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
+        update_validation_tracking(job_id, status='failed', error_message=str(e))
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {str(e)}")
 
 
@@ -569,7 +567,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     free_used=FREE_LIMIT,
                     free_used_total=FREE_LIMIT
                 ).model_dump()
-                jobs[job_id]["results_gated"] = True  # This is a gated response                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
+                jobs[job_id]["results_gated"] = True  # This is a gated response
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
                 return
 
         # Call LLM (can take 120s+)
@@ -582,6 +581,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         results = validation_results["results"]
         citation_count = len(results)
         jobs[job_id]["citation_count"] = citation_count
+        update_validation_tracking(job_id, status='completed')
+
 
         # Handle credit/free tier logic (same as existing /api/validate)
         if not token:
@@ -649,7 +650,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         jobs[job_id]["error"] = str(e)
 
         # Update validation tracking
-        update_validation_tracking(job_id, validation_status='failed', error_message=str(e))
+        update_validation_tracking(job_id, status='failed', error_message=str(e))
 
 
 async def cleanup_old_jobs():
@@ -761,15 +762,14 @@ async def get_job_status(job_id: str):
 async def reveal_results(request: dict):
     """
     Handle result reveal tracking for gated results.
-
-    Called when a user clicks to reveal gated validation results.
-    Records the reveal timing and updates analytics.
+    This endpoint is now a simple acknowledgement and logging endpoint.
+    It does not interact with the database.
 
     Args:
         request: Dict containing 'job_id' and optional 'outcome'
 
     Returns:
-        dict: Success status and timing information
+        dict: Success status
     """
     job_id = request.get('job_id')
     outcome = request.get('outcome', 'revealed')
@@ -777,98 +777,15 @@ async def reveal_results(request: dict):
     if not job_id:
         raise HTTPException(status_code=400, detail="job_id is required")
 
-    logger.info(f"Results reveal request for job {job_id} with outcome {outcome}")
+    logger.info(f"REVEAL_EVENT: job_id={job_id} outcome={outcome}")
 
-    try:
-        # TEMPORARY FIX: Bypass database dependency for reveal functionality
-        # The log parser isn't extracting gating data properly, so we skip database checks
-        # This allows users to see results after clicking reveal while we fix the underlying issue
-        logger.info(f"Allowing reveal for job {job_id} without database check (temporary fix)")
-        success = True  # Always return success temporarily
+    return {
+        "success": True,
+        "job_id": job_id,
+        "outcome": outcome,
+        "message": "Result reveal event logged."
+    }
 
-        logger.info(f"Successfully recorded reveal for job {job_id}")
-        return {
-            "success": True,
-            "job_id": job_id,
-            "outcome": outcome,
-            "message": "Result reveal recorded successfully"
-        }
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error recording reveal for job {job_id}: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to record result reveal")
-
-
-@app.get("/api/gating/analytics")
-async def get_gating_analytics(days: int = 7, user_type: Optional[str] = None):
-    """
-    Get analytics data for gated results.
-
-    Args:
-        days: Number of days to look back (default: 7)
-        user_type: Optional filter by user type (free/paid/anonymous)
-
-    Returns:
-        dict: Analytics data for gated results
-    """
-    logger.info(f"Gating analytics request: days={days}, user_type={user_type}")
-
-    try:
-        # Validate parameters
-        if days < 1 or days > 365:
-            raise HTTPException(status_code=400, detail="days must be between 1 and 365")
-
-        if user_type and user_type not in ['free', 'paid', 'anonymous']:
-            raise HTTPException(status_code=400, detail="user_type must be one of: free, paid, anonymous")
-
-        # Get analytics from database
-        analytics = get_validation_analytics(days, user_type)
-
-        # Add gating summary from gating module
-        from gating import get_gating_summary
-        gating_summary = get_gating_summary()
-
-        return {
-            **analytics,
-            **gating_summary
-        }
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting gating analytics: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to get analytics")
-
-
-@app.get("/api/gating/status/{job_id}")
-async def get_gated_validation_status(job_id: str):
-    """
-    Get gated validation status and results for a specific job.
-
-    Args:
-        job_id: Unique identifier for the validation job
-
-    Returns:
-        dict: Gating status and results data for frontend display
-    """
-    logger.info(f"Gating status request for job {job_id}")
-
-    try:
-        # Get gated validation results from database
-        results = get_gated_validation_results(job_id)
-
-        if not results:
-            raise HTTPException(status_code=404, detail=f"Validation job {job_id} not found")
-
-        return results
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error getting gated validation status for job {job_id}: {str(e)}")
-        raise HTTPException(status_code=500, detail="Failed to get gated validation status")
 
 
 @app.get("/api/dashboard")
