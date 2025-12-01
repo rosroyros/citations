@@ -29,6 +29,10 @@ logger = setup_logger("citation_validator")
 # Free tier limit
 FREE_LIMIT = 10
 
+# Citation pipeline health thresholds (in bytes)
+LAG_THRESHOLD_WARNING_BYTES = 1 * 1024 * 1024  # 1MB
+LAG_THRESHOLD_CRITICAL_BYTES = 5 * 1024 * 1024  # 5MB
+
 # Base URL for generating canonical links and SEO metadata
 BASE_URL = os.getenv('BASE_URL', 'https://citationformatchecker.com').rstrip('/')
 
@@ -954,12 +958,9 @@ def get_citation_pipeline_metrics() -> dict:
         dict: Citation pipeline metrics including health status, lag, and processing stats
     """
     try:
-        import os
-        from datetime import datetime
-
         # Configuration
         log_path = os.environ.get('CITATION_LOG_PATH', '/opt/citations/logs/citations.log')
-        position_path = os.environ.get('CITATION_LOG_PATH', '/opt/citations/logs/citations.log').replace('.log', '.position')
+        position_path = log_path.replace('.log', '.position')
 
         # Initialize metrics with defaults
         metrics = {
@@ -1025,15 +1026,14 @@ def get_citation_pipeline_metrics() -> dict:
         metrics['total_citations_processed'] = total_citations
 
         # Determine health status based on lag thresholds
-        lag_mb = metrics['parser_lag_bytes'] / (1024 * 1024)  # Convert to MB
-
-        if lag_mb >= 5:  # 5MB critical threshold
+        if metrics['parser_lag_bytes'] >= LAG_THRESHOLD_CRITICAL_BYTES:  # 5MB critical threshold
             metrics['health_status'] = 'error'
-        elif lag_mb >= 1:  # 1MB warning threshold
+        elif metrics['parser_lag_bytes'] >= LAG_THRESHOLD_WARNING_BYTES:  # 1MB warning threshold
             metrics['health_status'] = 'lagging'
         else:
             metrics['health_status'] = 'healthy'
 
+        lag_mb = metrics['parser_lag_bytes'] / (1024 * 1024)  # Convert to MB for logging
         logger.info(f"Citation pipeline metrics: status={metrics['health_status']}, lag={lag_mb:.2f}MB, jobs_with_citations={jobs_with_citations}")
 
         return metrics
