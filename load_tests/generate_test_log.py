@@ -6,10 +6,13 @@ Generate large test citation log file for parser performance testing
 import os
 import sys
 import time
+from pathlib import Path
 
 def create_large_citation_log(num_jobs=4000, citations_per_job=8):
     """Generate large test log file"""
-    log_dir = '/Users/roy/Documents/Projects/citations/logs'
+    script_dir = Path(__file__).parent
+    project_dir = script_dir.parent
+    log_dir = project_dir / 'logs'
 
     # Create logs directory if it doesn't exist
     os.makedirs(log_dir, exist_ok=True)

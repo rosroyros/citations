@@ -13,7 +13,7 @@ from pathlib import Path
 
 class LoadTestRunner:
     def __init__(self):
-        self.test_dir = Path('/Users/roy/Documents/Projects/citations/load_tests')
+        self.test_dir = Path(__file__).parent
         self.results = {
             'timestamp': time.strftime('%Y-%m-%d %H:%M:%S'),
             'test_environment': {
@@ -29,19 +29,47 @@ class LoadTestRunner:
         """Check if backend is accessible and required files exist"""
         print('🔍 Checking prerequisites...')
 
-        # Check backend accessibility
-        try:
-            import requests
-            response = requests.get('http://localhost:8001/docs', timeout=5)
-            if response.status_code == 200:
-                print('✅ Backend is accessible')
-                return True
-            else:
-                print(f'❌ Backend returned status {response.status_code}')
-                return False
-        except Exception as e:
-            print(f'❌ Backend not accessible: {e}')
-            return False
+        # Check backend accessibility with retry logic
+        import requests
+        max_retries = 3
+        retry_delay = 1
+
+        for attempt in range(max_retries):
+            try:
+                response = requests.get('http://localhost:8001/docs', timeout=5)
+                if response.status_code == 200:
+                    print('✅ Backend is accessible')
+                    return True
+                else:
+                    print(f'⚠️ Backend returned status {response.status_code} (attempt {attempt + 1}/{max_retries})')
+                    if attempt < max_retries - 1:
+                        time.sleep(retry_delay)
+                    else:
+                        print(f'❌ Backend not accessible after {max_retries} attempts')
+                        return False
+            except requests.exceptions.ConnectionError as e:
+                print(f'⚠️ Backend connection failed (attempt {attempt + 1}/{max_retries}): {e}')
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                else:
+                    print(f'❌ Backend not accessible after {max_retries} attempts')
+                    return False
+            except requests.exceptions.Timeout as e:
+                print(f'⚠️ Backend timeout (attempt {attempt + 1}/{max_retries}): {e}')
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                else:
+                    print(f'❌ Backend timeout after {max_retries} attempts')
+                    return False
+            except Exception as e:
+                print(f'⚠️ Backend check error (attempt {attempt + 1}/{max_retries}): {e}')
+                if attempt < max_retries - 1:
+                    time.sleep(retry_delay)
+                else:
+                    print(f'❌ Backend not accessible after {max_retries} attempts')
+                    return False
+
+        return False
 
     def run_test_1_concurrent_submissions(self):
         """Run Test 1: High Volume Concurrent Submissions"""

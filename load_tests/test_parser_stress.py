@@ -17,9 +17,12 @@ from pathlib import Path
 
 class ParserStressTest:
     def __init__(self):
-        self.log_path = '/Users/roy/Documents/Projects/citations/logs/citations_test.log'
-        self.parser_script = '/Users/roy/Documents/Projects/citations/dashboard/log_parser.py'
-        self.writer_script = '/Users/roy/Documents/Projects/citations/load_tests/background_writer.py'
+        script_dir = Path(__file__).parent
+        project_dir = script_dir.parent
+
+        self.log_path = project_dir / 'logs' / 'citations_test.log'
+        self.parser_script = project_dir / 'dashboard' / 'log_parser.py'
+        self.writer_script = script_dir / 'background_writer.py'
         self.writer_process = None
         self.results = {
             'parser_runs': [],
@@ -149,21 +152,36 @@ class ParserStressTest:
         print(f'\n🛑 Stopping background writer...')
         if self.writer_process:
             try:
-                # Try graceful shutdown
-                self.writer_process.terminate()
-                try:
-                    self.writer_process.wait(timeout=5)
-                    print('✅ Writer stopped gracefully')
-                except subprocess.TimeoutExpired:
-                    # Force kill
-                    self.writer_process.kill()
-                    print('⚡ Writer force killed')
+                # Check if process is still running
+                if self.writer_process.poll() is None:
+                    # Try graceful shutdown first
+                    self.writer_process.terminate()
+                    try:
+                        self.writer_process.wait(timeout=5)
+                        print('✅ Writer stopped gracefully')
+                    except subprocess.TimeoutExpired:
+                        # Force kill if graceful shutdown fails
+                        self.writer_process.kill()
+                        try:
+                            self.writer_process.wait(timeout=2)
+                            print('⚡ Writer force killed')
+                        except subprocess.TimeoutExpired:
+                            print('⚠️ Writer process may still be running')
+                else:
+                    print('✅ Writer already stopped')
 
                 # Get any remaining output
-                stdout, stderr = self.writer_process.communicate()
+                try:
+                    stdout, stderr = self.writer_process.communicate(timeout=2)
+                    if stderr:
+                        print(f'Writer stderr: {stderr[:200]}...')
+                except subprocess.TimeoutExpired:
+                    print('⚠️ Timeout getting writer output')
 
             except Exception as e:
                 print(f'⚠️ Error stopping writer: {e}')
+            finally:
+                self.writer_process = None
 
     def run_concurrent_api_test(self, num_requests=20, max_workers=3):
         """Run API requests concurrently with parser/writer activity"""

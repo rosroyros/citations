@@ -10,10 +10,16 @@ import sys
 import os
 import signal
 import threading
+from pathlib import Path
 
 class BackgroundWriter:
     def __init__(self, log_path=None):
-        self.log_path = log_path or '/Users/roy/Documents/Projects/citations/logs/citations_test.log'
+        if log_path:
+            self.log_path = log_path
+        else:
+            script_dir = Path(__file__).parent
+            project_dir = script_dir.parent
+            self.log_path = project_dir / 'logs' / 'citations_test.log'
         self.job_id = 1000
         self.running = False
         self.writer_thread = None
