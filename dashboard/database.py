@@ -79,8 +79,16 @@ class DatabaseManager:
 
         # Create indexes for performance
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_created_at ON validations(created_at)")
-        cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON validations(status)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON validations(user_type)")
+
+        # Handle status vs validation_status compatibility
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        if 'status' in columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON validations(status)")
+        if 'validation_status' in columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_validation_status ON validations(validation_status)")
 
         # Add citations_text column to existing tables (migration)
         cursor.execute("PRAGMA table_info(validations)")
@@ -152,33 +160,87 @@ class DatabaseManager:
     def insert_validation(self, validation_data: Dict[str, Any]):
         """
         Insert or update a validation record (UPSERT)
+        Handles both status and validation_status columns for backward compatibility
 
         Args:
             validation_data: Dictionary with validation fields
         """
         cursor = self.conn.cursor()
 
-        # Use INSERT OR REPLACE for UPSERT behavior
-        cursor.execute("""
-            INSERT OR REPLACE INTO validations (
-                job_id, created_at, completed_at, duration_seconds,
-                citation_count, token_usage_prompt, token_usage_completion,
-                token_usage_total, user_type, status, error_message, citations_text
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """, (
-            validation_data["job_id"],
-            validation_data["created_at"],
-            validation_data.get("completed_at"),
-            validation_data.get("duration_seconds"),
-            validation_data.get("citation_count"),
-            validation_data.get("token_usage_prompt"),
-            validation_data.get("token_usage_completion"),
-            validation_data.get("token_usage_total"),
-            validation_data["user_type"],
-            validation_data["status"],
-            validation_data.get("error_message"),
-            validation_data.get("citations_text")
-        ))
+        # Check what status columns exist in the database
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        has_status = 'status' in columns
+        has_validation_status = 'validation_status' in columns
+
+        if has_status and has_validation_status:
+            # Both columns exist - update both with same value
+            cursor.execute("""
+                INSERT OR REPLACE INTO validations (
+                    job_id, created_at, completed_at, duration_seconds,
+                    citation_count, token_usage_prompt, token_usage_completion,
+                    token_usage_total, user_type, status, validation_status, error_message, citations_text
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                validation_data["job_id"],
+                validation_data["created_at"],
+                validation_data.get("completed_at"),
+                validation_data.get("duration_seconds"),
+                validation_data.get("citation_count"),
+                validation_data.get("token_usage_prompt"),
+                validation_data.get("token_usage_completion"),
+                validation_data.get("token_usage_total"),
+                validation_data["user_type"],
+                validation_data["status"],
+                validation_data["status"],  # Keep both in sync
+                validation_data.get("error_message"),
+                validation_data.get("citations_text")
+            ))
+        elif has_validation_status:
+            # Only validation_status exists (old schema)
+            cursor.execute("""
+                INSERT OR REPLACE INTO validations (
+                    job_id, created_at, completed_at, duration_seconds,
+                    citation_count, token_usage_prompt, token_usage_completion,
+                    token_usage_total, user_type, validation_status, error_message, citations_text
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                validation_data["job_id"],
+                validation_data["created_at"],
+                validation_data.get("completed_at"),
+                validation_data.get("duration_seconds"),
+                validation_data.get("citation_count"),
+                validation_data.get("token_usage_prompt"),
+                validation_data.get("token_usage_completion"),
+                validation_data.get("token_usage_total"),
+                validation_data["user_type"],
+                validation_data["status"],  # Map status to validation_status
+                validation_data.get("error_message"),
+                validation_data.get("citations_text")
+            ))
+        else:
+            # Only status exists (new schema)
+            cursor.execute("""
+                INSERT OR REPLACE INTO validations (
+                    job_id, created_at, completed_at, duration_seconds,
+                    citation_count, token_usage_prompt, token_usage_completion,
+                    token_usage_total, user_type, status, error_message, citations_text
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                validation_data["job_id"],
+                validation_data["created_at"],
+                validation_data.get("completed_at"),
+                validation_data.get("duration_seconds"),
+                validation_data.get("citation_count"),
+                validation_data.get("token_usage_prompt"),
+                validation_data.get("token_usage_completion"),
+                validation_data.get("token_usage_total"),
+                validation_data["user_type"],
+                validation_data["status"],
+                validation_data.get("error_message"),
+                validation_data.get("citations_text")
+            ))
 
         self.conn.commit()
 
@@ -214,6 +276,7 @@ class DatabaseManager:
     ) -> List[Dict[str, Any]]:
         """
         Get validations with filtering and pagination
+        Handles both status and validation_status columns
 
         Args:
             limit: Maximum number of records to return
@@ -229,13 +292,27 @@ class DatabaseManager:
         Returns:
             List of validation records
         """
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
         query = "SELECT * FROM validations WHERE 1=1"
         params = []
 
-        # Add filters
+        # Handle status filtering - check which column exists
         if status:
-            query += " AND status = ?"
-            params.append(status)
+            has_status = 'status' in columns
+            has_validation_status = 'validation_status' in columns
+
+            if has_status and has_validation_status:
+                query += " AND (status = ? OR validation_status = ?)"
+                params.extend([status, status])
+            elif has_status:
+                query += " AND status = ?"
+                params.append(status)
+            elif has_validation_status:
+                query += " AND validation_status = ?"
+                params.append(status)
 
         if user_type:
             query += " AND user_type = ?"
@@ -260,11 +337,19 @@ class DatabaseManager:
         query += " LIMIT ? OFFSET ?"
         params.extend([limit, offset])
 
-        cursor = self.conn.cursor()
         cursor.execute(query, params)
         rows = cursor.fetchall()
 
-        return [dict(row) for row in rows]
+        # Normalize status column in results
+        results = []
+        for row in rows:
+            row_dict = dict(row)
+            # Always provide 'status' in the result, map from validation_status if needed
+            if 'status' not in row_dict and 'validation_status' in row_dict:
+                row_dict['status'] = row_dict['validation_status']
+            results.append(row_dict)
+
+        return results
 
     def get_validations_count(
         self,
@@ -276,6 +361,7 @@ class DatabaseManager:
     ) -> int:
         """
         Get count of validations matching filters
+        Handles both status and validation_status columns
 
         Args:
             Same filters as get_validations()
@@ -283,13 +369,27 @@ class DatabaseManager:
         Returns:
             Total count of matching validations
         """
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
         query = "SELECT COUNT(*) FROM validations WHERE 1=1"
         params = []
 
         # Add filters (same as get_validations)
         if status:
-            query += " AND status = ?"
-            params.append(status)
+            has_status = 'status' in columns
+            has_validation_status = 'validation_status' in columns
+
+            if has_status and has_validation_status:
+                query += " AND (status = ? OR validation_status = ?)"
+                params.extend([status, status])
+            elif has_status:
+                query += " AND status = ?"
+                params.append(status)
+            elif has_validation_status:
+                query += " AND validation_status = ?"
+                params.append(status)
 
         if user_type:
             query += " AND user_type = ?"
@@ -307,7 +407,6 @@ class DatabaseManager:
             query += " AND created_at <= ?"
             params.append(to_date)
 
-        cursor = self.conn.cursor()
         cursor.execute(query, params)
         result = cursor.fetchone()
 
@@ -389,6 +488,7 @@ class DatabaseManager:
     ) -> Dict[str, Any]:
         """
         Get summary statistics for validations
+        Handles both status and validation_status columns
 
         Args:
             from_date: Include only validations created after this date
@@ -397,12 +497,27 @@ class DatabaseManager:
         Returns:
             Dictionary with summary statistics
         """
-        query = """
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        has_status = 'status' in columns
+        has_validation_status = 'validation_status' in columns
+
+        if has_status and has_validation_status:
+            # Both columns exist, use COALESCE to prioritize status but fallback to validation_status
+            status_condition = "COALESCE(status, validation_status)"
+        elif has_status:
+            status_condition = "status"
+        else:
+            status_condition = "validation_status"
+
+        query = f"""
             SELECT
                 COUNT(*) as total_validations,
-                COUNT(CASE WHEN status = 'completed' THEN 1 END) as completed,
-                COUNT(CASE WHEN status = 'failed' THEN 1 END) as failed,
-                COUNT(CASE WHEN status = 'pending' THEN 1 END) as pending,
+                COUNT(CASE WHEN {status_condition} = 'completed' THEN 1 END) as completed,
+                COUNT(CASE WHEN {status_condition} = 'failed' THEN 1 END) as failed,
+                COUNT(CASE WHEN {status_condition} = 'pending' THEN 1 END) as pending,
                 SUM(citation_count) as total_citations,
                 COUNT(CASE WHEN user_type = 'free' THEN 1 END) as free_users,
                 COUNT(CASE WHEN user_type = 'paid' THEN 1 END) as paid_users,
@@ -421,7 +536,6 @@ class DatabaseManager:
             query += " AND created_at <= ?"
             params.append(to_date)
 
-        cursor = self.conn.cursor()
         cursor.execute(query, params)
         result = cursor.fetchone()
 
@@ -435,176 +549,6 @@ class DatabaseManager:
             "paid_users": result[6] or 0,
             "avg_duration_seconds": round(result[7] or 0, 1),
             "avg_citations_per_validation": round(result[8] or 0, 1)
-        }
-
-    def get_gated_stats(
-        self,
-        from_date: Optional[str] = None,
-        to_date: Optional[str] = None
-    ) -> Dict[str, Any]:
-        """
-        Get engagement statistics for gated results
-
-        Args:
-            from_date: Include only validations created after this date
-            to_date: Include only validations created before this date
-
-        Returns:
-            Dictionary with gated results engagement statistics
-        """
-        query = """
-            SELECT
-                COUNT(*) as total_validations,
-                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as total_gated,
-                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed_count,
-                AVG(CASE WHEN results_gated = 1 AND time_to_reveal_seconds IS NOT NULL
-                    THEN time_to_reveal_seconds END) as avg_time_to_reveal_seconds
-            FROM validations
-            WHERE 1=1
-        """
-        params = []
-
-        if from_date:
-            query += " AND created_at >= ?"
-            params.append(from_date)
-
-        if to_date:
-            query += " AND created_at <= ?"
-            params.append(to_date)
-
-        cursor = self.conn.cursor()
-        cursor.execute(query, params)
-        result = cursor.fetchone()
-
-        total_validations = result[0] or 0
-        total_gated = result[1] or 0
-        revealed_count = result[2] or 0
-        avg_time_to_reveal = result[3] or 0
-
-        # Calculate reveal rate
-        reveal_rate = (revealed_count / total_gated * 100) if total_gated > 0 else 0
-
-        # Get breakdown by user type
-        user_type_query = """
-            SELECT
-                user_type,
-                COUNT(*) as total,
-                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
-                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed,
-                AVG(CASE WHEN results_gated = 1 AND time_to_reveal_seconds IS NOT NULL
-                    THEN time_to_reveal_seconds END) as avg_time
-            FROM validations
-            WHERE 1=1
-        """
-        user_type_params = []
-        if from_date:
-            user_type_query += " AND created_at >= ?"
-            user_type_params.append(from_date)
-        if to_date:
-            user_type_query += " AND created_at <= ?"
-            user_type_params.append(to_date)
-
-        user_type_query += " GROUP BY user_type"
-
-        cursor.execute(user_type_query, user_type_params)
-        user_type_results = cursor.fetchall()
-
-        by_user_type = {}
-        for row in user_type_results:
-            user_type, total, gated, revealed, avg_time = row
-            gated_rate = (gated / total * 100) if total > 0 else 0
-            reveal_rate_type = (revealed / gated * 100) if gated > 0 else 0
-            by_user_type[user_type] = {
-                "total": total,
-                "gated": gated,
-                "revealed": revealed,
-                "gating_rate": round(gated_rate, 1),
-                "reveal_rate": round(reveal_rate_type, 1),
-                "avg_time_to_reveal_seconds": round(avg_time or 0, 1)
-            }
-
-        # Get breakdown by outcome
-        outcome_query = """
-            SELECT
-                COALESCE(gated_outcome, 'no_outcome') as outcome,
-                COUNT(*) as count
-            FROM validations
-            WHERE results_gated = 1
-        """
-        outcome_params = []
-        if from_date:
-            outcome_query += " AND created_at >= ?"
-            outcome_params.append(from_date)
-        if to_date:
-            outcome_query += " AND created_at <= ?"
-            outcome_params.append(to_date)
-
-        outcome_query += " GROUP BY gated_outcome"
-
-        cursor.execute(outcome_query, outcome_params)
-        outcome_results = cursor.fetchall()
-
-        by_outcome = {row[0]: row[1] for row in outcome_results}
-
-        # Get daily trends for last 30 days
-        trends_query = """
-            SELECT
-                DATE(created_at) as date,
-                COUNT(*) as total,
-                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
-                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed
-            FROM validations
-            WHERE created_at >= DATE('now', '-30 days')
-        """
-        trends_params = []
-        if from_date:
-            trends_query += " AND created_at >= ?"
-            trends_params.append(from_date)
-        if to_date:
-            trends_query += " AND created_at <= ?"
-            trends_params.append(to_date)
-
-        trends_query += " GROUP BY DATE(created_at) ORDER BY date DESC LIMIT 30"
-
-        cursor.execute(trends_query, trends_params)
-        trend_results = cursor.fetchall()
-
-        daily_trends = []
-        for row in trend_results:
-            date, total, gated, revealed = row
-            gated_rate = (gated / total * 100) if total > 0 else 0
-            reveal_rate = (revealed / gated * 100) if gated > 0 else 0
-            daily_trends.append({
-                "date": date,
-                "total": total,
-                "gated": gated,
-                "revealed": revealed,
-                "gating_rate": round(gated_rate, 1),
-                "reveal_rate": round(reveal_rate, 1)
-            })
-
-        # Calculate conversion metrics (estimated)
-        conversion_metrics = {
-            "gating_rate": (total_gated / total_validations * 100) if total_validations > 0 else 0,
-            "reveal_rate": round(reveal_rate, 1),
-            "avg_time_to_reveal_seconds": round(avg_time_to_reveal or 0, 1),
-            "estimated_conversion_funnel": {
-                "total_validations": total_validations,
-                "gated_results": total_gated,
-                "revealed_results": revealed_count,
-                "drop_off_rate": round((total_gated - revealed_count) / total_gated * 100, 1) if total_gated > 0 else 0
-            }
-        }
-
-        return {
-            "total_gated": total_gated,
-            "revealed_count": revealed_count,
-            "reveal_rate": round(reveal_rate, 1),
-            "avg_time_to_reveal_seconds": round(avg_time_to_reveal or 0, 1),
-            "by_user_type": by_user_type,
-            "by_outcome": by_outcome,
-            "daily_trends": daily_trends,
-            "conversion_metrics": conversion_metrics
         }
 
     def delete_old_records(self, days: int = 90) -> int:
