@@ -74,7 +74,8 @@ def log_citations_to_dashboard(job_id: str, citations: List[str]) -> bool:
             # Check if it's a disk space issue after write attempt
             if "No space left on device" in str(write_error):
                 logger.critical(f"Disk space exhausted during citation logging for job {job_id}: {str(write_error)}")
-                # Check disk space again for accurate reporting
+                # Check disk space again for accurate reporting in critical alert
+                # Note: This provides real-time data for operators, despite pre-write check
                 post_write_disk_info = check_disk_space(log_dir)
                 if post_write_disk_info['available_gb'] < 0.1:
                     logger.critical(f"CRITICAL: Disk space nearly exhausted - only {post_write_disk_info['available_gb']:.3f}GB remaining")
