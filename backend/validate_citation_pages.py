@@ -281,6 +281,7 @@ class CitationPageValidator:
                     ("title", "<title>Citation Validation Result"),
                     ("citation", test_data["original"]),
                     ("canonical", self.test_citation_id),
+                    ("json-ld", 'type="application/ld+json"'),
                 ]
 
                 missing_elements = []
