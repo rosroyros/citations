@@ -1095,6 +1095,235 @@ async def handle_checkout_updated(webhook):
         logger.warning(f"Checkout order {order_id} already processed, skipping credit grant")
 
 
+@app.get("/citations/{citation_id}")
+async def get_citation_page(citation_id: str):
+    """
+    Serve PSEO page for individual citation.
+
+    Args:
+        citation_id: UUID of the citation
+
+    Returns:
+        HTML page for the citation or 404 if not found
+    """
+    logger.info(f"Request for citation page: {citation_id}")
+
+    # Validate UUID format
+    import re
+    uuid_pattern = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$', re.IGNORECASE)
+    if not uuid_pattern.match(citation_id):
+        logger.warning(f"Invalid UUID format: {citation_id}")
+        raise HTTPException(status_code=404, detail="Citation not found")
+
+    try:
+        # Try to retrieve citation from logs or database
+        citation_data = _get_citation_data(citation_id)
+
+        if not citation_data:
+            logger.warning(f"Citation not found: {citation_id}")
+            raise HTTPException(status_code=404, detail="Citation not found")
+
+        # Generate HTML page for the citation
+        html_content = _generate_citation_html(citation_id, citation_data)
+
+        return Response(
+            content=html_content,
+            media_type="text/html",
+            headers={
+                "Cache-Control": "public, max-age=3600",  # Cache for 1 hour
+                "X-Robots-Tag": "index, follow"
+            }
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error generating citation page for {citation_id}: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail="Internal server error")
+
+
+def _get_citation_data(citation_id: str) -> Optional[dict]:
+    """
+    Retrieve citation data from logs or storage.
+
+    Args:
+        citation_id: UUID of the citation
+
+    Returns:
+        dict with citation data or None if not found
+    """
+    # For now, create a mock citation entry for testing
+    # In production, this would search through logs or database
+    mock_citations = {
+        "93f1d8e1-ef36-4382-ae12-a641ba9c9a4b": {
+            "original": "Smith, J. (2023). Example citation for testing. Journal of Testing, 15(2), 123-145.",
+            "source_type": "journal_article",
+            "errors": [
+                {
+                    "component": "Author",
+                    "problem": "Missing initials",
+                    "correction": "Include author's full initials"
+                }
+            ],
+            "validation_date": "2024-11-28",
+            "job_id": "test_job_123"
+        }
+    }
+
+    return mock_citations.get(citation_id.lower())
+
+
+def _generate_citation_html(citation_id: str, citation_data: dict) -> str:
+    """
+    Generate HTML page for individual citation.
+
+    Args:
+        citation_id: UUID of the citation
+        citation_data: dict with citation information
+
+    Returns:
+        HTML content as string
+    """
+    import html
+
+    # Escape user input for safety
+    original_citation = html.escape(citation_data.get("original", ""))
+    source_type = html.escape(citation_data.get("source_type", "unknown"))
+    validation_date = citation_data.get("validation_date", "Unknown")
+
+    # Generate error list HTML
+    errors_html = ""
+    errors = citation_data.get("errors", [])
+    if errors:
+        errors_html = "<h2>Validation Errors Found</h2><ul>"
+        for error in errors:
+            component = html.escape(error.get("component", ""))
+            problem = html.escape(error.get("problem", ""))
+            correction = html.escape(error.get("correction", ""))
+            errors_html += f"<li><strong>{component}:</strong> {problem}. <em>Correction: {correction}</em></li>"
+        errors_html += "</ul>"
+    else:
+        errors_html = "<h2>✅ No Errors Found</h2><p>This citation follows APA 7th edition guidelines.</p>"
+
+    html_template = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Validation Result | APA Format Checker</title>
+    <meta name="description" content="Free APA 7th edition citation validation and formatting checker. Validate citations, find errors, and get corrections.">
+    <link rel="canonical" href="https://citationformatchecker.com/citations/{citation_id}/">
+
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Citation Validation Result | APA Format Checker">
+    <meta property="og:description" content="Free APA 7th edition citation validation and formatting checker">
+    <meta property="og:url" content="https://citationformatchecker.com/citations/{citation_id}/">
+    <meta property="og:type" content="website">
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Citation Validation Result",
+        "description": "APA 7th edition citation validation result",
+        "url": "https://citationformatchecker.com/citations/{citation_id}/",
+        "dateModified": "{validation_date}"
+    }}
+    </script>
+
+    <style>
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }}
+        .citation-box {{
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 16px;
+        }}
+        .errors {{
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }}
+        .no-errors {{
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }}
+        .back-link {{
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }}
+        .back-link:hover {{
+            text-decoration: underline;
+        }}
+        h1 {{
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }}
+        h2 {{
+            color: #34495e;
+            margin-top: 30px;
+        }}
+        .meta {{
+            color: #6c757d;
+            font-size: 14px;
+            margin-top: 5px;
+        }}
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="back-link">← Back to APA Citation Checker</a>
+    </nav>
+
+    <main>
+        <h1>Citation Validation Result</h1>
+        <p class="meta">Citation ID: {citation_id} | Validated: {validation_date}</p>
+
+        <div class="citation-box">
+            <h2>Original Citation</h2>
+            <p><strong>{original_citation}</strong></p>
+            <p class="meta">Source Type: {source_type.title()}</p>
+        </div>
+
+        <div class="{'errors' if errors else 'no-errors'}">
+            {errors_html}
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6;">
+            <h2>Validate Your Own Citations</h2>
+            <p>Check your APA 7th edition citations for free. Paste your citations below to validate formatting and get detailed error reports.</p>
+            <a href="/" style="background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin-top: 10px;">
+                Check New Citations
+            </a>
+        </div>
+    </main>
+
+    <footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6; text-align: center; color: #6c757d;">
+        <p>&copy; 2024 Citation Format Checker. Free APA 7th edition validation tool.</p>
+    </footer>
+</body>
+</html>"""
+
+    return html_template
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
