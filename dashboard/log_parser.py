@@ -1,4 +1,5 @@
 import re
+import os
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 import gzip
@@ -524,3 +525,178 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
         result.append(job)
 
     return result
+
+
+class CitationLogParser:
+    """
+    Stateful citation log parser with file offset tracking.
+
+    Tracks the last processed position in the log file to only process new entries
+    on each run, improving efficiency for large log files.
+    """
+
+    def __init__(self, log_file_path: str, position_file_path: Optional[str] = None):
+        """
+        Initialize the parser with log file and position file paths.
+
+        Args:
+            log_file_path: Path to the citation log file
+            position_file_path: Path to store last processed position (defaults to /opt/citations/logs/citations.position)
+        """
+        self.log_file_path = log_file_path
+        self.position_file_path = position_file_path or "/opt/citations/logs/citations.position"
+        self.last_position = self._load_position()
+
+    def _load_position(self) -> int:
+        """
+        Load the last processed position from the position file.
+
+        Returns:
+            Last processed byte offset, 0 if file doesn't exist
+        """
+        try:
+            if os.path.exists(self.position_file_path):
+                with open(self.position_file_path, 'r') as f:
+                    position_str = f.read().strip()
+                    if position_str.isdigit():
+                        return int(position_str)
+        except (IOError, ValueError) as e:
+            # If we can't read the position file, start from beginning
+            print(f"Warning: Could not read position file {self.position_file_path}: {e}")
+
+        return 0
+
+    def _save_position(self, position: int) -> None:
+        """
+        Save the current position to the position file.
+
+        Args:
+            position: Current byte offset in the log file
+        """
+        try:
+            # Ensure directory exists
+            os.makedirs(os.path.dirname(self.position_file_path), exist_ok=True)
+
+            with open(self.position_file_path, 'w') as f:
+                f.write(str(position))
+        except IOError as e:
+            print(f"Warning: Could not save position to {self.position_file_path}: {e}")
+
+    def _detect_log_rotation(self, current_file_size: int) -> bool:
+        """
+        Detect if log rotation has occurred by checking if current file size
+        is smaller than last stored position.
+
+        Args:
+            current_file_size: Current size of the log file in bytes
+
+        Returns:
+            True if log rotation detected, False otherwise
+        """
+        if self.last_position > 0 and self.last_position > current_file_size:
+            print(f"Log rotation detected: last position {self.last_position} > current file size {current_file_size}")
+            self.last_position = 0
+            self._save_position(0)
+            return True
+        return False
+
+    def parse_new_entries(self) -> List[Dict[str, Any]]:
+        """
+        Parse only new entries in the log file since last run.
+
+        Returns:
+            List of new job dictionaries with extracted information
+        """
+        # Check if log file exists
+        if not os.path.exists(self.log_file_path):
+            print(f"Log file {self.log_file_path} does not exist")
+            return []
+
+        # Get current file size and detect rotation
+        current_file_size = os.path.getsize(self.log_file_path)
+        self._detect_log_rotation(current_file_size)
+
+        # If no new content, return empty list
+        if current_file_size <= self.last_position:
+            return []
+
+        # Determine if file is gzip compressed
+        open_func = gzip.open if self.log_file_path.endswith('.gz') else open
+
+        try:
+            with open_func(self.log_file_path, 'rt', encoding='utf-8') as f:
+                # Seek to last position
+                f.seek(self.last_position)
+
+                # Read new lines
+                new_lines = f.readlines()
+
+                # Update position to end of file
+                self.last_position = f.tell()
+                self._save_position(self.last_position)
+
+                # Process new lines if any
+                if not new_lines:
+                    return []
+
+                # Strip whitespace from new lines
+                log_lines = [line.strip() for line in new_lines if line.strip()]
+
+                if not log_lines:
+                    return []
+
+                # Use existing parsing logic on new lines only
+                # Pass 1: Extract job lifecycle events
+                jobs = parse_job_events(log_lines)
+
+                # Pass 2: Match metrics to jobs
+                jobs = parse_metrics(log_lines, jobs)
+
+                # Pass 3: Extract full citations from multiline patterns
+                jobs = extract_citations_from_all_lines(log_lines, jobs)
+
+                # Convert to list format and add default values
+                result = []
+                for job in jobs.values():
+                    # Add defaults for missing fields
+                    job.setdefault("duration_seconds", None)
+                    job.setdefault("citation_count", None)
+                    job.setdefault("error_message", None)
+                    job.setdefault("token_usage_prompt", None)
+                    job.setdefault("token_usage_completion", None)
+                    job.setdefault("token_usage_total", None)
+                    job.setdefault("citations_preview", None)
+                    job.setdefault("citations_preview_truncated", False)
+                    job.setdefault("citations_full", None)
+                    job.setdefault("citations_full_truncated", False)
+
+                    # Convert datetime objects to proper ISO format strings
+                    if "created_at" in job and isinstance(job["created_at"], datetime):
+                        job["created_at"] = job["created_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
+                    if "completed_at" in job and isinstance(job["completed_at"], datetime):
+                        job["completed_at"] = job["completed_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
+
+                    result.append(job)
+
+                return result
+
+        except (IOError, OSError) as e:
+            print(f"Error reading log file {self.log_file_path}: {e}")
+            return []
+
+    def reset_position(self) -> None:
+        """
+        Reset the parser position to the beginning of the file.
+        Useful for testing or when full re-parse is needed.
+        """
+        self.last_position = 0
+        self._save_position(0)
+
+    def get_current_position(self) -> int:
+        """
+        Get the current parser position.
+
+        Returns:
+            Current byte offset in the log file
+        """
+        return self.last_position
