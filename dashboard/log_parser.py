@@ -1,5 +1,6 @@
 import re
 import os
+import logging
 from datetime import datetime
 from typing import Optional, Dict, Any, List
 import gzip
@@ -502,6 +503,19 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
     jobs = extract_citations_from_all_lines(log_lines, jobs)
 
     # Convert to list format and add default values
+    return _finalize_job_data(jobs)
+
+
+def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Finalize job data by adding defaults and formatting datetime objects.
+
+    Args:
+        jobs: Dictionary of jobs to finalize
+
+    Returns:
+        List of finalized job dictionaries
+    """
     result = []
     for job in jobs.values():
         # Add defaults for missing fields
@@ -525,6 +539,10 @@ def parse_logs(log_file_path: str, start_timestamp: Optional[datetime] = None) -
         result.append(job)
 
     return result
+
+
+# Initialize logger for this module
+logger = logging.getLogger(__name__)
 
 
 class CitationLogParser:
@@ -562,7 +580,7 @@ class CitationLogParser:
                         return int(position_str)
         except (IOError, ValueError) as e:
             # If we can't read the position file, start from beginning
-            print(f"Warning: Could not read position file {self.position_file_path}: {e}")
+            logger.warning(f"Could not read position file {self.position_file_path}: {e}")
 
         return 0
 
@@ -580,7 +598,7 @@ class CitationLogParser:
             with open(self.position_file_path, 'w') as f:
                 f.write(str(position))
         except IOError as e:
-            print(f"Warning: Could not save position to {self.position_file_path}: {e}")
+            logger.warning(f"Could not save position to {self.position_file_path}: {e}")
 
     def _detect_log_rotation(self, current_file_size: int) -> bool:
         """
@@ -594,7 +612,7 @@ class CitationLogParser:
             True if log rotation detected, False otherwise
         """
         if self.last_position > 0 and self.last_position > current_file_size:
-            print(f"Log rotation detected: last position {self.last_position} > current file size {current_file_size}")
+            logger.info(f"Log rotation detected: last position {self.last_position} > current file size {current_file_size}")
             self.last_position = 0
             self._save_position(0)
             return True
@@ -609,7 +627,7 @@ class CitationLogParser:
         """
         # Check if log file exists
         if not os.path.exists(self.log_file_path):
-            print(f"Log file {self.log_file_path} does not exist")
+            logger.warning(f"Log file {self.log_file_path} does not exist")
             return []
 
         # Get current file size and detect rotation
@@ -624,23 +642,31 @@ class CitationLogParser:
         open_func = gzip.open if self.log_file_path.endswith('.gz') else open
 
         try:
-            with open_func(self.log_file_path, 'rt', encoding='utf-8') as f:
+            # Open in binary mode for proper offset tracking
+            with open_func(self.log_file_path, 'rb') as f:
                 # Seek to last position
                 f.seek(self.last_position)
 
-                # Read new lines
-                new_lines = f.readlines()
+                # Read new content
+                new_content = f.read()
 
                 # Update position to end of file
                 self.last_position = f.tell()
                 self._save_position(self.last_position)
 
-                # Process new lines if any
-                if not new_lines:
+                # Process new content if any
+                if not new_content:
                     return []
 
-                # Strip whitespace from new lines
-                log_lines = [line.strip() for line in new_lines if line.strip()]
+                # Decode bytes to string and split into lines
+                try:
+                    content_str = new_content.decode('utf-8')
+                except UnicodeDecodeError as e:
+                    logger.error(f"UTF-8 decode error in log file {self.log_file_path}: {e}")
+                    return []
+
+                # Split into lines and strip whitespace
+                log_lines = [line.strip() for line in content_str.splitlines() if line.strip()]
 
                 if not log_lines:
                     return []
@@ -655,33 +681,11 @@ class CitationLogParser:
                 # Pass 3: Extract full citations from multiline patterns
                 jobs = extract_citations_from_all_lines(log_lines, jobs)
 
-                # Convert to list format and add default values
-                result = []
-                for job in jobs.values():
-                    # Add defaults for missing fields
-                    job.setdefault("duration_seconds", None)
-                    job.setdefault("citation_count", None)
-                    job.setdefault("error_message", None)
-                    job.setdefault("token_usage_prompt", None)
-                    job.setdefault("token_usage_completion", None)
-                    job.setdefault("token_usage_total", None)
-                    job.setdefault("citations_preview", None)
-                    job.setdefault("citations_preview_truncated", False)
-                    job.setdefault("citations_full", None)
-                    job.setdefault("citations_full_truncated", False)
-
-                    # Convert datetime objects to proper ISO format strings
-                    if "created_at" in job and isinstance(job["created_at"], datetime):
-                        job["created_at"] = job["created_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
-                    if "completed_at" in job and isinstance(job["completed_at"], datetime):
-                        job["completed_at"] = job["completed_at"].strftime("%Y-%m-%dT%H:%M:%SZ")
-
-                    result.append(job)
-
-                return result
+                # Convert to list format and add default values using shared helper
+                return _finalize_job_data(jobs)
 
         except (IOError, OSError) as e:
-            print(f"Error reading log file {self.log_file_path}: {e}")
+            logger.error(f"Error reading log file {self.log_file_path}: {e}")
             return []
 
     def reset_position(self) -> None:

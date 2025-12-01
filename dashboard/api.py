@@ -554,6 +554,12 @@ async def get_dashboard_data(
                 "results_revealed_at": validation.get("results_revealed_at"),
                 "time_to_reveal_seconds": validation.get("time_to_reveal_seconds"),
                 "gated_outcome": validation.get("gated_outcome"),
+                # Token usage fields
+                "token_usage": {
+                    "prompt": validation.get("token_usage_prompt"),
+                    "completion": validation.get("token_usage_completion"),
+                    "total": validation.get("token_usage_total")
+                },
                 # Additional fields for details modal
                 "validation_id": validation.get("job_id"),
                 "session_id": validation.get("job_id"),  # Use job_id as session_id for now
