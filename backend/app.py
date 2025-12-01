@@ -17,6 +17,7 @@ from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
+from citation_logger import log_citations_to_dashboard
 
 # Load environment variables
 load_dotenv()
@@ -388,6 +389,11 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         # Update validation record with citation count
         update_validation_tracking(job_id, status='completed')
 
+        # Log citations to dashboard (extract original citations from results)
+        original_citations = [result.get('original', '') for result in results if result.get('original')]
+        if original_citations:
+            log_citations_to_dashboard(job_id, original_citations)
+
         # Handle credit logic
         if not token:
             # Free tier - enforce 10 citation limit
@@ -582,6 +588,10 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         jobs[job_id]["citation_count"] = citation_count
         update_validation_tracking(job_id, status='completed')
 
+        # Log citations to dashboard (extract original citations from results)
+        original_citations = [result.get('original', '') for result in results if result.get('original')]
+        if original_citations:
+            log_citations_to_dashboard(job_id, original_citations)
 
         # Handle credit/free tier logic (same as existing /api/validate)
         if not token:
