@@ -45,3 +45,9 @@ deploy_specific_sources.py
 fixed_sitemap.py
 backups/
 *.db
+deployment/env/.env.production
+
+# Production environment files (secrets)
+deployment/env/.env.production
+backend/.env.backup
+frontend/frontend/.env.local
