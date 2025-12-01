@@ -17,7 +17,7 @@ from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
-from citation_logger import log_citations_to_dashboard
+from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready
 
 # Load environment variables
 load_dotenv()
@@ -130,6 +130,12 @@ async def lifespan(app: FastAPI):
         logger.error(f"Missing required environment variables: {missing_vars}")
     else:
         logger.info("All required environment variables are present")
+
+    # Ensure citation log directory and permissions are ready
+    if not ensure_citation_log_ready():
+        logger.error("Failed to prepare citation log directory - citation logging will not be available")
+    else:
+        logger.info("Citation logging system ready")
 
     # Start background job cleanup task
     import asyncio

@@ -3,7 +3,7 @@ import os
 import tempfile
 from unittest.mock import patch, mock_open
 import logging
-from citation_logger import log_citations_to_dashboard
+from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready
 
 
 class TestCitationLogger:
@@ -121,3 +121,108 @@ class TestCitationLogger:
                 handle = mock_file()
                 written_content = "".join(call[0][0] for call in handle.write.call_args_list)
                 assert written_content == expected_content
+
+    def test_ensure_citation_log_ready_creates_directory_with_permissions(self):
+        """Test that ensure_citation_log_ready creates directory and validates write permissions."""
+        from pathlib import Path
+
+        with patch("citation_logger.Path") as mock_path:
+            # Mock directory and file paths
+            mock_log_dir = mock_path.return_value
+            mock_log_file = mock_log_dir.__truediv__.return_value
+
+            # Mock directory creation (should succeed)
+            mock_log_dir.mkdir.return_value = None
+
+            # Mock file operations
+            mock_log_file.exists.return_value = True
+            mock_log_file.touch.return_value = None
+
+            # Mock os.access to return True (write permissions OK)
+            with patch("citation_logger.os.access", return_value=True):
+                with patch("citation_logger.logger") as mock_logger:
+                    result = ensure_citation_log_ready()
+
+                    # Should return True when directory and permissions are properly set up
+                    assert result is True
+
+                    # Should call mkdir with parents=True and exist_ok=True
+                    mock_log_dir.mkdir.assert_called_once_with(parents=True, exist_ok=True)
+
+                    # Should log success message
+                    mock_logger.info.assert_called_once_with("Citation log directory and permissions are ready")
+
+    def test_ensure_citation_log_ready_handles_permission_error(self):
+        """Test that permission errors are handled gracefully."""
+        from pathlib import Path
+
+        with patch("citation_logger.Path") as mock_path:
+            # Mock directory and file paths
+            mock_log_dir = mock_path.return_value
+            mock_log_file = mock_log_dir.__truediv__.return_value
+
+            # Mock directory creation to raise PermissionError
+            mock_log_dir.mkdir.side_effect = PermissionError("Permission denied")
+
+            with patch("citation_logger.logger") as mock_logger:
+                result = ensure_citation_log_ready()
+
+                # Should return False on permission error
+                assert result is False
+
+                # Should log critical error
+                mock_logger.critical.assert_called_once()
+                critical_message = mock_logger.critical.call_args[0][0]
+                assert "Failed to prepare citation log directory" in critical_message
+
+    def test_ensure_citation_log_ready_handles_file_creation_error(self):
+        """Test that file creation errors are handled gracefully."""
+        from pathlib import Path
+
+        with patch("citation_logger.Path") as mock_path:
+            # Mock directory and file paths
+            mock_log_dir = mock_path.return_value
+            mock_log_file = mock_log_dir.__truediv__.return_value
+
+            # Mock directory creation (should succeed)
+            mock_log_dir.mkdir.return_value = None
+
+            # Mock file exists as False and touch to raise PermissionError
+            mock_log_file.exists.return_value = False
+            mock_log_file.touch.side_effect = PermissionError("Cannot create file")
+
+            with patch("citation_logger.logger") as mock_logger:
+                result = ensure_citation_log_ready()
+
+                # Should return False on file creation error
+                assert result is False
+
+                # Should log critical error
+                mock_logger.critical.assert_called_once()
+
+    def test_ensure_citation_log_ready_handles_write_permission_denied(self):
+        """Test that write permission denial is handled gracefully."""
+        from pathlib import Path
+
+        with patch("citation_logger.Path") as mock_path:
+            # Mock directory and file paths
+            mock_log_dir = mock_path.return_value
+            mock_log_file = mock_log_dir.__truediv__.return_value
+
+            # Mock directory creation (should succeed)
+            mock_log_dir.mkdir.return_value = None
+
+            # Mock file operations
+            mock_log_file.exists.return_value = True
+            mock_log_file.touch.return_value = None
+
+            # Mock os.access to return False (no write permissions)
+            with patch("citation_logger.os.access", return_value=False):
+                with patch("citation_logger.logger") as mock_logger:
+                    result = ensure_citation_log_ready()
+
+                    # Should return False when write permissions are denied
+                    assert result is False
+
+                    # Should log critical error about permissions
+                    mock_logger.critical.assert_called_once_with("No write permissions to citation log file")
