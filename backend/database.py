@@ -245,11 +245,34 @@ def create_validation_record(
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
 
-            cursor.execute('''
-                INSERT INTO validations (
-                    job_id, user_type, citation_count, status, created_at
-                ) VALUES (?, ?, ?, ?, datetime('now'))
-            ''', (job_id, user_type, citation_count, status))
+            # Check what status columns exist in the database
+            cursor.execute("PRAGMA table_info(validations)")
+            columns = [row[1] for row in cursor.fetchall()]
+
+            has_status = 'status' in columns
+            has_validation_status = 'validation_status' in columns
+
+            if has_status and has_validation_status:
+                # Both columns exist - insert into both
+                cursor.execute('''
+                    INSERT INTO validations (
+                        job_id, user_type, citation_count, status, validation_status, created_at
+                    ) VALUES (?, ?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status, status))
+            elif has_status:
+                # Only status exists (new schema)
+                cursor.execute('''
+                    INSERT INTO validations (
+                        job_id, user_type, citation_count, status, created_at
+                    ) VALUES (?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status))
+            else:
+                # Only validation_status exists (old schema)
+                cursor.execute('''
+                    INSERT INTO validations (
+                        job_id, user_type, citation_count, validation_status, created_at
+                    ) VALUES (?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status))
 
             conn.commit()
             logger.info(f"Created validation record for job {job_id}")
@@ -284,13 +307,31 @@ def update_validation_tracking(
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
 
+            # Check what status columns exist in the database
+            cursor.execute("PRAGMA table_info(validations)")
+            columns = [row[1] for row in cursor.fetchall()]
+
+            has_status = 'status' in columns
+            has_validation_status = 'validation_status' in columns
+
             # Build dynamic update query
             updates = []
             params = []
 
             if status is not None:
-                updates.append("status = ?")
-                params.append(status)
+                if has_status and has_validation_status:
+                    # Both columns exist - update both
+                    updates.append("status = ?")
+                    updates.append("validation_status = ?")
+                    params.extend([status, status])
+                elif has_status:
+                    # Only status exists
+                    updates.append("status = ?")
+                    params.append(status)
+                else:
+                    # Only validation_status exists
+                    updates.append("validation_status = ?")
+                    params.append(status)
 
             if error_message is not None:
                 updates.append("error_message = ?")
