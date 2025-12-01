@@ -1,6 +1,6 @@
 import os
 from logger import setup_logger
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, Optional
 from pathlib import Path
 import sqlite3
 from database import get_validations_db_path
@@ -28,7 +28,7 @@ def log_citations_to_dashboard(job_id: str, citations: List[str]) -> bool:
         ...
         <<<END_JOB>>>
     """
-    log_file_path = "/opt/citations/logs/citations.log"
+    log_file_path = os.environ.get('CITATION_LOG_PATH', DEFAULT_LOG_PATH)
 
     try:
         # Ensure log directory exists
@@ -71,7 +71,7 @@ def ensure_citation_log_ready() -> bool:
     Returns:
         bool: True if directory exists and write permissions are validated, False otherwise
     """
-    log_dir = Path("/opt/citations/logs")
+    log_dir = Path(os.environ.get('CITATION_LOG_DIR', DEFAULT_LOG_DIR))
     log_file = log_dir / "citations.log"
 
     try:
@@ -102,6 +102,10 @@ def ensure_citation_log_ready() -> bool:
 JOB_ID_START_MARKER = '<<JOB_ID:'
 JOB_ID_END_MARKER = '>>'
 END_JOB_MARKER = '<<<END_JOB>>>'
+
+# Default configuration constants
+DEFAULT_LOG_PATH = "/opt/citations/logs/citations.log"
+DEFAULT_LOG_DIR = "/opt/citations/logs"
 
 def extract_job_id_from_marker(line: str) -> str:
     """
@@ -184,6 +188,12 @@ class CitationLogParser:
 
     This class maintains state about processed jobs to prevent duplicate processing
     and integrates with the existing jobs data structure and database connections.
+
+    Usage:
+        jobs_dict = {}  # Your existing jobs dictionary from app.py
+        parser = CitationLogParser(jobs_dict)
+        parser.process_citations_for_dashboard()
+        jobs_with_citations = parser.get_jobs_with_citations()
     """
 
     def __init__(self, jobs_dict: Dict[str, Dict[str, Any]]):
@@ -196,7 +206,7 @@ class CitationLogParser:
         self.jobs_dict = jobs_dict
         self.processed_jobs: set = set()
 
-    def process_citations_for_dashboard(self, log_file_path: str = "/opt/citations/logs/citations.log") -> bool:
+    def process_citations_for_dashboard(self, log_file_path: Optional[str] = None) -> bool:
         """
         Main integration function to process citations from log file into dashboard data flow.
 
@@ -208,12 +218,16 @@ class CitationLogParser:
         5. Marks jobs as processed to prevent duplicates
 
         Args:
-            log_file_path: Path to the citation log file
+            log_file_path: Path to the citation log file (optional, uses CITATION_LOG_PATH env var if not provided)
 
         Returns:
             bool: True if processing completed successfully, False otherwise
         """
         try:
+            # Use default path if not provided
+            if log_file_path is None:
+                log_file_path = os.environ.get('CITATION_LOG_PATH', DEFAULT_LOG_PATH)
+
             # Read citation log file
             if not os.path.exists(log_file_path):
                 logger.info(f"Citation log file not found: {log_file_path}")
@@ -233,8 +247,14 @@ class CitationLogParser:
             logger.info(f"Successfully processed citations for dashboard")
             return True
 
+        except (IOError, OSError) as e:
+            logger.error(f"File system error processing citations for dashboard: {str(e)}")
+            return False
+        except sqlite3.Error as e:
+            logger.error(f"Database error processing citations for dashboard: {str(e)}")
+            return False
         except Exception as e:
-            logger.error(f"Error processing citations for dashboard: {str(e)}")
+            logger.error(f"Unexpected error processing citations for dashboard: {str(e)}")
             return False
 
     def _process_single_job_citations(self, job_id: str, citations: List[str]) -> None:
@@ -265,16 +285,26 @@ class CitationLogParser:
         except Exception as e:
             logger.error(f"Error processing citations for job {job_id}: {str(e)}")
 
-    def job_exists_in_validations(self, job_id: str) -> bool:
+    def job_exists_in_validations(self, job_id: Optional[str]) -> bool:
         """
         Check if a job exists in the validations database.
 
         Args:
-            job_id: Unique identifier for the validation job
+            job_id: Unique identifier for the validation job (can be None or empty)
 
         Returns:
             bool: True if job exists in validations database, False otherwise
         """
+        # Input validation
+        if not job_id or not isinstance(job_id, str):
+            logger.debug(f"Invalid job_id type or value: {type(job_id)}")
+            return False
+
+        job_id = job_id.strip()
+        if len(job_id) == 0:
+            logger.debug("Empty job_id after stripping whitespace")
+            return False
+
         try:
             db_path = get_validations_db_path()
 
