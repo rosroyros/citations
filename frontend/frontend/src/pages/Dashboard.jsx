@@ -145,6 +145,12 @@ export default function Dashboard() {
 
     // Sort data
     filtered.sort((a, b) => {
+      if (sortConfig.key === 'token_usage') {
+        const aTokens = a.token_usage?.total ?? 0
+        const bTokens = b.token_usage?.total ?? 0
+        return sortConfig.direction === 'asc' ? aTokens - bTokens : bTokens - aTokens
+      }
+
       let aValue = a[sortConfig.key]
       let bValue = b[sortConfig.key]
 
@@ -427,6 +433,12 @@ export default function Dashboard() {
                       </th>
                       <th
                         className="sortable-header"
+                        onClick={() => handleSort('token_usage')}
+                      >
+                        Tokens {getSortIcon('token_usage')}
+                      </th>
+                      <th
+                        className="sortable-header"
                         onClick={() => handleSort('revealed')}
                       >
                         Revealed {getSortIcon('revealed')}
@@ -450,6 +462,9 @@ export default function Dashboard() {
                           {item.errors !== null ? item.errors : '-'}
                         </td>
                         <td className="time-cell">{item.processing_time || '-'}</td>
+                        <td className="number-cell">
+                          {item.token_usage?.total?.toLocaleString() ?? '-'}
+                        </td>
                         <td className="reveal-cell">
                           {item.revealed === 'Yes' && (
                             <span className="reveal-status revealed">Yes</span>
@@ -595,6 +610,19 @@ export default function Dashboard() {
                 <div className="detail-group">
                   <label>Errors Found</label>
                   <p>{selectedRow.errors !== null ? selectedRow.errors : 'N/A'}</p>
+                </div>
+
+                <div className="detail-group">
+                  <label>Token Usage</label>
+                  {selectedRow.token_usage ? (
+                    <p>
+                      Prompt: {selectedRow.token_usage.prompt?.toLocaleString() ?? 'N/A'} |{' '}
+                      Completion: {selectedRow.token_usage.completion?.toLocaleString() ?? 'N/A'} |{' '}
+                      Total: {selectedRow.token_usage.total?.toLocaleString() ?? 'N/A'}
+                    </p>
+                  ) : (
+                    <p>N/A</p>
+                  )}
                 </div>
 
                 <div className="detail-group">

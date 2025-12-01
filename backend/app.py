@@ -36,6 +36,10 @@ LAG_THRESHOLD_CRITICAL_BYTES = 5 * 1024 * 1024  # 5MB
 # Base URL for generating canonical links and SEO metadata
 BASE_URL = os.getenv('BASE_URL', 'https://citationformatchecker.com').rstrip('/')
 
+# Citation logging feature toggle for safe deployment
+CITATION_LOGGING_ENABLED = os.getenv('CITATION_LOGGING_ENABLED', '').lower() == 'true'
+logger.info(f"Citation logging enabled: {CITATION_LOGGING_ENABLED}")
+
 # Initialize LLM provider (mock for E2E tests, real for production)
 if os.getenv('MOCK_LLM', '').lower() == 'true':
     from providers.mock_provider import MockProvider
@@ -405,7 +409,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
         # Log citations to dashboard (extract original citations from results)
         original_citations = [result.get('original', '') for result in results if result.get('original')]
-        if original_citations:
+        if original_citations and CITATION_LOGGING_ENABLED:
             log_citations_to_dashboard(job_id, original_citations)
 
         # Handle credit logic
@@ -604,7 +608,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
         # Log citations to dashboard (extract original citations from results)
         original_citations = [result.get('original', '') for result in results if result.get('original')]
-        if original_citations:
+        if original_citations and CITATION_LOGGING_ENABLED:
             log_citations_to_dashboard(job_id, original_citations)
 
         # Handle credit/free tier logic (same as existing /api/validate)
