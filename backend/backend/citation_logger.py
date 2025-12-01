@@ -1,4 +1,5 @@
 import os
+import shutil
 from logger import setup_logger
 from typing import List, Tuple, Dict, Any, Optional
 from pathlib import Path
@@ -35,6 +36,19 @@ def log_citations_to_dashboard(job_id: str, citations: List[str]) -> bool:
         log_dir = os.path.dirname(log_file_path)
         os.makedirs(log_dir, exist_ok=True)
 
+        # Check disk space before attempting write
+        disk_info = check_disk_space(log_dir)
+        if disk_info['error']:
+            logger.critical(f"Disk space check failed for job {job_id}: {disk_info['error']}")
+            return False
+
+        if not disk_info['has_minimum']:
+            logger.critical(f"Insufficient disk space for citation logging - only {disk_info['available_gb']:.2f}GB available, minimum required: {MIN_DISK_SPACE_BYTES / (1024 * 1024 * 1024):.2f}GB")
+            return False
+
+        if disk_info['has_warning']:
+            logger.warning(f"Low disk space warning for citation logging - only {disk_info['available_gb']:.2f}GB available")
+
         # Build structured content
         content = []
         content.append(f"<<JOB_ID:{job_id}>>")
@@ -49,9 +63,24 @@ def log_citations_to_dashboard(job_id: str, citations: List[str]) -> bool:
         # Write to file with newline separators
         content_str = "\n".join(content) + "\n"
 
-        # Append to log file
-        with open(log_file_path, "a", encoding="utf-8") as f:
-            f.write(content_str)
+        # Append to log file with enhanced error handling
+        try:
+            with open(log_file_path, "a", encoding="utf-8") as f:
+                f.write(content_str)
+                # Force write to disk
+                f.flush()
+                os.fsync(f.fileno())
+        except (IOError, OSError) as write_error:
+            # Check if it's a disk space issue after write attempt
+            if "No space left on device" in str(write_error):
+                logger.critical(f"Disk space exhausted during citation logging for job {job_id}: {str(write_error)}")
+                # Check disk space again for accurate reporting
+                post_write_disk_info = check_disk_space(log_dir)
+                if post_write_disk_info['available_gb'] < 0.1:
+                    logger.critical(f"CRITICAL: Disk space nearly exhausted - only {post_write_disk_info['available_gb']:.3f}GB remaining")
+            else:
+                logger.critical(f"Write operation failed for job {job_id}: {str(write_error)}")
+            return False
 
         logger.info(f"Successfully logged {len(citations)} citations for job {job_id}")
         return True
@@ -106,6 +135,56 @@ END_JOB_MARKER = '<<<END_JOB>>>'
 # Default configuration constants
 DEFAULT_LOG_PATH = "/opt/citations/logs/citations.log"
 DEFAULT_LOG_DIR = "/opt/citations/logs"
+
+# Disk space thresholds
+MIN_DISK_SPACE_BYTES = 100 * 1024 * 1024  # 100MB minimum free space
+WARNING_DISK_SPACE_BYTES = 500 * 1024 * 1024  # 500MB warning level
+
+
+def check_disk_space(path: str) -> Dict[str, Any]:
+    """
+    Check available disk space for a given path.
+
+    Args:
+        path: Path to check disk space for
+
+    Returns:
+        Dict with disk space information:
+        - available_bytes: Available disk space in bytes
+        - total_bytes: Total disk space in bytes
+        - available_gb: Available disk space in GB
+        - has_minimum: True if minimum space is available
+        - has_warning: True if space is at warning level
+        - error: Error message if check failed
+    """
+    try:
+        stat = shutil.disk_usage(path)
+        available_bytes = stat.free
+        total_bytes = stat.total
+        available_gb = available_bytes / (1024 * 1024 * 1024)
+
+        has_minimum = available_bytes >= MIN_DISK_SPACE_BYTES
+        has_warning = available_bytes < WARNING_DISK_SPACE_BYTES
+
+        return {
+            'available_bytes': available_bytes,
+            'total_bytes': total_bytes,
+            'available_gb': available_gb,
+            'has_minimum': has_minimum,
+            'has_warning': has_warning,
+            'error': None
+        }
+
+    except Exception as e:
+        logger.error(f"Failed to check disk space for path {path}: {str(e)}")
+        return {
+            'available_bytes': 0,
+            'total_bytes': 0,
+            'available_gb': 0,
+            'has_minimum': False,
+            'has_warning': True,
+            'error': str(e)
+        }
 
 def extract_job_id_from_marker(line: str) -> str:
     """

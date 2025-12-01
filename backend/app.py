@@ -17,7 +17,7 @@ from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
-from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready
+from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready, check_disk_space
 from dashboard.log_parser import CitationLogParser
 
 # Load environment variables
@@ -135,13 +135,13 @@ async def lifespan(app: FastAPI):
     required_vars = ['OPENAI_API_KEY']
     missing_vars = [var for var in required_vars if not os.getenv(var)]
     if missing_vars:
-        logger.error(f"Missing required environment variables: {missing_vars}")
+        logger.critical(f"Missing required environment variables: {missing_vars}")
     else:
         logger.info("All required environment variables are present")
 
     # Ensure citation log directory and permissions are ready
     if not ensure_citation_log_ready():
-        logger.error("Failed to prepare citation log directory - citation logging will not be available")
+        logger.critical("Failed to prepare citation log directory - citation logging will not be available")
     else:
         logger.info("Citation logging system ready")
 
@@ -971,7 +971,11 @@ def get_citation_pipeline_metrics() -> dict:
             'jobs_with_citations': 0,
             'log_file_exists': False,
             'log_file_size_bytes': 0,
-            'parser_position_bytes': 0
+            'parser_position_bytes': 0,
+            'log_age_hours': None,
+            'disk_space_gb': None,
+            'disk_space_warning': False,
+            'disk_space_critical': False
         }
 
         # Check if log file exists
@@ -987,15 +991,40 @@ def get_citation_pipeline_metrics() -> dict:
             file_stat = os.stat(log_path)
             file_size = file_stat.st_size
             last_modified = datetime.fromtimestamp(file_stat.st_mtime)
+            now = datetime.now()
+            log_age = now - last_modified
 
             metrics['log_file_size_bytes'] = file_size
             metrics['last_write_time'] = last_modified.strftime('%Y-%m-%d %H:%M:%S')
+            metrics['log_age_hours'] = log_age.total_seconds() / 3600  # Convert to hours
 
         except OSError as e:
-            logger.error(f"Error accessing citation log file: {e}")
+            logger.critical(f"Error accessing citation log file: {e}")
             metrics['health_status'] = 'error'
             metrics['last_write_time'] = f'Error: {str(e)}'
             return metrics
+
+        # Check disk space for log directory
+        log_dir = os.path.dirname(log_path)
+        disk_info = check_disk_space(log_dir)
+        if disk_info['error']:
+            logger.critical(f"Disk space check failed for citation log directory: {disk_info['error']}")
+            metrics['disk_space_gb'] = 0
+            metrics['disk_space_warning'] = True
+            metrics['disk_space_critical'] = True
+            metrics['health_status'] = 'error'
+        else:
+            metrics['disk_space_gb'] = round(disk_info['available_gb'], 2)
+            metrics['disk_space_warning'] = disk_info['has_warning']
+            metrics['disk_space_critical'] = not disk_info['has_minimum']
+
+            # Update health status based on disk space and log critical warnings
+            if metrics['disk_space_critical']:
+                metrics['health_status'] = 'error'
+                logger.critical(f"CRITICAL: Citation log disk space exhausted - only {metrics['disk_space_gb']}GB available")
+            elif metrics['disk_space_warning'] and metrics['health_status'] == 'healthy':
+                metrics['health_status'] = 'warning'
+                logger.warning(f"WARNING: Citation log disk space running low - only {metrics['disk_space_gb']}GB available")
 
         # Get parser position
         try:
@@ -1027,21 +1056,28 @@ def get_citation_pipeline_metrics() -> dict:
                             if job.get('has_citations', False) or job.get('citation_count', 0) > 0)
         metrics['total_citations_processed'] = total_citations
 
-        # Determine health status based on lag thresholds
-        if metrics['parser_lag_bytes'] >= LAG_THRESHOLD_CRITICAL_BYTES:  # 5MB critical threshold
-            metrics['health_status'] = 'error'
-        elif metrics['parser_lag_bytes'] >= LAG_THRESHOLD_WARNING_BYTES:  # 1MB warning threshold
-            metrics['health_status'] = 'lagging'
-        else:
-            metrics['health_status'] = 'healthy'
+        # Determine health status based on lag thresholds (if not already critical/warning)
+        if metrics['health_status'] not in ['error', 'warning']:
+            if metrics['parser_lag_bytes'] >= LAG_THRESHOLD_CRITICAL_BYTES:  # 5MB critical threshold
+                metrics['health_status'] = 'error'
+            elif metrics['parser_lag_bytes'] >= LAG_THRESHOLD_WARNING_BYTES:  # 1MB warning threshold
+                metrics['health_status'] = 'lagging'
+            else:
+                metrics['health_status'] = 'healthy'
 
+        # Log comprehensive metrics including disk space and log age
         lag_mb = metrics['parser_lag_bytes'] / (1024 * 1024)  # Convert to MB for logging
-        logger.info(f"Citation pipeline metrics: status={metrics['health_status']}, lag={lag_mb:.2f}MB, jobs_with_citations={jobs_with_citations}")
+        disk_space_status = "CRITICAL" if metrics['disk_space_critical'] else "WARNING" if metrics['disk_space_warning'] else "OK"
+        log_age_str = f"{metrics['log_age_hours']:.1f}h" if metrics['log_age_hours'] else "unknown"
+
+        logger.info(f"Citation pipeline metrics: status={metrics['health_status']}, lag={lag_mb:.2f}MB, "
+                   f"jobs_with_citations={jobs_with_citations}, disk_space={disk_space_status} "
+                   f"({metrics['disk_space_gb']}GB), log_age={log_age_str}")
 
         return metrics
 
     except Exception as e:
-        logger.error(f"Error getting citation pipeline metrics: {str(e)}", exc_info=True)
+        logger.critical(f"Error getting citation pipeline metrics: {str(e)}", exc_info=True)
         return {
             'last_write_time': None,
             'parser_lag_bytes': 0,
@@ -1051,6 +1087,10 @@ def get_citation_pipeline_metrics() -> dict:
             'log_file_exists': False,
             'log_file_size_bytes': 0,
             'parser_position_bytes': 0,
+            'log_age_hours': None,
+            'disk_space_gb': None,
+            'disk_space_warning': True,
+            'disk_space_critical': True,
             'error': str(e)
         }
 
