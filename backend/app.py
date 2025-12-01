@@ -1017,12 +1017,14 @@ def get_citation_pipeline_metrics() -> dict:
         # Calculate lag
         metrics['parser_lag_bytes'] = max(0, file_size - parser_position)
 
-        # Count jobs with citations
-        jobs_with_citations = sum(1 for job in jobs.values() if job.get('has_citations', False))
+        # Count jobs with citations (check both has_citations flag and citation_count as fallback)
+        jobs_with_citations = sum(1 for job in jobs.values()
+                               if job.get('has_citations', False) or job.get('citation_count', 0) > 0)
         metrics['jobs_with_citations'] = jobs_with_citations
 
-        # Count total citations processed
-        total_citations = sum(job.get('citation_count', 0) for job in jobs.values() if job.get('has_citations', False))
+        # Count total citations processed (include jobs that have citations_processed via has_citations or citation_count)
+        total_citations = sum(job.get('citation_count', 0) for job in jobs.values()
+                            if job.get('has_citations', False) or job.get('citation_count', 0) > 0)
         metrics['total_citations_processed'] = total_citations
 
         # Determine health status based on lag thresholds
