@@ -1,7 +1,9 @@
 import os
 from logger import setup_logger
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Any
 from pathlib import Path
+import sqlite3
+from database import get_validations_db_path
 
 
 # Initialize logger for citation logging
@@ -174,3 +176,179 @@ def parse_citation_blocks(content: str) -> List[Tuple[str, List[str]]]:
         logger.warning(f"Incomplete citation block found for job {current_job_id} at end of content - missing {END_JOB_MARKER}")
 
     return results
+
+
+class CitationLogParser:
+    """
+    Stateful parser for processing citation logs and integrating with dashboard data flow.
+
+    This class maintains state about processed jobs to prevent duplicate processing
+    and integrates with the existing jobs data structure and database connections.
+    """
+
+    def __init__(self, jobs_dict: Dict[str, Dict[str, Any]]):
+        """
+        Initialize the parser with a reference to the jobs dictionary.
+
+        Args:
+            jobs_dict: Reference to the global jobs dictionary from app.py
+        """
+        self.jobs_dict = jobs_dict
+        self.processed_jobs: set = set()
+
+    def process_citations_for_dashboard(self, log_file_path: str = "/opt/citations/logs/citations.log") -> bool:
+        """
+        Main integration function to process citations from log file into dashboard data flow.
+
+        This function:
+        1. Reads the citation log file
+        2. Parses structured citation blocks using parse_citation_blocks()
+        3. For each job, checks if it exists in validations database
+        4. Adds citations to existing jobs in the jobs dictionary
+        5. Marks jobs as processed to prevent duplicates
+
+        Args:
+            log_file_path: Path to the citation log file
+
+        Returns:
+            bool: True if processing completed successfully, False otherwise
+        """
+        try:
+            # Read citation log file
+            if not os.path.exists(log_file_path):
+                logger.info(f"Citation log file not found: {log_file_path}")
+                return True  # Not an error - just no citations to process
+
+            with open(log_file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+
+            # Parse structured citation blocks
+            citation_blocks = parse_citation_blocks(content)
+            logger.info(f"Parsed {len(citation_blocks)} citation blocks from log")
+
+            # Process each citation block
+            for job_id, citations in citation_blocks:
+                self._process_single_job_citations(job_id, citations)
+
+            logger.info(f"Successfully processed citations for dashboard")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error processing citations for dashboard: {str(e)}")
+            return False
+
+    def _process_single_job_citations(self, job_id: str, citations: List[str]) -> None:
+        """
+        Process citations for a single job.
+
+        Args:
+            job_id: Unique identifier for the validation job
+            citations: List of citation strings for this job
+        """
+        try:
+            # Skip if already processed
+            if job_id in self.processed_jobs:
+                logger.debug(f"Job {job_id} already processed, skipping")
+                return
+
+            # Check if job exists in validations database
+            if not self.job_exists_in_validations(job_id):
+                logger.debug(f"Job {job_id} not found in validations database, skipping")
+                return
+
+            # Add citations to job if job exists in jobs dict
+            if self.add_citations_to_job(job_id, citations):
+                # Mark as processed to prevent duplicates
+                self.mark_job_citations_processed(job_id)
+                logger.info(f"Added {len(citations)} citations to job {job_id}")
+
+        except Exception as e:
+            logger.error(f"Error processing citations for job {job_id}: {str(e)}")
+
+    def job_exists_in_validations(self, job_id: str) -> bool:
+        """
+        Check if a job exists in the validations database.
+
+        Args:
+            job_id: Unique identifier for the validation job
+
+        Returns:
+            bool: True if job exists in validations database, False otherwise
+        """
+        try:
+            db_path = get_validations_db_path()
+
+            if not os.path.exists(db_path):
+                logger.debug(f"Validations database not found: {db_path}")
+                return False
+
+            with sqlite3.connect(db_path) as conn:
+                cursor = conn.cursor()
+
+                # Check for job in validations table
+                cursor.execute("SELECT job_id FROM validations WHERE job_id = ?", (job_id,))
+                result = cursor.fetchone()
+
+                return result is not None
+
+        except sqlite3.Error as e:
+            logger.error(f"Database error checking job {job_id}: {str(e)}")
+            return False
+        except Exception as e:
+            logger.error(f"Error checking job {job_id}: {str(e)}")
+            return False
+
+    def add_citations_to_job(self, job_id: str, citations: List[str]) -> bool:
+        """
+        Add citations to an existing job in the jobs dictionary.
+
+        Args:
+            job_id: Unique identifier for the validation job
+            citations: List of citation strings to add to the job
+
+        Returns:
+            bool: True if citations were added successfully, False otherwise
+        """
+        try:
+            # Check if job exists in jobs dictionary
+            if job_id not in self.jobs_dict:
+                logger.debug(f"Job {job_id} not found in jobs dictionary")
+                return False
+
+            # Add citations to the job
+            job = self.jobs_dict[job_id]
+            job['citations'] = citations
+            job['citation_count'] = len(citations)
+            job['has_citations'] = True
+
+            logger.debug(f"Added {len(citations)} citations to job {job_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error adding citations to job {job_id}: {str(e)}")
+            return False
+
+    def mark_job_citations_processed(self, job_id: str) -> None:
+        """
+        Mark a job as having its citations processed to prevent duplicate processing.
+
+        Args:
+            job_id: Unique identifier for the validation job
+        """
+        self.processed_jobs.add(job_id)
+        logger.debug(f"Marked job {job_id} as processed")
+
+    def get_jobs_with_citations(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Get all jobs that have citations processed.
+
+        Returns:
+            Dict of job_id -> job_data for jobs with citations
+        """
+        jobs_with_citations = {}
+
+        for job_id, job_data in self.jobs_dict.items():
+            if job_data.get('has_citations', False):
+                jobs_with_citations[job_id] = job_data
+
+        return jobs_with_citations
