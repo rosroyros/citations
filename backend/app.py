@@ -18,6 +18,7 @@ from providers.openai_provider import OpenAIProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready
+from dashboard.log_parser import CitationLogParser
 
 # Load environment variables
 load_dotenv()
@@ -923,6 +924,9 @@ async def get_dashboard_stats():
             ]
             avg_processing_time = sum(times) / len(times)
 
+        # Get citation pipeline metrics
+        citation_pipeline = get_citation_pipeline_metrics()
+
         stats = {
             "total_requests": total,
             "completed": completed,
@@ -930,7 +934,8 @@ async def get_dashboard_stats():
             "processing": processing,
             "total_citations": total_citations,
             "total_errors": total_errors,
-            "avg_processing_time": f"{avg_processing_time:.1f}s"
+            "avg_processing_time": f"{avg_processing_time:.1f}s",
+            "citation_pipeline": citation_pipeline
         }
 
         logger.info(f"Dashboard stats: {stats}")
@@ -939,6 +944,113 @@ async def get_dashboard_stats():
     except Exception as e:
         logger.error(f"Error getting dashboard stats: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail="Failed to get dashboard stats")
+
+
+def get_citation_pipeline_metrics() -> dict:
+    """
+    Get citation pipeline health metrics.
+
+    Returns:
+        dict: Citation pipeline metrics including health status, lag, and processing stats
+    """
+    try:
+        import os
+        from datetime import datetime
+
+        # Configuration
+        log_path = os.environ.get('CITATION_LOG_PATH', '/opt/citations/logs/citations.log')
+        position_path = os.environ.get('CITATION_LOG_PATH', '/opt/citations/logs/citations.log').replace('.log', '.position')
+
+        # Initialize metrics with defaults
+        metrics = {
+            'last_write_time': None,
+            'parser_lag_bytes': 0,
+            'total_citations_processed': 0,
+            'health_status': 'healthy',
+            'jobs_with_citations': 0,
+            'log_file_exists': False,
+            'log_file_size_bytes': 0,
+            'parser_position_bytes': 0
+        }
+
+        # Check if log file exists
+        if not os.path.exists(log_path):
+            metrics['health_status'] = 'error'
+            metrics['last_write_time'] = 'File not found'
+            return metrics
+
+        metrics['log_file_exists'] = True
+
+        # Get log file info
+        try:
+            file_stat = os.stat(log_path)
+            file_size = file_stat.st_size
+            last_modified = datetime.fromtimestamp(file_stat.st_mtime)
+
+            metrics['log_file_size_bytes'] = file_size
+            metrics['last_write_time'] = last_modified.strftime('%Y-%m-%d %H:%M:%S')
+
+        except OSError as e:
+            logger.error(f"Error accessing citation log file: {e}")
+            metrics['health_status'] = 'error'
+            metrics['last_write_time'] = f'Error: {str(e)}'
+            return metrics
+
+        # Get parser position
+        try:
+            if os.path.exists(position_path):
+                with open(position_path, 'r') as f:
+                    position_str = f.read().strip()
+                    if position_str.isdigit():
+                        parser_position = int(position_str)
+                        metrics['parser_position_bytes'] = parser_position
+                    else:
+                        parser_position = 0
+            else:
+                parser_position = 0
+
+        except (IOError, ValueError) as e:
+            logger.warning(f"Could not read parser position file: {e}")
+            parser_position = 0
+
+        # Calculate lag
+        metrics['parser_lag_bytes'] = max(0, file_size - parser_position)
+
+        # Count jobs with citations
+        jobs_with_citations = sum(1 for job in jobs.values() if job.get('has_citations', False))
+        metrics['jobs_with_citations'] = jobs_with_citations
+
+        # Count total citations processed
+        total_citations = sum(job.get('citation_count', 0) for job in jobs.values() if job.get('has_citations', False))
+        metrics['total_citations_processed'] = total_citations
+
+        # Determine health status based on lag thresholds
+        lag_mb = metrics['parser_lag_bytes'] / (1024 * 1024)  # Convert to MB
+
+        if lag_mb >= 5:  # 5MB critical threshold
+            metrics['health_status'] = 'error'
+        elif lag_mb >= 1:  # 1MB warning threshold
+            metrics['health_status'] = 'lagging'
+        else:
+            metrics['health_status'] = 'healthy'
+
+        logger.info(f"Citation pipeline metrics: status={metrics['health_status']}, lag={lag_mb:.2f}MB, jobs_with_citations={jobs_with_citations}")
+
+        return metrics
+
+    except Exception as e:
+        logger.error(f"Error getting citation pipeline metrics: {str(e)}", exc_info=True)
+        return {
+            'last_write_time': None,
+            'parser_lag_bytes': 0,
+            'total_citations_processed': 0,
+            'health_status': 'error',
+            'jobs_with_citations': 0,
+            'log_file_exists': False,
+            'log_file_size_bytes': 0,
+            'parser_position_bytes': 0,
+            'error': str(e)
+        }
 
 
 def _count_errors(job: dict) -> int:

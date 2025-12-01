@@ -207,3 +207,47 @@ class TestDashboardAPI:
         # Clean up
         for job_id in test_jobs:
             del jobs[job_id]
+
+    def test_dashboard_stats_citation_pipeline_metrics(self):
+        """
+        RED: Test that /api/dashboard/stats includes citation pipeline metrics.
+        """
+        response = client.get("/api/dashboard/stats")
+        assert response.status_code == 200
+        data = response.json()
+
+        # Should include citation_pipeline section
+        assert "citation_pipeline" in data
+        pipeline = data["citation_pipeline"]
+
+        # Required pipeline metrics
+        required_metrics = [
+            "health_status",
+            "last_write_time",
+            "parser_lag_bytes",
+            "total_citations_processed",
+            "jobs_with_citations",
+            "log_file_exists",
+            "log_file_size_bytes",
+            "parser_position_bytes"
+        ]
+
+        for metric in required_metrics:
+            assert metric in pipeline, f"Missing metric: {metric}"
+
+        # Health status should be one of expected values
+        valid_statuses = ["healthy", "lagging", "error"]
+        assert pipeline["health_status"] in valid_statuses
+
+        # Numeric fields should be appropriate types
+        numeric_fields = [
+            "parser_lag_bytes",
+            "total_citations_processed",
+            "jobs_with_citations",
+            "log_file_size_bytes",
+            "parser_position_bytes"
+        ]
+
+        for field in numeric_fields:
+            assert isinstance(pipeline[field], int), f"{field} should be int, got {type(pipeline[field])}"
+            assert pipeline[field] >= 0, f"{field} should be non-negative"
