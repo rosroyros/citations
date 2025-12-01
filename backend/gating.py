@@ -72,8 +72,12 @@ def should_gate_results(
         return False
 
     if results.get('isPartial', False):
-        logger.debug("Partial results bypass gating")
-        return False
+        # Only bypass gating if there are actually results being shown
+        if results.get('results'):
+            logger.debug("Partial results with data bypass gating")
+            return False
+        # If partial but empty results (limit reached), continue to gating logic
+        logger.info("Partial results with NO data. Applying standard gating logic.")
 
     # This check is simplified as the detailed error list is not available here
     # An empty results list is a strong indicator of a gating scenario (e.g. limit reached)
