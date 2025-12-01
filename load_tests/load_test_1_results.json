@@ -1,0 +1,721 @@
+{
+  "test_name": "High Volume Concurrent Submissions",
+  "timestamp": "2025-12-01 21:48:53",
+  "config": {
+    "num_requests": 100,
+    "max_workers": 10,
+    "timeout": 30
+  },
+  "summary": {
+    "total_time": 0.07431983947753906,
+    "successful": 100,
+    "failed": 0,
+    "success_rate": 100.0,
+    "avg_response_time": 0.007093942165374756,
+    "max_response_time": 0.01296687126159668,
+    "min_response_time": 0.004308938980102539,
+    "requests_per_second": 1345.5357372000512
+  },
+  "results": [
+    {
+      "citation_id": 9,
+      "status_code": 200,
+      "response_time": 0.008336067199707031,
+      "job_id": "ad137027-171a-453c-9eef-49024e3f3aa0",
+      "response_text": null
+    },
+    {
+      "citation_id": 1,
+      "status_code": 200,
+      "response_time": 0.010036945343017578,
+      "job_id": "4fa3ac31-2ce1-42eb-9b84-aeea5e2c6f4a",
+      "response_text": null
+    },
+    {
+      "citation_id": 6,
+      "status_code": 200,
+      "response_time": 0.009810924530029297,
+      "job_id": "62debfce-1bae-4738-80db-036ebc0197ea",
+      "response_text": null
+    },
+    {
+      "citation_id": 3,
+      "status_code": 200,
+      "response_time": 0.010593891143798828,
+      "job_id": "2f60feff-77cb-435b-b12e-bfb7b9328d23",
+      "response_text": null
+    },
+    {
+      "citation_id": 2,
+      "status_code": 200,
+      "response_time": 0.011810064315795898,
+      "job_id": "b328eafb-24b6-415e-a8f2-7b1ccffc5ef8",
+      "response_text": null
+    },
+    {
+      "citation_id": 8,
+      "status_code": 200,
+      "response_time": 0.011527061462402344,
+      "job_id": "b9342f1d-75ab-49f7-a24b-83edd1c5e630",
+      "response_text": null
+    },
+    {
+      "citation_id": 7,
+      "status_code": 200,
+      "response_time": 0.012180089950561523,
+      "job_id": "d6c3e25e-3983-4f6f-96d4-9918fe89b616",
+      "response_text": null
+    },
+    {
+      "citation_id": 0,
+      "status_code": 200,
+      "response_time": 0.012606143951416016,
+      "job_id": "2d8bcfd3-771e-46e6-8e8f-8418dd2ae359",
+      "response_text": null
+    },
+    {
+      "citation_id": 5,
+      "status_code": 200,
+      "response_time": 0.012664794921875,
+      "job_id": "7225b625-f5f8-4781-9d49-b30b2f4c30ad",
+      "response_text": null
+    },
+    {
+      "citation_id": 4,
+      "status_code": 200,
+      "response_time": 0.01296687126159668,
+      "job_id": "1a5efadf-134f-4fae-abc8-aeaeb596b84f",
+      "response_text": null
+    },
+    {
+      "citation_id": 11,
+      "status_code": 200,
+      "response_time": 0.005903959274291992,
+      "job_id": "af61db24-e7e5-4f8e-b760-6b349c62b5aa",
+      "response_text": null
+    },
+    {
+      "citation_id": 10,
+      "status_code": 200,
+      "response_time": 0.0067446231842041016,
+      "job_id": "b7edaf4a-096b-4462-8b14-764f5a840fbc",
+      "response_text": null
+    },
+    {
+      "citation_id": 13,
+      "status_code": 200,
+      "response_time": 0.006154060363769531,
+      "job_id": "1426928c-49ea-4bac-a5a0-d295e2e65ff0",
+      "response_text": null
+    },
+    {
+      "citation_id": 12,
+      "status_code": 200,
+      "response_time": 0.007661104202270508,
+      "job_id": "d2c29d4b-fbc6-4db4-9406-95f0390c6b89",
+      "response_text": null
+    },
+    {
+      "citation_id": 14,
+      "status_code": 200,
+      "response_time": 0.007359027862548828,
+      "job_id": "ce1e3ba6-d23f-4945-a31d-517ad56e7489",
+      "response_text": null
+    },
+    {
+      "citation_id": 19,
+      "status_code": 200,
+      "response_time": 0.006087064743041992,
+      "job_id": "7df61d20-4968-4e22-baf3-b01f3131dea6",
+      "response_text": null
+    },
+    {
+      "citation_id": 15,
+      "status_code": 200,
+      "response_time": 0.008682966232299805,
+      "job_id": "873e69cf-1177-41d4-8c97-a06fa0543f89",
+      "response_text": null
+    },
+    {
+      "citation_id": 17,
+      "status_code": 200,
+      "response_time": 0.00846099853515625,
+      "job_id": "e17f5b17-08b5-4146-8a84-746132d95042",
+      "response_text": null
+    },
+    {
+      "citation_id": 18,
+      "status_code": 200,
+      "response_time": 0.008528947830200195,
+      "job_id": "3e41dc1a-c9a9-4b36-82e3-d5a02a29a44d",
+      "response_text": null
+    },
+    {
+      "citation_id": 16,
+      "status_code": 200,
+      "response_time": 0.008970975875854492,
+      "job_id": "010c193c-7a5a-4132-b11a-661f6b28769a",
+      "response_text": null
+    },
+    {
+      "citation_id": 20,
+      "status_code": 200,
+      "response_time": 0.007173061370849609,
+      "job_id": "17311036-f943-4064-b7d1-83f793d3df87",
+      "response_text": null
+    },
+    {
+      "citation_id": 23,
+      "status_code": 200,
+      "response_time": 0.00550389289855957,
+      "job_id": "b1ddc7f8-77b2-4e58-922f-d1fb24b30f80",
+      "response_text": null
+    },
+    {
+      "citation_id": 21,
+      "status_code": 200,
+      "response_time": 0.00727391242980957,
+      "job_id": "372f1eb1-ca03-4365-a05e-8f416891b424",
+      "response_text": null
+    },
+    {
+      "citation_id": 22,
+      "status_code": 200,
+      "response_time": 0.00733494758605957,
+      "job_id": "3e2cd28c-2d37-41ed-bb24-dd51990e74ae",
+      "response_text": null
+    },
+    {
+      "citation_id": 24,
+      "status_code": 200,
+      "response_time": 0.005383014678955078,
+      "job_id": "fa9ea7dc-b048-41cd-b2de-323569d9ddc9",
+      "response_text": null
+    },
+    {
+      "citation_id": 25,
+      "status_code": 200,
+      "response_time": 0.005816936492919922,
+      "job_id": "c0da7f06-724c-49bb-a494-27ef888e277e",
+      "response_text": null
+    },
+    {
+      "citation_id": 27,
+      "status_code": 200,
+      "response_time": 0.004344940185546875,
+      "job_id": "54fb4661-0d09-4be7-8240-125b360f56cc",
+      "response_text": null
+    },
+    {
+      "citation_id": 29,
+      "status_code": 200,
+      "response_time": 0.005570888519287109,
+      "job_id": "c904ef09-2bf7-446d-84dd-893770e982ac",
+      "response_text": null
+    },
+    {
+      "citation_id": 26,
+      "status_code": 200,
+      "response_time": 0.006179094314575195,
+      "job_id": "4afd6970-d4a9-4c8c-93e8-0585a7fbf71c",
+      "response_text": null
+    },
+    {
+      "citation_id": 28,
+      "status_code": 200,
+      "response_time": 0.006705760955810547,
+      "job_id": "52fa6dc4-6c36-40e5-9d43-629c3a896e45",
+      "response_text": null
+    },
+    {
+      "citation_id": 32,
+      "status_code": 200,
+      "response_time": 0.005436897277832031,
+      "job_id": "265d4842-fd30-4ab0-b682-222424faa8d6",
+      "response_text": null
+    },
+    {
+      "citation_id": 31,
+      "status_code": 200,
+      "response_time": 0.006855964660644531,
+      "job_id": "749c66a4-dbcb-402f-8758-7300dc462a16",
+      "response_text": null
+    },
+    {
+      "citation_id": 30,
+      "status_code": 200,
+      "response_time": 0.007931232452392578,
+      "job_id": "da2c7272-2b52-4943-8cc3-eb2be3200edb",
+      "response_text": null
+    },
+    {
+      "citation_id": 36,
+      "status_code": 200,
+      "response_time": 0.0063512325286865234,
+      "job_id": "b507a666-3702-4dc1-a429-54ea163a544b",
+      "response_text": null
+    },
+    {
+      "citation_id": 33,
+      "status_code": 200,
+      "response_time": 0.008198976516723633,
+      "job_id": "036f5110-f626-4fac-86ba-7c5343eb2993",
+      "response_text": null
+    },
+    {
+      "citation_id": 35,
+      "status_code": 200,
+      "response_time": 0.007703065872192383,
+      "job_id": "1de9954c-b0a7-454a-9dfc-bcb1adc3fc89",
+      "response_text": null
+    },
+    {
+      "citation_id": 34,
+      "status_code": 200,
+      "response_time": 0.009064912796020508,
+      "job_id": "f3a83cb7-03c0-471b-a154-c077b1f6c5e9",
+      "response_text": null
+    },
+    {
+      "citation_id": 37,
+      "status_code": 200,
+      "response_time": 0.007224082946777344,
+      "job_id": "19aa29f1-f699-4039-9c31-3765e548f7d0",
+      "response_text": null
+    },
+    {
+      "citation_id": 38,
+      "status_code": 200,
+      "response_time": 0.0071179866790771484,
+      "job_id": "ec2bb2cd-f159-4f28-a356-298961981385",
+      "response_text": null
+    },
+    {
+      "citation_id": 39,
+      "status_code": 200,
+      "response_time": 0.0066950321197509766,
+      "job_id": "3f095abd-46b8-4fbb-a05d-8f296dc7e6da",
+      "response_text": null
+    },
+    {
+      "citation_id": 40,
+      "status_code": 200,
+      "response_time": 0.005908966064453125,
+      "job_id": "2dc1441e-cc8d-452e-8b04-f837163db1f3",
+      "response_text": null
+    },
+    {
+      "citation_id": 41,
+      "status_code": 200,
+      "response_time": 0.005986213684082031,
+      "job_id": "4dd0179b-18f8-4393-acd4-ae62f04723f8",
+      "response_text": null
+    },
+    {
+      "citation_id": 42,
+      "status_code": 200,
+      "response_time": 0.0058498382568359375,
+      "job_id": "a5985f5a-1f4e-45b9-bada-1a1c75b5014d",
+      "response_text": null
+    },
+    {
+      "citation_id": 44,
+      "status_code": 200,
+      "response_time": 0.004953145980834961,
+      "job_id": "a24eee75-5743-45b5-9574-6d18ced9930b",
+      "response_text": null
+    },
+    {
+      "citation_id": 43,
+      "status_code": 200,
+      "response_time": 0.005889892578125,
+      "job_id": "2b2d0982-d5d7-47a1-90ea-57fcd7297f60",
+      "response_text": null
+    },
+    {
+      "citation_id": 45,
+      "status_code": 200,
+      "response_time": 0.0054438114166259766,
+      "job_id": "4b899d82-7ab6-449a-b19b-a8abdce178c7",
+      "response_text": null
+    },
+    {
+      "citation_id": 46,
+      "status_code": 200,
+      "response_time": 0.005200862884521484,
+      "job_id": "d5cb1964-1499-4405-8c2c-f16760c9bfa1",
+      "response_text": null
+    },
+    {
+      "citation_id": 48,
+      "status_code": 200,
+      "response_time": 0.006323814392089844,
+      "job_id": "947eb3f2-b0d0-41d1-9d89-605cf41385d6",
+      "response_text": null
+    },
+    {
+      "citation_id": 49,
+      "status_code": 200,
+      "response_time": 0.006424903869628906,
+      "job_id": "7a207fe5-c6e9-4cd9-a4b8-b506ccdb804e",
+      "response_text": null
+    },
+    {
+      "citation_id": 50,
+      "status_code": 200,
+      "response_time": 0.006804227828979492,
+      "job_id": "2693943c-d090-48c4-a5ac-beb8af8d8e86",
+      "response_text": null
+    },
+    {
+      "citation_id": 47,
+      "status_code": 200,
+      "response_time": 0.007833003997802734,
+      "job_id": "a6861ab6-a944-49ab-a70e-b37c49d68391",
+      "response_text": null
+    },
+    {
+      "citation_id": 52,
+      "status_code": 200,
+      "response_time": 0.006387948989868164,
+      "job_id": "d82da9de-2718-40b9-b826-9ef38cc27417",
+      "response_text": null
+    },
+    {
+      "citation_id": 51,
+      "status_code": 200,
+      "response_time": 0.007761240005493164,
+      "job_id": "6c44e3b3-3cb8-4b31-9a62-b5109dae2894",
+      "response_text": null
+    },
+    {
+      "citation_id": 53,
+      "status_code": 200,
+      "response_time": 0.006743907928466797,
+      "job_id": "20e7a340-5289-40d2-8b7d-0d4246bdf188",
+      "response_text": null
+    },
+    {
+      "citation_id": 55,
+      "status_code": 200,
+      "response_time": 0.006682157516479492,
+      "job_id": "94899825-12d8-43e7-a108-1ddb44c75bde",
+      "response_text": null
+    },
+    {
+      "citation_id": 54,
+      "status_code": 200,
+      "response_time": 0.007267951965332031,
+      "job_id": "37d28fdb-26de-46c0-a966-0e6018a1173d",
+      "response_text": null
+    },
+    {
+      "citation_id": 56,
+      "status_code": 200,
+      "response_time": 0.006676912307739258,
+      "job_id": "25c5e66f-c855-4d2e-915c-68351df12b80",
+      "response_text": null
+    },
+    {
+      "citation_id": 57,
+      "status_code": 200,
+      "response_time": 0.005341291427612305,
+      "job_id": "a21a9e49-ca2d-4ff2-bb89-bdd0c0d2d6eb",
+      "response_text": null
+    },
+    {
+      "citation_id": 58,
+      "status_code": 200,
+      "response_time": 0.0053369998931884766,
+      "job_id": "bca859d9-e2a8-4e66-93a3-ecd06e32bb23",
+      "response_text": null
+    },
+    {
+      "citation_id": 59,
+      "status_code": 200,
+      "response_time": 0.005229949951171875,
+      "job_id": "d3bd90f2-9bbb-4ff9-a654-33f8ad2721d2",
+      "response_text": null
+    },
+    {
+      "citation_id": 60,
+      "status_code": 200,
+      "response_time": 0.005192995071411133,
+      "job_id": "94fe58e2-5a4d-45b0-a60f-3e78b23d3d4d",
+      "response_text": null
+    },
+    {
+      "citation_id": 61,
+      "status_code": 200,
+      "response_time": 0.004781007766723633,
+      "job_id": "d715ba2c-1421-4413-ba98-13876be8357d",
+      "response_text": null
+    },
+    {
+      "citation_id": 63,
+      "status_code": 200,
+      "response_time": 0.004678964614868164,
+      "job_id": "00a4cb9d-e276-4176-84ba-7a1a8932621f",
+      "response_text": null
+    },
+    {
+      "citation_id": 62,
+      "status_code": 200,
+      "response_time": 0.005198955535888672,
+      "job_id": "12f63142-dd0d-4dc0-bdbf-5053e4cb25a7",
+      "response_text": null
+    },
+    {
+      "citation_id": 66,
+      "status_code": 200,
+      "response_time": 0.005218029022216797,
+      "job_id": "ca8b694b-cead-4891-8a5c-85593eee411c",
+      "response_text": null
+    },
+    {
+      "citation_id": 64,
+      "status_code": 200,
+      "response_time": 0.006300926208496094,
+      "job_id": "5b6ab98b-3543-42e8-8061-5fa4c6c48363",
+      "response_text": null
+    },
+    {
+      "citation_id": 65,
+      "status_code": 200,
+      "response_time": 0.0064160823822021484,
+      "job_id": "8eeba152-8c51-4a55-9e78-e980c7de72a7",
+      "response_text": null
+    },
+    {
+      "citation_id": 67,
+      "status_code": 200,
+      "response_time": 0.008030176162719727,
+      "job_id": "53d3cf71-c7fa-4860-9cba-4d080e4ef4c1",
+      "response_text": null
+    },
+    {
+      "citation_id": 68,
+      "status_code": 200,
+      "response_time": 0.0076160430908203125,
+      "job_id": "b9be5408-9c99-4414-8e50-2bce4a6ba646",
+      "response_text": null
+    },
+    {
+      "citation_id": 70,
+      "status_code": 200,
+      "response_time": 0.007080078125,
+      "job_id": "a23fc909-5e40-47d9-bc9a-dbccd015b371",
+      "response_text": null
+    },
+    {
+      "citation_id": 69,
+      "status_code": 200,
+      "response_time": 0.008264303207397461,
+      "job_id": "88b602c6-f98e-48c1-b0f9-f132d77ece04",
+      "response_text": null
+    },
+    {
+      "citation_id": 71,
+      "status_code": 200,
+      "response_time": 0.0078089237213134766,
+      "job_id": "4683f614-5e1c-4401-9961-b8742312810f",
+      "response_text": null
+    },
+    {
+      "citation_id": 72,
+      "status_code": 200,
+      "response_time": 0.007376194000244141,
+      "job_id": "19112531-3bd1-4b19-b5a4-f675162a9251",
+      "response_text": null
+    },
+    {
+      "citation_id": 73,
+      "status_code": 200,
+      "response_time": 0.00751805305480957,
+      "job_id": "5af9c8b6-6ce5-4f8a-9a00-b1c52726955d",
+      "response_text": null
+    },
+    {
+      "citation_id": 74,
+      "status_code": 200,
+      "response_time": 0.006641864776611328,
+      "job_id": "031812a3-2904-446c-a591-5a9b34b0dac1",
+      "response_text": null
+    },
+    {
+      "citation_id": 75,
+      "status_code": 200,
+      "response_time": 0.00655817985534668,
+      "job_id": "cc4ad7d9-dd66-4e53-abbb-4361f3113bf0",
+      "response_text": null
+    },
+    {
+      "citation_id": 76,
+      "status_code": 200,
+      "response_time": 0.00617218017578125,
+      "job_id": "0da2c3a2-4bcc-424c-bf3b-e0464bc73e6b",
+      "response_text": null
+    },
+    {
+      "citation_id": 79,
+      "status_code": 200,
+      "response_time": 0.004308938980102539,
+      "job_id": "61613b19-47dd-43c8-9b99-588f5f9bc1e8",
+      "response_text": null
+    },
+    {
+      "citation_id": 77,
+      "status_code": 200,
+      "response_time": 0.004911899566650391,
+      "job_id": "43b33631-5a52-4b72-a1f0-f11f50c3eb04",
+      "response_text": null
+    },
+    {
+      "citation_id": 78,
+      "status_code": 200,
+      "response_time": 0.006154060363769531,
+      "job_id": "9febea7d-6842-4e15-a9ab-3c9193e707b6",
+      "response_text": null
+    },
+    {
+      "citation_id": 81,
+      "status_code": 200,
+      "response_time": 0.005881071090698242,
+      "job_id": "5ec0d7d8-01d7-4ef8-9680-543d4931ec0e",
+      "response_text": null
+    },
+    {
+      "citation_id": 82,
+      "status_code": 200,
+      "response_time": 0.007216930389404297,
+      "job_id": "9cc341a2-f571-4ed0-b61a-4f93f1bbf194",
+      "response_text": null
+    },
+    {
+      "citation_id": 80,
+      "status_code": 200,
+      "response_time": 0.008246183395385742,
+      "job_id": "1a7bdae1-8a5d-4f4c-9fc2-90c3cdf08403",
+      "response_text": null
+    },
+    {
+      "citation_id": 83,
+      "status_code": 200,
+      "response_time": 0.0073773860931396484,
+      "job_id": "3043ca94-5796-4db3-b853-d60c0f0784e0",
+      "response_text": null
+    },
+    {
+      "citation_id": 84,
+      "status_code": 200,
+      "response_time": 0.00722503662109375,
+      "job_id": "f02ca548-bf11-4bc1-a99b-60f0901ed2ac",
+      "response_text": null
+    },
+    {
+      "citation_id": 86,
+      "status_code": 200,
+      "response_time": 0.006709098815917969,
+      "job_id": "967f8d3f-b9d3-4d30-8a77-4069b5275327",
+      "response_text": null
+    },
+    {
+      "citation_id": 85,
+      "status_code": 200,
+      "response_time": 0.007850885391235352,
+      "job_id": "9234f215-81e8-4f27-9727-6c3fd90d2499",
+      "response_text": null
+    },
+    {
+      "citation_id": 87,
+      "status_code": 200,
+      "response_time": 0.006888866424560547,
+      "job_id": "a51208ed-bcf4-44e3-9da0-6a4a7c2a8c19",
+      "response_text": null
+    },
+    {
+      "citation_id": 88,
+      "status_code": 200,
+      "response_time": 0.006699085235595703,
+      "job_id": "9a1c757a-13f6-490c-b571-81850ee94dc7",
+      "response_text": null
+    },
+    {
+      "citation_id": 89,
+      "status_code": 200,
+      "response_time": 0.005889177322387695,
+      "job_id": "acd5ab72-876e-47f0-bd19-471aa18908c9",
+      "response_text": null
+    },
+    {
+      "citation_id": 90,
+      "status_code": 200,
+      "response_time": 0.005707740783691406,
+      "job_id": "9cdd8d18-a0f5-4daa-b393-603332870766",
+      "response_text": null
+    },
+    {
+      "citation_id": 91,
+      "status_code": 200,
+      "response_time": 0.005293846130371094,
+      "job_id": "1ec2d54e-fa2e-4927-a1a1-dca8f5bac479",
+      "response_text": null
+    },
+    {
+      "citation_id": 92,
+      "status_code": 200,
+      "response_time": 0.005160093307495117,
+      "job_id": "f15f9fdf-e8c6-4f80-8ff9-e9fe9bf1b8e6",
+      "response_text": null
+    },
+    {
+      "citation_id": 93,
+      "status_code": 200,
+      "response_time": 0.0073337554931640625,
+      "job_id": "2ac3215c-1bd2-4c93-8ff9-7d675d2d2a57",
+      "response_text": null
+    },
+    {
+      "citation_id": 96,
+      "status_code": 200,
+      "response_time": 0.007353067398071289,
+      "job_id": "d6cf6bce-3410-41f3-86b1-accf34ca91df",
+      "response_text": null
+    },
+    {
+      "citation_id": 95,
+      "status_code": 200,
+      "response_time": 0.007703065872192383,
+      "job_id": "5d857a92-0364-4efe-838d-bc20965b3d7e",
+      "response_text": null
+    },
+    {
+      "citation_id": 98,
+      "status_code": 200,
+      "response_time": 0.007009744644165039,
+      "job_id": "d2cad3c8-0ffd-4dfa-af11-3d737cd60c63",
+      "response_text": null
+    },
+    {
+      "citation_id": 94,
+      "status_code": 200,
+      "response_time": 0.008584976196289062,
+      "job_id": "bba6e549-a6a2-4b82-a3a2-081cea2babfc",
+      "response_text": null
+    },
+    {
+      "citation_id": 97,
+      "status_code": 200,
+      "response_time": 0.007275819778442383,
+      "job_id": "13ccf1a8-7972-4ec5-9af0-e84672a59478",
+      "response_text": null
+    },
+    {
+      "citation_id": 99,
+      "status_code": 200,
+      "response_time": 0.006761074066162109,
+      "job_id": "682303e0-db1e-44a5-8b37-80c763a95d18",
+      "response_text": null
+    }
+  ]
+}

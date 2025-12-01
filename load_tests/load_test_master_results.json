@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-12-01 21:48:52",
+  "test_environment": {
+    "backend_url": "http://localhost:8001",
+    "working_directory": "/Users/roy/Documents/Projects/citations/load_tests"
+  },
+  "test_results": {
+    "test_1_concurrent": {
+      "name": "High Volume Concurrent Submissions",
+      "success": true,
+      "return_code": 0,
+      "stdout": "Starting 100 concurrent validation requests...\nTarget: http://localhost:8001/api/validate/async\nCompleted 10/100 requests...\nCompleted 20/100 requests...\nCompleted 30/100 requests...\nCompleted 40/100 requests...\nCompleted 50/100 requests...\nCompleted 60/100 requests...\nCompleted 70/100 requests...\nCompleted 80/100 requests...\nCompleted 90/100 requests...\nCompleted 100/100 requests...\n\n=== LOAD TEST RESULTS ===\nTotal test time: 0.07 seconds\nSuccessful requests: 100/100 (100.0%)\nFailed requests: 0/100 (0.0%)\nAverage response time: 0.01s\nMax response time: 0.01s\nMin response time: 0.00s\nRequests per second: 1345.54\n\n=== SUCCESS CRITERIA VALIDATION ===\nSuccess rate >= 95%: \u2713 PASS (100/100)\nAvg response time < 2s: \u2713 PASS (0.01s)\nMax response time < 5s: \u2713 PASS (0.01s)\n\nOverall result: \u2713 LOAD TEST PASSED\n\nDetailed results saved to: load_test_1_results.json\n",
+      "stderr": "/Users/roy/Documents/Projects/citations/backend/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n",
+      "duration": null
+    },
+    "test_2_parser": {
+      "name": "Parser Performance Under Large Log Files",
+      "success": true,
+      "parser_duration": 0.023150920867919922,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "test_3_resources": {
+      "name": "Resource Usage Monitoring During Load",
+      "success": true,
+      "return_code": 0,
+      "stdout": "\ud83d\udd2c Resource Usage Monitoring Test\nThis test monitors system resources while running concurrent load.\n\ud83d\ude80 Starting load test: 50 requests with 5 workers\n\ud83d\udcca Monitoring resources concurrently...\n\ud83d\udcca Resource monitoring started...\nCompleted 10/50 requests...\nCompleted 20/50 requests...\nCompleted 30/50 requests...\nCompleted 40/50 requests...\nCompleted 50/50 requests...\n\ud83d\udcca Resource monitoring stopped.\n\n=== LOAD TEST RESULTS ===\nLoad test duration: 0.08 seconds\nSuccessful requests: 50/50\nFailed requests: 0/50\nRequests per second: 641.34\n\n=== RESOURCE USAGE STATISTICS ===\nMonitoring duration: 1.06 seconds\nSamples collected: 3\nPeak memory usage: 6873.4 MB\nAverage memory usage: 6857.6 MB\nPeak CPU usage: 21.3%\nAverage CPU usage: 14.8%\n\n=== SUCCESS CRITERIA VALIDATION ===\nApplication peak memory: 0.2% (system: 6873.4 MB total)\nPeak CPU < 80%: \u2713 PASS (21.3%)\nSuccess rate >= 95%: \u2713 PASS (50/50)\n\nOverall result: \u2713 RESOURCE TEST PASSED\nDetailed resource stats saved to: load_test_3_resource_stats.json\n",
+      "stderr": "/Users/roy/Documents/Projects/citations/backend/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n"
+    },
+    "test_4_stress": {
+      "name": "Parser Stress Testing with Partial Writes",
+      "success": true,
+      "return_code": 0,
+      "stdout": "\ud83e\uddea Parser Stress Test with Concurrent Writes\n==================================================\n\u2705 Dependencies verified\n\ud83d\udcdd Starting background writer...\n   Script: /Users/roy/Documents/Projects/citations/load_tests/background_writer.py\n   Log file: /Users/roy/Documents/Projects/citations/logs/citations_test.log\n\u2705 Background writer started (PID: 21773)\n\ud83d\udcdd Allowing writer to generate initial data...\n\ud83d\udd0d Running parser 5 times while writer is active...\n\nParser run 1/5:\n   \u2705 Completed in 0.05s\n\nParser run 2/5:\n   \u2705 Completed in 0.03s\n\nParser run 3/5:\n   \u2705 Completed in 0.03s\n\nParser run 4/5:\n   \u2705 Completed in 0.02s\n\nParser run 5/5:\n   \u2705 Completed in 0.03s\n\n\ud83c\udf10 Running concurrent API test: 20 requests\n   API test: 20/20 successful in 0.03s\n\ud83d\udcdd Allowing writer to continue...\n\n\ud83d\uded1 Stopping background writer...\n\u2705 Writer stopped gracefully\n\n=== STRESS TEST RESULTS ===\nTest duration: 18.66 seconds\nParser runs: 5/5 successful\nParser performance: avg 0.03s, max 0.05s\nLog file: 4059 complete jobs, 6.9 MB\n\n=== SUCCESS CRITERIA VALIDATION ===\nParser success >= 80%: \u2713 PASS (5/5)\nLog file generated: \u2713 PASS\nNo critical errors: \u2713 PASS (0 errors)\n\nOverall result: \u2713 STRESS TEST PASSED\nDetailed results saved to: load_test_4_stress_results.json\n",
+      "stderr": "/Users/roy/Documents/Projects/citations/backend/venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020\n  warnings.warn(\n"
+    }
+  },
+  "overall_success": true,
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 4,
+    "failed_tests": 0,
+    "success_rate": 100.0
+  },
+  "total_duration": 20.648396730422974
+}

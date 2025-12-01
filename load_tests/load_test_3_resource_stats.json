@@ -1,0 +1,127 @@
+{
+  "monitoring_duration": 1.0615711212158203,
+  "sample_count": 3,
+  "peak_memory_mb": 6873.359375,
+  "avg_memory_mb": 6857.557291666667,
+  "peak_cpu_percent": 21.3,
+  "avg_cpu_percent": 14.833333333333334,
+  "samples": [
+    {
+      "timestamp": 5.507469177246094e-05,
+      "memory_used_mb": 6873.359375,
+      "memory_percent": 75.0,
+      "cpu_percent": 10.9,
+      "disk_percent": 95.4,
+      "backend_processes": [
+        {
+          "pid": 21759,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.14162063598632812
+        },
+        {
+          "pid": 21770,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.13628005981445312
+        },
+        {
+          "pid": 27369,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 37978,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.036525726318359375
+        },
+        {
+          "pid": 60631,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 77331,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.17795562744140625
+        }
+      ]
+    },
+    {
+      "timestamp": 0.543097972869873,
+      "memory_used_mb": 6846.265625,
+      "memory_percent": 74.9,
+      "cpu_percent": 12.3,
+      "disk_percent": 95.4,
+      "backend_processes": [
+        {
+          "pid": 21759,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.14162063598632812
+        },
+        {
+          "pid": 21770,
+          "cpu_percent": 11.6,
+          "memory_percent": 0.159454345703125
+        },
+        {
+          "pid": 27369,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 37978,
+          "cpu_percent": 0.1,
+          "memory_percent": 0.036525726318359375
+        },
+        {
+          "pid": 60631,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 77331,
+          "cpu_percent": 4.3,
+          "memory_percent": 0.17824172973632812
+        }
+      ]
+    },
+    {
+      "timestamp": 1.0616261959075928,
+      "memory_used_mb": 6853.046875,
+      "memory_percent": 74.9,
+      "cpu_percent": 21.3,
+      "disk_percent": 95.4,
+      "backend_processes": [
+        {
+          "pid": 21759,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.14162063598632812
+        },
+        {
+          "pid": 21770,
+          "cpu_percent": 7.9,
+          "memory_percent": 0.15897750854492188
+        },
+        {
+          "pid": 27369,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 37978,
+          "cpu_percent": 0.1,
+          "memory_percent": 0.036525726318359375
+        },
+        {
+          "pid": 60631,
+          "cpu_percent": 0.0,
+          "memory_percent": 0.015926361083984375
+        },
+        {
+          "pid": 77331,
+          "cpu_percent": 3.8,
+          "memory_percent": 0.17881393432617188
+        }
+      ]
+    }
+  ]
+}

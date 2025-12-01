@@ -1,0 +1,55 @@
+{
+  "parser_runs": [
+    {
+      "run_number": 1,
+      "duration": 0.04681873321533203,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "success": true
+    },
+    {
+      "run_number": 2,
+      "duration": 0.027685880661010742,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "success": true
+    },
+    {
+      "run_number": 3,
+      "duration": 0.027626991271972656,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "success": true
+    },
+    {
+      "run_number": 4,
+      "duration": 0.02282428741455078,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "success": true
+    },
+    {
+      "run_number": 5,
+      "duration": 0.02744913101196289,
+      "return_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "success": true
+    }
+  ],
+  "writer_stats": {},
+  "test_duration": 18.660339832305908,
+  "errors": [],
+  "log_analysis": {
+    "file_size_bytes": 7280411,
+    "file_size_mb": 6.943140983581543,
+    "job_count": 4059,
+    "end_job_count": 4059,
+    "line_count": 40285,
+    "complete_jobs": 4059
+  }
+}
