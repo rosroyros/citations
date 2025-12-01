@@ -1,0 +1,597 @@
+/* Landscape Variant 3: Floating Elements */
+/* Creative approach with overlapping elements and dynamic layout */
+
+.gated-variant-landscape3.gated-results-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: 12px;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.gated-variant-landscape3 .gated-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(249, 250, 251, 0.9) 50%,
+    rgba(243, 244, 246, 0.85) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1;
+}
+
+.gated-variant-landscape3 .gated-overlay-content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+  max-width: 680px;
+  width: 90%;
+  padding: 44px 52px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: scaleAndRotate 0.5s ease-out;
+}
+
+/* Top row: Icon spans first two columns */
+.gated-variant-landscape3 .completion-indicator {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  grid-column: 1 / 3;
+  grid-row: 1;
+  animation: slideInFromLeft 0.6s ease-out 0.1s both;
+}
+
+.gated-variant-landscape3 .completion-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
+  flex-shrink: 0;
+  box-shadow:
+    0 16px 32px rgba(16, 185, 129, 0.4),
+    0 8px 16px rgba(16, 185, 129, 0.25);
+  animation: scaleIn 0.7s ease-out 0.2s both;
+  position: relative;
+}
+
+.gated-variant-landscape3 .completion-icon::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981, #059669);
+  opacity: 0.3;
+  z-index: -1;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.gated-variant-landscape3 .completion-text {
+  flex: 1;
+}
+
+.gated-variant-landscape3 .completion-title {
+  font-family: var(--font-heading, 'Work Sans', sans-serif);
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f2937);
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  animation: fadeInUp 0.7s ease-out 0.3s both;
+}
+
+.gated-variant-landscape3 .completion-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeInUp 0.7s ease-out 0.4s both;
+}
+
+.gated-variant-landscape3 .results-ready {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 28px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow:
+    0 8px 16px rgba(16, 185, 129, 0.3),
+    0 4px 8px rgba(16, 185, 129, 0.2);
+  position: relative;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.gated-variant-landscape3 .results-ready::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.gated-variant-landscape3 .results-summary {
+  color: var(--color-text-secondary, #6b7280);
+  font-weight: 500;
+  font-size: 1.0625rem;
+}
+
+/* Stats badge floating in top right */
+.gated-variant-landscape3 .completion-summary::after {
+  content: attr(data-stats);
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(99, 102, 241, 0.3);
+  animation: bounceIn 0.8s ease-out 0.5s both;
+}
+
+/* Summary spans bottom left and center */
+.gated-variant-landscape3 .results-summary-text {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary, #6b7280);
+  line-height: 1.5;
+  animation: fadeInUp 0.8s ease-out 0.5s both;
+  padding-right: 20px;
+  position: relative;
+}
+
+/* Button in bottom right */
+.gated-variant-landscape3 .reveal-button-container {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideInFromRight 0.8s ease-out 0.6s both;
+}
+
+.gated-variant-landscape3 .reveal-button {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+  color: white;
+  padding: 20px 32px;
+  border-radius: 20px;
+  font-family: var(--font-heading, 'Work Sans', sans-serif);
+  font-size: 1.125rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-shadow:
+    0 16px 32px rgba(139, 92, 246, 0.45),
+    0 8px 16px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: 64px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transform: rotate(-2deg);
+}
+
+.gated-variant-landscape3 .reveal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.6s;
+}
+
+.gated-variant-landscape3 .reveal-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6);
+  transform: rotate(-2deg) translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(139, 92, 246, 0.55),
+    0 10px 20px rgba(139, 92, 246, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.gated-variant-landscape3 .reveal-button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.gated-variant-landscape3 .reveal-button:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 4px;
+  box-shadow:
+    0 16px 32px rgba(139, 92, 246, 0.45),
+    0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+.gated-variant-landscape3 .reveal-button:active:not(:disabled) {
+  transform: rotate(-2deg) translateY(-2px);
+  box-shadow:
+    0 12px 24px rgba(139, 92, 246, 0.45),
+    0 6px 12px rgba(139, 92, 246, 0.3);
+}
+
+.gated-variant-landscape3 .reveal-button:disabled {
+  opacity: 0.8;
+  cursor: not-allowed;
+  transform: rotate(-2deg);
+  box-shadow:
+    0 8px 20px rgba(139, 92, 246, 0.35),
+    0 4px 8px rgba(139, 92, 246, 0.2);
+}
+
+.gated-variant-landscape3 .reveal-button.loading {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+}
+
+.gated-variant-landscape3 .loading-spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Decorative floating elements */
+.gated-variant-landscape3 .gated-overlay-content::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.05));
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite;
+  z-index: -1;
+}
+
+.gated-variant-landscape3 .gated-overlay-content::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(124, 58, 237, 0.05));
+  border-radius: 50%;
+  animation: float 4s ease-in-out infinite 2s;
+  z-index: -1;
+}
+
+/* Animations */
+@keyframes scaleAndRotate {
+  from {
+    opacity: 0;
+    transform: scale(0.9) rotate(1deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.1; transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gated-variant-landscape3 .gated-overlay-content {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 36px 32px;
+    text-align: center;
+    grid-template-columns: none;
+    grid-template-rows: none;
+  }
+
+  .gated-variant-landscape3 .completion-indicator {
+    flex-direction: column;
+    gap: 24px;
+    grid-column: none;
+    grid-row: none;
+  }
+
+  .gated-variant-landscape3 .completion-icon {
+    width: 72px;
+    height: 72px;
+    font-size: 36px;
+  }
+
+  .gated-variant-landscape3 .completion-title {
+    font-size: 1.5rem;
+  }
+
+  .gated-variant-landscape3 .completion-summary {
+    text-align: center;
+  }
+
+  .gated-variant-landscape3 .completion-summary::after {
+    position: static;
+    margin-top: 16px;
+    display: inline-block;
+  }
+
+  .gated-variant-landscape3 .results-summary-text {
+    grid-column: none;
+    grid-row: none;
+    padding-right: 0;
+  }
+
+  .gated-variant-landscape3 .reveal-button-container {
+    grid-column: none;
+    grid-row: none;
+  }
+
+  .gated-variant-landscape3 .reveal-button {
+    transform: none;
+    font-size: 1rem;
+    padding: 16px 32px;
+    min-height: 52px;
+  }
+
+  .gated-variant-landscape3 .reveal-button:hover:not(:disabled) {
+    transform: translateY(-3px);
+  }
+
+  .gated-variant-landscape3 .reveal-button:disabled {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .gated-variant-landscape3 .gated-overlay-content {
+    padding: 32px 24px;
+    margin: 16px;
+  }
+
+  .gated-variant-landscape3 .completion-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+  }
+
+  .gated-variant-landscape3 .completion-title {
+    font-size: 1.375rem;
+  }
+
+  .gated-variant-landscape3 .results-summary {
+    font-size: 0.9375rem;
+  }
+
+  .gated-variant-landscape3 .results-summary-text {
+    font-size: 0.875rem;
+  }
+
+  .gated-variant-landscape3 .reveal-button {
+    font-size: 0.9375rem;
+    padding: 14px 28px;
+    min-height: 48px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .gated-variant-landscape3 .gated-overlay-backdrop {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .gated-variant-landscape3 .gated-overlay-content {
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid white;
+  }
+
+  .gated-variant-landscape3 .completion-title {
+    color: white;
+  }
+
+  .gated-variant-landscape3 .results-summary,
+  .gated-variant-landscape3 .results-summary-text {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .gated-variant-landscape3 .reveal-button {
+    border: 2px solid white;
+  }
+
+  .gated-variant-landscape3 .gated-overlay-content::before,
+  .gated-variant-landscape3 .gated-overlay-content::after {
+    display: none;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .gated-variant-landscape3 .gated-results-overlay,
+  .gated-variant-landscape3 .gated-overlay-content,
+  .gated-variant-landscape3 .completion-icon,
+  .gated-variant-landscape3 .completion-title,
+  .gated-variant-landscape3 .completion-summary,
+  .gated-variant-landscape3 .reveal-button-container,
+  .gated-variant-landscape3 .results-summary-text {
+    animation: none;
+  }
+
+  .gated-variant-landscape3 .reveal-button {
+    transition: none;
+    transform: none;
+  }
+
+  .gated-variant-landscape3 .reveal-button:hover:not(:disabled) {
+    transform: none;
+  }
+
+  .gated-variant-landscape3 .reveal-button:active:not(:disabled) {
+    transform: none;
+  }
+
+  .gated-variant-landscape3 .reveal-button:disabled {
+    transform: none;
+  }
+
+  .gated-variant-landscape3 .loading-spinner {
+    animation: none;
+  }
+
+  .gated-variant-landscape3 .completion-icon::before {
+    animation: none;
+  }
+
+  .gated-variant-landscape3 .results-ready::before {
+    animation: none;
+  }
+
+  .gated-variant-landscape3 .gated-overlay-content::before,
+  .gated-variant-landscape3 .gated-overlay-content::after {
+    animation: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .gated-variant-landscape3 .gated-overlay-backdrop {
+    background: linear-gradient(135deg,
+      rgba(0, 0, 0, 0.85) 0%,
+      rgba(17, 24, 39, 0.9) 50%,
+      rgba(31, 41, 55, 0.85) 100%
+    );
+  }
+
+  .gated-variant-landscape3 .gated-overlay-content {
+    background: rgba(17, 24, 39, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .gated-variant-landscape3 .completion-title {
+    color: #f9fafb;
+  }
+
+  .gated-variant-landscape3 .results-summary,
+  .gated-variant-landscape3 .results-summary-text {
+    color: #d1d5db;
+  }
+}

@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landscape Glassmorphism Variants - Live Demo</title>
+
+    <style>
+        /* Base styles */
+        :root {
+            --font-heading: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --color-text-primary: #1f2937;
+            --color-text-secondary: #6b7280;
+            --color-text-muted: #9ca3af;
+            --color-success: #059669;
+            --color-error: #dc2626;
+            --color-warning: #d97706;
+            --color-border: #e5e7eb;
+            --color-background: #ffffff;
+            --color-background-secondary: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-background-secondary);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--color-background);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            margin: 0 0 12px 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .variants-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .variant-section {
+            background: var(--color-background);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+
+        .variant-header {
+            padding: 32px 40px;
+            border-bottom: 1px solid var(--color-border);
+            background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        }
+
+        .variant-title {
+            margin: 0 0 8px 0;
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .variant-description {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: 1.0625rem;
+            line-height: 1.6;
+        }
+
+        .validation-demo {
+            position: relative;
+            min-height: 400px;
+        }
+
+        /* Validation Table Styles */
+        .table-header {
+            padding: 24px 32px 16px 32px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .table-header h2 {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+        }
+
+        .validation-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .validation-table th {
+            text-align: left;
+            padding: 16px 32px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-background-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .validation-table td {
+            padding: 20px 32px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: top;
+        }
+
+        .validation-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .citation-number {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+            min-width: 60px;
+            font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+
+        .citation-text {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace;
+        }
+
+        .validation-status {
+            text-align: right;
+            font-size: 0.875rem;
+            min-width: 80px;
+            font-weight: 500;
+        }
+
+        .status-valid {
+            color: var(--color-success);
+        }
+
+        .status-error {
+            color: var(--color-error);
+        }
+
+        .status-warning {
+            color: var(--color-warning);
+        }
+
+        .table-content-blurred {
+            filter: blur(8px);
+            opacity: 0.3;
+            transition: filter 0.3s ease-out;
+        }
+
+        /* Landscape Variant 1: Classic Horizontal Layout */
+        .variant-landscape1 .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 16px; overflow: hidden;
+        }
+
+        .variant-landscape1 .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(249, 250, 251, 0.9) 50%,
+                rgba(243, 244, 246, 0.85) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .variant-landscape1 .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            max-width: 680px;
+            width: 90%;
+            padding: 40px 48px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .variant-landscape1 .completion-indicator {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex: 1;
+        }
+
+        .variant-landscape1 .completion-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .variant-landscape1 .completion-text {
+            flex: 1;
+        }
+
+        .variant-landscape1 .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.375rem; font-weight: 700;
+            color: #1f2937; margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+
+        .variant-landscape1 .completion-summary {
+            color: #6b7280;
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        .variant-landscape1 .reveal-button-container {
+            flex-shrink: 0;
+        }
+
+        .variant-landscape1 .reveal-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white; padding: 18px 40px; border-radius: 16px;
+            font-weight: 600; border: none; cursor: pointer;
+            font-size: 1rem; box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
+            font-family: var(--font-heading);
+        }
+
+        /* Landscape Variant 2: Split Layout */
+        .variant-landscape2 .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 16px; overflow: hidden;
+        }
+
+        .variant-landscape2 .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(249, 250, 251, 0.9) 50%,
+                rgba(243, 244, 246, 0.85) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .variant-landscape2 .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 720px;
+            width: 90%;
+            padding: 40px 48px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .variant-landscape2 .completion-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+            flex: 1;
+            padding-right: 32px;
+            border-right: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        .variant-landscape2 .completion-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.35);
+        }
+
+        .variant-landscape2 .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem; font-weight: 700;
+            color: #1f2937; margin: 0; line-height: 1.3;
+        }
+
+        .variant-landscape2 .completion-summary {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 0;
+        }
+
+        .variant-landscape2 .reveal-button-container {
+            flex-shrink: 0;
+            padding-left: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .variant-landscape2 .reveal-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white; padding: 20px 48px; border-radius: 16px;
+            font-weight: 600; border: none; cursor: pointer;
+            font-size: 1rem; box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
+            font-family: var(--font-heading);
+            white-space: nowrap;
+        }
+
+        /* Landscape Variant 3: Floating Elements */
+        .variant-landscape3 .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 16px; overflow: hidden;
+        }
+
+        .variant-landscape3 .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(249, 250, 251, 0.9) 50%,
+                rgba(243, 244, 246, 0.85) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .variant-landscape3 .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 24px;
+            max-width: 680px;
+            width: 90%;
+            padding: 44px 52px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .variant-landscape3 .completion-indicator {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            grid-column: 1 / 3;
+            grid-row: 1;
+        }
+
+        .variant-landscape3 .completion-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 16px 32px rgba(16, 185, 129, 0.4);
+        }
+
+        .variant-landscape3 .completion-text {
+            flex: 1;
+        }
+
+        .variant-landscape3 .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem; font-weight: 700;
+            color: #1f2937; margin: 0 0 8px 0;
+            line-height: 1.3;
+        }
+
+        .variant-landscape3 .completion-summary {
+            color: #6b7280;
+            font-size: 0.9375rem;
+            margin-bottom: 0;
+        }
+
+        .variant-landscape3 .floating-bubbles {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .variant-landscape3 .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .variant-landscape3 .bubble:nth-child(1) {
+            width: 20px; height: 20px;
+            top: 0; left: 0;
+        }
+
+        .variant-landscape3 .bubble:nth-child(2) {
+            width: 16px; height: 16px;
+            top: 25px; left: 15px;
+        }
+
+        .variant-landscape3 .bubble:nth-child(3) {
+            width: 12px; height: 12px;
+            top: 10px; left: 35px;
+        }
+
+        .variant-landscape3 .reveal-button-container {
+            grid-column: 3;
+            grid-row: 1 / 3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .variant-landscape3 .reveal-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white; padding: 24px 32px; border-radius: 50%;
+            font-weight: 600; border: none; cursor: pointer;
+            font-size: 0.875rem; box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
+            font-family: var(--font-heading);
+            transform: rotate(-15deg);
+            min-width: 100px; min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .variant-landscape1 .gated-overlay-content {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px 24px;
+                text-align: center;
+            }
+
+            .variant-landscape2 .gated-overlay-content {
+                flex-direction: column;
+                gap: 32px;
+                padding: 32px 24px;
+                text-align: center;
+            }
+
+            .variant-landscape2 .completion-indicator {
+                padding-right: 0;
+                padding-bottom: 32px;
+                border-right: none;
+                border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+            }
+
+            .variant-landscape2 .reveal-button-container {
+                padding-left: 0;
+            }
+
+            .variant-landscape3 .gated-overlay-content {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                padding: 32px 24px;
+            }
+
+            .variant-landscape3 .completion-indicator {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .variant-landscape3 .reveal-button-container {
+                grid-column: 1;
+                grid-row: 3;
+                transform: none;
+            }
+
+            .variant-landscape3 .reveal-button {
+                transform: none;
+                border-radius: 16px;
+                padding: 18px 40px;
+                min-width: auto;
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Landscape Glassmorphism Variants</h1>
+        <p>3 Oracle-designed landscape-oriented glassmorphism variants for gated results - utilizing horizontal space while maintaining the 280px height constraint</p>
+    </div>
+
+    <div class="variants-container">
+        <!-- Landscape Variant 1: Classic Horizontal Layout -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Landscape 1: Classic Horizontal Layout</h3>
+                <p class="variant-description">Icon → Title/Summary → Button (left to right flow). Clean horizontal arrangement with intuitive reading pattern. Uses 680px width with elements laid out sequentially for optimal user experience.</p>
+            </div>
+            <div class="validation-demo variant-landscape1">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <p class="completion-summary">2 valid • 2 errors found</p>
+                            </div>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">View Results (4 citations)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Landscape Variant 2: Split Layout -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Landscape 2: Split Layout</h3>
+                <p class="variant-description">Icon/Title centered left, Summary/Button on the right. Asymmetric layout with visual divider between status and action areas. Uses 720px width with clear separation between information and interaction zones.</p>
+            </div>
+            <div class="validation-demo variant-landscape2">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <h3 class="completion-title">Your citation validation is complete</h3>
+                            <p class="completion-summary">2 valid • 2 errors found</p>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">View Results (4 citations)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Landscape Variant 3: Floating Elements -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Landscape 3: Floating Elements</h3>
+                <p class="variant-description">Creative approach with overlapping elements and decorative floating bubbles. Enhanced visual interest with unique styling patterns and grid-based layout. Uses 680px width with circular reveal button and animated elements.</p>
+            </div>
+            <div class="validation-demo variant-landscape3">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="floating-bubbles">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <p class="completion-summary">2 valid • 2 errors found</p>
+                            </div>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">View<br>Results</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 60px; padding: 40px; background: var(--color-background); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);">
+        <p style="margin: 0 0 20px 0; color: var(--color-text-secondary); font-size: 1.1rem;">
+            <strong>💡 Testing in Your Application:</strong>
+        </p>
+        <p style="font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace; background: #f1f5f9; padding: 16px 24px; border-radius: 8px; display: inline-block; margin: 0; font-size: 0.9375rem; line-height: 1.6;">
+            // Usage in GatedResults component<br>
+            &lt;GatedResults variant="landscape1" results={results} onReveal={handleReveal} /&gt;<br>
+            &lt;GatedResults variant="landscape2" results={results} onReveal={handleReveal} /&gt;<br>
+            &lt;GatedResults variant="landscape3" results={results} onReveal={handleReveal} /&gt;
+        </p>
+        <p style="margin: 20px 0 0 0; color: var(--color-text-muted); font-size: 0.875rem;">
+            Each variant uses 600-700px width within the 280px height constraint • Fully responsive • Accessibility supported
+        </p>
+    </div>
+</body>
+</html>

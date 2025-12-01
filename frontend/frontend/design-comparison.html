@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gated Results Design Comparison</title>
+
+    <style>
+        /* Base styles */
+        :root {
+            --font-heading: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --color-text-primary: #1f2937;
+            --color-text-secondary: #6b7280;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--color-text-primary);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .variant-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .variant-title {
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        .variant-description {
+            color: var(--color-text-secondary);
+            font-size: 0.9375rem;
+            margin: 0 0 20px 0;
+            text-align: center;
+            min-height: 60px;
+        }
+
+        .demo-container {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            min-height: 400px;
+        }
+
+        .table-header {
+            padding: 20px 24px 12px 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-header h2 {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-text-primary);
+        }
+
+        .table-content {
+            padding: 16px 24px;
+            opacity: 0.3;
+            filter: blur(8px);
+        }
+
+        .sample-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .sample-row:last-child {
+            border-bottom: none;
+        }
+
+        .citation-number {
+            width: 60px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+        }
+
+        .citation-text {
+            flex: 1;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .validation-status {
+            width: 80px;
+            text-align: right;
+            font-size: 0.875rem;
+        }
+
+        .status-valid {
+            color: #059669;
+            font-weight: 500;
+        }
+
+        .status-error {
+            color: #dc2626;
+            font-weight: 500;
+        }
+    </style>
+
+    <!-- Original Design -->
+    <link rel="stylesheet" href="./src/components/GatedResults.css">
+
+    <!-- Glassmorphism Design -->
+    <style>
+        /* Glassmorphism variant with higher specificity */
+        .variant-glassmorphism .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 12px; overflow: hidden;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .variant-glassmorphism .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(249, 250, 251, 0.9) 50%,
+                rgba(243, 244, 246, 0.85) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .variant-glassmorphism .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            padding: 40px 32px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .variant-glassmorphism .completion-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: bold;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .variant-glassmorphism .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--color-text-primary); margin: 0 0 16px 0;
+        }
+
+        .variant-glassmorphism .results-ready {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white; padding: 8px 20px; border-radius: 25px;
+            font-weight: 600; font-size: 0.875rem;
+            box-shadow: 0 6px 12px rgba(16, 185, 129, 0.25);
+        }
+
+        .variant-glassmorphism .reveal-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white; padding: 18px 40px; border-radius: 16px;
+            font-weight: 600; border: none; cursor: pointer;
+            box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+        }
+    </style>
+
+    <!-- Gradient Design -->
+    <style>
+        .variant-gradient .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 12px; overflow: hidden;
+        }
+
+        .variant-gradient .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                       linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%);
+            backdrop-filter: blur(1px);
+            z-index: 1;
+        }
+
+        .variant-gradient .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 380px;
+            width: 92%;
+            padding: 48px 32px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .variant-gradient .completion-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: 300;
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+        }
+
+        .variant-gradient .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.625rem; font-weight: 300;
+            color: var(--color-text-primary); margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .variant-gradient .reveal-button {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            color: white; padding: 20px 48px; border-radius: 30px;
+            font-weight: 500; border: none; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+
+    <!-- Card Design -->
+    <style>
+        .variant-card .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 12px; overflow: hidden;
+        }
+
+        .variant-card .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.08) 100%),
+                       rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(3px);
+            z-index: 1;
+        }
+
+        .variant-card .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .variant-card .gated-overlay-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669, #047857);
+            z-index: 1;
+        }
+
+        .variant-card .card-content-wrapper {
+            padding: 44px 36px 36px 36px;
+        }
+
+        .variant-card .completion-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; font-weight: 200;
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .variant-card .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.75rem; font-weight: 600;
+            color: #1f2937; margin: 0 0 16px 0;
+            letter-spacing: -0.02em;
+        }
+
+        .variant-card .reveal-button {
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            color: white; padding: 18px 48px; border-radius: 12px;
+            font-weight: 600; border: none; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Gated Results Design Comparison</h1>
+        <p>Three alternative approaches to the gated results overlay design</p>
+    </div>
+
+    <div class="comparison-grid">
+        <!-- Glassmorphism Variant -->
+        <div class="variant-card">
+            <h3 class="variant-title">Glassmorphism</h3>
+            <p class="variant-description">Modern glass effect with enhanced blur, subtle gradients, and refined shadows for a premium feel.</p>
+
+            <div class="demo-container variant-glassmorphism">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content">
+                    <div class="sample-row">
+                        <div class="citation-number">#1</div>
+                        <div class="citation-text">Smith, J. (2023). The impact of AI on academic research...</div>
+                        <div class="validation-status status-valid">Valid</div>
+                    </div>
+                    <div class="sample-row">
+                        <div class="citation-number">#2</div>
+                        <div class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change...</div>
+                        <div class="validation-status status-error">2 errors</div>
+                    </div>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <div class="completion-summary">
+                                    <span class="results-ready">Results Ready</span>
+                                    <span class="results-summary">1 valid • 1 error found</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">View Results (2 citations)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gradient Fade Variant -->
+        <div class="variant-card">
+            <h3 class="variant-title">Gradient Fade</h3>
+            <p class="variant-description">Soft gradient overlay with subtle dot pattern. More transparent background with elegant color transitions.</p>
+
+            <div class="demo-container variant-gradient">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content">
+                    <div class="sample-row">
+                        <div class="citation-number">#1</div>
+                        <div class="citation-text">Smith, J. (2023). The impact of AI on academic research...</div>
+                        <div class="validation-status status-valid">Valid</div>
+                    </div>
+                    <div class="sample-row">
+                        <div class="citation-number">#2</div>
+                        <div class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change...</div>
+                        <div class="validation-status status-error">2 errors</div>
+                    </div>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <div class="completion-summary">
+                                    <span class="results-ready">Results Ready</span>
+                                    <span class="results-summary">1 valid • 1 error found</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">View Results (2 citations)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Card Variant -->
+        <div class="variant-card">
+            <h3 class="variant-title">Premium Card</h3>
+            <p class="variant-description">Elegant card-style design with clean white background, subtle vignette, and premium typography with accent bar.</p>
+
+            <div class="demo-container variant-card">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content">
+                    <div class="sample-row">
+                        <div class="citation-number">#1</div>
+                        <div class="citation-text">Smith, J. (2023). The impact of AI on academic research...</div>
+                        <div class="validation-status status-valid">Valid</div>
+                    </div>
+                    <div class="sample-row">
+                        <div class="citation-number">#2</div>
+                        <div class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change...</div>
+                        <div class="validation-status status-error">2 errors</div>
+                    </div>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="card-content-wrapper">
+                            <div class="completion-indicator">
+                                <div class="completion-icon">✓</div>
+                                <div class="completion-text">
+                                    <h3 class="completion-title">Your citation validation is complete</h3>
+                                    <div class="completion-summary">
+                                        <span class="results-ready">Results Ready</span>
+                                        <span class="results-summary">1 valid • 1 error found</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="reveal-button-container">
+                                <button class="reveal-button">View Results (2 citations)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; color: var(--color-text-secondary);">
+        <p>💡 <strong>To test on your server:</strong></p>
+        <p style="font-family: monospace; background: #f1f5f9; padding: 8px 12px; border-radius: 4px; display: inline-block;">
+            export VITE_GATED_RESULTS_VARIANT=glassmorphism && npm run dev
+        </p>
+    </div>
+</body>
+</html>

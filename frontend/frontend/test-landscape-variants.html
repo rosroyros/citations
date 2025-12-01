@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gated Results Landscape Variants Test</title>
+    <style>
+        body {
+            font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .variant-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .variant-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+
+        .variant-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Validation table container to simulate real environment */
+        .validation-table {
+            position: relative;
+            width: 1036px;
+            height: 280px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        /* Simulated table content (blurred in background) */
+        .simulated-table {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            opacity: 0.8;
+        }
+
+        .simulated-row {
+            height: 30px;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Gated Results Landscape Variants</h1>
+        <p>This page shows 3 landscape-oriented variants of the gated results glassmorphism design.</p>
+
+        <!-- Variant 1: Classic Horizontal -->
+        <div class="variant-section">
+            <h2 class="variant-title">Landscape 1: Classic Horizontal Layout</h2>
+            <p class="variant-description">Icon → Title/Summary → Button (left to right flow). Clean, intuitive horizontal arrangement with elements laid out in reading order.</p>
+
+            <div class="validation-table">
+                <div class="simulated-table">
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                </div>
+
+                <!-- Gated Results Landscape Variant 1 -->
+                <div class="gated-variant-landscape1 gated-results-overlay" data-testid="gated-results">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <div class="completion-summary">
+                                    <span class="results-ready">Validation Complete</span>
+                                    <span class="results-summary">8 valid • 2 errors found</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">
+                                View Results (10 citations)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variant 2: Split Layout -->
+        <div class="variant-section">
+            <h2 class="variant-title">Landscape 2: Split Layout</h2>
+            <p class="variant-description">Icon/Title centered, Summary/Button on the right. Asymmetric layout with clear visual separation between status information and action elements.</p>
+
+            <div class="validation-table">
+                <div class="simulated-table">
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                </div>
+
+                <!-- Gated Results Landscape Variant 2 -->
+                <div class="gated-variant-landscape2 gated-results-overlay" data-testid="gated-results">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                            </div>
+                        </div>
+                        <div class="completion-summary">
+                            <span class="results-ready">Validation Complete</span>
+                            <span class="results-summary">8 valid • 2 errors found</span>
+                            <div class="reveal-button-container">
+                                <button class="reveal-button">
+                                    View Results (10 citations)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Variant 3: Floating Elements -->
+        <div class="variant-section">
+            <h2 class="variant-title">Landscape 3: Floating Elements</h2>
+            <p class="variant-description">Creative approach with overlapping elements and dynamic layout. More playful and visually interesting with floating decorative elements and rotated button.</p>
+
+            <div class="validation-table">
+                <div class="simulated-table">
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                    <div class="simulated-row"></div>
+                </div>
+
+                <!-- Gated Results Landscape Variant 3 -->
+                <div class="gated-variant-landscape3 gated-results-overlay" data-testid="gated-results">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-indicator" data-stats="8 ✓ 2 ✗">
+                            <div class="completion-icon">✓</div>
+                            <div class="completion-text">
+                                <h3 class="completion-title">Your citation validation is complete</h3>
+                                <div class="completion-summary">
+                                    <span class="results-ready">Validation Complete</span>
+                                    <span class="results-summary">8 valid • 2 errors found</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="results-summary-text">
+                            Your citations have been thoroughly checked for accuracy and completeness.
+                            Review the detailed validation results to see any issues that need attention before using these citations in your work.
+                        </div>
+                        <div class="reveal-button-container">
+                            <button class="reveal-button">
+                                View Results
+                                <small>10 citations</small>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import the CSS files -->
+    <link rel="stylesheet" href="./src/components/GatedResults-landscape1.css">
+    <link rel="stylesheet" href="./src/components/GatedResults-landscape2.css">
+    <link rel="stylesheet" href="./src/components/GatedResults-landscape3.css">
+</body>
+</html>

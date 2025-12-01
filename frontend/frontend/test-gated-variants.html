@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gated Results - Live Comparison</title>
+
+    <style>
+        /* Base styles */
+        :root {
+            --font-heading: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --color-text-primary: #1f2937;
+            --color-text-secondary: #6b7280;
+            --color-text-muted: #9ca3af;
+            --color-success: #059669;
+            --color-error: #dc2626;
+            --color-warning: #d97706;
+            --color-border: #e5e7eb;
+            --color-background: #ffffff;
+            --color-background-secondary: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-background-secondary);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: var(--color-background);
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0 0 8px 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .header p {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .variants-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 40px;
+        }
+
+        .variant-section {
+            background: var(--color-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .variant-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-background-secondary);
+        }
+
+        .variant-title {
+            margin: 0 0 4px 0;
+            font-family: var(--font-heading);
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .variant-description {
+            margin: 0;
+            color: var(--color-text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        .validation-demo {
+            position: relative;
+            min-height: 400px;
+        }
+
+        /* Validation Table Styles (Real) */
+        .table-header {
+            padding: 20px 24px 12px 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .table-header h2 {
+            margin: 0;
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--color-text-primary);
+        }
+
+        .validation-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .validation-table th {
+            text-align: left;
+            padding: 12px 24px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-background-secondary);
+        }
+
+        .validation-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: top;
+        }
+
+        .validation-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .citation-number {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 0.875rem;
+            min-width: 60px;
+        }
+
+        .citation-text {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .validation-status {
+            text-align: right;
+            font-size: 0.875rem;
+            min-width: 80px;
+            font-weight: 500;
+        }
+
+        .status-valid {
+            color: var(--color-success);
+        }
+
+        .status-error {
+            color: var(--color-error);
+        }
+
+        /* Gated Results Overlay - Original */
+        .gated-results-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+            border-radius: 12px; overflow: hidden;
+        }
+
+        .variant-original .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        .variant-original .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            padding: 40px 32px;
+            background: var(--color-background);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .completion-icon {
+            width: 64px; height: 64px;
+            background: linear-gradient(135deg, var(--color-success), #047857);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; font-weight: bold;
+            margin: 0 auto 24px auto;
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+        }
+
+        .completion-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem; font-weight: 700;
+            color: var(--color-text-primary); margin: 0 0 16px 0;
+        }
+
+        .completion-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .results-ready {
+            background: linear-gradient(135deg, var(--color-success), #047857);
+            color: white; padding: 8px 20px; border-radius: 25px;
+            font-weight: 600; font-size: 0.875rem;
+            box-shadow: 0 6px 12px rgba(5, 150, 105, 0.25);
+        }
+
+        .results-summary {
+            color: var(--color-text-secondary);
+            font-size: 0.9375rem;
+        }
+
+        .reveal-button {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed, #6d28d9);
+            color: white; padding: 18px 40px; border-radius: 16px;
+            font-weight: 600; border: none; cursor: pointer;
+            font-size: 1rem; box-shadow: 0 12px 28px rgba(139, 92, 246, 0.4);
+            transition: all 0.2s ease;
+        }
+
+        .reveal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(139, 92, 246, 0.5);
+        }
+
+        .table-content-blurred {
+            filter: blur(8px);
+            opacity: 0.3;
+            transition: filter 0.3s ease-out;
+        }
+
+        /* Glassmorphism Variant */
+        .variant-glassmorphism .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.95) 0%,
+                rgba(249, 250, 251, 0.9) 50%,
+                rgba(243, 244, 246, 0.85) 100%
+            );
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1;
+        }
+
+        .variant-glassmorphism .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            padding: 40px 32px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Gradient Variant */
+        .variant-gradient .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                       radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                       linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.95) 100%);
+            backdrop-filter: blur(1px);
+            z-index: 1;
+        }
+
+        .variant-gradient .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 380px;
+            width: 92%;
+            padding: 48px 32px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .variant-gradient .completion-icon {
+            width: 72px; height: 72px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white; border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 36px; font-weight: 300;
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+            margin: 0 auto 24px auto;
+        }
+
+        .variant-gradient .reveal-button {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            color: white; padding: 20px 48px; border-radius: 30px;
+            font-weight: 500; border: none; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Card Variant */
+        .variant-card .gated-overlay-backdrop {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.08) 100%),
+                       rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(3px);
+            z-index: 1;
+        }
+
+        .variant-card .gated-overlay-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .variant-card .gated-overlay-content::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #10b981, #059669, #047857);
+            z-index: 1;
+        }
+
+        .variant-card .card-content-wrapper {
+            padding: 44px 36px 36px 36px;
+        }
+
+        .variant-card .completion-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 40px; font-weight: 200;
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+            margin: 0 auto 24px auto;
+        }
+
+        .variant-card .reveal-button {
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
+            color: white; padding: 18px 48px; border-radius: 12px;
+            font-weight: 600; border: none; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Gated Results Live Comparison</h1>
+        <p>Four variants with real validation tables - see how each design looks in context</p>
+    </div>
+
+    <div class="variants-container">
+        <!-- Original Variant -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Original Design</h3>
+                <p class="variant-description">Semi-opaque overlay with 2px backdrop blur and clean white content card</p>
+            </div>
+            <div class="validation-demo variant-original">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-icon">✓</div>
+                        <h3 class="completion-title">Your citation validation is complete</h3>
+                        <div class="completion-summary">
+                            <span class="results-ready">Results Ready</span>
+                            <span class="results-summary">2 valid • 2 errors found</span>
+                        </div>
+                        <button class="reveal-button">View Results (4 citations)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glassmorphism Variant -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Glassmorphism</h3>
+                <p class="variant-description">Modern glass effect with enhanced blur (12px), subtle gradients, and refined shadows for a premium feel</p>
+            </div>
+            <div class="validation-demo variant-glassmorphism">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-icon">✓</div>
+                        <h3 class="completion-title">Your citation validation is complete</h3>
+                        <div class="completion-summary">
+                            <span class="results-ready">Results Ready</span>
+                            <span class="results-summary">2 valid • 2 errors found</span>
+                        </div>
+                        <button class="reveal-button">View Results (4 citations)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gradient Variant -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Gradient Fade</h3>
+                <p class="variant-description">Soft gradient overlay with subtle color transitions. More transparent background with elegant purple/green tones</p>
+            </div>
+            <div class="validation-demo variant-gradient">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="completion-icon">✓</div>
+                        <h3 class="completion-title">Your citation validation is complete</h3>
+                        <div class="completion-summary">
+                            <span class="results-ready">Results Ready</span>
+                            <span class="results-summary">2 valid • 2 errors found</span>
+                        </div>
+                        <button class="reveal-button">View Results (4 citations)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Premium Card Variant -->
+        <div class="variant-section">
+            <div class="variant-header">
+                <h3 class="variant-title">Premium Card</h3>
+                <p class="variant-description">Elegant card-style design with clean white background, subtle vignette, and premium typography with green accent bar</p>
+            </div>
+            <div class="validation-demo variant-card">
+                <div class="table-header">
+                    <h2>Validation Results</h2>
+                </div>
+                <div class="table-content-blurred">
+                    <table class="validation-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Citation</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="citation-number">#1</td>
+                                <td class="citation-text">Smith, J. (2023). The impact of AI on academic research methodologies in higher education institutions. <em>Journal of Educational Technology</em>, 45(3), 234-251.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#2</td>
+                                <td class="citation-text">Johnson, M.B. & Williams, K. (2022). Climate change effects on coastal ecosystems: A comprehensive analysis. <em>Environmental Science Quarterly</em>, 78(4), 567-589.</td>
+                                <td class="validation-status status-error">2 errors</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#3</td>
+                                <td class="citation-text">Anderson, L. (2024). Machine learning applications in healthcare: A systematic review. <em>Medical AI Journal</em>, 12(1), 89-112.</td>
+                                <td class="validation-status status-valid">Valid</td>
+                            </tr>
+                            <tr>
+                                <td class="citation-number">#4</td>
+                                <td class="citation-text">Thompson, R.K., Davis, S., & Martinez, C. (2023). Quantum computing advancements in cryptographic systems. <em>International Journal of Information Security</em>, 34(2), 145-167.</td>
+                                <td class="validation-status status-warning">1 warning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="gated-results-overlay">
+                    <div class="gated-overlay-backdrop"></div>
+                    <div class="gated-overlay-content">
+                        <div class="card-content-wrapper">
+                            <div class="completion-icon">✓</div>
+                            <h3 class="completion-title">Your citation validation is complete</h3>
+                            <div class="completion-summary">
+                                <span class="results-ready">Results Ready</span>
+                                <span class="results-summary">2 valid • 2 errors found</span>
+                            </div>
+                            <button class="reveal-button">View Results (4 citations)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding: 32px; background: var(--color-background); border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+        <p style="margin: 0 0 16px 0; color: var(--color-text-secondary);">
+            <strong>💡 Live testing on your server:</strong>
+        </p>
+        <p style="font-family: monospace; background: #f1f5f9; padding: 8px 12px; border-radius: 4px; display: inline-block; margin: 0;">
+            export VITE_GATED_RESULTS_VARIANT=glassmorphism && npm run dev
+        </p>
+    </div>
+</body>
+</html>
