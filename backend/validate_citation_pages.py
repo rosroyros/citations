@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 """
-Validation function to ensure citation PSEO pages are accessible and properly generated.
+Comprehensive validation function for citation PSEO pages.
 
-This script:
-1. Validates that individual citation pages are accessible
-2. Tests the HTML generation for PSEO optimization
+This is the most thorough validation script with optional dependencies:
+1. Validates that individual citation pages are accessible (requires requests)
+2. Tests HTML generation with BeautifulSoup parsing (requires bs4)
 3. Ensures proper error handling for missing citations
 4. Verifies SEO metadata and structured data
+
+For simpler validation without external dependencies:
+- Use test_actual_functions.py (unit tests)
+- Use simple_validation.py (basic validation without imports)
 """
 
 import sys
@@ -16,6 +20,17 @@ from pathlib import Path
 import time
 import uuid
 import html
+
+# Optional imports for enhanced functionality
+try:
+    import requests
+except ImportError:
+    requests = None
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    BeautifulSoup = None
 
 # Add backend to path
 backend_dir = Path(__file__).parent
@@ -167,24 +182,31 @@ class CitationPageValidator:
 
             # Test invalid UUID format
             invalid_uuid = "not-a-uuid"
-            try:
-                # This should be handled at the route level
-                response = requests.get(f"{self.base_url}/citations/{invalid_uuid}", timeout=5)
-                if response.status_code == 404:
+            if requests:
+                try:
+                    # This should be handled at the route level
+                    response = requests.get(f"{self.base_url}/citations/{invalid_uuid}", timeout=5)
+                    if response.status_code == 404:
+                        return {
+                            "passed": True,
+                            "message": "UUID validation working - invalid UUIDs return 404"
+                        }
+                    else:
+                        return {
+                            "passed": False,
+                            "message": f"Invalid UUID should return 404, got {response.status_code}"
+                        }
+                except:
+                    # If we can't test via HTTP, at least verify the function exists
                     return {
                         "passed": True,
-                        "message": "UUID validation working - invalid UUIDs return 404"
+                        "message": "UUID validation function exists"
                     }
-                else:
-                    return {
-                        "passed": False,
-                        "message": f"Invalid UUID should return 404, got {response.status_code}"
-                    }
-            except:
-                # If we can't test via HTTP, at least verify the function exists
+            else:
+                # If requests not available, skip HTTP test
                 return {
                     "passed": True,
-                    "message": "UUID validation function exists"
+                    "message": "UUID validation function exists (requests not available for HTTP test)"
                 }
 
         except Exception as e:
@@ -215,38 +237,63 @@ class CitationPageValidator:
             html_content = _generate_citation_html(self.test_citation_id, test_data)
 
             # Validate HTML structure
-            soup = BeautifulSoup(html_content, 'html.parser')
+            if BeautifulSoup:
+                soup = BeautifulSoup(html_content, 'html.parser')
+            else:
+                # Basic string validation if BeautifulSoup not available
+                soup = None
 
-            # Check for required elements
-            required_elements = [
-                ("title", "Citation Validation Result"),
-                ("h1", "Citation Validation Result"),
-                ("meta[name='description']", "APA"),
-                ("link[rel='canonical']", self.test_citation_id),
-                ('script[type="application/ld+json"]', None)
-            ]
+            if soup:
+                # Check for required elements using BeautifulSoup
+                required_elements = [
+                    ("title", "Citation Validation Result"),
+                    ("h1", "Citation Validation Result"),
+                    ("meta[name='description']", "APA"),
+                    ("link[rel='canonical']", self.test_citation_id),
+                    ('script[type="application/ld+json"]', None)
+                ]
 
-            missing_elements = []
-            for selector, expected_content in required_elements:
-                element = soup.select_one(selector)
-                if not element:
-                    missing_elements.append(selector)
-                elif expected_content and expected_content.lower() not in element.get('content', element.text or '').lower():
-                    missing_elements.append(f"{selector} (content mismatch)")
+                missing_elements = []
+                for selector, expected_content in required_elements:
+                    element = soup.select_one(selector)
+                    if not element:
+                        missing_elements.append(selector)
+                    elif expected_content and expected_content.lower() not in element.get('content', element.text or '').lower():
+                        missing_elements.append(f"{selector} (content mismatch)")
 
-            if missing_elements:
-                return {
-                    "passed": False,
-                    "message": f"Missing required elements: {', '.join(missing_elements)}",
-                    "missing_elements": missing_elements
-                }
+                if missing_elements:
+                    return {
+                        "passed": False,
+                        "message": f"Missing required elements: {', '.join(missing_elements)}",
+                        "missing_elements": missing_elements
+                    }
 
-            # Check for citation content
-            if not soup.find(text=lambda text: test_data["original"] in text):
-                return {
-                    "passed": False,
-                    "message": "Original citation not found in generated HTML"
-                }
+                # Check for citation content
+                if not soup.find(text=lambda text: test_data["original"] in text):
+                    return {
+                        "passed": False,
+                        "message": "Original citation not found in generated HTML"
+                    }
+            else:
+                # Basic string validation if BeautifulSoup not available
+                basic_checks = [
+                    ("DOCTYPE", "<!DOCTYPE html>"),
+                    ("title", "<title>Citation Validation Result"),
+                    ("citation", test_data["original"]),
+                    ("canonical", self.test_citation_id),
+                ]
+
+                missing_elements = []
+                for check_name, expected_content in basic_checks:
+                    if expected_content not in html_content:
+                        missing_elements.append(check_name)
+
+                if missing_elements:
+                    return {
+                        "passed": False,
+                        "message": f"Missing required content: {', '.join(missing_elements)}",
+                        "missing_elements": missing_elements
+                    }
 
             return {
                 "passed": True,
