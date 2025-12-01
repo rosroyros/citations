@@ -278,9 +278,9 @@ def test_reset_functionality():
             os.unlink(pos_file)
 
 
-def test_multiple_rapid_rotations():
-    """Test handling of multiple rapid rotations."""
-    print("\nTesting multiple rapid rotations...")
+def test_log_rotation_handling():
+    """Test handling of log rotation detection and processing."""
+    print("\nTesting log rotation handling...")
 
     # Create initial log content
     initial_content = """2025-12-01 19:00:00 Creating async job feedface-abc-def-123 for free user
@@ -338,7 +338,7 @@ if __name__ == "__main__":
     all_passed &= test_empty_file()
     all_passed &= test_position_persistence()
     all_passed &= test_reset_functionality()
-    all_passed &= test_multiple_rapid_rotations()
+    all_passed &= test_log_rotation_handling()
 
     print(f"\n{'='*50}")
     if all_passed:
