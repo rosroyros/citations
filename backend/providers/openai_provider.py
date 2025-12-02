@@ -75,9 +75,19 @@ class OpenAIProvider(CitationValidator):
         max_retries = 3
         retry_delay = 2  # Initial delay in seconds
 
+        # Estimate request size for debugging
+        request_size_chars = sum(len(m.get("content", "")) for m in completion_kwargs.get("messages", []))
+
         for attempt in range(max_retries):
+            attempt_start = time.time()
+            configured_timeout = completion_kwargs.get("timeout")
+
+            logger.info(f"Attempt {attempt + 1}/{max_retries}: Calling OpenAI (timeout={configured_timeout}s, model={self.model}, size={request_size_chars} chars)")
+
             try:
                 response = await self.client.chat.completions.create(**completion_kwargs)
+                attempt_duration = time.time() - attempt_start
+                logger.info(f"Attempt {attempt + 1}/{max_retries}: Success in {attempt_duration:.3f}s")
                 break  # Success, exit retry loop
 
             except AuthenticationError as e:
@@ -85,11 +95,18 @@ class OpenAIProvider(CitationValidator):
                 raise ValueError("Invalid OpenAI API key. Please check your configuration.") from e
 
             except (APITimeoutError, RateLimitError) as e:
+                attempt_duration = time.time() - attempt_start
+                error_type = "timeout" if isinstance(e, APITimeoutError) else "rate_limit"
+                
+                logger.warning(
+                    f"Attempt {attempt + 1}/{max_retries}: Failed with {error_type} after {attempt_duration:.3f}s "
+                    f"(Configured timeout: {configured_timeout}s)"
+                )
+                
                 if await self._handle_retry_error(e, attempt, max_retries, retry_delay):
                     continue  # Retry attempted
                 else:
                     # Max retries exceeded
-                    error_type = "timeout" if isinstance(e, APITimeoutError) else "rate limit"
                     raise ValueError(f"Request failed after multiple retries due to {error_type} errors. Please try again later.") from e
 
             except APIError as e:
