@@ -230,6 +230,34 @@ def sanitize_text(text: str, max_length: int) -> tuple[str, bool]:
     return text, was_truncated
 
 
+def extract_gating_decision(log_line: str) -> Optional[tuple]:
+    """
+    Extract gating decision information from a log line.
+
+    Args:
+        log_line: The log line to extract gating decision info from
+
+    Returns:
+        tuple of (job_id, results_gated, reason) if found, None otherwise
+    """
+    # Pattern matches: GATING_DECISION: job_id=abc-123 user_type=free results_gated=True reason='Free tier limit reached'
+    # Also handles unquoted reasons: GATING_DECISION: job_id=abc-123 user_type=free results_gated=True reason=Free limit
+    gating_pattern = r'GATING_DECISION: job_id=([a-f0-9-]+) user_type=\w+ results_gated=(True|False) reason=\'?([^\']*)\'?'
+    match = re.search(gating_pattern, log_line)
+
+    if match:
+        job_id = match.group(1)
+        results_gated_str = match.group(2).lower()
+        reason = match.group(3)
+
+        # Convert string to boolean
+        results_gated = results_gated_str == 'true'
+
+        return job_id, results_gated, reason
+
+    return None
+
+
 def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
     """
     Extract citation preview text from a log line.
@@ -335,6 +363,17 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["status"] = "failed"
                 jobs[job_id]["error_message"] = error_message
                 jobs[job_id]["completed_at"] = timestamp
+            continue
+
+        # Check for gating decision
+        gating_result = extract_gating_decision(line)
+        if gating_result:
+            job_id, results_gated, reason = gating_result
+            if job_id in jobs:
+                jobs[job_id]["results_gated"] = results_gated
+                # Note: results_revealed_at and gated_outcome would be handled by separate log entries
+                # For now, we only capture the initial gating decision
+            continue
 
     return jobs
 

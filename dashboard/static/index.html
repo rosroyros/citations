@@ -541,6 +541,43 @@
             font-weight: 700;
         }
 
+        /* Gating status styles */
+        .revealed-yes {
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-success-border);
+            display: inline-block;
+        }
+
+        .revealed-gated {
+            background: var(--color-warning-bg);
+            color: var(--color-warning);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-warning-border);
+            display: inline-block;
+        }
+
+        .revealed-free {
+            background: var(--color-info-bg);
+            color: var(--color-info);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-info-border);
+            display: inline-block;
+        }
+
         /* Duration styling with enhanced slow warning */
         .duration-slow {
             color: var(--color-warning);
@@ -1256,11 +1293,12 @@
                         <th onclick="sortTable('token_usage')">Tokens</th>
                         <th onclick="sortTable('user_type')">User</th>
                         <th onclick="sortTable('status')">Status</th>
+                        <th onclick="sortTable('revealed')">Revealed</th>
                     </tr>
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="7" class="loading">Loading data...</td>
+                        <td colspan="8" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1431,7 +1469,7 @@
             const tbody = document.getElementById('validationsTable');
 
             if (validations.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">No validations found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No validations found</td></tr>';
                 return;
             }
 
@@ -1442,6 +1480,23 @@
                 const tokens = validation.token_usage_total ? validation.token_usage_total.toLocaleString() : '-';
                 const durationClass = validation.duration_seconds > 30 ? 'duration-slow' : '';
 
+                // Determine revealed status
+                let revealedStatus = '-';
+                let revealedClass = '';
+
+                if (validation.results_gated === true) {
+                    if (validation.results_revealed_at) {
+                        revealedStatus = '✅ Revealed';
+                        revealedClass = 'revealed-yes';
+                    } else {
+                        revealedStatus = '🔒 Gated';
+                        revealedClass = 'revealed-gated';
+                    }
+                } else if (validation.results_gated === false) {
+                    revealedStatus = '⚡ Free';
+                    revealedClass = 'revealed-free';
+                }
+
                 return `
                     <tr>
                         <td><span class="job-id" onclick="toggleJobDetails('${validation.job_id}')">${validation.job_id.substring(0, 8)}</span></td>
@@ -1451,9 +1506,10 @@
                         <td>${tokens}</td>
                         <td>${validation.user_type}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
+                        <td><span class="${revealedClass}">${revealedStatus}</span></td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="7">
+                        <td colspan="8">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>
@@ -1625,6 +1681,22 @@
                             <span class="detail-label">User Type:</span>
                             <span class="detail-value">${validation.user_type}</span>
                         </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Results Gated:</span>
+                            <span class="detail-value">
+                                ${validation.results_gated === true ?
+                                    (validation.results_revealed_at ?
+                                        `Yes (revealed at ${new Date(validation.results_revealed_at).toLocaleString()})` :
+                                        'Yes (not revealed)') :
+                                    'No'}
+                            </span>
+                        </div>
+                        ${validation.gated_outcome ? `
+                        <div class="detail-row">
+                            <span class="detail-label">Gated Outcome:</span>
+                            <span class="detail-value">${validation.gated_outcome}</span>
+                        </div>
+                        ` : ''}
                         <div class="detail-row">
                             <span class="detail-label">Status:</span>
                             <span class="detail-value">${validation.status}</span>

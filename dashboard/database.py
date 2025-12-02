@@ -54,7 +54,10 @@ class DatabaseManager:
                 token_usage_total INTEGER,
                 user_type TEXT NOT NULL,
                 status TEXT NOT NULL,
-                error_message TEXT
+                error_message TEXT,
+                results_gated BOOLEAN,
+                results_revealed_at TEXT,
+                gated_outcome TEXT
             )
         """)
 
