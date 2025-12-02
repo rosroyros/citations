@@ -222,6 +222,20 @@ class HealthResponse(BaseModel):
     total_records: int
 
 
+class CitationResponse(BaseModel):
+    """Citation response model"""
+    job_id: str
+    citation_text: str
+    created_at: str
+
+
+class CitationsListResponse(BaseModel):
+    """List of citations for a job"""
+    job_id: str
+    citations: List[CitationResponse]
+    total: int
+
+
 class ValidationError(BaseModel):
     """Parser error response model"""
     id: int
@@ -362,6 +376,50 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get validation: {str(e)}")
+
+
+@app.get("/api/validations/{job_id}/citations", response_model=CitationsListResponse)
+async def get_job_citations(job_id: str, database: DatabaseManager = Depends(get_db)):
+    """
+    Get citations for a specific validation job
+
+    Returns all citations that were processed for this validation job from the
+    citations_dashboard table.
+
+    Path Parameters:
+    - job_id: The unique identifier for the validation job
+    """
+    try:
+        conn = database.conn
+        cursor = conn.cursor()
+
+        # Fetch citations for this job
+        cursor.execute("""
+            SELECT job_id, citation_text, created_at
+            FROM citations_dashboard
+            WHERE job_id = ?
+            ORDER BY id ASC
+        """, (job_id,))
+
+        rows = cursor.fetchall()
+
+        citations = [
+            CitationResponse(
+                job_id=row[0],
+                citation_text=row[1],
+                created_at=row[2]
+            )
+            for row in rows
+        ]
+
+        return CitationsListResponse(
+            job_id=job_id,
+            citations=citations,
+            total=len(citations)
+        )
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get citations: {str(e)}")
 
 
 @app.get("/api/validations", response_model=ValidationsListResponse)
