@@ -2,7 +2,7 @@ import re
 import os
 import logging
 from datetime import datetime
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Tuple
 import gzip
 
 
@@ -230,7 +230,7 @@ def sanitize_text(text: str, max_length: int) -> tuple[str, bool]:
     return text, was_truncated
 
 
-def extract_gating_decision(log_line: str) -> Optional[tuple]:
+def extract_gating_decision(log_line: str) -> Optional[Tuple[str, bool, str]]:
     """
     Extract gating decision information from a log line.
 
@@ -254,6 +254,28 @@ def extract_gating_decision(log_line: str) -> Optional[tuple]:
         results_gated = results_gated_str == 'true'
 
         return job_id, results_gated, reason
+
+    return None
+
+
+def extract_reveal_event(log_line: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract reveal event information from a log line.
+
+    Args:
+        log_line: The log line to extract reveal event info from
+
+    Returns:
+        tuple of (job_id, outcome) if found, None otherwise
+    """
+    # Pattern matches: REVEAL_EVENT: job_id=abc-123 outcome=revealed
+    reveal_pattern = r'REVEAL_EVENT: job_id=([a-f0-9-]+) outcome=(\w+)'
+    match = re.search(reveal_pattern, log_line)
+
+    if match:
+        job_id = match.group(1)
+        outcome = match.group(2)
+        return job_id, outcome
 
     return None
 
@@ -371,8 +393,18 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
             job_id, results_gated, reason = gating_result
             if job_id in jobs:
                 jobs[job_id]["results_gated"] = results_gated
-                # Note: results_revealed_at and gated_outcome would be handled by separate log entries
-                # For now, we only capture the initial gating decision
+            continue
+
+        # Check for reveal event
+        reveal_result = extract_reveal_event(line)
+        if reveal_result:
+            job_id, outcome = reveal_result
+            if job_id in jobs:
+                # Extract timestamp from beginning of line for reveal time
+                timestamp = extract_timestamp(line)
+                if timestamp:
+                    jobs[job_id]["results_revealed_at"] = timestamp.isoformat() + 'Z'
+                jobs[job_id]["gated_outcome"] = outcome
             continue
 
     return jobs

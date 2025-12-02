@@ -28,16 +28,26 @@ def add_gating_columns(db_path: str):
 
         print(f"Current columns in validations table: {columns}")
 
-        # Add missing columns
+        # Add missing columns - validated against expected column names
         columns_to_add = [
             ("results_gated", "BOOLEAN"),
             ("results_revealed_at", "TEXT"),
             ("gated_outcome", "TEXT")
         ]
 
+        # Validate column names to prevent injection
+        valid_column_names = {"results_gated", "results_revealed_at", "gated_outcome"}
+        valid_column_types = {"BOOLEAN", "TEXT", "INTEGER", "REAL"}
+
         added_columns = []
         for col_name, col_type in columns_to_add:
             if col_name not in columns:
+                # Security validation
+                if col_name not in valid_column_names:
+                    raise ValueError(f"Invalid column name: {col_name}")
+                if col_type not in valid_column_types:
+                    raise ValueError(f"Invalid column type: {col_type}")
+
                 print(f"Adding column: {col_name}")
                 cursor.execute(f"ALTER TABLE validations ADD COLUMN {col_name} {col_type}")
                 added_columns.append(col_name)
