@@ -21,10 +21,10 @@ import json
 class TestCitationsFieldValidationResponse:
     """Test ValidationResponse model with citations field"""
 
-    def test_validation_response_includes_citations_when_present(self):
-        """Test that ValidationResponse includes citations field when citations are provided"""
+    def test_validation_response_citations_always_none(self):
+        """Test that ValidationResponse citations field is always None after citations_text removal"""
         validation_data = {
-            "job_id": "test-with-citations",
+            "job_id": "test-after-removal",
             "created_at": "2025-01-28T10:00:00Z",
             "completed_at": "2025-01-28T10:05:00Z",
             "duration_seconds": 300.0,
@@ -34,23 +34,18 @@ class TestCitationsFieldValidationResponse:
             "token_usage_total": 150,
             "user_type": "free",
             "status": "completed",
-            "error_message": None,
-            "citations": "1. Smith et al. (2023). Machine Learning in Citation Analysis. Journal of AI Research, 45(2), 123-145.\n\n2. Johnson, B. (2022). Automated Citation Validation. Proceedings of NLP Conference, pp. 78-92."
+            "error_message": None
         }
 
         response = ValidationResponse(**validation_data)
 
-        assert response.citations is not None, "citations field should not be None when provided"
-        assert "Smith et al." in response.citations, "citations should contain first citation"
-        assert "Johnson, B." in response.citations, "citations should contain second citation"
-        assert "2023" in response.citations, "citations should contain first citation year"
-        assert "2022" in response.citations, "citations should contain second citation year"
-        assert response.citation_count == 2, "citation_count should match number of citations"
+        assert response.citations is None, "citations field should be None after citations_text column removal"
+        assert response.citation_count == 2, "citation_count should still work"
 
-    def test_validation_response_handles_empty_citations(self):
+    def test_validation_response_handles_none_citations(self):
         """Test that citations field is None when citations are not provided"""
         validation_data = {
-            "job_id": "test-empty-citations",
+            "job_id": "test-none-citations",
             "created_at": "2025-01-28T11:00:00Z",
             "completed_at": None,
             "duration_seconds": None,
@@ -60,46 +55,42 @@ class TestCitationsFieldValidationResponse:
             "token_usage_total": None,
             "user_type": "paid",
             "status": "pending",
-            "error_message": "Processing...",
-            "citations": None
+            "error_message": "Processing..."
         }
 
         response = ValidationResponse(**validation_data)
 
-        assert response.citations is None, "citations field should be None when not provided"
-        assert response.job_id == "test-empty-citations", "other fields should still work"
+        assert response.citations is None, "citations field should be None after citations_text removal"
+        assert response.job_id == "test-none-citations", "other fields should still work"
 
-    def test_validation_response_handles_empty_string_citations(self):
-        """Test that citations field handles empty string correctly"""
+    def test_validation_response_handles_none_after_removal(self):
+        """Test that citations field is always None after citations_text removal"""
         validation_data = {
-            "job_id": "test-empty-string",
+            "job_id": "test-after-removal-2",
             "created_at": "2025-01-28T12:00:00Z",
             "user_type": "free",
-            "status": "completed",
-            "citations": ""  # Empty string
+            "status": "completed"
         }
 
         response = ValidationResponse(**validation_data)
 
-        assert response.citations == "", "citations field should handle empty string"
-        assert isinstance(response.citations, str), "citations should be string type"
+        assert response.citations is None, "citations field should be None after citations_text column removal"
 
     def test_validation_response_serializes_citations_to_json(self):
-        """Test that citations field properly serializes to JSON"""
+        """Test that citations field properly serializes to JSON with None value"""
         validation_data = {
             "job_id": "test-serialization",
             "created_at": "2025-01-28T13:00:00Z",
             "user_type": "free",
-            "status": "completed",
-            "citations": "Test Citation (2024). Test Journal, 10(1), 1-10."
+            "status": "completed"
         }
 
         response = ValidationResponse(**validation_data)
         json_data = response.model_dump()
 
         assert "citations" in json_data, "citations should be in serialized JSON"
-        assert json_data["citations"] == "Test Citation (2024). Test Journal, 10(1), 1-10.", "citations value should match"
-        assert "citations_text" not in json_data, "citations_text should not be in JSON (alias should not leak)"
+        assert json_data["citations"] is None, "citations should be None after citations_text removal"
+        assert "citations_text" not in json_data, "citations_text should not be in JSON (column removed)"
 
     def test_validation_response_model_schema_includes_citations(self):
         """Test that ValidationResponse model schema includes citations field"""
@@ -144,12 +135,12 @@ class TestCitationsFieldSecurity:
 class TestCitationsFieldDatabaseIntegration:
     """Test citations field database integration"""
 
-    def test_database_integration_with_citations(self):
-        """Test that database operations handle citations_text field correctly"""
+    def test_database_integration_after_citations_text_removal(self):
+        """Test that database operations work correctly after citations_text removal"""
         with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as tmp:
             try:
                 with DatabaseManager(tmp.name) as db:
-                    # Insert test data with citations_text
+                    # Insert test data without citations_text
                     test_validation = {
                         "job_id": "test-db-integration",
                         "created_at": "2025-01-28T21:00:00Z",
@@ -161,8 +152,7 @@ class TestCitationsFieldDatabaseIntegration:
                         "token_usage_total": 150,
                         "user_type": "free",
                         "status": "completed",
-                        "error_message": None,
-                        "citations_text": "1. Database Test (2023). Integration Journal.\n\n2. Another Test (2024). System Analysis."
+                        "error_message": None
                     }
 
                     db.insert_validation(test_validation)
@@ -170,15 +160,15 @@ class TestCitationsFieldDatabaseIntegration:
                     # Test retrieving validation
                     retrieved = db.get_validation("test-db-integration")
                     assert retrieved is not None, "Validation should be retrievable"
-                    assert retrieved["citations_text"] == test_validation["citations_text"], "citations_text should match"
+                    assert "citations_text" not in retrieved, "citations_text should not be present after removal"
 
-                    # Test API response generation with field mapping
+                    # Test API response generation with citations as None
                     validation_data = {
                         **retrieved,
-                        "citations": retrieved.get("citations_text")  # Map citations_text -> citations
+                        "citations": None  # citations_text column has been removed
                     }
                     response = ValidationResponse(**validation_data)
-                    assert response.citations == test_validation["citations_text"], "API response should have citations"
+                    assert response.citations is None, "API response should have citations as None"
 
             finally:
                 os.unlink(tmp.name)

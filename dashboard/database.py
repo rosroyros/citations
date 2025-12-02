@@ -54,8 +54,7 @@ class DatabaseManager:
                 token_usage_total INTEGER,
                 user_type TEXT NOT NULL,
                 status TEXT NOT NULL,
-                error_message TEXT,
-                citations_text TEXT
+                error_message TEXT
             )
         """)
 
@@ -90,20 +89,7 @@ class DatabaseManager:
         if 'validation_status' in columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_validation_status ON validations(validation_status)")
 
-        # Add citations_text column to existing tables (migration)
-        cursor.execute("PRAGMA table_info(validations)")
-        columns = [col[1] for col in cursor.fetchall()]
-        if 'citations_text' not in columns:
-            cursor.execute("ALTER TABLE validations ADD COLUMN citations_text TEXT")
-            print("Added citations_text column to validations table")
-
-        # Create partial index for performance optimization on citations_text
-        cursor.execute("""
-            CREATE INDEX IF NOT EXISTS idx_citations_text
-            ON validations(citations_text)
-            WHERE citations_text IS NOT NULL AND length(citations_text) > 0
-        """)
-
+  
         self.conn.commit()
 
     def get_table_schema(self, table_name: str) -> List[str]:
@@ -180,8 +166,8 @@ class DatabaseManager:
                 INSERT OR REPLACE INTO validations (
                     job_id, created_at, completed_at, duration_seconds,
                     citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, status, validation_status, error_message, citations_text
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    token_usage_total, user_type, status, validation_status, error_message
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 validation_data["job_id"],
                 validation_data["created_at"],
@@ -194,8 +180,7 @@ class DatabaseManager:
                 validation_data["user_type"],
                 validation_data["status"],
                 validation_data["status"],  # Keep both in sync
-                validation_data.get("error_message"),
-                validation_data.get("citations_text")
+                validation_data.get("error_message")
             ))
         elif has_validation_status:
             # Only validation_status exists (old schema)
@@ -203,8 +188,8 @@ class DatabaseManager:
                 INSERT OR REPLACE INTO validations (
                     job_id, created_at, completed_at, duration_seconds,
                     citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, validation_status, error_message, citations_text
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    token_usage_total, user_type, validation_status, error_message
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 validation_data["job_id"],
                 validation_data["created_at"],
@@ -216,8 +201,7 @@ class DatabaseManager:
                 validation_data.get("token_usage_total"),
                 validation_data["user_type"],
                 validation_data["status"],  # Map status to validation_status
-                validation_data.get("error_message"),
-                validation_data.get("citations_text")
+                validation_data.get("error_message")
             ))
         else:
             # Only status exists (new schema)
@@ -225,8 +209,8 @@ class DatabaseManager:
                 INSERT OR REPLACE INTO validations (
                     job_id, created_at, completed_at, duration_seconds,
                     citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, status, error_message, citations_text
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    token_usage_total, user_type, status, error_message
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 validation_data["job_id"],
                 validation_data["created_at"],
@@ -238,8 +222,7 @@ class DatabaseManager:
                 validation_data.get("token_usage_total"),
                 validation_data["user_type"],
                 validation_data["status"],
-                validation_data.get("error_message"),
-                validation_data.get("citations_text")
+                validation_data.get("error_message")
             ))
 
         self.conn.commit()

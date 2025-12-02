@@ -120,7 +120,7 @@ def validate_user_type(user_type: Optional[str]) -> None:
 
 def validate_order_by(order_by: str) -> None:
     """Validate order_by parameter"""
-    valid_columns = ['created_at', 'completed_at', 'duration_seconds', 'citation_count', 'job_id', 'citations_text']
+    valid_columns = ['created_at', 'completed_at', 'duration_seconds', 'citation_count', 'job_id']
     if order_by not in valid_columns:
         raise HTTPException(status_code=400, detail=f"order_by must be one of: {', '.join(valid_columns)}")
 
@@ -360,7 +360,7 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
         # Map database column names to API field names
         validation_data = {
             **validation,
-            "citations": validation.get("citations_text")  # Map citations_text -> citations
+            "citations": None  # citations_text column has been removed
         }
         return ValidationResponse(**validation_data)
     except HTTPException:
@@ -435,7 +435,7 @@ async def get_validations(
         for validation in validations:
             validation_data = {
                 **validation,
-                "citations": validation.get("citations_text")  # Map citations_text -> citations
+                "citations": None  # citations_text column has been removed
             }
             validation_responses.append(ValidationResponse(**validation_data))
 
