@@ -7,8 +7,8 @@ import logging
 from datetime import datetime, timedelta
 from typing import List, Dict
 
-from dashboard.database import DatabaseManager
-from dashboard.log_parser import parse_logs
+from database import DatabaseManager
+from log_parser import parse_logs
 
 logger = logging.getLogger(__name__)
 
@@ -72,39 +72,16 @@ class CronLogParser:
         """
         for job in parsed_jobs:
             try:
-                # Map extracted citation fields to database citations_text field
-                if job.get("citations_preview") or job.get("citations_full"):
-                    citations_parts = []
-                    if job.get("citations_preview"):
-                        citations_parts.append(f"PREVIEW: {job['citations_preview']}")
-                    if job.get("citations_full"):
-                        citations_parts.append(f"FULL: {job['citations_full']}")
-                    job["citations_text"] = "\n\n".join(citations_parts)
-
                 db.insert_validation(job)
 
             except Exception as e:
-                # Log citation extraction or insertion error for individual job
+                # Log job insertion error for individual job
                 logger.warning(f"Failed to insert job {job.get('job_id', 'unknown')}: {str(e)}")
 
-                # Insert the job without citations to prevent data loss
-                try:
-                    # Remove citation fields that might be causing issues
-                    job_without_citations = {k: v for k, v in job.items()
-                                           if k not in ['citations_preview', 'citations_full', 'citations_text']}
-                    job_without_citations["citations_text"] = None
-
-                    db.insert_validation(job_without_citations)
-                    logger.info(f"Successfully inserted job {job.get('job_id', 'unknown')} without citations")
-
-                except Exception as fallback_error:
-                    # Log the fallback error but don't let it stop processing other jobs
-                    logger.error(f"Failed to insert job {job.get('job_id', 'unknown')} even without citations: {str(fallback_error)}")
-
-                    # Log to parser_errors table for later review
-                    error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    error_msg = f"Job insertion failed: {str(e)} | Fallback failed: {str(fallback_error)}"
-                    db.insert_parser_error(error_time, error_msg, f"Job ID: {job.get('job_id', 'unknown')}")
+                # Log to parser_errors table for later review
+                error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                error_msg = f"Job insertion failed: {str(e)}"
+                db.insert_parser_error(error_time, error_msg, f"Job ID: {job.get('job_id', 'unknown')}")
 
     def parse_incremental(self, log_file_path: str):
         """
