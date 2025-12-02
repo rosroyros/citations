@@ -1526,12 +1526,12 @@
                         const citationsResponse = await fetch(`/api/validations/${jobId}/citations`);
                         if (citationsResponse.ok) {
                             const citationsData = await citationsResponse.json();
-                            if (citationsData.citations && citationsData.citations.length > 0) {
+                            console.log("Citations data received:", citationsData);                            if (citationsData.citations && citationsData.citations.length > 0) {
                                 const citationsText = citationsData.citations
                                     .map((citation, index) => citation.citation_text)
                                     .join("\n\n");
-                                citationsHtml = `
-                                    <div class="detail-row">
+                            console.log("Citations text created:", citationsText.substring(0, 100) + "...");                                citationsHtml = `
+                            console.log("Citations HTML generated length:", citationsHtml.length);                                    <div class="detail-row">
                                         <span class="detail-label">Citations (${citationsData.citations.length}):</span>
                                         <div class="citations-container">
                                             <div class="citations-text"
@@ -1641,7 +1641,7 @@
 
         // Citations formatting function
         function formatCitations(citationsText) {
-            // Input validation: ensure citationsText is a string
+            console.log("formatCitations called with type:", typeof citationsText, "length:", citationsText?.length);            // Input validation: ensure citationsText is a string
             if (citationsText !== null && citationsText !== undefined && typeof citationsText !== 'string') {
                 console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
                 return '<div class="citation-error" role="alert" aria-live="assertive">📝 Invalid citations data format</div>';
