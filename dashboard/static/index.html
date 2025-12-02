@@ -1528,7 +1528,7 @@
                             const citationsData = await citationsResponse.json();
                             if (citationsData.citations && citationsData.citations.length > 0) {
                                 const citationsText = citationsData.citations
-                                    .map((citation, index) => `${index + 1}. ${citation.citation_text}`)
+                                    .map((citation, index) => citation.citation_text)
                                     .join("\n\n");
                                 citationsHtml = `
                                     <div class="detail-row">
