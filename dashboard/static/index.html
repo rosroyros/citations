@@ -1526,11 +1526,21 @@
                         const citationsResponse = await fetch(`/api/validations/${jobId}/citations`);
                         if (citationsResponse.ok) {
                             const citationsData = await citationsResponse.json();
+                            console.log("DEBUG: Citations data received:", citationsData?.citations?.length, "citations");
                             if (citationsData.citations && citationsData.citations.length > 0) {
                                 const citationsText = citationsData.citations
                                     .map((citation, index) => citation.citation_text)
                                     .join("\n\n");
-                                const formattedCitations = formatCitations(citationsText);
+                                console.log("DEBUG: Citations text created, length:", citationsText.length);
+                                console.log("DEBUG: About to call formatCitations...");
+                                let formattedCitations;
+                                try {
+                                    formattedCitations = formatCitations(citationsText);
+                                    console.log("DEBUG: formatCitations returned successfully, result length:", formattedCitations?.length);
+                                } catch (formatError) {
+                                    console.error("ERROR: formatCitations failed:", formatError);
+                                    formattedCitations = '<div class="citation-error" role="alert">❌ Error formatting citations. Check console for details.</div>';
+                                }
                                 citationsHtml = `                                    <div class="detail-row">
                                         <span class="detail-label">Citations (${citationsData.citations.length}):</span>
                                         <div class="citations-container">
@@ -1668,6 +1678,11 @@
             const citationItems = lines.map((line, index) => {
                 const trimmed = line.trim();
 
+                // Skip empty or invalid lines
+                if (!trimmed || trimmed === '') {
+                    return null;
+                }
+
                 // Handle different citation formats with better icons and semantic markup
                 if (trimmed.startsWith('PREVIEW:')) {
                     const previewText = trimmed.substring(8).trim();
@@ -1678,16 +1693,12 @@
                     return fullText ?
                         `<div class="citation-item" role="listitem" aria-label="Full citation ${escapeHtml(String(index + 1))}">📖 <span class="citation-text">${escapeHtml(fullText)}</span></div>` : '';
                 } else if (trimmed.toLowerCase().includes('error') || trimmed.toLowerCase().includes('failed')) {
-                    return
-                        `<div class="citation-item citation-error" role="alert">❌ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                    return `<div class="citation-item citation-error" role="alert">❌ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
                 } else if (trimmed.toLowerCase().includes('warning')) {
-                    return
-                        `<div class="citation-item citation-warning" role="alert">⚠️ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                    return `<div class="citation-item citation-warning" role="alert">⚠️ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                } else {
                     // Regular citation - add numbering with proper spacing and accessibility
                     return `<div class="citation-item" role="listitem" aria-label="Citation ${escapeHtml(String(index + 1))}"><span class="citation-number">${escapeHtml(String(index + 1))}.</span> <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
-                } else {
-                    // Skip empty or invalid lines
-                    return null;
                 }
             }).filter(line => line && line.trim()).join('');
         // Wrap citations in proper list container for ARIA structure
