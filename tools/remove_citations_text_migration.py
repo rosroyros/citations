@@ -68,8 +68,13 @@ def remove_citations_text_column():
 
             logger.info("Removing citations_text column from validations table...")
 
-            # Check SQLite version supports ALTER TABLE DROP COLUMN (3.35.0+)
             cursor = conn.cursor()
+
+            # Drop the index FIRST before dropping the column
+            cursor.execute("DROP INDEX IF EXISTS idx_citations_text")
+            logger.info("Removed citations_text index (if it existed)")
+
+            # Check SQLite version supports ALTER TABLE DROP COLUMN (3.35.0+)
             cursor.execute("SELECT sqlite_version()")
             sqlite_version = cursor.fetchone()[0]
             version_parts = [int(x) for x in sqlite_version.split('.')]
@@ -114,10 +119,6 @@ def remove_citations_text_column():
                 placeholders = ', '.join(['?' for _ in new_columns])
                 cursor.executemany(f"INSERT INTO validations ({columns_str}) VALUES ({placeholders})", rows)
                 logger.info("Recreated table and migrated data using fallback method")
-
-            # Remove citations_text index if it exists
-            cursor.execute("DROP INDEX IF EXISTS idx_citations_text")
-            logger.info("Removed citations_text index if it existed")
 
             conn.commit()
             logger.info("Migration completed successfully")
