@@ -84,6 +84,8 @@ export default function Dashboard() {
   })
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedRow, setSelectedRow] = useState(null)
+  const [selectedRowCitations, setSelectedRowCitations] = useState([])
+  const [citationsLoading, setCitationsLoading] = useState(false)
   const rowsPerPage = 10
 
   // Load data from API
@@ -123,6 +125,30 @@ export default function Dashboard() {
     setCurrentPage(1) // Reset to first page when filters change
     loadData(false)
   }, [filters.dateRange, filters.status, filters.user, filters.search])
+
+  // Fetch citations when a row is selected
+  useEffect(() => {
+    if (selectedRow?.job_id) {
+      setCitationsLoading(true)
+      fetch(`${API_BASE_URL}/api/validations/${selectedRow.job_id}/citations`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch citations')
+          return res.json()
+        })
+        .then(data => {
+          setSelectedRowCitations(data.citations || [])
+        })
+        .catch(err => {
+          console.error('Error fetching citations:', err)
+          setSelectedRowCitations([])
+        })
+        .finally(() => {
+          setCitationsLoading(false)
+        })
+    } else {
+      setSelectedRowCitations([])
+    }
+  }, [selectedRow])
 
   // Manual refresh function
   const handleRefresh = () => {
@@ -603,8 +629,21 @@ export default function Dashboard() {
                 </div>
 
                 <div className="detail-group">
-                  <label>Citations Processed</label>
-                  <p>{selectedRow.citation_count || 0}</p>
+                  <label>Citations Processed ({selectedRow.citation_count || 0})</label>
+                  {citationsLoading ? (
+                    <p>Loading citations...</p>
+                  ) : selectedRowCitations.length > 0 ? (
+                    <div style={{ maxHeight: '300px', overflowY: 'auto', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', backgroundColor: '#f9f9f9' }}>
+                      {selectedRowCitations.map((citation, index) => (
+                        <div key={index} style={{ marginBottom: '12px', paddingBottom: '12px', borderBottom: index < selectedRowCitations.length - 1 ? '1px solid #ddd' : 'none' }}>
+                          <div style={{ fontSize: '0.85em', color: '#666', marginBottom: '4px' }}>Citation {index + 1}</div>
+                          <div style={{ whiteSpace: 'pre-wrap', fontSize: '0.9em' }}>{citation.citation_text}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p>No citations found</p>
+                  )}
                 </div>
 
                 <div className="detail-group">
