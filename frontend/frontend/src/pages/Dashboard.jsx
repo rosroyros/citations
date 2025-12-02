@@ -128,9 +128,10 @@ export default function Dashboard() {
 
   // Fetch citations when a row is selected
   useEffect(() => {
-    if (selectedRow?.job_id) {
+    const jobId = selectedRow?.validation_id || selectedRow?.id
+    if (jobId) {
       setCitationsLoading(true)
-      fetch(`${API_BASE_URL}/api/validations/${selectedRow.job_id}/citations`)
+      fetch(`${API_BASE_URL}/api/validations/${jobId}/citations`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch citations')
           return res.json()
