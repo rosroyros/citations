@@ -183,10 +183,6 @@ class ValidationResponse(BaseModel):
     user_type: str
     status: str
     error_message: Optional[str] = None
-    citations: Optional[str] = Field(
-        None,
-        description="Extracted citation information in text format. Contains formatted citations from the validation process."
-    )
     results_gated: Optional[bool] = Field(
         None,
         description="Whether results were gated behind paywall"
@@ -359,8 +355,7 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
 
         # Map database column names to API field names
         validation_data = {
-            **validation,
-            "citations": None  # citations_text column has been removed
+            **validation
         }
         return ValidationResponse(**validation_data)
     except HTTPException:
@@ -430,14 +425,10 @@ async def get_validations(
             to_date=to_date
         )
 
-        # Convert to response models with field mapping
+        # Convert to response models
         validation_responses = []
         for validation in validations:
-            validation_data = {
-                **validation,
-                "citations": None  # citations_text column has been removed
-            }
-            validation_responses.append(ValidationResponse(**validation_data))
+            validation_responses.append(ValidationResponse(**validation))
 
         return ValidationsListResponse(
             validations=validation_responses,
