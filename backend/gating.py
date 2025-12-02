@@ -79,21 +79,18 @@ def should_gate_results(
         # If partial but empty results (limit reached), continue to gating logic
         logger.info("Partial results with NO data. Applying standard gating logic.")
 
-    # This check is simplified as the detailed error list is not available here
-    # An empty results list is a strong indicator of a gating scenario (e.g. limit reached)
-    if not results.get('results'):
-        logger.info(f"Results gated for {user_type} user due to empty result set")
-        return True
-
-    logger.info(f"Results not gated for {user_type} user")
-    return False
+    # Frontend gates all free users, so we log gating decisions for all free users
+    # This ensures dashboard can track when gating modal was shown vs actual result limitation
+    reason = "Free user gating modal policy"
+    logger.info(f"Results gated for {user_type} user ({reason})")
+    return True
 
 
 def should_gate_results_sync(
     user_type: str,
     validation_response: Dict[str, Any],
     validation_success: bool = True
-) -> bool:
+) -> tuple[bool, str]:
     """
     Helper function for synchronous validation endpoint.
 
@@ -105,14 +102,35 @@ def should_gate_results_sync(
         validation_success: Whether validation completed without processing errors
 
     Returns:
-        bool: True if results should be gated, False otherwise
+        tuple: (bool, str) - (should_gate, reason)
     """
     results_dict = {
         'isPartial': validation_response.get('partial', False),
         'results': validation_response.get('results', [])
     }
 
-    return should_gate_results(user_type, results_dict, validation_success)
+    # Call should_gate_results to get the decision
+    should_gate = should_gate_results(user_type, results_dict, validation_success)
+
+    # Determine the reason based on user type and gating decision
+    if should_gate:
+        if user_type == 'free':
+            reason = "Free user gating modal policy"
+        elif user_type == 'anonymous':
+            reason = "Anonymous user gating modal policy"
+        else:
+            reason = "User gating policy"
+    else:
+        if user_type not in ['free', 'anonymous']:
+            reason = "Paid user bypasses gating"
+        elif not validation_success:
+            reason = "Validation errors bypass gating"
+        elif results_dict.get('isPartial', False) and results_dict.get('results'):
+            reason = "Partial results with data bypass gating"
+        else:
+            reason = "Gating disabled"
+
+    return should_gate, reason
 
 
 def log_gating_event(

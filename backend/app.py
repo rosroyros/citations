@@ -238,10 +238,10 @@ def build_gated_response(
         ValidationResponse with gating information
     """
     # Determine if results should be gated
-    results_gated = should_gate_results_sync(user_type, response_data, True)
+    results_gated, actual_gating_reason = should_gate_results_sync(user_type, response_data, True)
 
-    # Log gating decision
-    log_gating_event(job_id, user_type, results_gated, gating_reason)
+    # Log gating decision with actual reason from gating logic
+    log_gating_event(job_id, user_type, results_gated, actual_gating_reason)
 
     # If gated, clear results but keep metadata
     if results_gated:
