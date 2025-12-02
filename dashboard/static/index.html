@@ -1683,14 +1683,13 @@
                 } else if (trimmed.toLowerCase().includes('warning')) {
                     return
                         `<div class="citation-item citation-warning" role="alert">⚠️ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
-                } else if (trimmed) {
                     // Regular citation - add numbering with proper spacing and accessibility
-                    return
-                        `<div class="citation-item" role="listitem" aria-label="Citation ${escapeHtml(String(index + 1))}"><span class="citation-number">${escapeHtml(String(index + 1))}.</span> <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                    return `<div class="citation-item" role="listitem" aria-label="Citation ${escapeHtml(String(index + 1))}"><span class="citation-number">${escapeHtml(String(index + 1))}.</span> <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                } else {
+                    // Skip empty or invalid lines
+                    return null;
                 }
-                return ''; // Skip empty lines
-            }).filter(line => line.trim()).join('');
-
+            }).filter(line => line && line.trim()).join('');
         // Wrap citations in proper list container for ARIA structure
         return `<div role="list" aria-label="Citations list" aria-live="polite">${citationItems}</div>`;
         }
