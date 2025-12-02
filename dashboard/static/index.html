@@ -1643,7 +1643,7 @@
         function formatCitations(citationsText) {
             console.log("formatCitations called with type:", typeof citationsText, "length:", citationsText?.length);            // Input validation: ensure citationsText is a string
             if (citationsText !== null && citationsText !== undefined && typeof citationsText !== 'string') {
-                console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
+            console.log("formatCitations: passed type check");                console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
                 return '<div class="citation-error" role="alert" aria-live="assertive">📝 Invalid citations data format</div>';
             }
 
@@ -1654,19 +1654,19 @@
 
             // Split by newlines and clean up formatting
             const lines = citationsText.split('\n').filter(line => line.trim());
-
+            console.log("formatCitations: split into", lines.length, "lines, first line:", lines[0]?.substring(0, 50));
             if (lines.length === 0) {
-                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
+                console.log("formatCitations: no lines after filtering");                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
             }
 
             // Check if citations are being processed (loading state)
-            if (lines.length === 1 && lines[0].toLowerCase().includes('processing')) {
+                console.log("formatCitations: lines[0] =", lines[0]?.substring(0, 100));            if (lines.length === 1 && lines[0].toLowerCase().includes('processing')) {
                 return '<div class="citation-loading" role="status" aria-live="polite" aria-busy="true">⏳ Citations are being processed...</div>';
             }
 
             // Format each citation line with better visual hierarchy and accessibility
             const citationItems = lines.map((line, index) => {
-                const trimmed = line.trim();
+                console.log("formatCitations: starting map, first few lines:", lines.slice(0, 3));                const trimmed = line.trim();
 
                 // Handle different citation formats with better icons and semantic markup
                 if (trimmed.startsWith('PREVIEW:')) {
