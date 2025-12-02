@@ -68,69 +68,56 @@ def remove_citations_text_column():
 
             logger.info("Removing citations_text column from validations table...")
 
-            # Get all data from validations table before dropping column
+            # Check SQLite version supports ALTER TABLE DROP COLUMN (3.35.0+)
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM validations")
-            rows = cursor.fetchall()
+            cursor.execute("SELECT sqlite_version()")
+            sqlite_version = cursor.fetchone()[0]
+            version_parts = [int(x) for x in sqlite_version.split('.')]
 
-            # Get column names excluding citations_text
-            cursor.execute("PRAGMA table_info(validations)")
-            all_columns = [row[1] for row in cursor.fetchall()]
-            new_columns = [col for col in all_columns if col != 'citations_text']
+            if version_parts[0] > 3 or (version_parts[0] == 3 and version_parts[1] >= 35):
+                # Use modern ALTER TABLE DROP COLUMN for better performance
+                logger.info(f"SQLite {sqlite_version} supports ALTER TABLE DROP COLUMN - using modern approach")
+                cursor.execute("ALTER TABLE validations DROP COLUMN citations_text")
+                logger.info("Dropped citations_text column using ALTER TABLE DROP COLUMN")
+            else:
+                # Fallback to the table recreation method for older SQLite versions
+                logger.warning(f"SQLite {sqlite_version} does not support ALTER TABLE DROP COLUMN - using fallback method")
+                # Get column names excluding citations_text
+                cursor.execute("PRAGMA table_info(validations)")
+                all_columns = [row[1] for row in cursor.fetchall()]
+                new_columns = [col for col in all_columns if col != 'citations_text']
 
-            # Drop the table
-            cursor.execute("DROP TABLE validations")
-            logger.info("Dropped validations table")
+                # Explicitly select and insert data (safer than SELECT *)
+                columns_str = ', '.join(new_columns)
+                cursor.execute(f"SELECT {columns_str} FROM validations")
+                rows = cursor.fetchall()
 
-            # Recreate table without citations_text column
-            create_table_sql = f"""
-                CREATE TABLE validations (
-                    job_id TEXT PRIMARY KEY,
-                    created_at TEXT NOT NULL,
-                    completed_at TEXT,
-                    duration_seconds REAL,
-                    citation_count INTEGER,
-                    token_usage_prompt INTEGER,
-                    token_usage_completion INTEGER,
-                    token_usage_total INTEGER,
-                    user_type TEXT NOT NULL,
-                    status TEXT NOT NULL,
-                    error_message TEXT
-                )
-            """
-            cursor.execute(create_table_sql)
-            logger.info("Recreated validations table without citations_text column")
+                # Drop and recreate table
+                cursor.execute("DROP TABLE validations")
+                cursor.execute(f"""
+                    CREATE TABLE validations (
+                        job_id TEXT PRIMARY KEY,
+                        created_at TEXT NOT NULL,
+                        completed_at TEXT,
+                        duration_seconds REAL,
+                        citation_count INTEGER,
+                        token_usage_prompt INTEGER,
+                        token_usage_completion INTEGER,
+                        token_usage_total INTEGER,
+                        user_type TEXT NOT NULL,
+                        status TEXT NOT NULL,
+                        error_message TEXT
+                    )
+                """)
 
-            # Recreate indexes (except citations_text index)
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_created_at ON validations(created_at)")
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON validations(user_type)")
-
-            # Handle status vs validation_status compatibility
-            cursor.execute("PRAGMA table_info(validations)")
-            columns = [col[1] for col in cursor.fetchall()]
-
-            if 'status' in columns:
-                cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON validations(status)")
-            if 'validation_status' in columns:
-                cursor.execute("CREATE INDEX IF NOT EXISTS idx_validation_status ON validations(validation_status)")
-
-            logger.info("Recreated indexes")
-
-            # Insert data back (excluding citations_text)
-            if rows:
-                # Build INSERT statement dynamically
+                # Re-insert data explicitly
                 placeholders = ', '.join(['?' for _ in new_columns])
-                insert_sql = f"INSERT INTO validations ({', '.join(new_columns)}) VALUES ({placeholders})"
+                cursor.executemany(f"INSERT INTO validations ({columns_str}) VALUES ({placeholders})", rows)
+                logger.info("Recreated table and migrated data using fallback method")
 
-                # Filter data to exclude citations_text
-                filtered_rows = []
-                for row in rows:
-                    row_dict = dict(zip(all_columns, row))
-                    filtered_row = [row_dict[col] for col in new_columns]
-                    filtered_rows.append(filtered_row)
-
-                cursor.executemany(insert_sql, filtered_rows)
-                logger.info(f"Restored {len(filtered_rows)} records without citations_text column")
+            # Remove citations_text index if it exists
+            cursor.execute("DROP INDEX IF EXISTS idx_citations_text")
+            logger.info("Removed citations_text index if it existed")
 
             conn.commit()
             logger.info("Migration completed successfully")
