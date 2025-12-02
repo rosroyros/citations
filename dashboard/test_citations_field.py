@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Tests for citations field functionality in ValidationResponse API
-Addresses the minor issue from code review: missing test coverage for citations field
+Tests for citations field removal from ValidationResponse API
+Verifies that citations field has been completely removed after citations_text column removal
 """
 import pytest
 import tempfile
@@ -19,10 +19,10 @@ import json
 
 
 class TestCitationsFieldValidationResponse:
-    """Test ValidationResponse model with citations field"""
+    """Test ValidationResponse model after citations field removal"""
 
-    def test_validation_response_citations_always_none(self):
-        """Test that ValidationResponse citations field is always None after citations_text removal"""
+    def test_validation_response_no_citations_field(self):
+        """Test that ValidationResponse no longer has citations field after cleanup"""
         validation_data = {
             "job_id": "test-after-removal",
             "created_at": "2025-01-28T10:00:00Z",
@@ -39,45 +39,25 @@ class TestCitationsFieldValidationResponse:
 
         response = ValidationResponse(**validation_data)
 
-        assert response.citations is None, "citations field should be None after citations_text column removal"
+        # Should not have citations field
+        with pytest.raises(AttributeError):
+            _ = response.citations
+
+        # Other fields should still work
         assert response.citation_count == 2, "citation_count should still work"
+        assert response.job_id == "test-after-removal", "job_id should still work"
 
-    def test_validation_response_handles_none_citations(self):
-        """Test that citations field is None when citations are not provided"""
-        validation_data = {
-            "job_id": "test-none-citations",
-            "created_at": "2025-01-28T11:00:00Z",
-            "completed_at": None,
-            "duration_seconds": None,
-            "citation_count": 0,
-            "token_usage_prompt": None,
-            "token_usage_completion": None,
-            "token_usage_total": None,
-            "user_type": "paid",
-            "status": "pending",
-            "error_message": "Processing..."
-        }
+    def test_validation_response_model_schema_excludes_citations(self):
+        """Test that ValidationResponse model schema excludes citations field"""
+        schema = ValidationResponse.model_json_schema()
+        properties = schema.get("properties", {})
 
-        response = ValidationResponse(**validation_data)
+        # citations field should not be in schema
+        assert "citations" not in properties, "citations field should not be in model schema after removal"
+        assert "citations_text" not in properties, "citations_text should not be in schema (column removed)"
 
-        assert response.citations is None, "citations field should be None after citations_text removal"
-        assert response.job_id == "test-none-citations", "other fields should still work"
-
-    def test_validation_response_handles_none_after_removal(self):
-        """Test that citations field is always None after citations_text removal"""
-        validation_data = {
-            "job_id": "test-after-removal-2",
-            "created_at": "2025-01-28T12:00:00Z",
-            "user_type": "free",
-            "status": "completed"
-        }
-
-        response = ValidationResponse(**validation_data)
-
-        assert response.citations is None, "citations field should be None after citations_text column removal"
-
-    def test_validation_response_serializes_citations_to_json(self):
-        """Test that citations field properly serializes to JSON with None value"""
+    def test_validation_response_serializes_without_citations(self):
+        """Test that ValidationResponse properly serializes to JSON without citations field"""
         validation_data = {
             "job_id": "test-serialization",
             "created_at": "2025-01-28T13:00:00Z",
@@ -88,55 +68,41 @@ class TestCitationsFieldValidationResponse:
         response = ValidationResponse(**validation_data)
         json_data = response.model_dump()
 
-        assert "citations" in json_data, "citations should be in serialized JSON"
-        assert json_data["citations"] is None, "citations should be None after citations_text removal"
+        # citations should not be in serialized JSON
+        assert "citations" not in json_data, "citations should not be in serialized JSON after removal"
         assert "citations_text" not in json_data, "citations_text should not be in JSON (column removed)"
-
-    def test_validation_response_model_schema_includes_citations(self):
-        """Test that ValidationResponse model schema includes citations field"""
-        schema = ValidationResponse.model_json_schema()
-        properties = schema.get("properties", {})
-
-        assert "citations" in properties, "citations field should be in model schema"
-        citations_schema = properties["citations"]
-
-        # Check that it has the expected structure for optional strings
-        assert "anyOf" in citations_schema, "citations should be optional string using anyOf"
-        any_of_types = citations_schema["anyOf"]
-        type_strings = [item.get("type") for item in any_of_types if "type" in item]
-        assert "string" in type_strings and "null" in type_strings, "citations should allow string or null"
-
-        assert "description" in citations_schema, "citations should have description"
-        assert "citation" in citations_schema["description"].lower(), "description should mention citations"
 
 
 class TestCitationsFieldSecurity:
-    """Test security aspects of citations field"""
+    """Test security aspects after citations field removal"""
 
-    def test_citations_field_sanitizes_input(self):
-        """Test that citations field doesn't introduce security vulnerabilities"""
-        # Test with potentially dangerous content - should be safely handled
+    def test_no_citations_field_security_issue(self):
+        """Test that removing citations field eliminates security surface"""
+        # Ensure citations field cannot be set even if provided in data
         validation_data = {
             "job_id": "security-test-001",
             "created_at": "2025-01-28T20:00:00Z",
             "user_type": "free",
             "status": "completed",
+            # Attempting to include citations field - should be ignored
             "citations": "1. <script>alert('xss')</script> (2023). Malicious Journal.\n\n2. '; DROP TABLE validations; -- (2024). SQL Injection Test."
         }
 
         response = ValidationResponse(**validation_data)
 
-        # Should store content as-is (sanitization happens at database level)
-        assert "<script>" in response.citations, "Should handle script tags appropriately"
-        assert "DROP TABLE" in response.citations, "Should handle SQL attempts appropriately"
-        assert response.citations is not None, "Should handle dangerous content safely"
+        # Should not have citations field even if provided in data
+        with pytest.raises(AttributeError):
+            _ = response.citations
+
+        # Other fields should work normally
+        assert response.job_id == "security-test-001", "Other fields should work normally"
 
 
 class TestCitationsFieldDatabaseIntegration:
-    """Test citations field database integration"""
+    """Test database integration after citations field removal"""
 
     def test_database_integration_after_citations_text_removal(self):
-        """Test that database operations work correctly after citations_text removal"""
+        """Test that database operations work correctly after citations_text and citations field removal"""
         with tempfile.NamedTemporaryFile(suffix='.db', delete=False) as tmp:
             try:
                 with DatabaseManager(tmp.name) as db:
@@ -162,13 +128,15 @@ class TestCitationsFieldDatabaseIntegration:
                     assert retrieved is not None, "Validation should be retrievable"
                     assert "citations_text" not in retrieved, "citations_text should not be present after removal"
 
-                    # Test API response generation with citations as None
-                    validation_data = {
-                        **retrieved,
-                        "citations": None  # citations_text column has been removed
-                    }
-                    response = ValidationResponse(**validation_data)
-                    assert response.citations is None, "API response should have citations as None"
+                    # Test API response generation works without citations field
+                    response = ValidationResponse(**retrieved)
+
+                    # Should not have citations field
+                    with pytest.raises(AttributeError):
+                        _ = response.citations
+
+                    # Other fields should work
+                    assert response.job_id == "test-db-integration", "Other API fields should work"
 
             finally:
                 os.unlink(tmp.name)
