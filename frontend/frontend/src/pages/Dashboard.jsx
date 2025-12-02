@@ -415,9 +415,9 @@ export default function Dashboard() {
                       </th>
                       <th
                         className="sortable-header"
-                        onClick={() => handleSort('citations')}
+                        onClick={() => handleSort('citation_count')}
                       >
-                        Citations {getSortIcon('citations')}
+                        Citations {getSortIcon('citation_count')}
                       </th>
                       <th
                         className="sortable-header"
@@ -457,7 +457,7 @@ export default function Dashboard() {
                         <td className="user-cell" title={item.user}>
                           {item.user.length > 25 ? `${item.user.substring(0, 25)}...` : item.user}
                         </td>
-                        <td className="number-cell">{item.citations}</td>
+                        <td className="number-cell">{item.citation_count || 0}</td>
                         <td className="number-cell error-cell">
                           {item.errors !== null ? item.errors : '-'}
                         </td>
@@ -604,7 +604,7 @@ export default function Dashboard() {
 
                 <div className="detail-group">
                   <label>Citations Processed</label>
-                  <p>{selectedRow.citations}</p>
+                  <p>{selectedRow.citation_count || 0}</p>
                 </div>
 
                 <div className="detail-group">
