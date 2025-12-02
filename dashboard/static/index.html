@@ -1439,7 +1439,7 @@
                 const createdTime = new Date(validation.created_at).toLocaleTimeString();
                 const duration = validation.duration_seconds ? validation.duration_seconds.toFixed(1) + 's' : '-';
                 const citations = validation.citation_count || '-';
-                const tokens = validation.token_usage ? validation.token_usage.total.toLocaleString() : '-';
+                const tokens = validation.token_usage_total ? validation.token_usage_total.toLocaleString() : '-';
                 const durationClass = validation.duration_seconds > 30 ? 'duration-slow' : '';
 
                 return `
@@ -1516,8 +1516,8 @@
                     const createdTime = new Date(validation.created_at).toLocaleString();
                     const completedTime = validation.completed_at ? new Date(validation.completed_at).toLocaleString() : '-';
                     const duration = validation.duration_seconds ? validation.duration_seconds.toFixed(1) + ' seconds' : '-';
-                    const tokens = validation.token_usage ?
-                        `${validation.token_usage.prompt.toLocaleString()} + ${validation.token_usage.completion.toLocaleString()} = ${validation.token_usage.total.toLocaleString()}` :
+                    const tokens = validation.token_usage_total ?
+                        `${validation.token_usage_prompt.toLocaleString()} + ${validation.token_usage_completion.toLocaleString()} = ${validation.token_usage_total.toLocaleString()}` :
                         '-';
 
                     // Fetch citations data
