@@ -11,7 +11,7 @@ import GatedResults from './components/GatedResults'
 import Footer from './components/Footer'
 import { UploadArea } from './components/UploadArea'
 import { ComingSoonModal } from './components/ComingSoonModal'
-import { getToken, getFreeUsage } from './utils/creditStorage'
+import { getToken, getFreeUsage, ensureFreeUserId } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent, trackResultsRevealedSafe } from './utils/analytics'
 import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
@@ -611,8 +611,10 @@ function AppContent() {
         if (token) {
           headers['X-User-Token'] = token
         } else {
-          // Free tier - send usage count
+          // Free tier - send user ID and usage count
+          const freeUserId = ensureFreeUserId()
           const freeUsed = getFreeUsage()
+          headers['X-Free-User-ID'] = btoa(freeUserId)
           headers['X-Free-Used'] = btoa(String(freeUsed))
         }
 

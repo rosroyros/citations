@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
-import { saveToken, getToken } from '../utils/creditStorage'
+import { saveToken, getToken, clearFreeUserId } from '../utils/creditStorage'
 import { useCredits } from '../contexts/CreditContext'
 import { CreditDisplay } from '../components/CreditDisplay'
 import { UpgradeModal } from '../components/UpgradeModal'
@@ -161,8 +161,9 @@ const Success = () => {
       return
     }
 
-    // Save token
+    // Save token and clear free user ID
     saveToken(token)
+    clearFreeUserId()
 
     // Poll for credits
     let attempts = 0
