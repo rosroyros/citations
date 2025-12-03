@@ -9,6 +9,11 @@ from fastapi.testclient import TestClient
 import sys
 import os
 
+# Mock the dashboard import
+from unittest.mock import MagicMock
+sys.modules['dashboard'] = MagicMock()
+sys.modules['dashboard.log_parser'] = MagicMock()
+
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -20,7 +25,7 @@ client = TestClient(app)
 class TestAsyncJobs:
     """Test async job processing functionality."""
 
-    def test_create_async_job_returns_job_id(self):
+    def test_create_async_job_returns_job_id(self, caplog):
         """Test that POST /api/validate/async creates a job and returns job_id."""
         # Setup
         request_data = {
@@ -45,6 +50,18 @@ class TestAsyncJobs:
         # Verify job was stored in jobs dict
         import app
         assert data["job_id"] in app.jobs
+
+        # NEW: Check that async user ID logging is present
+        log_messages = [record.message for record in caplog.records]
+        validation_logs = [msg for msg in log_messages if "Async validation request - user_type=" in msg]
+        assert len(validation_logs) > 0, "Expected to find user ID logging in async validation request"
+
+        # Check that user type and IDs are logged correctly for anonymous user
+        user_id_log = validation_logs[0]
+        assert "user_type=free" in user_id_log
+        assert "paid_user_id=N/A" in user_id_log
+        assert "free_user_id=N/A" in user_id_log
+        assert "style=apa7" in user_id_log
 
     def test_get_job_status_returns_job_data(self):
         """Test that GET /api/jobs/{job_id} returns job status and data."""

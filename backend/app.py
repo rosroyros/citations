@@ -112,6 +112,48 @@ def html_to_text_with_formatting(html: str) -> str:
     return converter.get_text()
 
 
+def extract_user_id(request: Request) -> tuple[Optional[str], Optional[str], str]:
+    """
+    Extract user identification from request headers.
+
+    This function determines user type and extracts the appropriate user ID
+    for tracking and analytics purposes.
+
+    Args:
+        request: FastAPI Request object containing headers
+
+    Returns:
+        tuple: (paid_user_id, free_user_id, user_type)
+            - paid_user_id: First 8 chars of token (for privacy) or None
+            - free_user_id: Full UUID from header or None
+            - user_type: 'paid' or 'free'
+
+    Examples:
+        Paid user: ('abc12345', None, 'paid')
+        Free user: (None, '550e8400-e29b-41d4-a716-446655440000', 'free')
+        Anonymous: (None, None, 'free')
+    """
+    # Check paid user first (takes precedence)
+    token = request.headers.get('X-User-Token')
+    if token and token.strip():
+        # Only log first 8 chars for privacy/security
+        return token[:8], None, 'paid'
+
+    # Check free user ID
+    free_user_id_header = request.headers.get('X-Free-User-ID')
+    if free_user_id_header and free_user_id_header.strip():
+        try:
+            # Decode base64-encoded UUID
+            decoded = base64.b64decode(free_user_id_header).decode('utf-8')
+            return None, decoded, 'free'
+        except Exception as e:
+            # Invalid encoding - log warning but don't fail request
+            logger.warning(f"Failed to decode X-Free-User-ID header: {e}")
+
+    # Anonymous user (no ID yet, first validation)
+    return None, None, 'free'
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Handle application lifespan events."""
@@ -366,6 +408,18 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     logger.info(f"Validation request received for style: {request.style}")
     logger.debug(f"Citations length: {len(request.citations)} characters")
 
+    # Extract user identification (NEW)
+    paid_user_id, free_user_id, user_type = extract_user_id(http_request)
+
+    # Log validation request with user IDs (NEW)
+    logger.info(
+        f"Validation request - "
+        f"user_type={user_type}, "
+        f"paid_user_id={paid_user_id or 'N/A'}, "
+        f"free_user_id={free_user_id or 'N/A'}, "
+        f"style={request.style}"
+    )
+
     # Extract token from headers and determine user type
     token = http_request.headers.get('X-User-Token')
     logger.debug(f"Token present: {bool(token)}")
@@ -373,8 +427,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         logger.debug(f"Token preview: {token[:8]}...")
 
     # Determine user type for gating decisions
-    user_type = get_user_type(http_request)
-    logger.debug(f"User type determined: {user_type}")
+    gating_user_type = get_user_type(http_request)
+    logger.debug(f"User type determined: {gating_user_type}")
 
     # Validate input
     if not request.citations or not request.citations.strip():
@@ -388,7 +442,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
     # Create validation record for tracking (sync endpoint uses simple ID)
     job_id = f"sync_{int(time.time())}_{uuid.uuid4().hex[:8]}"
-    create_validation_record(job_id, user_type, 0, 'processing')
+    create_validation_record(job_id, gating_user_type, 0, 'processing')
 
     try:
         # Call LLM provider for validation
@@ -449,7 +503,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": FREE_LIMIT,
                     "free_used_total": FREE_LIMIT
                 }
-                return build_gated_response(response_data, user_type, job_id, "Free tier limit reached")
+                return build_gated_response(response_data, gating_user_type, job_id, "Free tier limit reached")
             elif affordable >= citation_count:
                 # Under limit - return all results
                 response_data = {
@@ -457,7 +511,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": free_used + citation_count,
                     "free_used_total": free_used + citation_count
                 }
-                return build_gated_response(response_data, user_type, job_id, "Free tier under limit")
+                return build_gated_response(response_data, gating_user_type, job_id, "Free tier under limit")
             else:
                 # Over limit - partial results (same as paid tier)
                 response_data = {
@@ -468,7 +522,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": FREE_LIMIT,  # Capped at limit
                     "free_used_total": FREE_LIMIT  # Authoritative total for frontend sync
                 }
-                return build_gated_response(response_data, user_type, job_id, "Free tier over limit")
+                return build_gated_response(response_data, gating_user_type, job_id, "Free tier over limit")
 
         # Paid tier - check credits
         from database import get_credits, deduct_credits
@@ -494,7 +548,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 "results": results,
                 "credits_remaining": user_credits - citation_count
             }
-            return build_gated_response(response_data, user_type, job_id, "Paid user sufficient credits")
+            return build_gated_response(response_data, gating_user_type, job_id, "Paid user sufficient credits")
         else:
             # Partial results
             affordable = user_credits
@@ -511,7 +565,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 "citations_remaining": citation_count - affordable,
                 "credits_remaining": 0
             }
-            return build_gated_response(response_data, user_type, job_id, "Paid user insufficient credits")
+            return build_gated_response(response_data, gating_user_type, job_id, "Paid user insufficient credits")
 
     except ValueError as e:
         # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
@@ -707,6 +761,18 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     Returns immediately with job_id.
     Background worker processes validation.
     """
+    # Extract user identification (NEW)
+    paid_user_id, free_user_id, user_type = extract_user_id(http_request)
+
+    # Log validation request with user IDs (NEW)
+    logger.info(
+        f"Async validation request - "
+        f"user_type={user_type}, "
+        f"paid_user_id={paid_user_id or 'N/A'}, "
+        f"free_user_id={free_user_id or 'N/A'}, "
+        f"style={request.style}"
+    )
+
     # Extract token/free_used from headers
     token = http_request.headers.get('X-User-Token')
     free_used_header = http_request.headers.get('X-Free-Used', '')
@@ -721,12 +787,12 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         logger.warning("Empty citations submitted to async endpoint")
         raise HTTPException(status_code=400, detail="Citations cannot be empty")
 
-    # Determine user type
-    user_type = get_user_type(http_request)
+    # Determine user type for gating decisions
+    gating_user_type = get_user_type(http_request)
 
     # Generate job ID
     job_id = str(uuid.uuid4())
-    logger.info(f"Creating async job {job_id} for {user_type} user")
+    logger.info(f"Creating async job {job_id} for {gating_user_type} user")
 
     # Create job entry
     jobs[job_id] = {
@@ -737,7 +803,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "token": token,
         "free_used": free_used,
         "citation_count": 0,
-        "user_type": user_type
+        "user_type": gating_user_type
     }
 
     # Convert HTML to text with formatting markers
@@ -745,7 +811,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Create initial validation tracking record
     citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])
-    create_validation_record(job_id, user_type, citation_count, 'pending')
+    create_validation_record(job_id, gating_user_type, citation_count, 'pending')
 
     # Start background processing
     background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)

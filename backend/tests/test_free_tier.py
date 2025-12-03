@@ -9,6 +9,11 @@ import os
 import asyncio
 import base64
 
+# Mock the dashboard import
+from unittest.mock import MagicMock
+sys.modules['dashboard'] = MagicMock()
+sys.modules['dashboard.log_parser'] = MagicMock()
+
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -26,7 +31,7 @@ class TestFreeTierEnforcement:
     """Test free tier enforcement logic using X-Free-Used header."""
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
-    def test_free_user_under_limit_5_requested_0_used(self, mock_llm):
+    def test_free_user_under_limit_5_requested_0_used(self, mock_llm, caplog):
         """Test free user under limit (5 citations requested, 0 used) should succeed."""
         # Setup
         mock_llm.return_value = {
@@ -77,6 +82,18 @@ class TestFreeTierEnforcement:
         assert len(data["results"]) == 5
         assert data["partial"] is False
         assert data["free_used"] == 5  # Should be updated to 5
+
+        # NEW: Check that user ID logging is present
+        log_messages = [record.message for record in caplog.records]
+        validation_logs = [msg for msg in log_messages if "Validation request - user_type=" in msg]
+        assert len(validation_logs) > 0, "Expected to find user ID logging in validation request"
+
+        # Check that user type and IDs are logged correctly for anonymous free user
+        user_id_log = validation_logs[0]
+        assert "user_type=free" in user_id_log
+        assert "paid_user_id=N/A" in user_id_log
+        assert "free_user_id=N/A" in user_id_log
+        assert "style=apa7" in user_id_log
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
     def test_free_user_at_limit_2_requested_8_used(self, mock_llm):
@@ -212,3 +229,48 @@ class TestFreeTierEnforcement:
         error_data = response.json()
         assert "Invalid" in error_data["detail"]
         assert "X-Free-Used" in error_data["detail"]
+
+    @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
+    def test_free_user_id_logging_with_uuid(self, mock_llm, caplog):
+        """Test that free user ID is logged correctly when X-Free-User-ID header is present."""
+        # Setup
+        mock_llm.return_value = {
+            "results": [
+                {
+                    "citation_number": 1,
+                    "original": "Smith, 2023",
+                    "source_type": "journal",
+                    "errors": []
+                }
+            ]
+        }
+
+        # Test UUID for free user
+        test_uuid = "550e8400-e29b-41d4-a716-446655440000"
+
+        # Request with X-Free-User-ID header
+        response = client.post(
+            "/api/validate",
+            json={"citations": "Smith, 2023", "style": "apa7"},
+            headers={
+                "X-Free-User-ID": base64.b64encode(test_uuid.encode()).decode(),
+                "X-Free-Used": encode_free_used(3)
+            }
+        )
+
+        # Assertions
+        assert response.status_code == 200
+        data = response.json()
+        assert len(data["results"]) == 1
+
+        # Check that user ID logging is present and correct
+        log_messages = [record.message for record in caplog.records]
+        validation_logs = [msg for msg in log_messages if "Validation request - user_type=" in msg]
+        assert len(validation_logs) > 0, "Expected to find user ID logging in validation request"
+
+        # Check that free user ID is logged correctly
+        user_id_log = validation_logs[0]
+        assert "user_type=free" in user_id_log
+        assert "paid_user_id=N/A" in user_id_log
+        assert f"free_user_id={test_uuid}" in user_id_log
+        assert "style=apa7" in user_id_log

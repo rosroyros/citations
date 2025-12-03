@@ -7,10 +7,15 @@ import json
 import sys
 import os
 
+# Mock the dashboard import
+from unittest.mock import MagicMock
+sys.modules['dashboard'] = MagicMock()
+sys.modules['dashboard.log_parser'] = MagicMock()
+
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from backend.app import app
+from app import app
 
 client = TestClient(app)
 
@@ -18,10 +23,10 @@ client = TestClient(app)
 class TestCreditEnforcement:
     """Test credit enforcement logic in validation endpoint."""
 
-    @patch('backend.database.get_credits')
-    @patch('backend.database.deduct_credits')
-    @patch('backend.app.llm_provider.validate_citations')
-    def test_no_token_freeTier_returns_all_results(self, mock_llm, mock_deduct, mock_get):
+    @patch('database.get_credits')
+    @patch('database.deduct_credits')
+    @patch('app.llm_provider.validate_citations')
+    def test_no_token_freeTier_returns_all_results(self, mock_llm, mock_deduct, mock_get, caplog):
         """Test that free tier (no token) returns all results without credit checks."""
         # Setup
         mock_llm.return_value = {
@@ -50,6 +55,17 @@ class TestCreditEnforcement:
         # Verify database functions were not called
         mock_get.assert_not_called()
         mock_deduct.assert_not_called()
+
+        # NEW: Check that user ID logging is present for anonymous free user
+        log_messages = [record.message for record in caplog.records]
+        validation_logs = [msg for msg in log_messages if "Validation request - user_type=" in msg]
+        assert len(validation_logs) > 0, "Expected to find user ID logging in validation request"
+
+        # Check that user type and IDs are logged correctly for anonymous user
+        user_id_log = validation_logs[0]
+        assert "user_type=free" in user_id_log
+        assert "paid_user_id=N/A" in user_id_log
+        assert "free_user_id=N/A" in user_id_log
 
     @patch('backend.database.get_credits')
     @patch('backend.database.deduct_credits')
