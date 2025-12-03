@@ -63,7 +63,7 @@ class TestCreditEnforcement:
 
         # Check that user type and IDs are logged correctly for anonymous user
         user_id_log = validation_logs[0]
-        assert "user_type=free" in user_id_log
+        assert "user_type=anonymous" in user_id_log
         assert "paid_user_id=N/A" in user_id_log
         assert "free_user_id=N/A" in user_id_log
 

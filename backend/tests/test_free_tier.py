@@ -88,9 +88,9 @@ class TestFreeTierEnforcement:
         validation_logs = [msg for msg in log_messages if "Validation request - user_type=" in msg]
         assert len(validation_logs) > 0, "Expected to find user ID logging in validation request"
 
-        # Check that user type and IDs are logged correctly for anonymous free user
+        # Check that user type and IDs are logged correctly for anonymous user
         user_id_log = validation_logs[0]
-        assert "user_type=free" in user_id_log
+        assert "user_type=anonymous" in user_id_log
         assert "paid_user_id=N/A" in user_id_log
         assert "free_user_id=N/A" in user_id_log
         assert "style=apa7" in user_id_log

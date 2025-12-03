@@ -64,7 +64,7 @@ def test_extract_user_id_invalid_base64():
     # Should handle gracefully and treat as anonymous
     assert paid_user_id is None
     assert free_user_id is None
-    assert user_type == 'free'
+    assert user_type == 'anonymous'
 
 
 def test_extract_user_id_anonymous():
@@ -79,7 +79,7 @@ def test_extract_user_id_anonymous():
     # Should return anonymous user
     assert paid_user_id is None
     assert free_user_id is None
-    assert user_type == 'free'
+    assert user_type == 'anonymous'
 
 
 def test_extract_user_id_paid_user_precedence():
@@ -132,4 +132,4 @@ def test_extract_user_id_empty_headers():
     # Empty strings should be treated as not present
     assert paid_user_id is None
     assert free_user_id is None
-    assert user_type == 'free'
+    assert user_type == 'anonymous'

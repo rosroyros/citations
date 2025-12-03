@@ -151,7 +151,7 @@ def extract_user_id(request: Request) -> tuple[Optional[str], Optional[str], str
             logger.warning(f"Failed to decode X-Free-User-ID header: {e}")
 
     # Anonymous user (no ID yet, first validation)
-    return None, None, 'free'
+    return None, None, 'anonymous'
 
 
 @asynccontextmanager
