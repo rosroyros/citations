@@ -14,9 +14,11 @@ Safety: Idempotent (checks if columns exist before adding).
 
 import sqlite3
 import sys
+import os
 from pathlib import Path
 
-DB_PATH = '/opt/citations/dashboard/data/validations.db'
+# Allow DB_PATH override for testing
+DB_PATH = os.environ.get('DB_PATH', '/opt/citations/dashboard/data/validations.db')
 
 def check_column_exists(cursor, table, column):
     """Check if a column exists in a table."""
