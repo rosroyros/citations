@@ -69,7 +69,17 @@ export const ensureFreeUserId = () => {
   try {
     let userId = getFreeUserId();
     if (!userId) {
-      userId = crypto.randomUUID();
+      try {
+        userId = crypto.randomUUID();
+      } catch (cryptoError) {
+        console.error('Failed to generate UUID, using fallback:', cryptoError);
+        // Fallback UUID generation (timestamp + random)
+        userId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+          const r = Math.random() * 16 | 0;
+          const v = c == 'x' ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+        });
+      }
       localStorage.setItem(FREE_USER_ID_KEY, userId);
     }
     return userId;

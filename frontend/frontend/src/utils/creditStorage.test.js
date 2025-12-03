@@ -180,9 +180,7 @@ describe('Credit Storage Utilities', () => {
       // ensureFreeUserId should still generate a UUID (setItem might still work)
       const userId = ensureFreeUserId();
       expect(typeof userId).toBe('string');
-      if (userId !== null) {
-        expect(userId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
-      }
+      expect(userId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
     });
   });
 });

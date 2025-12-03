@@ -1,0 +1,1830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internal Dashboard - Citation Validations</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Brand Colors - Matching main site */
+            --color-brand: #9333ea;
+            --color-brand-hover: #7c3aed;
+            --color-brand-light: rgba(147, 51, 234, 0.1);
+            --color-brand-lighter: #f3e8ff;
+            --color-brand-glow: rgba(147, 51, 234, 0.2);
+
+            /* Typography - Matching main site */
+            --font-body: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-heading: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+            /* Text Hierarchy - Matching main site */
+            --color-text-primary: #1a1f36;
+            --color-text-secondary: #4a5568;
+            --color-text-tertiary: #718096;
+            --color-text-muted: #94a3b8;
+            --color-text-accent: #9333ea;
+
+            /* Status Colors - Refined for light theme */
+            --color-success: #047857;
+            --color-success-bg: #ecfdf5;
+            --color-success-border: #a7f3d0;
+
+            --color-error: #b45309;
+            --color-error-bg: #fffbeb;
+            --color-error-border: #fcd34d;
+
+            --color-warning: #dc2626;
+            --color-warning-bg: #fef2f2;
+            --color-warning-border: #fecaca;
+
+            --color-pending: #6b7280;
+            --color-pending-bg: #f9fafb;
+            --color-pending-border: #e5e7eb;
+
+            /* Background Colors - Light theme matching main site */
+            --color-bg-primary: #ffffff;
+            --color-bg-secondary: #fafbfc;
+            --color-bg-tertiary: #f3f4f6;
+            --color-bg-card: #ffffff;
+            --color-bg-glass: rgba(255, 255, 255, 0.8);
+
+            /* Refined gradient background matching main site */
+            --gradient-bg: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 50%, #fdf4ff 100%);
+
+            /* Borders & Shadows - Matching main site */
+            --color-border: #e5e7eb;
+            --color-border-light: #f3f4f6;
+            --color-border-brand: rgba(147, 51, 234, 0.2);
+
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+            --shadow-brand: 0 4px 12px rgba(147, 51, 234, 0.15);
+
+            /* Animations */
+            --transition-fast: 150ms ease;
+            --transition-base: 250ms ease;
+            --transition-slow: 400ms ease;
+
+            /* Spacing System */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+
+            /* Component-specific dimensions */
+            --citations-max-height: 400px;
+            --citations-mobile-max-height: 300px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--gradient-bg);
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Clean, subtle background effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 10% 10%, var(--color-brand-light) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(147, 51, 234, 0.05) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Refined card effect - matching main site */
+        .glass-card {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            border-radius: 12px;
+            transition: all var(--transition-base);
+        }
+
+        .glass-card:hover {
+            border-color: var(--color-brand-light);
+            box-shadow: var(--shadow-brand);
+            transform: translateY(-1px);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg-secondary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-brand);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .header {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: var(--space-xl) var(--space-xl);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title {
+            font-family: var(--font-heading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .last-updated {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            font-weight: 400;
+            opacity: 0.8;
+            font-family: var(--font-mono);
+        }
+
+        .refresh-btn {
+            background: var(--color-brand);
+            color: white;
+            border: none;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: var(--font-heading);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+
+        .refresh-btn:hover:not(:disabled) {
+            background: var(--color-brand-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+
+        .filters {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: var(--space-xl);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            display: flex;
+            gap: var(--space-xl);
+            align-items: flex-end;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            min-width: 140px;
+        }
+
+        .filter-group label {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: var(--font-mono);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-primary);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: var(--font-body);
+            font-weight: 400;
+            transition: all var(--transition-base);
+            outline: none;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            border-color: var(--color-brand);
+            box-shadow: 0 0 0 3px var(--color-brand-light);
+            background: var(--color-bg-primary);
+        }
+
+        .filter-group select:hover,
+        .filter-group input:hover {
+            border-color: var(--color-border-light);
+        }
+
+        .filter-group select option {
+            background: var(--color-bg-tertiary);
+            color: var(--color-text-primary);
+            border: none;
+        }
+
+        .stats {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: var(--space-xl);
+            border: 1px solid var(--color-border);
+            border-radius: 12px;
+            margin-bottom: var(--space-xl);
+            display: flex;
+            gap: var(--space-2xl);
+            align-items: center;
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-group {
+            display: flex;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-md);
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition-base);
+        }
+
+        .stat:hover {
+            background: var(--color-brand-light);
+            border-color: var(--color-brand);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .stat-icon {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .stat-label {
+            color: var(--color-text-tertiary);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: var(--font-mono);
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--color-text-primary);
+            font-size: 1rem;
+            font-family: var(--font-mono);
+        }
+
+        .stat.highlight {
+            background: var(--color-brand-light);
+            border-color: var(--color-brand);
+        }
+
+        .stat.highlight .stat-value {
+            color: var(--color-brand);
+        }
+
+        .table-container {
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            position: relative;
+        }
+
+        th, td {
+            padding: var(--space-md) var(--space-xl);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+            font-family: var(--font-body);
+        }
+
+        th {
+            background: var(--color-bg-secondary);
+            font-weight: 600;
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            user-select: none;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: var(--font-mono);
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 2px solid var(--color-brand);
+            position: relative;
+            transition: all var(--transition-base);
+        }
+
+        th:hover {
+            background: var(--color-brand-light);
+            color: var(--color-text-primary);
+        }
+
+        th.sortable::after {
+            content: '↕';
+            position: absolute;
+            right: var(--space-md);
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.4;
+            font-size: 0.75rem;
+        }
+
+        th.sort-asc::after {
+            content: '↑';
+            opacity: 1;
+            color: var(--color-brand);
+        }
+
+        th.sort-desc::after {
+            content: '↓';
+            opacity: 1;
+            color: var(--color-brand);
+        }
+
+        tr {
+            transition: all var(--transition-base);
+        }
+
+        tr:hover {
+            background: var(--color-bg-secondary);
+        }
+
+        tr:hover td {
+            border-bottom-color: var(--color-border-brand);
+        }
+
+        td {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            position: relative;
+        }
+
+        .job-id {
+            color: var(--color-brand);
+            cursor: pointer;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            text-decoration: none;
+            position: relative;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            transition: all var(--transition-base);
+            display: inline-block;
+        }
+
+        .job-id::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--color-brand-light);
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .job-id:hover {
+            color: var(--color-brand-hover);
+            transform: translateY(-1px);
+            background: var(--color-brand-light);
+        }
+
+        .job-id:hover::before {
+            opacity: 0.1;
+        }
+
+        /* Status styling with refined colors */
+        .status-completed {
+            background: var(--color-success-bg);
+            color: var(--color-success);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--color-success-border);
+            display: inline-block;
+            position: relative;
+        }
+
+        .status-completed::before {
+            content: '✓ ';
+            margin-right: var(--space-xs);
+            font-weight: 700;
+        }
+
+        .status-failed {
+            background: var(--color-error-bg);
+            color: var(--color-error);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--color-error-border);
+            display: inline-block;
+            position: relative;
+        }
+
+        .status-failed::before {
+            content: '✗ ';
+            margin-right: var(--space-xs);
+            font-weight: 700;
+        }
+
+        .status-pending {
+            background: var(--color-pending-bg);
+            color: var(--color-pending);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid var(--color-pending-border);
+            display: inline-block;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-pending::before {
+            content: '⟳ ';
+            margin-right: var(--space-xs);
+            font-weight: 700;
+        }
+
+        /* Duration styling with enhanced slow warning */
+        .duration-slow {
+            color: var(--color-warning);
+            font-weight: 600;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .duration-slow::before {
+            content: '⚠';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 12px;
+            animation: blink 2s ease-in-out infinite;
+            will-change: opacity;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .duration-normal {
+            color: var(--color-text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .duration-fast {
+            color: var(--color-success);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-xl);
+            background: var(--color-bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid var(--color-border);
+            border-radius: 0 0 12px 12px;
+        }
+
+        .page-info {
+            color: var(--color-text-tertiary);
+            font-size: 0.875rem;
+            font-family: var(--font-mono);
+        }
+
+        .page-controls {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-family: var(--font-body);
+            font-weight: 500;
+            transition: all var(--transition-base);
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--color-brand-light);
+            border-color: var(--color-brand);
+            color: var(--color-text-primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--color-bg-tertiary);
+            border-color: var(--color-border);
+            color: var(--color-text-tertiary);
+        }
+
+        .page-size {
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-bg-secondary);
+            color: var(--color-text-primary);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-family: var(--font-body);
+            font-weight: 400;
+            transition: all var(--transition-base);
+            outline: none;
+        }
+
+        .page-size:focus {
+            border-color: var(--color-brand);
+            box-shadow: 0 0 0 3px var(--color-brand-light);
+            background: var(--color-bg-primary);
+        }
+
+        .page-size:hover {
+            border-color: var(--color-border-light);
+            background: var(--color-bg-primary);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--color-text-muted);
+            font-size: 16px;
+            font-family: var(--font-body);
+            position: relative;
+        }
+
+        .loading::before {
+            content: '⏳';
+            display: block;
+            font-size: 24px;
+            margin-bottom: 12px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-family: var(--font-body);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ef4444, #f87171, #ef4444);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .job-details {
+            background: var(--color-bg-tertiary);
+            border: 1px solid var(--color-border-brand);
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 14px;
+            margin: 8px 0;
+            box-shadow: var(--shadow-sm);
+            animation: slideDown 0.3s ease-out;
+            position: relative;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-details::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-brand-glow);
+            opacity: 0.7;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            min-width: 140px;
+            color: var(--color-text-accent);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 6px 0;
+        }
+
+        .detail-value {
+            color: var(--color-text-primary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            padding: 6px 0;
+            word-break: break-all;
+            flex: 1;
+        }
+
+        /* Citations container styling */
+        .citations-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .citations-text {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: var(--space-md);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--color-text-primary);
+            max-height: var(--citations-max-height);
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            position: relative;
+            transition: all var(--transition-base);
+            /* Accessibility improvements */
+            outline: none;
+        }
+
+        .citations-text:hover {
+            border-color: var(--color-brand-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Glassmorphism effect for citations container */
+        .citations-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(147, 51, 234, 0.02) 0%,
+                rgba(147, 51, 234, 0.05) 50%,
+                rgba(147, 51, 234, 0.02) 100%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+
+        .citations-text:hover::before {
+            opacity: 1;
+        }
+
+        .copy-btn {
+            background: var(--color-brand);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-body);
+            transition: all var(--transition-base);
+            align-self: flex-end;
+            box-shadow: var(--shadow-sm);
+            /* Accessibility improvements */
+            min-height: 44px;
+            min-width: 44px;
+            border: 2px solid transparent;
+        }
+
+        .copy-btn:hover {
+            background: var(--color-brand-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .copy-btn.copied {
+            background: var(--color-success);
+            animation: copySuccess 1.5s ease-in-out;
+        }
+
+        @keyframes copySuccess {
+            0% { background: var(--color-success); }
+            50% { background: var(--color-success); transform: scale(1.05); }
+            100% { background: var(--color-brand); transform: scale(1); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+                padding: 20px;
+            }
+
+            .filters {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                min-width: auto;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+
+            .stats-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .stat {
+                justify-content: space-between;
+            }
+
+            .table-container {
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+
+            table {
+                min-width: 700px;
+            }
+
+            th, td {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 16px;
+                padding: 20px;
+            }
+
+            .page-controls {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 16px;
+            }
+
+            .title {
+                font-size: 24px;
+            }
+
+            .filters {
+                padding: 16px;
+            }
+
+            .stats {
+                padding: 16px;
+            }
+
+            .job-details {
+                padding: 16px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .detail-label {
+                min-width: auto;
+            }
+
+            /* Mobile citations styling */
+            .citations-container {
+                gap: 8px;
+            }
+
+            .citations-text {
+                font-size: 11px;
+                padding: 12px;
+                max-height: var(--citations-mobile-max-height);
+                line-height: 1.5;
+            }
+
+            .copy-btn {
+                font-size: 11px;
+                padding: 8px 12px;
+                align-self: stretch;
+                text-align: center;
+            }
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Citation item styling for accessibility */
+        .citation-item {
+            padding: var(--space-xs) 0;
+            border-radius: 4px;
+            transition: all var(--transition-fast);
+        }
+
+        .citation-item:hover {
+            background: var(--color-brand-light);
+        }
+
+        .citation-item:focus-within {
+            outline: 2px solid var(--color-brand);
+            outline-offset: 2px;
+        }
+
+        .citation-number {
+            font-weight: 600;
+            color: var(--color-brand);
+            margin-right: var(--space-sm);
+        }
+
+        .citation-text {
+            line-height: 1.4;
+        }
+
+        .citation-error {
+            background: var(--color-error-bg);
+            border: 1px solid var(--color-error-border);
+            color: var(--color-error);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+        }
+
+        .citation-warning {
+            background: var(--color-warning-bg);
+            border: 1px solid var(--color-warning-border);
+            color: var(--color-warning);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+        }
+
+        .citation-empty,
+        .citation-loading {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            padding: var(--space-md);
+            border-radius: 6px;
+            margin: var(--space-sm) 0;
+            text-align: center;
+            color: var(--color-text-secondary);
+        }
+
+        .citation-loading {
+            animation: subtlePulse 2s ease-in-out infinite;
+        }
+
+        /* Accessibility improvements */
+        .citations-text:focus,
+        .copy-btn:focus {
+            outline: 2px solid var(--color-brand);
+            outline-offset: 2px;
+        }
+
+        .citations-text:focus {
+            border-color: var(--color-brand);
+            box-shadow: 0 0 0 3px var(--color-brand-light);
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .citations-text {
+                border-width: 2px;
+                border-color: var(--color-text-primary);
+            }
+
+            .copy-btn {
+                border: 2px solid var(--color-text-primary);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .citations-text::before,
+            .copy-btn,
+            .citations-text {
+                transition: none;
+                animation: none;
+            }
+
+            .copy-btn:hover {
+                transform: none;
+            }
+        }
+
+        /* Gated Results Analytics Styles */
+        .stat-toggle-btn {
+            background: var(--color-brand);
+            color: white;
+            border: none;
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: var(--font-body);
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-sm);
+            min-height: 32px;
+        }
+
+        .stat-toggle-btn:hover {
+            background: var(--color-brand-hover);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-brand);
+        }
+
+        .gated-details {
+            margin-bottom: var(--space-xl);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .engagement-trend {
+            font-size: 12px;
+            color: var(--color-text-tertiary);
+            margin-top: 4px;
+        }
+
+        .trend-up {
+            color: var(--color-success);
+        }
+
+        .trend-down {
+            color: var(--color-warning);
+        }
+
+        .trend-neutral {
+            color: var(--color-text-tertiary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 class="title">Internal Dashboard - Citation Validations</h1>
+                <div class="last-updated" id="lastUpdated">Loading...</div>
+            </div>
+            <button class="refresh-btn" onclick="loadData()">Refresh</button>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Date Range</label>
+                <select id="dateRange" onchange="loadData()">
+                    <option value="1">Last 24 hours</option>
+                    <option value="7" selected>Last 7 days</option>
+                    <option value="30">Last 30 days</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Status</label>
+                <select id="status" onchange="loadData()">
+                    <option value="">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="failed">Failed</option>
+                    <option value="pending">Pending</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>User Type</label>
+                <select id="userType" onchange="loadData()">
+                    <option value="">All</option>
+                    <option value="free">Free</option>
+                    <option value="paid">Paid</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Search Job ID</label>
+                <input type="text" id="search" placeholder="Job ID..." onkeyup="if(event.key === 'Enter') loadData()">
+            </div>
+        </div>
+
+        <div class="stats" id="stats">
+            <div class="stats-group">
+                <div class="stat">
+                    <span class="stat-label">Total:</span>
+                    <span class="stat-value" id="totalValidations">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">✓</span>
+                    <span class="stat-value" id="completed">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">✗</span>
+                    <span class="stat-value" id="failed">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Avg Duration:</span>
+                    <span class="stat-value" id="avgDuration">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Avg Citations:</span>
+                    <span class="stat-value" id="avgCitations">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gated Results Engagement Metrics -->
+        <div class="stats" id="gatedStats" style="display: none;">
+            <div class="stats-group">
+                <div class="stat highlight">
+                    <span class="stat-label">🔒</span>
+                    <span class="stat-value" id="totalGated">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">👁️</span>
+                    <span class="stat-value" id="revealedCount">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">Reveal Rate:</span>
+                    <span class="stat-value" id="revealRate">-</span>
+                </div>
+                <div class="stat highlight">
+                    <span class="stat-label">⏱️</span>
+                    <span class="stat-value" id="avgTimeToReveal">-</span>
+                </div>
+            </div>
+            <div class="stats-group">
+                <div class="stat">
+                    <span class="stat-label">Free Users:</span>
+                    <span class="stat-value" id="freeUserStats">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Paid Users:</span>
+                    <span class="stat-value" id="paidUserStats">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Drop-off:</span>
+                    <span class="stat-value" id="dropOffRate">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">📊</span>
+                    <button class="stat-toggle-btn" onclick="toggleGatedDetails()" title="Show detailed gated results analytics">
+                        Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gated Results Details (collapsible) -->
+        <div class="gated-details" id="gatedDetails" style="display: none;">
+            <div class="glass-card">
+                <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🔒 Gated Results Analytics</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+                    <div>
+                        <h4 style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 8px;">User Type Breakdown</h4>
+                        <div id="userTypeBreakdown" style="font-size: 13px; color: var(--color-text-secondary);"></div>
+                    </div>
+                    <div>
+                        <h4 style="font-size: 14px; color: var(--color-text-secondary); margin-bottom: 8px;">Outcomes</h4>
+                        <div id="outcomeBreakdown" style="font-size: 13px; color: var(--color-text-secondary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th onclick="sortTable('job_id')">Job ID</th>
+                        <th onclick="sortTable('created_at')">Time</th>
+                        <th onclick="sortTable('duration_seconds')">Duration</th>
+                        <th onclick="sortTable('citation_count')">Citations</th>
+                        <th onclick="sortTable('token_usage')">Tokens</th>
+                        <th onclick="sortTable('user_type')">User</th>
+                        <th onclick="sortTable('status')">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="validationsTable">
+                    <tr>
+                        <td colspan="7" class="loading">Loading data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination">
+            <div class="page-info" id="pageInfo">Page 1 of 1</div>
+            <div class="page-controls">
+                <button class="page-btn" id="prevBtn" onclick="previousPage()" disabled>Previous</button>
+                <select class="page-size" id="pageSize" onchange="loadData()">
+                    <option value="50">50 per page</option>
+                    <option value="100" selected>100 per page</option>
+                    <option value="200">200 per page</option>
+                </select>
+                <button class="page-btn" id="nextBtn" onclick="nextPage()" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let sortBy = 'created_at';
+        let sortDir = 'DESC';
+        let totalPages = 1;
+
+        async function loadData() {
+            const dateRange = document.getElementById('dateRange').value;
+            const status = document.getElementById('status').value;
+            const userType = document.getElementById('userType').value;
+            const search = document.getElementById('search').value;
+            const pageSize = document.getElementById('pageSize').value;
+
+            const from_date = getDateRange(dateRange);
+
+            try {
+                // Show loading
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="7" class="loading">Loading data...</td></tr>';
+
+                // Fetch stats
+                const statsResponse = await fetch(`/api/stats?from_date=${from_date}`);
+                const stats = await statsResponse.json();
+                updateStats(stats);
+
+                // Fetch gated stats
+                try {
+                    const gatedResponse = await fetch(`/api/gated-stats?from_date=${from_date}`);
+                    const gatedStats = await gatedResponse.json();
+                    updateGatedStats(gatedStats);
+                } catch (gatedError) {
+                    console.warn('Gated stats not available:', gatedError);
+                    document.getElementById('gatedStats').style.display = 'none';
+                }
+
+                // Fetch validations
+                const validationsResponse = await fetch(
+                    `/api/validations?limit=${pageSize}&offset=${(currentPage - 1) * pageSize}&status=${status}&user_type=${userType}&search=${search}&from_date=${from_date}&order_by=${sortBy}&order_dir=${sortDir}`
+                );
+                const data = await validationsResponse.json();
+
+                updateTable(data.validations);
+                updatePagination(data.total, pageSize);
+                updateLastUpdated();
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="7" class="error">Error loading data</td></tr>';
+            }
+        }
+
+        function getDateRange(days) {
+            const date = new Date();
+            date.setDate(date.getDate() - parseInt(days));
+            date.setHours(0, 0, 0, 0); // Set to start of day
+            return date.toISOString().replace(/\.\d{3}Z$/, 'Z'); // Remove milliseconds
+        }
+
+        function updateStats(stats) {
+            document.getElementById('totalValidations').textContent = stats.total_validations;
+            document.getElementById('completed').textContent = stats.completed;
+            document.getElementById('failed').textContent = stats.failed;
+            document.getElementById('avgDuration').textContent = stats.avg_duration_seconds + 's';
+            document.getElementById('avgCitations').textContent = stats.avg_citations_per_validation;
+        }
+
+        function updateGatedStats(gatedStats) {
+            // Show gated stats section if there are any gated results
+            const gatedStatsElement = document.getElementById('gatedStats');
+            if (gatedStats.total_gated > 0) {
+                gatedStatsElement.style.display = 'block';
+
+                // Update main gated metrics
+                document.getElementById('totalGated').textContent = gatedStats.total_gated;
+                document.getElementById('revealedCount').textContent = gatedStats.revealed_count;
+                document.getElementById('revealRate').textContent = gatedStats.reveal_rate + '%';
+                document.getElementById('avgTimeToReveal').textContent = gatedStats.avg_time_to_reveal_seconds + 's';
+
+                // Update user type stats
+                const freeUserStats = gatedStats.by_user_type?.free || {};
+                const paidUserStats = gatedStats.by_user_type?.paid || {};
+
+                document.getElementById('freeUserStats').innerHTML =
+                    `${freeUserStats.gated || 0} gated (${freeUserStats.reveal_rate || 0}%)`;
+                document.getElementById('paidUserStats').innerHTML =
+                    `${paidUserStats.gated || 0} gated (${paidUserStats.reveal_rate || 0}%)`;
+
+                // Update drop-off rate
+                const dropOffRate = gatedStats.conversion_metrics?.estimated_conversion_funnel?.drop_off_rate || 0;
+                document.getElementById('dropOffRate').textContent = dropOffRate + '%';
+
+                // Store detailed data for the details view
+                window.currentGatedStats = gatedStats;
+            } else {
+                gatedStatsElement.style.display = 'none';
+            }
+        }
+
+        function toggleGatedDetails() {
+            const detailsElement = document.getElementById('gatedDetails');
+            const isVisible = detailsElement.style.display !== 'none';
+
+            if (isVisible) {
+                detailsElement.style.display = 'none';
+            } else {
+                detailsElement.style.display = 'block';
+                populateGatedDetails();
+            }
+        }
+
+        function populateGatedDetails() {
+            const gatedStats = window.currentGatedStats;
+            if (!gatedStats) return;
+
+            // User type breakdown
+            const userTypeBreakdown = document.getElementById('userTypeBreakdown');
+            if (gatedStats.by_user_type) {
+                let userHtml = '';
+                for (const [userType, data] of Object.entries(gatedStats.by_user_type)) {
+                    userHtml += `
+                        <div style="margin-bottom: 8px; padding: 8px; background: var(--color-bg-secondary); border-radius: 6px;">
+                            <strong>${userType.charAt(0).toUpperCase() + userType.slice(1)} Users:</strong><br>
+                            Total: ${data.total} | Gated: ${data.gated} (${data.gating_rate}%)<br>
+                            Revealed: ${data.revealed} (${data.reveal_rate}%)<br>
+                            Avg time: ${data.avg_time_to_reveal_seconds}s
+                        </div>
+                    `;
+                }
+                userTypeBreakdown.innerHTML = userHtml;
+            }
+
+            // Outcome breakdown
+            const outcomeBreakdown = document.getElementById('outcomeBreakdown');
+            if (gatedStats.by_outcome && Object.keys(gatedStats.by_outcome).length > 0) {
+                let outcomeHtml = '';
+                for (const [outcome, count] of Object.entries(gatedStats.by_outcome)) {
+                    outcomeHtml += `
+                        <div style="margin-bottom: 6px; padding: 6px; background: var(--color-bg-secondary); border-radius: 4px;">
+                            ${outcome}: ${count}
+                        </div>
+                    `;
+                }
+                outcomeBreakdown.innerHTML = outcomeHtml;
+            } else {
+                outcomeBreakdown.innerHTML = '<div style="color: var(--color-text-muted);">No outcomes recorded yet</div>';
+            }
+        }
+
+        function updateTable(validations) {
+            const tbody = document.getElementById('validationsTable');
+
+            if (validations.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">No validations found</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = validations.map(validation => {
+                const createdTime = new Date(validation.created_at).toLocaleTimeString();
+                const duration = validation.duration_seconds ? validation.duration_seconds.toFixed(1) + 's' : '-';
+                const citations = validation.citation_count || '-';
+                const tokens = validation.token_usage ? validation.token_usage.total.toLocaleString() : '-';
+                const durationClass = validation.duration_seconds > 30 ? 'duration-slow' : '';
+
+                return `
+                    <tr>
+                        <td><span class="job-id" onclick="toggleJobDetails('${validation.job_id}')">${validation.job_id.substring(0, 8)}</span></td>
+                        <td>${createdTime}</td>
+                        <td class="${durationClass}">${duration}</td>
+                        <td>${citations}</td>
+                        <td>${tokens}</td>
+                        <td>${validation.user_type}</td>
+                        <td><span class="status-${validation.status}">${validation.status}</span></td>
+                    </tr>
+                    <tr id="details-${validation.job_id}" style="display: none;">
+                        <td colspan="7">
+                            <div class="job-details" id="job-details-${validation.job_id}">
+                                Loading details...
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function updatePagination(total, pageSize) {
+            totalPages = Math.ceil(total / pageSize);
+            const start = (currentPage - 1) * pageSize + 1;
+            const end = Math.min(currentPage * pageSize, total);
+
+            document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages} (${start}-${end} of ${total})`;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+        }
+
+        function updateLastUpdated() {
+            document.getElementById('lastUpdated').textContent = 'Last updated: ' + new Date().toLocaleString();
+        }
+
+        function sortTable(column) {
+            if (sortBy === column) {
+                sortDir = sortDir === 'ASC' ? 'DESC' : 'ASC';
+            } else {
+                sortBy = column;
+                sortDir = 'DESC';
+            }
+            currentPage = 1;
+            loadData();
+        }
+
+        function previousPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                loadData();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                currentPage++;
+                loadData();
+            }
+        }
+
+        async function toggleJobDetails(jobId) {
+            const detailsRow = document.getElementById(`details-${jobId}`);
+            const detailsContent = document.getElementById(`job-details-${jobId}`);
+
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+
+                try {
+                    const response = await fetch(`/api/validations/${jobId}`);
+                    const validation = await response.json();
+
+                    const createdTime = new Date(validation.created_at).toLocaleString();
+                    const completedTime = validation.completed_at ? new Date(validation.completed_at).toLocaleString() : '-';
+                    const duration = validation.duration_seconds ? validation.duration_seconds.toFixed(1) + ' seconds' : '-';
+                    const tokens = validation.token_usage ?
+                        `${validation.token_usage.prompt.toLocaleString()} + ${validation.token_usage.completion.toLocaleString()} = ${validation.token_usage.total.toLocaleString()}` :
+                        '-';
+
+                    detailsContent.innerHTML = `
+                        <div class="detail-row">
+                            <span class="detail-label">Job ID:</span>
+                            <span class="detail-value">${validation.job_id}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Created:</span>
+                            <span class="detail-value">${createdTime}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Completed:</span>
+                            <span class="detail-value">${completedTime}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Duration:</span>
+                            <span class="detail-value">${duration}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Citations:</span>
+                            <span class="detail-value">${validation.citation_count || 0}</span>
+                        </div>
+                        ${validation.citations ? `
+                        <div class="detail-row">
+                            <span class="detail-label">Citations Text:</span>
+                            <div class="citations-container">
+                                <div class="citations-text"
+                                     id="citations-text-${validation.job_id}"
+                                     tabindex="0"
+                                     role="region"
+                                     aria-label="Citations text for job ${validation.job_id}"
+                                     aria-live="polite"
+                                     aria-describedby="citations-help-${validation.job_id}">
+                                    ${formatCitations(validation.citations)}
+                                </div>
+                                <div id="citations-help-${validation.job_id}" class="sr-only">
+                                    Use Tab to navigate, Arrow keys to scroll, Space to copy citations
+                                </div>
+                                <button class="copy-btn"
+                                        onclick="copyCitations('${validation.job_id}')"
+                                        aria-label="Copy citations for job ${validation.job_id} to clipboard"
+                                        title="Copy citations to clipboard">
+                                    📋 Copy
+                                </button>
+                            </div>
+                        </div>
+                        ` : ''}
+                        <div class="detail-row">
+                            <span class="detail-label">Tokens:</span>
+                            <span class="detail-value">${tokens}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">User Type:</span>
+                            <span class="detail-value">${validation.user_type}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value">${validation.status}</span>
+                        </div>
+                        ${validation.error_message ? `
+                        <div class="detail-row">
+                            <span class="detail-label">Error:</span>
+                            <span class="detail-value">${validation.error_message}</span>
+                        </div>
+                        ` : ''}
+                    `;
+
+                // Setup keyboard navigation for citations
+                if (validation.citations) {
+                    setupCitationsKeyboardNavigation(validation.job_id);
+                }
+                } catch (error) {
+                    detailsContent.innerHTML = 'Error loading job details';
+                }
+            } else {
+                detailsRow.style.display = 'none';
+            }
+        }
+
+        // Citations formatting function
+        function formatCitations(citationsText) {
+            // Input validation: ensure citationsText is a string
+            if (citationsText !== null && citationsText !== undefined && typeof citationsText !== 'string') {
+                console.warn('formatCitations: Invalid input type, expected string', typeof citationsText, citationsText);
+                return '<div class="citation-error" role="alert" aria-live="assertive">📝 Invalid citations data format</div>';
+            }
+
+            // Handle null, undefined, or empty string
+            if (!citationsText || citationsText.trim() === '') {
+                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
+            }
+
+            // Split by newlines and clean up formatting
+            const lines = citationsText.split('\n').filter(line => line.trim());
+
+            if (lines.length === 0) {
+                return '<div class="citation-empty" role="status" aria-live="polite">📝 No citations found in this validation</div>';
+            }
+
+            // Check if citations are being processed (loading state)
+            if (lines.length === 1 && lines[0].toLowerCase().includes('processing')) {
+                return '<div class="citation-loading" role="status" aria-live="polite" aria-busy="true">⏳ Citations are being processed...</div>';
+            }
+
+            // Format each citation line with better visual hierarchy and accessibility
+            const citationItems = lines.map((line, index) => {
+                const trimmed = line.trim();
+
+                // Handle different citation formats with better icons and semantic markup
+                if (trimmed.startsWith('PREVIEW:')) {
+                    const previewText = trimmed.substring(8).trim();
+                    return previewText ?
+                        `<div class="citation-item" role="listitem" aria-label="Preview citation ${escapeHtml(String(index + 1))}">📋 <span class="citation-text">${escapeHtml(previewText)}</span></div>` : '';
+                } else if (trimmed.startsWith('FULL:')) {
+                    const fullText = trimmed.substring(5).trim();
+                    return fullText ?
+                        `<div class="citation-item" role="listitem" aria-label="Full citation ${escapeHtml(String(index + 1))}">📖 <span class="citation-text">${escapeHtml(fullText)}</span></div>` : '';
+                } else if (trimmed.toLowerCase().includes('error') || trimmed.toLowerCase().includes('failed')) {
+                    return
+                        `<div class="citation-item citation-error" role="alert">❌ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                } else if (trimmed.toLowerCase().includes('warning')) {
+                    return
+                        `<div class="citation-item citation-warning" role="alert">⚠️ <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                } else if (trimmed) {
+                    // Regular citation - add numbering with proper spacing and accessibility
+                    return
+                        `<div class="citation-item" role="listitem" aria-label="Citation ${escapeHtml(String(index + 1))}"><span class="citation-number">${escapeHtml(String(index + 1))}.</span> <span class="citation-text">${escapeHtml(trimmed)}</span></div>`;
+                }
+                return ''; // Skip empty lines
+            }).filter(line => line.trim()).join('');
+
+        // Wrap citations in proper list container for ARIA structure
+        return `<div role="list" aria-label="Citations list" aria-live="polite">${citationItems}</div>`;
+        }
+
+        // Keyboard navigation for citations containers
+        function setupCitationsKeyboardNavigation(jobId) {
+            const citationsText = document.getElementById(`citations-text-${jobId}`);
+            if (!citationsText) return;
+
+            // Remove existing event listeners to prevent memory leaks
+            const newElement = citationsText.cloneNode(true);
+            citationsText.parentNode.replaceChild(newElement, citationsText);
+
+            newElement.addEventListener('keydown', function(event) {
+                switch (event.key) {
+                    case 'ArrowDown':
+                        event.preventDefault();
+                        newElement.scrollTop += 50;
+                        announceToScreenReader('Scrolled down');
+                        break;
+                    case 'ArrowUp':
+                        event.preventDefault();
+                        newElement.scrollTop -= 50;
+                        announceToScreenReader('Scrolled up');
+                        break;
+                    case 'PageDown':
+                        event.preventDefault();
+                        newElement.scrollTop += newElement.clientHeight;
+                        announceToScreenReader('Scrolled page down');
+                        break;
+                    case 'PageUp':
+                        event.preventDefault();
+                        newElement.scrollTop -= newElement.clientHeight;
+                        announceToScreenReader('Scrolled page up');
+                        break;
+                    case 'Home':
+                        event.preventDefault();
+                        newElement.scrollTop = 0;
+                        announceToScreenReader('Scrolled to top');
+                        break;
+                    case 'End':
+                        event.preventDefault();
+                        newElement.scrollTop = newElement.scrollHeight;
+                        announceToScreenReader('Scrolled to bottom');
+                        break;
+                    case ' ':
+                    case 'Enter':
+                        event.preventDefault();
+                        // Copy citations when Space or Enter is pressed on citations container
+                        copyCitations(jobId);
+                        break;
+                    case 'Tab':
+                        // Allow normal tab navigation
+                        break;
+                    default:
+                        // Don't prevent default for other keys
+                        break;
+                }
+            });
+        }
+
+        // Screen reader announcement helper
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+
+            document.body.appendChild(announcement);
+
+            // Remove after announcement
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // HTML escaping utility function for security
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Copy citations to clipboard function
+        async function copyCitations(jobId) {
+            const citationsElement = document.getElementById(`citations-text-${jobId}`);
+            const button = event.target.closest('.copy-btn');
+
+            if (!citationsElement) {
+                console.error('Citations element not found:', jobId);
+                showCopyError(button, 'Citations not found');
+                return;
+            }
+
+            try {
+                // Get the raw text (without formatting markers)
+                const rawText = citationsElement.textContent || citationsElement.innerText;
+
+                if (!rawText || rawText.trim() === '') {
+                    console.warn('No citations text to copy');
+                    showCopyError(button, 'No citations to copy');
+                    return;
+                }
+
+                // Remove formatting markers for clean copy
+                const cleanText = rawText
+                    .replace(/📋\s*/g, '')
+                    .replace(/📖\s*/g, '')
+                    .replace(/^\d+\.\s*/gm, '')
+                    .replace(/\n\s*\n/g, '\n')
+                    .trim();
+
+                // Use the modern Clipboard API
+                await navigator.clipboard.writeText(cleanText);
+
+                // Visual feedback
+                showCopySuccess(button, 'Copied to clipboard!');
+
+            } catch (error) {
+                console.error('Modern clipboard API failed:', error);
+
+                // Fallback for older browsers
+                try {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = citationsElement.textContent || citationsElement.innerText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+
+                    showCopySuccess(button, 'Copied to clipboard!');
+
+                } catch (fallbackError) {
+                    console.error('Fallback copy also failed:', fallbackError);
+                    showCopyError(button, 'Copy failed - please select text manually');
+                }
+            }
+        }
+
+        // Helper function for successful copy feedback
+        function showCopySuccess(button, message) {
+            if (!button) return;
+
+            const originalText = button.textContent;
+            button.textContent = message || '✅ Copied!';
+            button.classList.add('copied');
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        // Helper function for error feedback
+        function showCopyError(button, message) {
+            if (!button) return;
+
+            const originalText = button.textContent;
+            button.textContent = message || '❌ Copy failed';
+            button.style.background = 'var(--color-error-bg)';
+            button.style.borderColor = 'var(--color-error-border)';
+            button.style.color = 'var(--color-error)';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+                button.style.borderColor = '';
+                button.style.color = '';
+            }, 3000);
+        }
+
+  
+        // Load data on page load
+        loadData();
+    </script>
+</body>
+</html>

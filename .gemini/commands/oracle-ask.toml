@@ -1,0 +1,178 @@
+description = "Get technical guidance and problem solving from Oracle"
+prompt = """
+---
+description: Get technical guidance and problem solving from Oracle
+argument-hint: "focus-area (optional - what to ask Oracle about)"
+---
+
+Technical guidance and problem solving using `claude -p` with flexible conversation format.
+
+This command is for getting help with plans, dilemmas, problems, or any technical guidance - not for code review.
+
+## Step 1: Determine Issue ID
+
+- Check conversation context - what issue are we working on?
+- Check git status and recent commits if needed
+- If unclear, ask the user
+- **Once determined, use this issue ID consistently throughout the conversation**
+
+## Step 2: Prepare Question/Problem
+
+**If user provided focus area:**
+- The focus area passed as argument is your starting point
+- Use it to direct your question to Oracle
+- Example: `/oracle-ask consult the oracle about the design document`
+
+**Otherwise, think about what specific help you need:**
+- Design questions or architectural decisions
+- Technical problems or unexpected issues
+- Multiple approaches to consider
+- Clarification on requirements or approach
+- Any blockers or dilemmas
+
+## Step 3: Execute Conversation Loop (continue as needed)
+
+Start with ROUND=1, increment after each iteration.
+
+### For Each Round:
+
+**1. Gather information:**
+- Get issue context: `bd show <issue-id>`
+- Assess current status and progress
+- Identify specific question/dilemma/problem
+- Determine what supporting information is needed
+
+**2. Create flexible prompt:**
+
+Save to `./tmp/<issue-id>-ask-request-round-<N>.md`:
+
+```
+You are providing technical guidance and problem solving assistance.
+
+## Issue Context
+### Beads Issue ID: <issue-id>
+
+<output from bd show>
+
+### Current Status
+
+<What's been done so far, current state, any blockers>
+
+### The Question/Problem/Dilemma
+
+**If user provided focus area:**
+User wants to focus on: "<user's focus area>"
+
+<Clear description of what help is needed related to this focus area. Be specific about:
+- What you're trying to accomplish regarding this focus
+- What options you're considering
+- What's blocking you
+- What specific guidance you need>
+
+**If no focus area provided:**
+<Clear description of what help is needed. Be specific about:
+- What you're trying to accomplish
+- What options you're considering
+- What's blocking you
+- What specific guidance you need>
+
+### Relevant Context
+
+<Any additional background information, constraints, or details that would help provide better guidance>
+
+### Supporting Information
+
+<Include any relevant information such as:
+- Git references (diffs, commits) if code changes are relevant
+- File contents if small and directly relevant
+- Error messages or logs
+- Specific technical details>
+```
+
+**3. Send to Claude for guidance:**
+
+```bash
+cat ./tmp/<issue-id>-ask-request-round-<N>.md | claude -p --dangerously-skip-permissions 2>&1 | tee ./tmp/<issue-id>-ask-response-round-<N>.md
+```
+
+Note: Use `tee` instead of `>` redirect to properly capture streaming output.
+
+After completion, verify output is not truncated:
+
+```bash
+RESPONSE_FILE="./tmp/<issue-id>-ask-response-round-<N>.md"
+LINE_COUNT=$(wc -l < "$RESPONSE_FILE")
+
+if [ ! -s "$RESPONSE_FILE" ] || [ "$LINE_COUNT" -lt 5 ]; then
+  echo "⚠️  Response seems truncated ($LINE_COUNT lines). Retry the claude command."
+else
+  echo "✓ Response received ($LINE_COUNT lines)"
+fi
+```
+
+If truncated, re-run the claude command.
+
+**4. Process guidance:**
+
+Read `./tmp/<issue-id>-ask-response-round-<N>.md` and:
+
+- Understand the recommendations provided
+- Identify clear action items or next steps
+- Note any warnings or potential pitfalls
+- Assess if you need further clarification
+
+**5. Decide next action:**
+
+- **Problem solved**: Update issue status and proceed with implementation
+- **Need clarification**: Increment ROUND and create follow-up question
+- **Partial guidance**: Implement suggested approach, return if issues arise
+- **Complex situation**: Break into smaller questions and continue
+
+## Tips for Effective Questions
+
+**Be Specific:**
+- "Should I use Redis or in-memory caching for user sessions?" (good)
+- "How do I do caching?" (too broad)
+
+**Include Context:**
+- Current architecture or constraints
+- What you've already tried
+- Why you're stuck or what trade-offs you're considering
+
+**Use Git References When Relevant:**
+- `git diff` for uncommitted changes
+- `git show <commit>` for specific commits
+- File paths for context (avoid large file contents)
+
+**Follow-up Naturally:**
+- Reference previous responses
+- Ask for clarification on specific points
+- Provide updates on progress or new issues
+
+## Completion
+
+When you have sufficient guidance:
+
+1. Update issue with plan or resolution if appropriate
+2. Proceed with implementation or next steps
+3. Reference the conversation artifacts if helpful:
+   - `./tmp/<issue-id>-ask-request-round-*.md` (questions asked)
+   - `./tmp/<issue-id>-ask-response-round-*.md` (guidance received)
+
+## Key Principles
+
+- Flexible conversation format - adapt to your specific needs
+- Continue as many rounds as helpful for your situation
+- Agent discretion on including git refs, file contents, or descriptions
+- Focus on clear, actionable guidance rather than code review
+- Document conversation in `./tmp/` for reference
+
+## Usage Examples
+
+```bash
+/oracle-ask                                    # General question
+/oracle-ask "design approach for auth"         # Focus on specific topic
+/oracle-ask "help with database schema"        # Focus area provided
+/oracle-ask "consult oracle about frontend UX" # Natural language focus
+```
+"""

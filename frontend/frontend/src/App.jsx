@@ -614,8 +614,24 @@ function AppContent() {
           // Free tier - send user ID and usage count
           const freeUserId = ensureFreeUserId()
           const freeUsed = getFreeUsage()
-          headers['X-Free-User-ID'] = btoa(freeUserId)
-          headers['X-Free-Used'] = btoa(String(freeUsed))
+
+          // Add free user ID header if UUID generation succeeded
+          if (freeUserId) {
+            try {
+              headers['X-Free-User-ID'] = btoa(freeUserId)
+            } catch (encodingError) {
+              console.error('Failed to encode user ID:', encodingError)
+              // Send raw UUID as fallback
+              headers['X-Free-User-ID'] = freeUserId
+            }
+          }
+
+          try {
+            headers['X-Free-Used'] = btoa(String(freeUsed))
+          } catch (encodingError) {
+            console.error('Failed to encode usage count:', encodingError)
+            headers['X-Free-Used'] = String(freeUsed)
+          }
         }
 
         const response = await fetch('/api/validate/async', {

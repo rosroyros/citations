@@ -26,7 +26,8 @@ class OpenAIProvider(CitationValidator):
         """
         self.api_key = api_key or os.getenv("OPENAI_API_KEY")
         self.model = model
-        self.client = AsyncOpenAI(api_key=self.api_key)
+        # Set 85s timeout at client level (stays under nginx 90s and Cloudflare 100s limits)
+        self.client = AsyncOpenAI(api_key=self.api_key, timeout=85.0)
         self.prompt_manager = PromptManager()
         logger.info(f"OpenAI provider initialized with model: {model}")
 
@@ -53,39 +54,36 @@ class OpenAIProvider(CitationValidator):
         logger.info(f"Calling OpenAI API with model: {self.model}")
         api_start = time.time()
 
-        # Build completion kwargs
-        completion_kwargs = {
+        # Build responses API kwargs
+        system_instructions = "You are an expert APA 7th edition citation validator."
+
+        response_kwargs = {
             "model": self.model,
-            "messages": [
-                {"role": "system", "content": "You are an expert APA 7th edition citation validator."},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
-            "timeout": 85.0  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
+            "instructions": system_instructions,
+            "input": prompt,
+            "temperature": 1,  # GPT-5 requires temperature=1
+            "max_output_tokens": 10000  # Increased to handle large batches without truncation
         }
 
-        # Use appropriate parameter based on model family
+        # Add reasoning parameter for GPT-5 models
         if self.model.startswith("gpt-5"):
-            completion_kwargs["max_completion_tokens"] = 10000  # Increased to handle large batches without truncation
-            completion_kwargs["reasoning_effort"] = "medium"  # 75.2% accuracy, only -2.5% vs baseline for better latency
-        else:
-            completion_kwargs["max_tokens"] = 10000
+            response_kwargs["reasoning"] = {"effort": "medium"}  # 75.2% accuracy, only -2.5% vs baseline for better latency
 
         # Retry logic with exponential backoff
         max_retries = 3
         retry_delay = 2  # Initial delay in seconds
 
         # Estimate request size for debugging
-        request_size_chars = sum(len(m.get("content", "")) for m in completion_kwargs.get("messages", []))
+        request_size_chars = len(system_instructions) + len(prompt)
 
         for attempt in range(max_retries):
             attempt_start = time.time()
-            configured_timeout = completion_kwargs.get("timeout")
+            configured_timeout = 85.0  # Client-level timeout
 
-            logger.info(f"Attempt {attempt + 1}/{max_retries}: Calling OpenAI (timeout={configured_timeout}s, model={self.model}, size={request_size_chars} chars)")
+            logger.info(f"Attempt {attempt + 1}/{max_retries}: Calling OpenAI Responses API (timeout={configured_timeout}s, model={self.model}, size={request_size_chars} chars)")
 
             try:
-                response = await self.client.chat.completions.create(**completion_kwargs)
+                response = await self.client.responses.create(**response_kwargs)
                 attempt_duration = time.time() - attempt_start
                 logger.info(f"Attempt {attempt + 1}/{max_retries}: Success in {attempt_duration:.3f}s")
                 break  # Success, exit retry loop
@@ -122,10 +120,10 @@ class OpenAIProvider(CitationValidator):
             logger.warning(f"SLOW REQUEST: OpenAI API call took {api_time:.1f}s (>30s threshold)")
             logger.warning(f"Citation preview: {citations[:200]}...")
 
-        logger.info(f"Token usage: {response.usage.prompt_tokens} prompt + {response.usage.completion_tokens} completion = {response.usage.total_tokens} total")
+        logger.info(f"Token usage: {response.usage.input_tokens} input + {response.usage.output_tokens} output = {response.usage.total_tokens} total")
 
-        # Extract response text
-        response_text = response.choices[0].message.content
+        # Extract response text using output_text convenience property
+        response_text = response.output_text
         logger.debug(f"Response text length: {len(response_text)} characters")
         logger.debug(f"Response preview: {response_text[:300]}...")
 
