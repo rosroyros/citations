@@ -578,6 +578,32 @@
             display: inline-block;
         }
 
+        /* User ID styles */
+        .user-id-paid {
+            background: var(--color-brand-lighter);
+            color: var(--color-brand);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-brand);
+            display: inline-block;
+        }
+
+        .user-id-free {
+            background: var(--color-bg-secondary);
+            color: var(--color-text-secondary);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            font-family: var(--font-mono);
+            border: 1px solid var(--color-border);
+            display: inline-block;
+            cursor: help;
+        }
+
         /* Duration styling with enhanced slow warning */
         .duration-slow {
             color: var(--color-warning);
@@ -1196,6 +1222,10 @@
                 <label>Search Job ID</label>
                 <input type="text" id="search" placeholder="Job ID..." onkeyup="if(event.key === 'Enter') loadData()">
             </div>
+            <div class="filter-group">
+                <label>Search User ID</label>
+                <input type="text" id="userIdSearch" placeholder="User ID..." onkeyup="if(event.key === 'Enter') loadData()">
+            </div>
         </div>
 
         <div class="stats" id="stats">
@@ -1292,13 +1322,14 @@
                         <th onclick="sortTable('citation_count')">Citations</th>
                         <th onclick="sortTable('token_usage')">Tokens</th>
                         <th onclick="sortTable('user_type')">User</th>
+                        <th onclick="sortTable('user_id')">User ID</th>
                         <th onclick="sortTable('status')">Status</th>
                         <th onclick="sortTable('revealed')">Revealed</th>
                     </tr>
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="8" class="loading">Loading data...</td>
+                        <td colspan="9" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1329,13 +1360,14 @@
             const status = document.getElementById('status').value;
             const userType = document.getElementById('userType').value;
             const search = document.getElementById('search').value;
+            const userIdSearch = document.getElementById('userIdSearch').value;
             const pageSize = document.getElementById('pageSize').value;
 
             const from_date = getDateRange(dateRange);
 
             try {
                 // Show loading
-                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="7" class="loading">Loading data...</td></tr>';
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="9" class="loading">Loading data...</td></tr>';
 
                 // Fetch stats
                 const statsResponse = await fetch(`/api/stats?from_date=${from_date}`);
@@ -1353,9 +1385,21 @@
                 }
 
                 // Fetch validations
-                const validationsResponse = await fetch(
-                    `/api/validations?limit=${pageSize}&offset=${(currentPage - 1) * pageSize}&status=${status}&user_type=${userType}&search=${search}&from_date=${from_date}&order_by=${sortBy}&order_dir=${sortDir}`
-                );
+                let apiUrl = `/api/validations?limit=${pageSize}&offset=${(currentPage - 1) * pageSize}&status=${status}&user_type=${userType}&search=${search}&from_date=${from_date}&order_by=${sortBy}&order_dir=${sortDir}`;
+
+                // Add user ID search if provided
+                if (userIdSearch.trim()) {
+                    const searchValue = userIdSearch.trim();
+                    // If it looks like a UUID (contains hyphens and is longer), search free_user_id
+                    // Otherwise, search paid_user_id (typically shorter tokens)
+                    if (searchValue.includes('-') && searchValue.length > 10) {
+                        apiUrl += `&free_user_id=${encodeURIComponent(searchValue)}`;
+                    } else {
+                        apiUrl += `&paid_user_id=${encodeURIComponent(searchValue)}`;
+                    }
+                }
+
+                const validationsResponse = await fetch(apiUrl);
                 const data = await validationsResponse.json();
 
                 updateTable(data.validations);
@@ -1364,7 +1408,7 @@
 
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="7" class="error">Error loading data</td></tr>';
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="9" class="error">Error loading data</td></tr>';
             }
         }
 
@@ -1469,7 +1513,7 @@
             const tbody = document.getElementById('validationsTable');
 
             if (validations.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 40px;">No validations found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px;">No validations found</td></tr>';
                 return;
             }
 
@@ -1497,6 +1541,16 @@
                     revealedClass = 'revealed-free';
                 }
 
+                // Generate User ID display
+                let userIdDisplay = 'unknown';
+                if (validation.user_type === 'paid' && validation.paid_user_id) {
+                    userIdDisplay = `<span class="user-id-paid">${validation.paid_user_id}</span>`;
+                } else if (validation.user_type === 'free' && validation.free_user_id) {
+                    // Show truncated UUID for free users to save space
+                    const shortId = validation.free_user_id.substring(0, 8) + '...';
+                    userIdDisplay = `<span class="user-id-free" title="${validation.free_user_id}">${shortId}</span>`;
+                }
+
                 return `
                     <tr>
                         <td><span class="job-id" onclick="toggleJobDetails('${validation.job_id}')">${validation.job_id.substring(0, 8)}</span></td>
@@ -1505,11 +1559,12 @@
                         <td>${citations}</td>
                         <td>${tokens}</td>
                         <td>${validation.user_type}</td>
+                        <td>${userIdDisplay}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
                         <td><span class="${revealedClass}">${revealedStatus}</span></td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="8">
+                        <td colspan="9">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>

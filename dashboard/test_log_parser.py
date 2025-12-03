@@ -16,6 +16,7 @@ from log_parser import (
     extract_failure,
     extract_citations_preview,
     extract_full_citations,
+    extract_user_ids,
     parse_job_events,
     find_job_by_timestamp,
     parse_metrics,
@@ -429,6 +430,161 @@ class TestLogParser(unittest.TestCase):
             # Clean up temp file
             import os
             os.unlink(temp_log_path)
+
+    # ==================== USER ID EXTRACTION TESTS ====================
+
+    def test_extract_user_ids_paid_user(self):
+        """Test extracting user IDs from a paid user validation request."""
+        log_line = "2025-12-03 10:15:00 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=abc12345, free_user_id=N/A, style=apa7"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertEqual(paid_id, "abc12345")
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_free_user(self):
+        """Test extracting user IDs from a free user validation request."""
+        log_line = "2025-12-03 10:16:00 - citation_validator - INFO - Validation request - user_type=free, paid_user_id=N/A, free_user_id=550e8400-e29b-41d4-a716-446655440000, style=mla9"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertIsNone(paid_id)
+        self.assertEqual(free_id, "550e8400-e29b-41d4-a716-446655440000")
+
+    def test_extract_user_ids_anonymous_user(self):
+        """Test extracting user IDs from an anonymous user validation request."""
+        log_line = "2025-12-03 10:17:00 - citation_validator - INFO - Validation request - user_type=free, paid_user_id=N/A, free_user_id=N/A, style=chicago"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertIsNone(paid_id)
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_old_log_format(self):
+        """Test extracting user IDs from an old log line without user ID information."""
+        log_line = "2025-12-01 10:00:00 - citation_validator - INFO - Validation request received for style: apa7"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertIsNone(paid_id)
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_no_validation_request(self):
+        """Test extracting user IDs from a log line that's not a validation request."""
+        log_line = "2025-12-03 10:15:00 - citation_validator - INFO - Some other log message"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertIsNone(paid_id)
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_empty_line(self):
+        """Test extracting user IDs from an empty line."""
+        paid_id, free_id = extract_user_ids("")
+
+        self.assertIsNone(paid_id)
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_malformed_user_type(self):
+        """Test extracting user IDs from a log line with malformed user type."""
+        log_line = "2025-12-03 10:15:00 - citation_validator - INFO - Validation request - user_type=invalid, paid_user_id=abc123, free_user_id=N/A"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        # Should still extract the IDs even if user_type is unusual
+        self.assertEqual(paid_id, "abc123")
+        self.assertIsNone(free_id)
+
+    def test_extract_user_ids_partial_match(self):
+        """Test extracting user IDs when only partial pattern matches."""
+        log_line = "2025-12-03 10:15:00 - some message about user_type=free but no full pattern"
+        paid_id, free_id = extract_user_ids(log_line)
+
+        self.assertIsNone(paid_id)
+        self.assertIsNone(free_id)
+
+    def test_parse_job_events_with_user_ids(self):
+        """Test that parse_job_events correctly associates user IDs with jobs."""
+        log_lines = [
+            "2025-12-03 10:15:00 Creating async job abc-123-def for paid user",
+            "2025-12-03 10:15:01 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=abc12345, free_user_id=N/A, style=apa7",
+            "2025-12-03 10:16:00 Creating async job def-456-abc for free user",
+            "2025-12-03 10:16:01 - citation_validator - INFO - Validation request - user_type=free, paid_user_id=N/A, free_user_id=550e8400-e29b-41d4-a716-446655440000, style=mla9",
+            "2025-12-03 10:17:00 Creating async job bcd-789-ef0 for free user",
+            "2025-12-03 10:17:01 - citation_validator - INFO - Validation request - user_type=free, paid_user_id=N/A, free_user_id=N/A, style=chicago"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        # Check that we have 3 jobs
+        self.assertEqual(len(jobs), 3)
+
+        # Check paid user job
+        paid_job = jobs.get("abc-123-def")
+        self.assertIsNotNone(paid_job)
+        self.assertEqual(paid_job["paid_user_id"], "abc12345")
+        self.assertIsNone(paid_job["free_user_id"])
+        self.assertEqual(paid_job["user_type"], "paid")
+
+        # Check free user job
+        free_job = jobs.get("def-456-abc")
+        self.assertIsNotNone(free_job)
+        self.assertIsNone(free_job["paid_user_id"])
+        self.assertEqual(free_job["free_user_id"], "550e8400-e29b-41d4-a716-446655440000")
+        self.assertEqual(free_job["user_type"], "free")
+
+        # Check anonymous user job (no user IDs)
+        anonymous_job = jobs.get("bcd-789-ef0")
+        self.assertIsNotNone(anonymous_job)
+        self.assertIsNone(anonymous_job["paid_user_id"])
+        self.assertIsNone(anonymous_job["free_user_id"])
+        self.assertEqual(anonymous_job["user_type"], "free")
+
+    def test_parse_job_events_user_id_timeout(self):
+        """Test that user ID association times out after 5 minutes."""
+        log_lines = [
+            "2025-12-03 10:15:00 Creating async job cde-234-f5a for paid user",
+            # User ID log is 6 minutes later - should not associate
+            "2025-12-03 10:21:00 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=abc12345, free_user_id=N/A, style=apa7"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        # Job should exist but without user ID (due to timeout)
+        job = jobs.get("cde-234-f5a")
+        self.assertIsNotNone(job)
+        self.assertIsNone(job["paid_user_id"])
+        self.assertIsNone(job["free_user_id"])
+
+    def test_parse_job_events_multiple_jobs_same_timestamp(self):
+        """Test user ID association when multiple jobs exist with similar timestamps."""
+        log_lines = [
+            "2025-12-03 10:15:00 Creating async job abc-123-def for paid user",
+            "2025-12-03 10:15:01 Creating async job def-456-abc for paid user",
+            "2025-12-03 10:15:02 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=abc12345, free_user_id=N/A, style=apa7",
+            "2025-12-03 10:15:03 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=def67890, free_user_id=N/A, style=mla9"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        # Both jobs should get their respective user IDs
+        job1 = jobs.get("abc-123-def")
+        job2 = jobs.get("def-456-abc")
+
+        self.assertIsNotNone(job1)
+        self.assertIsNotNone(job2)
+        self.assertEqual(job1["paid_user_id"], "abc12345")
+        self.assertEqual(job2["paid_user_id"], "def67890")
+
+    def test_parse_job_events_user_id_override(self):
+        """Test that user IDs are not overwritten once set."""
+        log_lines = [
+            "2025-12-03 10:15:00 Creating async job eff-456-78a for paid user",
+            "2025-12-03 10:15:01 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=abc12345, free_user_id=N/A, style=apa7",
+            # This should not overwrite the first user ID
+            "2025-12-03 10:15:02 - citation_validator - INFO - Validation request - user_type=paid, paid_user_id=xyz98765, free_user_id=N/A, style=mla9"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        job = jobs.get("eff-456-78a")
+        self.assertIsNotNone(job)
+        # Should keep the first user ID that was associated
+        self.assertEqual(job["paid_user_id"], "abc12345")
 
 
 if __name__ == '__main__':

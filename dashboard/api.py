@@ -429,6 +429,8 @@ async def get_validations(
     status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
     user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
     search: Optional[str] = Query(None, description="Search in job_id field"),
+    paid_user_id: Optional[str] = Query(None, description="Filter by paid user ID"),
+    free_user_id: Optional[str] = Query(None, description="Filter by free user ID"),
     from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     order_by: str = Query("created_at", description="Column to sort by"),
@@ -446,6 +448,8 @@ async def get_validations(
     - status: Filter by validation status (completed, failed, pending)
     - user_type: Filter by user type (free/paid)
     - search: Search in job_id field (partial match, min 2 chars)
+    - paid_user_id: Filter by paid user ID (exact match)
+    - free_user_id: Filter by free user ID (exact match)
     - from_date: Include only validations created after this date (ISO 8601)
     - to_date: Include only validations created before this date (ISO 8601)
     - order_by: Column to sort by (created_at, duration_seconds, etc.)
@@ -468,6 +472,8 @@ async def get_validations(
             status=status,
             user_type=user_type,
             search=search,
+            paid_user_id=paid_user_id,
+            free_user_id=free_user_id,
             from_date=from_date,
             to_date=to_date,
             order_by=order_by,
@@ -479,6 +485,8 @@ async def get_validations(
             status=status,
             user_type=user_type,
             search=search,
+            paid_user_id=paid_user_id,
+            free_user_id=free_user_id,
             from_date=from_date,
             to_date=to_date
         )
@@ -503,6 +511,8 @@ async def get_validations_count(
     status: Optional[str] = Query(None, description="Filter by status (completed, failed, pending)"),
     user_type: Optional[str] = Query(None, description="Filter by user type (free, paid)"),
     search: Optional[str] = Query(None, description="Search in job_id field"),
+    paid_user_id: Optional[str] = Query(None, description="Filter by paid user ID"),
+    free_user_id: Optional[str] = Query(None, description="Filter by free user ID"),
     from_date: Optional[str] = Query(None, description="Filter by created_at >= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     database: DatabaseManager = Depends(get_db)
@@ -526,6 +536,8 @@ async def get_validations_count(
             status=status,
             user_type=user_type,
             search=search,
+            paid_user_id=paid_user_id,
+            free_user_id=free_user_id,
             from_date=from_date,
             to_date=to_date
         )

@@ -57,7 +57,9 @@ class DatabaseManager:
                 error_message TEXT,
                 results_gated BOOLEAN,
                 results_revealed_at TEXT,
-                gated_outcome TEXT
+                gated_outcome TEXT,
+                paid_user_id TEXT,
+                free_user_id TEXT
             )
         """)
 
@@ -82,6 +84,16 @@ class DatabaseManager:
         # Create indexes for performance
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_created_at ON validations(created_at)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON validations(user_type)")
+
+        # Create user ID indexes only if columns exist (for backward compatibility)
+        cursor.execute("PRAGMA table_info(validations)")
+        existing_columns = [col[1] for col in cursor.fetchall()]
+
+        if 'paid_user_id' in existing_columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_paid_user_id ON validations(paid_user_id)")
+
+        if 'free_user_id' in existing_columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_free_user_id ON validations(free_user_id)")
 
         # Handle status vs validation_status compatibility
         cursor.execute("PRAGMA table_info(validations)")
@@ -169,6 +181,10 @@ class DatabaseManager:
         optional_columns = ['completed_at', 'duration_seconds', 'citation_count',
                           'token_usage_prompt', 'token_usage_completion', 'token_usage_total']
 
+        # Add user ID columns if they exist
+        if all(col in columns for col in ['paid_user_id', 'free_user_id']):
+            optional_columns.extend(['paid_user_id', 'free_user_id'])
+
         # Determine which status column to use
         if has_status and has_validation_status:
             status_columns = ['status', 'validation_status']
@@ -202,7 +218,8 @@ class DatabaseManager:
                 values.append(validation_data["status"])  # Map to both if present
             elif col in ['completed_at', 'duration_seconds', 'citation_count',
                         'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
-                        'results_gated', 'results_revealed_at', 'gated_outcome']:
+                        'results_gated', 'results_revealed_at', 'gated_outcome',
+                        'paid_user_id', 'free_user_id']:
                 values.append(validation_data.get(col))
 
         # Build the INSERT statement dynamically
@@ -243,6 +260,8 @@ class DatabaseManager:
         search: Optional[str] = None,
         from_date: Optional[str] = None,
         to_date: Optional[str] = None,
+        paid_user_id: Optional[str] = None,
+        free_user_id: Optional[str] = None,
         order_by: str = "created_at",
         order_dir: str = "DESC"
     ) -> List[Dict[str, Any]]:
@@ -258,6 +277,8 @@ class DatabaseManager:
             search: Search in job_id field
             from_date: Filter by created_at >= from_date
             to_date: Filter by created_at <= to_date
+            paid_user_id: Filter by paid_user_id
+            free_user_id: Filter by free_user_id
             order_by: Column to order by
             order_dir: ASC or DESC
 
@@ -302,6 +323,15 @@ class DatabaseManager:
             query += " AND created_at <= ?"
             params.append(to_date)
 
+        # Add user ID filtering if columns exist
+        if 'paid_user_id' in columns and paid_user_id:
+            query += " AND paid_user_id = ?"
+            params.append(paid_user_id)
+
+        if 'free_user_id' in columns and free_user_id:
+            query += " AND free_user_id = ?"
+            params.append(free_user_id)
+
         # Add ordering
         query += f" ORDER BY {order_by} {order_dir}"
 
@@ -329,7 +359,9 @@ class DatabaseManager:
         user_type: Optional[str] = None,
         search: Optional[str] = None,
         from_date: Optional[str] = None,
-        to_date: Optional[str] = None
+        to_date: Optional[str] = None,
+        paid_user_id: Optional[str] = None,
+        free_user_id: Optional[str] = None
     ) -> int:
         """
         Get count of validations matching filters
@@ -379,10 +411,182 @@ class DatabaseManager:
             query += " AND created_at <= ?"
             params.append(to_date)
 
+        # Add user ID filtering if columns exist
+        if 'paid_user_id' in columns and paid_user_id:
+            query += " AND paid_user_id = ?"
+            params.append(paid_user_id)
+
+        if 'free_user_id' in columns and free_user_id:
+            query += " AND free_user_id = ?"
+            params.append(free_user_id)
+
         cursor.execute(query, params)
         result = cursor.fetchone()
 
         return result[0] if result else 0
+
+    def get_user_journey(
+        self,
+        paid_user_id: Optional[str] = None,
+        free_user_id: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict[str, Any]]:
+        """
+        Get validation journey for a specific user
+        Supports both paid and free user IDs
+
+        Args:
+            paid_user_id: Paid user ID to filter by
+            free_user_id: Free user ID to filter by
+            limit: Maximum number of validations to return
+
+        Returns:
+            List of validation records for the user, ordered chronologically
+        """
+        if not paid_user_id and not free_user_id:
+            return []
+
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        query = "SELECT * FROM validations WHERE 1=1"
+        params = []
+
+        # Add user ID filtering if columns exist
+        if 'paid_user_id' in columns and paid_user_id:
+            query += " AND paid_user_id = ?"
+            params.append(paid_user_id)
+
+        if 'free_user_id' in columns and free_user_id:
+            query += " AND free_user_id = ?"
+            params.append(free_user_id)
+
+        # Order chronologically to show journey
+        query += " ORDER BY created_at ASC"
+        query += " LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+
+        return [dict(row) for row in rows]
+
+    def get_user_analytics(
+        self,
+        from_date: Optional[str] = None,
+        to_date: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Get user analytics and behavior patterns
+        Returns data about distinct users and their validation patterns
+
+        Args:
+            from_date: Include only validations created after this date
+            to_date: Include only validations created before this date
+
+        Returns:
+            Dictionary with user analytics data
+        """
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        # Check if user ID columns exist
+        has_paid_user_id = 'paid_user_id' in columns
+        has_free_user_id = 'free_user_id' in columns
+
+        if not has_paid_user_id and not has_free_user_id:
+            # Return basic analytics if user ID columns don't exist
+            return self.get_stats(from_date, to_date)
+
+        query = """
+            SELECT
+                COUNT(*) as total_validations,
+                COUNT(DISTINCT CASE WHEN paid_user_id IS NOT NULL THEN paid_user_id END) as distinct_paid_users,
+                COUNT(DISTINCT CASE WHEN free_user_id IS NOT NULL THEN free_user_id END) as distinct_free_users
+            FROM validations
+            WHERE 1=1
+        """
+        params = []
+
+        if from_date:
+            query += " AND created_at >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND created_at <= ?"
+            params.append(to_date)
+
+        cursor.execute(query, params)
+        basic_stats = cursor.fetchone()
+
+        # Get repeat user statistics
+        analytics = {
+            "total_validations": basic_stats[0] or 0,
+            "distinct_paid_users": basic_stats[1] or 0,
+            "distinct_free_users": basic_stats[2] or 0,
+            "repeat_users": {},
+            "power_users": {}
+        }
+
+        # Get repeat user statistics for free users
+        if has_free_user_id:
+            repeat_query = """
+                SELECT COUNT(*) as repeat_free_users
+                FROM (
+                    SELECT free_user_id, COUNT(*) as validation_count
+                    FROM validations
+                    WHERE free_user_id IS NOT NULL
+            """
+            query_params = []
+
+            if from_date:
+                repeat_query += " AND created_at >= ?"
+                query_params.append(from_date)
+            if to_date:
+                repeat_query += " AND created_at <= ?"
+                query_params.append(to_date)
+
+            repeat_query += """
+                    GROUP BY free_user_id
+                    HAVING COUNT(*) > 1
+                )
+            """
+
+            cursor.execute(repeat_query, query_params)
+            repeat_result = cursor.fetchone()
+            analytics["repeat_users"]["free"] = repeat_result[0] if repeat_result else 0
+
+        # Get repeat user statistics for paid users
+        if has_paid_user_id:
+            repeat_query = """
+                SELECT COUNT(*) as repeat_paid_users
+                FROM (
+                    SELECT paid_user_id, COUNT(*) as validation_count
+                    FROM validations
+                    WHERE paid_user_id IS NOT NULL
+            """
+            query_params = []
+
+            if from_date:
+                repeat_query += " AND created_at >= ?"
+                query_params.append(from_date)
+            if to_date:
+                repeat_query += " AND created_at <= ?"
+                query_params.append(to_date)
+
+            repeat_query += """
+                    GROUP BY paid_user_id
+                    HAVING COUNT(*) > 1
+                )
+            """
+
+            cursor.execute(repeat_query, query_params)
+            repeat_result = cursor.fetchone()
+            analytics["repeat_users"]["paid"] = repeat_result[0] if repeat_result else 0
+
+        return analytics
 
     def set_metadata(self, key: str, value: str):
         """

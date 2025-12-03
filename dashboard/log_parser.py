@@ -302,6 +302,45 @@ def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
     return None
 
 
+def extract_user_ids(log_line: str) -> tuple[Optional[str], Optional[str]]:
+    """
+    Extract user IDs from validation request log line.
+
+    Args:
+        log_line: Log line containing user ID information
+
+    Returns:
+        tuple: (paid_user_id, free_user_id)
+            Returns (None, None) if pattern not found
+    """
+    # Look for the user type and IDs in the log line
+    if "Validation request" not in log_line:
+        return None, None
+
+    # Extract using simple string parsing
+    paid_user_id = None
+    free_user_id = None
+
+    # Find user_type
+    user_type_match = re.search(r'user_type=(\w+)', log_line)
+    if not user_type_match:
+        return None, None
+
+    # Extract paid_user_id
+    paid_match = re.search(r'paid_user_id=([^,]+)', log_line)
+    if paid_match:
+        paid_value = paid_match.group(1).strip()
+        paid_user_id = paid_value if paid_value != 'N/A' else None
+
+    # Extract free_user_id
+    free_match = re.search(r'free_user_id=([^,]+)', log_line)
+    if free_match:
+        free_value = free_match.group(1).strip()
+        free_user_id = free_value if free_value != 'N/A' else None
+
+    return paid_user_id, free_user_id
+
+
 def extract_full_citations(log_lines: List[str], start_index: int) -> Optional[tuple[str, bool]]:
     """
     Extract full citation text from multiline ORIGINAL: pattern.
@@ -364,7 +403,9 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 "job_id": job_id,
                 "created_at": timestamp,
                 "user_type": user_type,
-                "status": "pending"
+                "status": "pending",
+                "paid_user_id": None,
+                "free_user_id": None
             }
             continue
 
@@ -406,6 +447,24 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                     jobs[job_id]["results_revealed_at"] = timestamp.isoformat() + 'Z'
                 jobs[job_id]["gated_outcome"] = outcome
             continue
+
+        # Check for validation request with user IDs
+        if "Validation request" in line:
+            paid_user_id, free_user_id = extract_user_ids(line)
+            if paid_user_id is not None or free_user_id is not None:
+                # Find the most recent job that doesn't have user IDs set yet
+                # This associates the user IDs with the job that was just created
+                timestamp = extract_timestamp(line)
+                if timestamp:
+                    # Look for a job created within the last 5 minutes that doesn't have user IDs
+                    for job_id, job in jobs.items():
+                        if (job.get("paid_user_id") is None and
+                            job.get("free_user_id") is None and
+                            job.get("created_at") and
+                            abs((timestamp - job["created_at"]).total_seconds()) < 300):
+                            job["paid_user_id"] = paid_user_id
+                            job["free_user_id"] = free_user_id
+                            break
 
     return jobs
 
@@ -600,6 +659,8 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("citations_preview_truncated", False)
         job.setdefault("citations_full", None)
         job.setdefault("citations_full_truncated", False)
+        job.setdefault("paid_user_id", None)
+        job.setdefault("free_user_id", None)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):
