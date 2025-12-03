@@ -156,77 +156,63 @@ class DatabaseManager:
         """
         cursor = self.conn.cursor()
 
-        # Check what status columns exist in the database
+        # Check what columns exist in the database
         cursor.execute("PRAGMA table_info(validations)")
         columns = [col[1] for col in cursor.fetchall()]
 
         has_status = 'status' in columns
         has_validation_status = 'validation_status' in columns
+        has_gating_columns = all(col in columns for col in ['results_gated', 'results_revealed_at', 'gated_outcome'])
 
+        # Build dynamic column and value lists
+        base_columns = ['job_id', 'created_at', 'user_type', 'error_message']
+        optional_columns = ['completed_at', 'duration_seconds', 'citation_count',
+                          'token_usage_prompt', 'token_usage_completion', 'token_usage_total']
+
+        # Determine which status column to use
         if has_status and has_validation_status:
-            # Both columns exist - update both with same value
-            cursor.execute("""
-                INSERT OR REPLACE INTO validations (
-                    job_id, created_at, completed_at, duration_seconds,
-                    citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, status, validation_status, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                validation_data["job_id"],
-                validation_data["created_at"],
-                validation_data.get("completed_at"),
-                validation_data.get("duration_seconds"),
-                validation_data.get("citation_count"),
-                validation_data.get("token_usage_prompt"),
-                validation_data.get("token_usage_completion"),
-                validation_data.get("token_usage_total"),
-                validation_data["user_type"],
-                validation_data["status"],
-                validation_data["status"],  # Keep both in sync
-                validation_data.get("error_message")
-            ))
-        elif has_validation_status:
-            # Only validation_status exists (old schema)
-            cursor.execute("""
-                INSERT OR REPLACE INTO validations (
-                    job_id, created_at, completed_at, duration_seconds,
-                    citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, validation_status, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                validation_data["job_id"],
-                validation_data["created_at"],
-                validation_data.get("completed_at"),
-                validation_data.get("duration_seconds"),
-                validation_data.get("citation_count"),
-                validation_data.get("token_usage_prompt"),
-                validation_data.get("token_usage_completion"),
-                validation_data.get("token_usage_total"),
-                validation_data["user_type"],
-                validation_data["status"],  # Map status to validation_status
-                validation_data.get("error_message")
-            ))
+            status_columns = ['status', 'validation_status']
+        elif has_status:
+            status_columns = ['status']
         else:
-            # Only status exists (new schema)
-            cursor.execute("""
-                INSERT OR REPLACE INTO validations (
-                    job_id, created_at, completed_at, duration_seconds,
-                    citation_count, token_usage_prompt, token_usage_completion,
-                    token_usage_total, user_type, status, error_message
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                validation_data["job_id"],
-                validation_data["created_at"],
-                validation_data.get("completed_at"),
-                validation_data.get("duration_seconds"),
-                validation_data.get("citation_count"),
-                validation_data.get("token_usage_prompt"),
-                validation_data.get("token_usage_completion"),
-                validation_data.get("token_usage_total"),
-                validation_data["user_type"],
-                validation_data["status"],
-                validation_data.get("error_message")
-            ))
+            status_columns = ['validation_status']
+
+        # Add gating columns if they exist
+        if has_gating_columns:
+            optional_columns.extend(['results_gated', 'results_revealed_at', 'gated_outcome'])
+
+        # Build final column list and values
+        insert_columns = base_columns + status_columns
+        for col in optional_columns:
+            if col in columns:
+                insert_columns.append(col)
+
+        # Build values tuple
+        values = []
+        for col in insert_columns:
+            if col == 'job_id':
+                values.append(validation_data["job_id"])
+            elif col == 'created_at':
+                values.append(validation_data["created_at"])
+            elif col == 'user_type':
+                values.append(validation_data["user_type"])
+            elif col == 'error_message':
+                values.append(validation_data.get("error_message"))
+            elif col in ['status', 'validation_status']:
+                values.append(validation_data["status"])  # Map to both if present
+            elif col in ['completed_at', 'duration_seconds', 'citation_count',
+                        'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                        'results_gated', 'results_revealed_at', 'gated_outcome']:
+                values.append(validation_data.get(col))
+
+        # Build the INSERT statement dynamically
+        placeholders = ', '.join(['?'] * len(insert_columns))
+        column_list = ', '.join(insert_columns)
+
+        cursor.execute(f"""
+            INSERT OR REPLACE INTO validations ({column_list})
+            VALUES ({placeholders})
+        """, values)
 
         self.conn.commit()
 
