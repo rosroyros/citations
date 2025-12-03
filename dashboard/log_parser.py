@@ -5,6 +5,9 @@ from datetime import datetime
 from typing import Optional, Dict, Any, List, Tuple
 import gzip
 
+# Time window for associating user IDs with jobs (5 minutes)
+USER_ID_ASSOCIATION_TIMEOUT_SECONDS = 300
+
 
 def extract_timestamp(log_line: str) -> Optional[datetime]:
     """
@@ -461,7 +464,7 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                         if (job.get("paid_user_id") is None and
                             job.get("free_user_id") is None and
                             job.get("created_at") and
-                            abs((timestamp - job["created_at"]).total_seconds()) < 300):
+                            abs((timestamp - job["created_at"]).total_seconds()) < USER_ID_ASSOCIATION_TIMEOUT_SECONDS):
                             job["paid_user_id"] = paid_user_id
                             job["free_user_id"] = free_user_id
                             break

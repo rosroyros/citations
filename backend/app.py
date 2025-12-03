@@ -146,7 +146,7 @@ def extract_user_id(request: Request) -> tuple[Optional[str], Optional[str], str
             # Decode base64-encoded UUID
             decoded = base64.b64decode(free_user_id_header).decode('utf-8')
             return None, decoded, 'free'
-        except Exception as e:
+        except (ValueError, base64.binascii.Error, UnicodeDecodeError) as e:
             # Invalid encoding - log warning but don't fail request
             logger.warning(f"Failed to decode X-Free-User-ID header: {e}")
 
