@@ -601,11 +601,16 @@ async def get_dashboard_data(
                 else:
                     reveal_status = "N/A"  # Not gated
 
+            # Determine user identifier to display
+            user_id = validation.get("paid_user_id") or validation.get("free_user_id") or "unknown"
+            user_type = validation.get("user_type", "unknown")
+            user_display = f"{user_id} ({user_type})" if user_id != "unknown" else user_type
+
             job_data = {
                 "id": validation.get("job_id"),
                 "timestamp": validation.get("created_at"),
                 "status": validation.get("validation_status", validation.get("status", "unknown")),
-                "user": validation.get("user_type", "unknown"),
+                "user": user_display,
                 "citations": validation.get("citation_count", 0),
                 "errors": None,  # Extract from error_message if needed
                 "processing_time": f"{validation.get('duration_seconds', 0):.1f}s" if validation.get("duration_seconds") else None,
