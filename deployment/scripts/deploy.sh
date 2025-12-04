@@ -55,7 +55,7 @@ if [ -f "dashboard/migrations/add_user_id_columns.py" ]; then
     python3 add_user_id_columns.py
 
     # Store migration state for potential rollback
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Ran add_user_id_columns.py migration" >> "$BACKUP_DIR/migration_log.txt"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Ran add_user_id_columns.py migration" | sudo tee -a "$BACKUP_DIR/migration_log.txt" > /dev/null
 
     cd "$PROJECT_ROOT"
     echo "✅ Database migrations completed"
