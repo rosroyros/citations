@@ -246,23 +246,30 @@ function AppContent() {
       timeToRevealSeconds: timeToReveal
     }))
 
-    // Track analytics event
-    trackResultsRevealedSafe(jobId, timeToReveal, userTier)
+    // Get job_id and user tier for tracking
+    const jobId = results?.job_id || localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
+    const token = getToken()
+    const userTier = token ? 'paid' : 'free'
 
-    // Fire-and-forget API call
-    fetch('/api/reveal-results', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        job_id: jobId,
-        outcome: 'revealed'
+    // Track analytics event
+    if (jobId) {
+      trackResultsRevealedSafe(jobId, timeToReveal, userTier)
+
+      // Fire-and-forget API call
+      fetch('/api/reveal-results', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          job_id: jobId,
+          outcome: 'revealed'
+        })
+      }).catch(error => {
+        // Log error but don't break user experience
+        console.warn('Error tracking reveal results:', error)
       })
-    }).catch(error => {
-      // Log error but don't break user experience
-      console.warn('Error tracking reveal results:', error)
-    })
+    }
   }
 
   // Poll for job results
