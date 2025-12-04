@@ -25,12 +25,14 @@ sudo mkdir -p "$BACKUP_DIR"
 # Backup database if it exists
 if [ -f "/opt/citations/backend/users.db" ]; then
     sudo cp /opt/citations/backend/users.db "$BACKUP_DIR/"
-    echo "✅ Backend database backed up"
+    sudo chmod 600 "$BACKUP_DIR/users.db"  # Secure backup with user data
+    echo "✅ Backend database backed up and secured"
 fi
 
 if [ -f "/opt/citations/dashboard/data/validations.db" ]; then
     sudo cp /opt/citations/dashboard/data/validations.db "$BACKUP_DIR/"
-    echo "✅ Dashboard database backed up"
+    sudo chmod 600 "$BACKUP_DIR/validations.db"  # Secure backup with user data
+    echo "✅ Dashboard database backed up and secured"
 fi
 
 # Update code
@@ -51,11 +53,40 @@ if [ -f "dashboard/migrations/add_user_id_columns.py" ]; then
     echo "🔧 Running user ID columns migration..."
     cd dashboard/migrations
     python3 add_user_id_columns.py
+
+    # Store migration state for potential rollback
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Ran add_user_id_columns.py migration" >> "$BACKUP_DIR/migration_log.txt"
+
     cd "$PROJECT_ROOT"
     echo "✅ Database migrations completed"
+    echo "💾 Migration state saved to $BACKUP_DIR/migration_log.txt"
 else
     echo "ℹ️  No new migrations found"
 fi
+
+# Migration rollback function (available if deployment fails)
+rollback_migration() {
+    echo "🚨 Migration rollback initiated..."
+    if [ -f "$BACKUP_DIR/validations.db" ]; then
+        echo "📂 Restoring dashboard database from backup..."
+        sudo cp "$BACKUP_DIR/validations.db" /opt/citations/dashboard/data/validations.db
+        sudo chmod 644 /opt/citations/dashboard/data/validations.db
+        echo "✅ Dashboard database restored"
+    fi
+
+    if [ -f "$BACKUP_DIR/users.db" ]; then
+        echo "📂 Restoring backend database from backup..."
+        sudo cp "$BACKUP_DIR/users.db" /opt/citations/backend/users.db
+        sudo chmod 644 /opt/citations/backend/users.db
+        echo "✅ Backend database restored"
+    fi
+
+    echo "🔄 Restarting services after rollback..."
+    sudo systemctl restart citations-backend
+    sudo systemctl restart citations-dashboard 2>/dev/null || echo "Dashboard service not running"
+
+    echo "✅ Rollback completed"
+}
 
 # Restart backend service
 echo "🔄 Restarting backend service..."
