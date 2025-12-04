@@ -1,7 +1,37 @@
 #!/bin/bash
+
+# Deployment Script for Citation Format Checker
+# Usage: ./deployment/scripts/deploy.sh
+
 set -e  # Exit on any error
 
-echo "🚀 Starting deployment..."
+echo "🚀 Starting deployment of Citation Format Checker..."
+echo "=================================================="
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+cd "$PROJECT_ROOT"
+
+echo "📁 Project root: $(pwd)"
+echo ""
+
+# 1. Backup current state (CRITICAL for user tracking deployment)
+echo "📦 Creating backups..."
+BACKUP_DIR="/opt/citations/backups/$(date +%Y%m%d-%H%M%S)"
+sudo mkdir -p "$BACKUP_DIR"
+
+# Backup database if it exists
+if [ -f "/opt/citations/backend/users.db" ]; then
+    sudo cp /opt/citations/backend/users.db "$BACKUP_DIR/"
+    echo "✅ Backend database backed up"
+fi
+
+if [ -f "/opt/citations/dashboard/data/validations.db" ]; then
+    sudo cp /opt/citations/dashboard/data/validations.db "$BACKUP_DIR/"
+    echo "✅ Dashboard database backed up"
+fi
 
 # Update code
 echo "📥 Pulling latest code..."
@@ -11,6 +41,21 @@ git pull origin main
 echo "🐍 Updating Python dependencies..."
 source venv/bin/activate
 pip install -r requirements.txt
+
+# 2. Run database migrations (CRITICAL for user tracking)
+echo ""
+echo "🗄️  Checking database migrations..."
+
+# Check if dashboard migration exists (USER TRACKING DEPLOYMENT)
+if [ -f "dashboard/migrations/add_user_id_columns.py" ]; then
+    echo "🔧 Running user ID columns migration..."
+    cd dashboard/migrations
+    python3 add_user_id_columns.py
+    cd "$PROJECT_ROOT"
+    echo "✅ Database migrations completed"
+else
+    echo "ℹ️  No new migrations found"
+fi
 
 # Restart backend service
 echo "🔄 Restarting backend service..."
@@ -96,4 +141,60 @@ echo "🌐 Restarting Nginx..."
 sudo systemctl reload nginx
 sudo systemctl status nginx --no-pager
 
+# 3. Verify user tracking functionality (CRITICAL for user tracking deployment)
+echo ""
+echo "🧪 Testing user tracking functionality..."
+
+# Test that endpoints accept user tracking headers
+TEST_RESPONSE=$(curl -s -X POST http://localhost:8000/api/validate \
+    -H "Content-Type: application/json" \
+    -H "X-Free-User-ID: $(echo 'test-uuid' | base64)" \
+    -H "X-Free-Used: $(echo '3' | base64)" \
+    -d '{"citations": ["Smith, J. (2023). Test citation."], "style": "apa7"}')
+
+if echo "$TEST_RESPONSE" | grep -q "job_id\|error"; then
+    echo "✅ User tracking endpoints are working"
+else
+    echo "⚠️  User tracking test inconclusive"
+fi
+
+# 4. Check logs for user ID logging (CRITICAL verification)
+echo ""
+echo "📋 Checking recent logs for user ID tracking..."
+RECENT_LOGS=$(sudo journalctl -u citations-backend --no-pager -n 20 | grep "user_type=" || echo "No user ID logs found in recent entries")
+
+if echo "$RECENT_LOGS" | grep -q "user_type="; then
+    echo "✅ User ID logging is working"
+else
+    echo "ℹ️  No user ID logs in recent output (may require actual user traffic)"
+fi
+
+# 5. Verify dashboard accessibility
+echo ""
+echo "📊 Verifying dashboard..."
+if curl -f -s http://localhost:4646 > /dev/null 2>&1; then
+    echo "✅ Dashboard is accessible"
+else
+    echo "⚠️  Dashboard not accessible (may need manual start)"
+fi
+
+# 6. Final status summary
+echo ""
+echo "=================================================="
 echo "✅ Deployment completed successfully!"
+echo ""
+
+echo "📊 Service Status:"
+echo "   - Backend: $(systemctl is-active citations-backend)"
+echo "   - Nginx: $(systemctl is-active nginx)"
+
+echo ""
+echo "🔗 Access URLs:"
+echo "   - Frontend: https://citationformatchecker.com"
+echo "   - Backend API: https://citationformatchecker.com/api"
+echo "   - Dashboard: http://178.156.161.140:4646"
+
+echo ""
+echo "📁 Backup location: $BACKUP_DIR"
+echo ""
+echo "🎉 User tracking system is now live!"

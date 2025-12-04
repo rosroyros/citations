@@ -26,17 +26,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Clear cookies for clean test state
     await context.clearCookies();
-
-    // Create a new context for each test to ensure isolation
-    await context.addInitScript(() => {
-      // Clear localStorage if possible
-      try {
-        localStorage.clear();
-        sessionStorage.clear();
-      } catch (e) {
-        // Ignore localStorage access errors
-      }
-    });
   });
 
   test('RED: should track free user across multiple sessions with persistent UUID', async ({ page, context }) => {
@@ -51,19 +40,37 @@ test.describe('User Tracking - End-to-End Flow', () => {
     await page.waitForTimeout(ANALYTICS_WAIT_TIMEOUT);
 
     // Start a citation validation to trigger user tracking
-    await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
+    // First, focus the editor and clear any placeholder content
+    await page.click('[data-testid="editor"] .ProseMirror');
+    await page.keyboard.press('Control+a'); // Select all content
+    await page.keyboard.press('Backspace'); // Clear content
+    await page.type('[data-testid="editor"] .ProseMirror', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
     await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
+
+    // Verify button is enabled before clicking
+    await expect(page.locator('button[type="submit"]')).toBeEnabled();
 
     // Submit the validation
     await page.click('button[type="submit"]');
-    await page.waitForTimeout(VALIDATION_PROCESSING_TIMEOUT);
+
+    // Wait for either loading state or error to appear (indicates validation attempt)
+    await page.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
+
+    // Wait a bit more for the handleSubmit function to complete and localStorage to be set
+    await page.waitForTimeout(2000);
 
     // Extract the free user ID from localStorage
     let freeUserId = await page.evaluate(() => {
       try {
-        const freeUserId = localStorage.getItem('freeUserId');
+        const freeUserId = localStorage.getItem('citation_checker_free_user_id');
+        console.log('localStorage contents:', {
+          'citation_checker_free_user_id': freeUserId,
+          'citation_checker_token': localStorage.getItem('citation_checker_token'),
+          'citation_checker_free_used': localStorage.getItem('citation_checker_free_used')
+        });
         return freeUserId;
       } catch (e) {
+        console.log('localStorage access error:', e);
         return null;
       }
     });
@@ -103,7 +110,7 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Check that free user ID persists in new session
     let persistentFreeUserId = await newPage.evaluate(() => {
       try {
-        const freeUserId = localStorage.getItem('freeUserId');
+        const freeUserId = localStorage.getItem('citation_checker_free_user_id');
         return freeUserId;
       } catch (e) {
         return null;
