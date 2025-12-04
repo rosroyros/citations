@@ -220,7 +220,9 @@ def create_validation_record(
     job_id: str,
     user_type: str,
     citation_count: int,
-    status: str = 'pending'
+    status: str = 'pending',
+    paid_user_id: Optional[str] = None,
+    free_user_id: Optional[str] = None
 ) -> bool:
     """
     Create a new validation tracking record.
@@ -230,6 +232,8 @@ def create_validation_record(
         user_type: Type of user ('paid', 'free', 'anonymous')
         citation_count: Number of citations being validated
         status: Current status of validation
+        paid_user_id: Paid user UUID if applicable
+        free_user_id: Free user UUID if applicable
 
     Returns:
         bool: True if record created successfully, False otherwise
@@ -256,23 +260,26 @@ def create_validation_record(
                 # Both columns exist - insert into both
                 cursor.execute('''
                     INSERT INTO validations (
-                        job_id, user_type, citation_count, status, validation_status, created_at
-                    ) VALUES (?, ?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status, status))
+                        job_id, user_type, citation_count, status, validation_status,
+                        paid_user_id, free_user_id, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status, status, paid_user_id, free_user_id))
             elif has_status:
                 # Only status exists (new schema)
                 cursor.execute('''
                     INSERT INTO validations (
-                        job_id, user_type, citation_count, status, created_at
-                    ) VALUES (?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status))
+                        job_id, user_type, citation_count, status,
+                        paid_user_id, free_user_id, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status, paid_user_id, free_user_id))
             else:
                 # Only validation_status exists (old schema)
                 cursor.execute('''
                     INSERT INTO validations (
-                        job_id, user_type, citation_count, validation_status, created_at
-                    ) VALUES (?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status))
+                        job_id, user_type, citation_count, validation_status,
+                        paid_user_id, free_user_id, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
+                ''', (job_id, user_type, citation_count, status, paid_user_id, free_user_id))
 
             conn.commit()
             logger.info(f"Created validation record for job {job_id}")

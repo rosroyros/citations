@@ -442,7 +442,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
     # Create validation record for tracking (sync endpoint uses simple ID)
     job_id = f"sync_{int(time.time())}_{uuid.uuid4().hex[:8]}"
-    create_validation_record(job_id, gating_user_type, 0, 'processing')
+    create_validation_record(job_id, gating_user_type, 0, 'processing', paid_user_id, free_user_id)
 
     try:
         # Call LLM provider for validation
@@ -599,6 +599,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         # Check credits BEFORE starting job (fail fast)
         token = jobs[job_id]["token"]
         free_used = jobs[job_id]["free_used"]
+        paid_user_id = jobs[job_id].get("paid_user_id")
+        free_user_id = jobs[job_id].get("free_user_id")
 
         # Determine user type for gating decisions
         user_type = 'paid' if token else 'free'
@@ -606,7 +608,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
         # Create validation tracking record
         citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
-        create_validation_record(job_id, user_type, citation_count, 'processing')
+        create_validation_record(job_id, user_type, citation_count, 'processing', paid_user_id, free_user_id)
 
         if token:
             user_credits = get_credits(token)
@@ -803,7 +805,9 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "token": token,
         "free_used": free_used,
         "citation_count": 0,
-        "user_type": gating_user_type
+        "user_type": gating_user_type,
+        "paid_user_id": paid_user_id,
+        "free_user_id": free_user_id
     }
 
     # Convert HTML to text with formatting markers
@@ -811,7 +815,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Create initial validation tracking record
     citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])
-    create_validation_record(job_id, gating_user_type, citation_count, 'pending')
+    create_validation_record(job_id, gating_user_type, citation_count, 'pending', paid_user_id, free_user_id)
 
     # Start background processing
     background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)
