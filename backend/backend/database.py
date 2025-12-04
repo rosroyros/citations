@@ -286,8 +286,26 @@ def create_validation_record(
             return True
 
     except sqlite3.Error as e:
-        logger.error(f"Database error creating validation record: {e}")
-        return False
+        # Handle UNIQUE constraint gracefully - update existing record with user IDs
+        if "UNIQUE constraint failed: validations.job_id" in str(e):
+            logger.info(f"Validation record for job {job_id} already exists, updating with user IDs")
+            try:
+                # Update existing record with user IDs
+                cursor.execute('''
+                    UPDATE validations SET
+                        paid_user_id = COALESCE(?, paid_user_id),
+                        free_user_id = COALESCE(?, free_user_id)
+                    WHERE job_id = ?
+                ''', (paid_user_id, free_user_id, job_id))
+                conn.commit()
+                logger.info(f"Updated validation record for job {job_id} with user IDs")
+                return True
+            except sqlite3.Error as update_error:
+                logger.error(f"Failed to update validation record with user IDs: {update_error}")
+                return False
+        else:
+            logger.error(f"Database error creating validation record: {e}")
+            return False
     except Exception as e:
         logger.error(f"Unexpected error creating validation record: {e}")
         return False
