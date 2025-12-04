@@ -156,11 +156,10 @@ echo "✓ Sitemap location: ../../frontend/frontend/dist/sitemap.xml"
 
 # Run deployment sanity tests before finalizing deployment
 echo "🧪 Running deployment sanity tests..."
+cd "$PROJECT_ROOT"
 source venv/bin/activate
 python3 -m pytest tests/test_deployment_sanity.py -v
 echo "✅ All deployment sanity tests passed!"
-
-cd ../..
 
 # Update Nginx configuration
 echo "🌐 Updating Nginx configuration..."
