@@ -789,7 +789,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Log validation request with user IDs (NEW)
     logger.info(
-        f"Async validation request - "
+        f"Async Validation request - "
         f"user_type={user_type}, "
         f"paid_user_id={paid_user_id or 'N/A'}, "
         f"free_user_id={free_user_id or 'N/A'}, "
