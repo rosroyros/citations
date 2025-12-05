@@ -763,18 +763,6 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     Returns immediately with job_id.
     Background worker processes validation.
     """
-    # Extract user identification (NEW)
-    paid_user_id, free_user_id, user_type = extract_user_id(http_request)
-
-    # Log validation request with user IDs (NEW)
-    logger.info(
-        f"Async validation request - "
-        f"user_type={user_type}, "
-        f"paid_user_id={paid_user_id or 'N/A'}, "
-        f"free_user_id={free_user_id or 'N/A'}, "
-        f"style={request.style}"
-    )
-
     # Extract token/free_used from headers
     token = http_request.headers.get('X-User-Token')
     free_used_header = http_request.headers.get('X-Free-Used', '')
@@ -795,6 +783,18 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     # Generate job ID
     job_id = str(uuid.uuid4())
     logger.info(f"Creating async job {job_id} for {gating_user_type} user")
+
+    # Extract user identification (NEW)
+    paid_user_id, free_user_id, user_type = extract_user_id(http_request)
+
+    # Log validation request with user IDs (NEW)
+    logger.info(
+        f"Async validation request - "
+        f"user_type={user_type}, "
+        f"paid_user_id={paid_user_id or 'N/A'}, "
+        f"free_user_id={free_user_id or 'N/A'}, "
+        f"style={request.style}"
+    )
 
     # Create job entry
     jobs[job_id] = {
