@@ -620,6 +620,52 @@ class DatabaseManager:
 
         return row[0] if row else None
 
+    def insert_citation_to_dashboard(self, citation_data: Dict[str, Any]):
+        """
+        Insert a citation record into the citations_dashboard table
+
+        Args:
+            citation_data: Dictionary with citation fields including:
+                - job_id: Job identifier
+                - citation_text: The citation content
+                - citation_type: Type of citation (optional)
+                - user_type: User type (optional)
+                - processing_time_ms: Processing time in milliseconds (optional)
+        """
+        cursor = self.conn.cursor()
+
+        # Check if citations_dashboard table exists, create if it doesn't
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS citations_dashboard (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                job_id TEXT NOT NULL,
+                citation_text TEXT NOT NULL,
+                citation_type TEXT,
+                validation_status TEXT,
+                error_details TEXT,
+                processing_time_ms REAL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                user_type TEXT,
+                gating_applied INTEGER DEFAULT 0
+            )
+        """)
+
+        cursor.execute("""
+            INSERT INTO citations_dashboard (
+                job_id, citation_text, citation_type, user_type,
+                processing_time_ms, validation_status
+            ) VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            citation_data.get('job_id'),
+            citation_data.get('citation_text'),
+            citation_data.get('citation_type'),
+            citation_data.get('user_type'),
+            citation_data.get('processing_time_ms'),
+            citation_data.get('validation_status', 'processed')
+        ))
+
+        self.conn.commit()
+
     def insert_parser_error(self, timestamp: str, error_message: str, log_line: str):
         """
         Insert a parser error record
