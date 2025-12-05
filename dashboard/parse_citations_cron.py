@@ -26,7 +26,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Production paths
-PRODUCTION_CITATION_LOG_PATH = "/var/log/citations/citations.log"
+PRODUCTION_CITATION_LOG_PATH = "/opt/citations/logs/citations.log"
 PRODUCTION_DB_PATH = "/opt/citations/dashboard/data/validations.db"
 
 def main():
