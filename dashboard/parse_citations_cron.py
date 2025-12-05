@@ -92,7 +92,7 @@ def main():
                         cursor = db.conn.cursor()
                         cursor.execute("""
                             SELECT COUNT(*) FROM citations_dashboard
-                            WHERE job_id = ? AND citation_text = ? AND created_at > datetime('now', '-10 minutes')
+                            WHERE job_id = ? AND citation_text = ?
                         """, (citation.get('job_id'), citation.get('citation_text')))
 
                         if cursor.fetchone()[0] == 0:
