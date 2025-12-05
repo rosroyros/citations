@@ -885,6 +885,45 @@ async def reveal_results(request: dict):
 
 
 
+@app.post("/api/upgrade-event")
+async def upgrade_event(request: dict):
+    """
+    Handle upgrade workflow event tracking.
+    This endpoint logs structured events for dashboard parser.
+
+    Args:
+        request: Dict containing 'job_id' and 'event'
+
+    Returns:
+        dict: Success status
+    """
+    job_id = request.get('job_id')
+    event = request.get('event')
+
+    if not job_id:
+        raise HTTPException(status_code=400, detail="job_id is required")
+
+    if not event:
+        raise HTTPException(status_code=400, detail="event is required")
+
+    # Validate event type
+    valid_events = ['clicked_upgrade', 'modal_proceed', 'success']
+    if event not in valid_events:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid event. Must be one of: {', '.join(valid_events)}"
+        )
+
+    logger.info(f"UPGRADE_WORKFLOW: job_id={job_id} event={event}")
+
+    return {
+        "success": True,
+        "job_id": job_id,
+        "event": event,
+        "message": "Upgrade workflow event logged."
+    }
+
+
 @app.get("/api/dashboard")
 async def get_dashboard_data(
     status: Optional[str] = None,
