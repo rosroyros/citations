@@ -8,10 +8,11 @@ import sys
 import time
 from pathlib import Path
 
-# Add the dashboard directory to the Python path
+# Add both directories to the Python path
 sys.path.insert(0, '/opt/citations/dashboard')
+sys.path.insert(0, '/opt/citations/backend')
 
-from log_parser import CitationLogParser
+from backend.citation_logger import parse_citation_blocks
 from database import DatabaseManager
 
 # Configure logging
@@ -48,38 +49,27 @@ def main():
             logger.error(f"Database not found: {PRODUCTION_DB_PATH}")
             sys.exit(1)
 
-        # Initialize citation parser with file offset tracking
-        parser = CitationLogParser(
-            log_file_path=PRODUCTION_CITATION_LOG_PATH,
-            position_file_path="/opt/citations/logs/citations.position"
-        )
-
         # Initialize database manager for citations_dashboard table
         with DatabaseManager(PRODUCTION_DB_PATH) as db:
             logger.info(f"Processing citations from log: {PRODUCTION_CITATION_LOG_PATH}")
 
-            # Parse new citations from the log file
-            jobs_data = parser.parse_new_entries()
+            # Read the citation log file
+            with open(PRODUCTION_CITATION_LOG_PATH, 'r') as f:
+                content = f.read()
 
-            # Extract citations from job data and convert to dashboard format
+            # Parse citations using the correct parser for citation log format
+            citation_blocks = parse_citation_blocks(content)
+
+            # Convert to dashboard format
             citations_data = []
-            for job in jobs_data:
-                # Extract citation information from job
-                if job.get('citations_full'):
+            for job_id, citations in citation_blocks:
+                for citation_text in citations:
                     citations_data.append({
-                        'job_id': job.get('job_id'),
-                        'citation_text': job.get('citations_full'),
+                        'job_id': job_id,
+                        'citation_text': citation_text,
                         'citation_type': 'full',
-                        'user_type': job.get('user_type'),
-                        'processing_time_ms': job.get('duration_seconds', 0) * 1000 if job.get('duration_seconds') else None
-                    })
-                elif job.get('citations_preview'):
-                    citations_data.append({
-                        'job_id': job.get('job_id'),
-                        'citation_text': job.get('citations_preview'),
-                        'citation_type': 'preview',
-                        'user_type': job.get('user_type'),
-                        'processing_time_ms': job.get('duration_seconds', 0) * 1000 if job.get('duration_seconds') else None
+                        'user_type': 'unknown',  # User type not available in citation log format
+                        'processing_time_ms': None
                     })
 
             if citations_data:
