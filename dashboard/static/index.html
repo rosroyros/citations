@@ -157,7 +157,8 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1600px;
+            width: 95%;
             margin: 0 auto;
             padding: 24px;
         }
@@ -376,7 +377,7 @@
         }
 
         th, td {
-            padding: var(--space-md) var(--space-xl);
+            padding: var(--space-sm) var(--space-md);
             text-align: left;
             border-bottom: 1px solid var(--color-border);
             font-family: var(--font-body);
@@ -392,7 +393,7 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-family: var(--font-mono);
-            padding: var(--space-lg) var(--space-xl);
+            padding: var(--space-md) var(--space-md);
             border-bottom: 2px solid var(--color-brand);
             position: relative;
             transition: all var(--transition-base);
@@ -1735,6 +1736,10 @@
                         <div class="detail-row">
                             <span class="detail-label">User Type:</span>
                             <span class="detail-value">${validation.user_type}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">User ID:</span>
+                            <span class="detail-value">${validation.paid_user_id || validation.free_user_id || 'N/A'}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Results Gated:</span>
