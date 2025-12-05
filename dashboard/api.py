@@ -199,6 +199,14 @@ class ValidationResponse(BaseModel):
         None,
         description="Outcome of gating interaction (revealed, dismissed, etc.)"
     )
+    paid_user_id: Optional[str] = Field(
+        None,
+        description="ID of paid user (token)"
+    )
+    free_user_id: Optional[str] = Field(
+        None,
+        description="ID of free user (UUID)"
+    )
 
 
 class StatsResponse(BaseModel):
