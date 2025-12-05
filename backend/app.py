@@ -494,7 +494,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
             if affordable == 0:
                 # Already at limit - return empty partial results to show locked teaser
-                logger.info("Free tier limit reached - returning empty partial results")
+                logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
                 response_data = {
                     "results": [],
                     "partial": True,
@@ -622,7 +622,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
             if free_used >= FREE_LIMIT:
                 # Return partial results with all citations locked (user can see upgrade prompt)
                 # We need to call LLM just to count citations properly, but return empty results
-                logger.info(f"Job {job_id}: Free tier limit reached, counting citations to show partial results")
+                logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
 
                 try:
                     validation_results = await llm_provider.validate_citations(
