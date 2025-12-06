@@ -165,6 +165,35 @@ const Success = () => {
     saveToken(token)
     clearFreeUserId()
 
+    // Check for pending upgrade job_id and log success event
+    const pendingJobId = localStorage.getItem('pending_upgrade_job_id')
+    if (pendingJobId) {
+      // Log success event
+      fetch('/api/upgrade-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-User-Token': token
+        },
+        body: JSON.stringify({
+          job_id: pendingJobId,
+          event: 'success'
+        })
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Failed to log upgrade success event:', response.status)
+        }
+      })
+      .catch(error => {
+        console.error('Error logging upgrade success event:', error)
+      })
+      .finally(() => {
+        // Clear localStorage regardless of success/failure
+        localStorage.removeItem('pending_upgrade_job_id')
+      })
+    }
+
     // Poll for credits
     let attempts = 0
     const maxAttempts = 15  // 30 seconds (15 * 2s)
