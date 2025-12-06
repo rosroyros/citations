@@ -245,7 +245,7 @@ describe('PartialResults', () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          event_type: 'clicked_upgrade',
+          event: 'clicked_upgrade',
           job_id: 'test-job-789',
           trigger_location: 'partial_results',
           citations_locked: 7

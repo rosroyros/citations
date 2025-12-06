@@ -125,14 +125,42 @@ describe('Success', () => {
   it('should log upgrade success event when pending_upgrade_job_id exists', async () => {
     // Arrange
     window.location.search = '?token=abc-123';
-    fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve({ credits: 1000 }),
+
+    // Mock localStorage differently - override entire localStorage
+    const localStorageMock = {
+      getItem: vi.fn((key) => {
+        if (key === 'pending_upgrade_job_id') {
+          return 'test-job-123';
+        }
+        return null;
+      }),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+    };
+
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+      writable: true,
     });
 
-    // Mock localStorage to have pending job
-    const localStorageGetItem = vi.spyOn(Storage.prototype, 'getItem');
-    const localStorageRemoveItem = vi.spyOn(Storage.prototype, 'removeItem');
-    localStorageGetItem.mockReturnValue('test-job-123');
+    const localStorageGetItem = localStorageMock.getItem;
+    const localStorageRemoveItem = localStorageMock.removeItem;
+
+    // Mock upgrade-event API first, then credits API
+    fetch
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ success: true }),
+      })
+      .mockResolvedValueOnce({
+        json: () => Promise.resolve({ credits: 1000 }),
+      });
+
+    // Add more fetch mocks for polling
+    fetch
+      .mockResolvedValue({
+        json: () => Promise.resolve({ credits: 1000 }),
+      });
 
     // Act
     render(
@@ -141,28 +169,34 @@ describe('Success', () => {
       </CreditProvider>
     );
 
-    // Assert - Wait for async operations
+    // Assert - Check that upgrade-event was called
     await vi.waitFor(() => {
-      expect(fetch).toHaveBeenCalledWith(
-        '/api/upgrade-event',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            event_type: 'success',
-            job_id: 'test-job-123'
-          })
-        }
+      const upgradeCalls = fetch.mock.calls.filter(
+        call => call[0] === '/api/upgrade-event'
       );
+      expect(upgradeCalls).toHaveLength(1);
+      // Check the call details manually
+      expect(upgradeCalls[0][0]).toBe('/api/upgrade-event');
+      expect(upgradeCalls[0][1].method).toBe('POST');
+      expect(upgradeCalls[0][1].headers).toEqual({
+        'Content-Type': 'application/json',
+        'X-User-Token': 'abc-123'
+      });
+
+      // Parse JSON to compare object regardless of key order
+      const bodyObj = JSON.parse(upgradeCalls[0][1].body);
+      expect(bodyObj).toEqual({
+        event: 'success',
+        job_id: 'test-job-123'
+      });
     });
 
-    expect(localStorageRemoveItem).toHaveBeenCalledWith('pending_upgrade_job_id');
+    // Wait for localStorage.removeItem to be called
+    await vi.waitFor(() => {
+      expect(localStorageRemoveItem).toHaveBeenCalledWith('pending_upgrade_job_id');
+    }, { timeout: 2000 });
 
-    // Cleanup
-    localStorageGetItem.mockRestore();
-    localStorageRemoveItem.mockRestore();
+    // Cleanup - no need for mockRestore with this approach
   });
 
   it('should not log upgrade event when no pending_upgrade_job_id', async () => {
@@ -172,8 +206,17 @@ describe('Success', () => {
       json: () => Promise.resolve({ credits: 1000 }),
     });
 
-    const localStorageGetItem = vi.spyOn(Storage.prototype, 'getItem');
-    localStorageGetItem.mockReturnValue(null);
+    // Mock localStorage to have no pending job
+    const localStorageMock = {
+      getItem: vi.fn(() => null),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+    };
+
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+      writable: true,
+    });
 
     // Act
     render(
@@ -191,27 +234,34 @@ describe('Success', () => {
     );
     expect(upgradeEventCalls).toHaveLength(0);
 
-    // Cleanup
-    localStorageGetItem.mockRestore();
+    // Cleanup - no need for mockRestore with this approach
   });
 
   it('should clear localStorage even if upgrade-event API fails', async () => {
     // Arrange
     window.location.search = '?token=abc-123';
-    fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve({ credits: 1000 }),
-    });
 
-    // Mock upgrade-event API to fail
+    // Mock upgrade-event API to fail, then credits API to succeed
     fetch
+      .mockRejectedValueOnce(new Error('API error'))
       .mockResolvedValueOnce({
         json: () => Promise.resolve({ credits: 1000 }),
-      })
-      .mockRejectedValueOnce(new Error('API error'));
+      });
 
-    const localStorageGetItem = vi.spyOn(Storage.prototype, 'getItem');
-    const localStorageRemoveItem = vi.spyOn(Storage.prototype, 'removeItem');
-    localStorageGetItem.mockReturnValue('test-job-123');
+    // Mock localStorage to have pending job
+    const localStorageMock = {
+      getItem: vi.fn(() => 'test-job-123'),
+      setItem: vi.fn(),
+      removeItem: vi.fn(),
+    };
+
+    Object.defineProperty(window, 'localStorage', {
+      value: localStorageMock,
+      writable: true,
+    });
+
+    const localStorageGetItem = localStorageMock.getItem;
+    const localStorageRemoveItem = localStorageMock.removeItem;
 
     // Act
     render(
@@ -225,8 +275,6 @@ describe('Success', () => {
       expect(localStorageRemoveItem).toHaveBeenCalledWith('pending_upgrade_job_id');
     }, { timeout: 2000 });
 
-    // Cleanup
-    localStorageGetItem.mockRestore();
-    localStorageRemoveItem.mockRestore();
+    // Cleanup - no need for mockRestore with this approach
   });
 });

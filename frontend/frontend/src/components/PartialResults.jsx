@@ -60,7 +60,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  event_type: 'clicked_upgrade',
+                  event: 'clicked_upgrade',
                   job_id: job_id,
                   trigger_location: 'partial_results',
                   citations_locked: citations_remaining
