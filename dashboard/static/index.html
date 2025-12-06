@@ -2071,10 +2071,10 @@
 
             // Define upgrade states and their icons
             const upgradeStates = [
-                { state: 'results_gated', icon: '🔒', label: 'Results gated' },
-                { state: 'upgrade_initiated', icon: '🛒', label: 'Upgrade initiated' },
-                { state: 'upgrade_completed', icon: '💳', label: 'Upgrade completed' },
-                { state: 'results_revealed', icon: '✅', label: 'Results revealed' }
+                { state: 'locked', icon: '🔒', label: 'Results gated' },
+                { state: 'clicked', icon: '🛒', label: 'Upgrade clicked' },
+                { state: 'modal', icon: '💳', label: 'Modal opened' },
+                { state: 'success', icon: '✅', label: 'Upgrade completed' }
             ];
 
             // Parse upgrade state if it's a string, or use as-is if array
