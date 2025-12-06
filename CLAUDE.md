@@ -1,3 +1,5 @@
+**IMPORTANT**: You MUST read `README.md` at the start of every session to ensure understanding of the system.
+
 **Note**: This project uses [bd (beads)](https://github.com/steveyegge/beads) for issue tracking. Use `bd` commands instead of markdown TODOs.
 
 # Development Workflow
@@ -90,7 +92,10 @@ bd dep add <id> <blocker-id> --type blocks
 3. Add review label: `bd label add <id> needs-review`
 4. Use `/oracle-review` (external review using claude -p)
 5. After approval: `bd close <id> --reason "[Summary of what was done]"`
-6. Sync: `bd sync`
+6. **Push, Deploy & Verify**: 
+   - Ensure all changes are pushed: `git push origin main`
+   - Run `./deploy_prod.sh` to deploy to production and run E2E tests.
+7. Sync: `bd sync`
 
 ### Finding Work
 
@@ -170,39 +175,6 @@ sitemap_gen.add_entries_to_sitemap(entries, sitemap_path)
 print(f"✅ Sitemap updated with {len(entries)} entries")
 ```
 
-
-## Git Commit Format
-```
-<type>: <description>
-
-Examples:
-- feat: add citation parser for journal articles
-- test: add validation tests for book chapters
-- fix: correct DOI format validation
-- refactor: extract author name parsing logic
-```
-
-## Environment Setup
-- **Always use virtual environment**: `source venv/bin/activate`
-- **Python 3**: Use `python3` for all commands
-- **Dependencies**: Keep `requirements.txt` updated
-
-### Production Environment
-- **VPS Access**: `ssh deploy@178.156.161.140`
-- **App Directory**: `/opt/citations`
-- **Backend Service**: systemd service `citations-backend`
-- **Frontend**: Nginx serving React build from `/opt/citations/frontend/frontend/dist`
-
-### Deployment Process
-1. Test locally: `python3 -m pytest`
-2. Push to GitHub: `git push origin main`
-3. SSH to VPS: `ssh deploy@178.156.161.140`
-4. Deploy: `cd /opt/citations && ./deployment/scripts/deploy.sh`
-
-### Deployment Commands Clarification
-- **Agent commands** (`/deploy`, `/restart-backend`) are for me to execute via SSH
-- **Manual deployment**: Run `./deployment/scripts/deploy.sh` directly on VPS
-- Both approaches accomplish the same thing - updating production
 
 ## Model Selection Priority
 - Balance performance vs cost
