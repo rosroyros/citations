@@ -91,8 +91,10 @@ bd dep add <id> <blocker-id> --type blocks
 2. Update description with final summary
 3. Add review label: `bd label add <id> needs-review`
 4. Use `/oracle-review` (external review using claude -p)
-5. **Deploy & Verify**: Run `./deploy_prod.sh` to deploy to production and run E2E tests.
-6. After approval: `bd close <id> --reason "[Summary of what was done]"`
+5. After approval: `bd close <id> --reason "[Summary of what was done]"`
+6. **Push, Deploy & Verify**: 
+   - Ensure all changes are pushed: `git push origin main`
+   - Run `./deploy_prod.sh` to deploy to production and run E2E tests.
 7. Sync: `bd sync`
 
 ### Finding Work

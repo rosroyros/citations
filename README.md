@@ -101,9 +101,10 @@ User → Frontend → POST /api/validate/async → Background Worker
   - **Production E2E**: `deploy_prod.sh` (runs Hybrid E2E suite).
 - **Deploy**:
   1. `git commit -am "feat: description"`.
-  2. `./deploy_prod.sh [user@host]` (Push + Deploy + Verify).
+  2. `git push origin main`.
+  3. `./deploy_prod.sh [user@host]` (Deploy + Verify).
      - Default host: `deploy@178.156.161.140`.
-  3. PSEO: `python3 regenerate_cite_specific_pages.py` -> SCP to `/dist`.
+  4. PSEO: `python3 regenerate_cite_specific_pages.py` -> SCP to `/dist`.
 
 ## Environment
 - **Local**: Backend `:8000`, Frontend `:5173`.

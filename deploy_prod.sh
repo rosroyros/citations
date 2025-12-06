@@ -15,9 +15,26 @@ NC='\033[0m'
 echo -e "${GREEN}🚀 Starting Production Deployment Pipeline${NC}"
 echo "Target: $SSH_TARGET"
 
-# 1. Push Code
-echo -e "\n${GREEN}[1/3] Pushing changes to origin/main...${NC}"
-git push origin main
+# 1. Check for Unpushed Changes
+# We don't auto-push anymore to give you control over what gets deployed.
+# But we MUST ensure the server pulls what you have locally.
+echo -e "\n${GREEN}[1/3] Checking git status...${NC}"
+
+# Fetch latest to compare
+git fetch origin main
+
+LOCAL=$(git rev-parse @)
+REMOTE=$(git rev-parse @{u})
+
+if [ $LOCAL != $REMOTE ]; then
+    echo -e "${RED}Error: Local branch is not synced with remote.${NC}"
+    echo "Local:  $LOCAL"
+    echo "Remote: $REMOTE"
+    echo -e "Please run '${GREEN}git push origin main${NC}' before deploying."
+    exit 1
+fi
+
+echo "Git status clean. Proceeding."
 
 # 2. Trigger Server Deployment
 echo -e "\n${GREEN}[2/3] Triggering remote deployment...${NC}"
