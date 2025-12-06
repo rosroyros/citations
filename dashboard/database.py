@@ -175,6 +175,7 @@ class DatabaseManager:
         has_status = 'status' in columns
         has_validation_status = 'validation_status' in columns
         has_gating_columns = all(col in columns for col in ['results_gated', 'results_revealed_at', 'gated_outcome'])
+        has_upgrade_state = 'upgrade_state' in columns
 
         # Build dynamic column and value lists
         base_columns = ['job_id', 'created_at', 'user_type', 'error_message']
@@ -196,6 +197,10 @@ class DatabaseManager:
         # Add gating columns if they exist
         if has_gating_columns:
             optional_columns.extend(['results_gated', 'results_revealed_at', 'gated_outcome'])
+
+        # Add upgrade_state column if it exists
+        if has_upgrade_state:
+            optional_columns.append('upgrade_state')
 
         # Build final column list and values
         insert_columns = base_columns + status_columns
@@ -219,7 +224,7 @@ class DatabaseManager:
             elif col in ['completed_at', 'duration_seconds', 'citation_count',
                         'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                         'results_gated', 'results_revealed_at', 'gated_outcome',
-                        'paid_user_id', 'free_user_id']:
+                        'paid_user_id', 'free_user_id', 'upgrade_state']:
                 values.append(validation_data.get(col))
 
         # Build the INSERT statement dynamically

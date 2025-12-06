@@ -283,6 +283,28 @@ def extract_reveal_event(log_line: str) -> Optional[Tuple[str, str]]:
     return None
 
 
+def extract_upgrade_workflow_event(log_line: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract upgrade workflow event information from a log line.
+
+    Args:
+        log_line: The log line to extract upgrade workflow event info from
+
+    Returns:
+        tuple of (job_id, event) if found, None otherwise
+    """
+    # Pattern matches: UPGRADE_WORKFLOW: job_id=abc-123 event=clicked_upgrade
+    upgrade_pattern = r'UPGRADE_WORKFLOW: job_id=([a-f0-9-]+) event=(\w+)'
+    match = re.search(upgrade_pattern, log_line)
+
+    if match:
+        job_id = match.group(1)
+        event = match.group(2)
+        return job_id, event
+
+    return None
+
+
 def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
     """
     Extract citation preview text from a log line.
@@ -437,6 +459,11 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
             job_id, results_gated, reason = gating_result
             if job_id in jobs:
                 jobs[job_id]["results_gated"] = results_gated
+
+                # Set upgrade_state to 'locked' if results are gated
+                # But only if not already 'success' (success means upgrade completed)
+                if results_gated and jobs[job_id].get('upgrade_state') != 'success':
+                    jobs[job_id]["upgrade_state"] = 'locked'
             continue
 
         # Check for reveal event
@@ -449,6 +476,43 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 if timestamp:
                     jobs[job_id]["results_revealed_at"] = timestamp.isoformat() + 'Z'
                 jobs[job_id]["gated_outcome"] = outcome
+            continue
+
+        # Check for upgrade workflow event
+        upgrade_result = extract_upgrade_workflow_event(line)
+        if upgrade_result:
+            job_id, event = upgrade_result
+            if job_id in jobs:
+                # Map events to state values
+                event_to_state = {
+                    'clicked_upgrade': 'clicked',
+                    'modal_proceed': 'modal',
+                    'success': 'success'
+                }
+
+                # Get the new state
+                new_state = event_to_state.get(event)
+                if new_state:
+                    # Ensure state only moves forward (no regression)
+                    current_state = jobs[job_id].get('upgrade_state')
+
+                    # State progression order: None -> clicked -> modal -> success
+                    # 'locked' is a special state that can override others but success can override locked
+                    state_order = {'clicked': 1, 'modal': 2, 'success': 3, 'locked': 2.5}
+
+                    # Only update if:
+                    # 1. No current state, OR
+                    # 2. Setting to 'locked' (can happen at any time except if already 'success')
+                    # 3. Setting to 'success' (can override locked)
+                    # 4. Moving forward in normal progression (clicked -> modal -> success)
+                    if current_state is None:
+                        jobs[job_id]["upgrade_state"] = new_state
+                    elif new_state == 'locked' and current_state != 'success':
+                        jobs[job_id]["upgrade_state"] = new_state
+                    elif new_state == 'success':
+                        jobs[job_id]["upgrade_state"] = new_state
+                    elif new_state != 'locked' and state_order.get(new_state, 0) > state_order.get(current_state, 0):
+                        jobs[job_id]["upgrade_state"] = new_state
             continue
 
         # Check for validation request with user IDs
@@ -664,6 +728,7 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("citations_full_truncated", False)
         job.setdefault("paid_user_id", None)
         job.setdefault("free_user_id", None)
+        job.setdefault("upgrade_state", None)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):
