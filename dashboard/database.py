@@ -59,7 +59,8 @@ class DatabaseManager:
                 results_revealed_at TEXT,
                 gated_outcome TEXT,
                 paid_user_id TEXT,
-                free_user_id TEXT
+                free_user_id TEXT,
+                upgrade_state TEXT
             )
         """)
 
