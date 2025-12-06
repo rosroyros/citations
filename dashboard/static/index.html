@@ -1181,6 +1181,52 @@
         .trend-neutral {
             color: var(--color-text-tertiary);
         }
+
+        /* Upgrade funnel state icons */
+        .upgrade-icon {
+            display: inline-block;
+            margin-right: 2px;
+            font-size: 14px;
+            transition: all var(--transition-base);
+        }
+
+        .upgrade-icon:last-child {
+            margin-right: 0;
+        }
+
+        /* Default state - all icons visible but incomplete steps are grayed out */
+        .upgrade-icon {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
+
+        /* Active states - full opacity and color */
+        .upgrade-results_gated {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .upgrade-upgrade_initiated {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .upgrade-upgrade_completed {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .upgrade-results_revealed {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        /* Hover effects */
+        .upgrade-icon:hover {
+            transform: scale(1.1);
+            opacity: 1 !important;
+            filter: grayscale(0%) !important;
+        }
     </style>
 </head>
 <body>
@@ -1326,11 +1372,12 @@
                         <th onclick="sortTable('user_id')">User ID</th>
                         <th onclick="sortTable('status')">Status</th>
                         <th onclick="sortTable('revealed')">Revealed</th>
+                        <th onclick="sortTable('upgrade_state')">Upgrade</th>
                     </tr>
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="9" class="loading">Loading data...</td>
+                        <td colspan="10" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1368,7 +1415,7 @@
 
             try {
                 // Show loading
-                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="9" class="loading">Loading data...</td></tr>';
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="10" class="loading">Loading data...</td></tr>';
 
                 // Fetch stats
                 const statsResponse = await fetch(`/api/stats?from_date=${from_date}`);
@@ -1409,7 +1456,7 @@
 
             } catch (error) {
                 console.error('Error loading data:', error);
-                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="9" class="error">Error loading data</td></tr>';
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="10" class="error">Error loading data</td></tr>';
             }
         }
 
@@ -1514,7 +1561,7 @@
             const tbody = document.getElementById('validationsTable');
 
             if (validations.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px;">No validations found</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" style="text-align: center; padding: 40px;">No validations found</td></tr>';
                 return;
             }
 
@@ -1563,9 +1610,10 @@
                         <td>${userIdDisplay}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
                         <td><span class="${revealedClass}">${revealedStatus}</span></td>
+                        <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="9">
+                        <td colspan="10">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>
@@ -2015,8 +2063,55 @@
         }
 
 
+        // Get upgrade state icons function
+        function getUpgradeStateIcons(upgradeState) {
+            if (!upgradeState) {
+                return '-';
+            }
+
+            // Define upgrade states and their icons
+            const upgradeStates = [
+                { state: 'results_gated', icon: '🔒', label: 'Results gated' },
+                { state: 'upgrade_initiated', icon: '🛒', label: 'Upgrade initiated' },
+                { state: 'upgrade_completed', icon: '💳', label: 'Upgrade completed' },
+                { state: 'results_revealed', icon: '✅', label: 'Results revealed' }
+            ];
+
+            // Parse upgrade state if it's a string, or use as-is if array
+            const states = typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState;
+
+            return states.map(state => {
+                const upgradeStateInfo = upgradeStates.find(us => us.state === state);
+                if (upgradeStateInfo) {
+                    return `<span class="upgrade-icon upgrade-${state}" title="${upgradeStateInfo.label}">${upgradeStateInfo.icon}</span>`;
+                }
+                return '';
+            }).join(' ');
+        }
+
+        // Test function to demonstrate upgrade funnel visualization
+        function testUpgradeFunnel() {
+            console.log('Testing upgrade funnel visualization...');
+
+            // Test with different states
+            const testStates = [
+                null,
+                'results_gated',
+                'results_gated,upgrade_initiated',
+                'results_gated,upgrade_initiated,upgrade_completed',
+                'results_gated,upgrade_initiated,upgrade_completed,results_revealed'
+            ];
+
+            testStates.forEach(state => {
+                console.log(`State: ${state} -> ${getUpgradeStateIcons(state)}`);
+            });
+        }
+
         // Load data on page load
         loadData();
+
+        // Run test function in browser console
+        setTimeout(testUpgradeFunnel, 1000);
     </script>
 </body>
 </html>
