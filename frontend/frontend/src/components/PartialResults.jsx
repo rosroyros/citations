@@ -42,7 +42,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
           <h3>🔒 {citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</h3>
           <p>Upgrade to see validation results for all your citations</p>
           <button
-            onClick={async () => {
+            onClick={() => {
               trackEvent('upgrade_clicked', {
                 trigger_location: 'partial_results',
                 citations_locked: citations_remaining
@@ -53,27 +53,21 @@ export function PartialResults({ results, partial, citations_checked, citations_
                 localStorage.setItem('pending_upgrade_job_id', job_id);
               }
 
-              // Call upgrade-event API
-              try {
-                const response = await fetch('/api/upgrade-event', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    event_type: 'clicked_upgrade',
-                    job_id: job_id,
-                    trigger_location: 'partial_results',
-                    citations_locked: citations_remaining
-                  })
-                });
-
-                if (!response.ok) {
-                  console.error('Failed to track upgrade event:', response.status);
-                }
-              } catch (error) {
+              // Call upgrade-event API (non-blocking)
+              fetch('/api/upgrade-event', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  event_type: 'clicked_upgrade',
+                  job_id: job_id,
+                  trigger_location: 'partial_results',
+                  citations_locked: citations_remaining
+                })
+              }).catch(error => {
                 console.error('Error tracking upgrade event:', error);
-              }
+              });
 
               onUpgrade();
             }}
