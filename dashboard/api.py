@@ -172,6 +172,9 @@ def get_db():
 # Pydantic models for API responses
 class ValidationResponse(BaseModel):
     """Validation record response model"""
+
+    class Config:
+        extra = "allow"  # Allow extra fields from database
     job_id: str
     created_at: str
     completed_at: Optional[str] = None
@@ -206,6 +209,10 @@ class ValidationResponse(BaseModel):
     free_user_id: Optional[str] = Field(
         None,
         description="ID of free user (UUID)"
+    )
+    upgrade_state: Optional[str] = Field(
+        None,
+        description="Current state in upgrade workflow (clicked, modal, success, locked)"
     )
 
 
@@ -377,7 +384,24 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
 
         # Map database column names to API field names
         validation_data = {
-            **validation
+            "job_id": validation.get("job_id"),
+            "created_at": validation.get("created_at"),
+            "completed_at": validation.get("completed_at"),
+            "duration_seconds": validation.get("duration_seconds"),
+            "citation_count": validation.get("citation_count"),
+            "token_usage_prompt": validation.get("token_usage_prompt"),
+            "token_usage_completion": validation.get("token_usage_completion"),
+            "token_usage_total": validation.get("token_usage_total"),
+            "user_type": validation.get("user_type"),
+            "status": validation.get("status"),  # Already mapped by database.get_validation()
+            "error_message": validation.get("error_message"),
+            "results_gated": validation.get("results_gated"),
+            "results_revealed_at": validation.get("results_revealed_at"),
+            "time_to_reveal_seconds": validation.get("time_to_reveal_seconds"),
+            "gated_outcome": validation.get("gated_outcome"),
+            "paid_user_id": validation.get("paid_user_id"),
+            "free_user_id": validation.get("free_user_id"),
+            "upgrade_state": validation.get("upgrade_state")
         }
         return ValidationResponse(**validation_data)
     except HTTPException:
@@ -628,6 +652,8 @@ async def get_dashboard_data(
                 "results_revealed_at": validation.get("results_revealed_at"),
                 "time_to_reveal_seconds": validation.get("time_to_reveal_seconds"),
                 "gated_outcome": validation.get("gated_outcome"),
+                # Upgrade workflow state
+                "upgrade_state": validation.get("upgrade_state"),
                 # Token usage fields
                 "token_usage": {
                     "prompt": validation.get("token_usage_prompt"),

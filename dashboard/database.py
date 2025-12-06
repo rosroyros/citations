@@ -253,7 +253,11 @@ class DatabaseManager:
         row = cursor.fetchone()
 
         if row:
-            return dict(row)
+            row_dict = dict(row)
+            # Always provide 'status' in the result, map from validation_status if needed
+            if 'status' not in row_dict and 'validation_status' in row_dict:
+                row_dict['status'] = row_dict['validation_status']
+            return row_dict
         return None
 
     def get_validations(
