@@ -5,7 +5,7 @@ import { trackEvent } from '../utils/analytics';
 import { getToken } from '../utils/creditStorage';
 import ValidationTable from './ValidationTable';
 
-export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade }) {
+export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id }) {
   const { trackSourceTypeView } = useAnalyticsTracking();
 
   // Track partial results viewed (only on component mount)
@@ -42,11 +42,39 @@ export function PartialResults({ results, partial, citations_checked, citations_
           <h3>🔒 {citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</h3>
           <p>Upgrade to see validation results for all your citations</p>
           <button
-            onClick={() => {
+            onClick={async () => {
               trackEvent('upgrade_clicked', {
                 trigger_location: 'partial_results',
                 citations_locked: citations_remaining
               });
+
+              // Store job_id in localStorage for Polar redirect tracking
+              if (job_id) {
+                localStorage.setItem('pending_upgrade_job_id', job_id);
+              }
+
+              // Call upgrade-event API
+              try {
+                const response = await fetch('/api/upgrade-event', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    event_type: 'clicked_upgrade',
+                    job_id: job_id,
+                    trigger_location: 'partial_results',
+                    citations_locked: citations_remaining
+                  })
+                });
+
+                if (!response.ok) {
+                  console.error('Failed to track upgrade event:', response.status);
+                }
+              } catch (error) {
+                console.error('Error tracking upgrade event:', error);
+              }
+
               onUpgrade();
             }}
             className="upgrade-button"

@@ -36,6 +36,7 @@ describe('PartialResults', () => {
       partial: true,
       citations_checked: 3,
       citations_remaining: 7,
+      job_id: 'test-job-123',
       onUpgrade: mockOnUpgrade
     };
 
@@ -65,6 +66,7 @@ describe('PartialResults', () => {
       partial: true,
       citations_checked: 3,
       citations_remaining: 7,
+      job_id: 'test-job-123',
       onUpgrade: mockOnUpgrade
     };
 
@@ -101,6 +103,7 @@ describe('PartialResults', () => {
       partial: true,
       citations_checked: 3,
       citations_remaining: 7,
+      job_id: 'test-job-123',
       onUpgrade: mockOnUpgrade
     };
 
@@ -120,6 +123,7 @@ describe('PartialResults', () => {
       partial: true,
       citations_checked: 3,
       citations_remaining: 7,
+      job_id: 'test-job-123',
       onUpgrade: mockOnUpgrade
     };
 
@@ -139,6 +143,7 @@ describe('PartialResults', () => {
       partial: true,
       citations_checked: 3,
       citations_remaining: 7,
+      job_id: 'test-job-123',
       onUpgrade: mockOnUpgrade
     };
 

@@ -14,6 +14,28 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
 
     try {
       const token = getToken();
+
+      // Get job_id from localStorage if available
+      const jobId = localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id');
+
+      // Call upgrade-event API before proceeding to checkout
+      if (jobId) {
+        try {
+          await fetch('/api/upgrade-event', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              event_type: 'modal_proceed',
+              job_id: jobId
+            })
+          });
+        } catch (eventError) {
+          console.error('Failed to track modal proceed event:', eventError);
+        }
+      }
+
       const response = await fetch('/api/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
