@@ -496,9 +496,9 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                     # Ensure state only moves forward (no regression)
                     current_state = jobs[job_id].get('upgrade_state')
 
-                    # State progression order: None -> clicked -> modal -> success
-                    # 'locked' is a special state that can override others but success can override locked
-                    state_order = {'clicked': 1, 'modal': 2, 'success': 3, 'locked': 2.5}
+                    # State progression order: None -> locked -> clicked -> modal -> success
+                    # 'locked' starts the funnel for gated users, then they can progress through clicked/modal to success
+                    state_order = {'clicked': 1, 'modal': 2, 'success': 3, 'locked': 0.5}
 
                     # Only update if:
                     # 1. No current state, OR
