@@ -7,6 +7,7 @@ import logging
 import sys
 import time
 import os
+import tempfile
 from pathlib import Path
 
 # Add dashboard directory to the Python path
@@ -90,22 +91,41 @@ def load_position() -> int:
     try:
         if os.path.exists(POSITION_FILE_PATH):
             with open(POSITION_FILE_PATH, 'r') as f:
-                position_str = f.read().strip()
-                if position_str.isdigit():
-                    return int(position_str)
+                content = f.read().strip()
+                if content.isdigit():
+                    pos = int(content)
+                    if pos < 0:
+                        logger.warning(f"Invalid negative position {pos} found in {POSITION_FILE_PATH}. Resetting to 0.")
+                        return 0
+                    return pos
+                else:
+                    logger.warning(f"Invalid content in position file {POSITION_FILE_PATH}: '{content}'")
     except (IOError, ValueError) as e:
         logger.warning(f"Could not read position file {POSITION_FILE_PATH}: {e}")
     return 0
 
 def save_position(position: int) -> None:
-    """Save the current position to the position file."""
+    """Save the current position to the position file atomically."""
     try:
         # Ensure directory exists
         os.makedirs(os.path.dirname(POSITION_FILE_PATH), exist_ok=True)
-        with open(POSITION_FILE_PATH, 'w') as f:
-            f.write(str(position))
+        
+        # Write to temp file first to ensure atomicity
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, dir=os.path.dirname(POSITION_FILE_PATH)) as tf:
+            tf.write(str(position))
+            temp_name = tf.name
+            
+        # Atomic rename
+        os.replace(temp_name, POSITION_FILE_PATH)
+        
     except IOError as e:
-        logger.warning(f"Could not save position to {POSITION_FILE_PATH}: {e}")
+        logger.error(f"Could not save position to {POSITION_FILE_PATH}: {e}")
+        # Clean up temp file if rename failed
+        if 'temp_name' in locals() and os.path.exists(temp_name):
+            try:
+                os.remove(temp_name)
+            except OSError:
+                pass
 
 def main():
     """Main cron job function for citation parsing"""
@@ -128,7 +148,16 @@ def main():
 
         # Load last position
         last_position = load_position()
-        current_file_size = log_path.stat().st_size
+        try:
+            current_file_size = log_path.stat().st_size
+        except OSError as e:
+            logger.error(f"Failed to get size of log file: {e}")
+            sys.exit(1)
+
+        # Check for log rotation
+        if current_file_size < last_position:
+            logger.warning(f"Log rotation detected (current size {current_file_size} < last position {last_position}). Resetting to 0.")
+            last_position = 0
 
         # Check if there's new content
         if current_file_size <= last_position:
@@ -138,9 +167,20 @@ def main():
         logger.info(f"Processing new content from position {last_position} to {current_file_size}")
 
         # Read only the new content
-        with open(PRODUCTION_CITATION_LOG_PATH, 'r', encoding='utf-8') as f:
-            f.seek(last_position)
-            new_content = f.read()
+        try:
+            with open(PRODUCTION_CITATION_LOG_PATH, 'r', encoding='utf-8') as f:
+                f.seek(last_position)
+                new_content = f.read()
+                # Get the actual position after reading (handles if file grew during read)
+                new_position = f.tell()
+        except IOError as e:
+             logger.error(f"Failed to read log file: {e}")
+             sys.exit(1)
+
+        # CRITICAL: Update position immediately after reading to prevent re-reading
+        # if the subsequent processing crashes or takes too long.
+        save_position(new_position)
+        logger.info(f"Updated position to {new_position} (immediately after read)")
 
         # Parse citations from new content using the correct parser
         citation_blocks = parse_citation_blocks(new_content)
@@ -184,11 +224,6 @@ def main():
                 logger.info(f"Successfully processed {len(citations_data)} citations")
         else:
             logger.info("No new citations found in new content")
-
-        # Update position to end of file
-        new_position = current_file_size
-        save_position(new_position)
-        logger.info(f"Updated position to {new_position}")
 
         duration = time.time() - start_time
         logger.info(f"Incremental citation log parsing completed successfully in {duration:.2f} seconds")
