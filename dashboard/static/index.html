@@ -2078,40 +2078,18 @@
             ];
 
             // Parse upgrade state if it's a string, or use as-is if array
-            const states = typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState;
+            const completedStates = typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState;
 
-            return states.map(state => {
-                const upgradeStateInfo = upgradeStates.find(us => us.state === state);
-                if (upgradeStateInfo) {
-                    return `<span class="upgrade-icon upgrade-${state}" title="${upgradeStateInfo.label}">${upgradeStateInfo.icon}</span>`;
-                }
-                return '';
+            // Always show all 4 icons, with completed ones highlighted
+            return upgradeStates.map(stateInfo => {
+                const isCompleted = completedStates.includes(stateInfo.state);
+                const activeClass = isCompleted ? ` upgrade-${stateInfo.state}` : '';
+                return `<span class="upgrade-icon${activeClass}" title="${stateInfo.label}">${stateInfo.icon}</span>`;
             }).join(' ');
-        }
-
-        // Test function to demonstrate upgrade funnel visualization
-        function testUpgradeFunnel() {
-            console.log('Testing upgrade funnel visualization...');
-
-            // Test with different states
-            const testStates = [
-                null,
-                'results_gated',
-                'results_gated,upgrade_initiated',
-                'results_gated,upgrade_initiated,upgrade_completed',
-                'results_gated,upgrade_initiated,upgrade_completed,results_revealed'
-            ];
-
-            testStates.forEach(state => {
-                console.log(`State: ${state} -> ${getUpgradeStateIcons(state)}`);
-            });
         }
 
         // Load data on page load
         loadData();
-
-        // Run test function in browser console
-        setTimeout(testUpgradeFunnel, 1000);
     </script>
 </body>
 </html>
