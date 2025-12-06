@@ -20,9 +20,7 @@ const fetchDashboardData = async (filters = {}) => {
   const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
   try {
-    // Handle case where API_BASE_URL already includes /api (e.g. from env vars)
-    const baseUrl = API_BASE_URL.endsWith('/api') ? API_BASE_URL.slice(0, -4) : API_BASE_URL
-    const response = await fetch(`${baseUrl}/api/dashboard?${params}`, {
+    const response = await fetch(`${API_BASE_URL}/api/dashboard?${params}`, {
       signal: controller.signal
     })
 
@@ -48,9 +46,7 @@ const fetchDashboardStats = async () => {
   const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
 
   try {
-    // Handle case where API_BASE_URL already includes /api (e.g. from env vars)
-    const baseUrl = API_BASE_URL.endsWith('/api') ? API_BASE_URL.slice(0, -4) : API_BASE_URL
-    const response = await fetch(`${baseUrl}/api/dashboard/stats`, {
+    const response = await fetch(`${API_BASE_URL}/api/dashboard/stats`, {
       signal: controller.signal
     })
 
