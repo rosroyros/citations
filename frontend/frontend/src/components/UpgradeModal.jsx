@@ -21,7 +21,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
       // Call upgrade-event API before proceeding to checkout
       if (jobId) {
         try {
-          await fetch('/api/upgrade-event', {
+          const response = await fetch('/api/upgrade-event', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -31,6 +31,10 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
               job_id: jobId
             })
           });
+
+          if (!response.ok) {
+            console.error('Failed to track modal proceed event:', response.status);
+          }
         } catch (eventError) {
           console.error('Failed to track modal proceed event:', eventError);
         }
