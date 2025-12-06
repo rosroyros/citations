@@ -5,7 +5,7 @@ set -e
 # Example: ./deploy_prod.sh deploy@178.156.161.140
 
 SSH_TARGET="${1:-deploy@178.156.161.140}"
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Colors
 GREEN='\033[0;32m'
