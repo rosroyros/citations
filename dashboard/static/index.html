@@ -1273,6 +1273,12 @@
                 <label>Search User ID</label>
                 <input type="text" id="userIdSearch" placeholder="User ID..." onkeyup="if(event.key === 'Enter') loadData()">
             </div>
+            <div class="filter-group">
+                <label>
+                    <input type="checkbox" id="excludeTests" onchange="loadData()" style="margin-right: 8px;">
+                    Exclude Tests
+                </label>
+            </div>
         </div>
 
         <div class="stats" id="stats">
@@ -1409,6 +1415,7 @@
             const userType = document.getElementById('userType').value;
             const search = document.getElementById('search').value;
             const userIdSearch = document.getElementById('userIdSearch').value;
+            const excludeTests = document.getElementById('excludeTests').checked;
             const pageSize = document.getElementById('pageSize').value;
 
             const from_date = getDateRange(dateRange);
@@ -1450,14 +1457,54 @@
                 const validationsResponse = await fetch(apiUrl);
                 const data = await validationsResponse.json();
 
-                updateTable(data.validations);
+                // If excludeTests is checked, filter out jobs with test citations
+                let filteredValidations = data.validations;
+                if (excludeTests) {
+                    filteredValidations = await filterOutTestJobs(data.validations);
+                }
+
+                updateTable(filteredValidations);
                 updatePagination(data.total, pageSize);
                 updateLastUpdated();
+                updateURL();
 
             } catch (error) {
                 console.error('Error loading data:', error);
                 document.getElementById('validationsTable').innerHTML = '<tr><td colspan="10" class="error">Error loading data</td></tr>';
             }
+        }
+
+        async function filterOutTestJobs(validations) {
+            const filtered = [];
+
+            for (const validation of validations) {
+                let hasTestCitation = false;
+
+                // Check if the job has citations stored in the database
+                try {
+                    const citationsResponse = await fetch(`/api/validations/${validation.job_id}/citations`);
+                    if (citationsResponse.ok) {
+                        const citationsData = await citationsResponse.json();
+                        if (citationsData.citations && citationsData.citations.length > 0) {
+                            // Check if any citation contains the word "test" (case-insensitive)
+                            hasTestCitation = citationsData.citations.some(citation =>
+                                citation.citation_text &&
+                                citation.citation_text.toLowerCase().includes('test')
+                            );
+                        }
+                    }
+                } catch (error) {
+                    // If we can't fetch citations, keep the job (don't filter it out)
+                    console.warn(`Could not fetch citations for job ${validation.job_id}:`, error);
+                }
+
+                // If this job doesn't have test citations, keep it
+                if (!hasTestCitation) {
+                    filtered.push(validation);
+                }
+            }
+
+            return filtered;
         }
 
         function getDateRange(days) {
@@ -2087,7 +2134,67 @@
             }).join(' ');
         }
 
+        // URL state management functions
+        function getURLParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                dateRange: params.get('dateRange') || '7',
+                status: params.get('status') || '',
+                userType: params.get('userType') || '',
+                search: params.get('search') || '',
+                userIdSearch: params.get('userIdSearch') || '',
+                excludeTests: params.get('excludeTests') === 'true',
+                pageSize: params.get('pageSize') || '100',
+                page: parseInt(params.get('page')) || 1,
+                sortBy: params.get('sortBy') || 'created_at',
+                sortDir: params.get('sortDir') || 'DESC'
+            };
+        }
+
+        function updateURL() {
+            const params = new URLSearchParams();
+
+            const dateRange = document.getElementById('dateRange').value;
+            const status = document.getElementById('status').value;
+            const userType = document.getElementById('userType').value;
+            const search = document.getElementById('search').value;
+            const userIdSearch = document.getElementById('userIdSearch').value;
+            const excludeTests = document.getElementById('excludeTests').checked;
+            const pageSize = document.getElementById('pageSize').value;
+
+            if (dateRange !== '7') params.set('dateRange', dateRange);
+            if (status) params.set('status', status);
+            if (userType) params.set('userType', userType);
+            if (search) params.set('search', search);
+            if (userIdSearch) params.set('userIdSearch', userIdSearch);
+            if (excludeTests) params.set('excludeTests', 'true');
+            if (pageSize !== '100') params.set('pageSize', pageSize);
+            if (currentPage !== 1) params.set('page', currentPage.toString());
+            if (sortBy !== 'created_at') params.set('sortBy', sortBy);
+            if (sortDir !== 'DESC') params.set('sortDir', sortDir);
+
+            const newURL = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+            window.history.replaceState({}, '', newURL);
+        }
+
+        function restoreStateFromURL() {
+            const params = getURLParams();
+
+            document.getElementById('dateRange').value = params.dateRange;
+            document.getElementById('status').value = params.status;
+            document.getElementById('userType').value = params.userType;
+            document.getElementById('search').value = params.search;
+            document.getElementById('userIdSearch').value = params.userIdSearch;
+            document.getElementById('excludeTests').checked = params.excludeTests;
+            document.getElementById('pageSize').value = params.pageSize;
+
+            currentPage = params.page;
+            sortBy = params.sortBy;
+            sortDir = params.sortDir;
+        }
+
         // Load data on page load
+        restoreStateFromURL();
         loadData();
     </script>
 </body>
