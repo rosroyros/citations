@@ -209,6 +209,15 @@ class TestLogParser(unittest.TestCase):
         self.assertEqual(result["completion"], 997)
         self.assertEqual(result["total"], 2022)
 
+    def test_extract_token_usage_valid_input_output(self):
+        """Test extraction of token usage with input/output format."""
+        line = "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 input + 997 output = 2022 total"
+        result = extract_token_usage(line)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["prompt"], 1025)
+        self.assertEqual(result["completion"], 997)
+        self.assertEqual(result["total"], 2022)
+
     def test_extract_token_usage_invalid_line(self):
         line = "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - No token usage here"
         result = extract_token_usage(line)

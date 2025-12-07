@@ -143,7 +143,8 @@ def extract_token_usage(log_line: str) -> Optional[Dict[str, int]]:
         dict with prompt, completion, total if found, None otherwise
     """
     # Pattern matches: Token usage: 1025 prompt + 997 completion = 2022 total
-    token_pattern = r'Token usage: (\d+) prompt \+ (\d+) completion = (\d+) total'
+    # Also matches: Token usage: 1025 input + 997 output = 2022 total
+    token_pattern = r'Token usage: (\d+) (?:prompt|input) \+ (\d+) (?:completion|output) = (\d+) total'
     match = re.search(token_pattern, log_line)
 
     if match:

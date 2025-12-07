@@ -6,24 +6,38 @@ Runs every 5 minutes to parse new log entries and update database
 import logging
 import sys
 import time
+import os
 from pathlib import Path
 
 from dashboard.cron_parser import CronLogParser
 
 # Configure logging
+CRON_LOG_PATH = os.getenv('CRON_LOG_PATH', '/opt/citations/logs/cron.log')
+
+# Ensure log directory exists if we are using a custom path, or fallback to stdout if permission denied (handled by try/except block typically, but here we just set it up)
+try:
+    file_handler = logging.FileHandler(CRON_LOG_PATH)
+except (FileNotFoundError, PermissionError):
+    # Fallback to local file if system path is not accessible
+    file_handler = logging.FileHandler('cron.log')
+
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('/opt/citations/logs/cron.log'),
+        file_handler,
         logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger(__name__)
 
-# Production paths
-PRODUCTION_LOG_PATH = "/opt/citations/logs/app.log"
-PRODUCTION_DB_PATH = "/opt/citations/dashboard/data/validations.db"
+# Production paths (default)
+DEFAULT_LOG_PATH = "/opt/citations/logs/app.log"
+DEFAULT_DB_PATH = "/opt/citations/dashboard/data/validations.db"
+
+# Allow overrides via environment variables
+PRODUCTION_LOG_PATH = os.getenv("CITATION_LOG_PATH", DEFAULT_LOG_PATH)
+PRODUCTION_DB_PATH = os.getenv("CITATION_DB_PATH", DEFAULT_DB_PATH)
 
 def main():
     """Main cron job function"""
