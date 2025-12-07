@@ -508,8 +508,18 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id] = {"job_id": job_id}
                 
             if job_id in jobs and jobs[job_id].get('upgrade_state') != 'success':
-                # Set upgrade_state to 'locked' for partial results (both empty and locked)
-                jobs[job_id]["upgrade_state"] = 'locked'
+                # Get current state (handle None or existing string)
+                current_state_str = jobs[job_id].get('upgrade_state')
+                current_states = current_state_str.split(',') if current_state_str else []
+                
+                # Add 'locked' if not present
+                if 'locked' not in current_states:
+                    # Locked should be first
+                    current_states.insert(0, 'locked')
+                    
+                    # Store back as comma-separated string
+                    jobs[job_id]["upgrade_state"] = ','.join(current_states)
+                    
                 jobs[job_id]["partial_results_type"] = partial_type  # Store for debugging
             continue
 
@@ -553,26 +563,22 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 # Get the new state
                 new_state = event_to_state.get(event)
                 if new_state:
-                    # Ensure state only moves forward (no regression)
-                    current_state = jobs[job_id].get('upgrade_state')
-
-                    # State progression order: None -> locked -> clicked -> modal -> success
-                    # 'locked' starts the funnel for gated users, then they can progress through clicked/modal to success
-                    state_order = {'clicked': 1, 'modal': 2, 'success': 3, 'locked': 0.5}
-
-                    # Only update if:
-                    # 1. No current state, OR
-                    # 2. Setting to 'locked' (can happen at any time except if already 'success')
-                    # 3. Setting to 'success' (can override locked)
-                    # 4. Moving forward in normal progression (clicked -> modal -> success)
-                    if current_state is None:
-                        jobs[job_id]["upgrade_state"] = new_state
-                    elif new_state == 'locked' and current_state != 'success':
-                        jobs[job_id]["upgrade_state"] = new_state
-                    elif new_state == 'success':
-                        jobs[job_id]["upgrade_state"] = new_state
-                    elif new_state != 'locked' and state_order.get(new_state, 0) > state_order.get(current_state, 0):
-                        jobs[job_id]["upgrade_state"] = new_state
+                    # Get current state (handle None or existing string)
+                    current_state_str = jobs[job_id].get('upgrade_state')
+                    current_states = current_state_str.split(',') if current_state_str else []
+                    
+                    # Don't duplicate if already present
+                    if new_state not in current_states:
+                        # Logic to append state based on progression
+                        if new_state == 'locked':
+                            # Locked should be first
+                            current_states.insert(0, 'locked')
+                        else:
+                            # Append other states
+                            current_states.append(new_state)
+                        
+                        # Store back as comma-separated string
+                        jobs[job_id]["upgrade_state"] = ','.join(current_states)
             continue
 
         # Check for validation request with user IDs
