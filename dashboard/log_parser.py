@@ -287,6 +287,22 @@ def extract_partial_results_event(log_line: str) -> Optional[Tuple[str, str]]:
     if match2:
         return match2.group(1), 'locked'
 
+    # Pattern 3: "Partial results with data bypass gating" followed by job_id in GATING_DECISION
+    # This pattern spans multiple lines, so we need to handle it differently
+    pattern3 = r'Partial results with data bypass gating'
+    if re.search(pattern3, log_line):
+        # Look for job_id in the same line or next line
+        job_pattern = r'job_id=([a-f0-9-]+)'
+        match_job = re.search(job_pattern, log_line)
+        if match_job:
+            return match_job.group(1), 'partial'
+
+    # Pattern 4: GATING_DECISION with reason containing "Partial results with data"
+    pattern4 = r'GATING_DECISION: job_id=([a-f0-9-]+) .* reason=\'?.*Partial results with data.*\'?'
+    match4 = re.search(pattern4, log_line)
+    if match4:
+        return match4.group(1), 'partial'
+
     return None
 
 
