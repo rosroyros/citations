@@ -26,7 +26,7 @@ export const UpgradeModal = ({ isOpen, onClose }) => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            event_type: 'modal_proceed',
+            event: 'modal_proceed',
             job_id: jobId
           })
         }).catch(eventError => {
