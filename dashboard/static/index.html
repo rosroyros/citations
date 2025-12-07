@@ -2065,10 +2065,6 @@
 
         // Get upgrade state icons function
         function getUpgradeStateIcons(upgradeState) {
-            if (!upgradeState) {
-                return '-';
-            }
-
             // Define upgrade states and their icons
             const upgradeStates = [
                 { state: 'locked', icon: '🔒', label: 'Results gated' },
@@ -2078,7 +2074,10 @@
             ];
 
             // Parse upgrade state if it's a string, or use as-is if array
-            const completedStates = typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState;
+            // If no upgrade state, treat as empty array (no steps completed)
+            const completedStates = upgradeState ?
+                (typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState) :
+                [];
 
             // Always show all 4 icons, with completed ones highlighted
             return upgradeStates.map(stateInfo => {
