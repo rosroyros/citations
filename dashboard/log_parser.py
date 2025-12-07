@@ -261,6 +261,35 @@ def extract_gating_decision(log_line: str) -> Optional[Tuple[str, bool, str]]:
     return None
 
 
+def extract_partial_results_event(log_line: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract partial results event information from a log line.
+
+    This looks for log messages that indicate partial results were returned to the user,
+    which should trigger the lock icon in the upgrade funnel.
+
+    Args:
+        log_line: The log line to extract partial results info from
+
+    Returns:
+        tuple of (job_id, partial_type) if found, None otherwise
+        where partial_type is either 'empty' or 'locked'
+    """
+    # Pattern 1: "Job {job_id}: Free tier limit reached - returning empty partial results"
+    pattern1 = r'Job ([a-f0-9-]+): Free tier limit reached - returning empty partial results'
+    match1 = re.search(pattern1, log_line)
+    if match1:
+        return match1.group(1), 'empty'
+
+    # Pattern 2: "Job {job_id}: Completed - free tier limit reached, returning locked partial results with X remaining"
+    pattern2 = r'Job ([a-f0-9-]+): Completed - free tier limit reached, returning locked partial results'
+    match2 = re.search(pattern2, log_line)
+    if match2:
+        return match2.group(1), 'locked'
+
+    return None
+
+
 def extract_reveal_event(log_line: str) -> Optional[Tuple[str, str]]:
     """
     Extract reveal event information from a log line.
@@ -453,17 +482,22 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["completed_at"] = timestamp
             continue
 
-        # Check for gating decision
+        # Check for partial results event
+        partial_results = extract_partial_results_event(line)
+        if partial_results:
+            job_id, partial_type = partial_results
+            if job_id in jobs and jobs[job_id].get('upgrade_state') != 'success':
+                # Set upgrade_state to 'locked' for partial results (both empty and locked)
+                jobs[job_id]["upgrade_state"] = 'locked'
+                jobs[job_id]["partial_results_type"] = partial_type  # Store for debugging
+            continue
+
+        # Still check for gating decision for compatibility
         gating_result = extract_gating_decision(line)
         if gating_result:
             job_id, results_gated, reason = gating_result
             if job_id in jobs:
                 jobs[job_id]["results_gated"] = results_gated
-
-                # Set upgrade_state to 'locked' if results are gated
-                # But only if not already 'success' (success means upgrade completed)
-                if results_gated and jobs[job_id].get('upgrade_state') != 'success':
-                    jobs[job_id]["upgrade_state"] = 'locked'
             continue
 
         # Check for reveal event
