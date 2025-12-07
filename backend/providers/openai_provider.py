@@ -60,7 +60,8 @@ class OpenAIProvider(CitationValidator):
             "instructions": prompt_template,
             "input": formatted_citations,
             "temperature": 1 if self.model.startswith("gpt-5") else 0.1,  # GPT-5 requires temperature=1
-            "timeout": 85.0  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
+            "timeout": 85.0,  # 85 second timeout (stays under nginx 90s and Cloudflare 100s limits)
+            "service_tier": "priority"  # Enable Priority Processing for lower latency
         }
 
         # Use appropriate parameter based on model family
