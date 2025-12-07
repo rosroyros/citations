@@ -45,6 +45,10 @@ class CronLogParser:
             # Find the most recent timestamp among parsed jobs
             latest_timestamp = None
             for job in parsed_jobs:
+                # Skip jobs without created_at timestamp (e.g. partial updates)
+                if not job.get("created_at"):
+                    continue
+
                 # Parse job created_at timestamp and make it naive
                 job_time = datetime.fromisoformat(job["created_at"].replace("Z", "+00:00")).replace(tzinfo=None)
                 if latest_timestamp is None or job_time > latest_timestamp:
@@ -54,7 +58,7 @@ class CronLogParser:
                 # Store as naive datetime to match extract_timestamp() return type
                 db.set_metadata("last_parsed_timestamp", latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"))
             else:
-                # Fallback to now if no jobs found
+                # Fallback to now if no valid jobs found
                 now = datetime.now()
                 db.set_metadata("last_parsed_timestamp", now.strftime("%Y-%m-%d %H:%M:%S"))
         else:
