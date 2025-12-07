@@ -502,6 +502,11 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
         partial_results = extract_partial_results_event(line)
         if partial_results:
             job_id, partial_type = partial_results
+            
+            # Allow partial updates for existing jobs
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+                
             if job_id in jobs and jobs[job_id].get('upgrade_state') != 'success':
                 # Set upgrade_state to 'locked' for partial results (both empty and locked)
                 jobs[job_id]["upgrade_state"] = 'locked'
@@ -532,6 +537,11 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
         upgrade_result = extract_upgrade_workflow_event(line)
         if upgrade_result:
             job_id, event = upgrade_result
+            
+            # Allow partial updates for existing jobs
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+                
             if job_id in jobs:
                 # Map events to state values
                 event_to_state = {

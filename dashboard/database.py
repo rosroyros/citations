@@ -163,11 +163,18 @@ class DatabaseManager:
         """
         Insert or update a validation record (UPSERT)
         Handles both status and validation_status columns for backward compatibility
+        
+        Uses UPDATE for existing records to support partial updates (e.g. from incremental logs)
+        Uses INSERT for new records
 
         Args:
             validation_data: Dictionary with validation fields
         """
         cursor = self.conn.cursor()
+        job_id = validation_data.get("job_id")
+        
+        if not job_id:
+            return
 
         # Check what columns exist in the database
         cursor.execute("PRAGMA table_info(validations)")
@@ -178,66 +185,107 @@ class DatabaseManager:
         has_gating_columns = all(col in columns for col in ['results_gated', 'results_revealed_at', 'gated_outcome'])
         has_upgrade_state = 'upgrade_state' in columns
 
-        # Build dynamic column and value lists
-        base_columns = ['job_id', 'created_at', 'user_type', 'error_message']
-        optional_columns = ['completed_at', 'duration_seconds', 'citation_count',
-                          'token_usage_prompt', 'token_usage_completion', 'token_usage_total']
+        # Check if record exists
+        cursor.execute("SELECT 1 FROM validations WHERE job_id = ?", (job_id,))
+        exists = cursor.fetchone()
 
-        # Add user ID columns if they exist
-        if all(col in columns for col in ['paid_user_id', 'free_user_id']):
-            optional_columns.extend(['paid_user_id', 'free_user_id'])
+        if exists:
+            # UPDATE strategy: Only update fields that are present and not None in validation_data
+            # This allows partial updates (like upgrade_state) without wiping other fields
+            update_clauses = []
+            update_params = []
 
-        # Determine which status column to use
-        if has_status and has_validation_status:
-            status_columns = ['status', 'validation_status']
-        elif has_status:
-            status_columns = ['status']
+            # Simple fields mapping
+            simple_fields = [
+                'created_at', 'completed_at', 'duration_seconds', 'citation_count',
+                'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                'user_type', 'error_message', 'paid_user_id', 'free_user_id',
+                'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state'
+            ]
+            
+            for field in simple_fields:
+                if field in columns and field in validation_data and validation_data[field] is not None:
+                    update_clauses.append(f"{field} = ?")
+                    update_params.append(validation_data[field])
+
+            # Status fields handling
+            status_val = validation_data.get("status")
+            if status_val is not None:
+                if has_status:
+                    update_clauses.append("status = ?")
+                    update_params.append(status_val)
+                if has_validation_status:
+                    update_clauses.append("validation_status = ?")
+                    update_params.append(status_val)
+            
+            if update_clauses:
+                query = f"UPDATE validations SET {', '.join(update_clauses)} WHERE job_id = ?"
+                update_params.append(job_id)
+                cursor.execute(query, update_params)
+                self.conn.commit()
+
         else:
-            status_columns = ['validation_status']
-
-        # Add gating columns if they exist
-        if has_gating_columns:
-            optional_columns.extend(['results_gated', 'results_revealed_at', 'gated_outcome'])
-
-        # Add upgrade_state column if it exists
-        if has_upgrade_state:
-            optional_columns.append('upgrade_state')
-
-        # Build final column list and values
-        insert_columns = base_columns + status_columns
-        for col in optional_columns:
-            if col in columns:
-                insert_columns.append(col)
-
-        # Build values tuple
-        values = []
-        for col in insert_columns:
-            if col == 'job_id':
-                values.append(validation_data["job_id"])
-            elif col == 'created_at':
-                values.append(validation_data["created_at"])
-            elif col == 'user_type':
-                values.append(validation_data["user_type"])
-            elif col == 'error_message':
-                values.append(validation_data.get("error_message"))
-            elif col in ['status', 'validation_status']:
-                values.append(validation_data["status"])  # Map to both if present
-            elif col in ['completed_at', 'duration_seconds', 'citation_count',
-                        'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
-                        'results_gated', 'results_revealed_at', 'gated_outcome',
-                        'paid_user_id', 'free_user_id', 'upgrade_state']:
-                values.append(validation_data.get(col))
-
-        # Build the INSERT statement dynamically
-        placeholders = ', '.join(['?'] * len(insert_columns))
-        column_list = ', '.join(insert_columns)
-
-        cursor.execute(f"""
-            INSERT OR REPLACE INTO validations ({column_list})
-            VALUES ({placeholders})
-        """, values)
-
-        self.conn.commit()
+            # INSERT strategy for new records
+            # Build dynamic column and value lists
+            base_columns = ['job_id', 'created_at', 'user_type', 'error_message']
+            optional_columns = ['completed_at', 'duration_seconds', 'citation_count',
+                              'token_usage_prompt', 'token_usage_completion', 'token_usage_total']
+    
+            # Add user ID columns if they exist
+            if all(col in columns for col in ['paid_user_id', 'free_user_id']):
+                optional_columns.extend(['paid_user_id', 'free_user_id'])
+    
+            # Determine which status column to use
+            if has_status and has_validation_status:
+                status_columns = ['status', 'validation_status']
+            elif has_status:
+                status_columns = ['status']
+            else:
+                status_columns = ['validation_status']
+    
+            # Add gating columns if they exist
+            if has_gating_columns:
+                optional_columns.extend(['results_gated', 'results_revealed_at', 'gated_outcome'])
+    
+            # Add upgrade_state column if it exists
+            if has_upgrade_state:
+                optional_columns.append('upgrade_state')
+    
+            # Build final column list and values
+            insert_columns = base_columns + status_columns
+            for col in optional_columns:
+                if col in columns:
+                    insert_columns.append(col)
+    
+            # Build values tuple
+            values = []
+            for col in insert_columns:
+                if col == 'job_id':
+                    values.append(validation_data["job_id"])
+                elif col == 'created_at':
+                    values.append(validation_data["created_at"])
+                elif col == 'user_type':
+                    values.append(validation_data["user_type"])
+                elif col == 'error_message':
+                    values.append(validation_data.get("error_message"))
+                elif col in ['status', 'validation_status']:
+                    values.append(validation_data["status"])  # Map to both if present
+                elif col in ['completed_at', 'duration_seconds', 'citation_count',
+                            'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                            'results_gated', 'results_revealed_at', 'gated_outcome',
+                            'paid_user_id', 'free_user_id', 'upgrade_state']:
+                    values.append(validation_data.get(col))
+    
+            # Build the INSERT statement dynamically
+            placeholders = ', '.join(['?'] * len(insert_columns))
+            column_list = ', '.join(insert_columns)
+    
+            cursor.execute(f"""
+                INSERT OR REPLACE INTO validations ({column_list})
+                VALUES ({placeholders})
+            """, values)
+    
+            self.conn.commit()
 
     def get_validation(self, job_id: str) -> Optional[Dict[str, Any]]:
         """
