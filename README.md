@@ -52,6 +52,12 @@ User → Frontend → POST /api/validate/async → Background Worker
 - **Frontend**: Static HTML served by FastAPI (`dashboard/static/`).
 - **Access**: Internal tool, no auth (dev), firewall protected (prod).
 
+## Upgrade Funnel
+Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
+- **Flow**: "Partial results" log sets `upgrade_state="locked"`. Frontend POSTs `clicked_upgrade`/`modal_proceed` -> `UPGRADE_WORKFLOW` log.
+- **Parser**: Appends events to DB `upgrade_state` CSV (e.g. `"locked,clicked"`).
+- **UI**: 4 fixed icons (🔒🛒💳✅), inactive=grey.
+
 ## Key Paths
 - **Root**: `/Users/roy/Documents/Projects/citations`
 - **Backend**: `backend/`
