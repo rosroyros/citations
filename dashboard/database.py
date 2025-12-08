@@ -60,7 +60,8 @@ class DatabaseManager:
                 gated_outcome TEXT,
                 paid_user_id TEXT,
                 free_user_id TEXT,
-                upgrade_state TEXT
+                upgrade_state TEXT,
+                provider TEXT
             )
         """)
 
@@ -95,6 +96,10 @@ class DatabaseManager:
 
         if 'free_user_id' in existing_columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_free_user_id ON validations(free_user_id)")
+
+        # Create provider index if column exists
+        if 'provider' in existing_columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_provider ON validations(provider)")
 
         # Handle status vs validation_status compatibility
         cursor.execute("PRAGMA table_info(validations)")
@@ -200,7 +205,8 @@ class DatabaseManager:
                 'created_at', 'completed_at', 'duration_seconds', 'citation_count',
                 'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                 'user_type', 'error_message', 'paid_user_id', 'free_user_id',
-                'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state'
+                'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
+                'provider'
             ]
             
             for field in simple_fields:
@@ -250,7 +256,11 @@ class DatabaseManager:
             # Add upgrade_state column if it exists
             if has_upgrade_state:
                 optional_columns.append('upgrade_state')
-    
+
+            # Add provider column if it exists
+            if 'provider' in columns:
+                optional_columns.append('provider')
+
             # Build final column list and values
             insert_columns = base_columns + status_columns
             for col in optional_columns:
@@ -273,7 +283,7 @@ class DatabaseManager:
                 elif col in ['completed_at', 'duration_seconds', 'citation_count',
                             'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                             'results_gated', 'results_revealed_at', 'gated_outcome',
-                            'paid_user_id', 'free_user_id', 'upgrade_state']:
+                            'paid_user_id', 'free_user_id', 'upgrade_state', 'provider']:
                     values.append(validation_data.get(col))
     
             # Build the INSERT statement dynamically
