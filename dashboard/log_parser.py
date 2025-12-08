@@ -70,8 +70,8 @@ def extract_completion(log_line: str) -> Optional[tuple]:
     Returns:
         tuple of (job_id, timestamp) if found, None otherwise
     """
-    # Pattern matches: Job abc-123: Completed successfully
-    completion_pattern = r'Job ([a-f0-9-]+): Completed successfully'
+    # Pattern matches: Job abc-123: Completed [successfully|with any message]
+    completion_pattern = r'Job ([a-f0-9-]+): Completed'
     match = re.search(completion_pattern, log_line)
 
     if match:
