@@ -457,6 +457,12 @@ export default function Dashboard() {
                       </th>
                       <th
                         className="sortable-header"
+                        onClick={() => handleSort('provider')}
+                      >
+                        Provider {getSortIcon('provider')}
+                      </th>
+                      <th
+                        className="sortable-header"
                         onClick={() => handleSort('processing_time')}
                       >
                         Processing Time {getSortIcon('processing_time')}
@@ -490,6 +496,10 @@ export default function Dashboard() {
                         <td className="number-cell">{item.citation_count || 0}</td>
                         <td className="number-cell error-cell">
                           {item.errors !== null ? item.errors : '-'}
+                        </td>
+                        <td className="provider-cell">
+                          {item.provider === 'model_a' ? 'OpenAI' :
+                           item.provider === 'model_b' ? 'Gemini' : 'Unknown'}
                         </td>
                         <td className="time-cell">{item.processing_time || '-'}</td>
                         <td className="number-cell">
@@ -620,6 +630,14 @@ export default function Dashboard() {
                 <div className="detail-group">
                   <label>IP Address</label>
                   <p>{selectedRow.ip_address}</p>
+                </div>
+
+                <div className="detail-group">
+                  <label>Model Provider</label>
+                  <p>
+                    {selectedRow.provider === 'model_a' ? 'OpenAI' :
+                     selectedRow.provider === 'model_b' ? 'Gemini' : 'Unknown'}
+                  </p>
                 </div>
 
                 <div className="detail-group">
