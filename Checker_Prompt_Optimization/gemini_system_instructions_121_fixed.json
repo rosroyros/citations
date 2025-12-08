@@ -1,0 +1,44 @@
+{
+  "metadata": {
+    "total_citations": 121,
+    "batch_size": 5,
+    "max_retries": 3,
+    "model": "gemini-2.5-flash",
+    "test_type": "gemini_system_instructions_default_thinking",
+    "system_instruction_length": 3278
+  },
+  "results": {
+    "parsed": [
+      {
+        "citation_number": 19,
+        "batch_local_number": 1,
+        "is_valid": false,
+        "raw_block": "\\n\\n\\n\\n"
+      }
+    ],
+    "accuracy": 100.0,
+    "coverage": 0.8264462809917356,
+    "correct_count": 1,
+    "total_processed": 1,
+    "details": [
+      {
+        "citation_number": 19,
+        "predicted": false,
+        "ground_truth": false,
+        "correct": true
+      }
+    ],
+    "thinking_stats": {
+      "total_thinking_tokens": 21855,
+      "total_response_tokens": 41424,
+      "avg_thinking_per_batch": 874.2,
+      "thinking_overhead_percentage": 111.68174152997088,
+      "batches_with_thinking": 14
+    },
+    "performance": {
+      "total_time_minutes": 3.8391482790311175,
+      "avg_time_per_citation": 1.9037098904286534,
+      "citations_per_hour": 1891.0444380731758
+    }
+  }
+}

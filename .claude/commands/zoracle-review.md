@@ -121,7 +121,7 @@ Be specific with file:line references for all issues.
 Pipe the prompt to a fresh  session and save the response:
 
 ```bash
-cat ./tmp/<issue-id>-ask-request-round-<N>.md | gemini -y -m "gemini-2.5-pro" 2>&1 | tee ./tmp/<issue-id>-ask-response-round-<N>.md
+cat ./tmp/<issue-id>-review-request-round-<N>.md | gemini -y -m "pro" 2>&1 | tee ./tmp/<issue-id>-review-response-round-<N>.md
 ```
 
 Note: Use `tee` instead of `>` redirect to properly capture streaming output.

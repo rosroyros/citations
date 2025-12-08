@@ -90,7 +90,7 @@ User wants to focus on: "<user's focus area>"
 ```
 **3. Send to Oracle for guidance:**
 ```bash
-cat ./tmp/<issue-id>-ask-request-round-<N>.md | gemini -y -m "gemini-2.5-pro" 2>&1 | tee ./tmp/<issue-id>-ask-response-round-<N>.md
+cat ./tmp/<issue-id>-ask-request-round-<N>.md | gemini -y -m "pro" 2>&1 | tee ./tmp/<issue-id>-ask-response-round-<N>.md
 ```
 
 Note: Use `tee` instead of `>` redirect to properly capture streaming output.

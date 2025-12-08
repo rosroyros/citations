@@ -1,0 +1,26 @@
+2025-12-05 18:10:48 - citation_validator - INFO - Citation logging enabled: False
+INFO:citation_validator:Citation logging enabled: False
+2025-12-05 18:10:48 - citation_validator - INFO - Using MockProvider for LLM (fast E2E testing mode)
+INFO:citation_validator:Using MockProvider for LLM (fast E2E testing mode)
+INFO:     Started server process [70504]
+INFO:     Waiting for application startup.
+2025-12-05 18:10:48 - citation_validator - INFO - Citation Validator API starting up
+INFO:citation_validator:Citation Validator API starting up
+2025-12-05 18:10:48 - citation_validator - ERROR - Feature flag inconsistency detected! Environment variable: 'true' (True), Module value: False. This indicates a module loading or import issue.
+ERROR:citation_validator:Feature flag inconsistency detected! Environment variable: 'true' (True), Module value: False. This indicates a module loading or import issue.
+2025-12-05 18:10:48 - citation_validator - INFO - All required environment variables are present
+INFO:citation_validator:All required environment variables are present
+2025-12-05 18:10:48 - citation_logger - CRITICAL - Failed to prepare citation log directory: [Errno 13] Permission denied: '/opt/citations'
+CRITICAL:citation_logger:Failed to prepare citation log directory: [Errno 13] Permission denied: '/opt/citations'
+2025-12-05 18:10:48 - citation_validator - CRITICAL - Failed to prepare citation log directory - citation logging will not be available
+CRITICAL:citation_validator:Failed to prepare citation log directory - citation logging will not be available
+2025-12-05 18:10:48 - citation_validator - INFO - Started job cleanup task
+INFO:citation_validator:Started job cleanup task
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-12-05 18:10:48 - citation_validator - INFO - Incoming request: GET /health
+INFO:citation_validator:Incoming request: GET /health
+DEBUG:citation_validator:Health check endpoint called
+2025-12-05 18:10:48 - citation_validator - INFO - Response status: 200
+INFO:citation_validator:Response status: 200
+INFO:     127.0.0.1:64352 - "GET /health HTTP/1.1" 200 OK

@@ -83,6 +83,60 @@ def get_provider_for_request(request: Request) -> tuple[Any, str, bool]:
 
     return gemini_provider, 'model_b', False
 
+
+async def validate_with_provider_fallback(
+    provider: Any,
+    internal_model_id: str,
+    job_id: str,
+    citations: str,
+    style: str,
+    initial_fallback: bool = False
+) -> Dict[str, Any]:
+    """
+    Validate citations with automatic fallback from Gemini to OpenAI.
+
+    Args:
+        provider: Initial LLM provider to use
+        internal_model_id: Internal model ID ('model_a' or 'model_b')
+        job_id: Job ID for logging
+        citations: Citations text to validate
+        style: Citation style
+        initial_fallback: Whether initial selection was a fallback
+
+    Returns:
+        Validation results dictionary
+
+    Raises:
+        Exception: If both providers fail
+    """
+    logger.info(f"Calling {internal_model_id} provider for validation")
+    try:
+        validation_results = await provider.validate_citations(
+            citations=citations,
+            style=style
+        )
+        # Log successful provider selection
+        logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
+        return validation_results
+    except Exception as provider_error:
+        # If Gemini fails, fallback to OpenAI
+        if internal_model_id == 'model_b' and provider is gemini_provider:
+            logger.warning(f"Gemini provider failed for job {job_id}, falling back to OpenAI: {str(provider_error)}")
+            provider = openai_provider
+            internal_model_id = 'model_a'  # Update to fallback provider
+            jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
+
+            validation_results = await provider.validate_citations(
+                citations=citations,
+                style=style
+            )
+            # Log fallback event
+            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
+            return validation_results
+        else:
+            # Re-raise the error if it's not a Gemini provider or fallback already occurred
+            raise provider_error
+
 # Initialize Polar client
 polar = Polar(
     access_token=os.getenv('POLAR_ACCESS_TOKEN')
@@ -495,32 +549,15 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         jobs[job_id] = jobs.get(job_id, {})
         jobs[job_id]["provider"] = internal_model_id
 
-        # Call provider with fallback mechanism
-        logger.info(f"Calling {internal_model_id} provider for validation")
-        try:
-            validation_results = await provider.validate_citations(
-                citations=citations_text,
-                style=request.style
-            )
-            # Log successful provider selection
-            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
-        except Exception as gemini_error:
-            # If Gemini fails, fallback to OpenAI
-            if internal_model_id == 'model_b' and provider is gemini_provider:
-                logger.warning(f"Gemini provider failed for job {job_id}, falling back to OpenAI: {str(gemini_error)}")
-                provider = openai_provider
-                internal_model_id = 'model_a'  # Update to fallback provider
-                jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
-
-                validation_results = await provider.validate_citations(
-                    citations=citations_text,
-                    style=request.style
-                )
-                # Log fallback event
-                logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
-            else:
-                # Re-raise the error if it's not a Gemini provider or fallback already occurred
-                raise gemini_error
+        # Call provider with fallback mechanism using helper function
+        validation_results = await validate_with_provider_fallback(
+            provider=provider,
+            internal_model_id=internal_model_id,
+            job_id=job_id,
+            citations=citations_text,
+            style=request.style,
+            initial_fallback=initial_fallback
+        )
 
         logger.info(f"Validation completed: {len(validation_results['results'])} result(s)")
 
@@ -738,33 +775,15 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         # Store provider in job for dashboard tracking
         jobs[job_id]["provider"] = internal_model_id
 
-        # Call LLM (can take 120s+) with fallback mechanism
-        logger.info(f"Job {job_id}: Calling {internal_model_id} provider")
-        try:
-            validation_results = await provider.validate_citations(
-                citations=citations,
-                style=style
-            )
-            # Log successful provider selection
-            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={fallback_occurred}")
-        except Exception as provider_error:
-            # If Gemini fails, fallback to OpenAI
-            if internal_model_id == 'model_b' and provider is gemini_provider:
-                logger.warning(f"Job {job_id}: Gemini provider failed, falling back to OpenAI: {str(provider_error)}")
-                provider = openai_provider
-                internal_model_id = 'model_a'  # Update to fallback provider
-                jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
-
-                validation_results = await provider.validate_citations(
-                    citations=citations,
-                    style=style
-                )
-                # Log fallback event
-                logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
-            else:
-                # Re-raise the error if it's not a Gemini provider or fallback already occurred
-                logger.error(f"Job {job_id}: Provider failed with error: {str(provider_error)}")
-                raise provider_error
+        # Call provider with fallback mechanism using helper function
+        validation_results = await validate_with_provider_fallback(
+            provider=provider,
+            internal_model_id=internal_model_id,
+            job_id=job_id,
+            citations=citations,
+            style=style,
+            initial_fallback=fallback_occurred
+        )
 
         results = validation_results["results"]
         citation_count = len(results)

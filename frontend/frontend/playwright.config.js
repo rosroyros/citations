@@ -20,12 +20,12 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
 
   // Reporter to use. See https://playwright.dev/docs/test-reporters
-  reporter: 'html',
+  reporter: 'list',
 
   // Shared settings for all the projects below
   use: {
     // Base URL to use in actions like `await page.goto('/')`
-    baseURL: 'https://citationformatchecker.com',
+    baseURL: process.env.BASE_URL || 'https://citationformatchecker.com',
 
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',

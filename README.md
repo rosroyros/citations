@@ -44,6 +44,10 @@ User → Frontend → POST /api/validate/async → Background Worker
 ```json
 { "status": "completed", "results": [...], "partial": false }
 ```
+**Upgrade Event**: `POST /api/upgrade-event` -> `200 OK`
+```json
+{ "event": "clicked_upgrade|modal_proceed|success_page", "job_id": "uuid" }
+```
 
 ## Dashboard
 - **Purpose**: Operational monitoring (Jobs, Stats, Citation Logging).
@@ -93,6 +97,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
 - **Volatile**: Job status/results (In-memory `jobs` dict in `app.py`). **Restarting backend clears active jobs.**
 - **Persistent**:
    - **Dashboard Logs**: `dashboard/data/validations.db` (SQLite) - Stores parsed validation metadata.
+    - `upgrade_state` column: CSV of upgrade funnel events (locked,clicked,modal,success)
    - **Citation Logs**: `/opt/citations/logs/citations.log` (Parsed by Cron) - Stores raw citation text (if enabled).
    - **Application Logs**: `/opt/citations/logs/app.log` - General application events.
 

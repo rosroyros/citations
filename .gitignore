@@ -51,3 +51,7 @@ deployment/env/.env.production
 deployment/env/.env.production
 backend/.env.backup
 frontend/frontend/.env.local
+
+# Command folders (local custom commands)
+.claude/commands/
+.gemini/commands/
