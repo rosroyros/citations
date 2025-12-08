@@ -64,6 +64,13 @@ else
     echo "ℹ️  No new migrations found"
 fi
 
+# Check for provider column migration (GEMINI A/B DEPLOYMENT)
+if [ -f "scripts/migrate_provider_column.py" ]; then
+    echo "🔧 Running provider column migration..."
+    python3 scripts/migrate_provider_column.py
+    echo "✅ Provider column migration check completed"
+fi
+
 # Migration rollback function (available if deployment fails)
 rollback_migration() {
     echo "🚨 Migration rollback initiated..."
