@@ -15,6 +15,7 @@ from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
+from providers.gemini_provider import GeminiProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready, check_disk_space
@@ -40,14 +41,47 @@ BASE_URL = os.getenv('BASE_URL', 'https://citationformatchecker.com').rstrip('/'
 CITATION_LOGGING_ENABLED = os.getenv('CITATION_LOGGING_ENABLED', '').lower() == 'true'
 logger.info(f"Citation logging enabled: {CITATION_LOGGING_ENABLED}")
 
-# Initialize LLM provider (mock for E2E tests, real for production)
+# Initialize providers (mock for E2E tests, real for production)
 if os.getenv('MOCK_LLM', '').lower() == 'true':
     from providers.mock_provider import MockProvider
-    llm_provider = MockProvider()
-    logger.info("Using MockProvider for LLM (fast E2E testing mode)")
+    openai_provider = MockProvider()
+    gemini_provider = MockProvider()
+    logger.info("Using MockProvider for all LLMs (fast E2E testing mode)")
 else:
-    llm_provider = OpenAIProvider()
-    logger.info("Using OpenAIProvider for LLM (production mode)")
+    openai_provider = OpenAIProvider()
+    try:
+        gemini_provider = GeminiProvider()
+        logger.info("Using real providers: OpenAIProvider and GeminiProvider")
+    except ValueError as e:
+        logger.warning(f"Failed to initialize GeminiProvider: {str(e)}")
+        gemini_provider = None
+
+
+def get_provider_for_request(request: Request) -> tuple[Any, str, bool]:
+    """
+    Get the appropriate LLM provider based on request headers.
+
+    Args:
+        request: FastAPI Request object containing headers
+
+    Returns:
+        tuple: (provider, internal_id, fallback_occurred)
+            - provider: The LLM provider instance to use
+            - internal_id: Internal model ID ('model_a' or 'model_b')
+            - fallback_occurred: Whether fallback from Gemini to OpenAI occurred
+    """
+    model_preference = request.headers.get('X-Model-Preference', '').lower()
+
+    # Default to OpenAI (model_a)
+    if model_preference != 'model_b':
+        return openai_provider, 'model_a', False
+
+    # Try Gemini (model_b) if requested
+    if gemini_provider is None:
+        logger.warning("Gemini provider requested but not available, falling back to OpenAI")
+        return openai_provider, 'model_a', True  # fallback occurred
+
+    return gemini_provider, 'model_b', False
 
 # Initialize Polar client
 polar = Polar(
@@ -454,12 +488,39 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     create_validation_record(job_id, gating_user_type, 0, 'processing', paid_user_id, free_user_id)
 
     try:
-        # Call LLM provider for validation
-        logger.info("Calling LLM provider for validation")
-        validation_results = await llm_provider.validate_citations(
-            citations=citations_text,
-            style=request.style
-        )
+        # Get provider based on request headers with fallback logic
+        provider, internal_model_id, initial_fallback = get_provider_for_request(http_request)
+
+        # Store provider in job for dashboard tracking
+        jobs[job_id] = jobs.get(job_id, {})
+        jobs[job_id]["provider"] = internal_model_id
+
+        # Call provider with fallback mechanism
+        logger.info(f"Calling {internal_model_id} provider for validation")
+        try:
+            validation_results = await provider.validate_citations(
+                citations=citations_text,
+                style=request.style
+            )
+            # Log successful provider selection
+            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
+        except Exception as gemini_error:
+            # If Gemini fails, fallback to OpenAI
+            if internal_model_id == 'model_b' and provider is gemini_provider:
+                logger.warning(f"Gemini provider failed for job {job_id}, falling back to OpenAI: {str(gemini_error)}")
+                provider = openai_provider
+                internal_model_id = 'model_a'  # Update to fallback provider
+                jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
+
+                validation_results = await provider.validate_citations(
+                    citations=citations_text,
+                    style=request.style
+                )
+                # Log fallback event
+                logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
+            else:
+                # Re-raise the error if it's not a Gemini provider or fallback already occurred
+                raise gemini_error
 
         logger.info(f"Validation completed: {len(validation_results['results'])} result(s)")
 
@@ -658,12 +719,52 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
                 return
 
-        # Call LLM (can take 120s+)
-        logger.info(f"Job {job_id}: Calling LLM provider")
-        validation_results = await llm_provider.validate_citations(
-            citations=citations,
-            style=style
-        )
+        # Get provider based on stored model preference with fallback logic
+        model_preference = jobs[job_id].get("model_preference", "model_a")
+
+        if model_preference == 'model_b' and gemini_provider is not None:
+            provider = gemini_provider
+            internal_model_id = 'model_b'
+            fallback_occurred = False
+        else:
+            if model_preference == 'model_b' and gemini_provider is None:
+                logger.warning(f"Job {job_id}: Gemini requested but unavailable, using OpenAI")
+                fallback_occurred = True
+            else:
+                fallback_occurred = False
+            provider = openai_provider
+            internal_model_id = 'model_a'
+
+        # Store provider in job for dashboard tracking
+        jobs[job_id]["provider"] = internal_model_id
+
+        # Call LLM (can take 120s+) with fallback mechanism
+        logger.info(f"Job {job_id}: Calling {internal_model_id} provider")
+        try:
+            validation_results = await provider.validate_citations(
+                citations=citations,
+                style=style
+            )
+            # Log successful provider selection
+            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={fallback_occurred}")
+        except Exception as provider_error:
+            # If Gemini fails, fallback to OpenAI
+            if internal_model_id == 'model_b' and provider is gemini_provider:
+                logger.warning(f"Job {job_id}: Gemini provider failed, falling back to OpenAI: {str(provider_error)}")
+                provider = openai_provider
+                internal_model_id = 'model_a'  # Update to fallback provider
+                jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
+
+                validation_results = await provider.validate_citations(
+                    citations=citations,
+                    style=style
+                )
+                # Log fallback event
+                logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
+            else:
+                # Re-raise the error if it's not a Gemini provider or fallback already occurred
+                logger.error(f"Job {job_id}: Provider failed with error: {str(provider_error)}")
+                raise provider_error
 
         results = validation_results["results"]
         citation_count = len(results)
@@ -804,6 +905,13 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         f"style={request.style}"
     )
 
+    # Store model preference for async processing
+    model_preference = http_request.headers.get('X-Model-Preference', '').lower()
+    if model_preference == 'model_b':
+        stored_model_preference = 'model_b'
+    else:
+        stored_model_preference = 'model_a'
+
     # Create job entry
     jobs[job_id] = {
         "status": "pending",
@@ -815,7 +923,8 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "citation_count": 0,
         "user_type": gating_user_type,
         "paid_user_id": paid_user_id,
-        "free_user_id": free_user_id
+        "free_user_id": free_user_id,
+        "model_preference": stored_model_preference
     }
 
     # Convert HTML to text with formatting markers
@@ -982,6 +1091,7 @@ async def get_dashboard_data(
                 "ip_address": job.get("ip_address", "unknown"),  # This will need to be added to job creation
                 "session_id": job.get("token", "unknown"),  # Use token as session ID for now
                 "validation_id": job_id,  # Use job_id as validation_id for now
+                "provider": job.get("provider", "model_a"),  # Add provider field for A/B testing
                 "api_version": "v1.2.0"
             }
 
