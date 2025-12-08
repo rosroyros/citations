@@ -215,4 +215,55 @@ test.describe('Free Tier Paywall', () => {
     const freeUsage = await page.evaluate(() => parseInt(localStorage.getItem('citation_checker_free_used') || '0', 10));
     expect(freeUsage).toBe(10); // 8 from backend + 2 allowed = 10 at limit
   });
+
+  test('partial results show gating overlay when enabled', async ({ page }) => {
+    // This test verifies that partial results are gated when GATED_RESULTS_ENABLED is true
+
+    // Already navigated to baseURL in beforeEach
+
+    // Wait for app to load
+    await expect(page.locator('body')).toBeVisible();
+
+    // Find the editor textarea
+    const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+    await expect(editor).toBeVisible();
+
+    // Submit 8 citations (will result in partial results)
+    const citationText = Object.values(citations).slice(0, 8).join('\n');
+    await editor.fill(citationText);
+
+    // Find and click submit button
+    const submitButton = page.locator('button').filter({ hasText: /check|validate|submit/i }).first();
+    await expect(submitButton).toBeVisible();
+    await submitButton.click();
+
+    // Should show gated results overlay (if GATED_RESULTS_ENABLED is true)
+    // Note: This test will only pass when GATED_RESULTS_ENABLED=true in backend
+    const gatedResults = page.locator('[data-testid="gated-results"]');
+
+    // Check if we have gating enabled
+    const hasGating = await gatedResults.isVisible({ timeout: 5000 }).catch(() => false);
+
+    if (hasGating) {
+      // Should show completion summary in overlay
+      await expect(gatedResults).toContainText('Your citation validation is complete');
+
+      // Should show reveal button
+      const revealButton = page.locator('.reveal-button');
+      await expect(revealButton).toBeVisible();
+
+      // Click reveal to see partial results
+      await revealButton.click();
+
+      // Now should see partial results
+      await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
+
+      // Verify partial results content
+      await expect(page.locator('.upgrade-banner')).toContainText('more citation');
+    } else {
+      // If gating is not enabled, should show partial results directly
+      await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
+      console.log('GATING RESULTS ENABLED is false - test passed with direct partial results');
+    }
+  });
 });

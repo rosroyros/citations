@@ -72,12 +72,10 @@ def should_gate_results(
         return False
 
     if results.get('isPartial', False):
-        # Only bypass gating if there are actually results being shown
-        if results.get('results'):
-            logger.debug("Partial results with data bypass gating")
-            return False
-        # If partial but empty results (limit reached), continue to gating logic
-        logger.info("Partial results with NO data. Applying standard gating logic.")
+        # Apply gating to all partial results for engagement tracking
+        reason = "Partial results gating for engagement"
+        logger.info(f"Results gated for {user_type} user ({reason})")
+        return True
 
     # Frontend gates all free users, so we log gating decisions for all free users
     # This ensures dashboard can track when gating modal was shown vs actual result limitation

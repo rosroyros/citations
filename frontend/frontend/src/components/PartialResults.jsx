@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PartialResults.css';
 import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking';
 import { trackEvent } from '../utils/analytics';
 import { getToken } from '../utils/creditStorage';
 import ValidationTable from './ValidationTable';
+import GatedResults from './GatedResults';
 
-export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id }) {
+export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated }) {
+  const [isRevealed, setIsRevealed] = useState(false);
   const { trackSourceTypeView } = useAnalyticsTracking();
 
   // Track partial results viewed (only on component mount)
@@ -27,6 +29,21 @@ export function PartialResults({ results, partial, citations_checked, citations_
       }
     });
   }, [results, trackSourceTypeView]);
+
+  const handleReveal = async () => {
+    setIsRevealed(true);
+  };
+
+  // If gated and not revealed, show GatedResults overlay
+  if (results_gated && !isRevealed) {
+    return (
+      <GatedResults
+        results={results}
+        onReveal={handleReveal}
+        trackingData={{ partial_results: true }}
+      />
+    );
+  }
 
   return (
     <div className="partial-results-container" data-testid="partial-results">

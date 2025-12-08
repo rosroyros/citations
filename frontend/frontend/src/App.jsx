@@ -878,6 +878,7 @@ function AppContent() {
               citations_checked={results.citations_checked}
               citations_remaining={results.citations_remaining}
               job_id={results.job_id || localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)}
+              results_gated={results.results_gated}
               onUpgrade={() => {
                 trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
                 setShowUpgradeModal(true)

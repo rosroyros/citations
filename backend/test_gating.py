@@ -7,6 +7,11 @@ should be gated behind user interaction for free tier users.
 
 import pytest
 import os
+
+# Set up environment for gating tests FIRST
+os.environ['GATED_RESULTS_ENABLED'] = 'true'
+
+# NOW import the module
 from gating import should_gate_results, should_gate_results_sync
 
 
@@ -38,11 +43,11 @@ class TestGatingLogic:
         # Test expectation - user at limit should be gated
         assert result is True, "Free users at limit with empty results should be gated"
 
-    def test_free_user_with_partial_data_results_should_not_be_gated(self):
+    def test_free_user_with_partial_data_results_should_be_gated(self):
         """
-        Test that free users with partial data (e.g., timeouts) are not gated.
+        Test that free users with partial data are gated for engagement tracking.
 
-        This ensures we don't break legitimate partial results scenarios.
+        After our change, ALL partial results for free users should be gated.
         """
         user_type = 'free'
         validation_response = {
@@ -52,10 +57,10 @@ class TestGatingLogic:
             ]
         }
 
-        result = should_gate_results_sync(user_type, validation_response)
+        should_gate, reason = should_gate_results_sync(user_type, validation_response)
 
-        # Should not be gated - user can see some results
-        assert result is False, "Free users with partial data results should not be gated"
+        # Should be gated - all partial results are now gated
+        assert should_gate is True, f"Free users with partial data results should be gated. Got {should_gate} with reason: {reason}"
 
     def test_paid_user_at_limit_should_not_be_gated(self):
         """
@@ -67,14 +72,17 @@ class TestGatingLogic:
             'results': []
         }
 
-        result = should_gate_results_sync(user_type, validation_response)
+        should_gate, reason = should_gate_results_sync(user_type, validation_response)
 
         # Paid users should never be gated
-        assert result is False, "Paid users should never be gated"
+        assert should_gate is False, f"Paid users should never be gated. Got {should_gate} with reason: {reason}"
 
-    def test_free_user_with_full_results_should_not_be_gated(self):
+    def test_free_user_with_full_results_should_be_gated(self):
         """
-        Test that free users under limit with full results are not gated.
+        Test that free users with full results are gated (existing behavior).
+
+        Note: The system gates ALL free users, not just partial results.
+        We're ensuring partial results follow this same pattern.
         """
         user_type = 'free'
         validation_response = {
@@ -85,7 +93,7 @@ class TestGatingLogic:
             ]
         }
 
-        result = should_gate_results_sync(user_type, validation_response)
+        should_gate, reason = should_gate_results_sync(user_type, validation_response)
 
-        # Should not be gated - under limit with full results
-        assert result is False, "Free users under limit with full results should not be gated"
+        # Should be gated - all free users are gated
+        assert should_gate is True, f"Free users with full results should be gated. Got {should_gate} with reason: {reason}"
