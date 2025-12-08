@@ -10,20 +10,22 @@ from providers.gemini_provider import GeminiProvider
 from providers.openai_provider import OpenAIProvider
 
 
+@pytest.fixture
+def client():
+    """Create test client."""
+    return TestClient(app.app)
+
+
+@pytest.fixture
+async def async_client():
+    """Create async test client."""
+    async with AsyncClient(app=app.app, base_url="http://test") as ac:
+        yield ac
+
+
 @pytest.mark.asyncio
 class TestGeminiRoutingIntegration:
     """Integration tests for Gemini A/B routing and fallback mechanism."""
-
-    @pytest.fixture
-    def client(self):
-        """Create test client."""
-        return TestClient(app.app)
-
-    @pytest.fixture
-    async def async_client(self):
-        """Create async test client."""
-        async with AsyncClient(app=app.app, base_url="http://test") as ac:
-            yield ac
 
     @pytest.fixture
     def mock_openai_provider(self):
@@ -261,26 +263,27 @@ class TestGeminiRoutingIntegration:
 
     def test_get_provider_for_request_function_model_selection(self):
         """Test the get_provider function directly."""
-        # Mock headers
-        mock_headers = {"x-model-preference": "model_b"}
+        # Mock Request object with headers
+        mock_request = Mock()
+        mock_request.headers = {"X-Model-Preference": "model_b"}
 
         with patch('app.openai_provider') as mock_openai, \
              patch('app.gemini_provider') as mock_gemini:
 
             # Test model_b with available Gemini
-            provider, model_id, fallback = app.get_provider_for_request(mock_headers)
+            provider, model_id, fallback = app.get_provider_for_request(mock_request)
             assert model_id == 'model_b'
             assert fallback is False
 
             # Test model_a forces OpenAI
-            mock_headers["x-model-preference"] = "model_a"
-            provider, model_id, fallback = app.get_provider_for_request(mock_headers)
+            mock_request.headers = {"X-Model-Preference": "model_a"}
+            provider, model_id, fallback = app.get_provider_for_request(mock_request)
             assert model_id == 'model_a'
             assert fallback is False
 
             # Test no header defaults to model_a
-            mock_headers = {}
-            provider, model_id, fallback = app.get_provider_for_request(mock_headers)
+            mock_request.headers = {}
+            provider, model_id, fallback = app.get_provider_for_request(mock_request)
             assert model_id == 'model_a'
             assert fallback is False
 

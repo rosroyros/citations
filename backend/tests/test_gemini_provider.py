@@ -30,10 +30,9 @@ class TestGeminiProvider:
     @pytest.fixture
     def gemini_provider_legacy_api(self, mock_api_key):
         """Create GeminiProvider instance with legacy API."""
-        # Import google.generativeai at module level first
-        import google.generativeai as genai
+        # We need to patch the module-level import AND the actual module
         with patch('providers.gemini_provider.NEW_API_AVAILABLE', False), \
-             patch('providers.gemini_provider.genai', genai):
+             patch('google.generativeai') as mock_genai:
             provider = GeminiProvider(api_key=mock_api_key, model="gemini-1.5-flash")
             provider.use_new_api = False
             # Mock the model
@@ -96,7 +95,7 @@ Should be: <em>The Book Title</em>
         # Mock the API call
         mock_response = Mock()
         mock_response.text = sample_gemini_response
-        gemini_provider_new_api.client.models.generate_content = AsyncMock(return_value=mock_response)
+        gemini_provider_new_api.client.models.generate_content = Mock(return_value=mock_response)
 
         # Mock prompt manager
         with patch.object(gemini_provider_new_api, 'prompt_manager') as mock_pm:
@@ -152,7 +151,7 @@ Should be: <em>The Book Title</em>
     async def test_validate_citations_api_error(self, gemini_provider_new_api, sample_citations):
         """Test error handling when Gemini API fails."""
         # Mock API to raise an exception
-        gemini_provider_new_api.client.models.generate_content = AsyncMock(
+        gemini_provider_new_api.client.models.generate_content = Mock(
             side_effect=Exception("API rate limit exceeded")
         )
 
@@ -170,7 +169,7 @@ Should be: <em>The Book Title</em>
         # Mock API to fail once then succeed
         mock_response = Mock()
         mock_response.text = "Success response"
-        api_mock = AsyncMock(side_effect=[
+        api_mock = Mock(side_effect=[
             Exception("Resource exhausted"),
             mock_response
         ])
@@ -193,7 +192,7 @@ Should be: <em>The Book Title</em>
     async def test_validate_citations_no_retry_on_non_retryable_error(self, gemini_provider_new_api, sample_citations):
         """Test that non-retryable errors are not retried."""
         # Mock API to fail with non-retryable error
-        api_mock = AsyncMock(side_effect=Exception("Invalid API key"))
+        api_mock = Mock(side_effect=Exception("Invalid API key"))
         gemini_provider_new_api.client.models.generate_content = api_mock
 
         with patch.object(gemini_provider_new_api, 'prompt_manager') as mock_pm:

@@ -536,11 +536,6 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
         reveal_result = extract_reveal_event(line)
         if reveal_result:
             job_id, outcome = reveal_result
-
-            # Allow partial updates for existing jobs
-            if job_id not in jobs:
-                jobs[job_id] = {"job_id": job_id}
-
             if job_id in jobs:
                 # Extract timestamp from beginning of line for reveal time
                 timestamp = extract_timestamp(line)
