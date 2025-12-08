@@ -219,6 +219,12 @@ test.describe('Free Tier Paywall', () => {
   test('partial results show gating overlay when enabled', async ({ page }) => {
     // This test verifies that partial results are gated when GATED_RESULTS_ENABLED is true
 
+    // Set up environment for gated results
+    await page.addInitScript(() => {
+      // Ensure gated results feature is enabled
+      window.VITE_GATED_RESULTS_ENABLED = 'true';
+    });
+
     // Already navigated to baseURL in beforeEach
 
     // Wait for app to load
@@ -237,33 +243,26 @@ test.describe('Free Tier Paywall', () => {
     await expect(submitButton).toBeVisible();
     await submitButton.click();
 
-    // Should show gated results overlay (if GATED_RESULTS_ENABLED is true)
-    // Note: This test will only pass when GATED_RESULTS_ENABLED=true in backend
+    // Should show gated results overlay
     const gatedResults = page.locator('[data-testid="gated-results"]');
 
-    // Check if we have gating enabled
-    const hasGating = await gatedResults.isVisible({ timeout: 5000 }).catch(() => false);
+    // Assert that gating overlay appears
+    await expect(gatedResults).toBeVisible({ timeout: TIMEOUT });
 
-    if (hasGating) {
-      // Should show completion summary in overlay
-      await expect(gatedResults).toContainText('Your citation validation is complete');
+    // Should show completion summary in overlay
+    await expect(gatedResults).toContainText('Your citation validation is complete');
 
-      // Should show reveal button
-      const revealButton = page.locator('.reveal-button');
-      await expect(revealButton).toBeVisible();
+    // Should show reveal button
+    const revealButton = page.locator('.reveal-button');
+    await expect(revealButton).toBeVisible();
 
-      // Click reveal to see partial results
-      await revealButton.click();
+    // Click reveal to see partial results
+    await revealButton.click();
 
-      // Now should see partial results
-      await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
+    // Now should see partial results
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible();
 
-      // Verify partial results content
-      await expect(page.locator('.upgrade-banner')).toContainText('more citation');
-    } else {
-      // If gating is not enabled, should show partial results directly
-      await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: TIMEOUT });
-      console.log('GATING RESULTS ENABLED is false - test passed with direct partial results');
-    }
+    // Verify partial results content
+    await expect(page.locator('.upgrade-banner')).toContainText('more citation');
   });
 });
