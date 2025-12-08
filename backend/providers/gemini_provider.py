@@ -17,6 +17,12 @@ except ImportError:
     NEW_API_AVAILABLE = False
     import google.generativeai as genai
 
+# Always import legacy genai for fallback compatibility
+try:
+    import google.generativeai as legacy_genai
+except ImportError:
+    legacy_genai = None
+
 logger = setup_logger("gemini_provider")
 
 
@@ -52,7 +58,10 @@ class GeminiProvider(CitationValidator):
             logger.info(f"Gemini provider initialized with new API and model: {model}")
         else:
             # Legacy API fallback
-            genai.configure(api_key=self.api_key)
+            if legacy_genai:
+                legacy_genai.configure(api_key=self.api_key)
+            else:
+                raise ImportError("Legacy Google GenerativeAI not available")
             self.use_new_api = False
             logger.info(f"Gemini provider initialized with legacy API and model: {model}")
 
@@ -176,7 +185,10 @@ class GeminiProvider(CitationValidator):
         base_delay = 2
 
         # Initialize model
-        model = genai.GenerativeModel(self.model)
+        if legacy_genai:
+            model = legacy_genai.GenerativeModel(self.model)
+        else:
+            raise ImportError("Legacy Google GenerativeAI not available")
 
         generation_config = {
             "temperature": 1.0,
@@ -271,6 +283,10 @@ class GeminiProvider(CitationValidator):
             # Track sections
             if line_stripped.startswith('ORIGINAL:'):
                 current_section = 'original'
+                # Extract content from the same line if present
+                content = line_stripped.replace('ORIGINAL:', '').strip()
+                if content:
+                    original_lines.append(content)
             elif line_stripped.startswith('SOURCE TYPE:'):
                 current_section = 'source_type'
                 source_type = line_stripped.replace('SOURCE TYPE:', '').strip()
@@ -346,9 +362,12 @@ class GeminiProvider(CitationValidator):
                 )
                 return response.text
             else:
-                model = genai.GenerativeModel(self.model)
-                response = model.generate_content(prompt)
-                return response.text
+                if legacy_genai:
+                    model = legacy_genai.GenerativeModel(self.model)
+                    response = model.generate_content(prompt)
+                    return response.text
+                else:
+                    raise ImportError("Legacy Google GenerativeAI not available")
         except Exception as e:
             logger.error(f"Failed to generate completion: {str(e)}")
             return None

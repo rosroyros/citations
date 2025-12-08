@@ -132,7 +132,8 @@ Should be: <em>The Book Title</em>
         mock_model = Mock()
         mock_response = Mock()
         mock_response.text = sample_gemini_response
-        mock_model.generate_content = AsyncMock(return_value=mock_response)
+        # The legacy API method calls generate_content synchronously
+        mock_model.generate_content = Mock(return_value=mock_response)
         gemini_provider_legacy_api.model = mock_model
 
         # Mock prompt manager
@@ -271,10 +272,8 @@ Just some random text
         """Test generate_completion method with new API."""
         mock_response = Mock()
         mock_response.text = "Generated text"
-        # Mock to return an awaitable that resolves to mock_response
-        async def mock_generate(*args, **kwargs):
-            return mock_response
-        gemini_provider_new_api.client.models.generate_content = mock_generate
+        # Mock to return mock_response directly (synchronous call)
+        gemini_provider_new_api.client.models.generate_content = Mock(return_value=mock_response)
 
         result = gemini_provider_new_api.generate_completion("Test prompt")
         assert result == "Generated text"
@@ -285,10 +284,8 @@ Just some random text
         mock_response.text = "Generated text"
 
         mock_model = Mock()
-        # Mock to return an awaitable that resolves to mock_response
-        async def mock_generate(*args, **kwargs):
-            return mock_response
-        mock_model.generate_content = mock_generate
+        # Mock to return mock_response directly (synchronous call)
+        mock_model.generate_content = Mock(return_value=mock_response)
         gemini_provider_legacy_api.model = mock_model
 
         result = gemini_provider_legacy_api.generate_completion("Test prompt")
@@ -296,9 +293,9 @@ Just some random text
 
     def test_generate_completion_error_handling(self, gemini_provider_new_api):
         """Test generate_completion error handling."""
-        async def mock_error(*args, **kwargs):
-            raise Exception("API Error")
-        gemini_provider_new_api.client.models.generate_content = mock_error
+        gemini_provider_new_api.client.models.generate_content = Mock(
+            side_effect=Exception("API Error")
+        )
 
         result = gemini_provider_new_api.generate_completion("Test prompt")
         assert result is None
