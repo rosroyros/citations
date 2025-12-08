@@ -179,11 +179,20 @@ async def lifespan(app: FastAPI):
 
     # Validate critical environment variables
     required_vars = ['OPENAI_API_KEY']
+    optional_vars = ['GEMINI_API_KEY']
+
     missing_vars = [var for var in required_vars if not os.getenv(var)]
+    missing_optional = [var for var in optional_vars if not os.getenv(var)]
+
     if missing_vars:
         logger.critical(f"Missing required environment variables: {missing_vars}")
     else:
         logger.info("All required environment variables are present")
+
+    if missing_optional:
+        logger.warning(f"Missing optional environment variables: {missing_optional}")
+    else:
+        logger.info("All optional environment variables are present")
 
     # Ensure citation log directory and permissions are ready
     if not ensure_citation_log_ready():
