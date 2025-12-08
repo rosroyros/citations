@@ -22,6 +22,7 @@ import ContactUs from './pages/ContactUs'
 import Dashboard from './pages/Dashboard'
 import DebugHTMLTest from './components/DebugHTMLTest'
 import { mockValidationAPI } from './utils/mockData'
+import { getModelPreference } from './utils/modelPreference'
 import './App.css'
 
 // Set to true to test frontend without backend
@@ -640,6 +641,10 @@ function AppContent() {
             headers['X-Free-Used'] = String(freeUsed)
           }
         }
+
+        // Add model preference for A/B testing
+        const modelPreference = getModelPreference()
+        headers['X-Model-Preference'] = modelPreference
 
         const response = await fetch('/api/validate/async', {
           method: 'POST',
