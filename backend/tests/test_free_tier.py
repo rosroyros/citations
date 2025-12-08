@@ -128,7 +128,7 @@ class TestFreeTierEnforcement:
         data = response.json()
         assert len(data["results"]) == 2
         assert data["partial"] is False
-        assert data["free_used"] == 10  # Should be updated to 10 (at limit)
+        assert data["free_used"] == 5  # Should be updated to 5 (at limit)
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
     def test_free_user_over_limit_8_requested_5_used(self, mock_llm):
@@ -155,11 +155,11 @@ class TestFreeTierEnforcement:
         assert data["citations_checked"] == 5  # Only processed 5 out of 8
         assert data["citations_remaining"] == 3  # 3 left unprocessed
         assert len(data["results"]) == 5  # Only first 5 results
-        assert data["free_used"] == 10  # At limit
+        assert data["free_used"] == 5  # At limit
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
-    def test_free_user_already_at_limit_5_requested_10_used(self, mock_llm):
-        """Test free user already at limit (5 citations requested, 10 used) should return empty partial results."""
+    def test_free_user_already_at_limit_5_requested_5_used(self, mock_llm):
+        """Test free user already at limit (5 citations requested, 5 used) should return empty partial results."""
         # Setup - return 5 potential results
         mock_llm.return_value = {
             "results": [
@@ -168,11 +168,11 @@ class TestFreeTierEnforcement:
             ]
         }
 
-        # Request with X-Free-Used header showing 10 citations used (already at limit)
+        # Request with X-Free-Used header showing 5 citations used (already at limit)
         response = client.post(
             "/api/validate",
             json={"citations": "5 citations here", "style": "apa7"},
-            headers={"X-Free-Used": encode_free_used(10)}
+            headers={"X-Free-Used": encode_free_used(5)}
         )
 
         # Assertions - should return empty partial results with locked teaser
@@ -182,7 +182,7 @@ class TestFreeTierEnforcement:
         assert data["citations_checked"] == 0
         assert data["citations_remaining"] == 5
         assert len(data["results"]) == 0
-        assert data["free_used"] == 10
+        assert data["free_used"] == 5
 
     @patch('app.llm_provider.validate_citations', new_callable=AsyncMock)
     def test_missing_free_used_header_treated_as_0(self, mock_llm):

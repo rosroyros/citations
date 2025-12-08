@@ -107,9 +107,9 @@ test.describe('Free Tier Paywall', () => {
   test('user at limit tries to submit', async ({ page }) => {
     // Already navigated to baseURL in beforeEach
 
-    // Set up initial state: user has already used 10 citations (at free tier limit)
+    // Set up initial state: user has already used 5 citations (at free tier limit)
     await page.evaluate(() => {
-      localStorage.setItem('citation_checker_free_used', '10');
+      localStorage.setItem('citation_checker_free_used', '5');
     });
 
     // Find the editor

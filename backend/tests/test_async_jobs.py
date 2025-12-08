@@ -234,7 +234,7 @@ class TestAsyncJobs:
         assert results["partial"] is True  # Should indicate partial results
         assert results["citations_checked"] == 2  # Only 2 credits remaining
         assert results["citations_remaining"] == 3  # 3 citations locked
-        assert results["free_used_total"] == 10  # Up to free limit
+        assert results["free_used_total"] == 5  # Up to free limit
         assert len(results["results"]) == 2  # Only 2 actual citation results
 
     def test_job_cleanup_function_exists(self):
@@ -312,7 +312,7 @@ class TestAsyncJobs:
         assert result["citations_checked"] == 0, "Should have 0 checked (at limit)"
         assert result["citations_remaining"] == 3, "Should accurately count 3 citations"
         assert len(result["results"]) == 0, "Should return empty results array"
-        assert result["free_used"] == 10, "Should show free tier limit reached"
+        assert result["free_used"] == 5, "Should show free tier limit reached"
 
     def test_free_tier_limit_citation_count_fallback(self):
         """Test that citation counting falls back gracefully if LLM fails."""

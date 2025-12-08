@@ -499,7 +499,7 @@ const Success = () => {
             <div className="faq-item">
               <h4 className="faq-question">Is this citation checker free?</h4>
               <p className="faq-answer">
-                Yes! You get 10 free citation checks to try the tool. For unlimited checking,
+                Yes! You get 5 free citation checks to try the tool. For unlimited checking,
                 you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
               </p>
             </div>

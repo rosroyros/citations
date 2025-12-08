@@ -249,7 +249,7 @@ class TestAsyncJobsIntegration:
         assert results["partial"] is True
         assert results["citations_checked"] == 2  # Only 2 credits remaining
         assert results["citations_remaining"] == 3  # 3 citations locked
-        assert results["free_used_total"] == 10  # Up to free limit
+        assert results["free_used_total"] == 5  # Up to free limit
         assert len(results["results"]) == 2  # Only 2 actual citation results
 
     @pytest.mark.slow

@@ -27,7 +27,7 @@ load_dotenv()
 logger = setup_logger("citation_validator")
 
 # Free tier limit
-FREE_LIMIT = 10
+FREE_LIMIT = 5
 
 # Citation pipeline health thresholds (in bytes)
 LAG_THRESHOLD_WARNING_BYTES = 1 * 1024 * 1024  # 1MB
@@ -486,7 +486,6 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             else:
                 free_used = 0
 
-            FREE_LIMIT = 10
             citation_count = len(results)
             affordable = max(0, FREE_LIMIT - free_used)
 

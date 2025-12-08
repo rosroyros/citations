@@ -71,7 +71,7 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     });
     await page.goto('/');
 
-    // Submit 8 citations (5 used + 8 new = 13 total, should get 10 processed, 3 remaining)
+    // Submit 8 citations (5 used + 8 new = 13 total, should get 0 processed, 8 remaining)
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
     await editor.fill(
       'Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10.\n\n' +
@@ -95,8 +95,8 @@ test.describe('ValidationTable Header Display - Desktop', () => {
 
     // Verify partial results format: X citations • Y perfect • Z need fixes • N remaining
     const statsText = await page.locator('.table-stats').textContent();
-    expect(statsText).toContain('5 citations'); // 5 processed (not "submitted")
-    expect(statsText).toContain('3 remaining'); // Free tier limit applied
+    expect(statsText).toContain('0 citations'); // 0 processed (already at limit)
+    expect(statsText).toContain('8 remaining'); // All 8 citations remaining
     expect(statsText).toMatch(/\d+\s*perfect/);
     expect(statsText).toMatch(/\d+\s*need fixes/);
 
@@ -115,7 +115,7 @@ test.describe('ValidationTable Header Display - Desktop', () => {
 
     // Simulate user at free tier limit
     await page.addInitScript(() => {
-      localStorage.setItem('citation_checker_free_used', '10');
+      localStorage.setItem('citation_checker_free_used', '5');
     });
     await page.goto('/');
 
@@ -227,7 +227,7 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     });
     await page.goto('/');
 
-    // Submit 8 citations (5 used + 8 new = 13 total, should get 10 processed, 3 remaining)
+    // Submit 8 citations (5 used + 8 new = 13 total, should get 0 processed, 8 remaining)
     const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
     await editor.fill(
       'Smith, J. (2023). First test. *Journal of Testing*, 1(1), 1-10.\n\n' +
@@ -269,7 +269,7 @@ test.describe('ValidationTable Header Display - Mobile', () => {
 
     // Simulate user at free tier limit
     await page.addInitScript(() => {
-      localStorage.setItem('citation_checker_free_used', '10');
+      localStorage.setItem('citation_checker_free_used', '5');
     });
     await page.goto('/');
 
@@ -302,7 +302,7 @@ test.describe('ValidationTable Header Display - Mobile', () => {
   test('Mobile - Keyboard accessibility for partial indicator', async ({ page }) => {
     // Simulate user at free tier limit
     await page.addInitScript(() => {
-      localStorage.setItem('citation_checker_free_used', '10');
+      localStorage.setItem('citation_checker_free_used', '5');
     });
     await page.goto('/');
 
