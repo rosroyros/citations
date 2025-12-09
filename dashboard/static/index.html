@@ -1688,10 +1688,10 @@
         function mapProviderToDisplay(provider) {
             // Map internal provider IDs to display names
             const providerMap = {
-                'model_a': 'OpenAI',
-                'model_b': 'Gemini',
-                'openai': 'OpenAI',
-                'gemini': 'Gemini'
+                'model_a': 'GPT-4o-mini',
+                'model_b': 'Gemini-2.5-Flash',
+                'openai': 'GPT-4o-mini',
+                'gemini': 'Gemini-2.5-Flash'
             };
             const display = providerMap[provider] || 'Unknown';
             // Defense-in-depth: escape even whitelisted values
