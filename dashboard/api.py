@@ -792,7 +792,9 @@ async def get_chart_data(
                 COUNT(CASE WHEN validation_status = 'completed' THEN 1 END) as completed,
                 COUNT(CASE WHEN validation_status = 'failed' THEN 1 END) as failed,
                 COUNT(CASE WHEN validation_status = 'pending' THEN 1 END) as pending,
-                0 as avg_duration  -- Placeholder since duration column doesn't exist
+                SUM(CASE WHEN validation_status = 'completed' THEN citation_count ELSE 0 END) as successful_citations,
+                SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
+                SUM(citation_count) as total_citations
             FROM validations
             WHERE 1=1
         """
@@ -821,10 +823,38 @@ async def get_chart_data(
                 "completed": row[2],
                 "failed": row[3],
                 "pending": row[4],
-                "avg_duration": float(row[5]) if row[5] else 0
+                "successful_citations": row[5] or 0,
+                "failed_citations": row[6] or 0,
+                "total_citations": row[7] or 0
             })
 
-        return {"daily": daily_data}
+        # Also get provider distribution
+        provider_query = """
+            SELECT provider, COUNT(*) as count
+            FROM validations
+            WHERE 1=1
+        """
+        provider_params = []
+
+        if from_date:
+            provider_query += " AND created_at >= ?"
+            provider_params.append(from_date)
+
+        if to_date:
+            provider_query += " AND created_at <= ?"
+            provider_params.append(to_date)
+
+        provider_query += " GROUP BY provider"
+
+        cursor.execute(provider_query, provider_params)
+        provider_rows = cursor.fetchall()
+
+        provider_data = {}
+        for row in provider_rows:
+            provider = row[0] or 'unknown'
+            provider_data[provider] = row[1]
+
+        return {"daily": daily_data, "providers": provider_data}
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get chart data: {str(e)}")

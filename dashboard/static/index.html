@@ -1368,14 +1368,6 @@
             </div>
         </div>
 
-        <!-- Charts Section -->
-        <div class="glass-card" style="margin-bottom: var(--space-xl);">
-            <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📊 Validations Over Time</h3>
-            <div style="height: 300px; position: relative;">
-                <canvas id="validationsChart"></canvas>
-            </div>
-        </div>
-
         <div class="table-container">
             <table>
                 <thead>
@@ -1406,11 +1398,37 @@
             <div class="page-controls">
                 <button class="page-btn" id="prevBtn" onclick="previousPage()" disabled>Previous</button>
                 <select class="page-size" id="pageSize" onchange="loadData()">
-                    <option value="50">50 per page</option>
-                    <option value="100" selected>100 per page</option>
+                    <option value="50" selected>50 per page</option>
+                    <option value="100">100 per page</option>
                     <option value="200">200 per page</option>
                 </select>
                 <button class="page-btn" id="nextBtn" onclick="nextPage()" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="charts-section" style="margin-top: var(--space-xl);">
+            <div class="charts-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📊 Validation Jobs Over Time</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="validationsChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📄 Citations Processed Over Time</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="citationsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="charts-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: var(--space-xl);">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🤖 Jobs per Provider</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="providerChart"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2237,8 +2255,10 @@
             sortDir = params.sortDir;
         }
 
-      // Chart instance
+      // Chart instances
         let validationsChart = null;
+        let citationsChart = null;
+        let providerChart = null;
 
         // Initialize chart after data loads
         async function initializeChart() {
@@ -2250,6 +2270,8 @@
                 const data = await response.json();
 
                 createValidationsChart(data.daily);
+                createCitationsChart(data.daily);
+                createProviderChart(data.providers);
             } catch (error) {
                 console.error('Error loading chart data:', error);
             }
@@ -2269,30 +2291,46 @@
                         const date = new Date(d.date);
                         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                     }),
-                    datasets: [{
-                        label: 'Total Validations',
-                        data: dailyData.map(d => d.total_validations),
-                        borderColor: '#9333ea',
-                        backgroundColor: 'rgba(147, 51, 234, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
-                    }]
+                    datasets: [
+                        {
+                            label: 'Successful',
+                            data: dailyData.map(d => d.completed),
+                            borderColor: '#047857',
+                            backgroundColor: 'rgba(4, 120, 87, 0.1)',
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Failed',
+                            data: dailyData.map(d => d.failed),
+                            borderColor: '#dc2626',
+                            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `Validations: ${context.parsed.y}`;
+                            position: 'bottom',
+                            labels: {
+                                color: '#6b7280',
+                                padding: 15,
+                                font: {
+                                    size: 12
                                 }
                             }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
                         }
                     },
                     scales: {
@@ -2311,6 +2349,155 @@
                             },
                             ticks: {
                                 color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createCitationsChart(dailyData) {
+            const ctx = document.getElementById('citationsChart').getContext('2d');
+
+            if (citationsChart) {
+                citationsChart.destroy();
+            }
+
+            citationsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Total Citations',
+                            data: dailyData.map(d => d.total_citations),
+                            borderColor: '#9333ea',
+                            backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Successful Citations',
+                            data: dailyData.map(d => d.successful_citations),
+                            borderColor: '#047857',
+                            backgroundColor: 'rgba(4, 120, 87, 0.1)',
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'Failed Citations',
+                            data: dailyData.map(d => d.failed_citations),
+                            borderColor: '#dc2626',
+                            backgroundColor: 'rgba(220, 38, 38, 0.1)',
+                            fill: false,
+                            tension: 0.4,
+                            pointRadius: 3,
+                            pointHoverRadius: 5
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#6b7280',
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stacked: false,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createProviderChart(providerData) {
+            const ctx = document.getElementById('providerChart').getContext('2d');
+
+            if (providerChart) {
+                providerChart.destroy();
+            }
+
+            const labels = Object.keys(providerData).map(p => {
+                if (p === 'model_a' || p === 'openai') return 'GPT-5-mini-med';
+                if (p === 'model_b' || p === 'gemini') return 'Gemini-2.5-Flash';
+                return p.charAt(0).toUpperCase() + p.slice(1);
+            });
+
+            const data = Object.values(providerData);
+
+            providerChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#9333ea',
+                            '#047857',
+                            '#dc2626',
+                            '#f59e0b',
+                            '#6b7280'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#6b7280',
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                    return `${context.label}: ${context.parsed} (${percentage}%)`;
+                                }
                             }
                         }
                     }
