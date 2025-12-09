@@ -963,7 +963,6 @@ class DatabaseManager:
         self.close()
 
 
-# Convenience function for getting database instance
 def get_database(db_path: str = None) -> DatabaseManager:
     """
     Get database manager instance with default path

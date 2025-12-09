@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             /* Brand Colors - Matching main site */
@@ -1367,6 +1368,14 @@
             </div>
         </div>
 
+        <!-- Charts Section -->
+        <div class="glass-card" style="margin-bottom: var(--space-xl);">
+            <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📊 Validations Over Time</h3>
+            <div style="height: 300px; position: relative;">
+                <canvas id="validationsChart"></canvas>
+            </div>
+        </div>
+
         <div class="table-container">
             <table>
                 <thead>
@@ -1475,6 +1484,9 @@
                 console.error('Error loading data:', error);
                 document.getElementById('validationsTable').innerHTML = '<tr><td colspan="10" class="error">Error loading data</td></tr>';
             }
+
+            // Refresh charts after data loads
+            initializeChart();
         }
 
         async function filterOutTestJobs(validations) {
@@ -2225,9 +2237,91 @@
             sortDir = params.sortDir;
         }
 
+      // Chart instance
+        let validationsChart = null;
+
+        // Initialize chart after data loads
+        async function initializeChart() {
+            const dateRange = document.getElementById('dateRange').value;
+            const from_date = getDateRange(dateRange);
+
+            try {
+                const response = await fetch(`/api/chart-data?from_date=${from_date}`);
+                const data = await response.json();
+
+                createValidationsChart(data.daily);
+            } catch (error) {
+                console.error('Error loading chart data:', error);
+            }
+        }
+
+        function createValidationsChart(dailyData) {
+            const ctx = document.getElementById('validationsChart').getContext('2d');
+
+            if (validationsChart) {
+                validationsChart.destroy();
+            }
+
+            validationsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [{
+                        label: 'Total Validations',
+                        data: dailyData.map(d => d.total_validations),
+                        borderColor: '#9333ea',
+                        backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Validations: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         // Load data on page load
         restoreStateFromURL();
         loadData();
+        initializeChart();
     </script>
 </body>
 </html>

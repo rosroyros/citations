@@ -760,6 +760,76 @@ async def get_gated_stats(
         raise HTTPException(status_code=500, detail=f"Failed to get gated statistics: {str(e)}")
 
 
+@app.get("/api/chart-data", response_model=Dict[str, Any])
+async def get_chart_data(
+    from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get time-series data for dashboard charts
+
+    Returns aggregated time-series data for visualizations:
+    - Daily validation counts
+    - Average duration per day
+    - Success/failure rates
+
+    Query Parameters:
+    - from_date: Filter validations created after this date
+    - to_date: Filter validations created before this date
+    """
+    # Input validation
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+
+    try:
+        # Simple aggregation query
+        query = """
+            SELECT
+                DATE(created_at) as date,
+                COUNT(*) as total_validations,
+                COUNT(CASE WHEN validation_status = 'completed' THEN 1 END) as completed,
+                COUNT(CASE WHEN validation_status = 'failed' THEN 1 END) as failed,
+                COUNT(CASE WHEN validation_status = 'pending' THEN 1 END) as pending,
+                0 as avg_duration  -- Placeholder since duration column doesn't exist
+            FROM validations
+            WHERE 1=1
+        """
+        params = []
+
+        if from_date:
+            query += " AND created_at >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND created_at <= ?"
+            params.append(to_date)
+
+        query += " GROUP BY DATE(created_at) ORDER BY date ASC"
+
+        cursor = database.conn.cursor()
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+
+        # Convert to list of dicts
+        daily_data = []
+        for row in rows:
+            daily_data.append({
+                "date": row[0],
+                "total_validations": row[1],
+                "completed": row[2],
+                "failed": row[3],
+                "pending": row[4],
+                "avg_duration": float(row[5]) if row[5] else 0
+            })
+
+        return {"daily": daily_data}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get chart data: {str(e)}")
+
+
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """
