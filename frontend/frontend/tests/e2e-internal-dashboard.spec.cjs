@@ -60,29 +60,38 @@ test('Internal Dashboard: Provider column visibility', async ({ page }) => {
   console.log('Provider column header found');
 
   // 4. If data exists, check provider values are displayed
-  const rows = table.locator('tr');
-  const count = await rows.count();
+  const tbody = page.locator('#validationsTable');
+  const dataRows = tbody.locator('tr:not([id^="details-"])'); // Exclude detail rows
+  const rowCount = await dataRows.count();
 
-  if (count > 0) {
-    // Find first data row (not header, not empty)
-    const firstRow = rows.nth(1); // Skip header row
+  if (rowCount > 0) {
+    // Get first actual data row (skip loading/empty states)
+    const firstRow = dataRows.first();
+
+    // Wait for row to be fully rendered
+    await firstRow.waitFor({ state: 'visible', timeout: 5000 });
+
     const cells = firstRow.locator('td');
     const cellCount = await cells.count();
 
-    if (cellCount > 0) {
-      // Provider column should be the 6th column (after Job ID, Time, Duration, Citations, Tokens)
+    console.log(`First row has ${cellCount} cells`);
+
+    if (cellCount >= 6) {
+      // Provider column should be the 6th column (index 5: Job ID, Time, Duration, Citations, Tokens, Provider)
       const providerCell = cells.nth(5);
-      const providerText = await providerCell.textContent();
+      const providerText = await providerCell.textContent({ timeout: 5000 });
 
       // Provider should be displayed as "OpenAI", "Gemini", or "Unknown"
       const validProviders = ['OpenAI', 'Gemini', 'Unknown'];
-      const isValidProvider = validProviders.some(p => providerText.includes(p));
+      const hasValidProvider = validProviders.some(p => providerText && providerText.includes(p));
 
-      if (isValidProvider) {
-        console.log(`Valid provider found: ${providerText}`);
+      if (hasValidProvider) {
+        console.log(`✓ Valid provider found: ${providerText.trim()}`);
       } else {
-        console.log(`Provider column text: ${providerText} (may be empty for old records)`);
+        console.log(`⚠ Provider column text: '${providerText}' (may be N/A for old records)`);
       }
+    } else {
+      console.log(`⚠ Row has ${cellCount} cells, expected at least 6`);
     }
   }
 
