@@ -764,6 +764,7 @@ async def get_gated_stats(
 async def get_chart_data(
     from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    excludeTests: Optional[bool] = Query(False, description="Exclude test jobs from data"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
@@ -794,7 +795,15 @@ async def get_chart_data(
                 COUNT(CASE WHEN validation_status = 'pending' THEN 1 END) as pending,
                 SUM(CASE WHEN validation_status = 'completed' THEN citation_count ELSE 0 END) as successful_citations,
                 SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
-                SUM(citation_count) as total_citations
+                SUM(citation_count) as total_citations,
+                COUNT(CASE WHEN provider = 'model_a' OR provider = 'openai' THEN 1 END) as model_a_jobs,
+                COUNT(CASE WHEN provider = 'model_b' OR provider = 'gemini' THEN 1 END) as model_b_jobs,
+                COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
+                COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed,
+                COUNT(CASE WHEN upgrade_state = 'locked' THEN 1 END) as upgrade_locked,
+                COUNT(CASE WHEN upgrade_state LIKE '%clicked%' THEN 1 END) as upgrade_clicked,
+                COUNT(CASE WHEN upgrade_state LIKE '%modal%' THEN 1 END) as upgrade_modal,
+                COUNT(CASE WHEN upgrade_state LIKE '%success%' THEN 1 END) as upgrade_success
             FROM validations
             WHERE 1=1
         """
@@ -807,6 +816,72 @@ async def get_chart_data(
         if to_date:
             query += " AND created_at <= ?"
             params.append(to_date)
+
+        if excludeTests:
+            # Join with citations table to filter out test jobs
+            query = """
+                SELECT
+                    DATE(v.created_at) as date,
+                    COUNT(*) as total_validations,
+                    COUNT(CASE WHEN v.validation_status = 'completed' THEN 1 END) as completed,
+                    COUNT(CASE WHEN v.validation_status = 'failed' THEN 1 END) as failed,
+                    COUNT(CASE WHEN v.validation_status = 'pending' THEN 1 END) as pending,
+                    SUM(CASE WHEN v.validation_status = 'completed' THEN v.citation_count ELSE 0 END) as successful_citations,
+                    SUM(CASE WHEN v.validation_status = 'failed' THEN v.citation_count ELSE 0 END) as failed_citations,
+                    SUM(v.citation_count) as total_citations,
+                    COUNT(CASE WHEN v.provider = 'model_a' OR v.provider = 'openai' THEN 1 END) as model_a_jobs,
+                    COUNT(CASE WHEN v.provider = 'model_b' OR v.provider = 'gemini' THEN 1 END) as model_b_jobs,
+                    COUNT(CASE WHEN v.results_gated = 1 THEN 1 END) as gated,
+                    COUNT(CASE WHEN v.results_gated = 1 AND v.results_revealed_at IS NOT NULL THEN 1 END) as revealed,
+                    COUNT(CASE WHEN v.upgrade_state = 'locked' THEN 1 END) as upgrade_locked,
+                    COUNT(CASE WHEN v.upgrade_state LIKE '%clicked%' THEN 1 END) as upgrade_clicked,
+                    COUNT(CASE WHEN v.upgrade_state LIKE '%modal%' THEN 1 END) as upgrade_modal,
+                    COUNT(CASE WHEN v.upgrade_state LIKE '%success%' THEN 1 END) as upgrade_success
+                FROM validations v
+                LEFT JOIN (
+                    SELECT DISTINCT job_id
+                    FROM validations
+                    WHERE LOWER(citations_text) LIKE '%test%'
+                    OR LOWER(citations_text) LIKE '%example%'
+                    OR LOWER(citations_text) LIKE '%sample%'
+                    OR LOWER(citations_text) LIKE '%foo%'
+                    OR LOWER(citations_text) LIKE '%bar%'
+                ) as test_jobs ON v.job_id = test_jobs.job_id
+                WHERE 1=1
+            """
+        else:
+            query = """
+                SELECT
+                    DATE(created_at) as date,
+                    COUNT(*) as total_validations,
+                    COUNT(CASE WHEN validation_status = 'completed' THEN 1 END) as completed,
+                    COUNT(CASE WHEN validation_status = 'failed' THEN 1 END) as failed,
+                    COUNT(CASE WHEN validation_status = 'pending' THEN 1 END) as pending,
+                    SUM(CASE WHEN validation_status = 'completed' THEN citation_count ELSE 0 END) as successful_citations,
+                    SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
+                    SUM(citation_count) as total_citations,
+                    COUNT(CASE WHEN provider = 'model_a' OR provider = 'openai' THEN 1 END) as model_a_jobs,
+                    COUNT(CASE WHEN provider = 'model_b' OR provider = 'gemini' THEN 1 END) as model_b_jobs,
+                    COUNT(CASE WHEN results_gated = 1 THEN 1 END) as gated,
+                    COUNT(CASE WHEN results_gated = 1 AND results_revealed_at IS NOT NULL THEN 1 END) as revealed,
+                    COUNT(CASE WHEN upgrade_state = 'locked' THEN 1 END) as upgrade_locked,
+                    COUNT(CASE WHEN upgrade_state LIKE '%clicked%' THEN 1 END) as upgrade_clicked,
+                    COUNT(CASE WHEN upgrade_state LIKE '%modal%' THEN 1 END) as upgrade_modal,
+                    COUNT(CASE WHEN upgrade_state LIKE '%success%' THEN 1 END) as upgrade_success
+                FROM validations
+                WHERE 1=1
+            """
+
+        if from_date:
+            query += " AND created_at >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND created_at <= ?"
+            params.append(to_date)
+
+        if excludeTests:
+            query += " AND test_jobs.job_id IS NULL"
 
         query += " GROUP BY DATE(created_at) ORDER BY date ASC"
 
@@ -825,15 +900,39 @@ async def get_chart_data(
                 "pending": row[4],
                 "successful_citations": row[5] or 0,
                 "failed_citations": row[6] or 0,
-                "total_citations": row[7] or 0
+                "total_citations": row[7] or 0,
+                "model_a_jobs": row[8] or 0,
+                "model_b_jobs": row[9] or 0,
+                "gated": row[10] or 0,
+                "revealed": row[11] or 0,
+                "upgrade_locked": row[12] or 0,
+                "upgrade_clicked": row[13] or 0,
+                "upgrade_modal": row[14] or 0,
+                "upgrade_success": row[15] or 0
             })
 
         # Also get provider distribution
-        provider_query = """
-            SELECT provider, COUNT(*) as count
-            FROM validations
-            WHERE 1=1
-        """
+        if excludeTests:
+            provider_query = """
+                SELECT v.provider, COUNT(*) as count
+                FROM validations v
+                LEFT JOIN (
+                    SELECT DISTINCT job_id
+                    FROM validations
+                    WHERE LOWER(citations_text) LIKE '%test%'
+                    OR LOWER(citations_text) LIKE '%example%'
+                    OR LOWER(citations_text) LIKE '%sample%'
+                    OR LOWER(citations_text) LIKE '%foo%'
+                    OR LOWER(citations_text) LIKE '%bar%'
+                ) as test_jobs ON v.job_id = test_jobs.job_id
+                WHERE 1=1
+            """
+        else:
+            provider_query = """
+                SELECT provider, COUNT(*) as count
+                FROM validations
+                WHERE 1=1
+            """
         provider_params = []
 
         if from_date:
@@ -843,6 +942,9 @@ async def get_chart_data(
         if to_date:
             provider_query += " AND created_at <= ?"
             provider_params.append(to_date)
+
+        if excludeTests:
+            provider_query += " AND test_jobs.job_id IS NULL"
 
         provider_query += " GROUP BY provider"
 
