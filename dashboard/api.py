@@ -654,6 +654,8 @@ async def get_dashboard_data(
                 "gated_outcome": validation.get("gated_outcome"),
                 # Upgrade workflow state
                 "upgrade_state": validation.get("upgrade_state"),
+                # Provider field for A/B testing
+                "provider": validation.get("provider", "model_a"),
                 # Token usage fields
                 "token_usage": {
                     "prompt": validation.get("token_usage_prompt"),

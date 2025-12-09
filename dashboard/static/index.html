@@ -364,7 +364,8 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 12px;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
             border: 1px solid var(--color-border);
             box-shadow: var(--shadow-md);
             position: relative;
@@ -372,6 +373,7 @@
 
         table {
             width: 100%;
+            min-width: 1200px; /* Ensure horizontal scrolling with 11 columns */
             border-collapse: collapse;
             position: relative;
         }
@@ -1374,6 +1376,7 @@
                         <th onclick="sortTable('duration_seconds')">Duration</th>
                         <th onclick="sortTable('citation_count')">Citations</th>
                         <th onclick="sortTable('token_usage')">Tokens</th>
+                        <th onclick="sortTable('provider')">Provider</th>
                         <th onclick="sortTable('user_type')">User</th>
                         <th onclick="sortTable('user_id')">User ID</th>
                         <th onclick="sortTable('status')">Status</th>
@@ -1383,7 +1386,7 @@
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="10" class="loading">Loading data...</td>
+                        <td colspan="11" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1653,6 +1656,7 @@
                         <td class="${durationClass}">${duration}</td>
                         <td>${citations}</td>
                         <td>${tokens}</td>
+                        <td>${mapProviderToDisplay(validation.provider)}</td>
                         <td>${validation.user_type}</td>
                         <td>${userIdDisplay}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
@@ -1660,7 +1664,7 @@
                         <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="10">
+                        <td colspan="11">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>
@@ -1668,6 +1672,17 @@
                     </tr>
                 `;
             }).join('');
+        }
+
+        function mapProviderToDisplay(provider) {
+            // Map internal provider IDs to display names
+            const providerMap = {
+                'model_a': 'OpenAI',
+                'model_b': 'Gemini',
+                'openai': 'OpenAI',
+                'gemini': 'Gemini'
+            };
+            return providerMap[provider] || 'Unknown';
         }
 
         function updatePagination(total, pageSize) {
@@ -1848,6 +1863,10 @@
                             <span class="detail-value">${validation.gated_outcome}</span>
                         </div>
                         ` : ''}
+                        <div class="detail-row">
+                            <span class="detail-label">Model Provider:</span>
+                            <span class="detail-value">${mapProviderToDisplay(validation.provider)}</span>
+                        </div>
                         <div class="detail-row">
                             <span class="detail-label">Status:</span>
                             <span class="detail-value">${validation.status}</span>

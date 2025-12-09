@@ -187,6 +187,29 @@ def extract_failure(log_line: str) -> Optional[tuple]:
     return None
 
 
+def extract_provider_selection(log_line: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract provider selection information from a log line.
+
+    Args:
+        log_line: The log line to extract provider selection info from
+
+    Returns:
+        tuple of (job_id, provider) if found, None otherwise
+    """
+    # Pattern matches: PROVIDER_SELECTION: job_id=abc-123 model=model_a status=success fallback=False
+    # Job ID pattern matches UUIDs and other job ID formats
+    provider_pattern = r'PROVIDER_SELECTION: job_id=([\w-]+) model=(\w+)'
+    match = re.search(provider_pattern, log_line)
+
+    if match:
+        job_id = match.group(1)
+        provider = match.group(2)
+        return job_id, provider
+
+    return None
+
+
 def sanitize_text(text: str, max_length: int) -> tuple[str, bool]:
     """
     Sanitize text for security and length limits.
@@ -532,6 +555,14 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["results_gated"] = results_gated
             continue
 
+        # Check for provider selection
+        provider_result = extract_provider_selection(line)
+        if provider_result:
+            job_id, provider = provider_result
+            if job_id in jobs:
+                jobs[job_id]["provider"] = provider
+            continue
+
         # Check for reveal event
         reveal_result = extract_reveal_event(line)
         if reveal_result:
@@ -796,6 +827,7 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("paid_user_id", None)
         job.setdefault("free_user_id", None)
         job.setdefault("upgrade_state", None)
+        job.setdefault("provider", None)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):
