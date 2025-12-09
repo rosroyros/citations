@@ -1674,6 +1674,17 @@
             }).join('');
         }
 
+        function escapeHtml(unsafe) {
+            // Escape HTML special characters for XSS protection
+            if (!unsafe) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
         function mapProviderToDisplay(provider) {
             // Map internal provider IDs to display names
             const providerMap = {
@@ -1682,7 +1693,9 @@
                 'openai': 'OpenAI',
                 'gemini': 'Gemini'
             };
-            return providerMap[provider] || 'Unknown';
+            const display = providerMap[provider] || 'Unknown';
+            // Defense-in-depth: escape even whitelisted values
+            return escapeHtml(display);
         }
 
         function updatePagination(total, pageSize) {

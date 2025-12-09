@@ -17,6 +17,7 @@ from log_parser import (
     extract_citations_preview,
     extract_full_citations,
     extract_user_ids,
+    extract_provider_selection,
     parse_job_events,
     find_job_by_timestamp,
     parse_metrics,
@@ -594,6 +595,77 @@ class TestLogParser(unittest.TestCase):
         self.assertIsNotNone(job)
         # Should keep the first user ID that was associated
         self.assertEqual(job["paid_user_id"], "abc12345")
+
+    # ==================== PROVIDER SELECTION TESTS ====================
+
+    def test_extract_provider_selection_model_a(self):
+        """Test extracting provider selection for model_a."""
+        log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=abc-123 model=model_a status=success fallback=False"
+        result = extract_provider_selection(log_line)
+        self.assertIsNotNone(result)
+        job_id, provider = result
+        self.assertEqual(job_id, "abc-123")
+        self.assertEqual(provider, "model_a")
+
+    def test_extract_provider_selection_model_b(self):
+        """Test extracting provider selection for model_b."""
+        log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=test-job-456 model=model_b status=success fallback=false"
+        result = extract_provider_selection(log_line)
+        self.assertIsNotNone(result)
+        job_id, provider = result
+        self.assertEqual(job_id, "test-job-456")
+        self.assertEqual(provider, "model_b")
+
+    def test_extract_provider_selection_uuid_job_id(self):
+        """Test extracting provider selection with UUID job ID."""
+        log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=12345678-1234-1234-1234-123456789abc model=model_b status=success fallback=False"
+        result = extract_provider_selection(log_line)
+        self.assertIsNotNone(result)
+        job_id, provider = result
+        self.assertEqual(job_id, "12345678-1234-1234-1234-123456789abc")
+        self.assertEqual(provider, "model_b")
+
+    def test_extract_provider_selection_invalid_line(self):
+        """Test extracting provider selection from non-matching line."""
+        log_line = "2025-12-09 10:00:00 - INFO - Some other log line"
+        result = extract_provider_selection(log_line)
+        self.assertIsNone(result)
+
+    def test_extract_provider_selection_empty_line(self):
+        """Test extracting provider selection from empty line."""
+        result = extract_provider_selection("")
+        self.assertIsNone(result)
+
+    def test_parse_job_events_with_provider(self):
+        """Test that parse_job_events correctly extracts and associates provider."""
+        log_lines = [
+            "2025-12-09 10:15:00 Creating async job abc-123 for free user",
+            "2025-12-09 10:15:01 - INFO - PROVIDER_SELECTION: job_id=abc-123 model=model_b status=success fallback=False",
+            "2025-12-09 10:15:10 Job abc-123: Completed successfully"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        # Check that provider was extracted
+        job = jobs.get("abc-123")
+        self.assertIsNotNone(job)
+        self.assertEqual(job["provider"], "model_b")
+        self.assertEqual(job["status"], "completed")
+
+    def test_parse_job_events_provider_fallback(self):
+        """Test provider extraction when fallback occurs."""
+        log_lines = [
+            "2025-12-09 10:15:00 Creating async job def-456 for paid user",
+            "2025-12-09 10:15:01 - INFO - PROVIDER_SELECTION: job_id=def-456 model=model_a status=success fallback=true",
+            "2025-12-09 10:15:10 Job def-456: Completed successfully"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        job = jobs.get("def-456")
+        self.assertIsNotNone(job)
+        # Even with fallback, the provider logged is model_a (the one actually used)
+        self.assertEqual(job["provider"], "model_a")
 
 
 if __name__ == '__main__':
