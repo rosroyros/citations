@@ -160,7 +160,8 @@ class GeminiProvider(CitationValidator):
                 # Special handling for 2.5-pro if needed in future
                 if self.model == "gemini-2.5-pro":
                     # 2.5-pro requires thinking mode, but we avoid it per requirements
-                    # If we must use it, set minimum thinking budget
+                    # If we must use it, set minimum thinking budget of 128 tokens
+                    # This is the smallest allowed value that still enables thinking mode
                     config = types.GenerateContentConfig(
                         temperature=1.0,
                         max_output_tokens=10000,
@@ -208,7 +209,8 @@ class GeminiProvider(CitationValidator):
                 # Special handling for 2.5-pro if needed in future
                 if self.model == "gemini-2.5-pro":
                     # 2.5-pro requires thinking mode, but we avoid it per requirements
-                    # If we must use it, set minimum thinking budget
+                    # If we must use it, set minimum thinking budget of 128 tokens
+                    # This is the smallest allowed value that still enables thinking mode
                     config = types.GenerateContentConfig(
                         temperature=1.0,
                         max_output_tokens=10000,
