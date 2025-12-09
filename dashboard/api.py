@@ -764,7 +764,6 @@ async def get_gated_stats(
 async def get_chart_data(
     from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
-    excludeTests: Optional[bool] = Query(False, description="Exclude test jobs from data"),
     database: DatabaseManager = Depends(get_db)
 ):
     """

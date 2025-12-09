@@ -905,12 +905,23 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         logger.warning("Empty citations submitted to async endpoint")
         raise HTTPException(status_code=400, detail="Citations cannot be empty")
 
+    # Detect test jobs
+    is_test_job = False
+    if len(request.citations) > 0:
+        # Check first 100 characters for "test" (case-insensitive)
+        first_100 = request.citations[:100].lower()
+        if "test" in first_100:
+            is_test_job = True
+
     # Determine user type for gating decisions
     gating_user_type = get_user_type(http_request)
 
     # Generate job ID
     job_id = str(uuid.uuid4())
     logger.info(f"Creating async job {job_id} for {gating_user_type} user")
+
+    if is_test_job:
+        logger.info(f"TEST_JOB_DETECTED: job_id={job_id} indicator=[TEST_JOB_DETECTED]")
 
     # Extract user identification (NEW)
     paid_user_id, free_user_id, user_type = extract_user_id(http_request)

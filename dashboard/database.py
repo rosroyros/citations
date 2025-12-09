@@ -101,6 +101,15 @@ class DatabaseManager:
         if 'provider' in existing_columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_provider ON validations(provider)")
 
+        # Check for is_test_job column and add if missing
+        if 'is_test_job' not in existing_columns:
+            try:
+                cursor.execute("ALTER TABLE validations ADD COLUMN is_test_job BOOLEAN DEFAULT FALSE")
+                self.conn.commit()
+            except sqlite3.OperationalError:
+                # Column might have been added concurrently
+                pass
+
         # Handle status vs validation_status compatibility
         cursor.execute("PRAGMA table_info(validations)")
         columns = [col[1] for col in cursor.fetchall()]
@@ -206,7 +215,7 @@ class DatabaseManager:
                 'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                 'user_type', 'error_message', 'paid_user_id', 'free_user_id',
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
-                'provider'
+                'provider', 'is_test_job'
             ]
             
             for field in simple_fields:
@@ -261,6 +270,10 @@ class DatabaseManager:
             if 'provider' in columns:
                 optional_columns.append('provider')
 
+            # Add is_test_job column if it exists
+            if 'is_test_job' in columns:
+                optional_columns.append('is_test_job')
+
             # Build final column list and values
             insert_columns = base_columns + status_columns
             for col in optional_columns:
@@ -283,7 +296,7 @@ class DatabaseManager:
                 elif col in ['completed_at', 'duration_seconds', 'citation_count',
                             'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                             'results_gated', 'results_revealed_at', 'gated_outcome',
-                            'paid_user_id', 'free_user_id', 'upgrade_state', 'provider']:
+                            'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job']:
                     values.append(validation_data.get(col))
     
             # Build the INSERT statement dynamically

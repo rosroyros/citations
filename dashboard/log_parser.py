@@ -435,6 +435,26 @@ def extract_user_ids(log_line: str) -> tuple[Optional[str], Optional[str]]:
     return paid_user_id, free_user_id
 
 
+def extract_test_job_indicator(log_line: str) -> Optional[str]:
+    """
+    Extract test job indicator from log line.
+
+    Args:
+        log_line: Log line containing test job indicator
+
+    Returns:
+        job_id if found, None otherwise
+    """
+    # Pattern matches: TEST_JOB_DETECTED: job_id={job_id} indicator=[TEST_JOB_DETECTED]
+    pattern = r'TEST_JOB_DETECTED: job_id=([a-f0-9-]+)'
+    match = re.search(pattern, log_line)
+    
+    if match:
+        return match.group(1)
+        
+    return None
+
+
 def extract_full_citations(log_lines: List[str], start_index: int) -> Optional[tuple[str, bool]]:
     """
     Extract full citation text from multiline ORIGINAL: pattern.
@@ -630,6 +650,16 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                             job["paid_user_id"] = paid_user_id
                             job["free_user_id"] = free_user_id
                             break
+
+        # Check for test job detection
+        test_job_id = extract_test_job_indicator(line)
+        if test_job_id:
+            # Allow partial updates for existing jobs
+            if test_job_id not in jobs:
+                jobs[test_job_id] = {"job_id": test_job_id}
+            
+            jobs[test_job_id]["is_test_job"] = True
+            continue
 
     return jobs
 
@@ -828,6 +858,7 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("free_user_id", None)
         job.setdefault("upgrade_state", None)
         job.setdefault("provider", None)
+        job.setdefault("is_test_job", False)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):

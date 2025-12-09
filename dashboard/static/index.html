@@ -2253,17 +2253,14 @@
         async function initializeChart() {
             const dateRange = document.getElementById('dateRange').value;
             const from_date = getDateRange(dateRange);
-            const excludeTests = document.getElementById('excludeTests').checked;
 
             try {
-                const response = await fetch(`/api/chart-data?from_date=${from_date}&excludeTests=${excludeTests}`);
+                const response = await fetch(`/api/chart-data?from_date=${from_date}`);
                 const data = await response.json();
 
                 createValidationsChart(data.daily);
                 createCitationsChart(data.daily);
                 createProviderChart(data.daily);
-                createGatedChart(data.daily);
-                createConversionChart(data.daily);
             } catch (error) {
                 console.error('Error loading chart data:', error);
             }
