@@ -1,7 +1,7 @@
 # Citation Validator - AI Engineering Context
 
 ## Identity
-APA 7th edition citation validator using dual LLM providers (GPT-4.5o-mini + Gemini-2.5-Flash A/B testing) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
+APA 7th edition citation validator using dual LLM providers (GPT-5-mini-med + Gemini-2.5-Flash A/B testing) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
 
 Important: connect to the server via `ssh deploy@178.156.161.140`
 
@@ -50,11 +50,11 @@ User → Frontend → POST /api/validate/async → Background Worker
 ```
 
 ## Dashboard
-- **Purpose**: Operational monitoring (Jobs, Stats, Citation Logging).
+- **Purpose**: Operational monitoring (Jobs, Stats, Citation Logging, A/B Testing).
 - **Stack**: FastAPI (Port 4646), SQLite (`dashboard/data/validations.db`).
 - **Ingestion**: Cron jobs parse `app.log` and `citations.log` -> SQLite.
 - **Frontend**: Static HTML served by FastAPI (`dashboard/static/`).
-- **Provider Column**: Displays which AI model handled each request (GPT-4.5o-mini or Gemini-2.5-Flash).
+- **Provider Column**: Displays which AI model handled each request (GPT-5-mini-med or Gemini-2.5-Flash).
 - **Access**: Internal tool, no auth (dev), firewall protected (prod).
 
 ## Upgrade Funnel
@@ -83,7 +83,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - Backend: Queues job (In-Memory).
    - Poll: Frontend checks `/api/jobs/{job_id}` every 2s.
 4. **Core Logic**:
-   - **LLM Providers**: `backend/providers/openai_provider.py` (GPT-4.5o-mini) + `backend/providers/gemini_provider.py` (Gemini-2.5-Flash). Frontend randomly assigns users to model_a or model_b for A/B testing.
+   - **LLM Providers**: `backend/providers/openai_provider.py` (GPT-5-mini-med) + `backend/providers/gemini_provider.py` (Gemini-2.5-Flash). Frontend randomly assigns users to model_a or model_b for A/B testing.
    - **System Prompt**: `backend/prompts/validator_prompt_optimized.txt` defines APA 7 rules and output format.
    - Consistency tests ensure deterministic output.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).

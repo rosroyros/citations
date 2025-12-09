@@ -81,8 +81,8 @@ test('Internal Dashboard: Provider column visibility', async ({ page }) => {
       const providerCell = cells.nth(5);
       const providerText = await providerCell.textContent({ timeout: 5000 });
 
-      // Provider should be displayed as "GPT-4.5o-mini", "Gemini-2.5-Flash", or "Unknown"
-      const validProviders = ['GPT-4.5o-mini', 'Gemini-2.5-Flash', 'Unknown'];
+      // Provider should be displayed as "GPT-5-mini-med", "Gemini-2.5-Flash", or "Unknown"
+      const validProviders = ['GPT-5-mini-med', 'Gemini-2.5-Flash', 'Unknown'];
       const hasValidProvider = validProviders.some(p => providerText && providerText.includes(p));
 
       if (hasValidProvider) {

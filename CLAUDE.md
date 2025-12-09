@@ -176,9 +176,9 @@ print(f"✅ Sitemap updated with {len(entries)} entries")
 ```
 
 
-## Model Selection Priority
-- **Production**: Dual provider A/B testing (GPT-4.5o-mini + Gemini-2.5-Flash)
-- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required in `.env`
-- **Routing**: Frontend sends `X-Model-Preference: model_a|model_b` header
-- **Fallback**: Gemini failures automatically fall back to OpenAI
-- **Monitoring**: Dashboard displays provider used for each validation
+## Model Selection & A/B Testing
+- **Production**: Dual provider A/B testing (GPT-5-mini-med + Gemini-2.5-Flash)
+- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required in production `.env`
+- **Routing**: Frontend sends `X-Model-Preference: model_a|model_b` header (random assignment)
+- **Fallback**: Gemini failures automatically fall back to OpenAI (GPT-5-mini-med)
+- **Monitoring**: Dashboard displays provider used for each validation (Provider column)
