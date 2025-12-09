@@ -103,11 +103,11 @@ class GeminiProvider(CitationValidator):
                 if (hasattr(response, 'usage_metadata') and
                     response.usage_metadata):
                     metadata = response.usage_metadata
-                    # Use correct field names from Gemini API documentation
-                    prompt_tokens = getattr(metadata, 'promptTokenCount', 0)
-                    total_tokens = getattr(metadata, 'totalTokenCount', 0)
-                    # Calculate output tokens by subtracting prompt from total
-                    output_tokens = total_tokens - prompt_tokens
+                    # Use actual field names from Gemini API response
+                    prompt_tokens = getattr(metadata, 'prompt_token_count', 0)
+                    total_tokens = getattr(metadata, 'total_token_count', 0)
+                    # candidates_token_count is the actual output tokens
+                    output_tokens = getattr(metadata, 'candidates_token_count', 0)
                     logger.info(f"Token usage: {prompt_tokens} prompt + {output_tokens} completion = {total_tokens} total")
             else:
                 response_text = await self._call_legacy_api(full_prompt)
