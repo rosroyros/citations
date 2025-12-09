@@ -97,9 +97,22 @@ class GeminiProvider(CitationValidator):
 
         try:
             if self.use_new_api:
-                response_text = await self._call_new_api(full_prompt)
+                response = await self._call_new_api_with_response(full_prompt)
+                response_text = response.text
+                # Log token usage from usage_metadata
+                if (hasattr(response, 'usage_metadata') and
+                    response.usage_metadata):
+                    metadata = response.usage_metadata
+                    # Use correct field names from Gemini API documentation
+                    prompt_tokens = getattr(metadata, 'promptTokenCount', 0)
+                    total_tokens = getattr(metadata, 'totalTokenCount', 0)
+                    # Calculate output tokens by subtracting prompt from total
+                    output_tokens = total_tokens - prompt_tokens
+                    logger.info(f"Token usage: {prompt_tokens} prompt + {output_tokens} completion = {total_tokens} total")
             else:
                 response_text = await self._call_legacy_api(full_prompt)
+                # Legacy API doesn't provide reliable token usage
+                logger.info(f"Token usage: N/A (legacy API)")
 
             api_duration = time.time() - api_start
             logger.info(f"Gemini API call completed in {api_duration:.3f}s")
@@ -130,6 +143,54 @@ class GeminiProvider(CitationValidator):
         }
 
         return results
+
+    async def _call_new_api_with_response(self, prompt: str):
+        """Call the new Google genai API and return the full response object."""
+        max_retries = 3
+        base_delay = 2
+
+        for attempt in range(max_retries):
+            try:
+                # Use standard GenerateContentConfig without thinking for 2.5-flash
+                config = types.GenerateContentConfig(
+                    temperature=1.0,
+                    max_output_tokens=10000,
+                )
+
+                # Special handling for 2.5-pro if needed in future
+                if self.model == "gemini-2.5-pro":
+                    # 2.5-pro requires thinking mode, but we avoid it per requirements
+                    # If we must use it, set minimum thinking budget
+                    config = types.GenerateContentConfig(
+                        temperature=1.0,
+                        max_output_tokens=10000,
+                        thinking_config=types.ThinkingConfig(thinking_budget=128)
+                    )
+                    logger.warning(f"Using minimum thinking budget for {self.model}")
+
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=prompt,
+                    config=config
+                )
+
+                return response
+
+            except Exception as e:
+                error_str = str(e).lower()
+
+                # Check for retryable errors
+                if any(keyword in error_str for keyword in ['rate limit', 'timeout', 'overloaded', 'try again', 'resource exhausted']):
+                    if attempt == max_retries - 1:
+                        logger.error(f"Final attempt failed for Gemini API: {str(e)}")
+                        raise
+
+                    delay = base_delay * (2 ** attempt)
+                    logger.warning(f"Gemini API attempt {attempt + 1} failed, retrying in {delay}s: {str(e)[:100]}")
+                    await asyncio.sleep(delay)
+                else:
+                    logger.error(f"Non-retryable Gemini API error: {str(e)}")
+                    raise
 
     async def _call_new_api(self, prompt: str) -> str:
         """Call the new Google genai API."""

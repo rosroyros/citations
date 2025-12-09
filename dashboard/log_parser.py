@@ -96,8 +96,8 @@ def extract_duration(log_line: str) -> Optional[float]:
     Returns:
         float duration in seconds if found, None otherwise
     """
-    # Pattern matches: OpenAI API call completed in 47.0s
-    duration_pattern = r'OpenAI API call completed in ([\d.]+)s'
+    # Pattern matches: OpenAI API call completed in 47.0s or Gemini API call completed in 47.0s
+    duration_pattern = r'(?:OpenAI|Gemini) API call completed in ([\d.]+)s'
     match = re.search(duration_pattern, log_line)
 
     if match:
