@@ -177,6 +177,8 @@ print(f"✅ Sitemap updated with {len(entries)} entries")
 
 
 ## Model Selection Priority
-- Balance performance vs cost
-- Start with OpenAI (GPT-4o-mini or similar)
-- Support multiple providers (abstraction layer)
+- **Production**: Dual provider A/B testing (GPT-4.5o-mini + Gemini-2.5-Flash)
+- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required in `.env`
+- **Routing**: Frontend sends `X-Model-Preference: model_a|model_b` header
+- **Fallback**: Gemini failures automatically fall back to OpenAI
+- **Monitoring**: Dashboard displays provider used for each validation

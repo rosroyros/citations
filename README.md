@@ -1,7 +1,7 @@
 # Citation Validator - AI Engineering Context
 
 ## Identity
-APA 7th edition citation validator using LLM (OpenAI) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
+APA 7th edition citation validator using dual LLM providers (GPT-4.5o-mini + Gemini-2.5-Flash A/B testing) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
 
 Important: connect to the server via `ssh deploy@178.156.161.140`
 
@@ -11,7 +11,7 @@ Important: connect to the server via `ssh deploy@178.156.161.140`
   - **Key Components**: `ValidationLoadingState` (Progressive Reveal), `ValidationTable` (Results).
 - **Testing**: Pytest (Backend), Vitest (Frontend Unit), Playwright (E2E).
 - **Infrastructure**: VPS (Ubuntu), Nginx (Reverse Proxy + Static), Systemd.
-- **Services**: OpenAI (LLM), Polar SDK (Payments/Webhooks).
+- **Services**: OpenAI + Google Gemini (LLM A/B Testing), Polar SDK (Payments/Webhooks).
 - **Tooling**: `bd` (Beads Issue Tracker), `pip` (Python deps), `npm` (Node deps).
 
 ## Architecture
@@ -54,6 +54,7 @@ User → Frontend → POST /api/validate/async → Background Worker
 - **Stack**: FastAPI (Port 4646), SQLite (`dashboard/data/validations.db`).
 - **Ingestion**: Cron jobs parse `app.log` and `citations.log` -> SQLite.
 - **Frontend**: Static HTML served by FastAPI (`dashboard/static/`).
+- **Provider Column**: Displays which AI model handled each request (GPT-4.5o-mini or Gemini-2.5-Flash).
 - **Access**: Internal tool, no auth (dev), firewall protected (prod).
 
 ## Upgrade Funnel
@@ -82,7 +83,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - Backend: Queues job (In-Memory).
    - Poll: Frontend checks `/api/jobs/{job_id}` every 2s.
 4. **Core Logic**:
-   - **LLM Provider**: `backend/providers/openai_provider.py` manages OpenAI interactions.
+   - **LLM Providers**: `backend/providers/openai_provider.py` (GPT-4.5o-mini) + `backend/providers/gemini_provider.py` (Gemini-2.5-Flash). Frontend randomly assigns users to model_a or model_b for A/B testing.
    - **System Prompt**: `backend/prompts/validator_prompt_optimized.txt` defines APA 7 rules and output format.
    - Consistency tests ensure deterministic output.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).
@@ -123,7 +124,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
   - **SSH**: `ssh deploy@178.156.161.140`
   - username: deploy
 - **Public URL**: `https://citationformatchecker.com`
-- **Env Vars**: `OPENAI_API_KEY`, `CITATION_LOGGING_ENABLED`, `MOCK_LLM`, `BASE_URL`.
+- **Env Vars**: `OPENAI_API_KEY`, `GEMINI_API_KEY`, `CITATION_LOGGING_ENABLED`, `MOCK_LLM`, `BASE_URL`.
 - **Dashboard**: `http://100.98.211.49:4646` (Internal IP/VPN only).
   - **Note**: Public access (`/dashboard` on main domain) is blocked by Nginx.
 
