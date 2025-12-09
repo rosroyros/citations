@@ -92,7 +92,7 @@ async def call_gemini_safe(model, full_prompt, run_id):
             response = await model.generate_content_async(
                 full_prompt,
                 generation_config={
-                    "temperature": 1.0, # Test natural variance
+                    "temperature": 0.2, # Test reduced variance
                     "max_output_tokens": 8192,
                 }
             )
