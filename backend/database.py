@@ -222,7 +222,8 @@ def create_validation_record(
     citation_count: int,
     status: str = 'pending',
     paid_user_id: Optional[str] = None,
-    free_user_id: Optional[str] = None
+    free_user_id: Optional[str] = None,
+    is_test_job: bool = False
 ) -> bool:
     """
     Create a new validation tracking record.
@@ -234,6 +235,7 @@ def create_validation_record(
         status: Current status of validation
         paid_user_id: Paid user UUID if applicable
         free_user_id: Free user UUID if applicable
+        is_test_job: Whether this is a test job
 
     Returns:
         bool: True if record created successfully, False otherwise
@@ -249,37 +251,51 @@ def create_validation_record(
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
 
-            # Check what status columns exist in the database
+            # Check what columns exist in the database
             cursor.execute("PRAGMA table_info(validations)")
             columns = [row[1] for row in cursor.fetchall()]
 
             has_status = 'status' in columns
             has_validation_status = 'validation_status' in columns
+            has_is_test_job = 'is_test_job' in columns
 
+            # Build the INSERT statement based on available columns
+            insert_columns = ['job_id', 'user_type', 'citation_count']
+            insert_values = [job_id, user_type, citation_count]
+
+            # Add status column(s)
             if has_status and has_validation_status:
-                # Both columns exist - insert into both
-                cursor.execute('''
-                    INSERT INTO validations (
-                        job_id, user_type, citation_count, status, validation_status,
-                        paid_user_id, free_user_id, created_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status, status, paid_user_id, free_user_id))
+                insert_columns.extend(['status', 'validation_status'])
+                insert_values.extend([status, status])
             elif has_status:
-                # Only status exists (new schema)
-                cursor.execute('''
-                    INSERT INTO validations (
-                        job_id, user_type, citation_count, status,
-                        paid_user_id, free_user_id, created_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status, paid_user_id, free_user_id))
+                insert_columns.append('status')
+                insert_values.append(status)
             else:
-                # Only validation_status exists (old schema)
-                cursor.execute('''
-                    INSERT INTO validations (
-                        job_id, user_type, citation_count, validation_status,
-                        paid_user_id, free_user_id, created_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
-                ''', (job_id, user_type, citation_count, status, paid_user_id, free_user_id))
+                insert_columns.append('validation_status')
+                insert_values.append(status)
+
+            # Add optional columns
+            optional_columns = ['paid_user_id', 'free_user_id']
+            optional_values = [paid_user_id, free_user_id]
+            for col, val in zip(optional_columns, optional_values):
+                if col in columns:
+                    insert_columns.append(col)
+                    insert_values.append(val)
+
+            # Add is_test_job if available
+            if has_is_test_job:
+                insert_columns.append('is_test_job')
+                insert_values.append(is_test_job)
+
+            # Add created_at
+            insert_columns.append('created_at')
+            insert_values.append('datetime(\'now\')')
+
+            # Execute the INSERT
+            cursor.execute(f'''
+                INSERT INTO validations ({', '.join(insert_columns)})
+                VALUES ({', '.join(['?'] * (len(insert_values) - 1))}, datetime('now'))
+            ''', insert_values[:-1])  # Exclude the datetime('now') from values as it's in the SQL
 
             conn.commit()
             logger.info(f"Created validation record for job {job_id}")
