@@ -1508,36 +1508,9 @@
         }
 
         async function filterOutTestJobs(validations) {
-            const filtered = [];
-
-            for (const validation of validations) {
-                let hasTestCitation = false;
-
-                // Check if the job has citations stored in the database
-                try {
-                    const citationsResponse = await fetch(`/api/validations/${validation.job_id}/citations`);
-                    if (citationsResponse.ok) {
-                        const citationsData = await citationsResponse.json();
-                        if (citationsData.citations && citationsData.citations.length > 0) {
-                            // Check if any citation contains the word "test" (case-insensitive)
-                            hasTestCitation = citationsData.citations.some(citation =>
-                                citation.citation_text &&
-                                citation.citation_text.toLowerCase().includes('test')
-                            );
-                        }
-                    }
-                } catch (error) {
-                    // If we can't fetch citations, keep the job (don't filter it out)
-                    console.warn(`Could not fetch citations for job ${validation.job_id}:`, error);
-                }
-
-                // If this job doesn't have test citations, keep it
-                if (!hasTestCitation) {
-                    filtered.push(validation);
-                }
-            }
-
-            return filtered;
+            // Simply filter by the is_test_job field from the database
+            // This is much more efficient than fetching citations for each job
+            return validations.filter(validation => !validation.is_test_job);
         }
 
         function getDateRange(days) {

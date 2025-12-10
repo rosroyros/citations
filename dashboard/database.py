@@ -343,6 +343,7 @@ class DatabaseManager:
         to_date: Optional[str] = None,
         paid_user_id: Optional[str] = None,
         free_user_id: Optional[str] = None,
+        is_test_job: Optional[bool] = None,
         order_by: str = "created_at",
         order_dir: str = "DESC"
     ) -> List[Dict[str, Any]]:
@@ -360,6 +361,7 @@ class DatabaseManager:
             to_date: Filter by created_at <= to_date
             paid_user_id: Filter by paid_user_id
             free_user_id: Filter by free_user_id
+            is_test_job: Filter by is_test_job flag
             order_by: Column to order by
             order_dir: ASC or DESC
 
@@ -413,6 +415,11 @@ class DatabaseManager:
             query += " AND free_user_id = ?"
             params.append(free_user_id)
 
+        # Add test job filtering if column exists
+        if 'is_test_job' in columns and is_test_job is not None:
+            query += " AND is_test_job = ?"
+            params.append(is_test_job)
+
         # Add ordering
         query += f" ORDER BY {order_by} {order_dir}"
 
@@ -442,7 +449,8 @@ class DatabaseManager:
         from_date: Optional[str] = None,
         to_date: Optional[str] = None,
         paid_user_id: Optional[str] = None,
-        free_user_id: Optional[str] = None
+        free_user_id: Optional[str] = None,
+        is_test_job: Optional[bool] = None
     ) -> int:
         """
         Get count of validations matching filters
@@ -500,6 +508,11 @@ class DatabaseManager:
         if 'free_user_id' in columns and free_user_id:
             query += " AND free_user_id = ?"
             params.append(free_user_id)
+
+        # Add test job filtering if column exists
+        if 'is_test_job' in columns and is_test_job is not None:
+            query += " AND is_test_job = ?"
+            params.append(is_test_job)
 
         cursor.execute(query, params)
         result = cursor.fetchone()

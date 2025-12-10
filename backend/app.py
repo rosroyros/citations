@@ -908,9 +908,8 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     # Detect test jobs
     is_test_job = False
     if len(request.citations) > 0:
-        # Check first 100 characters for "test" (case-insensitive)
-        first_100 = request.citations[:100].lower()
-        if "test" in first_100:
+        # Check for "testtesttest" anywhere in the citations (case-insensitive)
+        if "testtesttest" in request.citations.lower():
             is_test_job = True
 
     # Determine user type for gating decisions
