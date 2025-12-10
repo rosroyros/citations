@@ -5,6 +5,21 @@ APA 7th edition citation validator using dual LLM providers (GPT-5-mini-med + Ge
 
 Important: connect to the server via `ssh deploy@178.156.161.140`
 
+## Test Job Indicator
+**Purpose**: Automatically detect and flag test submissions to separate them from production analytics.
+
+**Usage**: Include `"testtesttest"` anywhere in your citation text to mark it as a test job.
+
+**Benefits**:
+- Test jobs are automatically excluded from dashboard metrics
+- Helps maintain clean analytics data
+- Prevents test traffic from skewing production statistics
+
+**Example**:
+```
+Smith, J. (2023). testtesttest: A study on validation methods. Journal of Testing, 45(2), 123-145.
+```
+
 ## Tech Stack
 - **Backend**: Python 3.x, FastAPI, Uvicorn, Pydantic, Dotenv.
 - **Frontend**: React 19, Vite 7, React Router 7, Tiptap (Rich Text), Tailwind (inferred/standard).

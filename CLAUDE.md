@@ -176,6 +176,9 @@ print(f"✅ Sitemap updated with {len(entries)} entries")
 ```
 
 
+## Test Job Indicator
+Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from dashboard metrics via `is_test_job` database column.
+
 ## Model Selection & A/B Testing
 - **Production**: Dual provider A/B testing (GPT-5-mini-med + Gemini-2.5-Flash)
 - **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required in production `.env`

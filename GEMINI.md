@@ -176,6 +176,9 @@ print(f"✅ Sitemap updated with {len(entries)} entries")
 ```
 
 
+## Test Job Indicator
+Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from dashboard metrics via `is_test_job` database column.
+
 ## Model Selection Priority
 - Balance performance vs cost
 - Start with OpenAI (GPT-4o-mini or similar)

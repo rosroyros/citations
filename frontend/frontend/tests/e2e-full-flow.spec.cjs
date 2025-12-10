@@ -4,7 +4,8 @@ test('E2E Full Flow: Submit unique citation and verify completion', async ({ pag
   // 1. Get Test ID from env
   const testId = process.env.TEST_ID || `test-${Date.now()}`;
   // We use a unique pattern that the backend verifier can easily search for
-  const uniqueCitation = `Smith, J. (2023). E2E Test Citation ${testId}. Journal of Testing, 1(1), 1-10.`;
+  // Include testtesttest marker to flag this as a test job
+  const uniqueCitation = `Smith, J. (2023). testtesttest: E2E Test Citation ${testId}. Journal of Testing, 1(1), 1-10.`;
 
   console.log(`Starting E2E test with ID: ${testId}`);
 
