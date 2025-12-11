@@ -32,24 +32,27 @@ class GeminiProvider(CitationValidator):
     Uses the "User Content" strategy for better accuracy.
     """
 
-    def __init__(self, api_key: str = None, model: str = "gemini-2.5-flash"):
+    def __init__(self, api_key: str = None, model: str = "gemini-2.5-flash", temperature: float = 1.0, prompt_path: str = None):
         """
         Initialize Gemini provider.
 
         Args:
             api_key: Gemini API key (defaults to GEMINI_API_KEY env var)
             model: Model name to use (default: gemini-2.5-flash)
+            temperature: Temperature for generation (default: 1.0)
+            prompt_path: Optional path to specific prompt file
         """
         # Load environment variables
         load_dotenv()
 
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         self.model = model
+        self.temperature = temperature
 
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY not found in environment variables")
 
-        self.prompt_manager = PromptManager()
+        self.prompt_manager = PromptManager(prompt_path=prompt_path)
 
         # Initialize client based on API availability
         if NEW_API_AVAILABLE and "2.5" in model:
@@ -153,7 +156,7 @@ class GeminiProvider(CitationValidator):
             try:
                 # Use standard GenerateContentConfig without thinking for 2.5-flash
                 config = types.GenerateContentConfig(
-                    temperature=1.0,
+                    temperature=self.temperature,
                     max_output_tokens=10000,
                 )
 
@@ -163,7 +166,7 @@ class GeminiProvider(CitationValidator):
                     # If we must use it, set minimum thinking budget of 128 tokens
                     # This is the smallest allowed value that still enables thinking mode
                     config = types.GenerateContentConfig(
-                        temperature=1.0,
+                        temperature=self.temperature,
                         max_output_tokens=10000,
                         thinking_config=types.ThinkingConfig(thinking_budget=128)
                     )
@@ -202,7 +205,7 @@ class GeminiProvider(CitationValidator):
             try:
                 # Use standard GenerateContentConfig without thinking for 2.5-flash
                 config = types.GenerateContentConfig(
-                    temperature=1.0,
+                    temperature=self.temperature,
                     max_output_tokens=10000,
                 )
 
@@ -212,7 +215,7 @@ class GeminiProvider(CitationValidator):
                     # If we must use it, set minimum thinking budget of 128 tokens
                     # This is the smallest allowed value that still enables thinking mode
                     config = types.GenerateContentConfig(
-                        temperature=1.0,
+                        temperature=self.temperature,
                         max_output_tokens=10000,
                         thinking_config=types.ThinkingConfig(thinking_budget=128)
                     )
@@ -254,7 +257,7 @@ class GeminiProvider(CitationValidator):
             raise ImportError("Legacy Google GenerativeAI not available")
 
         generation_config = {
-            "temperature": 1.0,
+            "temperature": self.temperature,
             "max_output_tokens": 10000,
         }
 

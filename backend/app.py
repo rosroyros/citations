@@ -50,8 +50,16 @@ if os.getenv('MOCK_LLM', '').lower() == 'true':
 else:
     openai_provider = OpenAIProvider()
     try:
-        gemini_provider = GeminiProvider()
-        logger.info("Using real providers: OpenAIProvider and GeminiProvider")
+        # Use v3 prompt and temperature 0.0 for Gemini 2.5 Flash validation
+        # This improves accuracy for edge cases (Social Media, DSM, etc.)
+        backend_dir = os.path.dirname(os.path.abspath(__file__))
+        v3_prompt_path = os.path.join(backend_dir, 'prompts', 'validator_prompt_v3.txt')
+        
+        gemini_provider = GeminiProvider(
+            temperature=0.0,
+            prompt_path=v3_prompt_path
+        )
+        logger.info("Using real providers: OpenAIProvider and GeminiProvider (v3 prompt, temp=0.0)")
     except ValueError as e:
         logger.warning(f"Failed to initialize GeminiProvider: {str(e)}")
         gemini_provider = None
