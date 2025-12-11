@@ -5,6 +5,7 @@ Database migration: Add pricing model A/B test tables.
 Creates:
 - user_passes: Time-based access grants
 - daily_usage: Per-day citation tracking for pass users
+- Adds pass_days, pass_type columns to orders table
 - Adds experiment_variant, product_id columns to validations
 
 Oracle Feedback:
@@ -63,6 +64,26 @@ def migrate():
             )
         """)
 
+        # Add pass tracking columns to existing orders table
+        print("Adding pass columns to orders table...")
+        try:
+            cursor.execute("ALTER TABLE orders ADD COLUMN pass_days INTEGER")
+            print("  ✓ Added pass_days column")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e).lower():
+                print("  → pass_days column already exists")
+            else:
+                raise
+
+        try:
+            cursor.execute("ALTER TABLE orders ADD COLUMN pass_type TEXT")
+            print("  ✓ Added pass_type column")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e).lower():
+                print("  → pass_type column already exists")
+            else:
+                raise
+
         conn.commit()
         # Note: credits.db changes committed here. If validations migration fails,
         # system will be in partially migrated state but migration is idempotent
@@ -102,6 +123,8 @@ def migrate():
         print("  - user_passes (token, expiration_timestamp, pass_type, purchase_date, order_id)")
         print("  - daily_usage (token, reset_timestamp, citations_count)")
         print("\nAdded columns:")
+        print("  - orders.pass_days")
+        print("  - orders.pass_type")
         print("  - validations.experiment_variant")
         print("  - validations.product_id")
 
