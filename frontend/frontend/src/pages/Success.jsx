@@ -12,6 +12,12 @@ import { trackEvent } from '../utils/analytics'
 import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking'
 import '../App.css'
 
+// Polling configuration constants
+const POLLING_CONFIG = {
+  MAX_ATTEMPTS: 90, // 3 minutes at 2s intervals
+  POLL_INTERVAL: 2000, // 2 seconds
+}
+
 const Success = () => {
   const [status, setStatus] = useState('activating')  // activating | success | error
   const [credits, setCredits] = useState(0)
@@ -49,6 +55,91 @@ const Success = () => {
     },
   })
 
+  // Poll for job results
+  const pollForResults = async (jobId, token) => {
+    for (let attempt = 0; attempt < POLLING_CONFIG.MAX_ATTEMPTS; attempt++) {
+      try {
+        console.log(`Polling attempt ${attempt + 1}/${POLLING_CONFIG.MAX_ATTEMPTS} for job ${jobId}`)
+
+        const response = await fetch(`/api/jobs/${jobId}`)
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            throw new Error('Job not found - please try again')
+          }
+          throw new Error(`Server error (${response.status}): Please try again`)
+        }
+
+        const jobData = await response.json()
+        console.log('Job status:', jobData.status, jobData)
+
+        if (jobData.status === 'completed') {
+          console.log('Job completed successfully')
+          
+          // Handle successful completion
+          const data = jobData.results
+
+          // Handle response
+          if (data.partial) {
+            // Partial results (insufficient credits)
+            setResults({ ...data, isPartial: true })
+          } else {
+            // Full results
+            setResults(data)
+
+            // Track citation validation event
+            const citationsCount = data.results.length
+            const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
+            const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
+            const userType = token ? 'paid' : 'free'
+
+            trackEvent('citation_validated', {
+              citations_count: citationsCount,
+              errors_found: errorsFound,
+              perfect_count: perfectCount,
+              user_type: userType
+            })
+          }
+
+          // Refresh credits for paid users (with small delay to ensure state updates)
+          if (token) {
+            setTimeout(() => {
+              refreshCredits().catch(err =>
+                console.error('Failed to refresh credits:', err)
+              )
+            }, 100)
+          }
+
+          setLoading(false)
+          return
+
+        } else if (jobData.status === 'failed') {
+          console.log('Job failed:', jobData.error)
+          setError(jobData.error || 'Validation failed')
+          setLoading(false)
+          return
+
+        } else {
+          // Job still pending or processing, continue polling
+          if (attempt < POLLING_CONFIG.MAX_ATTEMPTS - 1) {
+            await new Promise(resolve => setTimeout(resolve, POLLING_CONFIG.POLL_INTERVAL))
+          }
+        }
+
+      } catch (err) {
+        console.error('Polling error:', err)
+        setError(err.message)
+        setLoading(false)
+        return
+      }
+    }
+
+    // Max attempts reached
+    console.log('Job timed out after maximum attempts')
+    setError('Validation timed out. Please try again.')
+    setLoading(false)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -67,7 +158,7 @@ const Success = () => {
     setResults(null)
 
     try {
-      console.log('Calling API: /api/validate')
+      console.log('Calling API: /api/validate/async')
 
       // Build headers
       const headers = { 'Content-Type': 'application/json' }
@@ -75,7 +166,7 @@ const Success = () => {
         headers['X-User-Token'] = token
       }
 
-      const response = await fetch('/api/validate', {
+      const response = await fetch('/api/validate/async', {
         method: 'POST',
         headers,
         body: JSON.stringify({
@@ -100,39 +191,12 @@ const Success = () => {
         }
       }
 
-      const data = await response.json()
-      console.log('API response data:', data)
+      const asyncData = await response.json()
+      console.log('Async job created:', asyncData)
 
-      // Handle response
-      if (data.partial) {
-        // Partial results (insufficient credits)
-        setResults({ ...data, isPartial: true })
-      } else {
-        // Full results
-        setResults(data)
+      // Start polling for results
+      await pollForResults(asyncData.job_id, token)
 
-        // Track citation validation event
-        const citationsCount = data.results.length
-        const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
-        const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
-        const userType = token ? 'paid' : 'free'
-
-        trackEvent('citation_validated', {
-          citations_count: citationsCount,
-          errors_found: errorsFound,
-          perfect_count: perfectCount,
-          user_type: userType
-        })
-      }
-
-      // Refresh credits for paid users (with small delay to ensure state updates)
-      if (token) {
-        setTimeout(() => {
-          refreshCredits().catch(err =>
-            console.error('Failed to refresh credits:', err)
-          )
-        }, 100)
-      }
     } catch (err) {
       console.error('API call error:', err)
 
@@ -146,7 +210,6 @@ const Success = () => {
 
       console.log('Displaying user-facing error:', userMessage)
       setError(userMessage)
-    } finally {
       setLoading(false)
     }
   }
