@@ -22,6 +22,8 @@ import ContactUs from './pages/ContactUs'
 import Dashboard from './pages/Dashboard'
 import DebugHTMLTest from './components/DebugHTMLTest'
 import { TestPricingTable } from './test-pricing-table'
+import { PricingTablePassesDemo } from './components/PricingTablePassesDemo'
+import { PricingTableComparison } from './components/PricingTableComparison'
 import { mockValidationAPI } from './utils/mockData'
 import { getModelPreference } from './utils/modelPreference'
 import './App.css'
@@ -1049,6 +1051,12 @@ function App() {
   }
   if (pathname === '/test-pricing-table') {
     return <TestPricingTable />
+  }
+  if (pathname === '/test-pricing-table-passes') {
+    return <PricingTablePassesDemo />
+  }
+  if (pathname === '/test-pricing-comparison') {
+    return <PricingTableComparison />
   }
   if (pathname === '/dashboard') {
     return (
