@@ -144,17 +144,28 @@ def extract_token_usage(log_line: str) -> Optional[Dict[str, int]]:
     """
     # Pattern matches: Token usage: 1025 prompt + 997 completion = 2022 total
     # Also matches: Token usage: 1025 input + 997 output = 2022 total
-    token_pattern = r'Token usage: (\d+) (?:prompt|input) \+ (\d+) (?:completion|output) = (\d+) total'
+    # Made more flexible with optional whitespace to handle formatting variations
+    token_pattern = r'Token usage:\s*(\d+)\s+(?:prompt|input)\s*\+\s*(\d+)\s+(?:completion|output)\s*=\s*(\d+)\s+total'
     match = re.search(token_pattern, log_line)
 
     if match:
         try:
+            prompt_tokens = int(match.group(1))
+            completion_tokens = int(match.group(2))
+            total_tokens = int(match.group(3))
+
+            # Validate the token counts make sense (total should equal prompt + completion)
+            calculated_total = prompt_tokens + completion_tokens
+            if total_tokens != calculated_total:
+                # If the logged total doesn't match, use the calculated total
+                total_tokens = calculated_total
+
             return {
-                "prompt": int(match.group(1)),
-                "completion": int(match.group(2)),
-                "total": int(match.group(3))
+                "prompt": prompt_tokens,
+                "completion": completion_tokens,
+                "total": total_tokens
             }
-        except ValueError:
+        except (ValueError, IndexError):
             return None
 
     return None
