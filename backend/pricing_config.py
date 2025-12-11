@@ -13,6 +13,9 @@ replaced with real Polar product IDs from user.
 Oracle Feedback #3: Use Unix timestamps (not date strings) to avoid timezone issues.
 """
 
+from datetime import datetime, timedelta
+import time
+
 # Variant mapping - obfuscated IDs for localStorage
 # '1' = credits variant, '2' = passes variant
 EXPERIMENT_VARIANTS = {
@@ -88,7 +91,6 @@ def get_next_utc_midnight() -> int:
     Returns:
         int: Unix timestamp (seconds since epoch) of next UTC midnight
     """
-    from datetime import datetime, timedelta
     now = datetime.utcnow()
     tomorrow = now.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
     return int(tomorrow.timestamp())
@@ -102,7 +104,6 @@ def get_hours_until_reset() -> int:
     Returns:
         int: Hours until next UTC midnight (rounded down)
     """
-    import time
     now = int(time.time())
     next_reset = get_next_utc_midnight()
     return (next_reset - now) // 3600
