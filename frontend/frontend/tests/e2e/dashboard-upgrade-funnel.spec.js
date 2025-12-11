@@ -101,6 +101,43 @@ test.describe('Dashboard Upgrade Funnel Visualization', () => {
       });
     });
 
+    // Mock funnel data endpoint
+    await page.route('/api/funnel-data*', async route => {
+      const mockFunnelData = {
+        variant_1: {
+          pricing_table_shown: 150,
+          product_selected: 45,
+          checkout_started: 40,
+          purchase_completed: 32
+        },
+        variant_2: {
+          pricing_table_shown: 155,
+          product_selected: 52,
+          checkout_started: 48,
+          purchase_completed: 40
+        },
+        conversion_rates: {
+          variant_1: {
+            table_to_selection: 0.30,
+            overall: 0.213
+          },
+          variant_2: {
+            table_to_selection: 0.335,
+            overall: 0.258
+          }
+        },
+        date_range: {
+          start: '2025-12-01',
+          end: '2025-12-11'
+        }
+      };
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify(mockFunnelData),
+        headers: { 'content-type': 'application/json' }
+      });
+    });
+
     // Navigate to dashboard
     await page.goto('http://localhost:4646');
     await page.waitForLoadState('networkidle');
@@ -240,5 +277,183 @@ test.describe('Dashboard Upgrade Funnel Visualization', () => {
       return window.getComputedStyle(el).opacity;
     });
     expect(parseFloat(hoverOpacity)).toBe(1);
+  });
+});
+
+test.describe('Conversion Funnel Chart', () => {
+  test.beforeEach(async ({ page }) => {
+    // Mock the dashboard API endpoint with test data
+    await page.route('/api/validations*', async route => {
+      const mockData = {
+        validations: [
+          {
+            job_id: 'test-job-no-upgrade',
+            created_at: '2025-12-06T10:00:00Z',
+            duration_seconds: 5.2,
+            citation_count: 3,
+            token_usage_total: 1500,
+            user_type: 'free',
+            free_user_id: 'free-user-123',
+            paid_user_id: null,
+            status: 'completed',
+            results_gated: false,
+            results_revealed_at: null,
+            upgrade_state: null
+          }
+        ],
+        total: 1
+      };
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify(mockData),
+        headers: { 'content-type': 'application/json' }
+      });
+    });
+
+    // Mock stats endpoint
+    await page.route('/api/stats*', async route => {
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify({
+          total_validations: 100,
+          completed: 95,
+          failed: 5,
+          avg_duration_seconds: 6.5,
+          avg_citations_per_validation: 4.2
+        }),
+        headers: { 'content-type': 'application/json' }
+      });
+    });
+
+    // Mock funnel data endpoint
+    await page.route('/api/funnel-data*', async route => {
+      const mockFunnelData = {
+        variant_1: {
+          pricing_table_shown: 150,
+          product_selected: 45,
+          checkout_started: 40,
+          purchase_completed: 32
+        },
+        variant_2: {
+          pricing_table_shown: 155,
+          product_selected: 52,
+          checkout_started: 48,
+          purchase_completed: 40
+        },
+        conversion_rates: {
+          variant_1: {
+            table_to_selection: 0.30,
+            overall: 0.213
+          },
+          variant_2: {
+            table_to_selection: 0.335,
+            overall: 0.258
+          }
+        },
+        date_range: {
+          start: '2025-12-01',
+          end: '2025-12-11'
+        }
+      };
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify(mockFunnelData),
+        headers: { 'content-type': 'application/json' }
+      });
+    });
+
+    // Navigate to dashboard
+    await page.goto('http://localhost:4646');
+    await page.waitForLoadState('networkidle');
+  });
+
+  test('should display conversion funnel chart', async ({ page }) => {
+    // Wait for the funnel chart to be visible
+    await expect(page.locator('text=Upgrade Funnel - A/B Test Comparison')).toBeVisible();
+
+    // Check that the chart canvas exists
+    await expect(page.locator('#funnelChart')).toBeVisible();
+
+    // Check that summary statistics are present
+    await expect(page.locator('#variant1-conversion')).toBeVisible();
+    await expect(page.locator('#variant2-conversion')).toBeVisible();
+    await expect(page.locator('#variant1-count')).toBeVisible();
+    await expect(page.locator('#variant2-count')).toBeVisible();
+  });
+
+  test('should display correct conversion percentages', async ({ page }) => {
+    // Wait for the funnel chart to load
+    await page.waitForSelector('#variant1-conversion');
+
+    // Check that conversion rates are displayed correctly
+    await expect(page.locator('#variant1-conversion')).toHaveText('21.3%');
+    await expect(page.locator('#variant2-conversion')).toHaveText('25.8%');
+
+    // Check purchase counts
+    await expect(page.locator('#variant1-count')).toHaveText('32 purchases');
+    await expect(page.locator('#variant2-count')).toHaveText('40 purchases');
+  });
+
+  test('should refresh chart when date range changes', async ({ page }) => {
+    // Initial funnel data request
+    let funnelDataRequests = 0;
+    await page.route('/api/funnel-data*', async route => {
+      funnelDataRequests++;
+      const mockFunnelData = {
+        variant_1: {
+          pricing_table_shown: 100,
+          product_selected: 30,
+          checkout_started: 25,
+          purchase_completed: 20
+        },
+        variant_2: {
+          pricing_table_shown: 110,
+          product_selected: 35,
+          checkout_started: 30,
+          purchase_completed: 25
+        },
+        conversion_rates: {
+          variant_1: {
+            table_to_selection: 0.30,
+            overall: 0.20
+          },
+          variant_2: {
+            table_to_selection: 0.318,
+            overall: 0.227
+          }
+        },
+        date_range: {
+          start: '2025-12-01',
+          end: '2025-12-11'
+        }
+      };
+      await route.fulfill({
+        status: 200,
+        body: JSON.stringify(mockFunnelData),
+        headers: { 'content-type': 'application/json' }
+      });
+    });
+
+    // Wait for initial request
+    await page.waitForSelector('#funnelChart');
+    expect(funnelDataRequests).toBe(1);
+
+    // Change date range
+    await page.selectOption('#dateRange', '30d');
+
+    // Wait for the chart to refresh
+    await page.waitForTimeout(500); // Give time for the request to complete
+
+    // Should have made a new request
+    expect(funnelDataRequests).toBeGreaterThan(1);
+  });
+
+  test('should display variant labels correctly', async ({ page }) => {
+    // Wait for the funnel chart to load
+    await page.waitForSelector('#variant1-conversion');
+
+    // Check for variant labels in summary section
+    await expect(page.locator('text=Variant 1 (Credits)')).toBeVisible();
+    await expect(page.locator('text=Variant 2 (Passes)')).toBeVisible();
   });
 });
