@@ -56,11 +56,15 @@ export function getExperimentVariant() {
     // Store for future sessions
     localStorage.setItem('experiment_v1', variantId)
 
-    // Log assignment for debugging (remove in production if desired)
-    console.log(`[A/B Test] New variant assigned: ${variantId} (${variantId === '1' ? 'Credits' : 'Passes'})`)
+    // Log assignment for debugging
+    if (import.meta.env.DEV) {
+      console.log(`[A/B Test] New variant assigned: ${variantId} (${variantId === '1' ? 'Credits' : 'Passes'})`)
+    }
   } else {
     // Existing assignment - return it
-    console.log(`[A/B Test] Existing variant: ${variantId} (${variantId === '1' ? 'Credits' : 'Passes'})`)
+    if (import.meta.env.DEV) {
+      console.log(`[A/B Test] Existing variant: ${variantId} (${variantId === '1' ? 'Credits' : 'Passes'})`)
+    }
   }
 
   return variantId
@@ -131,7 +135,9 @@ export function resetExperimentVariant() {
     return
   }
   localStorage.removeItem('experiment_v1')
-  console.log('[A/B Test] Variant assignment reset - will be reassigned on next call')
+  if (import.meta.env.DEV) {
+    console.log('[A/B Test] Variant assignment reset - will be reassigned on next call')
+  }
 }
 
 /**
@@ -158,5 +164,7 @@ export function forceVariant(variantId) {
     return
   }
   localStorage.setItem('experiment_v1', variantId)
-  console.log(`[A/B Test] Variant forced to: ${variantId} (${getVariantName(variantId)})`)
+  if (import.meta.env.DEV) {
+    console.log(`[A/B Test] Variant forced to: ${variantId} (${getVariantName(variantId)})`)
+  }
 }
