@@ -22,6 +22,15 @@ from citation_logger import log_citations_to_dashboard, ensure_citation_log_read
 from dashboard.log_parser import CitationLogParser
 from pricing_config import PRODUCT_CONFIG
 
+# Add dashboard directory to Python path for analytics import
+import sys
+from pathlib import Path
+dashboard_dir = Path(__file__).parent / 'dashboard'
+sys.path.insert(0, str(dashboard_dir))
+
+# Import analytics for funnel data
+from analytics import parse_upgrade_events
+
 # Load environment variables
 load_dotenv()
 
@@ -1420,16 +1429,6 @@ async def get_funnel_data(
         }
     """
     try:
-        # Import the parse function from P3.4
-        import sys
-        from pathlib import Path
-
-        # Add dashboard directory to path
-        dashboard_dir = Path(__file__).parent / 'dashboard'
-        sys.path.insert(0, str(dashboard_dir))
-
-        from analytics import parse_upgrade_events
-
         # Convert date strings to datetime if provided
         start_datetime = None
         end_datetime = None
