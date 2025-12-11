@@ -1378,6 +1378,133 @@ async def get_dashboard_stats():
         raise HTTPException(status_code=500, detail="Failed to get dashboard stats")
 
 
+@app.get("/api/funnel-data")
+async def get_funnel_data(
+    from_date: Optional[str] = None,
+    to_date: Optional[str] = None,
+    variant: Optional[str] = None
+):
+    """
+    Get upgrade funnel data for dashboard chart.
+
+    Args:
+        from_date: ISO date string (YYYY-MM-DD) for start filter
+        to_date: ISO date string (YYYY-MM-DD) for end filter
+        variant: Filter to specific variant ('1' or '2', None = both)
+
+    Returns:
+        JSON with funnel counts per variant:
+        {
+            "variant_1": {
+                "pricing_table_shown": 150,
+                "product_selected": 45,
+                "checkout_started": 40,
+                "purchase_completed": 32
+            },
+            "variant_2": {
+                "pricing_table_shown": 155,
+                "product_selected": 52,
+                "checkout_started": 48,
+                "purchase_completed": 40
+            },
+            "conversion_rates": {
+                "variant_1": {
+                    "table_to_selection": 0.30,
+                    "overall": 0.213
+                },
+                "variant_2": {
+                    "table_to_selection": 0.335,
+                    "overall": 0.258
+                }
+            }
+        }
+    """
+    try:
+        # Import the parse function from P3.4
+        import sys
+        from pathlib import Path
+
+        # Add dashboard directory to path
+        dashboard_dir = Path(__file__).parent / 'dashboard'
+        sys.path.insert(0, str(dashboard_dir))
+
+        from analytics import parse_upgrade_events
+
+        # Convert date strings to datetime if provided
+        start_datetime = None
+        end_datetime = None
+
+        if from_date:
+            from datetime import datetime
+            try:
+                start_datetime = datetime.fromisoformat(from_date)
+            except ValueError:
+                raise HTTPException(status_code=400, detail="Invalid from_date format. Use YYYY-MM-DD")
+
+        if to_date:
+            from datetime import datetime
+            try:
+                end_datetime = datetime.fromisoformat(to_date)
+            except ValueError:
+                raise HTTPException(status_code=400, detail="Invalid to_date format. Use YYYY-MM-DD")
+
+        # Get data from analytics
+        data = parse_upgrade_events(
+            start_date=start_datetime,
+            end_date=end_datetime,
+            experiment_variant=variant
+        )
+
+        # Format for chart
+        result = {
+            "variant_1": {
+                "pricing_table_shown": data['variant_1']['pricing_table_shown'],
+                "product_selected": data['variant_1']['product_selected'],
+                "checkout_started": data['variant_1']['checkout_started'],
+                "purchase_completed": data['variant_1']['purchase_completed']
+            },
+            "variant_2": {
+                "pricing_table_shown": data['variant_2']['pricing_table_shown'],
+                "product_selected": data['variant_2']['product_selected'],
+                "checkout_started": data['variant_2']['checkout_started'],
+                "purchase_completed": data['variant_2']['purchase_completed']
+            },
+            "conversion_rates": {
+                "variant_1": data['variant_1']['conversion_rates'],
+                "variant_2": data['variant_2']['conversion_rates']
+            },
+            "date_range": data['date_range']
+        }
+
+        return result
+
+    except FileNotFoundError as e:
+        # No log file yet - return empty data
+        return {
+            "variant_1": {
+                "pricing_table_shown": 0,
+                "product_selected": 0,
+                "checkout_started": 0,
+                "purchase_completed": 0
+            },
+            "variant_2": {
+                "pricing_table_shown": 0,
+                "product_selected": 0,
+                "checkout_started": 0,
+                "purchase_completed": 0
+            },
+            "conversion_rates": {
+                "variant_1": {"table_to_selection": 0, "overall": 0},
+                "variant_2": {"table_to_selection": 0, "overall": 0}
+            },
+            "date_range": {"start": None, "end": None}
+        }
+
+    except Exception as e:
+        app.logger.error(f"Error getting funnel data: {str(e)}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"Failed to get funnel data: {str(e)}")
+
+
 def get_citation_pipeline_metrics() -> dict:
     """
     Get citation pipeline health metrics.
