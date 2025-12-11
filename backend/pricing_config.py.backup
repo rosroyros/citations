@@ -7,8 +7,8 @@ This file maps Polar product IDs to internal product types and pricing tiers.
 When Polar webhooks arrive, we look up the product_id here to determine
 what access to grant (credits vs. pass).
 
-IMPORTANT: Product IDs below are REAL Polar UUIDs from user's dashboard.
-Updated in P4.2 with actual product IDs.
+IMPORTANT: Product IDs below are PLACEHOLDERS. In Phase 4, these will be
+replaced with real Polar product IDs from user.
 
 Oracle Feedback #3: Use Unix timestamps (not date strings) to avoid timezone issues.
 """
@@ -28,21 +28,21 @@ EXPERIMENT_VARIANTS = {
 PRODUCT_CONFIG = {
     # Variant 1: Credits (pay-per-citation)
     # User pays per citation, credits never expire
-    '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': {
+    'prod_credits_100': {
         'variant': '1',
         'type': 'credits',
         'amount': 100,
         'price': 1.99,
         'display_name': '100 Credits ($1.99)'
     },
-    '2a3c8913-2e82-4f12-9eb7-767e4bc98089': {
+    'prod_credits_500': {
         'variant': '1',
         'type': 'credits',
         'amount': 500,
         'price': 4.99,
         'display_name': '500 Credits ($4.99)'
     },
-    'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': {
+    'prod_credits_2000': {
         'variant': '1',
         'type': 'credits',
         'amount': 2000,
@@ -52,7 +52,7 @@ PRODUCT_CONFIG = {
 
     # Variant 2: Time-based passes
     # User gets unlimited access (1000 citations/day) for duration
-    '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': {
+    'prod_pass_1day': {
         'variant': '2',
         'type': 'pass',
         'days': 1,
@@ -61,7 +61,7 @@ PRODUCT_CONFIG = {
         'daily_limit': 1000,
         'display_name': '1-Day Pass ($1.99)'
     },
-    '5b311653-7127-41b5-aed6-496fb713149c': {
+    'prod_pass_7day': {
         'variant': '2',
         'type': 'pass',
         'days': 7,
@@ -70,7 +70,7 @@ PRODUCT_CONFIG = {
         'daily_limit': 1000,
         'display_name': '7-Day Pass ($4.99)'
     },
-    'e0bec30d-5576-481e-86f3-d704529651ae': {
+    'prod_pass_30day': {
         'variant': '2',
         'type': 'pass',
         'days': 30,
