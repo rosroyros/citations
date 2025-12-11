@@ -1061,7 +1061,7 @@ async def upgrade_event(request: dict):
         raise HTTPException(status_code=400, detail="event is required")
 
     # Validate event type
-    valid_events = ['clicked_upgrade', 'modal_proceed', 'success']
+    valid_events = ['clicked_upgrade', 'modal_proceed', 'success', 'upgrade_presented']
     if event not in valid_events:
         raise HTTPException(
             status_code=400,

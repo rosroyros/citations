@@ -6,7 +6,7 @@ import { getToken } from '../utils/creditStorage';
 import ValidationTable from './ValidationTable';
 import GatedResults from './GatedResults';
 
-export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated }) {
+export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal }) {
   const [isRevealed, setIsRevealed] = useState(false);
   const { trackSourceTypeView } = useAnalyticsTracking();
 
@@ -18,6 +18,24 @@ export function PartialResults({ results, partial, citations_checked, citations_
       citations_locked: citations_remaining,
       user_type: token ? 'paid' : 'free'
     });
+
+    // Track upgrade presented event
+    if (job_id) {
+      fetch('/api/upgrade-event', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event: 'upgrade_presented',
+          job_id: job_id,
+          trigger_location: 'partial_results',
+          citations_locked: citations_remaining
+        })
+      }).catch(error => {
+        console.error('Error tracking upgrade presentation:', error);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -31,6 +49,9 @@ export function PartialResults({ results, partial, citations_checked, citations_
   }, [results, trackSourceTypeView]);
 
   const handleReveal = async () => {
+    if (onReveal) {
+      onReveal();
+    }
     setIsRevealed(true);
   };
 

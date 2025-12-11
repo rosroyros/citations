@@ -888,6 +888,7 @@ function AppContent() {
                 trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
                 setShowUpgradeModal(true)
               }}
+              onReveal={handleRevealResults}
             />
           ) : (
             <div style={{ position: 'relative' }}>
