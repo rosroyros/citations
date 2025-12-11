@@ -1753,7 +1753,7 @@ async def handle_checkout_updated(webhook):
         if success:
             # Log pass applied event
             log_upgrade_event(
-                'credits_applied',  # Same event name for consistency
+                'credits_applied',  # Same event name for consistency with credits
                 token,
                 experiment_variant=experiment_variant,
                 product_id=product_id,
@@ -1779,6 +1779,7 @@ async def handle_checkout_updated(webhook):
             token,
             experiment_variant=experiment_variant,
             product_id=product_id,
+            amount_cents=amount_cents,
             error="Failed to grant access"
         )
 

@@ -56,6 +56,7 @@ PRODUCT_CONFIG = {
         'variant': '2',
         'type': 'pass',
         'days': 1,
+        'pass_type': '1day',
         'price': 1.99,
         'daily_limit': 1000,
         'display_name': '1-Day Pass ($1.99)'
@@ -64,6 +65,7 @@ PRODUCT_CONFIG = {
         'variant': '2',
         'type': 'pass',
         'days': 7,
+        'pass_type': '7day',
         'price': 4.99,
         'daily_limit': 1000,
         'display_name': '7-Day Pass ($4.99)'
@@ -72,6 +74,7 @@ PRODUCT_CONFIG = {
         'variant': '2',
         'type': 'pass',
         'days': 30,
+        'pass_type': '30day',
         'price': 9.99,
         'daily_limit': 1000,
         'display_name': '30-Day Pass ($9.99)'
