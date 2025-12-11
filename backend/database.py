@@ -1,6 +1,7 @@
 import sqlite3
 import os
 import logging
+import time
 from pathlib import Path
 from typing import Optional
 
@@ -378,6 +379,241 @@ def update_validation_tracking(
     except Exception as e:
         logger.error(f"Unexpected error updating validation tracking: {e}")
         return False
+
+
+def try_increment_daily_usage(token: str, citation_count: int) -> dict:
+    """
+    Atomically check and increment daily usage.
+
+    Returns:
+    {
+        'success': bool,          # False if would exceed 1000 limit
+        'used_before': int,       # Usage before this increment
+        'used_after': int,        # Usage after (if success)
+        'remaining': int,         # Citations left in window
+        'reset_timestamp': int    # When limit resets (Unix timestamp)
+    }
+
+    IMPORTANT: Uses BEGIN IMMEDIATE to prevent race conditions.
+    Without this, concurrent requests could exceed 1000/day limit.
+
+    Example race condition (without atomic check):
+    - Request A reads: 950 citations used
+    - Request B reads: 950 citations used
+    - Request A writes: 950 + 60 = 1010
+    - Request B writes: 950 + 50 = 1000
+    - Result: 1010 citations used (OVER LIMIT!)
+
+    Oracle Feedback #1: https://docs/plans/2025-12-10-pricing-model-ab-test-design-FINAL.md
+    """
+    from pricing_config import get_next_utc_midnight
+
+    db_path = get_db_path()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL")
+    cursor.execute("PRAGMA busy_timeout=5000")
+
+    reset_timestamp = get_next_utc_midnight()
+
+    try:
+        # CRITICAL: BEGIN IMMEDIATE acquires write lock immediately
+        # Prevents race between read and write
+        cursor.execute("BEGIN IMMEDIATE")
+
+        # Get current usage for this window
+        cursor.execute("""
+            SELECT citations_count FROM daily_usage
+            WHERE token = ? AND reset_timestamp = ?
+        """, (token, reset_timestamp))
+
+        row = cursor.fetchone()
+        current_usage = row[0] if row else 0
+
+        # Check if increment would exceed limit
+        if current_usage + citation_count > 1000:
+            conn.rollback()
+            conn.close()
+            return {
+                'success': False,
+                'used_before': current_usage,
+                'remaining': 1000 - current_usage,
+                'reset_timestamp': reset_timestamp
+            }
+
+        # Safe to increment
+        new_usage = current_usage + citation_count
+        cursor.execute("""
+            INSERT INTO daily_usage (token, reset_timestamp, citations_count)
+            VALUES (?, ?, ?)
+            ON CONFLICT(token, reset_timestamp) DO UPDATE SET
+            citations_count = citations_count + ?
+        """, (token, reset_timestamp, citation_count, citation_count))
+
+        conn.commit()
+        conn.close()
+
+        return {
+            'success': True,
+            'used_before': current_usage,
+            'used_after': new_usage,
+            'remaining': 1000 - new_usage,
+            'reset_timestamp': reset_timestamp
+        }
+
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        raise
+
+
+def get_daily_usage_for_current_window(token: str) -> int:
+    """
+    Get citation count for current UTC day window.
+
+    Returns citations used in current window (0 if new window or no usage).
+    """
+    from pricing_config import get_next_utc_midnight
+
+    db_path = get_db_path()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    reset_timestamp = get_next_utc_midnight()
+    cursor.execute("""
+        SELECT citations_count FROM daily_usage
+        WHERE token = ? AND reset_timestamp = ?
+    """, (token, reset_timestamp))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    return row[0] if row else 0
+
+
+def get_active_pass(token: str) -> Optional[dict]:
+    """
+    Check if user has active pass.
+
+    Returns:
+    {
+        'expiration_timestamp': int,  # Unix timestamp
+        'pass_type': str,             # '1day', '7day', '30day'
+        'purchase_date': int,
+        'hours_remaining': int        # For UI display
+    }
+    Or None if no active pass.
+    """
+    db_path = get_db_path()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+
+    now = int(time.time())
+    cursor.execute("""
+        SELECT expiration_timestamp, pass_type, purchase_date
+        FROM user_passes
+        WHERE token = ? AND expiration_timestamp > ?
+    """, (token, now))
+
+    row = cursor.fetchone()
+    conn.close()
+
+    if row:
+        hours_remaining = (row[0] - now) // 3600
+        return {
+            'expiration_timestamp': row[0],
+            'pass_type': row[1],
+            'purchase_date': row[2],
+            'hours_remaining': hours_remaining
+        }
+    return None
+
+
+def add_pass(token: str, days: int, pass_type: str, order_id: str) -> bool:
+    """
+    Grant time-based pass to user (idempotent).
+
+    Pass Extension Logic (Oracle Feedback #15):
+    - If user has active pass (any type), extend expiration by adding days
+    - Example: 3 days left on 7-day pass + buy 30-day pass = 33 days total
+    - Rationale: User shouldn't lose remaining time when upgrading/extending
+
+    Idempotency (Oracle Feedback #6):
+    - Uses BEGIN IMMEDIATE to prevent race conditions
+    - Checks order_id before processing
+    - Catches IntegrityError if another thread processed concurrently
+
+    Args:
+        token: User identifier
+        days: Duration to add (1, 7, or 30)
+        pass_type: Display name ('1day', '7day', '30day')
+        order_id: Polar order ID (for idempotency)
+
+    Returns:
+        True if pass granted (or already processed)
+    """
+    db_path = get_db_path()
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL")
+    cursor.execute("PRAGMA busy_timeout=5000")
+
+    try:
+        # CRITICAL: Lock early to prevent race conditions
+        cursor.execute("BEGIN IMMEDIATE")
+
+        # Idempotency check - has this order been processed?
+        cursor.execute("SELECT 1 FROM user_passes WHERE order_id = ?", (order_id,))
+        if cursor.fetchone():
+            conn.rollback()
+            conn.close()
+            logger.info(f"Order {order_id} already processed (idempotent)")
+            return True
+
+        # Check for existing active pass
+        now = int(time.time())
+        cursor.execute("""
+            SELECT expiration_timestamp, pass_type
+            FROM user_passes
+            WHERE token = ? AND expiration_timestamp > ?
+        """, (token, now))
+
+        existing = cursor.fetchone()
+
+        if existing:
+            # Extend existing pass (add days to current expiration)
+            # Oracle Feedback #15: Always extend, regardless of pass type
+            current_expiration = existing[0]
+            new_expiration = current_expiration + (days * 86400)
+            logger.info(f"Extending pass for {token}: {existing[1]} -> {pass_type} (+{days} days)")
+        else:
+            # New pass (starts now)
+            new_expiration = now + (days * 86400)
+            logger.info(f"Granting new {pass_type} pass to {token}")
+
+        # Insert or replace
+        cursor.execute("""
+            INSERT OR REPLACE INTO user_passes
+            (token, expiration_timestamp, pass_type, purchase_date, order_id)
+            VALUES (?, ?, ?, ?, ?)
+        """, (token, new_expiration, pass_type, now, order_id))
+
+        conn.commit()
+        conn.close()
+        return True
+
+    except sqlite3.IntegrityError as e:
+        # Race condition - another thread processed this order
+        conn.rollback()
+        conn.close()
+        logger.warning(f"IntegrityError for order {order_id}: {e}")
+        return True  # Treat as success (idempotent)
+
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        logger.error(f"Failed to add pass: {e}")
+        raise
 
 
 if __name__ == "__main__":
