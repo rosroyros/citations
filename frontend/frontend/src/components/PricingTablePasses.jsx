@@ -2,10 +2,10 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 
 // Product configuration
-// NOTE: Product IDs are placeholders - will be replaced with real Polar IDs in Phase 4
+// Updated with real Polar product IDs from pricing_config.py
 const PRODUCTS = [
   {
-    id: 'prod_pass_1day',
+    id: '1282bd9b-81b6-4f06-a1f2-29bb0be01f26',
     days: 1,
     price: 1.99,
     pricePerDay: 1.99,
@@ -18,7 +18,7 @@ const PRODUCTS = [
     ]
   },
   {
-    id: 'prod_pass_7day',
+    id: '5b311653-7127-41b5-aed6-496fb713149c',
     days: 7,
     price: 4.99,
     pricePerDay: 0.71,  // $4.99 / 7 days
@@ -31,7 +31,7 @@ const PRODUCTS = [
     ]
   },
   {
-    id: 'prod_pass_30day',
+    id: 'e0bec30d-5576-481e-86f3-d704529651ae',
     days: 30,
     price: 9.99,
     pricePerDay: 0.33,  // $9.99 / 30 days

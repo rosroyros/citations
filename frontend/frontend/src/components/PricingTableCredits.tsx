@@ -29,10 +29,10 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
   experimentVariant?: string;
 }) {
   // Product configuration
-  // NOTE: Product IDs are placeholders - will be replaced with real Polar IDs in Phase 4
+  // Updated with real Polar product IDs from pricing_config.py
   const products = [
     {
-      id: 'prod_credits_100',
+      id: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
       credits: 100,
       price: 1.99,
       pricePerCitation: 0.0199,
@@ -45,7 +45,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
       ]
     },
     {
-      id: 'prod_credits_500',
+      id: '2a3c8913-2e82-4f12-9eb7-767e4bc98089',
       credits: 500,
       price: 4.99,
       pricePerCitation: 0.00998,  // ~50% cheaper per citation than 100-pack
@@ -58,7 +58,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
       ]
     },
     {
-      id: 'prod_credits_2000',
+      id: 'fe7b0260-e411-4f9a-87c8-0856bf1d8b95',
       credits: 2000,
       price: 9.99,
       pricePerCitation: 0.004995,  // ~75% cheaper than 100-pack
