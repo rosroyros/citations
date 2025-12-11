@@ -402,6 +402,78 @@ def build_gated_response(
     return ValidationResponse(**response_data)
 
 
+def log_upgrade_event(event_name: str, token: str, experiment_variant: str = None,
+                      product_id: str = None, amount_cents: int = None,
+                      error: str = None, metadata: dict = None):
+    """
+    Log upgrade funnel event to app.log for analytics.
+
+    Purpose: Track A/B test conversion funnel to determine which pricing variant
+    converts better. All events include experiment_variant for cohort analysis.
+
+    Oracle Feedback #5: We track variant on all events (not just purchase) to measure:
+    - How many users saw each pricing table
+    - Drop-off rates at each funnel stage
+    - Conversion rates by variant
+
+    Log Format: JSON structure for easy parsing by dashboard
+    Prefix: "UPGRADE_EVENT:" for easy filtering
+
+    Args:
+        event_name: One of: pricing_table_shown, product_selected, checkout_started,
+                    purchase_completed, purchase_failed, credits_applied
+        token: User token (first 8 chars for privacy)
+        experiment_variant: '1' (credits) or '2' (passes) - ALWAYS include per Oracle #5
+        product_id: Polar product ID (e.g., 'prod_credits_500')
+        amount_cents: Purchase amount in cents (for revenue tracking)
+        error: Error message (for failed events)
+        metadata: Additional event-specific data
+
+    Example log entries:
+        UPGRADE_EVENT: {"timestamp": 1704067200, "event": "pricing_table_shown",
+                       "token": "abc12345", "experiment_variant": "1"}
+
+        UPGRADE_EVENT: {"timestamp": 1704067205, "event": "product_selected",
+                       "token": "abc12345", "experiment_variant": "1",
+                       "product_id": "prod_credits_500"}
+
+        UPGRADE_EVENT: {"timestamp": 1704067210, "event": "purchase_completed",
+                       "token": "abc12345", "experiment_variant": "1",
+                       "product_id": "prod_credits_500", "amount_cents": 499}
+    """
+    # Build event payload
+    payload = {
+        'timestamp': int(time.time()),  # Unix timestamp
+        'event': event_name,
+        'token': token[:8] if token else None,  # Privacy: only log first 8 chars
+        'experiment_variant': experiment_variant  # CRITICAL: Always include (Oracle #5)
+    }
+
+    # Add optional fields if provided
+    if product_id:
+        payload['product_id'] = product_id
+
+    if amount_cents is not None:
+        payload['amount_cents'] = amount_cents
+        payload['amount_dollars'] = amount_cents / 100  # For readability
+
+    if error:
+        payload['error'] = error
+
+    if metadata:
+        payload['metadata'] = metadata
+
+    # Log as JSON for easy parsing
+    logger.info(f"UPGRADE_EVENT: {json.dumps(payload)}")
+
+    # Also log human-readable version for debugging
+    logger.debug(
+        f"Upgrade funnel: {event_name} | "
+        f"token={token[:8] if token else None} | variant={experiment_variant} | "
+        f"product={product_id or 'n/a'}"
+    )
+
+
 @app.get("/health")
 async def health_check():
     """
