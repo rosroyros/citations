@@ -93,7 +93,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
           {/* Card Header */}
           <CardHeader>
             <CardTitle className="text-2xl font-heading text-heading">
-              {product.credits} Credits
+              {product.credits.toLocaleString()} Credits
             </CardTitle>
             <CardDescription className="text-sm font-body text-body">
               ${product.pricePerCitation.toFixed(3)} per citation

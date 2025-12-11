@@ -15,9 +15,7 @@ describe('PricingTableCredits', () => {
     // Check for all three credit amounts
     expect(screen.getByText('100 Credits')).toBeInTheDocument()
     expect(screen.getByText('500 Credits')).toBeInTheDocument()
-    expect(screen.getByText((content, element) => {
-    return element?.textContent === '2,000 Credits'
-  })).toBeInTheDocument()
+    expect(screen.getByText('2,000 Credits')).toBeInTheDocument()
   })
 
   it('displays correct pricing for each tier', () => {
