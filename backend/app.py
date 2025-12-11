@@ -681,6 +681,19 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             if affordable == 0:
                 # Already at limit - return empty partial results to show locked teaser
                 logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
+
+                # Log pricing table shown event for upgrade funnel tracking
+                experiment_variant = http_request.headers.get('X-Experiment-Variant')
+                try:
+                    log_upgrade_event(
+                        'pricing_table_shown',
+                        free_user_id or 'anonymous',
+                        experiment_variant=experiment_variant,
+                        metadata={'reason': 'free_limit_reached', 'free_used': free_used}
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to log upgrade event: {e}")
+
                 response_data = {
                     "results": [],
                     "partial": True,
@@ -717,6 +730,19 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
         if user_credits == 0:
             logger.warning("User has zero credits - returning 402 error")
+
+            # Log pricing table shown event for upgrade funnel tracking
+            experiment_variant = http_request.headers.get('X-Experiment-Variant')
+            try:
+                log_upgrade_event(
+                    'pricing_table_shown',
+                    token,
+                    experiment_variant=experiment_variant,
+                    metadata={'reason': 'zero_credits', 'credits_remaining': 0}
+                )
+            except Exception as e:
+                logger.error(f"Failed to log upgrade event: {e}")
+
             raise HTTPException(
                 status_code=402,  # Payment Required
                 detail="You have 0 Citation Credits remaining. Purchase more to continue."
@@ -739,6 +765,24 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             # Partial results
             affordable = user_credits
             logger.info(f"Insufficient credits ({user_credits} < {citation_count}) - returning {affordable} results")
+
+            # Log pricing table shown event for upgrade funnel tracking
+            experiment_variant = http_request.headers.get('X-Experiment-Variant')
+            try:
+                log_upgrade_event(
+                    'pricing_table_shown',
+                    token,
+                    experiment_variant=experiment_variant,
+                    metadata={
+                        'reason': 'insufficient_credits',
+                        'credits_remaining': user_credits,
+                        'credits_needed': citation_count,
+                        'partial_available': affordable
+                    }
+                )
+            except Exception as e:
+                logger.error(f"Failed to log upgrade event: {e}")
+
             success = deduct_credits(token, affordable)
             if not success:
                 logger.error("Failed to deduct credits")
@@ -802,6 +846,19 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 jobs[job_id]["status"] = "failed"
                 jobs[job_id]["error"] = "You have 0 Citation Credits remaining. Purchase more to continue."
                 logger.warning(f"Job {job_id}: Failed - user has zero credits")
+
+                # Log pricing table shown event for upgrade funnel tracking
+                experiment_variant = jobs[job_id].get("experiment_variant")
+                try:
+                    log_upgrade_event(
+                        'pricing_table_shown',
+                        token,
+                        experiment_variant=experiment_variant,
+                        metadata={'reason': 'zero_credits', 'credits_remaining': 0}
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to log upgrade event: {e}")
+
                 return
         else:
             # Free tier - check limit
@@ -822,6 +879,18 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     # Fallback: estimate by splitting on double newlines
                     citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
                     logger.debug(f"Job {job_id}: Fallback citation count: {citation_count}")
+
+                # Log pricing table shown event for upgrade funnel tracking
+                experiment_variant = jobs[job_id].get("experiment_variant")
+                try:
+                    log_upgrade_event(
+                        'pricing_table_shown',
+                        free_user_id or 'anonymous',
+                        experiment_variant=experiment_variant,
+                        metadata={'reason': 'free_limit_reached', 'free_used': free_used}
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to log upgrade event: {e}")
 
                 jobs[job_id]["status"] = "completed"
                 jobs[job_id]["results"] = ValidationResponse(
@@ -918,6 +987,23 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 success = deduct_credits(token, affordable)
                 if not success:
                     raise ValueError(f"Failed to deduct {affordable} credits from user {token[:8]}...")
+
+                # Log pricing table shown event for upgrade funnel tracking
+                experiment_variant = jobs[job_id].get("experiment_variant")
+                try:
+                    log_upgrade_event(
+                        'pricing_table_shown',
+                        token,
+                        experiment_variant=experiment_variant,
+                        metadata={
+                            'reason': 'insufficient_credits',
+                            'credits_remaining': user_credits,
+                            'credits_needed': citation_count,
+                            'partial_available': affordable
+                        }
+                    )
+                except Exception as e:
+                    logger.error(f"Failed to log upgrade event: {e}")
 
                 response_data = {
                     "results": results[:affordable],
@@ -1021,6 +1107,9 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     else:
         stored_model_preference = 'model_a'
 
+    # Store experiment variant for async processing (if provided by frontend)
+    experiment_variant = http_request.headers.get('X-Experiment-Variant')
+
     # Create job entry
     jobs[job_id] = {
         "status": "pending",
@@ -1033,7 +1122,8 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "user_type": gating_user_type,
         "paid_user_id": paid_user_id,
         "free_user_id": free_user_id,
-        "model_preference": stored_model_preference
+        "model_preference": stored_model_preference,
+        "experiment_variant": experiment_variant
     }
 
     # Convert HTML to text with formatting markers
