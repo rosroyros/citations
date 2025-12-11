@@ -16,10 +16,11 @@ from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from providers.gemini_provider import GeminiProvider
-from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready, check_disk_space
 from dashboard.log_parser import CitationLogParser
+from pricing_config import PRODUCT_CONFIG
 
 # Load environment variables
 load_dotenv()
@@ -1630,7 +1631,12 @@ async def handle_polar_webhook(request: Request):
 
 
 async def handle_order_created(webhook):
-    """Handle order.created webhook by granting credits."""
+    """
+    Handle order.created webhook by granting credits.
+
+    Note: This handler is kept for backward compatibility but mostly
+    replaced by handle_checkout_updated for the A/B test implementation.
+    """
     from database import add_credits
 
     order_id = webhook.data.id
@@ -1653,30 +1659,130 @@ async def handle_order_created(webhook):
 
 
 async def handle_checkout_updated(webhook):
-    """Handle checkout.updated webhook when status is completed."""
-    from database import add_credits
+    """
+    Handle checkout.updated webhook when status is completed.
 
+    Changes for A/B test:
+    - Extract product_id from line items
+    - Route to add_credits() or add_pass() based on PRODUCT_CONFIG
+    - Log purchase_completed and credits_applied events
+    - Track revenue data (Oracle #16)
+
+    Oracle Feedback #6: Idempotency handled in add_credits() and add_pass()
+    """
     if webhook.data.status != "completed":
         logger.debug(f"Ignoring checkout.updated with status: {webhook.data.status}")
         return
 
-    order_id = webhook.data.order_id
-    # metadata is a dict, not an object
-    token = webhook.data.metadata.get('token') if isinstance(webhook.data.metadata, dict) else webhook.data.metadata.token
-
-    logger.info(f"Processing checkout.updated: order_id={order_id}, token={token[:8] if token else 'None'}...")
-
-    if not token:
-        logger.error(f"Checkout {order_id} missing token in metadata")
+    # Extract customer token
+    customer_metadata = webhook.data.metadata
+    if not customer_metadata or not isinstance(customer_metadata, dict):
+        logger.error("No valid metadata in webhook")
         return
 
-    # Grant 1,000 credits (idempotent)
-    success = add_credits(token, 1000, order_id)
+    token = customer_metadata.get('token')
 
-    if success:
-        logger.info(f"Successfully granted 1000 credits for completed checkout {order_id}")
+    if not token:
+        logger.error(f"Checkout missing token in metadata")
+        return
+
+    # Extract product information from line items
+    line_items = webhook.data.line_items or []
+    if not line_items:
+        logger.error("No line items in webhook")
+        return
+
+    product_id = line_items[0].product_id
+    order_id = webhook.data.order_id
+
+    # Oracle #16: Capture revenue
+    amount_cents = line_items[0].price_amount
+
+    if not product_id:
+        logger.error("No product_id in line items")
+        return
+
+    # Look up product configuration
+    product_config = PRODUCT_CONFIG.get(product_id)
+
+    if not product_config:
+        logger.error(f"Unknown product_id in webhook: {product_id}")
+        return
+
+    # Get experiment variant from product config
+    experiment_variant = product_config['variant']  # '1' or '2'
+
+    # Log purchase completed event
+    log_upgrade_event(
+        'purchase_completed',
+        token,
+        experiment_variant=experiment_variant,
+        product_id=product_id,
+        amount_cents=amount_cents  # Oracle #16: Revenue tracking
+    )
+
+    # Route based on product type
+    success = False
+
+    if product_config['type'] == 'credits':
+        amount = product_config['amount']
+        from database import add_credits
+        success = add_credits(token, amount, order_id)
+
+        if success:
+            # Log credits applied event
+            log_upgrade_event(
+                'credits_applied',
+                token,
+                experiment_variant=experiment_variant,
+                product_id=product_id,
+                metadata={'amount': amount, 'type': 'credits'}
+            )
+
+            logger.info(
+                f"PURCHASE_COMPLETED | type=credits | product_id={product_id} | "
+                f"amount={amount} | revenue=${amount_cents/100:.2f} | "
+                f"token={token[:8]} | order_id={order_id}"
+            )
+
+    elif product_config['type'] == 'pass':
+        days = product_config['days']
+        pass_type = product_config.get('pass_type', f"{days}day")
+        success = add_pass(token, days, pass_type, order_id)
+
+        if success:
+            # Log pass applied event
+            log_upgrade_event(
+                'credits_applied',  # Same event name for consistency
+                token,
+                experiment_variant=experiment_variant,
+                product_id=product_id,
+                metadata={'days': days, 'type': 'pass', 'pass_type': pass_type}
+            )
+
+            logger.info(
+                f"PURCHASE_COMPLETED | type=pass | product_id={product_id} | "
+                f"days={days} | revenue=${amount_cents/100:.2f} | "
+                f"token={token[:8]} | order_id={order_id}"
+            )
+
     else:
-        logger.warning(f"Checkout order {order_id} already processed, skipping credit grant")
+        logger.error(f"Unknown product type: {product_config['type']}")
+        return
+
+    if not success:
+        logger.error(f"Failed to grant access for order {order_id}")
+
+        # Log failure event
+        log_upgrade_event(
+            'purchase_failed',
+            token,
+            experiment_variant=experiment_variant,
+            product_id=product_id,
+            error="Failed to grant access"
+        )
+
+        return
 
 
 @app.get("/citations/{citation_id}")
