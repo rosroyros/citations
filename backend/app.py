@@ -474,6 +474,33 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
     )
 
 
+def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None, reason: str = None, **metadata):
+    """
+    Helper function to log pricing_table_shown event with common error handling.
+
+    Args:
+        token: User token (will be truncated to first 8 chars in logs for privacy)
+        experiment_variant: A/B test variant (optional)
+        reason: Why pricing table was shown (free_limit_reached, zero_credits, insufficient_credits)
+        **metadata: Additional metadata to include with the event
+
+    Note: If token is 'anonymous', it will be logged as 'anonymou' due to 8-char truncation
+    """
+    try:
+        # Add reason to metadata if provided
+        if reason:
+            metadata['reason'] = reason
+
+        log_upgrade_event(
+            'pricing_table_shown',
+            token,
+            experiment_variant=experiment_variant,
+            metadata=metadata
+        )
+    except Exception as e:
+        logger.error(f"Failed to log upgrade event: {e}")
+
+
 @app.get("/health")
 async def health_check():
     """
@@ -683,16 +710,12 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
 
                 # Log pricing table shown event for upgrade funnel tracking
-                experiment_variant = http_request.headers.get('X-Experiment-Variant')
-                try:
-                    log_upgrade_event(
-                        'pricing_table_shown',
-                        free_user_id or 'anonymous',
-                        experiment_variant=experiment_variant,
-                        metadata={'reason': 'free_limit_reached', 'free_used': free_used}
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to log upgrade event: {e}")
+                log_pricing_table_shown(
+                    free_user_id or 'anonymous',
+                    http_request.headers.get('X-Experiment-Variant'),
+                    reason='free_limit_reached',
+                    free_used=free_used
+                )
 
                 response_data = {
                     "results": [],
@@ -732,16 +755,12 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             logger.warning("User has zero credits - returning 402 error")
 
             # Log pricing table shown event for upgrade funnel tracking
-            experiment_variant = http_request.headers.get('X-Experiment-Variant')
-            try:
-                log_upgrade_event(
-                    'pricing_table_shown',
-                    token,
-                    experiment_variant=experiment_variant,
-                    metadata={'reason': 'zero_credits', 'credits_remaining': 0}
-                )
-            except Exception as e:
-                logger.error(f"Failed to log upgrade event: {e}")
+            log_pricing_table_shown(
+                token,
+                http_request.headers.get('X-Experiment-Variant'),
+                reason='zero_credits',
+                credits_remaining=0
+            )
 
             raise HTTPException(
                 status_code=402,  # Payment Required
@@ -767,21 +786,14 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             logger.info(f"Insufficient credits ({user_credits} < {citation_count}) - returning {affordable} results")
 
             # Log pricing table shown event for upgrade funnel tracking
-            experiment_variant = http_request.headers.get('X-Experiment-Variant')
-            try:
-                log_upgrade_event(
-                    'pricing_table_shown',
-                    token,
-                    experiment_variant=experiment_variant,
-                    metadata={
-                        'reason': 'insufficient_credits',
-                        'credits_remaining': user_credits,
-                        'credits_needed': citation_count,
-                        'partial_available': affordable
-                    }
-                )
-            except Exception as e:
-                logger.error(f"Failed to log upgrade event: {e}")
+            log_pricing_table_shown(
+                token,
+                http_request.headers.get('X-Experiment-Variant'),
+                reason='insufficient_credits',
+                credits_remaining=user_credits,
+                credits_needed=citation_count,
+                partial_available=affordable
+            )
 
             success = deduct_credits(token, affordable)
             if not success:
@@ -848,16 +860,12 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 logger.warning(f"Job {job_id}: Failed - user has zero credits")
 
                 # Log pricing table shown event for upgrade funnel tracking
-                experiment_variant = jobs[job_id].get("experiment_variant")
-                try:
-                    log_upgrade_event(
-                        'pricing_table_shown',
-                        token,
-                        experiment_variant=experiment_variant,
-                        metadata={'reason': 'zero_credits', 'credits_remaining': 0}
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to log upgrade event: {e}")
+                log_pricing_table_shown(
+                    token,
+                    jobs[job_id].get("experiment_variant"),
+                    reason='zero_credits',
+                    credits_remaining=0
+                )
 
                 return
         else:
@@ -881,16 +889,12 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     logger.debug(f"Job {job_id}: Fallback citation count: {citation_count}")
 
                 # Log pricing table shown event for upgrade funnel tracking
-                experiment_variant = jobs[job_id].get("experiment_variant")
-                try:
-                    log_upgrade_event(
-                        'pricing_table_shown',
-                        free_user_id or 'anonymous',
-                        experiment_variant=experiment_variant,
-                        metadata={'reason': 'free_limit_reached', 'free_used': free_used}
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to log upgrade event: {e}")
+                log_pricing_table_shown(
+                    free_user_id or 'anonymous',
+                    jobs[job_id].get("experiment_variant"),
+                    reason='free_limit_reached',
+                    free_used=free_used
+                )
 
                 jobs[job_id]["status"] = "completed"
                 jobs[job_id]["results"] = ValidationResponse(
@@ -989,21 +993,14 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     raise ValueError(f"Failed to deduct {affordable} credits from user {token[:8]}...")
 
                 # Log pricing table shown event for upgrade funnel tracking
-                experiment_variant = jobs[job_id].get("experiment_variant")
-                try:
-                    log_upgrade_event(
-                        'pricing_table_shown',
-                        token,
-                        experiment_variant=experiment_variant,
-                        metadata={
-                            'reason': 'insufficient_credits',
-                            'credits_remaining': user_credits,
-                            'credits_needed': citation_count,
-                            'partial_available': affordable
-                        }
-                    )
-                except Exception as e:
-                    logger.error(f"Failed to log upgrade event: {e}")
+                log_pricing_table_shown(
+                    token,
+                    jobs[job_id].get("experiment_variant"),
+                    reason='insufficient_credits',
+                    credits_remaining=user_credits,
+                    credits_needed=citation_count,
+                    partial_available=affordable
+                )
 
                 response_data = {
                     "results": results[:affordable],

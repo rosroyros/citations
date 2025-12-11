@@ -31,7 +31,18 @@ curl -X POST ${BASE_URL}/api/validate \
   }' 2>/dev/null | jq . || echo "Request sent"
 
 echo ""
-echo "3. Testing async endpoint with 0 credits..."
+echo "3. Testing insufficient credits (partial results)..."
+echo "-----------------------------------------------------"
+curl -X POST ${BASE_URL}/api/validate \
+  -H "Content-Type: application/json" \
+  -H "X-User-Token: test_token_partial" \
+  -H "X-Experiment-Variant: 2" \
+  -d '{
+    "citations": "Smith, J. (2023). Test citation.\n\nDoe, J. (2023). Another test.\n\nJohnson, K. (2023). Third test.\n\nBrown, L. (2023). Fourth test.\n\nDavis, M. (2023). Fifth test."
+  }' 2>/dev/null | jq . || echo "Request sent"
+
+echo ""
+echo "4. Testing async endpoint with 0 credits..."
 echo "--------------------------------------------"
 curl -X POST ${BASE_URL}/api/validate/async \
   -H "Content-Type: application/json" \
@@ -42,12 +53,12 @@ curl -X POST ${BASE_URL}/api/validate/async \
   }' 2>/dev/null | jq . || echo "Request sent"
 
 echo ""
-echo "4. Checking app.log for UPGRADE_EVENT entries..."
+echo "5. Checking app.log for UPGRADE_EVENT entries..."
 echo "==============================================="
 tail -20 app.log | grep "UPGRADE_EVENT" | tail -10
 
 echo ""
-echo "5. Most recent UPGRADE_EVENT details:"
+echo "6. Most recent UPGRADE_EVENT details:"
 echo "------------------------------------"
 tail -50 app.log | grep "UPGRADE_EVENT.*pricing_table_shown" | tail -1 | python3 -c "
 import sys, json
