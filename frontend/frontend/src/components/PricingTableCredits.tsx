@@ -34,10 +34,31 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Initialize Polar SDK
-  const polar = new Polar({
-    accessToken: import.meta.env.VITE_POLAR_ACCESS_TOKEN
-  })
+  // Validate environment variable
+  const polarAccessToken = import.meta.env.VITE_POLAR_ACCESS_TOKEN
+  if (!polarAccessToken || polarAccessToken === 'YOUR_POLAR_ACCESS_TOKEN_HERE') {
+    return (
+      <div className="text-center text-red-600 max-w-5xl mx-auto p-4">
+        <p>Error: Polar checkout is not configured.</p>
+        <p className="text-sm mt-2">Please set VITE_POLAR_ACCESS_TOKEN environment variable.</p>
+      </div>
+    )
+  }
+
+  // Initialize Polar SDK with error boundary
+  let polar;
+  try {
+    polar = new Polar({
+      accessToken: polarAccessToken
+    })
+  } catch (err) {
+    return (
+      <div className="text-center text-red-600 max-w-5xl mx-auto p-4">
+        <p>Error: Failed to initialize Polar checkout.</p>
+        <p className="text-sm mt-2">Please try again later.</p>
+      </div>
+    )
+  }
 
   // Log pricing table shown event
   useEffect(() => {
