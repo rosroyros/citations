@@ -36,8 +36,28 @@ fi
 
 echo "Git status clean. Proceeding."
 
-# 2. Trigger Server Deployment
-echo -e "\n${GREEN}[2/3] Triggering remote deployment...${NC}"
+# 2. Pre-flight Validation
+echo -e "\n${GREEN}[2/4] Running pre-flight validation...${NC}"
+
+# Check if POLAR_ACCESS_TOKEN is available
+if [ -z "$POLAR_ACCESS_TOKEN" ]; then
+    echo -e "${RED}Error: POLAR_ACCESS_TOKEN environment variable not set${NC}"
+    echo "Get your token from: https://polar.sh/settings/api-keys"
+    echo "Then run: export POLAR_ACCESS_TOKEN='your_token_here'"
+    exit 2
+fi
+
+# Run Polar product validation
+echo "Validating Polar products..."
+if ! python3 backend/scripts/validate_polar_products.py; then
+    echo -e "${RED}❌ Polar product validation failed! Fix issues before deploying.${NC}"
+    exit 2
+fi
+
+echo -e "${GREEN}✅ All Polar products validated successfully${NC}"
+
+# 3. Trigger Server Deployment
+echo -e "\n${GREEN}[3/4] Triggering remote deployment...${NC}"
 ssh "$SSH_TARGET" "cd /opt/citations && ./deployment/scripts/deploy.sh"
 
 if [ $? -ne 0 ]; then
@@ -45,8 +65,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 3. Run E2E Verification
-echo -e "\n${GREEN}[3/3] Running E2E Verification...${NC}"
+# 4. Run E2E Verification
+echo -e "\n${GREEN}[4/4] Running E2E Verification...${NC}"
 "$PROJECT_ROOT/deployment/scripts/run_remote_e2e.sh" "$SSH_TARGET"
 
 if [ $? -eq 0 ]; then
