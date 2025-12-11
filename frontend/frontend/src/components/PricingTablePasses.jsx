@@ -1,5 +1,8 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
+import React from "react"
+import { Polar } from "@polar-sh/sdk"
 
 // Product configuration
 // Updated with real Polar product IDs from pricing_config.py
@@ -75,6 +78,45 @@ const PRODUCTS = [
  * />
  */
 export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
+  const [loadingProductId, setLoadingProductId] = useState(null)
+  const [error, setError] = useState(null)
+
+  // Initialize Polar SDK
+  const polar = new Polar({
+    accessToken: import.meta.env.VITE_POLAR_ACCESS_TOKEN
+  })
+
+  // Log pricing table shown event
+  useEffect(() => {
+    // TODO: Implement analytics logging
+    console.log('pricing_table_shown', { variant: experimentVariant || '2' })
+  }, [experimentVariant])
+
+  const handleCheckout = async (productId) => {
+    setLoadingProductId(productId)
+    setError(null)
+
+    try {
+      // Log product selection
+      console.log('product_selected', { productId, variant: experimentVariant || '2' })
+
+      // Create Polar checkout
+      const result = await polar.checkout.create({
+        productId
+      })
+
+      // Log checkout started
+      console.log('checkout_started', { productId, checkoutUrl: result.url })
+
+      // Redirect to checkout
+      window.location.href = result.url
+    } catch (err) {
+      setError('Failed to open checkout. Please try again.')
+      console.error('Checkout error:', err)
+    } finally {
+      setLoadingProductId(null)
+    }
+  }
   return (
     <div className="space-y-4">
       {/* Pricing Cards Grid */}
@@ -145,11 +187,22 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
             {/* Card Footer - Buy Button */}
             <CardFooter>
               <Button
-                onClick={() => onSelectProduct(product.id, experimentVariant)}
+                onClick={() => handleCheckout(product.id)}
+                disabled={loadingProductId === product.id}
                 className="w-full"
                 variant={product.recommended ? "default" : "outline"}
               >
-                Buy {product.days}-Day Pass
+                {loadingProductId === product.id ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Opening checkout...
+                  </>
+                ) : (
+                  `Buy ${product.days}-Day Pass`
+                )}
               </Button>
             </CardFooter>
           </Card>
@@ -165,6 +218,13 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
           Buying another pass adds days to your existing pass.
         </p>
       </div>
+
+      {/* Error Display */}
+      {error && (
+        <div className="text-center text-red-600 mt-4 max-w-5xl mx-auto">
+          {error}
+        </div>
+      )}
     </div>
   )
 }
