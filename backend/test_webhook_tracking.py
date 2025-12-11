@@ -3,6 +3,9 @@
 Test webhook handler with mock Polar webhooks.
 
 This tests the tracking integration without needing real Polar webhooks.
+
+Dependencies:
+- requests: Already included in requirements.txt
 """
 
 import requests

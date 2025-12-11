@@ -1698,6 +1698,11 @@ async def handle_checkout_updated(webhook):
     # Oracle #16: Capture revenue
     amount_cents = line_items[0].price_amount
 
+    # Validate amount_cents
+    if amount_cents <= 0:
+        logger.error(f"Invalid amount_cents: {amount_cents}")
+        return
+
     if not product_id:
         logger.error("No product_id in line items")
         return
@@ -1771,16 +1776,25 @@ async def handle_checkout_updated(webhook):
         return
 
     if not success:
-        logger.error(f"Failed to grant access for order {order_id}")
+        # Provide more specific error message based on context
+        error_msg = f"Failed to grant access for order {order_id}"
 
-        # Log failure event
+        # Check if it's likely a duplicate order (idempotency in action)
+        if product_config['type'] == 'credits':
+            error_msg += " (possible duplicate order - idempotency)"
+        else:
+            error_msg += " (possible duplicate order or pass activation error)"
+
+        logger.error(error_msg)
+
+        # Log failure event with detailed error type
         log_upgrade_event(
             'purchase_failed',
             token,
             experiment_variant=experiment_variant,
             product_id=product_id,
             amount_cents=amount_cents,
-            error="Failed to grant access"
+            error="Failed to grant access - likely duplicate order"
         )
 
         return

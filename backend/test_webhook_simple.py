@@ -8,6 +8,7 @@ Tests the core logic without SDK dependencies.
 import subprocess
 import time
 import json
+import os
 from pricing_config import PRODUCT_CONFIG
 
 def test_product_config():
@@ -52,7 +53,8 @@ def verify_webhook_implementation():
     print("=" * 60)
 
     # Read the webhook handler
-    with open('app.py', 'r') as f:
+    app_py_path = os.path.join(os.path.dirname(__file__), 'app.py')
+    with open(app_py_path, 'r') as f:
         content = f.read()
 
     # Check for required imports
