@@ -7,10 +7,10 @@ test.describe('PricingTablePasses Component', () => {
   })
 
   test('renders three pass tiers side by side on desktop', async ({ page }) => {
-    // Check all three pass tiers are visible
-    await expect(page.getByText('1-Day Pass')).toBeVisible()
-    await expect(page.getByText('7-Day Pass')).toBeVisible()
-    await expect(page.getByText('30-Day Pass')).toBeVisible()
+    // Check all three pass tiers are visible as headings
+    await expect(page.getByRole('heading', { name: '1-Day Pass' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: '7-Day Pass' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: '30-Day Pass' })).toBeVisible()
 
     // Check pricing is displayed
     await expect(page.getByText('$1.99')).toBeVisible()
@@ -34,19 +34,22 @@ test.describe('PricingTablePasses Component', () => {
 
   test('shows correct benefits for each tier', async ({ page }) => {
     // 1-day pass benefits
-    await expect(page.getByText('Unlimited validations for 24 hours')).toBeVisible()
-    await expect(page.getByText('Up to 1,000 citations per day')).toBeVisible()
-    await expect(page.getByText('Perfect for finishing a paper')).toBeVisible()
+    const oneDayCard = page.locator('.border').filter({ hasText: '1-Day Pass' }).first()
+    await expect(oneDayCard.getByText('Unlimited validations for 24 hours')).toBeVisible()
+    await expect(oneDayCard.getByText('Up to 1,000 citations per day')).toBeVisible()
+    await expect(oneDayCard.getByText('Perfect for finishing a paper')).toBeVisible()
 
     // 7-day pass benefits
-    await expect(page.getByText('7 days of unlimited access')).toBeVisible()
-    await expect(page.getByText('Best value ($0.71/day)')).toBeVisible()
-    await expect(page.getByText('Export to BibTeX / RIS')).toBeVisible()
+    const sevenDayCard = page.locator('.border').filter({ hasText: '7-Day Pass' }).first()
+    await expect(sevenDayCard.getByText('7 days of unlimited access')).toBeVisible()
+    await expect(sevenDayCard.getByText('Best value ($0.71/day)')).toBeVisible()
+    await expect(sevenDayCard.getByText('Export to BibTeX / RIS')).toBeVisible()
 
     // 30-day pass benefits
-    await expect(page.getByText('30 days of unlimited access')).toBeVisible()
-    await expect(page.getByText('Lowest daily cost ($0.33/day)')).toBeVisible()
-    await expect(page.getByText('Perfect for ongoing research')).toBeVisible()
+    const thirtyDayCard = page.locator('.border').filter({ hasText: '30-Day Pass' }).first()
+    await expect(thirtyDayCard.getByText('30 days of unlimited access')).toBeVisible()
+    await expect(thirtyDayCard.getByText('Lowest daily cost ($0.33/day)')).toBeVisible()
+    await expect(thirtyDayCard.getByText('Perfect for ongoing research')).toBeVisible()
   })
 
   test('shows fair use disclaimer below cards', async ({ page }) => {
@@ -63,10 +66,10 @@ test.describe('PricingTablePasses Component', () => {
     await expect(buy7DayButton).toBeVisible()
     await expect(buy30DayButton).toBeVisible()
 
-    // Verify button styles - middle should be solid, others outline
-    await expect(buy7DayButton).toHaveClass(/button-default/)
-    await expect(buy1DayButton).toHaveClass(/button-outline/)
-    await expect(buy30DayButton).toHaveClass(/button-outline/)
+    // Verify button styles - middle should be solid (bg-primary), others outline (border)
+    await expect(buy7DayButton).toHaveClass(/bg-primary/)
+    await expect(buy1DayButton).toHaveClass(/border/)
+    await expect(buy30DayButton).toHaveClass(/border/)
   })
 
   test('is responsive - stacks cards on mobile', async ({ page }) => {
@@ -78,9 +81,9 @@ test.describe('PricingTablePasses Component', () => {
     await expect(gridContainer).toHaveClass(/grid-cols-1/)
 
     // All cards should still be visible
-    await expect(page.getByText('1-Day Pass')).toBeVisible()
-    await expect(page.getByText('7-Day Pass')).toBeVisible()
-    await expect(page.getByText('30-Day Pass')).toBeVisible()
+    await expect(page.getByRole('heading', { name: '1-Day Pass' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: '7-Day Pass' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: '30-Day Pass' })).toBeVisible()
   })
 
   test('maintains layout on desktop', async ({ page }) => {
@@ -108,23 +111,30 @@ test.describe('PricingTablePasses Component', () => {
       consoleMessages.push(msg.text())
     })
 
+    // Listen for dialogs (alerts)
+    let alertText = ''
+    page.on('dialog', dialog => {
+      alertText = dialog.message()
+      dialog.accept()
+    })
+
     await page.getByRole('button', { name: 'Buy 1-Day Pass' }).click()
 
-    // Check if onSelectProduct was called (console should show the alert)
-    expect(consoleMessages.some(msg => msg.includes('Selected: prod_pass_1day'))).toBeTruthy()
+    // Check if onSelectProduct was called (either via alert or console)
+    const hasAlert = alertText.includes('Selected: prod_pass_1day (Variant: 2)')
+    const hasConsole = consoleMessages.some(msg => msg.includes('Selected: prod_pass_1day'))
+    expect(hasAlert || hasConsole).toBeTruthy()
   })
 
   test('all cards mention 1000 citations per day limit', async ({ page }) => {
-    // Check that each card mentions the daily limit
-    const cards = page.locator('.border').filter({ hasText: 'Pass' })
-    const cardCount = await cards.count()
+    // Get the specific card elements
+    const oneDayCard = page.locator('.border').filter({ hasText: '1-Day Pass' }).first()
+    const sevenDayCard = page.locator('.border').filter({ hasText: '7-Day Pass' }).first()
+    const thirtyDayCard = page.locator('.border').filter({ hasText: '30-Day Pass' }).first()
 
-    expect(cardCount).toBe(3)
-
-    // Each card should mention "1,000 citations per day" or similar
-    for (let i = 0; i < cardCount; i++) {
-      const card = cards.nth(i)
-      await expect(card.locator('text=/1,000 citations per day/i')).toBeVisible()
-    }
+    // Each card should mention "1,000 citations per day"
+    await expect(oneDayCard.getByText('Up to 1,000 citations per day')).toBeVisible()
+    await expect(sevenDayCard.getByText('Up to 1,000 citations per day')).toBeVisible()
+    await expect(thirtyDayCard.getByText('Up to 1,000 citations per day')).toBeVisible()
   })
 })

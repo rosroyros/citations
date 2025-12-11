@@ -1,6 +1,50 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 
+// Product configuration
+// NOTE: Product IDs are placeholders - will be replaced with real Polar IDs in Phase 4
+const PRODUCTS = [
+  {
+    id: 'prod_pass_1day',
+    days: 1,
+    price: 1.99,
+    pricePerDay: 1.99,
+    recommended: false,
+    benefits: [
+      'Unlimited validations for 24 hours',
+      'Up to 1,000 citations per day',
+      'APA / MLA / Chicago support',
+      'Perfect for finishing a paper'
+    ]
+  },
+  {
+    id: 'prod_pass_7day',
+    days: 7,
+    price: 4.99,
+    pricePerDay: 0.71,  // $4.99 / 7 days
+    recommended: true,  // This is the tier we want to highlight
+    benefits: [
+      '7 days of unlimited access',
+      'Best value ($0.71/day)',
+      'Up to 1,000 citations per day',
+      'Export to BibTeX / RIS'
+    ]
+  },
+  {
+    id: 'prod_pass_30day',
+    days: 30,
+    price: 9.99,
+    pricePerDay: 0.33,  // $9.99 / 30 days
+    recommended: false,
+    benefits: [
+      '30 days of unlimited access',
+      'Lowest daily cost ($0.33/day)',
+      'Perfect for ongoing research',
+      'Priority support'
+    ]
+  }
+]
+
 /**
  * Pricing Table for Passes Variant (Variant 2)
  *
@@ -31,55 +75,11 @@ import { Button } from "@/components/ui/button"
  * />
  */
 export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
-  // Product configuration
-  // NOTE: Product IDs are placeholders - will be replaced with real Polar IDs in Phase 4
-  const products = [
-    {
-      id: 'prod_pass_1day',
-      days: 1,
-      price: 1.99,
-      pricePerDay: 1.99,
-      recommended: false,
-      benefits: [
-        'Unlimited validations for 24 hours',
-        'Up to 1,000 citations per day',
-        'APA / MLA / Chicago support',
-        'Perfect for finishing a paper'
-      ]
-    },
-    {
-      id: 'prod_pass_7day',
-      days: 7,
-      price: 4.99,
-      pricePerDay: 0.71,  // $4.99 / 7 days
-      recommended: true,  // This is the tier we want to highlight
-      benefits: [
-        '7 days of unlimited access',
-        'Best value ($0.71/day)',
-        'Up to 1,000 citations per day',
-        'Export to BibTeX / RIS'
-      ]
-    },
-    {
-      id: 'prod_pass_30day',
-      days: 30,
-      price: 9.99,
-      pricePerDay: 0.33,  // $9.99 / 30 days
-      recommended: false,
-      benefits: [
-        '30 days of unlimited access',
-        'Lowest daily cost ($0.33/day)',
-        'Perfect for ongoing research',
-        'Priority support'
-      ]
-    }
-  ]
-
   return (
     <div className="space-y-4">
       {/* Pricing Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto p-4">
-        {products.map(product => (
+        {PRODUCTS.map(product => (
           <Card
             key={product.id}
             className={
@@ -162,7 +162,7 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
           Fair use: 1,000 citations per day. Passes can be extended anytime.
         </p>
         <p className="text-xs mt-1 opacity-75">
-          Oracle Feedback #15: Buying another pass adds days to your existing pass.
+          Buying another pass adds days to your existing pass.
         </p>
       </div>
     </div>
