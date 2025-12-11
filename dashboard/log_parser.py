@@ -145,6 +145,7 @@ def extract_token_usage(log_line: str) -> Optional[Dict[str, int]]:
     # Pattern matches: Token usage: 1025 prompt + 997 completion = 2022 total
     # Also matches: Token usage: 1025 input + 997 output = 2022 total
     # Made more flexible with optional whitespace to handle formatting variations
+    # Updated to handle debug info: Token usage: 1025 prompt + 997 completion = 2022 total (API reports 2030, difference: 8 overhead tokens)
     token_pattern = r'Token usage:\s*(\d+)\s+(?:prompt|input)\s*\+\s*(\d+)\s+(?:completion|output)\s*=\s*(\d+)\s+total'
     match = re.search(token_pattern, log_line)
 

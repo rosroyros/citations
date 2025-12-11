@@ -108,10 +108,19 @@ class GeminiProvider(CitationValidator):
                     metadata = response.usage_metadata
                     # Use actual field names from Gemini API response
                     prompt_tokens = getattr(metadata, 'prompt_token_count', 0)
-                    total_tokens = getattr(metadata, 'total_token_count', 0)
+                    api_total_tokens = getattr(metadata, 'total_token_count', 0)
                     # candidates_token_count is the actual output tokens
                     output_tokens = getattr(metadata, 'candidates_token_count', 0)
-                    logger.info(f"Token usage: {prompt_tokens} prompt + {output_tokens} completion = {total_tokens} total")
+
+                    # Calculate total as prompt + completion for user-facing display
+                    # This ensures transparency since users expect total = prompt + completion
+                    calculated_total = prompt_tokens + output_tokens
+
+                    # Log both the API total and calculated total for debugging
+                    if api_total_tokens != calculated_total:
+                        logger.info(f"Token usage: {prompt_tokens} prompt + {output_tokens} completion = {calculated_total} total (API reports {api_total_tokens}, difference: {api_total_tokens - calculated_total} overhead tokens)")
+                    else:
+                        logger.info(f"Token usage: {prompt_tokens} prompt + {output_tokens} completion = {calculated_total} total")
             else:
                 response_text = await self._call_legacy_api(full_prompt)
                 # Legacy API doesn't provide reliable token usage
