@@ -4,6 +4,7 @@ import logging
 import time
 from pathlib import Path
 from typing import Optional
+from pricing_config import get_next_utc_midnight
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -36,6 +37,7 @@ def init_db():
         # Connect to database (creates file if it doesn't exist)
         logger.info(f"Initializing database at: {db_path}")
         conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
 
         # Enable foreign keys
         conn.execute("PRAGMA foreign_keys = ON")
@@ -55,8 +57,56 @@ def init_db():
                 order_id TEXT PRIMARY KEY,
                 token TEXT NOT NULL,
                 credits_granted INTEGER NOT NULL,
+                pass_days INTEGER,
+                pass_type TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (token) REFERENCES users(token)
+            )
+        ''')
+
+        # Add pass columns to orders table if they don't exist
+        try:
+            cursor.execute("ALTER TABLE orders ADD COLUMN pass_days INTEGER")
+            logger.info("Added pass_days column to orders table")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e).lower():
+                pass  # Column already exists
+            else:
+                raise
+
+        try:
+            cursor.execute("ALTER TABLE orders ADD COLUMN pass_type TEXT")
+            logger.info("Added pass_type column to orders table")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e).lower():
+                pass  # Column already exists
+            else:
+                raise
+
+        # Create user_passes table for time-based access
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS user_passes (
+                token TEXT PRIMARY KEY,
+                expiration_timestamp INTEGER NOT NULL,
+                pass_type TEXT NOT NULL,
+                purchase_date INTEGER NOT NULL,
+                order_id TEXT UNIQUE NOT NULL
+            )
+        ''')
+
+        # Create index for efficient expiration checks
+        conn.execute('''
+            CREATE INDEX IF NOT EXISTS idx_user_passes_expiration
+            ON user_passes(token, expiration_timestamp)
+        ''')
+
+        # Create daily_usage table for tracking citations per day
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS daily_usage (
+                token TEXT NOT NULL,
+                reset_timestamp INTEGER NOT NULL,
+                citations_count INTEGER DEFAULT 0,
+                PRIMARY KEY (token, reset_timestamp)
             )
         ''')
 
@@ -406,8 +456,6 @@ def try_increment_daily_usage(token: str, citation_count: int) -> dict:
 
     Oracle Feedback #1: https://docs/plans/2025-12-10-pricing-model-ab-test-design-FINAL.md
     """
-    from pricing_config import get_next_utc_midnight
-
     db_path = get_db_path()
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -473,8 +521,6 @@ def get_daily_usage_for_current_window(token: str) -> int:
 
     Returns citations used in current window (0 if new window or no usage).
     """
-    from pricing_config import get_next_utc_midnight
-
     db_path = get_db_path()
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -540,7 +586,7 @@ def add_pass(token: str, days: int, pass_type: str, order_id: str) -> bool:
 
     Idempotency (Oracle Feedback #6):
     - Uses BEGIN IMMEDIATE to prevent race conditions
-    - Checks order_id before processing
+    - Checks orders table for order_id (persistent record)
     - Catches IntegrityError if another thread processed concurrently
 
     Args:
@@ -563,7 +609,7 @@ def add_pass(token: str, days: int, pass_type: str, order_id: str) -> bool:
         cursor.execute("BEGIN IMMEDIATE")
 
         # Idempotency check - has this order been processed?
-        cursor.execute("SELECT 1 FROM user_passes WHERE order_id = ?", (order_id,))
+        cursor.execute("SELECT 1 FROM orders WHERE order_id = ?", (order_id,))
         if cursor.fetchone():
             conn.rollback()
             conn.close()
@@ -591,7 +637,13 @@ def add_pass(token: str, days: int, pass_type: str, order_id: str) -> bool:
             new_expiration = now + (days * 86400)
             logger.info(f"Granting new {pass_type} pass to {token}")
 
-        # Insert or replace
+        # Record the order in orders table (persistent history)
+        cursor.execute("""
+            INSERT INTO orders (order_id, token, credits_granted, pass_days, pass_type)
+            VALUES (?, ?, 0, ?, ?)
+        """, (order_id, token, days, pass_type))
+
+        # Insert or replace user pass state
         cursor.execute("""
             INSERT OR REPLACE INTO user_passes
             (token, expiration_timestamp, pass_type, purchase_date, order_id)
