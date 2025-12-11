@@ -82,7 +82,8 @@ For reference, here are the actual hex values:
 
 ## Testing
 
-To view the theme in action:
+To verify the theme configuration:
 1. Start dev server: `npm run dev`
-2. Navigate to: `http://localhost:5176/theme-test`
-3. Review the ThemeTest component for visual verification
+2. Navigate to: `http://localhost:5176/`
+3. The primary purple (#9333ea) should be visible in buttons and UI elements
+4. Check that fonts match the clean system font stack
