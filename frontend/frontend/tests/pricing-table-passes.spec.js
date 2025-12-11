@@ -121,8 +121,8 @@ test.describe('PricingTablePasses Component', () => {
     await page.getByRole('button', { name: 'Buy 1-Day Pass' }).click()
 
     // Check if onSelectProduct was called (either via alert or console)
-    const hasAlert = alertText.includes('Selected: prod_pass_1day (Variant: 2)')
-    const hasConsole = consoleMessages.some(msg => msg.includes('Selected: prod_pass_1day'))
+    const hasAlert = alertText.includes('Selected: 1282bd9b-81b6-4f06-a1f2-29bb0be01f26 (Variant: 2)')
+    const hasConsole = consoleMessages.some(msg => msg.includes('Selected: 1282bd9b-81b6-4f06-a1f2-29bb0be01f26'))
     expect(hasAlert || hasConsole).toBeTruthy()
   })
 

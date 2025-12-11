@@ -106,6 +106,6 @@ test.describe('PricingTableCredits Component', () => {
     await page.getByRole('button', { name: 'Buy 100 Credits' }).click()
 
     // Check if onSelectProduct was called (console should show the alert)
-    expect(consoleMessages.some(msg => msg.includes('Selected: prod_credits_100'))).toBeTruthy()
+    expect(consoleMessages.some(msg => msg.includes('Selected: 817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e'))).toBeTruthy()
   })
 })

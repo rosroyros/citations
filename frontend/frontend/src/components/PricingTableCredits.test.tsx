@@ -1,8 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { PricingTableCredits } from './PricingTableCredits'
 
 describe('PricingTableCredits', () => {
-  const mockOnSelectProduct = jest.fn()
+  const mockOnSelectProduct = vi.fn()
 
   beforeEach(() => {
     mockOnSelectProduct.mockClear()
@@ -14,7 +15,9 @@ describe('PricingTableCredits', () => {
     // Check for all three credit amounts
     expect(screen.getByText('100 Credits')).toBeInTheDocument()
     expect(screen.getByText('500 Credits')).toBeInTheDocument()
-    expect(screen.getByText('2,000 Credits')).toBeInTheDocument()
+    expect(screen.getByText((content, element) => {
+    return element?.textContent === '2,000 Credits'
+  })).toBeInTheDocument()
   })
 
   it('displays correct pricing for each tier', () => {
@@ -48,7 +51,7 @@ describe('PricingTableCredits', () => {
     const buy100Button = screen.getByText('Buy 100 Credits')
     fireEvent.click(buy100Button)
 
-    expect(mockOnSelectProduct).toHaveBeenCalledWith('prod_credits_100', '1')
+    expect(mockOnSelectProduct).toHaveBeenCalledWith('817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e', '1')
   })
 
   it('calls onSelectProduct for 500 credits button', () => {
@@ -57,16 +60,16 @@ describe('PricingTableCredits', () => {
     const buy500Button = screen.getByText('Buy 500 Credits')
     fireEvent.click(buy500Button)
 
-    expect(mockOnSelectProduct).toHaveBeenCalledWith('prod_credits_500', '1')
+    expect(mockOnSelectProduct).toHaveBeenCalledWith('2a3c8913-2e82-4f12-9eb7-767e4bc98089', '1')
   })
 
   it('calls onSelectProduct for 2000 credits button', () => {
     render(<PricingTableCredits onSelectProduct={mockOnSelectProduct} experimentVariant="1" />)
 
-    const buy2000Button = screen.getByText('Buy 2,000 Credits')
+    const buy2000Button = screen.getByRole('button', { name: 'Buy 2,000 Credits' })
     fireEvent.click(buy2000Button)
 
-    expect(mockOnSelectProduct).toHaveBeenCalledWith('prod_credits_2000', '1')
+    expect(mockOnSelectProduct).toHaveBeenCalledWith('fe7b0260-e411-4f9a-87c8-0856bf1d8b95', '1')
   })
 
   it('displays all benefit items with checkmarks', () => {
@@ -85,6 +88,6 @@ describe('PricingTableCredits', () => {
     const buy100Button = screen.getByText('Buy 100 Credits')
     fireEvent.click(buy100Button)
 
-    expect(mockOnSelectProduct).toHaveBeenCalledWith('prod_credits_100', '1')
+    expect(mockOnSelectProduct).toHaveBeenCalledWith('817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e', '1')
   })
 })
