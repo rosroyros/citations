@@ -21,6 +21,7 @@ import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
 import Dashboard from './pages/Dashboard'
 import DebugHTMLTest from './components/DebugHTMLTest'
+import { TestPricingTable } from './test-pricing-table'
 import { mockValidationAPI } from './utils/mockData'
 import { getModelPreference } from './utils/modelPreference'
 import './App.css'
@@ -1045,6 +1046,9 @@ function App() {
 
   if (pathname === '/debug-html') {
     return <DebugHTMLTest />
+  }
+  if (pathname === '/test-pricing-table') {
+    return <TestPricingTable />
   }
   if (pathname === '/dashboard') {
     return (
