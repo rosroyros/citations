@@ -16,9 +16,11 @@ import sqlite3
 import sys
 from pathlib import Path
 
-# Database paths
-CREDITS_DB_PATH = Path(__file__).parent.parent / 'credits.db'
-VALIDATIONS_DB_PATH = Path(__file__).parent.parent / 'validations.db'
+# Database paths - match application configuration
+# Script is at backend/migrations/, so parent.parent is project root
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+CREDITS_DB_PATH = PROJECT_ROOT / 'backend' / 'credits.db'
+VALIDATIONS_DB_PATH = PROJECT_ROOT / 'dashboard' / 'data' / 'validations.db'
 
 def migrate():
     """Run migration - safe to run multiple times (IF NOT EXISTS)."""
@@ -62,6 +64,8 @@ def migrate():
         """)
 
         conn.commit()
+        # Note: credits.db changes committed here. If validations migration fails,
+        # system will be in partially migrated state but migration is idempotent
         conn.close()
 
         # Migrate validations.db
