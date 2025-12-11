@@ -18,10 +18,10 @@ load_dotenv("backend/.env")
 
 # Configuration
 MODEL_NAME = "gemini-2.5-flash"
-RUNS = 2
+RUNS = 3
 DATASET_PATH = "Checker_Prompt_Optimization/test_set_121_corrected.jsonl"
-PROMPT_PATH = "backend/prompts/validator_prompt_optimized.txt"
-OUTPUT_FILE = "Checker_Prompt_Optimization/gemini_consistency_results_part2.json"
+PROMPT_PATH = "backend/prompts/validator_prompt_v3.txt"
+OUTPUT_FILE = "Checker_Prompt_Optimization/gemini_v3_consistency_results.json"
 
 # Load Sensitivity Configuration
 BATCH_SIZE = 5     # Process citations in small batches
@@ -92,7 +92,7 @@ async def call_gemini_safe(model, full_prompt, run_id):
             response = await model.generate_content_async(
                 full_prompt,
                 generation_config={
-                    "temperature": 0.2, # Test reduced variance
+                    "temperature": 0.0, # Test reduced variance
                     "max_output_tokens": 8192,
                 }
             )
@@ -176,7 +176,8 @@ async def run_consistency_test():
             "model": MODEL_NAME,
             "runs": RUNS,
             "total_citations": len(citations),
-            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+            "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "prompt_version": "v3"
         },
         "raw_responses": {f"run_{i+1}": [] for i in range(RUNS)},
         "citation_analysis": []
