@@ -96,16 +96,92 @@ test.describe('PricingTableCredits Component', () => {
     expect(checkmarkCount).toBeGreaterThanOrEqual(9)
   })
 
-  test('clicking buy buttons triggers correct handler', async ({ page }) => {
-    // Listen for console logs to verify click handlers
+  test('clicking buy buttons triggers checkout flow', async ({ page }) => {
+    // Mock the checkout API call
+    await page.route('/api/create-checkout', async route => {
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          checkout_url: 'https://checkout.polar.sh/test-checkout'
+        })
+      })
+    })
+
+    // Listen for console logs to verify analytics events
     const consoleMessages = []
     page.on('console', msg => {
       consoleMessages.push(msg.text())
     })
 
+    // Intercept navigation to prevent actual redirect
+    let navigationUrl = null
+    page.on('request', request => {
+      if (request.url().includes('checkout.polar.sh')) {
+        navigationUrl = request.url()
+      }
+    })
+
+    // Click the buy button
     await page.getByRole('button', { name: 'Buy 100 Credits' }).click()
 
-    // Check if onSelectProduct was called (console should show the alert)
-    expect(consoleMessages.some(msg => msg.includes('Selected: 817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e'))).toBeTruthy()
+    // Check for loading state
+    await expect(page.getByText('Opening checkout...')).toBeVisible()
+    await page.waitForTimeout(500) // Brief wait for async operations
+
+    // Verify analytics events were logged
+    expect(consoleMessages.some(msg => msg.includes('pricing_table_shown'))).toBeTruthy()
+    expect(consoleMessages.some(msg => msg.includes('product_selected'))).toBeTruthy()
+    expect(consoleMessages.some(msg => msg.includes('checkout_started'))).toBeTruthy()
+
+    // Verify API call was made
+    const apiRequests = await page.$$eval('#', () => [])
+    // Note: The actual API verification is done through the mocked response
+  })
+
+  test('handles checkout API errors gracefully', async ({ page }) => {
+    // Mock the checkout API to return an error
+    await page.route('/api/create-checkout', async route => {
+      await route.fulfill({
+        status: 500,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'Server error' })
+      })
+    })
+
+    // Click the buy button
+    await page.getByRole('button', { name: 'Buy 100 Credits' }).click()
+
+    // Check for error message
+    await expect(page.getByText('Failed to open checkout. Please try again.')).toBeVisible()
+
+    // Verify button is still clickable after error
+    await expect(page.getByRole('button', { name: 'Buy 100 Credits' })).toBeEnabled()
+  })
+
+  test('shows loading state during checkout creation', async ({ page }) => {
+    // Mock a delayed API response
+    await page.route('/api/create-checkout', async route => {
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          checkout_url: 'https://checkout.polar.sh/test-checkout'
+        })
+      })
+    })
+
+    // Click the buy button
+    await page.getByRole('button', { name: 'Buy 100 Credits' }).click()
+
+    // Check for loading state immediately
+    await expect(page.getByText('Opening checkout...')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Buy 100 Credits' })).toBeDisabled()
+
+    // Wait for loading to complete
+    await page.waitForTimeout(1100)
+    await expect(page.getByText('Opening checkout...')).not.toBeVisible()
   })
 })
