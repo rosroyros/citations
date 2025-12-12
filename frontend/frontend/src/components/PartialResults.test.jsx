@@ -86,7 +86,7 @@ describe('PartialResults', () => {
 
     // Assert
     expect(screen.getByText('7 more citations available')).toBeInTheDocument();
-    expect(screen.getByText('Upgrade to unlock validation results & more usage')).toBeInTheDocument();
+    expect(screen.getByText('Free tier limit (10) reached. Upgrade to continue.')).toBeInTheDocument();
   });
 
   it('should show singular form for 1 remaining citation', () => {
@@ -119,7 +119,7 @@ describe('PartialResults', () => {
 
     // Act
     render(<PartialResults {...props} />);
-    const upgradeButton = screen.getByText('Upgrade to Unlock Now');
+    const upgradeButton = screen.getByText('Upgrade to Continue');
     fireEvent.click(upgradeButton);
 
     // Assert
@@ -203,7 +203,7 @@ describe('PartialResults', () => {
     const allButtons = screen.getAllByRole('button');
     console.log('All buttons found:', allButtons.map(b => b.textContent));
 
-    const upgradeButton = screen.getByText('Upgrade to Unlock Now');
+    const upgradeButton = screen.getByText('Upgrade to Continue');
     console.log('Upgrade button found:', upgradeButton);
     fireEvent.click(upgradeButton);
 
@@ -233,7 +233,7 @@ describe('PartialResults', () => {
 
     // Act
     render(<PartialResults {...props} />);
-    const upgradeButton = screen.getByText('Upgrade to Unlock Now');
+    const upgradeButton = screen.getByText('Upgrade to Continue');
     fireEvent.click(upgradeButton);
 
     // Assert
@@ -284,7 +284,7 @@ describe('PartialResults', () => {
 
     // Act
     render(<PartialResults {...props} />);
-    const upgradeButton = screen.getByText('Upgrade to Unlock Now');
+    const upgradeButton = screen.getByText('Upgrade to Continue');
     fireEvent.click(upgradeButton);
 
     // Assert

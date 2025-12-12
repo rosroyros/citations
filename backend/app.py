@@ -448,6 +448,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Register test helper endpoints (only available in testing mode)
+from test_helpers import register_test_helpers
+register_test_helpers(app)
+
 
 @app.middleware("http")
 async def log_requests(request, call_next):

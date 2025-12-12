@@ -6,6 +6,7 @@ import { CreditDisplay } from './components/CreditDisplay'
 import { UserStatus } from './components/UserStatus'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
+import { convertBackendErrorMessage } from './utils/errorMessages'
 import ValidationTable from './components/ValidationTable'
 import ValidationLoadingState from './components/ValidationLoadingState'
 import GatedResults from './components/GatedResults'
@@ -375,23 +376,8 @@ function AppContent() {
           console.log('Job failed:', jobData.error)
           localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
 
-          let errorMessage = jobData.error || 'Validation failed'
-
           // Convert backend error messages to user-friendly ones
-          if (errorMessage.includes('Insufficient credits: need')) {
-            const match = errorMessage.match(/need (\d+), have (\d+)/)
-            if (match) {
-              const need = match[1]
-              const have = match[2]
-              errorMessage = `Request needs ${need} validations but only ${have} remaining today.`
-            } else {
-              errorMessage = 'No credits remaining. Purchase more to continue.'
-            }
-          } else if (errorMessage.includes('Daily citation limit exceeded')) {
-            errorMessage = 'Daily limit (1000) reached. Resets at midnight UTC.'
-          } else if (errorMessage.includes('0 credits')) {
-            errorMessage = 'No credits remaining. Purchase more to continue.'
-          }
+        const errorMessage = convertBackendErrorMessage(jobData.error || 'Validation failed')
 
           // Track validation error
           let errorType = 'job_failed'
@@ -785,30 +771,8 @@ function AppContent() {
         error_message: err.message.substring(0, 100) // Truncate for privacy
       })
 
-      // User-friendly error messages
-      let userMessage = err.message
-
-      // Handle specific error messages from backend
-      if (err.message.includes('Insufficient credits: need')) {
-        // Extract the numbers from the error message
-        const match = err.message.match(/need (\d+), have (\d+)/)
-        if (match) {
-          const need = match[1]
-          const have = match[2]
-          userMessage = `Request needs ${need} validations but only ${have} remaining today.`
-        } else {
-          userMessage = 'No credits remaining. Purchase more to continue.'
-        }
-      } else if (err.message.includes('Daily citation limit exceeded')) {
-        // Backend says "Resets at midnight UTC", convert to user-friendly format
-        userMessage = 'Daily limit (1000) reached. Resets at midnight UTC.'
-      } else if (err.message.includes('0 credits')) {
-        userMessage = 'No credits remaining. Purchase more to continue.'
-      } else if (err.message.includes('fetch')) {
-        userMessage = 'Unable to connect to the validation service. Please check if the backend is running.'
-      } else if (err.message.includes('Network')) {
-        userMessage = 'Network error occurred. Please check your connection and try again.'
-      }
+      // Convert backend error messages to user-friendly ones
+      const userMessage = convertBackendErrorMessage(err.message)
 
       console.log('Displaying user-facing error:', userMessage)
 
