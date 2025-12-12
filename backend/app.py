@@ -40,6 +40,9 @@ logger = setup_logger("citation_validator")
 # Free tier limit
 FREE_LIMIT = 5
 
+# Pass daily limit
+PASS_DAILY_LIMIT = 1000
+
 # Citation pipeline health thresholds (in bytes)
 LAG_THRESHOLD_WARNING_BYTES = 1 * 1024 * 1024  # 1MB
 LAG_THRESHOLD_CRITICAL_BYTES = 5 * 1024 * 1024  # 5MB
@@ -246,7 +249,7 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 type='pass',
                 days_remaining=days_remaining,
                 daily_used=daily_usage['used_after'],
-                daily_limit=1000,
+                daily_limit=PASS_DAILY_LIMIT,
                 reset_time=daily_usage['reset_timestamp'],
                 balance=None,  # Not applicable for pass users
                 validations_used=None,  # Not applicable for pass users
@@ -265,7 +268,7 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 type='pass',
                 days_remaining=days_remaining,
                 daily_used=daily_usage['used_before'] + citation_count,  # Would exceed
-                daily_limit=1000,
+                daily_limit=PASS_DAILY_LIMIT,
                 reset_time=daily_usage['reset_timestamp'],
                 balance=None,
                 validations_used=None,
