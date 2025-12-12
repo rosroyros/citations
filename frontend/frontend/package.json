@@ -14,7 +14,6 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
-    "@polar-sh/sdk": "^0.41.5",
     "@radix-ui/react-slot": "^1.2.4",
     "@tiptap/extension-underline": "^3.6.6",
     "@tiptap/react": "^3.6.6",

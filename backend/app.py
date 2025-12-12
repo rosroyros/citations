@@ -542,10 +542,10 @@ async def debug_environment():
 @app.post("/api/create-checkout")
 def create_checkout(request: dict):
     """
-    Create a Polar checkout for purchasing citation credits.
+    Create a Polar checkout for purchasing citation credits or passes.
 
     Args:
-        request: Dict with optional 'token' field
+        request: Dict with optional 'token', 'productId', and 'variantId' fields
 
     Returns:
         dict: {'checkout_url': str, 'token': str}
@@ -556,16 +556,25 @@ def create_checkout(request: dict):
     token = request.get('token') or str(uuid.uuid4())
     logger.debug(f"Token for checkout: {token[:8]}...")
 
+    # Get productId from request (for pricing tables) or use default from env
+    product_id = request.get('productId') or os.getenv('POLAR_PRODUCT_ID')
+    variant_id = request.get('variantId', 'unknown')
+
+    logger.info(f"Product ID: {product_id}")
+    logger.info(f"Variant ID: {variant_id}")
+
     try:
         # Create Polar checkout
         logger.info("Creating Polar checkout")
-        logger.info(f"Product ID being used: {os.getenv('POLAR_PRODUCT_ID')}")
         logger.info(f"Token: {token}")
 
         checkout_request = {
-            "products": [os.getenv('POLAR_PRODUCT_ID')],
+            "products": [product_id],
             "success_url": f"{os.getenv('FRONTEND_URL')}/success?token={token}",
-            "metadata": {"token": token}
+            "metadata": {
+                "token": token,
+                "variant_id": variant_id
+            }
         }
         logger.info(f"Checkout request: {checkout_request}")
 

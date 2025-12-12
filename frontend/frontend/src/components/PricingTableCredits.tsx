@@ -2,7 +2,6 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import React from "react"
-import { Polar } from "@polar-sh/sdk"
 
 /**
  * Pricing Table for Credits Variant (Variant 1)
@@ -34,32 +33,6 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
   const [loadingProductId, setLoadingProductId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Validate environment variable
-  const polarAccessToken = import.meta.env.VITE_POLAR_ACCESS_TOKEN
-  if (!polarAccessToken || polarAccessToken === 'YOUR_POLAR_ACCESS_TOKEN_HERE') {
-    return (
-      <div className="text-center text-red-600 max-w-5xl mx-auto p-4">
-        <p>Error: Polar checkout is not configured.</p>
-        <p className="text-sm mt-2">Please set VITE_POLAR_ACCESS_TOKEN environment variable.</p>
-      </div>
-    )
-  }
-
-  // Initialize Polar SDK with error boundary
-  let polar;
-  try {
-    polar = new Polar({
-      accessToken: polarAccessToken
-    })
-  } catch (err) {
-    return (
-      <div className="text-center text-red-600 max-w-5xl mx-auto p-4">
-        <p>Error: Failed to initialize Polar checkout.</p>
-        <p className="text-sm mt-2">Please try again later.</p>
-      </div>
-    )
-  }
-
   // Log pricing table shown event
   useEffect(() => {
     // TODO: Implement analytics logging
@@ -74,16 +47,31 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
       // Log product selection
       console.log('product_selected', { productId, variant: experimentVariant || '1' })
 
-      // Create Polar checkout
-      const result = await polar.checkout.create({
-        productId
+      // Create Polar checkout via backend API
+      const response = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId,
+          variantId: experimentVariant || '1'
+        })
       })
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+
+      const { checkout_url } = await response.json()
+
+      if (!checkout_url) {
+        throw new Error('No checkout URL returned')
+      }
+
       // Log checkout started
-      console.log('checkout_started', { productId, checkoutUrl: result.url })
+      console.log('checkout_started', { productId, checkoutUrl: checkout_url })
 
       // Redirect to checkout
-      window.location.href = result.url
+      window.location.href = checkout_url
     } catch (err) {
       setError('Failed to open checkout. Please try again.')
       console.error('Checkout error:', err)
