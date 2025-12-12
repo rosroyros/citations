@@ -369,7 +369,7 @@ test.describe('Pricing Integration Tests', () => {
     // 7. Complete purchase via webhook
     const productId = variant === 'credits' ? 'prod_credits_500' : 'prod_pass_7day';
     await page.evaluate(async ({ productId, checkoutId, userId }) => {
-      await fetch('http://localhost:8002/webhook', {
+      await fetch('http://127.0.0.1:8002/webhook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

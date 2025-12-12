@@ -28,6 +28,7 @@ import { PricingTablePassesDemo } from './components/PricingTablePassesDemo'
 import { PricingTableComparison } from './components/PricingTableComparison'
 import { mockValidationAPI } from './utils/mockData'
 import { getModelPreference } from './utils/modelPreference'
+import { getExperimentVariant } from './utils/experimentVariant'
 import './App.css'
 
 // Set to true to test frontend without backend
@@ -658,6 +659,9 @@ function AppContent() {
         const modelPreference = getModelPreference()
         headers['X-Model-Preference'] = modelPreference
 
+        // Add pricing experiment variant
+        headers['X-Experiment-Variant'] = getExperimentVariant()
+
         const response = await fetch('/api/validate/async', {
           method: 'POST',
           headers,
@@ -1044,7 +1048,17 @@ function AppContent() {
 
       <Footer />
 
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
+      <UpgradeModal 
+        isOpen={showUpgradeModal} 
+        onClose={() => setShowUpgradeModal(false)}
+        limitType={results?.limit_type}
+        passInfo={results?.user_status?.type === 'pass' ? {
+          pass_type: results.user_status.pass_type || 'Active',
+          expiration_timestamp: results.user_status.expiration_timestamp
+        } : null}
+        resetTimestamp={results?.user_status?.reset_time}
+        dailyRemaining={results?.user_status?.daily_limit ? results.user_status.daily_limit - results.user_status.daily_used : 0}
+      />
       <ComingSoonModal
         isOpen={showComingSoonModal}
         file={selectedFile}

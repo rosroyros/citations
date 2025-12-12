@@ -29,7 +29,9 @@ class ClearEventsRequest(BaseModel):
 def get_test_db():
     """Get database connection for testing"""
     db_path = os.path.join(os.path.dirname(__file__), 'credits.db')
-    return sqlite3.connect(db_path)
+    conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
+    return conn
 
 def register_test_helpers(app):
     """Register all test helper endpoints with the FastAPI app"""

@@ -4,6 +4,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { saveToken, getToken, clearFreeUserId } from '../utils/creditStorage'
 import { useCredits } from '../contexts/CreditContext'
+import { getExperimentVariant } from '../utils/experimentVariant'
 import { CreditDisplay } from '../components/CreditDisplay'
 import { UpgradeModal } from '../components/UpgradeModal'
 import { PartialResults } from '../components/PartialResults'
@@ -165,6 +166,8 @@ const Success = () => {
       if (token) {
         headers['X-User-Token'] = token
       }
+      // Add pricing experiment variant
+      headers['X-Experiment-Variant'] = getExperimentVariant()
 
       const response = await fetch('/api/validate/async', {
         method: 'POST',
@@ -623,7 +626,17 @@ const Success = () => {
 
       <Footer />
 
-      <UpgradeModal isOpen={showUpgradeModal} onClose={() => setShowUpgradeModal(false)} />
+      <UpgradeModal 
+        isOpen={showUpgradeModal} 
+        onClose={() => setShowUpgradeModal(false)} 
+        limitType={results?.limit_type}
+        passInfo={results?.user_status?.type === 'pass' ? {
+          pass_type: results.user_status.pass_type || 'Active',
+          expiration_timestamp: results.user_status.expiration_timestamp
+        } : null}
+        resetTimestamp={results?.user_status?.reset_time}
+        dailyRemaining={results?.user_status?.daily_limit ? results.user_status.daily_limit - results.user_status.daily_used : 0}
+      />
     </div>
     </>
   )

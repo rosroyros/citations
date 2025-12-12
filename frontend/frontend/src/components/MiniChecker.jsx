@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { trackEvent } from '../utils/analytics'
+import { getExperimentVariant } from '../utils/experimentVariant'
 import './MiniChecker.css'
 
 /**
@@ -31,6 +32,7 @@ function MiniChecker({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Experiment-Variant': getExperimentVariant()
         },
         body: JSON.stringify({
           citations: citation,

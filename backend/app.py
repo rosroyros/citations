@@ -10,6 +10,7 @@ import uuid
 import json
 import base64
 import time
+import random
 from datetime import datetime
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
@@ -514,6 +515,7 @@ class ValidationResponse(BaseModel):
     results_gated: Optional[bool] = None  # NEW - gating decision
     job_id: Optional[str] = None  # NEW - for reveal tracking
     user_status: Optional[UserStatus] = None  # NEW - user access status
+    limit_type: Optional[str] = None  # NEW - reason for partial/gated results
 
 
 def build_gated_response(
@@ -914,6 +916,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "citations_remaining": citation_count,
                     "free_used": FREE_LIMIT,
                     "free_used_total": FREE_LIMIT,
+                    "limit_type": "free_limit",
                     "user_status": UserStatus(
                         type='free',
                         days_remaining=None,
@@ -932,6 +935,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "results": results,
                     "free_used": free_used + citation_count,
                     "free_used_total": free_used + citation_count,
+                    "limit_type": "none",
                     "user_status": UserStatus(
                         type='free',
                         days_remaining=None,
@@ -953,6 +957,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "citations_remaining": citation_count - affordable,
                     "free_used": FREE_LIMIT,  # Capped at limit
                     "free_used_total": FREE_LIMIT,  # Authoritative total for frontend sync
+                    "limit_type": "free_limit",
                     "user_status": UserStatus(
                         type='free',
                         days_remaining=None,
@@ -1060,7 +1065,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     citations_checked=0,
                     citations_remaining=citation_count,
                     free_used=FREE_LIMIT,
-                    free_used_total=FREE_LIMIT
+                    free_used_total=FREE_LIMIT,
+                    limit_type="free_limit"
                 ).model_dump()
                 jobs[job_id]["results_gated"] = True  # This is a gated response
                 logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
@@ -1114,7 +1120,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 # Return all results
                 response_data = {
                     "results": results,
-                    "free_used_total": free_used + citation_count
+                    "free_used_total": free_used + citation_count,
+                    "limit_type": "none"
                 }
                 gating_reason = "Free tier under limit"
             else:
@@ -1124,7 +1131,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     "partial": True,
                     "citations_checked": affordable,
                     "citations_remaining": citation_count - affordable,
-                    "free_used_total": FREE_LIMIT
+                    "free_used_total": FREE_LIMIT,
+                    "limit_type": "free_limit"
                 }
                 gating_reason = "Free tier over limit"
         else:
@@ -1139,7 +1147,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
                 response_data = {
                     "results": results,
-                    "credits_remaining": user_credits - citation_count
+                    "credits_remaining": user_credits - citation_count,
+                    "limit_type": "none"
                 }
                 gating_reason = "Paid user sufficient credits"
             else:
@@ -1164,7 +1173,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     "partial": True,
                     "citations_checked": affordable,
                     "citations_remaining": citation_count - affordable,
-                    "credits_remaining": 0
+                    "credits_remaining": 0,
+                    "limit_type": "credits_exhausted"
                 }
                 gating_reason = "Paid user insufficient credits"
 
