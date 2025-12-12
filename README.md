@@ -33,7 +33,7 @@ Smith, J. (2023). testtesttest: A study on validation methods. Journal of Testin
 - **Async Polling**: `POST /api/validate/async` -> Job ID -> `GET /api/jobs/{job_id}` (2s poll) -> Results.
 - **Job Storage**: In-memory with 30min TTL.
 - **PSEO**: Static site generator (`backend/pseo`) builds `cite-{source}-apa` pages with inline mini-checker.
-- **Gating**: Free tier limit (10), Polar integration for credits.
+- **Gating**: Free tier limit (5), Polar integration for credits.
 
 ### Async Flow
 ```
@@ -104,7 +104,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).
 6. **Result**: Structured feedback (Correct/Incorrect + specific rule violations).
 7. **Gating**:
-   - **Free User Limit**: 10 validations per session/user.
+   - **Free User Limit**: 5 validations per session/user.
    - **Over Limit**: Citations are still processed, but results are **hidden (locked)** in the UI.
    - **Unlock**: Free users must click to reveal results (engagement tracking).
    - **Polar Integration**: Handles paywall/credits for paid tiers.
