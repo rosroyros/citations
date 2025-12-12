@@ -16,7 +16,7 @@ from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from providers.gemini_provider import GeminiProvider
-from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass, get_active_pass, try_increment_daily_usage
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready, check_disk_space
 from dashboard.log_parser import CitationLogParser
@@ -218,6 +218,100 @@ def html_to_text_with_formatting(html: str) -> str:
     return converter.get_text()
 
 
+def check_user_access(token: str, citation_count: int) -> dict:
+    """
+    Check user access by checking pass status first, then credits.
+
+    Returns:
+    {
+        'has_access': bool,        # Whether user can proceed
+        'access_type': str,        # 'pass' or 'credits' or 'none'
+        'user_status': UserStatus, # Status info for response
+        'error_message': str,      # Error if no access
+    }
+    """
+    # Check for active pass first (priority)
+    active_pass = get_active_pass(token)
+
+    if active_pass:
+        # User has active pass - check daily limit
+        daily_usage = try_increment_daily_usage(token, citation_count)
+
+        if daily_usage['success']:
+            # Pass user within daily limit
+            user_status = UserStatus(
+                has_pass=True,
+                pass_type=active_pass['pass_type'],
+                daily_citations_remaining=daily_usage['remaining'],
+                credits_remaining=None  # Not applicable for pass users
+            )
+
+            return {
+                'has_access': True,
+                'access_type': 'pass',
+                'user_status': user_status,
+                'error_message': None
+            }
+        else:
+            # Pass user exceeded daily limit
+            user_status = UserStatus(
+                has_pass=True,
+                pass_type=active_pass['pass_type'],
+                daily_citations_remaining=0,
+                credits_remaining=None
+            )
+
+            return {
+                'has_access': False,
+                'access_type': 'pass',
+                'user_status': user_status,
+                'error_message': f"Daily citation limit exceeded ({daily_usage['used_before']}/{1000}). Resets at midnight UTC."
+            }
+
+    # No active pass - check credits
+    user_credits = get_credits(token)
+
+    if user_credits >= citation_count:
+        # User has sufficient credits
+        success = deduct_credits(token, citation_count)
+        if success:
+            user_status = UserStatus(
+                has_pass=False,
+                pass_type=None,
+                daily_citations_remaining=None,  # Not applicable for credit users
+                credits_remaining=user_credits - citation_count
+            )
+
+            return {
+                'has_access': True,
+                'access_type': 'credits',
+                'user_status': user_status,
+                'error_message': None
+            }
+        else:
+            return {
+                'has_access': False,
+                'access_type': 'credits',
+                'user_status': None,
+                'error_message': "Failed to deduct credits"
+            }
+
+    # User doesn't have enough credits
+    user_status = UserStatus(
+        has_pass=False,
+        pass_type=None,
+        daily_citations_remaining=None,
+        credits_remaining=user_credits
+    )
+
+    return {
+        'has_access': False,
+        'access_type': 'credits',
+        'user_status': user_status,
+        'error_message': f"Insufficient credits: need {citation_count}, have {user_credits}"
+    }
+
+
 def extract_user_id(request: Request) -> tuple[Optional[str], Optional[str], str]:
     """
     Extract user identification from request headers.
@@ -363,6 +457,14 @@ class CitationResult(BaseModel):
     errors: list[CitationError]
 
 
+class UserStatus(BaseModel):
+    """User status information for response."""
+    has_pass: Optional[bool] = None
+    pass_type: Optional[str] = None
+    daily_citations_remaining: Optional[int] = None
+    credits_remaining: Optional[int] = None
+
+
 class ValidationResponse(BaseModel):
     """Response model for citation validation."""
     results: list[CitationResult]
@@ -374,6 +476,7 @@ class ValidationResponse(BaseModel):
     free_used_total: Optional[int] = None  # NEW - authoritative count for frontend
     results_gated: Optional[bool] = None  # NEW - gating decision
     job_id: Optional[str] = None  # NEW - for reveal tracking
+    user_status: Optional[UserStatus] = None  # NEW - user access status
 
 
 def build_gated_response(
@@ -699,8 +802,40 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
         if original_citations and CITATION_LOGGING_ENABLED:
             log_citations_to_dashboard(job_id, original_citations)
 
-        # Handle credit logic
-        if not token:
+        # Handle access control - check passes first, then credits
+        citation_count = len(results)
+
+        if token:
+            # Paid user - check pass status first
+            access_check = check_user_access(token, citation_count)
+
+            if not access_check['has_access']:
+                # User denied access (pass limit exceeded or insufficient credits)
+                logger.warning(f"Access denied for token {token[:8]}: {access_check['error_message']}")
+
+                # Log pricing table shown event if needed
+                if access_check['access_type'] == 'credits':
+                    log_pricing_table_shown(
+                        token,
+                        http_request.headers.get('X-Experiment-Variant'),
+                        reason='zero_credits' if access_check['user_status'].credits_remaining == 0 else 'insufficient_credits',
+                        credits_remaining=access_check['user_status'].credits_remaining
+                    )
+
+                raise HTTPException(
+                    status_code=402,  # Payment Required
+                    detail=access_check['error_message']
+                )
+
+            # User has access - return results with user status
+            response_data = {"results": results}
+            if access_check['access_type'] == 'credits':
+                response_data["credits_remaining"] = access_check['user_status'].credits_remaining
+
+            response_data["user_status"] = access_check['user_status']
+            return build_gated_response(response_data, gating_user_type, job_id, f"Access granted via {access_check['access_type']}")
+
+        else:
             # Free tier - enforce 10 citation limit
             free_used_header = http_request.headers.get('X-Free-Used', '')
 
@@ -719,7 +854,6 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             else:
                 free_used = 0
 
-            citation_count = len(results)
             affordable = max(0, FREE_LIMIT - free_used)
 
             logger.info(f"Free tier: used={free_used}, submitting={citation_count}, affordable={affordable}")
@@ -742,7 +876,13 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "citations_checked": 0,
                     "citations_remaining": citation_count,
                     "free_used": FREE_LIMIT,
-                    "free_used_total": FREE_LIMIT
+                    "free_used_total": FREE_LIMIT,
+                    "user_status": UserStatus(
+                        has_pass=False,
+                        pass_type=None,
+                        daily_citations_remaining=None,
+                        credits_remaining=None
+                    )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier limit reached")
             elif affordable >= citation_count:
@@ -750,7 +890,13 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 response_data = {
                     "results": results,
                     "free_used": free_used + citation_count,
-                    "free_used_total": free_used + citation_count
+                    "free_used_total": free_used + citation_count,
+                    "user_status": UserStatus(
+                        has_pass=False,
+                        pass_type=None,
+                        daily_citations_remaining=None,
+                        credits_remaining=None
+                    )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier under limit")
             else:
@@ -761,72 +907,15 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "citations_checked": affordable,
                     "citations_remaining": citation_count - affordable,
                     "free_used": FREE_LIMIT,  # Capped at limit
-                    "free_used_total": FREE_LIMIT  # Authoritative total for frontend sync
+                    "free_used_total": FREE_LIMIT,  # Authoritative total for frontend sync
+                    "user_status": UserStatus(
+                        has_pass=False,
+                        pass_type=None,
+                        daily_citations_remaining=None,
+                        credits_remaining=None
+                    )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier over limit")
-
-        # Paid tier - check credits
-        from database import get_credits, deduct_credits
-        user_credits = get_credits(token)
-        logger.debug(f"User credits: {user_credits}")
-
-        if user_credits == 0:
-            logger.warning("User has zero credits - returning 402 error")
-
-            # Log pricing table shown event for upgrade funnel tracking
-            log_pricing_table_shown(
-                token,
-                http_request.headers.get('X-Experiment-Variant'),
-                reason='zero_credits',
-                credits_remaining=0
-            )
-
-            raise HTTPException(
-                status_code=402,  # Payment Required
-                detail="You have 0 Citation Credits remaining. Purchase more to continue."
-            )
-
-        if user_credits >= citation_count:
-            # Can afford all citations
-            logger.info(f"Sufficient credits ({user_credits} >= {citation_count}) - returning all results")
-            success = deduct_credits(token, citation_count)
-            if not success:
-                logger.error("Failed to deduct credits")
-                raise HTTPException(status_code=500, detail="Failed to deduct credits")
-
-            response_data = {
-                "results": results,
-                "credits_remaining": user_credits - citation_count
-            }
-            return build_gated_response(response_data, gating_user_type, job_id, "Paid user sufficient credits")
-        else:
-            # Partial results
-            affordable = user_credits
-            logger.info(f"Insufficient credits ({user_credits} < {citation_count}) - returning {affordable} results")
-
-            # Log pricing table shown event for upgrade funnel tracking
-            log_pricing_table_shown(
-                token,
-                http_request.headers.get('X-Experiment-Variant'),
-                reason='insufficient_credits',
-                credits_remaining=user_credits,
-                credits_needed=citation_count,
-                partial_available=affordable
-            )
-
-            success = deduct_credits(token, affordable)
-            if not success:
-                logger.error("Failed to deduct credits")
-                raise HTTPException(status_code=500, detail="Failed to deduct credits")
-
-            response_data = {
-                "results": results[:affordable],
-                "partial": True,
-                "citations_checked": affordable,
-                "citations_remaining": citation_count - affordable,
-                "credits_remaining": 0
-            }
-            return build_gated_response(response_data, gating_user_type, job_id, "Paid user insufficient credits")
 
     except ValueError as e:
         # User-facing errors from LLM provider (rate limits, timeouts, auth errors)
