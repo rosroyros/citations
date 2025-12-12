@@ -1,0 +1,86 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - heading "Passes Pricing (Variant 2)" [level=1] [ref=e5]
+  - paragraph [ref=e6]: Time-based unlimited access model
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: 1-Day Pass
+          - generic [ref=e12]: $1.99 per day
+        - generic [ref=e13]:
+          - generic [ref=e14]:
+            - generic [ref=e15]: $1.99
+            - text: one-time
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - img [ref=e18]
+              - generic [ref=e20]: Unlimited validations for 24 hours
+            - listitem [ref=e21]:
+              - img [ref=e22]
+              - generic [ref=e24]: Up to 1,000 citations per day
+            - listitem [ref=e25]:
+              - img [ref=e26]
+              - generic [ref=e28]: APA / MLA / Chicago support
+            - listitem [ref=e29]:
+              - img [ref=e30]
+              - generic [ref=e32]: Perfect for finishing a paper
+        - button "Buy 1-Day Pass" [ref=e34] [cursor=pointer]
+      - generic [ref=e35]:
+        - generic [ref=e36]: Recommended
+        - generic [ref=e37]:
+          - generic [ref=e38]: 7-Day Pass
+          - generic [ref=e39]: $0.71 per day
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: $4.99
+            - text: one-time
+          - list [ref=e43]:
+            - listitem [ref=e44]:
+              - img [ref=e45]
+              - generic [ref=e47]: 7 days of unlimited access
+            - listitem [ref=e48]:
+              - img [ref=e49]
+              - generic [ref=e51]: Best value ($0.71/day)
+            - listitem [ref=e52]:
+              - img [ref=e53]
+              - generic [ref=e55]: Up to 1,000 citations per day
+            - listitem [ref=e56]:
+              - img [ref=e57]
+              - generic [ref=e59]: Export to BibTeX / RIS
+        - button "Buy 7-Day Pass" [ref=e61] [cursor=pointer]
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - generic [ref=e64]: 30-Day Pass
+          - generic [ref=e65]: $0.33 per day
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: $9.99
+            - text: one-time
+          - list [ref=e69]:
+            - listitem [ref=e70]:
+              - img [ref=e71]
+              - generic [ref=e73]: 30 days of unlimited access
+            - listitem [ref=e74]:
+              - img [ref=e75]
+              - generic [ref=e77]: Lowest daily cost ($0.33/day)
+            - listitem [ref=e78]:
+              - img [ref=e79]
+              - generic [ref=e81]: Perfect for ongoing research
+            - listitem [ref=e82]:
+              - img [ref=e83]
+              - generic [ref=e85]: Priority support
+        - button "Buy 30-Day Pass" [ref=e87] [cursor=pointer]
+    - generic [ref=e88]:
+      - paragraph [ref=e89]: "Fair use: 1,000 citations per day. Passes can be extended anytime."
+      - paragraph [ref=e90]: Buying another pass adds days to your existing pass.
+  - generic [ref=e91]:
+    - heading "How Passes Work:" [level=3] [ref=e92]
+    - list [ref=e93]:
+      - listitem [ref=e94]: ✓ Unlimited validations during pass duration
+      - listitem [ref=e95]: "✓ Fair use limit: 1,000 citations per day"
+      - listitem [ref=e96]: ✓ Buying another pass extends your access (adds days)
+      - listitem [ref=e97]: "✓ Example: 3 days left + buy 7-day = 10 days total"
+```

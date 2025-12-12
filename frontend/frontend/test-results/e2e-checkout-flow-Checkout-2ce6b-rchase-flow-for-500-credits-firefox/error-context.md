@@ -1,0 +1,75 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - heading "Credits Pricing (Variant 1)" [level=1] [ref=e5]
+  - paragraph [ref=e6]: Pay-per-citation model - Test Page
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]: 100 Credits
+        - generic [ref=e11]: $0.020 per citation
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - generic [ref=e14]: $1.99
+          - text: one-time
+        - list [ref=e15]:
+          - listitem [ref=e16]:
+            - img [ref=e17]
+            - generic [ref=e19]: 100 citation validations
+          - listitem [ref=e20]:
+            - img [ref=e21]
+            - generic [ref=e23]: APA / MLA / Chicago support
+          - listitem [ref=e24]:
+            - img [ref=e25]
+            - generic [ref=e27]: Credits never expire
+          - listitem [ref=e28]:
+            - img [ref=e29]
+            - generic [ref=e31]: Use anytime at your pace
+      - button "Buy 100 Credits" [ref=e33] [cursor=pointer]
+    - generic [ref=e34]:
+      - generic [ref=e35]: Best Value
+      - generic [ref=e36]:
+        - generic [ref=e37]: 500 Credits
+        - generic [ref=e38]: $0.010 per citation
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - generic [ref=e41]: $4.99
+          - text: one-time
+        - list [ref=e42]:
+          - listitem [ref=e43]:
+            - img [ref=e44]
+            - generic [ref=e46]: 500 citation validations
+          - listitem [ref=e47]:
+            - img [ref=e48]
+            - generic [ref=e50]: Best value ($0.01/citation)
+          - listitem [ref=e51]:
+            - img [ref=e52]
+            - generic [ref=e54]: APA / MLA / Chicago support
+          - listitem [ref=e55]:
+            - img [ref=e56]
+            - generic [ref=e58]: Export to BibTeX / RIS
+      - button "Buy 500 Credits" [ref=e60] [cursor=pointer]
+    - generic [ref=e61]:
+      - generic [ref=e62]:
+        - generic [ref=e63]: 2,000 Credits
+        - generic [ref=e64]: $0.005 per citation
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: $9.99
+          - text: one-time
+        - list [ref=e68]:
+          - listitem [ref=e69]:
+            - img [ref=e70]
+            - generic [ref=e72]: 2,000 citation validations
+          - listitem [ref=e73]:
+            - img [ref=e74]
+            - generic [ref=e76]: For heavy academic writing
+          - listitem [ref=e77]:
+            - img [ref=e78]
+            - generic [ref=e80]: Lowest per-citation cost
+          - listitem [ref=e81]:
+            - img [ref=e82]
+            - generic [ref=e84]: Priority support
+      - button "Buy 2,000 Credits" [ref=e86] [cursor=pointer]
+```
