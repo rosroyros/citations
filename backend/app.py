@@ -237,13 +237,20 @@ def check_user_access(token: str, citation_count: int) -> dict:
         # User has active pass - check daily limit
         daily_usage = try_increment_daily_usage(token, citation_count)
 
+        # Calculate days remaining from hours
+        days_remaining = active_pass['hours_remaining'] // 24
+
         if daily_usage['success']:
             # Pass user within daily limit
             user_status = UserStatus(
-                has_pass=True,
-                pass_type=active_pass['pass_type'],
-                daily_citations_remaining=daily_usage['remaining'],
-                credits_remaining=None  # Not applicable for pass users
+                type='pass',
+                days_remaining=days_remaining,
+                daily_used=daily_usage['used_after'],
+                daily_limit=1000,
+                reset_time=daily_usage['reset_timestamp'],
+                balance=None,  # Not applicable for pass users
+                validations_used=None,  # Not applicable for pass users
+                limit=None  # Not applicable for pass users
             )
 
             return {
@@ -255,10 +262,14 @@ def check_user_access(token: str, citation_count: int) -> dict:
         else:
             # Pass user exceeded daily limit
             user_status = UserStatus(
-                has_pass=True,
-                pass_type=active_pass['pass_type'],
-                daily_citations_remaining=0,
-                credits_remaining=None
+                type='pass',
+                days_remaining=days_remaining,
+                daily_used=daily_usage['used_before'] + citation_count,  # Would exceed
+                daily_limit=1000,
+                reset_time=daily_usage['reset_timestamp'],
+                balance=None,
+                validations_used=None,
+                limit=None
             )
 
             return {
@@ -276,10 +287,14 @@ def check_user_access(token: str, citation_count: int) -> dict:
         success = deduct_credits(token, citation_count)
         if success:
             user_status = UserStatus(
-                has_pass=False,
-                pass_type=None,
-                daily_citations_remaining=None,  # Not applicable for credit users
-                credits_remaining=user_credits - citation_count
+                type='credits',
+                days_remaining=None,
+                daily_used=None,
+                daily_limit=None,
+                reset_time=None,
+                balance=user_credits - citation_count,
+                validations_used=None,
+                limit=None
             )
 
             return {
@@ -298,10 +313,14 @@ def check_user_access(token: str, citation_count: int) -> dict:
 
     # User doesn't have enough credits
     user_status = UserStatus(
-        has_pass=False,
-        pass_type=None,
-        daily_citations_remaining=None,
-        credits_remaining=user_credits
+        type='credits',
+        days_remaining=None,
+        daily_used=None,
+        daily_limit=None,
+        reset_time=None,
+        balance=user_credits,
+        validations_used=None,
+        limit=None
     )
 
     return {
@@ -459,10 +478,21 @@ class CitationResult(BaseModel):
 
 class UserStatus(BaseModel):
     """User status information for response."""
-    has_pass: Optional[bool] = None
-    pass_type: Optional[str] = None
-    daily_citations_remaining: Optional[int] = None
-    credits_remaining: Optional[int] = None
+    # Common field
+    type: str  # 'pass', 'credits', or 'free'
+
+    # For pass users
+    days_remaining: Optional[int] = None
+    daily_used: Optional[int] = None
+    daily_limit: Optional[int] = None
+    reset_time: Optional[int] = None  # Unix timestamp
+
+    # For credits users
+    balance: Optional[int] = None
+
+    # For free users
+    validations_used: Optional[int] = None
+    limit: Optional[int] = None
 
 
 class ValidationResponse(BaseModel):
@@ -818,8 +848,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     log_pricing_table_shown(
                         token,
                         http_request.headers.get('X-Experiment-Variant'),
-                        reason='zero_credits' if access_check['user_status'].credits_remaining == 0 else 'insufficient_credits',
-                        credits_remaining=access_check['user_status'].credits_remaining
+                        reason='zero_credits' if access_check['user_status'].balance == 0 else 'insufficient_credits',
+                        credits_remaining=access_check['user_status'].balance
                     )
 
                 raise HTTPException(
@@ -830,7 +860,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             # User has access - return results with user status
             response_data = {"results": results}
             if access_check['access_type'] == 'credits':
-                response_data["credits_remaining"] = access_check['user_status'].credits_remaining
+                response_data["credits_remaining"] = access_check['user_status'].balance
 
             response_data["user_status"] = access_check['user_status']
             return build_gated_response(response_data, gating_user_type, job_id, f"Access granted via {access_check['access_type']}")
@@ -878,10 +908,14 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": FREE_LIMIT,
                     "free_used_total": FREE_LIMIT,
                     "user_status": UserStatus(
-                        has_pass=False,
-                        pass_type=None,
-                        daily_citations_remaining=None,
-                        credits_remaining=None
+                        type='free',
+                        days_remaining=None,
+                        daily_used=None,
+                        daily_limit=None,
+                        reset_time=None,
+                        balance=None,
+                        validations_used=FREE_LIMIT,
+                        limit=5  # FREE_LIMIT is 5
                     )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier limit reached")
@@ -892,10 +926,14 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": free_used + citation_count,
                     "free_used_total": free_used + citation_count,
                     "user_status": UserStatus(
-                        has_pass=False,
-                        pass_type=None,
-                        daily_citations_remaining=None,
-                        credits_remaining=None
+                        type='free',
+                        days_remaining=None,
+                        daily_used=None,
+                        daily_limit=None,
+                        reset_time=None,
+                        balance=None,
+                        validations_used=free_used + citation_count,
+                        limit=5  # FREE_LIMIT is 5
                     )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier under limit")
@@ -909,10 +947,14 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     "free_used": FREE_LIMIT,  # Capped at limit
                     "free_used_total": FREE_LIMIT,  # Authoritative total for frontend sync
                     "user_status": UserStatus(
-                        has_pass=False,
-                        pass_type=None,
-                        daily_citations_remaining=None,
-                        credits_remaining=None
+                        type='free',
+                        days_remaining=None,
+                        daily_used=None,
+                        daily_limit=None,
+                        reset_time=None,
+                        balance=None,
+                        validations_used=FREE_LIMIT,
+                        limit=5  # FREE_LIMIT is 5
                     )
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier over limit")
