@@ -77,8 +77,8 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
       <div className="upgrade-banner">
         <div className="upgrade-content">
-          <h3>🔒 {citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</h3>
-          <p>Upgrade to unlock validation results & more usage</p>
+          <h3>Free tier limit (10) reached. Upgrade to continue.</h3>
+          <p>{citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</p>
           <button
             onClick={() => {
               trackEvent('upgrade_clicked', {
@@ -111,7 +111,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
             }}
             className="upgrade-button"
           >
-            Upgrade to Unlock Now
+            Upgrade to Continue
           </button>
         </div>
       </div>
