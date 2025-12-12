@@ -3,6 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { CreditDisplay } from './components/CreditDisplay'
+import { UserStatus } from './components/UserStatus'
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import ValidationTable from './components/ValidationTable'
@@ -89,6 +90,7 @@ function AppContent() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [submittedText, setSubmittedText] = useState('')
   const [fadingOut, setFadingOut] = useState(false)
+  const [userStatus, setUserStatus] = useState(null)
 
   // Gated results state management
   const [resultsReady, setResultsReady] = useState(false)
@@ -301,6 +303,11 @@ function AppContent() {
 
           // Handle successful completion
           const data = jobData.results
+
+          // Update user status if available
+          if (data.user_status) {
+            setUserStatus(data.user_status)
+          }
 
           // Sync localStorage with backend's authoritative count
           if (data.free_used_total !== undefined) {
@@ -687,6 +694,11 @@ function AppContent() {
 
       console.log('API response data:', data)
 
+      // Update user status if available
+      if (data.user_status) {
+        setUserStatus(data.user_status)
+      }
+
       // Sync localStorage with backend's authoritative count
       if (data.free_used_total !== undefined) {
         localStorage.setItem('citation_checker_free_used', String(data.free_used_total))
@@ -796,7 +808,10 @@ function AppContent() {
             </svg>
             <h1 className="logo-text">Citation Format Checker</h1>
           </div>
-          <CreditDisplay />
+          <div className="header-status">
+            {userStatus && <UserStatus userStatus={userStatus} />}
+            <CreditDisplay />
+          </div>
         </div>
       </header>
 

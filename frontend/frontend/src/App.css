@@ -46,10 +46,22 @@
   letter-spacing: -0.02em;
 }
 
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .credit-display {
   font-size: 0.9rem;
   color: var(--color-brand);
   font-weight: 500;
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Hero Section */
