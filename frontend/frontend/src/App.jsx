@@ -988,7 +988,7 @@ function AppContent() {
               <h4 className="faq-question">Is this citation checker free?</h4>
               <p className="faq-answer">
                 Yes! You get 5 free citation checks to try the tool. For unlimited checking,
-                you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
+                you can purchase credits or unlimited passes starting at just $1.99.
               </p>
             </div>
             <div className="faq-item">
@@ -1013,8 +1013,7 @@ function AppContent() {
             <div className="faq-item">
               <h4 className="faq-question">What are Citation Credits and how do they work?</h4>
               <p className="faq-answer">
-                Each citation you check uses 1 credit. When you purchase 1,000 credits for $8.99,
-                you can check 1,000 citations. Credits never expire and can be used anytime.
+                Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
               </p>
             </div>
 

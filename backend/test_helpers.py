@@ -46,13 +46,13 @@ def register_test_helpers(app):
 
         # Create user if not exists
         conn.execute(
-            "INSERT OR IGNORE INTO user (id, credits) VALUES (?, ?)",
+            "INSERT OR IGNORE INTO users (token, credits) VALUES (?, ?)",
             (request.user_id, 0)
         )
 
         # Add credits
         conn.execute(
-            "UPDATE user SET credits = credits + ? WHERE id = ?",
+            "UPDATE users SET credits = credits + ? WHERE token = ?",
             (request.amount, request.user_id)
         )
 
@@ -67,18 +67,22 @@ def register_test_helpers(app):
             raise HTTPException(status_code=404, detail="Not found")
 
         conn = get_test_db()
-
-        # Create user if not exists
+        
+        # Calculate expiration
+        import time
+        now = int(time.time())
+        expiration = now + (request.days * 86400)
+        
+        # We need an order_id for the schema constraint
+        order_id = f"test_grant_{int(time.time())}_{request.user_id[:8]}"
+        
         conn.execute(
-            "INSERT OR IGNORE INTO user (id, pass_end_date) VALUES (?, ?)",
-            (request.user_id, None)
-        )
-
-        # Set pass end date
-        end_date = (datetime.utcnow() + timedelta(days=request.days)).isoformat()
-        conn.execute(
-            "UPDATE user SET pass_end_date = ? WHERE id = ?",
-            (end_date, request.user_id)
+            """
+            INSERT OR REPLACE INTO user_passes 
+            (token, expiration_timestamp, pass_type, purchase_date, order_id)
+            VALUES (?, ?, ?, ?, ?)
+            """,
+            (request.user_id, expiration, f"{request.days}day", now, order_id)
         )
 
         conn.commit()

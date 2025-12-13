@@ -269,7 +269,7 @@ const Success = () => {
         const response = await fetch(`/api/credits?token=${token}`)
         const data = await response.json()
 
-        if (data.credits > 0) {
+        if (data.credits > 0 || data.active_pass) {
           setCredits(data.credits)
           setStatus('success')
 

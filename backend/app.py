@@ -453,6 +453,9 @@ app.add_middleware(
 from test_helpers import register_test_helpers
 register_test_helpers(app)
 
+# Global dictionary to track mock checkout information
+mock_checkout_info = {}
+
 
 @app.middleware("http")
 async def log_requests(request, call_next):
@@ -516,6 +519,7 @@ class ValidationResponse(BaseModel):
     job_id: Optional[str] = None  # NEW - for reveal tracking
     user_status: Optional[UserStatus] = None  # NEW - user access status
     limit_type: Optional[str] = None  # NEW - reason for partial/gated results
+    experiment_variant: Optional[str] = None  # NEW - A/B test variant
 
 
 def build_gated_response(
@@ -682,7 +686,7 @@ async def debug_environment():
 
 
 @app.post("/api/create-checkout")
-def create_checkout(request: dict):
+async def create_checkout(request: dict, background_tasks: BackgroundTasks):
     """
     Create a Polar checkout for purchasing citation credits or passes.
 
@@ -704,6 +708,34 @@ def create_checkout(request: dict):
 
     logger.info(f"Product ID: {product_id}")
     logger.info(f"Variant ID: {variant_id}")
+
+    # Mock Checkout if configured (for E2E tests)
+    if os.getenv('MOCK_LLM', '').lower() == 'true':
+         logger.info("MOCK_LLM=true: Returning mock checkout URL")
+
+         # Generate mock checkout details
+         checkout_id = f"mock_checkout_{uuid.uuid4().hex[:8]}"
+         order_id = f"mock_order_{uuid.uuid4().hex[:8]}"
+
+         # Store mock details for webhook simulation
+         mock_checkout_info[token] = {
+             'product_id': product_id,
+             'checkout_id': checkout_id,
+             'order_id': order_id
+         }
+
+         # Schedule mock webhook in background task
+         background_tasks.add_task(
+             send_mock_webhook_later,
+             product_id=product_id,
+             checkout_id=checkout_id,
+             order_id=order_id,
+             token=token
+         )
+
+         # Return a URL that redirects to success page with token
+         frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173').rstrip('/')
+         return {"checkout_url": f"{frontend_url}/success?token={token}&mock=true", "token": token}
 
     try:
         # Create Polar checkout
@@ -748,10 +780,11 @@ async def get_credits_balance(token: str):
     logger.debug(f"Getting credits balance for token: {token[:8]}...")
 
     try:
-        from database import get_credits
+        from database import get_credits, get_active_pass
         balance = get_credits(token)
-        logger.debug(f"Retrieved balance: {balance} credits")
-        return {"token": token, "credits": balance}
+        active_pass = get_active_pass(token)
+        logger.debug(f"Retrieved balance: {balance} credits, pass: {bool(active_pass)}")
+        return {"token": token, "credits": balance, "active_pass": active_pass}
 
     except Exception as e:
         logger.error(f"Error getting credits balance: {str(e)}", exc_info=True)
@@ -809,6 +842,12 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
     job_id = f"sync_{int(time.time())}_{uuid.uuid4().hex[:8]}"
     create_validation_record(job_id, gating_user_type, 0, 'processing', paid_user_id, free_user_id)
 
+    # Get experiment variant from header or assign fallback
+    experiment_variant = http_request.headers.get('X-Experiment-Variant')
+    if not experiment_variant:
+        experiment_variant = random.choice(['1', '2'])
+        logger.info(f"Assigned missing experiment variant: {experiment_variant}")
+
     try:
         # Get provider based on request headers with fallback logic
         provider, internal_model_id, initial_fallback = get_provider_for_request(http_request)
@@ -856,7 +895,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 if access_check['access_type'] == 'credits':
                     log_pricing_table_shown(
                         token,
-                        http_request.headers.get('X-Experiment-Variant'),
+                        experiment_variant,
                         reason='zero_credits' if access_check['user_status'].balance == 0 else 'insufficient_credits',
                         credits_remaining=access_check['user_status'].balance
                     )
@@ -872,6 +911,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 response_data["credits_remaining"] = access_check['user_status'].balance
 
             response_data["user_status"] = access_check['user_status']
+            response_data["experiment_variant"] = experiment_variant
             return build_gated_response(response_data, gating_user_type, job_id, f"Access granted via {access_check['access_type']}")
 
         else:
@@ -904,7 +944,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 # Log pricing table shown event for upgrade funnel tracking
                 log_pricing_table_shown(
                     free_user_id or 'anonymous',
-                    http_request.headers.get('X-Experiment-Variant'),
+                    experiment_variant,
                     reason='free_limit_reached',
                     free_used=free_used
                 )
@@ -926,7 +966,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                         balance=None,
                         validations_used=FREE_LIMIT,
                         limit=5  # FREE_LIMIT is 5
-                    )
+                    ),
+                    "experiment_variant": experiment_variant
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier limit reached")
             elif affordable >= citation_count:
@@ -945,7 +986,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                         balance=None,
                         validations_used=free_used + citation_count,
                         limit=5  # FREE_LIMIT is 5
-                    )
+                    ),
+                    "experiment_variant": experiment_variant
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier under limit")
             else:
@@ -967,7 +1009,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                         balance=None,
                         validations_used=FREE_LIMIT,
                         limit=5  # FREE_LIMIT is 5
-                    )
+                    ),
+                    "experiment_variant": experiment_variant
                 }
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier over limit")
 
@@ -1274,6 +1317,11 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     # Store experiment variant for async processing (if provided by frontend)
     experiment_variant = http_request.headers.get('X-Experiment-Variant')
 
+    # Fallback: Assign variant if missing (ensure sticky assignment log)
+    if not experiment_variant:
+        experiment_variant = random.choice(['1', '2'])
+        logger.info(f"Assigned missing experiment variant: {experiment_variant}")
+
     # Create job entry
     jobs[job_id] = {
         "status": "pending",
@@ -1300,7 +1348,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     # Start background processing
     background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)
 
-    return {"job_id": job_id, "status": "pending"}
+    return {"job_id": job_id, "status": "pending", "experiment_variant": experiment_variant}
 
 
 @app.get("/api/jobs/{job_id}")
@@ -2081,6 +2129,64 @@ async def handle_checkout_updated(webhook):
         )
 
         return
+
+
+async def send_mock_webhook_later(product_id: str, checkout_id: str, order_id: str, token: str):
+    """
+    Simulate Polar webhook after mock purchase.
+
+    This function runs as a background task to simulate the delay
+    between purchase completion and webhook delivery.
+    """
+    import asyncio
+
+    await asyncio.sleep(1)  # Brief delay to simulate processing
+
+    logger.info(f"MOCK_WEBHOOK: Simulating checkout.updated webhook for token={token[:8]}...")
+
+    # Look up product configuration
+    product_config = PRODUCT_CONFIG.get(product_id)
+    if not product_config:
+        logger.error(f"MOCK_WEBHOOK: Unknown product_id: {product_id}")
+        return
+
+    # Get amount from product config (price is in dollars, convert to cents)
+    amount_cents = int(product_config.get('price', 4.99) * 100)  # Default to $4.99
+
+    # Create mock webhook payload as a simple object that matches expected structure
+    class MockWebhookData:
+        def __init__(self):
+            self.id = checkout_id
+            self.status = "completed"
+            self.customer_id = None
+            self.customer_email = "test@example.com"
+            self.product_id = product_id
+            self.order_id = order_id
+            self.amount = amount_cents
+            self.currency = "USD"
+            self.created_at = datetime.utcnow().isoformat()
+            self.metadata = {"token": token}
+
+            # Create line items matching expected structure
+            class MockLineItem:
+                def __init__(self):
+                    self.product_id = product_id
+                    self.variant_id = 1  # Credits variant
+                    self.quantity = 1
+                    self.price_amount = amount_cents
+
+            self.line_items = [MockLineItem()]
+
+    class MockWebhook:
+        def __init__(self):
+            self.type = "checkout.updated"
+            self.data = MockWebhookData()
+
+    mock_webhook = MockWebhook()
+
+    # Call webhook handler directly to simulate Polar webhook
+    await handle_checkout_updated(mock_webhook)
+    logger.info(f"MOCK_WEBHOOK: Processed mock webhook for order={order_id}")
 
 
 @app.get("/citations/{citation_id}")

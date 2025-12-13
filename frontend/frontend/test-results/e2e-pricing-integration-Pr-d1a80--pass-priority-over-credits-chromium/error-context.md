@@ -68,7 +68,7 @@
         - paragraph [ref=e75]: Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
       - generic [ref=e76]:
         - heading "Is this citation checker free?" [level=4] [ref=e77]
-        - paragraph [ref=e78]: Yes! You get 5 free citation checks to try the tool. For unlimited checking, you can purchase 1,000 Citation Credits for $8.99. Credits never expire.
+        - paragraph [ref=e78]: Yes! You get 5 free citation checks to try the tool. For unlimited checking, you can purchase credits or unlimited passes starting at just $1.99.
       - generic [ref=e79]:
         - heading "What citation style does this tool support?" [level=4] [ref=e80]
         - paragraph [ref=e81]: Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
@@ -80,7 +80,7 @@
         - paragraph [ref=e87]: Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
       - generic [ref=e88]:
         - heading "What are Citation Credits and how do they work?" [level=4] [ref=e89]
-        - paragraph [ref=e90]: Each citation you check uses 1 credit. When you purchase 1,000 credits for $8.99, you can check 1,000 citations. Credits never expire and can be used anytime.
+        - paragraph [ref=e90]: Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
       - generic [ref=e91]:
         - heading "Do Citation Credits expire?" [level=4] [ref=e92]
         - paragraph [ref=e93]: No! Your credits never expire. Use them at your own pace — whether that's all at once or over several years.
