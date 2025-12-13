@@ -5,6 +5,7 @@ const CreditContext = createContext();
 
 export const CreditProvider = ({ children }) => {
   const [credits, setCredits] = useState(null);
+  const [activePass, setActivePass] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const token = getToken();
@@ -24,6 +25,7 @@ export const CreditProvider = ({ children }) => {
 
       const data = await response.json();
       setCredits(data.credits);
+      setActivePass(data.active_pass);
     } catch (e) {
       setError(e.message);
     } finally {
@@ -38,6 +40,7 @@ export const CreditProvider = ({ children }) => {
   return (
     <CreditContext.Provider value={{
       credits,
+      activePass,
       loading,
       error,
       refreshCredits: fetchCredits,

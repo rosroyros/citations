@@ -1079,22 +1079,10 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
         create_validation_record(job_id, user_type, citation_count, 'processing', paid_user_id, free_user_id)
 
+        # Note: We don't check access here anymore - it's checked after validation
+        # This allows pass users to start validation jobs
         if token:
-            user_credits = get_credits(token)
-            if user_credits == 0:
-                jobs[job_id]["status"] = "failed"
-                jobs[job_id]["error"] = "You have 0 Citation Credits remaining. Purchase more to continue."
-                logger.warning(f"Job {job_id}: Failed - user has zero credits")
-
-                # Log pricing table shown event for upgrade funnel tracking
-                log_pricing_table_shown(
-                    token,
-                    jobs[job_id].get("experiment_variant"),
-                    reason='zero_credits',
-                    credits_remaining=0
-                )
-
-                return
+            pass  # Access is checked after validation
         else:
             # Free tier - check limit
             if free_used >= FREE_LIMIT:

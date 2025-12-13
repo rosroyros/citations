@@ -637,6 +637,9 @@ def add_pass(token: str, days: int, pass_type: str, order_id: str) -> bool:
             new_expiration = now + (days * 86400)
             logger.info(f"Granting new {pass_type} pass to {token}")
 
+        # Ensure user exists in users table (needed for get_credits to work)
+        cursor.execute("INSERT OR IGNORE INTO users (token, credits) VALUES (?, 0)", (token,))
+
         # Record the order in orders table (persistent history)
         cursor.execute("""
             INSERT INTO orders (order_id, token, credits_granted, pass_days, pass_type)

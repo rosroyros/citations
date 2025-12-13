@@ -22,6 +22,7 @@ const POLLING_CONFIG = {
 const Success = () => {
   const [status, setStatus] = useState('activating')  // activating | success | error
   const [credits, setCredits] = useState(0)
+  const [activePass, setActivePass] = useState(null)
   const [showBanner, setShowBanner] = useState(true)
   const [loading, setLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -271,6 +272,7 @@ const Success = () => {
 
         if (data.credits > 0 || data.active_pass) {
           setCredits(data.credits)
+          setActivePass(data.active_pass)
           setStatus('success')
 
           // Track purchase conversion event
@@ -334,7 +336,11 @@ const Success = () => {
       {/* Success Banner */}
       {showBanner && (
         <div className="success-banner">
-          ✅ Payment Successful! You now have {credits} Citation Credits
+          {activePass ? (
+            <>✅ Payment Successful! Your {Math.ceil(activePass.hours_remaining / 24)}-Day Pass is now active</>
+          ) : (
+            <>✅ Payment Successful! You now have {credits} Citation Credits</>
+          )}
         </div>
       )}
 

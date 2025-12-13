@@ -109,4 +109,95 @@ describe('CreditDisplay', () => {
     // Assert
     await screen.findByText('Citation Credits: 150');
   });
+
+  describe('Day Pass Support', () => {
+    it('should display pass status when user has active day pass', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 0,
+          active_pass: { hours_remaining: 24 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      await screen.findByText('1-Day Pass Active');
+    });
+
+    it('should display 7-day pass status', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 0,
+          active_pass: { hours_remaining: 168 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      await screen.findByText('7-Day Pass Active');
+    });
+
+    it('should display hourly pass for less than 24 hours', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 0,
+          active_pass: { hours_remaining: 5 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      await screen.findByText('5h Pass Active');
+    });
+
+    it('should show credits when user has both credits and pass (credits displayed when pass expires)', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 500,
+          active_pass: { hours_remaining: 48 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      // When active pass exists, pass status should be shown
+      await screen.findByText('2-Day Pass Active');
+    });
+  });
 });
