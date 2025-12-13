@@ -686,11 +686,12 @@ async def debug_environment():
 
 
 @app.post("/api/create-checkout")
-async def create_checkout(request: dict, background_tasks: BackgroundTasks):
+async def create_checkout(http_request: Request, request: dict, background_tasks: BackgroundTasks):
     """
     Create a Polar checkout for purchasing citation credits or passes.
 
     Args:
+        http_request: FastAPI Request object to get host information
         request: Dict with optional 'token', 'productId', and 'variantId' fields
 
     Returns:
@@ -733,8 +734,19 @@ async def create_checkout(request: dict, background_tasks: BackgroundTasks):
              token=token
          )
 
-         # Return a URL that redirects to success page with token
-         frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:5173').rstrip('/')
+         # Determine the correct frontend URL based on the request
+         # Use the host from the incoming request for network compatibility
+         scheme = http_request.url.scheme
+         host = http_request.headers.get('host', 'localhost:5173')
+
+         # If host includes port, use it as is
+         if ':' not in host:
+             # No port specified, assume 5173 for frontend
+             host = f"{host}:5173"
+
+         frontend_url = f"{scheme}://{host}".rstrip('/')
+         logger.info(f"Using frontend URL: {frontend_url}")
+
          return {"checkout_url": f"{frontend_url}/success?token={token}&mock=true", "token": token}
 
     try:
