@@ -20,6 +20,15 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8000',
         changeOrigin: true,
+        configure: (proxy, _options) => {
+          proxy.on('proxyReq', (proxyReq, req, _res) => {
+            // Pass the original host to the backend
+            const originalHost = req.headers.host;
+            if (originalHost && originalHost !== 'localhost:5173') {
+              proxyReq.setHeader('X-Original-Host', originalHost);
+            }
+          });
+        }
       }
     }
   },

@@ -735,16 +735,26 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
          )
 
          # Determine the correct frontend URL based on the request
-         # Use the host from the incoming request for network compatibility
+         # First check for X-Forwarded-Host header (from reverse proxy)
+         # Then check for X-Original-Host header (custom header we can send)
+         # Finally fall back to the Host header
          scheme = http_request.url.scheme
-         host = http_request.headers.get('host', 'localhost:5173')
 
-         # If host includes port, use it as is
-         if ':' not in host:
+         # Check various headers for the original host
+         forwarded_host = (
+             http_request.headers.get('x-forwarded-host') or
+             http_request.headers.get('x-original-host') or
+             http_request.headers.get('host', 'localhost:5173')
+         )
+
+         # If the host is the backend port (8000), replace with frontend port (5173)
+         if forwarded_host.endswith(':8000'):
+             forwarded_host = forwarded_host.replace(':8000', ':5173')
+         elif ':' not in forwarded_host:
              # No port specified, assume 5173 for frontend
-             host = f"{host}:5173"
+             forwarded_host = f"{forwarded_host}:5173"
 
-         frontend_url = f"{scheme}://{host}".rstrip('/')
+         frontend_url = f"{scheme}://{forwarded_host}".rstrip('/')
          logger.info(f"Using frontend URL: {frontend_url}")
 
          return {"checkout_url": f"{frontend_url}/success?token={token}&mock=true", "token": token}
