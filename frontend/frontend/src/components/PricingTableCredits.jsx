@@ -2,47 +2,51 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import React from "react"
+import { trackEvent } from '../utils/analytics'
 
 // Product configuration
 // Updated with real Polar product IDs from pricing_config.py
 const PRODUCTS = [
   {
     id: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
+    title: '100 Credits',
     credits: 100,
     price: 1.99,
+    description: 'For occasional users.',
     pricePerCitation: 0.0199,
     recommended: false,
     benefits: [
       '100 citation validations',
       'APA / MLA / Chicago support',
-      'Credits never expire',
-      'Use anytime at your pace'
+      'Export options included'
     ]
   },
   {
     id: '2a3c8913-2e82-4f12-9eb7-767e4bc98089',
+    title: '500 Credits',
     credits: 500,
     price: 4.99,
+    description: 'Best balance of price & usage.',
     pricePerCitation: 0.00998,
     recommended: true,
     benefits: [
       '500 citation validations',
-      'Best value ($0.01/citation)',
-      'APA / MLA / Chicago support',
+      'Multi-style support (APA/MLA/Chicago)',
       'Export to BibTeX / RIS'
     ]
   },
   {
     id: 'fe7b0260-e411-4f9a-87c8-0856bf1d8b95',
+    title: '2,000 Credits',
     credits: 2000,
     price: 9.99,
+    description: 'For frequent academic writing.',
     pricePerCitation: 0.004995,
     recommended: false,
     benefits: [
       '2,000 citation validations',
-      'For heavy academic writing',
-      'Lowest per-citation cost',
-      'Priority support'
+      'Unlimited style switching',
+      'Priority support + updates'
     ]
   }
 ]
@@ -75,6 +79,25 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
       // Log product selection
       console.log('product_selected', { productId, variant: experimentVariant || '1' })
 
+      // Get job_id from localStorage if available
+      const jobId = localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id')
+
+      // Call upgrade-event API (non-blocking)
+      if (jobId) {
+        fetch('/api/upgrade-event', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            event: 'modal_proceed',
+            job_id: jobId
+          })
+        }).catch(error => {
+          console.error('Error tracking modal proceed event:', error)
+        })
+      }
+
       // Create Polar checkout via backend API
       const response = await fetch('/api/create-checkout', {
         method: 'POST',
@@ -95,8 +118,8 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
         throw new Error('No checkout URL returned')
       }
 
-      // Log checkout started
-      console.log('checkout_started', { productId, checkoutUrl: checkout_url })
+      // Track checkout started
+      trackEvent('checkout_started', { productId, checkoutUrl: checkout_url })
 
       // Redirect to checkout
       window.location.href = checkout_url
@@ -115,84 +138,67 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
         {PRODUCTS.map(product => (
           <Card
             key={product.id}
-            className={
+            className={`flex flex-col relative transition-all duration-200 ${
               product.recommended
-                ? 'border-primary border-2 shadow-lg relative'
-                : 'border-gray-200 relative'
-            }
+                ? 'border-2 border-blue-600 shadow-xl -translate-y-1 z-10'
+                : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
+            }`}
           >
             {/* "Recommended" badge - only shown on recommended tier */}
             {product.recommended && (
-              <div className="absolute top-0 right-0 bg-success text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                 Best Value
               </div>
             )}
 
             {/* Card Header */}
-            <CardHeader>
-              <CardTitle className="text-2xl font-heading text-heading">
-                {product.credits} Credits
+            <CardHeader className="pb-2">
+              <CardTitle className="text-xl font-bold text-gray-900">
+                {product.title}
               </CardTitle>
-              <CardDescription className="text-sm font-body text-body">
-                ${product.pricePerCitation.toFixed(3)} per citation
+              <CardDescription className="text-gray-500 mt-1 text-sm font-medium">
+                {product.description}
               </CardDescription>
             </CardHeader>
 
             {/* Card Content - Price and Benefits */}
-            <CardContent>
+            <CardContent className="flex-1 pt-4">
               {/* Price Display */}
               <div className="mb-6">
-                <span className="text-4xl font-bold font-heading text-heading">
+                <span className="text-4xl font-bold text-gray-900">
                   ${product.price}
-                </span>
-                <span className="text-body ml-2 text-sm">
-                  one-time
                 </span>
               </div>
 
               {/* Benefits List with Checkmarks */}
-              <ul className="space-y-3 text-sm font-body">
+              <ul className="space-y-3">
                 {product.benefits.map((benefit, idx) => (
-                  <li key={idx} className="flex items-start">
-                    {/* Green checkmark icon */}
-                    <svg
-                      className="w-5 h-5 text-success mr-2 flex-shrink-0 mt-0.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span className="text-body">{benefit}</span>
+                  <li key={idx} className="flex items-start text-sm text-gray-700">
+                    <span className="mr-3 text-blue-600 font-bold">✓</span>
+                    <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
 
             {/* Card Footer - Buy Button */}
-            <CardFooter>
+            <CardFooter className="pt-4 pb-6">
               <Button
                 onClick={() => handleCheckout(product.id)}
                 disabled={loadingProductId === product.id}
-                className="w-full"
-                variant={product.recommended ? "default" : "outline"}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors"
+                variant="default" // Force default to override outline for consistency
               >
                 {loadingProductId === product.id ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                     Opening checkout...
                   </>
                 ) : (
-                  `Buy ${product.credits} Credits`
+                  `Buy ${product.title}`
                 )}
               </Button>
             </CardFooter>
