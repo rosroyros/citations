@@ -277,4 +277,74 @@ describe('Success', () => {
 
     // Cleanup - no need for mockRestore with this approach
   });
+
+  describe('Success Banner - Pass Support', () => {
+    it('should show pass message when user has active day pass', async () => {
+      // Arrange
+      window.location.search = '?token=test-pass-token';
+
+      const mockFetch = vi.fn();
+      global.fetch = mockFetch;
+
+      // Mock successful response with active pass
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({
+            credits: 0,
+            active_pass: { hours_remaining: 72 }
+          })
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({})
+        });
+
+      // Act
+      render(
+        <CreditProvider>
+          <Success />
+        </CreditProvider>
+      );
+
+      // Assert - Wait for success status and banner to appear
+      await vi.waitFor(async () => {
+        expect(await screen.queryByText('✅ Payment Successful! Your 3-Day Pass is now active')).toBeInTheDocument();
+      }, { timeout: 2000 });
+    });
+
+    it('should show credits message when user has credits', async () => {
+      // Arrange
+      window.location.search = '?token=test-credits-token';
+
+      const mockFetch = vi.fn();
+      global.fetch = mockFetch;
+
+      // Mock successful response with credits
+      mockFetch
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({
+            credits: 1000,
+            active_pass: null
+          })
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({})
+        });
+
+      // Act
+      render(
+        <CreditProvider>
+          <Success />
+        </CreditProvider>
+      );
+
+      // Assert - Wait for success status and banner to appear
+      await vi.waitFor(async () => {
+        expect(await screen.queryByText('✅ Payment Successful! You now have 1000 Citation Credits')).toBeInTheDocument();
+      }, { timeout: 2000 });
+    });
+  });
 });

@@ -30,6 +30,7 @@ def get_test_db():
     """Get database connection for testing"""
     db_path = os.path.join(os.path.dirname(__file__), 'credits.db')
     conn = sqlite3.connect(db_path)
+    conn.execute("PRAGMA busy_timeout=5000")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -97,16 +98,18 @@ def register_test_helpers(app):
 
         conn = get_test_db()
 
-        # Create user if not exists
-        conn.execute(
-            "INSERT OR IGNORE INTO user (id, daily_usage, daily_usage_date) VALUES (?, ?, ?)",
-            (request.user_id, 0, datetime.utcnow().date().isoformat())
-        )
+        # Calculate today's reset timestamp (next UTC midnight)
+        from pricing_config import get_next_utc_midnight
+        reset_timestamp = get_next_utc_midnight()
 
-        # Set daily usage
+        # Insert or update daily usage record
         conn.execute(
-            "UPDATE user SET daily_usage = ?, daily_usage_date = ? WHERE id = ?",
-            (request.usage, datetime.utcnow().date().isoformat(), request.user_id)
+            """
+            INSERT OR REPLACE INTO daily_usage
+            (token, reset_timestamp, citations_count)
+            VALUES (?, ?, ?)
+            """,
+            (request.user_id, reset_timestamp, request.usage)
         )
 
         conn.commit()
@@ -120,16 +123,41 @@ def register_test_helpers(app):
             raise HTTPException(status_code=404, detail="Not found")
 
         conn = get_test_db()
+
+        # Get user info from users table
         user = conn.execute(
-            "SELECT * FROM user WHERE id = ?",
+            "SELECT * FROM users WHERE token = ?",
             (user_id,)
         ).fetchone()
+
+        user_data = dict(user) if user else {"token": user_id, "credits": 0}
+
+        # Get daily usage from daily_usage table
+        from pricing_config import get_next_utc_midnight
+        reset_timestamp = get_next_utc_midnight()
+
+        daily_usage = conn.execute(
+            "SELECT citations_count FROM daily_usage WHERE token = ? AND reset_timestamp = ?",
+            (user_id, reset_timestamp)
+        ).fetchone()
+
+        user_data["daily_usage"] = daily_usage["citations_count"] if daily_usage else 0
+
+        # Get pass info from user_passes table
+        import time
+        now = int(time.time())
+        user_pass = conn.execute(
+            "SELECT * FROM user_passes WHERE token = ? AND expiration_timestamp > ?",
+            (user_id, now)
+        ).fetchone()
+
+        user_data["has_pass"] = user_pass is not None
+        if user_pass:
+            user_data["pass_expires"] = user_pass["expiration_timestamp"]
+
         conn.close()
 
-        if not user:
-            raise HTTPException(status_code=404, detail="User not found")
-
-        return dict(user)
+        return user_data
 
     @app.get("/test/get-events")
     async def test_get_events(user_id: str):
@@ -170,17 +198,22 @@ def register_test_helpers(app):
 
         conn = get_test_db()
 
-        # Reset user to initial state
+        # Reset credits in users table
         conn.execute(
-            """
-            UPDATE user SET
-                credits = 0,
-                pass_end_date = NULL,
-                daily_usage = 0,
-                daily_usage_date = ?
-            WHERE id = ?
-            """,
-            (datetime.utcnow().date().isoformat(), request.user_id)
+            "UPDATE users SET credits = 0 WHERE token = ?",
+            (request.user_id,)
+        )
+
+        # Delete user passes
+        conn.execute(
+            "DELETE FROM user_passes WHERE token = ?",
+            (request.user_id,)
+        )
+
+        # Delete daily usage records
+        conn.execute(
+            "DELETE FROM daily_usage WHERE token = ?",
+            (request.user_id,)
         )
 
         # Clear events

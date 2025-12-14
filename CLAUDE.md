@@ -59,7 +59,7 @@ Quality gate labels track review workflow:
 ```bash
 bd update <id> -d "$(bd show <id> --format description)
 
-## Progress - [Date]
+## Progress - [Date][TIME]
 - Implemented X
 - Discovered Y issue
 - Changed approach from A to B because [reason]
@@ -90,7 +90,7 @@ bd dep add <id> <blocker-id> --type blocks
 1. Commit all changes (oracle-review needs committed code)
 2. Update description with final summary
 3. Add review label: `bd label add <id> needs-review`
-4. Use `/oracle-review` (external review using claude -p)
+4. Use `/oracle-review` (external review using claude -p) and if it fails use `/zoracle-review` (external review using gemini -m pro)
 5. After approval: `bd close <id> --reason "[Summary of what was done]"`
 6. **Push, Deploy & Verify**: 
    - Ensure all changes are pushed: `git push origin main`

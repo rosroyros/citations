@@ -6,6 +6,7 @@ const CreditContext = createContext();
 export const CreditProvider = ({ children }) => {
   const [credits, setCredits] = useState(null);
   const [activePass, setActivePass] = useState(null);
+  const [userStatus, setUserStatus] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const token = getToken();
@@ -37,10 +38,32 @@ export const CreditProvider = ({ children }) => {
     fetchCredits();
   }, [fetchCredits]);
 
+  // Compute userStatus from credits and activePass
+  useEffect(() => {
+    if (activePass) {
+      setUserStatus({
+        type: 'pass',
+        pass_type: activePass.pass_type,
+        expiration_timestamp: activePass.expiration_timestamp,
+        daily_used: activePass.daily_used || 0,
+        daily_limit: activePass.daily_limit || 1000,
+        reset_time: activePass.reset_time
+      });
+    } else if (credits !== null) {
+      setUserStatus({
+        type: 'credits',
+        balance: credits
+      });
+    } else {
+      setUserStatus(null);
+    }
+  }, [credits, activePass]);
+
   return (
     <CreditContext.Provider value={{
       credits,
       activePass,
+      userStatus,
       loading,
       error,
       refreshCredits: fetchCredits,

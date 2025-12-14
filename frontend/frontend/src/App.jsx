@@ -92,7 +92,7 @@ function AppContent() {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [submittedText, setSubmittedText] = useState('')
   const [fadingOut, setFadingOut] = useState(false)
-  const [userStatus, setUserStatus] = useState(null)
+  const [jobUserStatus, setJobUserStatus] = useState(null)
 
   // Gated results state management
   const [resultsReady, setResultsReady] = useState(false)
@@ -111,7 +111,10 @@ function AppContent() {
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const validationSectionRef = useRef(null)
-  const { refreshCredits } = useCredits()
+  const { refreshCredits, userStatus: contextUserStatus } = useCredits()
+  
+  // Use job-specific status if available (more recent), otherwise context status
+  const userStatus = jobUserStatus || contextUserStatus
   // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
   useAnalyticsTracking()
 
@@ -305,10 +308,14 @@ function AppContent() {
 
           // Handle successful completion
           const data = jobData.results
+          console.log('Job completed with data:', data)
 
           // Update user status if available
           if (data.user_status) {
-            setUserStatus(data.user_status)
+            console.log('Setting user status:', data.user_status)
+            setJobUserStatus(data.user_status)
+          } else {
+            console.log('No user_status found in data:', Object.keys(data))
           }
 
           // Sync localStorage with backend's authoritative count
@@ -702,7 +709,7 @@ function AppContent() {
 
       // Update user status if available
       if (data.user_status) {
-        setUserStatus(data.user_status)
+        setJobUserStatus(data.user_status)
       }
 
       // Sync localStorage with backend's authoritative count

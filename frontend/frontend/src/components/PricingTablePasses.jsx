@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import React from "react"
 import { trackEvent } from '../utils/analytics'
+import { getToken } from '../utils/creditStorage'
 
 // Product configuration
 // Updated with real Polar product IDs from pricing_config.py
@@ -114,11 +115,15 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
         })
       }
 
+      // Get user token
+      const token = getToken()
+
       // Create Polar checkout via backend API
       const response = await fetch('/api/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          token,
           productId,
           variantId: experimentVariant || '2'
         })

@@ -134,8 +134,19 @@ JOB_ID_END_MARKER = '>>'
 END_JOB_MARKER = '<<<END_JOB>>>'
 
 # Default configuration constants
-DEFAULT_LOG_PATH = "/opt/citations/logs/citations.log"
-DEFAULT_LOG_DIR = "/opt/citations/logs"
+import os
+from pathlib import Path
+
+# Determine log directory based on environment
+if os.path.exists("/opt/citations"):
+    DEFAULT_LOG_PATH = "/opt/citations/logs/citations.log"
+    DEFAULT_LOG_DIR = "/opt/citations/logs"
+else:
+    # Development/Local environment - use logs directory in project root
+    # backend/citation_logger.py -> backend/ -> project_root/logs
+    PROJECT_ROOT = Path(__file__).parent.parent
+    DEFAULT_LOG_DIR = str(PROJECT_ROOT / "logs")
+    DEFAULT_LOG_PATH = str(PROJECT_ROOT / "logs" / "citations.log")
 
 # Disk space thresholds
 MIN_DISK_SPACE_BYTES = 100 * 1024 * 1024  # 100MB minimum free space

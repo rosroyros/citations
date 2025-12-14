@@ -6,9 +6,8 @@ from pathlib import Path
 from typing import Optional
 from pricing_config import get_next_utc_midnight
 
-# Set up logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+# Use the same logger name as app.py to ensure logs go to the same file/format
+logger = logging.getLogger("citation_validator")
 
 def get_db_path() -> str:
     """Get database path, using test override if set."""
@@ -110,6 +109,20 @@ def init_db():
             )
         ''')
 
+        # Create UPGRADE_EVENT table for E2E testing
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS UPGRADE_EVENT (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id TEXT,
+                event_type TEXT,
+                timestamp INTEGER,
+                experiment_variant TEXT,
+                product_id TEXT,
+                amount_cents INTEGER,
+                metadata TEXT
+            )
+        ''')
+
         # Commit changes
         conn.commit()
         conn.close()
@@ -139,6 +152,7 @@ def get_credits(token: str) -> int:
         db_path = get_db_path()
         with sqlite3.connect(db_path) as conn:
             conn.execute("PRAGMA foreign_keys = ON")
+            conn.execute("PRAGMA busy_timeout=5000")
             cursor = conn.cursor()
 
             cursor.execute("SELECT credits FROM users WHERE token = ?", (token,))
@@ -553,8 +567,11 @@ def get_active_pass(token: str) -> Optional[dict]:
     db_path = get_db_path()
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
+    cursor.execute("PRAGMA busy_timeout=5000")
 
     now = int(time.time())
+    logger.debug(f"Checking active pass for {token[:8]} at {now}")
+    
     cursor.execute("""
         SELECT expiration_timestamp, pass_type, purchase_date
         FROM user_passes
@@ -566,12 +583,15 @@ def get_active_pass(token: str) -> Optional[dict]:
 
     if row:
         hours_remaining = (row[0] - now) // 3600
+        logger.debug(f"Found active pass for {token[:8]}: {row[1]}, expires {row[0]}")
         return {
             'expiration_timestamp': row[0],
             'pass_type': row[1],
             'purchase_date': row[2],
             'hours_remaining': hours_remaining
         }
+    
+    logger.debug(f"No active pass found for {token[:8]} (checked > {now})")
     return None
 
 

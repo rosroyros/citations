@@ -17,11 +17,11 @@ from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
 from providers.openai_provider import OpenAIProvider
 from providers.gemini_provider import GeminiProvider
-from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass, get_active_pass, try_increment_daily_usage
+from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass, get_active_pass, try_increment_daily_usage, get_daily_usage_for_current_window
 from gating import get_user_type, should_gate_results_sync, log_gating_event, GATED_RESULTS_ENABLED
 from citation_logger import log_citations_to_dashboard, ensure_citation_log_ready, check_disk_space
 from dashboard.log_parser import CitationLogParser
-from pricing_config import PRODUCT_CONFIG
+from pricing_config import PRODUCT_CONFIG, get_next_utc_midnight
 
 # Add dashboard directory to Python path for analytics import
 import sys
@@ -377,8 +377,12 @@ def extract_user_id(request: Request) -> tuple[Optional[str], Optional[str], str
     return None, None, 'anonymous'
 
 
+# Global keep-alive connection to ensure WAL file persists
+keep_alive_conn = None
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    global keep_alive_conn
     """Handle application lifespan events."""
     logger.info("Citation Validator API starting up")
 
@@ -417,20 +421,39 @@ async def lifespan(app: FastAPI):
     else:
         logger.info("All optional environment variables are present")
 
-    # Ensure citation log directory and permissions are ready
-    if not ensure_citation_log_ready():
-        logger.critical("Failed to prepare citation log directory - citation logging will not be available")
-    else:
-        logger.info("Citation logging system ready")
-
-    # Start background job cleanup task
-    import asyncio
-    asyncio.create_task(cleanup_old_jobs())
-    logger.info("Started job cleanup task")
-
-    yield
-    logger.info("Citation Validator API shutting down")
-
+        # Ensure citation log directory and permissions are ready
+        try:
+            if not ensure_citation_log_ready():
+                logger.warning("Failed to prepare citation log directory - citation logging will not be available")
+            else:
+                logger.info("Citation logging system ready")
+        except Exception as e:
+            logger.warning(f"Error checking citation log directory: {e} - citation logging disabled")
+    
+        # Initialize database (ensure tables exist and WAL mode is set)        try:
+            from database import init_db, get_db_path
+            import sqlite3
+            init_db()
+            # Open a keep-alive connection to prevent WAL checkpointing/deletion
+            # This is critical for high-concurrency tests using transient connections
+            keep_alive_conn = sqlite3.connect(get_db_path())
+            # Force WAL mode on this connection too
+            keep_alive_conn.execute("PRAGMA journal_mode=WAL")
+            logger.info("Database initialized successfully and keep-alive connection established")
+        except Exception as e:
+            logger.critical(f"Failed to initialize database: {e}")
+    
+        # Start background job cleanup task
+        import asyncio
+        asyncio.create_task(cleanup_old_jobs())
+        logger.info("Started job cleanup task")
+        
+        yield
+        
+        # Clean up keep-alive connection
+        if keep_alive_conn:
+            keep_alive_conn.close()
+        logger.info("Citation Validator API shutting down")
 
 # Create FastAPI app
 app = FastAPI(
@@ -629,6 +652,32 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
         f"product={product_id or 'n/a'}"
     )
 
+    # For E2E testing: Write to database so tests can verify events
+    if os.getenv('TESTING') == 'true':
+        try:
+            from database import get_db_path
+            import sqlite3
+            with sqlite3.connect(get_db_path()) as conn:
+                conn.execute("PRAGMA busy_timeout=5000")
+                conn.execute(
+                    """
+                    INSERT INTO UPGRADE_EVENT 
+                    (user_id, event_type, timestamp, experiment_variant, product_id, amount_cents, metadata)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        token, 
+                        event_name, 
+                        payload['timestamp'], 
+                        experiment_variant, 
+                        product_id, 
+                        amount_cents,
+                        json.dumps(metadata) if metadata else None
+                    )
+                )
+        except Exception as e:
+            logger.error(f"Failed to write UPGRADE_EVENT to DB: {e}")
+
 
 def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None, reason: str = None, **metadata):
     """
@@ -709,6 +758,9 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
 
     logger.info(f"Product ID: {product_id}")
     logger.info(f"Variant ID: {variant_id}")
+
+    # Track checkout started event
+    log_upgrade_event('checkout_started', token, product_id=product_id, experiment_variant=variant_id)
 
     # Mock Checkout if configured (for E2E tests)
     if os.getenv('MOCK_LLM', '').lower() == 'true':
@@ -802,9 +854,16 @@ async def get_credits_balance(token: str):
     logger.debug(f"Getting credits balance for token: {token[:8]}...")
 
     try:
-        from database import get_credits, get_active_pass
         balance = get_credits(token)
         active_pass = get_active_pass(token)
+        
+        # Add daily usage info if user has a pass
+        if active_pass:
+            daily_used = get_daily_usage_for_current_window(token)
+            active_pass['daily_used'] = daily_used
+            active_pass['daily_limit'] = PASS_DAILY_LIMIT
+            active_pass['reset_time'] = get_next_utc_midnight()
+            
         logger.debug(f"Retrieved balance: {balance} credits, pass: {bool(active_pass)}")
         return {"token": token, "credits": balance, "active_pass": active_pass}
 
@@ -1075,9 +1134,9 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         user_type = 'paid' if token else 'free'
         logger.debug(f"Job {job_id}: User type determined as {user_type}")
 
-        # Create validation tracking record
-        citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
-        create_validation_record(job_id, user_type, citation_count, 'processing', paid_user_id, free_user_id)
+        # Update validation tracking record status
+        # Note: Record was already created in validate_citations_async
+        update_validation_tracking(job_id, status='processing')
 
         # Note: We don't check access here anymore - it's checked after validation
         # This allows pass users to start validation jobs
@@ -1189,47 +1248,50 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 }
                 gating_reason = "Free tier over limit"
         else:
-            # Paid tier
-            user_credits = get_credits(token)
+            # Paid tier - use check_user_access function (which handles passes correctly)
+            access_check = check_user_access(token, citation_count)
 
-            if user_credits >= citation_count:
-                # Can afford all
-                success = deduct_credits(token, citation_count)
-                if not success:
-                    raise ValueError(f"Failed to deduct {citation_count} credits from user {token[:8]}...")
+            if not access_check['has_access']:
+                # User denied access (pass limit exceeded or insufficient credits)
+                logger.warning(f"Job {job_id}: Access denied for token {token[:8]}: {access_check['error_message']}")
 
+                # Log pricing table shown event for upgrade funnel tracking
+                if access_check['access_type'] == 'credits':
+                    user_credits = access_check['user_status'].balance
+                    log_pricing_table_shown(
+                        token,
+                        jobs[job_id].get("experiment_variant"),
+                        reason='insufficient_credits',
+                        credits_remaining=user_credits,
+                        credits_needed=citation_count,
+                        partial_available=user_credits
+                    )
+
+                # Return error that matches what frontend expects
+                jobs[job_id]["status"] = "failed"
+                jobs[job_id]["error"] = access_check['error_message']
+                update_validation_tracking(job_id, status='failed', error_message=access_check['error_message'])
+                return
+
+            # User has access - build response based on access type
+            if access_check['access_type'] == 'pass':
+                # Pass user - unlimited validations up to daily limit
                 response_data = {
                     "results": results,
-                    "credits_remaining": user_credits - citation_count,
+                    "limit_type": "none"
+                }
+                gating_reason = "Pass user within daily limit"
+            else:
+                # Credit user - credits already deducted by check_user_access
+                response_data = {
+                    "results": results,
+                    "credits_remaining": access_check['user_status'].balance,
                     "limit_type": "none"
                 }
                 gating_reason = "Paid user sufficient credits"
-            else:
-                # Partial results
-                affordable = user_credits
-                success = deduct_credits(token, affordable)
-                if not success:
-                    raise ValueError(f"Failed to deduct {affordable} credits from user {token[:8]}...")
 
-                # Log pricing table shown event for upgrade funnel tracking
-                log_pricing_table_shown(
-                    token,
-                    jobs[job_id].get("experiment_variant"),
-                    reason='insufficient_credits',
-                    credits_remaining=user_credits,
-                    credits_needed=citation_count,
-                    partial_available=affordable
-                )
-
-                response_data = {
-                    "results": results[:affordable],
-                    "partial": True,
-                    "citations_checked": affordable,
-                    "citations_remaining": citation_count - affordable,
-                    "credits_remaining": 0,
-                    "limit_type": "credits_exhausted"
-                }
-                gating_reason = "Paid user insufficient credits"
+            # Add user_status to response_data for all user types
+            response_data["user_status"] = access_check['user_status']
 
         # Apply gating logic and store results
         gated_response = build_gated_response(response_data, user_type, job_id, gating_reason)
@@ -1350,6 +1412,9 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Convert HTML to text with formatting markers
     citations_text = html_to_text_with_formatting(request.citations)
+    
+    # DEBUG LOGGING
+    logger.info(f"Job {job_id}: Parsed citations text length: {len(citations_text)}")
 
     # Create initial validation tracking record
     citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])

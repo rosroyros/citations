@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { PricingTableCredits } from './PricingTableCredits'
+import { PricingTablePasses } from './PricingTablePasses'
 
 // Mock fetch to control API calls
 const mockFetch = vi.fn()
@@ -16,7 +16,7 @@ Object.defineProperty(window, 'location', {
 const mockConsoleLog = vi.fn()
 global.console.log = mockConsoleLog
 
-describe('PricingTableCredits', () => {
+describe('PricingTablePasses', () => {
   beforeEach(() => {
     mockFetch.mockClear()
     mockConsoleLog.mockClear()
@@ -24,16 +24,16 @@ describe('PricingTableCredits', () => {
   })
 
   it('renders all 3 pricing tiers', () => {
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    // Check for all three credit amounts
-    expect(screen.getByText('100 Credits')).toBeInTheDocument()
-    expect(screen.getByText('500 Credits')).toBeInTheDocument()
-    expect(screen.getByText('2,000 Credits')).toBeInTheDocument()
+    // Check for all three pass types
+    expect(screen.getByText('1-Day Pass')).toBeInTheDocument()
+    expect(screen.getByText('7-Day Pass')).toBeInTheDocument()
+    expect(screen.getByText('30-Day Pass')).toBeInTheDocument()
   })
 
   it('displays correct pricing for each tier', () => {
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
     // Check prices
     expect(screen.getByText('$1.99')).toBeInTheDocument()
@@ -41,19 +41,19 @@ describe('PricingTableCredits', () => {
     expect(screen.getByText('$9.99')).toBeInTheDocument()
   })
 
-  it('shows "Best Value" badge only on 500 credit tier', () => {
-    render(<PricingTableCredits experimentVariant="1" />)
+  it('shows "Recommended" badge only on 7-Day Pass tier', () => {
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    const badges = screen.getAllByText('Best Value')
+    const badges = screen.getAllByText('Recommended')
     expect(badges).toHaveLength(1) // Only one badge should exist
   })
 
   it('displays marketing descriptions', () => {
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    expect(screen.getByText('For occasional users.')).toBeInTheDocument()
-    expect(screen.getByText('Best balance of price & usage.')).toBeInTheDocument()
-    expect(screen.getByText('For frequent academic writing.')).toBeInTheDocument()
+    expect(screen.getByText('Short-term access — great for quick checks.')).toBeInTheDocument()
+    expect(screen.getByText('Best value for occasional writers.')).toBeInTheDocument()
+    expect(screen.getByText('Unlimited access for heavy users.')).toBeInTheDocument()
   })
 
   it('calls checkout API and redirects when Buy button is clicked', async () => {
@@ -62,11 +62,11 @@ describe('PricingTableCredits', () => {
       json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
     })
 
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    // Find and click the 100 credits button
-    const buy100Button = screen.getByText('Buy 100 Credits')
-    fireEvent.click(buy100Button)
+    // Find and click the 1-Day Pass button
+    const buyButton = screen.getByText('Buy 1-Day Pass')
+    fireEvent.click(buyButton)
 
     // Wait for the API call to complete
     await waitFor(() => {
@@ -74,8 +74,8 @@ describe('PricingTableCredits', () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          productId: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
-          variantId: '1'
+          productId: '1282bd9b-81b6-4f06-a1f2-29bb0be01f26',
+          variantId: '2'
         })
       })
     })
@@ -86,24 +86,24 @@ describe('PricingTableCredits', () => {
     })
   })
 
-  it('calls checkout API for 500 credits button', async () => {
+  it('calls checkout API for 7-Day Pass button', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
     })
 
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    const buy500Button = screen.getByText('Buy 500 Credits')
-    fireEvent.click(buy500Button)
+    const buyButton = screen.getByText('Buy 7-Day Pass')
+    fireEvent.click(buyButton)
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalledWith('/api/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          productId: '2a3c8913-2e82-4f12-9eb7-767e4bc98089',
-          variantId: '1'
+          productId: '5b311653-7127-41b5-aed6-496fb713149c',
+          variantId: '2'
         })
       })
     })
@@ -111,20 +111,20 @@ describe('PricingTableCredits', () => {
 
   it('shows loading state while checkout is being created', async () => {
     // Create a promise that we can control
-    let resolveFetch: (value: any) => void
+    let resolveFetch
     const fetchPromise = new Promise(resolve => {
       resolveFetch = resolve
     })
     mockFetch.mockReturnValueOnce(fetchPromise)
 
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    const buy100Button = screen.getByText('Buy 100 Credits')
-    fireEvent.click(buy100Button)
+    const buyButton = screen.getByText('Buy 1-Day Pass')
+    fireEvent.click(buyButton)
 
     // Check for loading state
     expect(screen.getByText('Opening checkout...')).toBeInTheDocument()
-    expect(buy100Button).toBeDisabled()
+    expect(buyButton).toBeDisabled()
 
     // Resolve the fetch promise
     resolveFetch({
@@ -135,7 +135,7 @@ describe('PricingTableCredits', () => {
     // Button should be back to normal after loading
     await waitFor(() => {
       expect(screen.queryByText('Opening checkout...')).not.toBeInTheDocument()
-      expect(buy100Button).not.toBeDisabled()
+      expect(buyButton).not.toBeDisabled()
     })
   })
 
@@ -145,10 +145,10 @@ describe('PricingTableCredits', () => {
       status: 500
     })
 
-    render(<PricingTableCredits experimentVariant="1" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    const buy100Button = screen.getByText('Buy 100 Credits')
-    fireEvent.click(buy100Button)
+    const buyButton = screen.getByText('Buy 1-Day Pass')
+    fireEvent.click(buyButton)
 
     // Wait for error message to appear
     await waitFor(() => {
@@ -156,7 +156,7 @@ describe('PricingTableCredits', () => {
     })
 
     // Verify button is not disabled after error
-    expect(buy100Button).not.toBeDisabled()
+    expect(buyButton).not.toBeDisabled()
   })
 
   it('logs analytics events', async () => {
@@ -165,60 +165,34 @@ describe('PricingTableCredits', () => {
       json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
     })
 
-    render(<PricingTableCredits experimentVariant="2" />)
+    render(<PricingTablePasses experimentVariant="2" />)
 
     // Check initial pricing table log
     expect(mockConsoleLog).toHaveBeenCalledWith('pricing_table_shown', { variant: '2' })
 
-    const buy100Button = screen.getByText('Buy 100 Credits')
-    fireEvent.click(buy100Button)
+    const buyButton = screen.getByText('Buy 1-Day Pass')
+    fireEvent.click(buyButton)
 
     await waitFor(() => {
       // Check product selection log
       expect(mockConsoleLog).toHaveBeenCalledWith('product_selected', {
-        productId: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
+        productId: '1282bd9b-81b6-4f06-a1f2-29bb0be01f26',
         variant: '2'
       })
 
       // Check checkout started log
       expect(mockConsoleLog).toHaveBeenCalledWith('checkout_started', {
-        productId: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
+        productId: '1282bd9b-81b6-4f06-a1f2-29bb0be01f26',
         checkoutUrl: 'https://checkout.polar.sh/example'
       })
     })
   })
 
-  it('displays all benefit items with checkmarks', () => {
-    render(<PricingTableCredits experimentVariant="1" />)
+  it('displays benefits correctly', () => {
+    render(<PricingTablePasses experimentVariant="2" />)
 
-    // Check some key benefits
-    expect(screen.getByText('100 citation validations')).toBeInTheDocument()
-    expect(screen.getByText('2,000 citation validations')).toBeInTheDocument()
-  })
-
-  it('uses default variant when experimentVariant not provided', async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
-    })
-
-    render(<PricingTableCredits />)
-
-    // Check initial pricing table log with default variant
-    expect(mockConsoleLog).toHaveBeenCalledWith('pricing_table_shown', { variant: '1' })
-
-    const buy100Button = screen.getByText('Buy 100 Credits')
-    fireEvent.click(buy100Button)
-
-    await waitFor(() => {
-      expect(mockFetch).toHaveBeenCalledWith('/api/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          productId: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
-          variantId: '1'
-        })
-      })
-    })
+    expect(screen.getByText('Single use citation check')).toBeInTheDocument()
+    expect(screen.getByText('Export to BibTeX / RIS')).toBeInTheDocument()
+    expect(screen.getByText('Priority support')).toBeInTheDocument()
   })
 })
