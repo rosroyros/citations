@@ -172,11 +172,11 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
             )}
 
             {/* Card Header */}
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xl font-bold text-gray-900">
+            <CardHeader className="pb-0">
+              <CardTitle className="text-xl font-semibold text-gray-900">
                 {product.title}
               </CardTitle>
-              <CardDescription className="text-gray-500 mt-1 text-sm font-medium">
+              <CardDescription className="text-gray-500 mt-2 text-sm">
                 {product.description}
               </CardDescription>
             </CardHeader>
@@ -184,14 +184,14 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
             {/* Card Content - Price and Benefits */}
             <CardContent className="flex-1 pt-4">
               {/* Price Display */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <span className="text-4xl font-bold text-gray-900">
                   ${product.price}
                 </span>
               </div>
 
               {/* Benefits List with Checkmarks */}
-              <ul className="space-y-3">
+              <ul className="space-y-2">
                 {product.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start text-sm text-gray-700">
                     <span className="mr-3 text-blue-600 font-bold">✓</span>

@@ -143,19 +143,19 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
             )}
 
             {/* Card Header */}
-            <CardHeader>
-              <CardTitle className="text-2xl font-heading text-heading">
+            <CardHeader className="pb-0">
+              <CardTitle className="text-xl font-semibold font-heading text-heading">
                 {product.credits.toLocaleString()} Credits
               </CardTitle>
-              <CardDescription className="text-sm font-body text-body">
+              <CardDescription className="text-sm font-body text-body mt-2">
                 ${product.pricePerCitation.toFixed(3)} per citation
               </CardDescription>
             </CardHeader>
 
             {/* Card Content - Price and Benefits */}
-            <CardContent>
+            <CardContent className="pt-4">
               {/* Price Display */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <span className="text-4xl font-bold font-heading text-heading">
                   ${product.price}
                 </span>
@@ -165,7 +165,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
               </div>
 
               {/* Benefits List with Checkmarks */}
-              <ul className="space-y-3 text-sm font-body">
+              <ul className="space-y-2 text-sm font-body">
                 {product.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start">
                     {/* Green checkmark icon */}

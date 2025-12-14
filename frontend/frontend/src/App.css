@@ -2,6 +2,14 @@
 
 @plugin "tailwindcss-animate";
 
+@layer base {
+  html, body {
+    font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 .app {
