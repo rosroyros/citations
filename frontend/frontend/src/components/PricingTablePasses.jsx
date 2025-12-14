@@ -160,13 +160,13 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
             key={product.id}
             className={`flex flex-col relative transition-all duration-200 ${
               product.recommended
-                ? 'border-2 border-blue-600 shadow-xl -translate-y-1 z-10'
+                ? 'border-2 border-primary shadow-xl -translate-y-1 z-10'
                 : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
             }`}
           >
             {/* "Recommended" badge - only shown on recommended tier */}
             {product.recommended && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                 Recommended
               </div>
             )}
@@ -194,7 +194,7 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
               <ul className="space-y-2">
                 {product.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start text-sm text-gray-700">
-                    <span className="mr-3 text-blue-600 font-bold">✓</span>
+                    <span className="mr-3 text-primary font-bold">✓</span>
                     <span>{benefit}</span>
                   </li>
                 ))}
@@ -206,7 +206,7 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
               <Button
                 onClick={() => handleCheckout(product.id)}
                 disabled={loadingProductId === product.id}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors"
+                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 rounded-lg transition-colors"
                 variant="default"
               >
                 {loadingProductId === product.id ? (
