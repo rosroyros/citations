@@ -46,6 +46,14 @@ def setup_test_db():
     cursor = conn.cursor()
 
     cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            token TEXT PRIMARY KEY,
+            credits INTEGER DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders (
             order_id TEXT PRIMARY KEY,
             token TEXT NOT NULL,
@@ -66,7 +74,7 @@ def setup_test_db():
             order_id TEXT UNIQUE NOT NULL
         )
     """)
-
+    
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS daily_usage (
             token TEXT NOT NULL,
@@ -386,3 +394,59 @@ class TestDailyUsageQuery:
         # Current window should be 0
         result = get_daily_usage_for_current_window('user1')
         assert result == 0
+
+
+class TestDatabaseErrors:
+    """Test error handling coverage."""
+
+    def test_increment_exception_handling(self):
+        """Test generic exception inside try_increment_daily_usage try block."""
+        # We need connect to succeed, but execute to fail inside the try block
+        with patch('database.sqlite3.connect') as mock_connect:
+            mock_cursor = mock_connect.return_value.cursor.return_value
+            # Fail on BEGIN IMMEDIATE which is inside the try block
+            mock_cursor.execute.side_effect = Exception("Transaction Failed")
+            
+            with pytest.raises(Exception) as exc:
+                try_increment_daily_usage('user1', 50)
+            assert "Transaction Failed" in str(exc.value)
+
+    def test_add_pass_integrity_error_race_condition(self):
+        """
+        Test IntegrityError in add_pass (simulates race condition).
+        This covers the 'except sqlite3.IntegrityError' block.
+        """
+        # We need to let the first part succeed (SELECT 1...) but fail on INSERT
+        
+        def side_effect_execute(sql, *args):
+            # Raise error on the order insertion
+            if "INSERT INTO orders" in sql:
+                raise sqlite3.IntegrityError("UNIQUE constraint failed: orders.order_id")
+            return None
+
+        with patch('database.sqlite3.connect') as mock_connect:
+            mock_conn = mock_connect.return_value
+            mock_cursor = mock_conn.cursor.return_value
+            
+            # Setup: order does NOT exist yet (so first check passes)
+            mock_cursor.fetchone.return_value = None
+            
+            # When INSERT happens, raise IntegrityError
+            mock_cursor.execute.side_effect = side_effect_execute
+            
+            # Call function
+            result = add_pass('user1', 7, '7day', 'order_race')
+            
+            # Should return True (handled as success)
+            assert result is True
+
+    def test_add_pass_generic_exception(self):
+        """Test generic exception inside add_pass try block."""
+        with patch('database.sqlite3.connect') as mock_connect:
+            mock_cursor = mock_connect.return_value.cursor.return_value
+            # Fail on BEGIN IMMEDIATE
+            mock_cursor.execute.side_effect = Exception("Generic Failure")
+            
+            with pytest.raises(Exception):
+                add_pass('user1', 7, '7day', 'order1')
+

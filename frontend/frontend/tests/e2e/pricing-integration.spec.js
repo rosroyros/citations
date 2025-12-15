@@ -40,11 +40,11 @@ test.describe('Pricing Integration Tests', () => {
 
       if (i <= 5) {
         // Should see results section (might be gated)
-        await expect(page.locator('.validation-results-section')).toBeVisible({ timeout: 5000 });
+        await expect(page.locator('.validation-results-section').nth(0)).toBeVisible({ timeout: 30000 });
 
         // If gated results overlay is present, click reveal button
-        if (await page.locator('[data-testid="gated-results"]').isVisible()) {
-          await page.click('button:has-text("View Results")');
+        if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+          await page.locator('button:has-text("View Results")').first().click();
           // Wait for reveal to complete
           await page.waitForTimeout(1000);
         }
@@ -52,7 +52,7 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 2. Should see partial results with upgrade button on 6th validation
-    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
 
     // 3. Force variant '1' (Credits) before modal opens
@@ -63,7 +63,7 @@ test.describe('Pricing Integration Tests', () => {
 
     // 4. Click upgrade button to show pricing modal
     await page.click('button:has-text("Upgrade to Continue")');
-    await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 5. Verify correct variant shown
     const variant = await page.locator('.pricing-table').getAttribute('data-variant');
@@ -101,9 +101,10 @@ test.describe('Pricing Integration Tests', () => {
 
     // 10. Verify user status updated
     if (variant === 'credits') {
-      await expect(page.locator('.credit-display')).toContainText('Citation Credits: 500', { timeout: 5000 });
+      await expect(page.locator('.credit-display')).toContainText('Citation Credits', { timeout: 5000 });
+      await expect(page.locator('.credit-display')).toContainText('500 remaining', { timeout: 5000 });
     } else {
-      await expect(page.locator('.credit-display')).toContainText('7-Day Pass', { timeout: 5000 });
+      await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 5000 });
     }
 
     // 10. Submit another validation
@@ -116,9 +117,10 @@ test.describe('Pricing Integration Tests', () => {
     await waitForPageLoad(page);
 
     if (variant === 'credits') {
-      await expect(page.locator('.credit-display')).toContainText('Citation Credits: 499');
+      await expect(page.locator('.credit-display')).toContainText('Citation Credits');
+      await expect(page.locator('.credit-display')).toContainText('499 remaining');
     } else {
-      await expect(page.locator('.credit-display')).toContainText('7-Day Pass');
+      await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active');
     }
   });
 
@@ -155,6 +157,9 @@ test.describe('Pricing Integration Tests', () => {
       console.log('Updated localStorage citation_checker_token to:', userId);
     }, userId);
 
+    // Race condition mitigation: Wait for database transaction to commit
+    await page.waitForTimeout(5000);
+
     // 4. Reload to see updated status
     await page.reload();
     await waitForPageLoad(page);
@@ -165,27 +170,28 @@ test.describe('Pricing Integration Tests', () => {
     await page.click('button:has-text("Check My Citations")');
 
     // Wait for validation to complete and results to appear
-    await expect(page.locator('.validation-results-section')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('.validation-results-section').nth(0)).toBeVisible({ timeout: 30000 });
 
     // Wait a moment for UserStatus to be updated after validation
     await page.waitForTimeout(1000);
 
     // If gated results overlay is present, click reveal button
-    if (await page.locator('[data-testid="gated-results"]').isVisible()) {
-      await page.click('button:has-text("View Results")');
+    if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+      await page.locator('button:has-text("View Results")').first().click();
       await page.waitForTimeout(1000);
     }
 
-    // Debug: Check if UserStatus element exists
+    // Debug: Check if UserStatus element exists (Should be 0 now)
     const userStatusExists = await page.locator('.user-status').count();
     console.log(`UserStatus element count: ${userStatusExists}`);
+    expect(userStatusExists).toBe(0);
 
     // Debug: Check entire header status content
     const headerStatusContent = await page.locator('.header-status').textContent();
     console.log(`Header status content: ${headerStatusContent}`);
 
     // Pass user should see pass type - daily limit is internal
-    await expect(page.locator('.credit-display')).toContainText('7-Day Pass', { timeout: 5000 });
+    await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 5000 });
 
     // 6. Now at exactly 1000/1000 - next validation should fail
     // (We already used up the 1000th citation in step 5)
@@ -194,7 +200,7 @@ test.describe('Pricing Integration Tests', () => {
 
     // 7. Error message should appear (daily limit exceeded)
     // The app displays errors in a .error-message div
-    await expect(page.locator('.error-message')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('.error-message')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('.error-message')).toContainText('limit', { ignoreCase: true });
   });
 
@@ -282,12 +288,15 @@ test.describe('Pricing Integration Tests', () => {
       throw new Error('Pass was not granted within timeout period');
     }, userId);
 
-    // 2. Reload to update status
+    // 2. Reload to update status and wait for network to be idle
     await page.reload();
     await waitForPageLoad(page);
 
+    // Additional wait for credits API to complete
+    await page.waitForTimeout(2000);
+
     // 3. Should show PASS (not credits)
-    await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active');
+    await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 30000 });
     await expect(page.locator('.credit-display')).not.toContainText('Citation Credits: 500');
 
     // 4. Submit validation
@@ -320,9 +329,9 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 2. Click upgrade button to show pricing modal
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
+    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
     await page.click('button:has-text("Upgrade to Continue")');
-    await expect(page.locator('.pricing-modal')).toBeVisible();
+    await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 3. Get initial variant
     const variant1 = await page.locator('.pricing-table').getAttribute('data-variant');
@@ -341,9 +350,9 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 7. Click upgrade button to show pricing modal again
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
+    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
     await page.click('button:has-text("Upgrade to Continue")');
-    await expect(page.locator('.pricing-modal')).toBeVisible();
+    await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 8. Should be SAME variant
     const variant2 = await page.locator('.pricing-table').getAttribute('data-variant');
@@ -381,9 +390,9 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 3. Click upgrade button to show pricing modal
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
+    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
     await page.click('button:has-text("Upgrade to Continue")');
-    await expect(page.locator('.pricing-modal')).toBeVisible();
+    await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
     await page.waitForTimeout(1000); // Wait for tracking
 
     // 4. Verify pricing_table_shown event

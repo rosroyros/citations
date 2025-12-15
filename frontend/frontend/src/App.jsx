@@ -3,7 +3,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import { CreditDisplay } from './components/CreditDisplay'
-import { UserStatus } from './components/UserStatus'
+
 import { UpgradeModal } from './components/UpgradeModal'
 import { PartialResults } from './components/PartialResults'
 import { convertBackendErrorMessage } from './utils/errorMessages'
@@ -112,7 +112,7 @@ function AppContent() {
   const abandonmentTimerRef = useRef(null)
   const validationSectionRef = useRef(null)
   const { refreshCredits, userStatus: contextUserStatus } = useCredits()
-  
+
   // Use job-specific status if available (more recent), otherwise context status
   const userStatus = jobUserStatus || contextUserStatus
   // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
@@ -218,7 +218,7 @@ function AppContent() {
     }
   }, [loading, submittedText])
 
-  
+
   // Recover existing job on component mount
   useEffect(() => {
     const existingJobId = localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
@@ -385,7 +385,7 @@ function AppContent() {
           localStorage.removeItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)
 
           // Convert backend error messages to user-friendly ones
-        const errorMessage = convertBackendErrorMessage(jobData.error || 'Validation failed')
+          const errorMessage = convertBackendErrorMessage(jobData.error || 'Validation failed')
 
           // Track validation error
           let errorType = 'job_failed'
@@ -600,7 +600,7 @@ function AppContent() {
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
 
-    
+
     // Track validation attempt
     trackEvent('validation_attempted', {
       form_content_length: textContent.length,
@@ -749,17 +749,14 @@ function AppContent() {
           interface_source: 'main_page'
         })
 
-        // Free counter increment removed - now handled by free_used_total sync
+        // Refresh credit context to ensure consistency, though UI updates immediately via local state
+        refreshCredits()
       }
 
-      // Refresh credits for paid users (with small delay to ensure state updates)
-      if (token) {
-        setTimeout(() => {
-          refreshCredits().catch(err =>
-            console.error('Failed to refresh credits:', err)
-          )
-        }, 100)
-      }
+      // Free counter increment removed - now handled by free_used_total sync
+
+
+
     } catch (err) {
       console.error('API call error:', err)
 
@@ -808,115 +805,113 @@ function AppContent() {
       <div className="app">
         {/* Header */}
         <header className="header">
-        <div className="header-content">
-          <div className="logo">
-            <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="10" fill="currentColor"/>
-              <path d="M7 12L10.5 15.5L17 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <h1 className="logo-text">Citation Format Checker</h1>
-          </div>
-          <div className="header-status">
-            {userStatus && <UserStatus userStatus={userStatus} />}
-            <CreditDisplay />
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content">
-          <div className="hero-text">
-            <h2 className="hero-title">
-              Stop wasting 5 minutes on every{'\u00A0'}citation
-            </h2>
-            <p className="hero-subtitle">
-              The fastest, most accurate APA citation checker.
-            </p>
-            <div className="hero-stat">
-              <span className="stat-text">
-                ⚡ Instant validation • Catches citation generator errors • No sign up required
-              </span>
+          <div className="header-content">
+            <div className="logo">
+              <svg className="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" fill="currentColor" />
+                <path d="M7 12L10.5 15.5L17 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <h1 className="logo-text">Citation Format Checker</h1>
+            </div>
+            <div className="header-status">
+              <CreditDisplay userStatus={userStatus} />
             </div>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {/* Input Section */}
-      <section className="input-section">
-        <form onSubmit={handleSubmit}>
-          <div className="input-layout">
-            <div className="editor-column">
-              <label>Paste your citations below (APA 7th edition)</label>
-              <div data-testid="editor">
-                <EditorContent editor={editor} />
+        {/* Hero Section */}
+        <section className="hero">
+          <div className="hero-content">
+            <div className="hero-text">
+              <h2 className="hero-title">
+                Stop wasting 5 minutes on every{'\u00A0'}citation
+              </h2>
+              <p className="hero-subtitle">
+                The fastest, most accurate APA citation checker.
+              </p>
+              <div className="hero-stat">
+                <span className="stat-text">
+                  ⚡ Instant validation • Catches citation generator errors • No sign up required
+                </span>
               </div>
-              <p className="input-helper">
-                Paste one or multiple citations. We'll check each one.
+            </div>
+          </div>
+        </section>
+
+        {/* Input Section */}
+        <section className="input-section">
+          <form onSubmit={handleSubmit}>
+            <div className="input-layout">
+              <div className="editor-column">
+                <label>Paste your citations below (APA 7th edition)</label>
+                <div data-testid="editor">
+                  <EditorContent editor={editor} />
+                </div>
+                <p className="input-helper">
+                  Paste one or multiple citations. We'll check each one.
+                </p>
+              </div>
+
+              <div className="upload-column">
+                <label>Or upload a document</label>
+                <UploadArea onFileSelected={handleFileSelected} onUploadAreaClick={handleUploadAreaClick} />
+                <p className="input-helper">
+                  We'll automatically find & validate citations.
+                </p>
+              </div>
+            </div>
+
+            <div className="button-container">
+              <button
+                type="submit"
+                disabled={loading || !editor || hasPlaceholder}
+              >
+                {loading ? 'Validating...' : 'Check My Citations'}
+              </button>
+
+              <p className="cta-micro-text">
+                No login required • Get results in seconds
               </p>
             </div>
 
-            <div className="upload-column">
-              <label>Or upload a document</label>
-              <UploadArea onFileSelected={handleFileSelected} onUploadAreaClick={handleUploadAreaClick} />
-              <p className="input-helper">
-                We'll automatically find & validate citations.
-              </p>
+            {/* Feature Pills */}
+            <div className="feature-pills">
+              <span className="feature-pill">✓ Capitalization check</span>
+              <span className="feature-pill">✓ Italics validation</span>
+              <span className="feature-pill">✓ DOI formatting</span>
+              <span className="feature-pill">✓ Punctuation rules</span>
             </div>
+          </form>
+        </section>
+
+        {error && (
+          <div className="error-message">
+            <strong>Error:</strong> {error}
           </div>
+        )}
 
-          <div className="button-container">
-            <button
-              type="submit"
-              disabled={loading || !editor || hasPlaceholder}
-            >
-              {loading ? 'Validating...' : 'Check My Citations'}
-            </button>
-
-            <p className="cta-micro-text">
-              No login required • Get results in seconds
-            </p>
+        {loading && submittedText && (
+          <div ref={validationSectionRef} className={`validation-results-section ${fadingOut ? 'fade-out' : ''}`}>
+            <ValidationLoadingState submittedHtml={submittedText} />
           </div>
-
-          {/* Feature Pills */}
-          <div className="feature-pills">
-            <span className="feature-pill">✓ Capitalization check</span>
-            <span className="feature-pill">✓ Italics validation</span>
-            <span className="feature-pill">✓ DOI formatting</span>
-            <span className="feature-pill">✓ Punctuation rules</span>
-          </div>
-        </form>
-      </section>
-
-      {error && (
-        <div className="error-message">
-          <strong>Error:</strong> {error}
-        </div>
-      )}
-
-      {loading && submittedText && (
-        <div ref={validationSectionRef} className={`validation-results-section ${fadingOut ? 'fade-out' : ''}`}>
-          <ValidationLoadingState submittedHtml={submittedText} />
-        </div>
-      )}
-
-      {results && !loading && (
-        <div className="validation-results-section">
-          {results.isPartial ? (
+        )}
+        {((results && results.partial) || (isGated && !resultsRevealed)) && !loading && (
+          <div className="validation-results-section">
             <PartialResults
-              results={results.results}
+              results={results.results || []}
               partial={results.partial}
-              citations_checked={results.citations_checked}
-              citations_remaining={results.citations_remaining}
-              job_id={results.job_id || localStorage.getItem(POLLING_CONFIG.LOCAL_STORAGE_KEY)}
-              results_gated={results.results_gated}
-              onUpgrade={() => {
-                trackEvent('upgrade_modal_shown', { trigger: 'partial_results' })
-                setShowUpgradeModal(true)
-              }}
+              citations_checked={results.citations_checked || 0}
+              citations_remaining={results.citations_remaining || 0}
+              onUpgrade={() => setShowUpgradeModal(true)}
+              job_id={results.job_id}
+              results_gated={isGated}
               onReveal={handleRevealResults}
+              userStatus={userStatus}
             />
-          ) : (
+          </div>
+        )}
+        {results && !results.partial && !loading && (
+          <div className="validation-results-section">
             <div style={{ position: 'relative' }}>
               {/* Always render the validation table */}
               <ValidationTable
@@ -938,139 +933,138 @@ function AppContent() {
                 />
               )}
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
 
-      {/* Why It Works Section */}
-      <section className="why-it-works">
-        <div className="why-it-works-content">
-          <h3 className="why-it-works-title">Why Citation Format Checker Works</h3>
-          <div className="featured-bento-refined">
-            <div className="featured-hero-refined">
-              <h4>Catches 99% of citation errors</h4>
-              <p>Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.</p>
-            </div>
+        {/* Why It Works Section */}
+        <section className="why-it-works">
+          <div className="why-it-works-content">
+            <h3 className="why-it-works-title">Why Citation Format Checker Works</h3>
+            <div className="featured-bento-refined">
+              <div className="featured-hero-refined">
+                <h4>Catches 99% of citation errors</h4>
+                <p>Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.</p>
+              </div>
 
-            <div className="secondary-gradient secondary-teal">
-              <h5>Never lose points</h5>
-              <p>Submit with confidence. No more losing grades on formatting mistakes.</p>
-            </div>
+              <div className="secondary-gradient secondary-teal">
+                <h5>Never lose points</h5>
+                <p>Submit with confidence. No more losing grades on formatting mistakes.</p>
+              </div>
 
-            <div className="secondary-gradient secondary-emerald">
-              <h5>Finds generator mistakes</h5>
-              <p>Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.</p>
-            </div>
+              <div className="secondary-gradient secondary-emerald">
+                <h5>Finds generator mistakes</h5>
+                <p>Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.</p>
+              </div>
 
-            <div className="bottom-card">
-              <h6>Custom AI Models</h6>
-              <p>Trained on thousands of expert-verified citations for each source type</p>
-            </div>
+              <div className="bottom-card">
+                <h6>Custom AI Models</h6>
+                <p>Trained on thousands of expert-verified citations for each source type</p>
+              </div>
 
-            <div className="bottom-card">
-              <h6>APA Expert Verified</h6>
-              <p>Every error type validated against official APA 7th Edition manual</p>
-            </div>
+              <div className="bottom-card">
+                <h6>APA Expert Verified</h6>
+                <p>Every error type validated against official APA 7th Edition manual</p>
+              </div>
 
-            <div className="bottom-card">
-              <h6>Trusted Worldwide</h6>
-              <p>Join thousands of students and academics who rely on us</p>
+              <div className="bottom-card">
+                <h6>Trusted Worldwide</h6>
+                <p>Join thousands of students and academics who rely on us</p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ Section */}
-      <section className="faq">
-        <div className="faq-content">
-          <h3 className="faq-title">Frequently Asked Questions</h3>
-          <div className="faq-items">
-            <div className="faq-item">
-              <h4 className="faq-question">How do I check my APA citations?</h4>
-              <p className="faq-answer">
-                Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
-              </p>
-            </div>
-            <div className="faq-item">
-              <h4 className="faq-question">Is this citation checker free?</h4>
-              <p className="faq-answer">
-                Yes! You get 5 free citation checks to try the tool. For unlimited checking,
-                you can purchase credits or unlimited passes starting at just $1.99.
-              </p>
-            </div>
-            <div className="faq-item">
-              <h4 className="faq-question">What citation style does this tool support?</h4>
-              <p className="faq-answer">
-                Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
-              </p>
-            </div>
-            <div className="faq-item">
-              <h4 className="faq-question">What types of errors does this tool catch?</h4>
-              <p className="faq-answer">
-                Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
-              </p>
-            </div>
-            <div className="faq-item">
-              <h4 className="faq-question">Can I check multiple citations at once?</h4>
-              <p className="faq-answer">
-                Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
-              </p>
-            </div>
+        {/* FAQ Section */}
+        <section className="faq">
+          <div className="faq-content">
+            <h3 className="faq-title">Frequently Asked Questions</h3>
+            <div className="faq-items">
+              <div className="faq-item">
+                <h4 className="faq-question">How do I check my APA citations?</h4>
+                <p className="faq-answer">
+                  Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
+                </p>
+              </div>
+              <div className="faq-item">
+                <h4 className="faq-question">Is this citation checker free?</h4>
+                <p className="faq-answer">
+                  Yes! You get 5 free citation checks to try the tool. For unlimited checking,
+                  you can purchase credits or unlimited passes starting at just $1.99.
+                </p>
+              </div>
+              <div className="faq-item">
+                <h4 className="faq-question">What citation style does this tool support?</h4>
+                <p className="faq-answer">
+                  Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
+                </p>
+              </div>
+              <div className="faq-item">
+                <h4 className="faq-question">What types of errors does this tool catch?</h4>
+                <p className="faq-answer">
+                  Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
+                </p>
+              </div>
+              <div className="faq-item">
+                <h4 className="faq-question">Can I check multiple citations at once?</h4>
+                <p className="faq-answer">
+                  Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
+                </p>
+              </div>
 
-            <div className="faq-item">
-              <h4 className="faq-question">What are Citation Credits and how do they work?</h4>
-              <p className="faq-answer">
-                Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
-              </p>
-            </div>
+              <div className="faq-item">
+                <h4 className="faq-question">What are Citation Credits and how do they work?</h4>
+                <p className="faq-answer">
+                  Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
+                </p>
+              </div>
 
-            <div className="faq-item">
-              <h4 className="faq-question">Do Citation Credits expire?</h4>
-              <p className="faq-answer">
-                No! Your credits never expire. Use them at your own pace — whether that's all at
-                once or over several years.
-              </p>
-            </div>
+              <div className="faq-item">
+                <h4 className="faq-question">Do Citation Credits expire?</h4>
+                <p className="faq-answer">
+                  No! Your credits never expire. Use them at your own pace — whether that's all at
+                  once or over several years.
+                </p>
+              </div>
 
-            <div className="faq-item">
-              <h4 className="faq-question">Can I get a refund?</h4>
-              <p className="faq-answer">
-                Absolutely! We offer a no-questions-asked refund policy. If you're not completely
-                satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
-              </p>
-            </div>
+              <div className="faq-item">
+                <h4 className="faq-question">Can I get a refund?</h4>
+                <p className="faq-answer">
+                  Absolutely! We offer a no-questions-asked refund policy. If you're not completely
+                  satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
+                </p>
+              </div>
 
-            <div className="faq-item">
-              <h4 className="faq-question">How is this different from ChatGPT or citation generators?</h4>
-              <p className="faq-answer">
-                ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not
-                specialized for citation validation. Our AI models are custom-trained exclusively on
-                APA 7th Edition rules with expert verification, achieving 99% accuracy.
-              </p>
+              <div className="faq-item">
+                <h4 className="faq-question">How is this different from ChatGPT or citation generators?</h4>
+                <p className="faq-answer">
+                  ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not
+                  specialized for citation validation. Our AI models are custom-trained exclusively on
+                  APA 7th Edition rules with expert verification, achieving 99% accuracy.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Footer />
+        <Footer />
 
-      <UpgradeModal 
-        isOpen={showUpgradeModal} 
-        onClose={() => setShowUpgradeModal(false)}
-        limitType={results?.limit_type}
-        passInfo={results?.user_status?.type === 'pass' ? {
-          pass_type: results.user_status.pass_type || 'Active',
-          expiration_timestamp: results.user_status.expiration_timestamp
-        } : null}
-        resetTimestamp={results?.user_status?.reset_time}
-        dailyRemaining={results?.user_status?.daily_limit ? results.user_status.daily_limit - results.user_status.daily_used : 0}
-      />
-      <ComingSoonModal
-        isOpen={showComingSoonModal}
-        file={selectedFile}
-        onClose={handleComingSoonClose}
-      />
-    </div>
+        <UpgradeModal
+          isOpen={showUpgradeModal}
+          onClose={() => setShowUpgradeModal(false)}
+          limitType={results?.limit_type}
+          passInfo={results?.user_status?.type === 'pass' ? {
+            pass_type: results.user_status.pass_type || 'Active',
+            expiration_timestamp: results.user_status.expiration_timestamp
+          } : null}
+          resetTimestamp={results?.user_status?.reset_time}
+          dailyRemaining={results?.user_status?.daily_limit ? results.user_status.daily_limit - results.user_status.daily_used : 0}
+        />
+        <ComingSoonModal
+          isOpen={showComingSoonModal}
+          file={selectedFile}
+          onClose={handleComingSoonClose}
+        />
+      </div>
     </>
   )
 }

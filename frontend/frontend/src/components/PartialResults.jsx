@@ -6,7 +6,7 @@ import { getToken } from '../utils/creditStorage';
 import ValidationTable from './ValidationTable';
 import GatedResults from './GatedResults';
 
-export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal }) {
+export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal, userStatus }) {
   const [isRevealed, setIsRevealed] = useState(false);
   const { trackSourceTypeView } = useAnalyticsTracking();
 
@@ -77,7 +77,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
       <div className="upgrade-banner">
         <div className="upgrade-content">
-          <h3>Free tier limit (10) reached. Upgrade to continue.</h3>
+          <h3>{userStatus?.type === 'pass' ? 'Daily limit (1000) reached.' : 'Free tier limit (10) reached.'} Upgrade to continue.</h3>
           <p>{citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</p>
           <button
             onClick={() => {

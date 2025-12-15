@@ -252,9 +252,13 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 daily_used=daily_usage['used_after'],
                 daily_limit=PASS_DAILY_LIMIT,
                 reset_time=daily_usage['reset_timestamp'],
+
                 balance=None,  # Not applicable for pass users
                 validations_used=None,  # Not applicable for pass users
-                limit=None  # Not applicable for pass users
+                limit=None,  # Not applicable for pass users
+
+                hours_remaining=active_pass['hours_remaining'],  # Needed for frontend display
+                pass_product_name=f"{active_pass['pass_type'].replace('day', '-Day').title()} Pass" if 'pass_type' in active_pass else None
             )
 
             return {
@@ -273,7 +277,10 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 reset_time=daily_usage['reset_timestamp'],
                 balance=None,
                 validations_used=None,
-                limit=None
+                limit=None,
+
+                hours_remaining=active_pass['hours_remaining'],
+                pass_product_name=f"{active_pass['pass_type'].replace('day', '-Day').title()} Pass" if 'pass_type' in active_pass else None
             )
 
             return {
@@ -520,6 +527,8 @@ class UserStatus(BaseModel):
     daily_used: Optional[int] = None
     daily_limit: Optional[int] = None
     reset_time: Optional[int] = None  # Unix timestamp
+    hours_remaining: Optional[float] = None  # NEW: For precise frontend display
+    pass_product_name: Optional[str] = None  # NEW: Static product name (e.g. "7-Day Pass")
 
     # For credits users
     balance: Optional[int] = None
@@ -715,6 +724,14 @@ async def health_check():
         dict: Status indicator
     """
     logger.debug("Health check endpoint called")
+    return {"status": "ok"}
+
+
+@app.get("/api/health")
+async def health_check_api():
+    """
+    Health check endpoint alias for frontend proxy.
+    """
     return {"status": "ok"}
 
 

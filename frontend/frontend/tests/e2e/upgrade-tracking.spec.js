@@ -76,19 +76,27 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
   test('variant assignment is sticky across multiple upgrade clicks', async ({ page }) => {
     console.log('🚀 Test: Sticky variant assignment');
 
+    // Navigate to home page
     await page.goto('/');
     await expect(page.locator('body')).toBeVisible();
 
-    // Pre-assign variant 1
+    // Set free_used to trigger upgrade flow on first submission
+    // This is set after the initial page load, so it won't be cleared
     await page.evaluate(() => {
-      localStorage.setItem('experiment_v1', '1');
       localStorage.setItem('citation_checker_free_used', '10');
     });
 
-    // Reload
+    // Navigate again to apply the localStorage setting
+    // addInitScript clears localStorage, but we set it above after the script ran
     await page.goto('/');
+    await expect(page.locator('body')).toBeVisible();
 
-    // First submission
+    // Set free_used AGAIN since addInitScript cleared it
+    await page.evaluate(() => {
+      localStorage.setItem('citation_checker_free_used', '10');
+    });
+
+    // First submission - variant will be assigned
     const editor = page.locator('.ProseMirror')
       .or(page.locator('[contenteditable="true"]'))
       .or(page.locator('textarea'));
@@ -96,56 +104,73 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     await editor.fill('Smith, J. (2023). Test citation 1. Journal, 1(1), 1-10.');
     await page.locator('button[type="submit"]').click();
 
+    // Wait for results to appear
     await expect(
-      page.locator('.results, .validation-results, .validation-table').first()
+      page.locator('.validation-results-section, [data-testid="partial-results"]').first()
     ).toBeVisible({ timeout: 60000 });
 
+    // Get the naturally assigned variant
     const variant1 = await page.evaluate(() =>
       localStorage.getItem('experiment_v1')
     );
 
-    // Clear results and submit again
-    await page.reload();
-    await editor.fill('Jones, M. (2023). Test citation 2. Journal, 2(2), 20-30.');
+    console.log('📊 First variant:', variant1);
+    expect(['1', '2']).toContain(variant1);
+
+    // Second submission
+    // Scroll to top to ensure editor is accessible
+    await page.evaluate(() => window.scrollTo(0, 0));
+
+    // Use specific locator based on data-testid to ensure we find the right element
+    const specificEditor = page.locator('[data-testid="editor"] .ProseMirror');
+    await expect(specificEditor).toBeVisible({ timeout: 10000 });
+
+    await specificEditor.click();
+    await specificEditor.fill('Jones, M. (2023). Test citation 2. Journal, 2(2), 20-30.');
     await page.locator('button[type="submit"]').click();
 
+    // Wait for new results
     await expect(
-      page.locator('.results, .validation-results, .validation-table').first()
+      page.locator('.validation-results-section, [data-testid="partial-results"]').first()
     ).toBeVisible({ timeout: 60000 });
 
+    // Verify variant is still the same
     const variant2 = await page.evaluate(() =>
       localStorage.getItem('experiment_v1')
     );
 
+    console.log('📊 Second variant:', variant2);
+
     // Variants should match (sticky)
-    expect(variant1).toBe('1');
-    expect(variant2).toBe('1');
-    expect(variant1).toBe(variant2);
+    expect(variant2).toBe(variant1);
 
     console.log('✅ Sticky assignment verified');
   });
 
-  test('different users get randomly assigned to different variants', async ({ context }) => {
+  test('different users get randomly assigned to different variants', async ({ browser }) => {
     console.log('🚀 Test: Random variant assignment');
 
-    // Simulate 10 different users
+    // Simulate 20 different users with separate browser contexts
+    // Each context has isolated localStorage to simulate independent users
     const variants = [];
 
-    for (let i = 0; i < 10; i++) {
-      // Create new incognito context (fresh user)
+    for (let i = 0; i < 20; i++) {
+      // Create new browser context (fresh user with isolated localStorage)
+      const context = await browser.newContext();
       const page = await context.newPage();
 
       await page.goto('/');
       await expect(page.locator('body')).toBeVisible();
 
-      // Set free limit
+      // Set free limit to trigger variant assignment
       await page.evaluate(() => {
         localStorage.setItem('citation_checker_free_used', '10');
       });
 
-      await page.goto('/');
+      await page.reload();
+      await expect(page.locator('body')).toBeVisible();
 
-      // Submit validation
+      // Submit validation to trigger variant assignment
       const editor = page.locator('.ProseMirror')
         .or(page.locator('[contenteditable="true"]'))
         .or(page.locator('textarea'));
@@ -164,17 +189,18 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
       variants.push(variant);
       console.log(`User ${i + 1}: variant ${variant}`);
 
-      await page.close();
+      // Close the entire context (not just page) to free resources
+      await context.close();
     }
 
-    // Statistical check: With 10 users, very unlikely all get same variant
+    // Statistical check: With 20 users, very unlikely all get same variant
     const variant1Count = variants.filter(v => v === '1').length;
     const variant2Count = variants.filter(v => v === '2').length;
 
     console.log(`📊 Distribution: Variant 1: ${variant1Count}, Variant 2: ${variant2Count}`);
 
-    // At least 1 of each variant should be assigned (with 10 users)
-    // Probability of all same = (0.5)^10 = 0.001 (very unlikely)
+    // At least 1 of each variant should be assigned (with 20 users)
+    // Probability of all same = (0.5)^20 = 0.00000095 (extremely unlikely)
     expect(variant1Count).toBeGreaterThan(0);
     expect(variant2Count).toBeGreaterThan(0);
 

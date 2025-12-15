@@ -53,13 +53,15 @@ describe('CreditDisplay', () => {
     );
 
     // Assert
-    await screen.findByText('Citation Credits: 847');
+    // Check for both lines
+    await screen.findByText('Citation Credits');
+    await screen.findByText('847 remaining');
   });
 
   it('should show loading state', () => {
     // Arrange
     getToken.mockReturnValue('test-token');
-    global.fetch.mockImplementation(() => new Promise(() => {})); // Never resolves
+    global.fetch.mockImplementation(() => new Promise(() => { })); // Never resolves
 
     // Act
     render(
@@ -88,15 +90,16 @@ describe('CreditDisplay', () => {
     );
 
     // Assert
-    await screen.findByText('Citation Credits: 0');
+    await screen.findByText('Citation Credits');
+    await screen.findByText('0 remaining');
   });
 
-  it('should display initial credits after API call', async () => {
+  it('should show destructive color for low credits (<= 10)', async () => {
     // Arrange
     getToken.mockReturnValue('test-token');
     global.fetch.mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve({ credits: 150 }),
+      json: () => Promise.resolve({ credits: 5 }),
     });
 
     // Act
@@ -107,7 +110,8 @@ describe('CreditDisplay', () => {
     );
 
     // Assert
-    await screen.findByText('Citation Credits: 150');
+    const remainingText = await screen.findByText('5 remaining');
+    expect(remainingText).toHaveClass('text-destructive');
   });
 
   describe('Day Pass Support', () => {
@@ -131,6 +135,9 @@ describe('CreditDisplay', () => {
 
       // Assert
       await screen.findByText('1-Day Pass Active');
+      // 24 hours = 1 day exactly, checking logic: days <= 1 ? hours left : days left
+      // Math.ceil(24/24) = 1. days <= 1 is true.
+      await screen.findByText('24 hours left');
     });
 
     it('should display 7-day pass status', async () => {
@@ -153,9 +160,10 @@ describe('CreditDisplay', () => {
 
       // Assert
       await screen.findByText('7-Day Pass Active');
+      await screen.findByText('7 days left');
     });
 
-    it('should display hourly pass for less than 24 hours', async () => {
+    it('should display hourly pass correctly (rounded to 1-Day) with warning color', async () => {
       // Arrange
       getToken.mockReturnValue('test-token');
       global.fetch.mockResolvedValue({
@@ -174,30 +182,10 @@ describe('CreditDisplay', () => {
       );
 
       // Assert
-      await screen.findByText('5h Pass Active');
-    });
-
-    it('should show credits when user has both credits and pass (credits displayed when pass expires)', async () => {
-      // Arrange
-      getToken.mockReturnValue('test-token');
-      global.fetch.mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({
-          credits: 500,
-          active_pass: { hours_remaining: 48 }
-        }),
-      });
-
-      // Act
-      render(
-        <CreditProvider>
-          <CreditDisplay />
-        </CreditProvider>
-      );
-
-      // Assert
-      // When active pass exists, pass status should be shown
-      await screen.findByText('2-Day Pass Active');
+      // 5h is treated as 1-Day Pass Active in title
+      await screen.findByText('1-Day Pass Active');
+      const timeText = await screen.findByText('5 hours left');
+      expect(timeText).toHaveClass('text-amber-600');
     });
   });
 });

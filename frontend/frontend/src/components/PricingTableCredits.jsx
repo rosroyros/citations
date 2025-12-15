@@ -143,11 +143,10 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
         {PRODUCTS.map(product => (
           <Card
             key={product.id}
-            className={`flex flex-col relative transition-all duration-200 ${
-              product.recommended
+            className={`flex flex-col relative transition-all duration-200 ${product.recommended
                 ? 'border-2 border-blue-600 shadow-xl -translate-y-1 z-10'
                 : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
-            }`}
+              }`}
           >
             {/* "Recommended" badge - only shown on recommended tier */}
             {product.recommended && (
