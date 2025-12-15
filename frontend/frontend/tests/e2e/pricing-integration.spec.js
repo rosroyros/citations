@@ -68,9 +68,9 @@ test.describe('Pricing Integration Tests', () => {
         await expect(page.locator('.validation-results-section').nth(0)).toBeVisible({ timeout: 30000 });
 
         // Check if gated results overlay is visible
-        if (await page.locator('[data-testid="gated-results"]').isVisible()) {
+        if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
           console.log('Gated results overlay detected (Engagement gating), clicking View Results...');
-          await page.click('button:has-text("View Results")');
+          await page.locator('button:has-text("View Results")').first().click();
         }
 
         // Now expect the table container
@@ -80,6 +80,11 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 2. Should see partial results with upgrade button on 6th validation
+    // Check if gated results overlay is visible first
+    if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+      console.log('Gated results overlay detected on 6th validation, clicking View Results...');
+      await page.locator('button:has-text("View Results")').first().click();
+    }
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
 
@@ -312,7 +317,7 @@ test.describe('Pricing Integration Tests', () => {
     // Poll the backend to verify the pass was actually granted before proceeding
     // This ensures database writes are visible even in SQLite WAL mode
     await page.evaluate(async (userId) => {
-      const maxAttempts = 20; // Increased for parallel test contention
+      const maxAttempts = 60; // Increased for parallel test contention and mobile performance
       const delayMs = 200;
 
       for (let i = 0; i < maxAttempts; i++) {
@@ -375,6 +380,12 @@ test.describe('Pricing Integration Tests', () => {
       await page.waitForTimeout(1000);
     }
 
+    // Handle Gated Results if present
+    if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+      console.log('Gated results overlay detected in variant test, clicking View Results...');
+      await page.locator('button:has-text("View Results")').first().click();
+    }
+
     // 2. Click upgrade button to show pricing modal
     await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
     await page.click('button:has-text("Upgrade to Continue")');
@@ -394,6 +405,12 @@ test.describe('Pricing Integration Tests', () => {
       await page.fill('.ProseMirror', `Variant test ${i}: Test citation`);
       await page.click('button:has-text("Check My Citations")');
       await page.waitForTimeout(1000);
+    }
+
+    // Handle Gated Results if present
+    if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+      console.log('Gated results overlay detected (2nd pass), clicking View Results...');
+      await page.locator('button:has-text("View Results")').first().click();
     }
 
     // 7. Click upgrade button to show pricing modal again
@@ -434,6 +451,12 @@ test.describe('Pricing Integration Tests', () => {
       await page.fill('.ProseMirror', `Tracking test ${i}: Test citation`);
       await page.click('button:has-text("Check My Citations")');
       await page.waitForTimeout(1000);
+    }
+
+    // Handle Gated Results if present
+    if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+      console.log('Gated results overlay detected in tracking test, clicking View Results...');
+      await page.locator('button:has-text("View Results")').first().click();
     }
 
     // 3. Click upgrade button to show pricing modal

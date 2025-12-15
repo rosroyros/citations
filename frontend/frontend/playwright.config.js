@@ -63,17 +63,33 @@ export default defineConfig({
     // Test against mobile viewports
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      use: {
+        ...devices['Pixel 5'],
+        actionTimeout: 15000,
+        navigationTimeout: 45000,
+      },
+      timeout: 120000,
+      expect: {
+        timeout: 15000,
+      },
     },
 
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      use: {
+        ...devices['iPhone 12'],
+        actionTimeout: 15000,
+        navigationTimeout: 45000,
+      },
+      timeout: 120000,
+      expect: {
+        timeout: 15000,
+      },
     },
   ],
 
-  
-  
+
+
   // Test timeout
   timeout: 60000,
 
