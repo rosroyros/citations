@@ -1,0 +1,62 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - heading "Credits Pricing (Variant 1)" [level=1] [ref=e5]
+  - paragraph [ref=e6]: Pay-per-citation model - Test Page
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: 100 Credits
+          - generic [ref=e12]: For occasional users.
+        - generic [ref=e13]:
+          - generic [ref=e15]: $1.99
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - generic [ref=e18]: ✓
+              - generic [ref=e19]: 100 citation validations
+            - listitem [ref=e20]:
+              - generic [ref=e21]: ✓
+              - generic [ref=e22]: APA / MLA / Chicago support
+            - listitem [ref=e23]:
+              - generic [ref=e24]: ✓
+              - generic [ref=e25]: Export options included
+        - button "Buy 100 Credits" [ref=e27] [cursor=pointer]
+      - generic [ref=e28]:
+        - generic [ref=e29]: Best Value
+        - generic [ref=e30]:
+          - generic [ref=e31]: 500 Credits
+          - generic [ref=e32]: Best balance of price & usage.
+        - generic [ref=e33]:
+          - generic [ref=e35]: $4.99
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - generic [ref=e38]: ✓
+              - generic [ref=e39]: 500 citation validations
+            - listitem [ref=e40]:
+              - generic [ref=e41]: ✓
+              - generic [ref=e42]: Multi-style support (APA/MLA/Chicago)
+            - listitem [ref=e43]:
+              - generic [ref=e44]: ✓
+              - generic [ref=e45]: Export to BibTeX / RIS
+        - button "Buy 500 Credits" [ref=e47] [cursor=pointer]
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]: 2,000 Credits
+          - generic [ref=e51]: For frequent academic writing.
+        - generic [ref=e52]:
+          - generic [ref=e54]: $9.99
+          - list [ref=e55]:
+            - listitem [ref=e56]:
+              - generic [ref=e57]: ✓
+              - generic [ref=e58]: 2,000 citation validations
+            - listitem [ref=e59]:
+              - generic [ref=e60]: ✓
+              - generic [ref=e61]: Unlimited style switching
+            - listitem [ref=e62]:
+              - generic [ref=e63]: ✓
+              - generic [ref=e64]: Priority support + updates
+        - button "Buy 2,000 Credits" [ref=e66] [cursor=pointer]
+    - paragraph [ref=e68]: Credits never expire. Use them at your own pace.
+```

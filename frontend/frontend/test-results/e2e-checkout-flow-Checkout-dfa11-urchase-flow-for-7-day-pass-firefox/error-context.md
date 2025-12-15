@@ -1,0 +1,71 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e4]:
+  - heading "Passes Pricing (Variant 2)" [level=1] [ref=e5]
+  - paragraph [ref=e6]: Time-based unlimited access model
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: 1-Day Pass
+          - generic [ref=e12]: Short-term access — great for quick checks.
+        - generic [ref=e13]:
+          - generic [ref=e15]: $1.99
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - generic [ref=e18]: ✓
+              - generic [ref=e19]: Single use citation check
+            - listitem [ref=e20]:
+              - generic [ref=e21]: ✓
+              - generic [ref=e22]: APA validation + formatting suggestions
+            - listitem [ref=e23]:
+              - generic [ref=e24]: ✓
+              - generic [ref=e25]: No registration required
+        - button "Buy 1-Day Pass" [ref=e27] [cursor=pointer]
+      - generic [ref=e28]:
+        - generic [ref=e29]: Recommended
+        - generic [ref=e30]:
+          - generic [ref=e31]: 7-Day Pass
+          - generic [ref=e32]: Best value for occasional writers.
+        - generic [ref=e33]:
+          - generic [ref=e35]: $4.99
+          - list [ref=e36]:
+            - listitem [ref=e37]:
+              - generic [ref=e38]: ✓
+              - generic [ref=e39]: Up to 100 citations validated
+            - listitem [ref=e40]:
+              - generic [ref=e41]: ✓
+              - generic [ref=e42]: APA, MLA, Chicago support
+            - listitem [ref=e43]:
+              - generic [ref=e44]: ✓
+              - generic [ref=e45]: Export to BibTeX / RIS
+        - button "Buy 7-Day Pass" [ref=e47] [cursor=pointer]
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]: 30-Day Pass
+          - generic [ref=e51]: Unlimited access for heavy users.
+        - generic [ref=e52]:
+          - generic [ref=e54]: $9.99
+          - list [ref=e55]:
+            - listitem [ref=e56]:
+              - generic [ref=e57]: ✓
+              - generic [ref=e58]: Unlimited citation checks
+            - listitem [ref=e59]:
+              - generic [ref=e60]: ✓
+              - generic [ref=e61]: Auto-format & style enforcement
+            - listitem [ref=e62]:
+              - generic [ref=e63]: ✓
+              - generic [ref=e64]: Priority support
+        - button "Buy 30-Day Pass" [ref=e66] [cursor=pointer]
+    - generic [ref=e67]:
+      - paragraph [ref=e68]: "Fair use: 1,000 citations per day. Passes can be extended anytime."
+      - paragraph [ref=e69]: Buying another pass adds days to your existing pass.
+  - generic [ref=e70]:
+    - heading "How Passes Work:" [level=3] [ref=e71]
+    - list [ref=e72]:
+      - listitem [ref=e73]: ✓ Unlimited validations during pass duration
+      - listitem [ref=e74]: "✓ Fair use limit: 1,000 citations per day"
+      - listitem [ref=e75]: ✓ Buying another pass extends your access (adds days)
+      - listitem [ref=e76]: "✓ Example: 3 days left + buy 7-day = 10 days total"
+```
