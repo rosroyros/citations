@@ -331,6 +331,7 @@ test.describe('User Access Flows - E2E Tests', () => {
                 ],
                 user_status: {
                   type: 'pass',
+                  pass_product_name: '7-Day Pass', // Matches new backend format
                   hours_remaining: 168, // 7 days
                   daily_used: dailyUsed,
                   daily_limit: dailyLimit,
@@ -342,13 +343,14 @@ test.describe('User Access Flows - E2E Tests', () => {
         } else {
           // Daily limit exceeded
           await route.fulfill({
-            status: 429,
+            status: 200,
             contentType: 'application/json',
             body: JSON.stringify({
-              error: 'DAILY_LIMIT_EXCEEDED',
-              message: `You have reached your daily limit of ${dailyLimit} validations.`,
+              status: 'failed',
+              error: `Daily limit (${dailyLimit}) reached. Your limit will reset at midnight UTC.`,
               user_status: {
                 type: 'pass',
+                pass_product_name: '7-Day Pass', // Matches new backend format
                 hours_remaining: 168, // 7 days
                 daily_used: dailyLimit,
                 daily_limit: dailyLimit,
@@ -425,6 +427,7 @@ test.describe('User Access Flows - E2E Tests', () => {
               results: [{ original: 'Reset timer test', source_type: 'journal', errors: [] }],
               user_status: {
                 type: 'pass',
+                pass_product_name: '7-Day Pass', // Matches new backend format
                 hours_remaining: 168, // 7 days
                 daily_used: 50,
                 daily_limit: 1000,
@@ -467,6 +470,7 @@ test.describe('User Access Flows - E2E Tests', () => {
               results: [{ original: 'Days remaining test', source_type: 'journal', errors: [] }],
               user_status: {
                 type: 'pass',
+                pass_product_name: '7-Day Pass', // Matches new backend format
                 hours_remaining: 120, // 5 days
                 daily_used: 50,
                 daily_limit: 1000,
@@ -631,13 +635,14 @@ test.describe('User Access Flows - E2E Tests', () => {
       // Test daily limit error
       await page.route('/api/jobs/**', async (route) => {
         await route.fulfill({
-          status: 429,
+          status: 200,
           contentType: 'application/json',
           body: JSON.stringify({
-            error: 'DAILY_LIMIT_EXCEEDED',
-            message: 'You have reached your daily limit of 1000 validations.',
+            status: 'failed',
+            error: 'Daily limit (1000) reached. Your limit will reset at midnight UTC.',
             user_status: {
               type: 'pass',
+              pass_product_name: '7-Day Pass', // Matches new backend format
               daily_used: 1000,
               daily_limit: 1000,
               reset_time: Math.floor(Date.now() / 1000) + 3600

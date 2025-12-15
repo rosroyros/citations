@@ -258,7 +258,7 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 limit=None,  # Not applicable for pass users
 
                 hours_remaining=active_pass['hours_remaining'],  # Needed for frontend display
-                pass_product_name=f"{active_pass['pass_type'].replace('day', '-Day').title()} Pass" if 'pass_type' in active_pass else None
+                pass_product_name=active_pass.get('pass_product_name', 'Pass')  # Use name from database.py
             )
 
             return {
@@ -280,14 +280,14 @@ def check_user_access(token: str, citation_count: int) -> dict:
                 limit=None,
 
                 hours_remaining=active_pass['hours_remaining'],
-                pass_product_name=f"{active_pass['pass_type'].replace('day', '-Day').title()} Pass" if 'pass_type' in active_pass else None
+                pass_product_name=active_pass.get('pass_product_name', 'Pass')  # Use name from database.py
             )
 
             return {
                 'has_access': False,
                 'access_type': 'pass',
                 'user_status': user_status,
-                'error_message': f"Daily citation limit exceeded ({daily_usage['used_before']}/{1000}). Resets at midnight UTC."
+                'error_message': f"Daily limit ({PASS_DAILY_LIMIT}) reached. Your limit will reset at midnight UTC."
             }
 
     # No active pass - check credits

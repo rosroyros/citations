@@ -132,7 +132,8 @@ test.describe('Pricing Integration Tests', () => {
         body: JSON.stringify({
           credits: variant === 'credits' ? 500 : 0,
           active_pass: variant === 'credits' ? null : {
-            pass_type: '7-Day Pass',
+            pass_type: '7_day_pass',
+            pass_product_name: '7-Day Pass', // Matches new backend format
             expiration_timestamp: Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60),
             daily_limit: 1000,
             daily_used: 0,

@@ -583,12 +583,23 @@ def get_active_pass(token: str) -> Optional[dict]:
 
     if row:
         hours_remaining = (row[0] - now) // 3600
-        logger.debug(f"Found active pass for {token[:8]}: {row[1]}, expires {row[0]}")
+        pass_type = row[1]
+        
+        # Determine static product name
+        if '7_day' in pass_type:
+            pass_product_name = "7-Day Pass"
+        elif '1_day' in pass_type or '24_hour' in pass_type:
+            pass_product_name = "24-Hour Pass" 
+        else:
+            pass_product_name = "Pass"
+
+        logger.debug(f"Found active pass for {token[:8]}: {pass_type}, expires {row[0]}")
         return {
             'expiration_timestamp': row[0],
-            'pass_type': row[1],
+            'pass_type': pass_type,
             'purchase_date': row[2],
-            'hours_remaining': hours_remaining
+            'hours_remaining': hours_remaining,
+            'pass_product_name': pass_product_name
         }
     
     logger.debug(f"No active pass found for {token[:8]} (checked > {now})")
