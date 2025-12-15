@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test('should display token data in dashboard', async ({ page }) => {
   // Navigate to the production dashboard

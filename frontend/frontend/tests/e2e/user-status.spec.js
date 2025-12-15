@@ -65,12 +65,11 @@ test.describe('UserStatus Display', () => {
     await expect(badgeElement).toHaveClass(/bg-green-100/);
   });
 
-  test('displays pass status with usage for pass users', async ({ page }) => {
+  test('displays pass status with days remaining for pass users', async ({ page }) => {
     // Set up mock response for pass user
     await mockValidationResponse(page, {
       type: 'pass',
-      daily_used: 237,
-      daily_limit: 1000,
+      hours_remaining: 168, // 7 days
       reset_time: Math.floor(Date.now() / 1000) + 3600 * 2 // 2 hours from now
     });
 
@@ -84,27 +83,26 @@ test.describe('UserStatus Display', () => {
     // Wait for results to load
     await expect(page.locator('.validation-table-container, .validation-table').first()).toBeVisible({ timeout: 30000 });
 
-    // Verify UserStatus badge appears in header
+    // Verify UserStatus badge appears in header with pass type
     const userStatus = page.locator('.user-status');
     await expect(userStatus).toBeVisible();
-    await expect(userStatus).toContainText('237/1000 used today');
+    await expect(userStatus).toContainText('7-Day Pass');
 
-    // Verify subtext shows reset time
+    // Verify subtext shows days remaining
     const subtext = page.locator('.user-status-subtext');
     await expect(subtext).toBeVisible();
-    await expect(subtext).toContainText('resets in');
+    await expect(subtext).toContainText('7 days left');
 
-    // Verify it has success variant styling (green for <70% usage)
+    // Verify it has success variant styling (green for >3 days remaining)
     const badgeElementSuccess = userStatus.locator('div').first();
     await expect(badgeElementSuccess).toHaveClass(/bg-green-100/);
   });
 
-  test('displays warning color for high pass usage', async ({ page }) => {
-    // Set up mock response for pass user with high usage
+  test('displays warning color for low pass time remaining', async ({ page }) => {
+    // Set up mock response for pass user with low time remaining
     await mockValidationResponse(page, {
       type: 'pass',
-      daily_used: 750,
-      daily_limit: 1000,
+      hours_remaining: 48, // 2 days
       reset_time: Math.floor(Date.now() / 1000) + 3600 // 1 hour from now
     });
 
@@ -118,9 +116,10 @@ test.describe('UserStatus Display', () => {
     // Wait for results to load
     await expect(page.locator('.validation-table-container, .validation-table').first()).toBeVisible({ timeout: 30000 });
 
-    // Verify UserStatus badge has warning variant (yellow for 70-90% usage)
+    // Verify UserStatus badge has warning variant (yellow for 1-3 days remaining)
     const userStatusWarning = page.locator('.user-status');
     await expect(userStatusWarning).toBeVisible();
+    await expect(userStatusWarning).toContainText('2-Day Pass');
     const badgeElementWarning = userStatusWarning.locator('div').first();
     await expect(badgeElementWarning).toHaveClass(/bg-yellow-100/);
   });

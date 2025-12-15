@@ -45,6 +45,7 @@ export const CreditProvider = ({ children }) => {
         type: 'pass',
         pass_type: activePass.pass_type,
         expiration_timestamp: activePass.expiration_timestamp,
+        hours_remaining: activePass.hours_remaining,
         daily_used: activePass.daily_used || 0,
         daily_limit: activePass.daily_limit || 1000,
         reset_time: activePass.reset_time

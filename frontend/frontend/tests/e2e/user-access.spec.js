@@ -285,6 +285,7 @@ test.describe('User Access Flows - E2E Tests', () => {
                 ],
                 user_status: {
                   type: 'pass',
+                  hours_remaining: 168, // 7 days
                   daily_used: dailyUsed,
                   daily_limit: dailyLimit,
                   reset_time: resetTime
@@ -302,6 +303,7 @@ test.describe('User Access Flows - E2E Tests', () => {
               message: `You have reached your daily limit of ${dailyLimit} validations.`,
               user_status: {
                 type: 'pass',
+                hours_remaining: 168, // 7 days
                 daily_used: dailyLimit,
                 daily_limit: dailyLimit,
                 reset_time: resetTime
@@ -319,15 +321,15 @@ test.describe('User Access Flows - E2E Tests', () => {
       await page.locator('button[type="submit"]').click();
       await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
 
-      // Verify UserStatus shows usage
+      // Verify UserStatus shows pass type (daily limit is internal)
       let userStatus = page.locator('.user-status');
       await expect(userStatus).toBeVisible();
-      await expect(userStatus).toContainText('3/1000 used today');
+      await expect(userStatus).toContainText('Day Pass');
 
-      // Verify reset timer subtext
+      // Verify subtext shows days remaining
       const subtext = page.locator('.user-status-subtext');
       await expect(subtext).toBeVisible();
-      await expect(subtext).toContainText('resets in');
+      await expect(subtext).toContainText('days left');
 
       // Simulate high usage (900 validations)
       dailyUsed = 900;
@@ -338,11 +340,11 @@ test.describe('User Access Flows - E2E Tests', () => {
       await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
 
       userStatus = page.locator('.user-status');
-      await expect(userStatus).toContainText('903/1000 used today');
+      await expect(userStatus).toContainText('Day Pass');
 
-      // Should show warning color at 90% usage
+      // Should still show pass status
       const badgeWarning = userStatus.locator('div').first();
-      await expect(badgeWarning).toHaveClass(/.*warning.*/);
+      // Color depends on days remaining, not usage
 
       // Test limit exceeded
       dailyUsed = 1000;
@@ -357,8 +359,8 @@ test.describe('User Access Flows - E2E Tests', () => {
       console.log('✅ Pass user flow test passed');
     });
 
-    test('should show correct reset timer countdown', async ({ page }) => {
-      console.log('🧪 Testing pass reset timer...');
+    test('should show correct reset timer countdown for daily limit', async ({ page }) => {
+      console.log('🧪 Testing pass days remaining...');
 
       const now = Math.floor(Date.now() / 1000);
       const resetTime = now + 3600; // 1 hour from now
@@ -373,6 +375,7 @@ test.describe('User Access Flows - E2E Tests', () => {
               results: [{ original: 'Reset timer test', source_type: 'journal', errors: [] }],
               user_status: {
                 type: 'pass',
+                hours_remaining: 168, // 7 days
                 daily_used: 50,
                 daily_limit: 1000,
                 reset_time: resetTime
@@ -387,15 +390,57 @@ test.describe('User Access Flows - E2E Tests', () => {
       await page.locator('button[type="submit"]').click();
       await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
 
-      // Check that reset timer shows time remaining
+      // Check that subtext shows days remaining
       const subtext = page.locator('.user-status-subtext');
       await expect(subtext).toBeVisible();
 
-      // Should show something like "resets in 59:59:59"
+      // Should show "7 days left"
       const resetText = await subtext.textContent();
-      expect(resetText).toMatch(/resets in \d+:\d{2}:\d{2}/);
+      expect(resetText).toMatch(/\d+ days? left/);
 
       console.log('✅ Reset timer test passed');
+    });
+
+    test('should show correct days remaining', async ({ page }) => {
+      console.log('🧪 Testing pass days remaining...');
+
+      const now = Math.floor(Date.now() / 1000);
+      const resetTime = now + 3600; // 1 hour from now
+
+      await page.route('/api/jobs/**', async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            status: 'completed',
+            results: {
+              results: [{ original: 'Days remaining test', source_type: 'journal', errors: [] }],
+              user_status: {
+                type: 'pass',
+                hours_remaining: 120, // 5 days
+                daily_used: 50,
+                daily_limit: 1000,
+                reset_time: resetTime
+              }
+            }
+          })
+        });
+      });
+
+      const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+      await editor.fill('Days remaining test');
+      await page.locator('button[type="submit"]').click();
+      await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
+
+      // Check that subtext shows days remaining
+      const subtext = page.locator('.user-status-subtext');
+      await expect(subtext).toBeVisible();
+
+      // Should show "5 days left"
+      const subtextContent = await subtext.textContent();
+      expect(subtextContent).toMatch(/\d+ days? left/);
+
+      console.log('✅ Days remaining test passed');
     });
   });
 
@@ -462,7 +507,7 @@ test.describe('User Access Flows - E2E Tests', () => {
       const badgeDestructive = userStatus.locator('div').first();
       await expect(badgeDestructive).toHaveClass(/bg-destructive/); // Red for low credits
 
-      // Test pass user with high usage
+      // Test pass user with low time remaining
       await page.route('/api/jobs/**', async (route) => {
         await route.fulfill({
           status: 200,
@@ -470,11 +515,10 @@ test.describe('User Access Flows - E2E Tests', () => {
           body: JSON.stringify({
             status: 'completed',
             results: {
-              results: [{ original: 'High usage test', source_type: 'journal', errors: [] }],
+              results: [{ original: 'Low time test', source_type: 'journal', errors: [] }],
               user_status: {
                 type: 'pass',
-                daily_used: 850,
-                daily_limit: 1000,
+                hours_remaining: 48, // 2 days
                 reset_time: Math.floor(Date.now() / 1000) + 3600
               }
             }
@@ -484,14 +528,14 @@ test.describe('User Access Flows - E2E Tests', () => {
 
       await page.reload();
       await page.waitForTimeout(1000);
-      await editor.fill('High usage test');
+      await editor.fill('Low time test');
       await page.locator('button[type="submit"]').click();
       await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
 
       userStatus = page.locator('.user-status');
-      await expect(userStatus).toContainText('850/1000 used today');
-      const badgeHighUsage = userStatus.locator('div').first();
-      await expect(badgeHighUsage).toHaveClass(/bg-yellow-100/); // Yellow for high usage
+      await expect(userStatus).toContainText('2-Day Pass');
+      const badgeLowTime = userStatus.locator('div').first();
+      await expect(badgeLowTime).toHaveClass(/bg-yellow-100/); // Yellow for 1-3 days remaining
 
       console.log('✅ UserStatus component update test passed');
     });

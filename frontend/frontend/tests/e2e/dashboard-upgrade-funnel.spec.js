@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 test.describe('Dashboard Upgrade Funnel Visualization', () => {
   test.beforeEach(async ({ page }) => {
@@ -235,9 +235,9 @@ test.describe('Dashboard Upgrade Funnel Visualization', () => {
         const icon = icons.nth(i);
         const hasActiveClass = await icon.evaluate(el => {
           return el.classList.contains('upgrade-results_gated') ||
-                 el.classList.contains('upgrade-upgrade_initiated') ||
-                 el.classList.contains('upgrade-upgrade_completed') ||
-                 el.classList.contains('upgrade-results_revealed');
+            el.classList.contains('upgrade-upgrade_initiated') ||
+            el.classList.contains('upgrade-upgrade_completed') ||
+            el.classList.contains('upgrade-results_revealed');
         });
         if (hasActiveClass) activeCount++;
       }

@@ -103,7 +103,7 @@ test.describe('Pricing Integration Tests', () => {
     if (variant === 'credits') {
       await expect(page.locator('.credit-display')).toContainText('Citation Credits: 500', { timeout: 5000 });
     } else {
-      await expect(page.locator('.credit-display')).toContainText('0/1000', { timeout: 5000 });
+      await expect(page.locator('.credit-display')).toContainText('7-Day Pass', { timeout: 5000 });
     }
 
     // 10. Submit another validation
@@ -118,7 +118,7 @@ test.describe('Pricing Integration Tests', () => {
     if (variant === 'credits') {
       await expect(page.locator('.credit-display')).toContainText('Citation Credits: 499');
     } else {
-      await expect(page.locator('.credit-display')).toContainText('1/1000');
+      await expect(page.locator('.credit-display')).toContainText('7-Day Pass');
     }
   });
 
@@ -184,8 +184,8 @@ test.describe('Pricing Integration Tests', () => {
     const headerStatusContent = await page.locator('.header-status').textContent();
     console.log(`Header status content: ${headerStatusContent}`);
 
-    // Should show 1000/1000 (validation incremented 999 → 1000)
-    await expect(page.locator('.user-status')).toContainText('1000/1000 used today', { timeout: 5000 });
+    // Pass user should see pass type - daily limit is internal
+    await expect(page.locator('.credit-display')).toContainText('7-Day Pass', { timeout: 5000 });
 
     // 6. Now at exactly 1000/1000 - next validation should fail
     // (We already used up the 1000th citation in step 5)
@@ -199,10 +199,38 @@ test.describe('Pricing Integration Tests', () => {
   });
 
   test('pass priority over credits', async ({ page }) => {
-    // 1. Grant both credits AND pass
+    // Helper function to retry database operations (handles SQLite contention in parallel tests)
+    const retryDbOperation = async (operation, maxRetries = 3) => {
+      for (let attempt = 0; attempt < maxRetries; attempt++) {
+        try {
+          return await operation();
+        } catch (error) {
+          if (attempt === maxRetries - 1) throw error;
+          // Exponential backoff: 100ms, 200ms, 400ms
+          await new Promise(resolve => setTimeout(resolve, 100 * Math.pow(2, attempt)));
+        }
+      }
+    };
+
+    // 1. Grant both credits AND pass with retry logic for database contention
     await page.evaluate(async (userId) => {
-      // Grant credits
-      await fetch('http://localhost:8000/test/grant-credits', {
+      // Helper for retrying fetch operations
+      const retryFetch = async (url, options, maxRetries = 3) => {
+        for (let attempt = 0; attempt < maxRetries; attempt++) {
+          try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            return data;
+          } catch (error) {
+            if (attempt === maxRetries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 100 * Math.pow(2, attempt)));
+          }
+        }
+      };
+
+      // Grant credits with retry
+      await retryFetch('http://localhost:8000/test/grant-credits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -211,8 +239,8 @@ test.describe('Pricing Integration Tests', () => {
         })
       });
 
-      // Grant pass
-      await fetch('http://localhost:8000/test/grant-pass', {
+      // Grant pass with retry
+      await retryFetch('http://localhost:8000/test/grant-pass', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -228,8 +256,31 @@ test.describe('Pricing Integration Tests', () => {
       console.log('Updated localStorage citation_checker_token to:', userId);
     }, userId);
 
-    // Wait for DB consistency (SQLite WAL mode in CI environment)
-    await page.waitForTimeout(1000);
+    // Poll the backend to verify the pass was actually granted before proceeding
+    // This ensures database writes are visible even in SQLite WAL mode
+    await page.evaluate(async (userId) => {
+      const maxAttempts = 20; // Increased for parallel test contention
+      const delayMs = 200;
+
+      for (let i = 0; i < maxAttempts; i++) {
+        try {
+          const response = await fetch(`http://localhost:8000/test/get-user?user_id=${userId}`);
+          const user = await response.json();
+
+          if (user.has_pass) {
+            console.log(`Pass verified in database after ${i + 1} attempts`);
+            return;
+          }
+        } catch (error) {
+          console.log(`Attempt ${i + 1} failed: ${error.message}`);
+        }
+
+        // Wait before next attempt
+        await new Promise(resolve => setTimeout(resolve, delayMs));
+      }
+
+      throw new Error('Pass was not granted within timeout period');
+    }, userId);
 
     // 2. Reload to update status
     await page.reload();
@@ -247,8 +298,8 @@ test.describe('Pricing Integration Tests', () => {
     // 5. Reload to check usage
     await page.reload();
 
-    // 6. Pass usage should increment (NOT credits)
-    await expect(page.locator('.user-status')).toContainText('1/1000 used today');
+    // 6. Pass should be active (daily limit is internal, not shown)
+    await expect(page.locator('.credit-display')).toContainText('7-Day Pass');
 
     // 7. Verify credits unchanged
     const credits = await page.evaluate(async (userId) => {

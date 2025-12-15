@@ -45,15 +45,16 @@ export const UserStatus = ({ userStatus, className }) => {
         };
 
       case 'pass':
-        const dailyUsed = userStatus.daily_used || 0;
-        const dailyLimit = userStatus.daily_limit || 1000;
-        const usagePercentage = (dailyUsed / dailyLimit) * 100;
+        // Show pass type and time remaining (daily limit is internal, not user-facing)
+        const hoursRemaining = userStatus.hours_remaining || 0;
+        const daysRemaining = Math.ceil(hoursRemaining / 24);
 
         return {
-          text: `${dailyUsed}/${dailyLimit} used today`,
-          subtext: timeUntilReset ? `resets in ${timeUntilReset}` : '',
-          variant: usagePercentage < 70 ? 'success' : usagePercentage < 90 ? 'warning' : 'destructive'
+          text: `${daysRemaining}-Day Pass`,
+          subtext: daysRemaining > 0 ? `${daysRemaining} day${daysRemaining > 1 ? 's' : ''} left` : 'expires today',
+          variant: daysRemaining > 3 ? 'success' : daysRemaining > 0 ? 'warning' : 'destructive'
         };
+
 
       case 'free':
         return {
