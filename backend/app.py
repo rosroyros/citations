@@ -2055,12 +2055,18 @@ async def handle_polar_webhook(request: Request):
 
 async def handle_order_created(webhook):
     """
-    Handle order.created webhook by granting credits.
+    Handle order.created webhook by granting credits or passes.
 
-    Note: This handler is kept for backward compatibility but mostly
-    replaced by handle_checkout_updated for the A/B test implementation.
+    This is the primary handler for fulfillment - checkout.updated just acknowledges
+    receipt but doesn't grant access since it lacks order_id for idempotency.
+
+    Handles:
+    - Credits products (variant 1)
+    - Pass products (variant 2)
+    - A/B test tracking
+    - Revenue logging
     """
-    from database import add_credits
+    from database import add_credits, add_pass
 
     order_id = webhook.data.id
     # metadata is a dict, not an object
@@ -2072,13 +2078,82 @@ async def handle_order_created(webhook):
         logger.error(f"Order {order_id} missing token in metadata")
         return
 
-    # Grant 1,000 credits (idempotent - add_credits checks for duplicate order_id)
-    success = add_credits(token, 1000, order_id)
+    # Extract product information
+    product_id = webhook.data.product_id
+    if not product_id:
+        logger.error(f"Order {order_id} missing product_id")
+        return
 
-    if success:
-        logger.info(f"Successfully granted 1000 credits for order {order_id}")
+    # Look up product configuration
+    product_config = PRODUCT_CONFIG.get(product_id)
+    if not product_config:
+        logger.error(f"Unknown product_id in order {order_id}: {product_id}")
+        return
+
+    # Get experiment variant from product config
+    experiment_variant = product_config['variant']  # '1' or '2'
+
+    # Get amount for revenue tracking
+    amount_cents = webhook.data.amount
+
+    # Log purchase completed event
+    log_upgrade_event(
+        'purchase_completed',
+        token,
+        experiment_variant=experiment_variant,
+        product_id=product_id,
+        amount_cents=amount_cents
+    )
+
+    # Route based on product type
+    success = False
+
+    if product_config['type'] == 'credits':
+        amount = product_config['amount']
+        success = add_credits(token, amount, order_id)
+
+        if success:
+            # Log credits applied event
+            log_upgrade_event(
+                'credits_applied',
+                token,
+                experiment_variant=experiment_variant,
+                product_id=product_id,
+                metadata={'amount': amount, 'type': 'credits'}
+            )
+
+            logger.info(
+                f"PURCHASE_COMPLETED | type=credits | product_id={product_id} | "
+                f"amount={amount} | revenue=${amount_cents/100:.2f} | "
+                f"token={token[:8]} | order_id={order_id}"
+            )
+
+    elif product_config['type'] == 'pass':
+        days = product_config['days']
+        pass_type = product_config.get('pass_type', f"{days}day")
+        success = add_pass(token, days, pass_type, order_id)
+
+        if success:
+            # Log pass applied event
+            log_upgrade_event(
+                'credits_applied',  # Same event name for consistency
+                token,
+                experiment_variant=experiment_variant,
+                product_id=product_id,
+                metadata={'days': days, 'type': 'pass', 'pass_type': pass_type}
+            )
+
+            logger.info(
+                f"PURCHASE_COMPLETED | type=pass | product_id={product_id} | "
+                f"days={days} | revenue=${amount_cents/100:.2f} | "
+                f"token={token[:8]} | order_id={order_id}"
+            )
     else:
-        logger.warning(f"Order {order_id} already processed, skipping credit grant")
+        logger.error(f"Unknown product type for order {order_id}: {product_config['type']}")
+        return
+
+    if not success:
+        logger.warning(f"Order {order_id} already processed, skipping (idempotency)")
 
 
 async def handle_checkout_updated(webhook):
