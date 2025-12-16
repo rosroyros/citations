@@ -2094,7 +2094,8 @@ async def handle_order_created(webhook):
     experiment_variant = product_config['variant']  # '1' or '2'
 
     # Get amount for revenue tracking
-    amount_cents = webhook.data.amount
+    # Note: order.created has total_amount, not amount
+    amount_cents = webhook.data.total_amount
 
     # Log purchase completed event
     log_upgrade_event(
