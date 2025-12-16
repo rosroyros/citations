@@ -47,13 +47,18 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
       // Log product selection
       console.log('product_selected', { productId, variant: experimentVariant || '1' })
 
+      // Get job_id from URL params or localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobId = urlParams.get('jobId') || localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id');
+
       // Create Polar checkout via backend API
       const response = await fetch('/api/create-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           productId,
-          variantId: experimentVariant || '1'
+          variantId: experimentVariant || '1',
+          job_id: jobId
         })
       })
 

@@ -592,7 +592,7 @@ def build_gated_response(
 
 def log_upgrade_event(event_name: str, token: str, experiment_variant: str = None,
                       product_id: str = None, amount_cents: int = None,
-                      error: str = None, metadata: dict = None):
+                      error: str = None, metadata: dict = None, job_id: str = None):
     """
     Log upgrade funnel event to app.log for analytics.
 
@@ -604,8 +604,8 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
     - Drop-off rates at each funnel stage
     - Conversion rates by variant
 
-    Log Format: JSON structure for easy parsing by dashboard
-    Prefix: "UPGRADE_EVENT:" for easy filtering
+    Log Format: Unified string format for Dashboard parser
+    Prefix: "UPGRADE_WORKFLOW:" for easy filtering
 
     Args:
         event_name: One of: pricing_table_shown, product_selected, checkout_started,
@@ -616,34 +616,46 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
         amount_cents: Purchase amount in cents (for revenue tracking)
         error: Error message (for failed events)
         metadata: Additional event-specific data
+        job_id: The job ID associated with this event (Consolidated ID)
 
     Example log entries:
-        UPGRADE_EVENT: {"timestamp": 1704067200, "event": "pricing_table_shown",
-                       "token": "abc12345", "experiment_variant": "1"}
-
-        UPGRADE_EVENT: {"timestamp": 1704067205, "event": "product_selected",
-                       "token": "abc12345", "experiment_variant": "1",
-                       "product_id": "prod_credits_500"}
-
-        UPGRADE_EVENT: {"timestamp": 1704067210, "event": "purchase_completed",
-                       "token": "abc12345", "experiment_variant": "1",
-                       "product_id": "prod_credits_500", "amount_cents": 499}
+        UPGRADE_WORKFLOW: job_id=123 event=pricing_table_shown variant=1
+        UPGRADE_WORKFLOW: job_id=123 event=purchase_completed variant=1 product_id=... amount_cents=499
     """
-    # Build event payload
+    # Build log line parts
+    parts = [
+        f"job_id={job_id or 'None'}",
+        f"event={event_name}"
+    ]
+    
+    if experiment_variant:
+        parts.append(f"variant={experiment_variant}")
+        
+    if product_id:
+        parts.append(f"product_id={product_id}")
+        
+    if amount_cents is not None:
+        parts.append(f"amount_cents={amount_cents}")
+
+    # Construct the unified log line
+    log_line = f"UPGRADE_WORKFLOW: {' '.join(parts)}"
+    logger.info(log_line)
+
+    # Legacy JSON logging for backward compatibility / debugging
     payload = {
-        'timestamp': int(time.time()),  # Unix timestamp
+        'timestamp': int(time.time()),
         'event': event_name,
-        'token': token[:8] if token else None,  # Privacy: only log first 8 chars
-        'experiment_variant': experiment_variant  # CRITICAL: Always include (Oracle #5)
+        'token': token[:8] if token else None,
+        'experiment_variant': experiment_variant,
+        'job_id': job_id
     }
 
-    # Add optional fields if provided
     if product_id:
         payload['product_id'] = product_id
 
     if amount_cents is not None:
         payload['amount_cents'] = amount_cents
-        payload['amount_dollars'] = amount_cents / 100  # For readability
+        payload['amount_dollars'] = amount_cents / 100
 
     if error:
         payload['error'] = error
@@ -651,15 +663,8 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
     if metadata:
         payload['metadata'] = metadata
 
-    # Log as JSON for easy parsing
-    logger.info(f"UPGRADE_EVENT: {json.dumps(payload)}")
-
     # Also log human-readable version for debugging
-    logger.debug(
-        f"Upgrade funnel: {event_name} | "
-        f"token={token[:8] if token else None} | variant={experiment_variant} | "
-        f"product={product_id or 'n/a'}"
-    )
+    logger.debug(f"Upgrade funnel (JSON): {json.dumps(payload)}")
 
     # For E2E testing: Write to database so tests can verify events
     if os.getenv('TESTING') == 'true':
@@ -688,7 +693,7 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
             logger.error(f"Failed to write UPGRADE_EVENT to DB: {e}")
 
 
-def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None, reason: str = None, **metadata):
+def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None, reason: str = None, job_id: str = None, **metadata):
     """
     Helper function to log pricing_table_shown event with common error handling.
 
@@ -696,6 +701,7 @@ def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None
         token: User token (will be truncated to first 8 chars in logs for privacy)
         experiment_variant: A/B test variant (optional)
         reason: Why pricing table was shown (free_limit_reached, zero_credits, insufficient_credits)
+        job_id: The job ID associated with this event
         **metadata: Additional metadata to include with the event
 
     Note: If token is 'anonymous', it will be logged as 'anonymou' due to 8-char truncation
@@ -709,7 +715,8 @@ def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None
             'pricing_table_shown',
             token,
             experiment_variant=experiment_variant,
-            metadata=metadata
+            metadata=metadata,
+            job_id=job_id
         )
     except Exception as e:
         logger.error(f"Failed to log upgrade event: {e}")
@@ -772,12 +779,14 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
     # Get productId from request (for pricing tables) or use default from env
     product_id = request.get('productId') or os.getenv('POLAR_PRODUCT_ID')
     variant_id = request.get('variantId', 'unknown')
+    job_id = request.get('job_id')
 
     logger.info(f"Product ID: {product_id}")
     logger.info(f"Variant ID: {variant_id}")
+    logger.info(f"Job ID: {job_id}")
 
     # Track checkout started event
-    log_upgrade_event('checkout_started', token, product_id=product_id, experiment_variant=variant_id)
+    log_upgrade_event('checkout_started', token, product_id=product_id, experiment_variant=variant_id, job_id=job_id)
 
     # Mock Checkout if configured (for E2E tests)
     if os.getenv('MOCK_LLM', '').lower() == 'true':
@@ -791,7 +800,8 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
          mock_checkout_info[token] = {
              'product_id': product_id,
              'checkout_id': checkout_id,
-             'order_id': order_id
+             'order_id': order_id,
+             'metadata': {'token': token, 'job_id': job_id}
          }
 
          # Schedule mock webhook in background task
@@ -826,20 +836,35 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
          frontend_url = f"{scheme}://{forwarded_host}".rstrip('/')
          logger.info(f"Using frontend URL: {frontend_url}")
 
-         return {"checkout_url": f"{frontend_url}/success?token={token}&mock=true", "token": token}
+         # Include job_id in success URL if available
+         success_url_params = f"token={token}&mock=true"
+         if job_id:
+             success_url_params += f"&job_id={job_id}"
+
+         return {"checkout_url": f"{frontend_url}/success?{success_url_params}", "token": token}
 
     try:
         # Create Polar checkout
         logger.info("Creating Polar checkout")
         logger.info(f"Token: {token}")
 
+        # Construct metadata
+        metadata = {
+            "token": token,
+            "variant_id": variant_id
+        }
+        if job_id:
+            metadata["job_id"] = job_id
+
+        # Construct success URL
+        success_url = f"{os.getenv('FRONTEND_URL')}/success?token={token}"
+        if job_id:
+            success_url += f"&job_id={job_id}"
+
         checkout_request = {
             "products": [product_id],
-            "success_url": f"{os.getenv('FRONTEND_URL')}/success?token={token}",
-            "metadata": {
-                "token": token,
-                "variant_id": variant_id
-            }
+            "success_url": success_url,
+            "metadata": metadata
         }
         logger.info(f"Checkout request: {checkout_request}")
 
@@ -2070,9 +2095,16 @@ async def handle_order_created(webhook):
 
     order_id = webhook.data.id
     # metadata is a dict, not an object
-    token = webhook.data.metadata.get('token') if isinstance(webhook.data.metadata, dict) else webhook.data.metadata.token
+    metadata = webhook.data.metadata
+    if isinstance(metadata, dict):
+        token = metadata.get('token')
+        job_id = metadata.get('job_id')
+    else:
+        # Handle object access if SDK returns an object
+        token = getattr(metadata, 'token', None)
+        job_id = getattr(metadata, 'job_id', None)
 
-    logger.info(f"Processing order.created: order_id={order_id}, token={token[:8] if token else 'None'}...")
+    logger.info(f"Processing order.created: order_id={order_id}, token={token[:8] if token else 'None'}..., job_id={job_id}")
 
     if not token:
         logger.error(f"Order {order_id} missing token in metadata")
@@ -2103,7 +2135,8 @@ async def handle_order_created(webhook):
         token,
         experiment_variant=experiment_variant,
         product_id=product_id,
-        amount_cents=amount_cents
+        amount_cents=amount_cents,
+        job_id=job_id
     )
 
     # Route based on product type
@@ -2120,7 +2153,8 @@ async def handle_order_created(webhook):
                 token,
                 experiment_variant=experiment_variant,
                 product_id=product_id,
-                metadata={'amount': amount, 'type': 'credits'}
+                metadata={'amount': amount, 'type': 'credits'},
+                job_id=job_id
             )
 
             logger.info(
@@ -2141,7 +2175,8 @@ async def handle_order_created(webhook):
                 token,
                 experiment_variant=experiment_variant,
                 product_id=product_id,
-                metadata={'days': days, 'type': 'pass', 'pass_type': pass_type}
+                metadata={'days': days, 'type': 'pass', 'pass_type': pass_type},
+                job_id=job_id
             )
 
             logger.info(

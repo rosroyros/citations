@@ -99,8 +99,9 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
       // Log product selection
       console.log('product_selected', { productId, variant: experimentVariant || '2' })
 
-      // Get job_id from localStorage if available
-      const jobId = localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id')
+      // Get job_id from URL params or localStorage
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobId = urlParams.get('jobId') || localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id')
 
       // Call upgrade-event API (non-blocking)
       if (jobId) {
@@ -128,7 +129,8 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
         body: JSON.stringify({
           token,
           productId,
-          variantId: experimentVariant || '2'
+          variantId: experimentVariant || '2',
+          job_id: jobId
         })
       })
 

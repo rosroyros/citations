@@ -233,7 +233,10 @@ const Success = () => {
     clearFreeUserId()
 
     // Check for pending upgrade job_id and log success event
-    const pendingJobId = localStorage.getItem('pending_upgrade_job_id')
+    // Check URL params first (more robust), then localStorage
+    const urlJobId = params.get('job_id') || params.get('jobId')
+    const pendingJobId = urlJobId || localStorage.getItem('pending_upgrade_job_id')
+    
     if (pendingJobId) {
       // Log success event
       fetch('/api/upgrade-event', {
