@@ -86,7 +86,7 @@ test.describe('Pricing Integration Tests', () => {
       await page.locator('button:has-text("View Results")').first().click();
     }
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 30000 });
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible();
+    await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible();
 
     // 3. Force variant '1' (Credits) before modal opens
     await page.evaluate(() => {
@@ -95,7 +95,7 @@ test.describe('Pricing Integration Tests', () => {
     });
 
     // 4. Click upgrade button to show pricing modal
-    await page.click('button:has-text("Upgrade to Continue")');
+    await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 5. Verify correct variant shown
@@ -394,8 +394,8 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 2. Click upgrade button to show pricing modal
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
-    await page.click('button:has-text("Upgrade to Continue")');
+    await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible({ timeout: 30000 });
+    await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 3. Get initial variant
@@ -421,8 +421,8 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 7. Click upgrade button to show pricing modal again
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
-    await page.click('button:has-text("Upgrade to Continue")');
+    await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible({ timeout: 30000 });
+    await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
     // 8. Should be SAME variant
@@ -467,8 +467,8 @@ test.describe('Pricing Integration Tests', () => {
     }
 
     // 3. Click upgrade button to show pricing modal
-    await expect(page.locator('button:has-text("Upgrade to Continue")')).toBeVisible({ timeout: 30000 });
-    await page.click('button:has-text("Upgrade to Continue")');
+    await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible({ timeout: 30000 });
+    await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
     await page.waitForTimeout(1000); // Wait for tracking
 

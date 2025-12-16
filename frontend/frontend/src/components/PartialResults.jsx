@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Lock } from 'lucide-react';
 import './PartialResults.css';
 import { useAnalyticsTracking } from '../hooks/useAnalyticsTracking';
 import { trackEvent } from '../utils/analytics';
@@ -77,8 +78,17 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
       <div className="upgrade-banner">
         <div className="upgrade-content">
-          <h3>{userStatus?.type === 'pass' ? 'Daily limit reached.' : 'Free tier limit reached.'} Upgrade to continue.</h3>
-          <p>{citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</p>
+          {userStatus?.type === 'pass' ? (
+            <h3>Daily limit reached. Upgrade to continue.</h3>
+          ) : (
+            <>
+              <div className="upgrade-header-row">
+                <Lock className="lock-icon" size={24} />
+                <h3>{citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</h3>
+              </div>
+              <p>Upgrade to unlock validation results & more usage</p>
+            </>
+          )}
           <button
             onClick={() => {
               trackEvent('upgrade_clicked', {
@@ -111,7 +121,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
             }}
             className="upgrade-button"
           >
-            Upgrade to Continue
+            Upgrade to Unlock Now
           </button>
         </div>
       </div>
