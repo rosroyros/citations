@@ -86,7 +86,7 @@ describe('PartialResults', () => {
 
     // Assert
     expect(screen.getByText('7 more citations available')).toBeInTheDocument();
-    expect(screen.getByText('Free tier limit (10) reached. Upgrade to continue.')).toBeInTheDocument();
+    expect(screen.getByText('Free tier limit (5) reached. Upgrade to continue.')).toBeInTheDocument();
   });
 
   it('should show singular form for 1 remaining citation', () => {

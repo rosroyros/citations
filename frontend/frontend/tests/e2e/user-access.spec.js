@@ -4,7 +4,7 @@ import { test, expect } from '@playwright/test';
  * E2E tests for complete user access flows
  *
  * Tests all user states:
- * 1. Free user: 10 validations, then blocked
+ * 1. Free user: 5 validations, then blocked
  * 2. Credits user: Purchase credits, use them, balance decreases
  * 3. Pass user: Use up to 1000, hit limit, see reset timer
  * 4. UserStatus component updates correctly
@@ -38,8 +38,8 @@ test.describe('User Access Flows - E2E Tests', () => {
   });
 
   test.describe('Free User Flow', () => {
-    test('should allow 10 validations then block free user', async ({ page }) => {
-      console.log('🧪 Testing free user flow: 10 validations then block...');
+    test('should allow 5 validations then block free user', async ({ page }) => {
+      console.log('🧪 Testing free user flow: 5 validations then block...');
 
       // Mock submission to get a job ID
       await page.route(/\/api\/validate\/async/, async (route) => {
