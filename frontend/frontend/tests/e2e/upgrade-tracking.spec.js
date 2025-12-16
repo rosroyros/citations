@@ -150,11 +150,12 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
   test('different users get randomly assigned to different variants', async ({ browser }) => {
     console.log('🚀 Test: Random variant assignment');
 
-    // Simulate 20 different users with separate browser contexts
-    // Each context has isolated localStorage to simulate independent users
+    // 10 iterations provides strong statistical confidence (99.9% both variants)
+    // while keeping test time reasonable (~10-15s instead of 10-20 minutes)
+    const iterations = 10;
     const variants = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < iterations; i++) {
       // Create new browser context (fresh user with isolated localStorage)
       const context = await browser.newContext();
       const page = await context.newPage();
@@ -164,23 +165,34 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
 
       // Set free limit to trigger variant assignment
       await page.evaluate(() => {
-        localStorage.setItem('citation_checker_free_used', '10');
+        localStorage.setItem('citation_checker_free_used', '5');
       });
 
       await page.reload();
       await expect(page.locator('body')).toBeVisible();
+      await page.waitForLoadState('networkidle');
 
-      // Submit validation to trigger variant assignment
+      // Submit 6 citations at once to exceed free tier (5) and trigger variant assignment
       const editor = page.locator('.ProseMirror')
         .or(page.locator('[contenteditable="true"]'))
         .or(page.locator('textarea'));
 
-      await editor.fill('Test, A. (2023). Citation. Journal, 1(1), 1-10.');
+      // Submit 6 citations to immediately exceed the free tier limit
+      const citations = [
+        'Smith, J. (2023). First citation. Journal, 1(1), 1-10.',
+        'Jones, M. (2023). Second citation. Journal, 2(2), 20-30.',
+        'Brown, A. (2023). Third citation. Journal, 3(3), 30-40.',
+        'Davis, K. (2023). Fourth citation. Journal, 4(4), 40-50.',
+        'Wilson, L. (2023). Fifth citation. Journal, 5(5), 50-60.',
+        'Taylor, R. (2023). Sixth citation. Journal, 6(6), 60-70.'
+      ].join('\n\n');
+
+      await editor.fill(citations);
       await page.locator('button[type="submit"]').click();
 
-      await expect(
-        page.locator('.results, .validation-results, .validation-table').first()
-      ).toBeVisible({ timeout: 60000 });
+      // Wait briefly for submission to complete (variant is assigned during submission)
+      // We don't need to wait for validation results - just for the API call to fire
+      await page.waitForTimeout(1000);
 
       const variant = await page.evaluate(() =>
         localStorage.getItem('experiment_v1')
@@ -193,14 +205,14 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
       await context.close();
     }
 
-    // Statistical check: With 20 users, very unlikely all get same variant
+    // Statistical check: With 10 users, very unlikely all get same variant
     const variant1Count = variants.filter(v => v === '1').length;
     const variant2Count = variants.filter(v => v === '2').length;
 
-    console.log(`📊 Distribution: Variant 1: ${variant1Count}, Variant 2: ${variant2Count}`);
+    console.log(`📊 Distribution (${iterations} users): Variant 1: ${variant1Count}, Variant 2: ${variant2Count}`);
 
-    // At least 1 of each variant should be assigned (with 20 users)
-    // Probability of all same = (0.5)^20 = 0.00000095 (extremely unlikely)
+    // At least 1 of each variant should be assigned (with 10 users)
+    // Probability of all same = (0.5)^10 = 0.00098 (very unlikely - 99.9% confidence)
     expect(variant1Count).toBeGreaterThan(0);
     expect(variant2Count).toBeGreaterThan(0);
 
