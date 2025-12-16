@@ -214,6 +214,11 @@ class ValidationResponse(BaseModel):
         None,
         description="Current state in upgrade workflow (clicked, modal, success, locked)"
     )
+    experiment_variant: Optional[str] = Field(None, description="A/B test variant (1 or 2)")
+    product_id: Optional[str] = Field(None, description="Purchased product ID")
+    amount_cents: Optional[int] = Field(None, description="Purchase amount in cents")
+    currency: Optional[str] = Field(None, description="Purchase currency")
+    order_id: Optional[str] = Field(None, description="Polar order ID")
 
 
 class StatsResponse(BaseModel):
@@ -401,7 +406,12 @@ async def get_validation(job_id: str, database: DatabaseManager = Depends(get_db
             "gated_outcome": validation.get("gated_outcome"),
             "paid_user_id": validation.get("paid_user_id"),
             "free_user_id": validation.get("free_user_id"),
-            "upgrade_state": validation.get("upgrade_state")
+            "upgrade_state": validation.get("upgrade_state"),
+            "experiment_variant": validation.get("experiment_variant"),
+            "product_id": validation.get("product_id"),
+            "amount_cents": validation.get("amount_cents"),
+            "currency": validation.get("currency"),
+            "order_id": validation.get("order_id")
         }
         return ValidationResponse(**validation_data)
     except HTTPException:
@@ -660,6 +670,11 @@ async def get_dashboard_data(
                 "gated_outcome": validation.get("gated_outcome"),
                 # Upgrade workflow state
                 "upgrade_state": validation.get("upgrade_state"),
+                "experiment_variant": validation.get("experiment_variant"),
+                "product_id": validation.get("product_id"),
+                "amount_cents": validation.get("amount_cents"),
+                "currency": validation.get("currency"),
+                "order_id": validation.get("order_id"),
                 # Provider field for A/B testing
                 "provider": validation.get("provider", "model_a"),
                 # Token usage fields

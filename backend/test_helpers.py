@@ -8,7 +8,22 @@ from pydantic import BaseModel
 from typing import Optional
 import os
 import sqlite3
+import sys
 from datetime import datetime, timedelta
+
+# Import database path helper
+from database import get_validations_db_path
+
+# Import dashboard components
+# Note: sys.path should be configured by app.py to include project root
+try:
+    from dashboard.log_parser import parse_logs
+    from dashboard.database import DatabaseManager
+except ImportError:
+    # Fallback for when running tests in isolation without app.py setup
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+    from dashboard.log_parser import parse_logs
+    from dashboard.database import DatabaseManager
 
 # Request models
 class GrantCreditsRequest(BaseModel):
@@ -168,36 +183,64 @@ def register_test_helpers(app):
 
         return user_data
 
-    @app.get("/test/get-events")
-    async def test_get_events(user_id: str):
-        """Get tracking events for a user"""
+    @app.get("/test/get-validation")
+    async def test_get_validation(job_id: Optional[str] = None, user_id: Optional[str] = None):
+        """
+        Get validation record for testing, forcing log parse first.
+        Used to verify upgrade flow events and other metadata.
+        Supports lookup by job_id or user_id (latest job).
+        """
         if os.getenv('TESTING') != 'true':
-            raise HTTPException(status_code=404, detail="Not found")
+             raise HTTPException(status_code=404, detail="Not found")
+        
+        if not job_id and not user_id:
+            raise HTTPException(status_code=400, detail="Either job_id or user_id is required")
+        
+        # 1. Force parse logs (stateless full parse to ensure latest events are picked up)
+        log_path = os.getenv('APP_LOG_PATH', '/opt/citations/logs/app.log')
+        if os.path.exists(log_path):
+            try:
+                # Parse logs
+                parsed_jobs = parse_logs(log_path)
+                
+                # 2. Sync to DB (validations_test.db if in test mode)
+                db_path = get_validations_db_path()
+                # Ensure db directory exists
+                os.makedirs(os.path.dirname(db_path), exist_ok=True)
+                
+                with DatabaseManager(db_path) as db:
+                    for job in parsed_jobs:
+                        db.insert_validation(job)
+            except Exception as e:
+                # Log error but try to return from DB anyway (maybe synced previously)
+                print(f"Error syncing logs in test helper: {e}")
+                pass
+        
+        # 3. Retrieve job
+        db_path = get_validations_db_path()
+        if os.path.exists(db_path):
+            with DatabaseManager(db_path) as db:
+                if job_id:
+                    validation = db.get_validation(job_id)
+                    if validation:
+                        return validation
+                elif user_id:
+                    # Look up by paid_user_id (token[:8]) or free_user_id
+                    # Note: validations.db stores token[:8] for paid users
+                    paid_id = user_id[:8] if len(user_id) >= 8 else user_id
+                    
+                    # Try paid user first
+                    results = db.get_validations(paid_user_id=paid_id, limit=1)
+                    if results:
+                        return results[0]
+                        
+                    # Try free user
+                    results = db.get_validations(free_user_id=user_id, limit=1)
+                    if results:
+                        return results[0]
 
-        conn = get_test_db()
-        events = conn.execute(
-            "SELECT * FROM UPGRADE_EVENT WHERE user_id = ? ORDER BY timestamp",
-            (user_id,)
-        ).fetchall()
-        conn.close()
-
-        return [dict(e) for e in events]
-
-    @app.post("/test/clear-events")
-    async def test_clear_events(request: ClearEventsRequest):
-        """Clear tracking events for a user"""
-        if os.getenv('TESTING') != 'true':
-            raise HTTPException(status_code=404, detail="Not found")
-
-        conn = get_test_db()
-        conn.execute(
-            "DELETE FROM UPGRADE_EVENT WHERE user_id = ?",
-            (request.user_id,)
-        )
-        conn.commit()
-        conn.close()
-
-        return {"success": True}
+        # Not found
+        return {"error": "Validation not found", "job_id": job_id, "user_id": user_id}
 
     @app.post("/test/reset-user")
     async def test_reset_user(request: ClearEventsRequest):
@@ -225,11 +268,8 @@ def register_test_helpers(app):
             (request.user_id,)
         )
 
-        # Clear events
-        conn.execute(
-            "DELETE FROM UPGRADE_EVENT WHERE user_id = ?",
-            (request.user_id,)
-        )
+        # Note: We do NOT delete from validations.db (history is preserved)
+        # UPGRADE_EVENT table is deprecated/removed
 
         conn.commit()
         conn.close()

@@ -15,6 +15,13 @@ from datetime import datetime
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
 from logger import setup_logger
+
+# Add project root to Python path to allow importing from dashboard
+import sys
+from pathlib import Path
+root_dir = Path(__file__).parent.parent
+sys.path.insert(0, str(root_dir))
+
 from providers.openai_provider import OpenAIProvider
 from providers.gemini_provider import GeminiProvider
 from database import get_credits, deduct_credits, create_validation_record, update_validation_tracking, add_pass, get_active_pass, try_increment_daily_usage, get_daily_usage_for_current_window
@@ -23,14 +30,8 @@ from citation_logger import log_citations_to_dashboard, ensure_citation_log_read
 from dashboard.log_parser import CitationLogParser
 from pricing_config import PRODUCT_CONFIG, get_next_utc_midnight
 
-# Add dashboard directory to Python path for analytics import
-import sys
-from pathlib import Path
-dashboard_dir = Path(__file__).parent / 'dashboard'
-sys.path.insert(0, str(dashboard_dir))
-
 # Import analytics for funnel data
-from analytics import parse_upgrade_events
+from dashboard.analytics import parse_upgrade_events
 
 # Load environment variables
 load_dotenv()

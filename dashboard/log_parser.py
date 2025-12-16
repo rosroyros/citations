@@ -364,7 +364,7 @@ def extract_reveal_event(log_line: str) -> Optional[Tuple[str, str]]:
     return None
 
 
-def extract_upgrade_workflow_event(log_line: str) -> Optional[Tuple[str, str]]:
+def extract_upgrade_workflow_event(log_line: str) -> Optional[Dict[str, Any]]:
     """
     Extract upgrade workflow event information from a log line.
 
@@ -372,18 +372,58 @@ def extract_upgrade_workflow_event(log_line: str) -> Optional[Tuple[str, str]]:
         log_line: The log line to extract upgrade workflow event info from
 
     Returns:
-        tuple of (job_id, event) if found, None otherwise
+        dict with job_id, event, and optional fields if found, None otherwise
     """
-    # Pattern matches: UPGRADE_WORKFLOW: job_id=abc-123 event=clicked_upgrade
-    upgrade_pattern = r'UPGRADE_WORKFLOW: job_id=([a-f0-9-]+) event=(\w+)'
-    match = re.search(upgrade_pattern, log_line)
+    if "UPGRADE_WORKFLOW:" not in log_line:
+        return None
+        
+    # Extract mandatory fields
+    # Use loose regex for job_id to handle non-hex IDs in legacy logs or tests
+    base_pattern = r'UPGRADE_WORKFLOW: job_id=([^\s]+) event=([^\s]+)'
+    match = re.search(base_pattern, log_line)
 
-    if match:
-        job_id = match.group(1)
-        event = match.group(2)
-        return job_id, event
+    if not match:
+        return None
 
-    return None
+    result = {
+        "job_id": match.group(1),
+        "event": match.group(2)
+    }
+
+    # Extract optional fields
+    # variant
+    variant_match = re.search(r'variant=([^\s]+)', log_line)
+    if variant_match:
+        result["experiment_variant"] = variant_match.group(1)
+
+    # product_id
+    product_match = re.search(r'product_id=([^\s]+)', log_line)
+    if product_match:
+        result["product_id"] = product_match.group(1)
+        
+    # amount_cents
+    amount_match = re.search(r'amount_cents=(\d+)', log_line)
+    if amount_match:
+        result["amount_cents"] = int(amount_match.group(1))
+        
+    # currency
+    currency_match = re.search(r'currency=([^\s]+)', log_line)
+    if currency_match:
+        result["currency"] = currency_match.group(1)
+
+    # order_id
+    order_match = re.search(r'order_id=([^\s]+)', log_line)
+    if order_match:
+        result["order_id"] = order_match.group(1)
+
+    # token (maps to paid_user_id)
+    token_match = re.search(r'token=([^\s]+)', log_line)
+    if token_match:
+        token_val = token_match.group(1)
+        if token_val and token_val != 'None':
+            result["token"] = token_val
+
+    return result
 
 
 def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
@@ -535,25 +575,6 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
             }
             continue
 
-        # Check for job completion
-        completion_result = extract_completion(line)
-        if completion_result:
-            job_id, timestamp = completion_result
-            if job_id in jobs:
-                jobs[job_id]["completed_at"] = timestamp
-                jobs[job_id]["status"] = "completed"
-            continue
-
-        # Check for job failure
-        failure_result = extract_failure(line)
-        if failure_result:
-            job_id, timestamp, error_message = failure_result
-            if job_id in jobs:
-                jobs[job_id]["status"] = "failed"
-                jobs[job_id]["error_message"] = error_message
-                jobs[job_id]["completed_at"] = timestamp
-            continue
-
         # Check for partial results event
         partial_results = extract_partial_results_event(line)
         if partial_results:
@@ -577,6 +598,25 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                     jobs[job_id]["upgrade_state"] = ','.join(current_states)
                     
                 jobs[job_id]["partial_results_type"] = partial_type  # Store for debugging
+            # Do not continue, as this line might also be a completion event
+
+        # Check for job completion
+        completion_result = extract_completion(line)
+        if completion_result:
+            job_id, timestamp = completion_result
+            if job_id in jobs:
+                jobs[job_id]["completed_at"] = timestamp
+                jobs[job_id]["status"] = "completed"
+            continue
+
+        # Check for job failure
+        failure_result = extract_failure(line)
+        if failure_result:
+            job_id, timestamp, error_message = failure_result
+            if job_id in jobs:
+                jobs[job_id]["status"] = "failed"
+                jobs[job_id]["error_message"] = error_message
+                jobs[job_id]["completed_at"] = timestamp
             continue
 
         # Still check for gating decision for compatibility
@@ -610,18 +650,31 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
         # Check for upgrade workflow event
         upgrade_result = extract_upgrade_workflow_event(line)
         if upgrade_result:
-            job_id, event = upgrade_result
+            job_id = upgrade_result["job_id"]
+            event = upgrade_result["event"]
             
             # Allow partial updates for existing jobs
             if job_id not in jobs:
                 jobs[job_id] = {"job_id": job_id}
                 
             if job_id in jobs:
+                # Store extra fields if present
+                for field in ["experiment_variant", "product_id", "amount_cents", "currency", "order_id"]:
+                    if field in upgrade_result:
+                        jobs[job_id][field] = upgrade_result[field]
+                
+                # Set paid_user_id from token if present and not set
+                if "token" in upgrade_result and not jobs[job_id].get("paid_user_id"):
+                    jobs[job_id]["paid_user_id"] = upgrade_result["token"]
+
                 # Map events to state values
                 event_to_state = {
+                    'pricing_table_shown': 'shown',
                     'clicked_upgrade': 'clicked',
                     'modal_proceed': 'modal',
-                    'success': 'success'
+                    'checkout_started': 'checkout',
+                    'success': 'success',
+                    'purchase_completed': 'success'
                 }
 
                 # Get the new state
@@ -871,6 +924,11 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("upgrade_state", None)
         job.setdefault("provider", None)
         job.setdefault("is_test_job", False)
+        job.setdefault("experiment_variant", None)
+        job.setdefault("product_id", None)
+        job.setdefault("amount_cents", None)
+        job.setdefault("currency", None)
+        job.setdefault("order_id", None)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):

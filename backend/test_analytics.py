@@ -9,8 +9,8 @@ import sys
 from pathlib import Path
 from datetime import datetime, timedelta
 
-# Add backend to path
-sys.path.insert(0, str(Path(__file__).parent))
+# Add project root to path (parent of backend)
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from dashboard.analytics import parse_upgrade_events, get_funnel_summary
 

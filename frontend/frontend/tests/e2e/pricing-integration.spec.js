@@ -445,14 +445,6 @@ test.describe('Pricing Integration Tests', () => {
     // Use the freeUserId for clearing/retrieving events, fallback to userId for compatibility
     const trackingUserId = freeUserId || userId;
 
-    await page.evaluate(async (trackingUserId) => {
-      await fetch('http://localhost:8000/test/clear-events', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: trackingUserId })
-      });
-    }, trackingUserId);
-
     // 3. Exhaust free tier to trigger pricing modal
     for (let i = 1; i <= 6; i++) {
       await page.fill('.ProseMirror', `Tracking test ${i}: Test citation`);
@@ -473,12 +465,13 @@ test.describe('Pricing Integration Tests', () => {
     await page.waitForTimeout(1000); // Wait for tracking
 
     // 4. Verify pricing_table_shown event
-    let events = await page.evaluate(async (trackingUserId) => {
-      const response = await fetch(`http://localhost:8000/test/get-events?user_id=${trackingUserId}`);
+    let validation = await page.evaluate(async (trackingUserId) => {
+      const response = await fetch(`http://localhost:8000/test/get-validation?user_id=${trackingUserId}`);
       return response.json();
     }, trackingUserId);
 
-    expect(events.some(e => e.event_type === 'pricing_table_shown')).toBe(true);
+    // Check upgrade_state for 'shown'
+    expect(validation.upgrade_state).toContain('shown');
 
     // 5. Start checkout - intercept the navigation to capture the token
     const variant = await page.locator('.pricing-table').getAttribute('data-variant');
@@ -501,12 +494,12 @@ test.describe('Pricing Integration Tests', () => {
     // 6. Verify checkout_started event using the checkout token
     // Note: checkout_started is logged with the NEW token generated during checkout,
     // not the free user ID, because free users don't have a token yet
-    events = await page.evaluate(async (checkoutToken) => {
-      const response = await fetch(`http://localhost:8000/test/get-events?user_id=${checkoutToken}`);
+    validation = await page.evaluate(async (checkoutToken) => {
+      const response = await fetch(`http://localhost:8000/test/get-validation?user_id=${checkoutToken}`);
       return response.json();
     }, checkoutToken);
 
-    expect(events.some(e => e.event_type === 'checkout_started')).toBe(true);
+    expect(validation.upgrade_state).toContain('checkout');
 
     // 7. Complete purchase via webhook using the checkout token
     const productId = variant === 'credits' ? 'prod_credits_500' : 'prod_pass_7day';
@@ -516,15 +509,14 @@ test.describe('Pricing Integration Tests', () => {
       await route.fulfill({ status: 200, body: JSON.stringify({ received: true }) });
     });
 
-    // Mock the get-events call to return the expected purchase event
-    await page.route(`**/test/get-events?user_id=${checkoutToken}`, async (route) => {
+    // Mock the get-validation call to return the expected purchase event
+    await page.route(`**/test/get-validation?user_id=${checkoutToken}`, async (route) => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify([
-          { event_type: 'checkout_started' },
-          { event_type: 'purchase_completed' }
-        ])
+        body: JSON.stringify({
+          upgrade_state: 'checkout,success'
+        })
       });
     });
 
@@ -548,12 +540,12 @@ test.describe('Pricing Integration Tests', () => {
 
     // 8. Verify purchase_completed event using checkout token
     // (This now hits our mock above)
-    events = await page.evaluate(async (checkoutToken) => {
-      const response = await fetch(`http://localhost:8000/test/get-events?user_id=${checkoutToken}`);
+    validation = await page.evaluate(async (checkoutToken) => {
+      const response = await fetch(`http://localhost:8000/test/get-validation?user_id=${checkoutToken}`);
       return response.json();
     }, checkoutToken);
 
-    expect(events.some(e => e.event_type === 'purchase_completed')).toBe(true);
+    expect(validation.upgrade_state).toContain('success');
   });
 });
 

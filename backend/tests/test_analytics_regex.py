@@ -4,13 +4,10 @@ import os
 import sys
 from datetime import datetime
 
-# Add backend to path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Add project root to path (parent of backend)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../..')))
 
-# Mock dashboard dir for analytics import
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../dashboard')))
-
-from analytics import parse_upgrade_events
+from dashboard.analytics import parse_upgrade_events
 
 class TestAnalyticsRegex(unittest.TestCase):
     def setUp(self):

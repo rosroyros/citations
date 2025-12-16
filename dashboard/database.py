@@ -61,7 +61,13 @@ class DatabaseManager:
                 paid_user_id TEXT,
                 free_user_id TEXT,
                 upgrade_state TEXT,
-                provider TEXT
+                provider TEXT,
+                is_test_job BOOLEAN DEFAULT FALSE,
+                experiment_variant TEXT,
+                product_id TEXT,
+                amount_cents INTEGER,
+                currency TEXT,
+                order_id TEXT
             )
         """)
 
@@ -101,14 +107,24 @@ class DatabaseManager:
         if 'provider' in existing_columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_provider ON validations(provider)")
 
-        # Check for is_test_job column and add if missing
-        if 'is_test_job' not in existing_columns:
-            try:
-                cursor.execute("ALTER TABLE validations ADD COLUMN is_test_job BOOLEAN DEFAULT FALSE")
-                self.conn.commit()
-            except sqlite3.OperationalError:
-                # Column might have been added concurrently
-                pass
+        # Check for new columns and add if missing (schema evolution)
+        new_columns = {
+            'is_test_job': 'BOOLEAN DEFAULT FALSE',
+            'experiment_variant': 'TEXT',
+            'product_id': 'TEXT',
+            'amount_cents': 'INTEGER',
+            'currency': 'TEXT',
+            'order_id': 'TEXT'
+        }
+
+        for col_name, col_def in new_columns.items():
+            if col_name not in existing_columns:
+                try:
+                    cursor.execute(f"ALTER TABLE validations ADD COLUMN {col_name} {col_def}")
+                    self.conn.commit()
+                except sqlite3.OperationalError:
+                    # Column might have been added concurrently
+                    pass
 
         # Handle status vs validation_status compatibility
         cursor.execute("PRAGMA table_info(validations)")
@@ -215,7 +231,8 @@ class DatabaseManager:
                 'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                 'user_type', 'error_message', 'paid_user_id', 'free_user_id',
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
-                'provider', 'is_test_job'
+                'provider', 'is_test_job',
+                'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id'
             ]
             
             for field in simple_fields:
@@ -274,6 +291,12 @@ class DatabaseManager:
             if 'is_test_job' in columns:
                 optional_columns.append('is_test_job')
 
+            # Add new analytics columns if they exist
+            new_analytics_cols = ['experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id']
+            for col in new_analytics_cols:
+                if col in columns:
+                    optional_columns.append(col)
+
             # Build final column list and values
             insert_columns = base_columns + status_columns
             for col in optional_columns:
@@ -296,7 +319,8 @@ class DatabaseManager:
                 elif col in ['completed_at', 'duration_seconds', 'citation_count',
                             'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                             'results_gated', 'results_revealed_at', 'gated_outcome',
-                            'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job']:
+                            'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job',
+                            'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id']:
                     values.append(validation_data.get(col))
     
             # Build the INSERT statement dynamically

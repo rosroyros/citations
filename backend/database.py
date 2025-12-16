@@ -267,10 +267,19 @@ def deduct_credits(token: str, amount: int) -> bool:
 
 def get_validations_db_path() -> str:
     """Get validations database path."""
-    # Check for test environment variable
+    # Check for test environment variable or general testing flag
     test_path = os.getenv('TEST_VALIDATIONS_DB_PATH')
     if test_path:
         return test_path
+        
+    if os.getenv('TESTING', '').lower() == 'true':
+        # Return test DB path in same directory
+        return os.path.join(
+            os.path.dirname(os.path.dirname(__file__)),
+            'dashboard',
+            'data',
+            'validations_test.db'
+        )
 
     # Production path (in dashboard directory)
     return os.path.join(
