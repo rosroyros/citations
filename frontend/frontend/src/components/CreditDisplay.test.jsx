@@ -135,9 +135,33 @@ describe('CreditDisplay', () => {
 
       // Assert
       await screen.findByText('1-Day Pass Active');
-      // 24 hours = 1 day exactly, checking logic: days <= 1 ? hours left : days left
-      // Math.ceil(24/24) = 1. days <= 1 is true.
-      await screen.findByText('24 hours left');
+      // 24 hours = 1 day exactly.
+      // Logic: hours <= 12 ? hours : days
+      // 24 > 12 -> Show days.
+      await screen.findByText('1 day left');
+    });
+
+    it('should display days for 13-24 hour range', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 0,
+          active_pass: { hours_remaining: 13 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      await screen.findByText('1-Day Pass Active');
+      await screen.findByText('1 day left');
     });
 
     it('should display 7-day pass status', async () => {
@@ -182,9 +206,35 @@ describe('CreditDisplay', () => {
       );
 
       // Assert
-      // 5h is treated as 1-Day Pass Active in title
+      // 5h is treated as 1-Day Pass Active in title (since Math.ceil(5/24) = 1)
       await screen.findByText('1-Day Pass Active');
+
+      // 5 <= 12, so show hours with warning color
       const timeText = await screen.findByText('5 hours left');
+      expect(timeText).toHaveClass('text-amber-600');
+    });
+
+    it('should display hours for 12 hours remaining', async () => {
+      // Arrange
+      getToken.mockReturnValue('test-token');
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          credits: 0,
+          active_pass: { hours_remaining: 12 }
+        }),
+      });
+
+      // Act
+      render(
+        <CreditProvider>
+          <CreditDisplay />
+        </CreditProvider>
+      );
+
+      // Assert
+      await screen.findByText('1-Day Pass Active');
+      const timeText = await screen.findByText('12 hours left');
       expect(timeText).toHaveClass('text-amber-600');
     });
   });

@@ -17,9 +17,10 @@ const PRODUCTS = [
     pricePerCitation: 0.0199,
     recommended: false,
     benefits: [
-      '100 citation validations',
-      'APA / MLA / Chicago support',
-      'Export options included'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'No expiration date'
     ]
   },
   {
@@ -31,9 +32,10 @@ const PRODUCTS = [
     pricePerCitation: 0.00998,
     recommended: true,
     benefits: [
-      '500 citation validations',
-      'Multi-style support (APA/MLA/Chicago)',
-      'Export to BibTeX / RIS'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'No expiration date'
     ]
   },
   {
@@ -45,9 +47,10 @@ const PRODUCTS = [
     pricePerCitation: 0.004995,
     recommended: false,
     benefits: [
-      '2,000 citation validations',
-      'Unlimited style switching',
-      'Priority support + updates'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'No expiration date'
     ]
   }
 ]
@@ -144,13 +147,13 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
           <Card
             key={product.id}
             className={`flex flex-col relative transition-all duration-200 ${product.recommended
-                ? 'border-2 border-blue-600 shadow-xl -translate-y-1 z-10'
-                : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
+              ? 'border-2 border-purple-600 shadow-xl -translate-y-1 z-10'
+              : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
               }`}
           >
             {/* "Recommended" badge - only shown on recommended tier */}
             {product.recommended && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                 Best Value
               </div>
             )}
@@ -168,52 +171,56 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
             {/* Card Content - Price and Benefits */}
             <CardContent className="flex-1 pt-4">
               {/* Price Display */}
-              <div className="mb-6">
+              <div className="mb-4">
                 <span className="text-4xl font-bold text-gray-900">
                   ${product.price}
                 </span>
+              </div>
+
+              {/* Buy Button - Moved above benefits */}
+              <div className="mb-6">
+                <Button
+                  onClick={() => handleCheckout(product.id)}
+                  disabled={loadingProductId === product.id}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition-colors"
+                  variant="default"
+                >
+                  {loadingProductId === product.id ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Opening checkout...
+                    </>
+                  ) : (
+                    `Buy ${product.title}`
+                  )}
+                </Button>
               </div>
 
               {/* Benefits List with Checkmarks */}
               <ul className="space-y-3">
                 {product.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start text-sm text-gray-700">
-                    <span className="mr-3 text-blue-600 font-bold">✓</span>
+                    <span className="mr-3 text-green-600 font-bold">✓</span>
                     <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
 
-            {/* Card Footer - Buy Button */}
-            <CardFooter className="pt-4 pb-6">
-              <Button
-                onClick={() => handleCheckout(product.id)}
-                disabled={loadingProductId === product.id}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg transition-colors"
-                variant="default" // Force default to override outline for consistency
-              >
-                {loadingProductId === product.id ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Opening checkout...
-                  </>
-                ) : (
-                  `Buy ${product.title}`
-                )}
-              </Button>
+            {/* Empty footer acting as spacer if needed, or removed */}
+            <CardFooter className="pt-0 pb-6">
             </CardFooter>
           </Card>
         ))}
       </div>
 
       {/* Footer Info */}
-      <div className="text-center text-sm font-body text-body max-w-5xl mx-auto px-4">
+      <div className="text-center text-sm font-body text-body max-w-5xl mx-auto px-4 mt-4">
         <p>
-          Credits never expire. Use them at your own pace.
+          Risk-free with money-back guarantee.
         </p>
       </div>
 

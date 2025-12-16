@@ -590,7 +590,7 @@ def get_active_pass(token: str) -> Optional[dict]:
         if '7_day' in pass_type or '7day' in pass_type:
             pass_product_name = "7-Day Pass"
         elif '1_day' in pass_type or '1day' in pass_type or '24_hour' in pass_type or '24hour' in pass_type:
-            pass_product_name = "24-Hour Pass" 
+            pass_product_name = "1-Day Pass" 
         else:
             pass_product_name = "Pass"
 

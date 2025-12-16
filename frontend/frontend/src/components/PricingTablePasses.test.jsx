@@ -1,8 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { PricingTablePasses } from './PricingTablePasses'
+import { trackEvent } from '../utils/analytics'
 
-// Mock fetch to control API calls
+// Mock analytics
+vi.mock('../utils/analytics', () => ({
+  trackEvent: vi.fn(),
+  getToken: vi.fn()
+}))
 const mockFetch = vi.fn()
 global.fetch = mockFetch
 
@@ -21,6 +26,7 @@ describe('PricingTablePasses', () => {
     mockFetch.mockClear()
     mockConsoleLog.mockClear()
     window.location.href = ''
+    localStorage.clear()
   })
 
   it('renders all 3 pricing tiers', () => {
@@ -41,10 +47,10 @@ describe('PricingTablePasses', () => {
     expect(screen.getByText('$9.99')).toBeInTheDocument()
   })
 
-  it('shows "Recommended" badge only on 7-Day Pass tier', () => {
+  it('shows "Best Value" badge only on 7-Day Pass tier', () => {
     render(<PricingTablePasses experimentVariant="2" />)
 
-    const badges = screen.getAllByText('Recommended')
+    const badges = screen.getAllByText('Best Value')
     expect(badges).toHaveLength(1) // Only one badge should exist
   })
 
@@ -160,7 +166,7 @@ describe('PricingTablePasses', () => {
   })
 
   it('logs analytics events', async () => {
-    mockFetch.mockResolvedValueOnce({
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
     })
@@ -181,7 +187,7 @@ describe('PricingTablePasses', () => {
       })
 
       // Check checkout started log
-      expect(mockConsoleLog).toHaveBeenCalledWith('checkout_started', {
+      expect(trackEvent).toHaveBeenCalledWith('checkout_started', {
         productId: '1282bd9b-81b6-4f06-a1f2-29bb0be01f26',
         checkoutUrl: 'https://checkout.polar.sh/example'
       })
@@ -191,8 +197,13 @@ describe('PricingTablePasses', () => {
   it('displays benefits correctly', () => {
     render(<PricingTablePasses experimentVariant="2" />)
 
-    expect(screen.getByText('Single use citation check')).toBeInTheDocument()
-    expect(screen.getByText('Export to BibTeX / RIS')).toBeInTheDocument()
-    expect(screen.getByText('Priority support')).toBeInTheDocument()
+    expect(screen.getAllByText('Full APA 7 Compliance')).toHaveLength(3)
+    expect(screen.getAllByText('Actionable error correction feedback')).toHaveLength(3)
+    expect(screen.getAllByText('Risk-free with money-back guarantee')).toHaveLength(3)
+  })
+
+  it('displays fair use footer', () => {
+    render(<PricingTablePasses experimentVariant="2" />)
+    expect(screen.getByText(/Fair use: 1,000 citations per day/)).toBeInTheDocument()
   })
 })

@@ -1,8 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { PricingTableCredits } from './PricingTableCredits'
+import { trackEvent } from '../utils/analytics'
 
-// Mock fetch to control API calls
+// Mock analytics
+vi.mock('../utils/analytics', () => ({
+  trackEvent: vi.fn(),
+  getToken: vi.fn()
+}))
 const mockFetch = vi.fn()
 global.fetch = mockFetch
 
@@ -21,6 +26,7 @@ describe('PricingTableCredits', () => {
     mockFetch.mockClear()
     mockConsoleLog.mockClear()
     window.location.href = ''
+    localStorage.clear()
   })
 
   it('renders all 3 pricing tiers', () => {
@@ -160,7 +166,7 @@ describe('PricingTableCredits', () => {
   })
 
   it('logs analytics events', async () => {
-    mockFetch.mockResolvedValueOnce({
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => ({ checkout_url: 'https://checkout.polar.sh/example' })
     })
@@ -181,7 +187,7 @@ describe('PricingTableCredits', () => {
       })
 
       // Check checkout started log
-      expect(mockConsoleLog).toHaveBeenCalledWith('checkout_started', {
+      expect(trackEvent).toHaveBeenCalledWith('checkout_started', {
         productId: '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e',
         checkoutUrl: 'https://checkout.polar.sh/example'
       })
@@ -192,8 +198,13 @@ describe('PricingTableCredits', () => {
     render(<PricingTableCredits experimentVariant="1" />)
 
     // Check some key benefits
-    expect(screen.getByText('100 citation validations')).toBeInTheDocument()
-    expect(screen.getByText('2,000 citation validations')).toBeInTheDocument()
+    expect(screen.getAllByText('Full APA 7 Compliance')).toHaveLength(3)
+    expect(screen.getAllByText('No expiration date')).toHaveLength(3)
+  })
+
+  it('displays risk-free guarantee in footer', () => {
+    render(<PricingTableCredits experimentVariant="1" />)
+    expect(screen.getByText('Risk-free with money-back guarantee.')).toBeInTheDocument()
   })
 
   it('uses default variant when experimentVariant not provided', async () => {

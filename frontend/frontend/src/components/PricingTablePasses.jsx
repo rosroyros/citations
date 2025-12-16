@@ -16,9 +16,10 @@ const PRODUCTS = [
     description: 'Short-term access — great for quick checks.',
     recommended: false,
     benefits: [
-      'Single use citation check',
-      'APA validation + formatting suggestions',
-      'No registration required'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'Risk-free with money-back guarantee'
     ]
   },
   {
@@ -29,9 +30,10 @@ const PRODUCTS = [
     description: 'Best value for occasional writers.',
     recommended: true,  // This is the tier we want to highlight
     benefits: [
-      'Up to 100 citations validated', // Updated to match mockup text
-      'APA, MLA, Chicago support',
-      'Export to BibTeX / RIS'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'Risk-free with money-back guarantee'
     ]
   },
   {
@@ -42,9 +44,10 @@ const PRODUCTS = [
     description: 'Unlimited access for heavy users.',
     recommended: false,
     benefits: [
-      'Unlimited citation checks',
-      'Auto-format & style enforcement',
-      'Priority support'
+      'Full APA 7 Compliance',
+      'Detailed citation analysis',
+      'Actionable error correction feedback',
+      'Risk-free with money-back guarantee'
     ]
   }
 ]
@@ -159,14 +162,14 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
           <Card
             key={product.id}
             className={`flex flex-col relative transition-all duration-200 ${product.recommended
-                ? 'border-2 border-primary shadow-xl -translate-y-1 z-10'
-                : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
+              ? 'border-2 border-purple-600 shadow-xl -translate-y-1 z-10'
+              : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
               }`}
           >
             {/* "Recommended" badge - only shown on recommended tier */}
             {product.recommended && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                Recommended
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                Best Value
               </div>
             )}
 
@@ -189,49 +192,50 @@ export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
                 </span>
               </div>
 
+              {/* Buy Button - Moved above benefits */}
+              <div className="mb-6">
+                <Button
+                  onClick={() => handleCheckout(product.id)}
+                  disabled={loadingProductId === product.id}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition-colors"
+                  variant="default"
+                >
+                  {loadingProductId === product.id ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Opening checkout...
+                    </>
+                  ) : (
+                    `Buy ${product.title}`
+                  )}
+                </Button>
+              </div>
+
               {/* Benefits List with Checkmarks */}
               <ul className="space-y-2">
                 {product.benefits.map((benefit, idx) => (
                   <li key={idx} className="flex items-start text-sm text-gray-700">
-                    <span className="mr-3 text-primary font-bold">✓</span>
+                    <span className="mr-3 text-green-600 font-bold">✓</span>
                     <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
 
-            {/* Card Footer - Buy Button */}
-            <CardFooter className="pt-4 pb-6">
-              <Button
-                onClick={() => handleCheckout(product.id)}
-                disabled={loadingProductId === product.id}
-                className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2 rounded-lg transition-colors"
-                variant="default"
-              >
-                {loadingProductId === product.id ? (
-                  <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Opening checkout...
-                  </>
-                ) : (
-                  `Buy ${product.title}`
-                )}
-              </Button>
+            {/* Empty footer acting as spacer if needed */}
+            <CardFooter className="pt-0 pb-6">
             </CardFooter>
           </Card>
         ))}
       </div>
 
       {/* Fair Use Disclaimer - below all cards */}
-      <div className="text-center text-sm font-body text-body max-w-5xl mx-auto px-4">
+      <div className="text-center text-sm font-body text-body max-w-5xl mx-auto px-4 mt-4">
         <p>
           Fair use: 1,000 citations per day. Passes can be extended anytime.
-        </p>
-        <p className="text-xs mt-1 opacity-75">
-          Buying another pass adds days to your existing pass.
         </p>
       </div>
 

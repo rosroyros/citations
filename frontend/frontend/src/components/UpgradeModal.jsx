@@ -99,6 +99,7 @@ export const UpgradeModal = ({
     if (limitType === 'daily_limit_insufficient') {
       return (
         <div className="upgrade-modal-content-centered">
+          <button className="upgrade-modal-close-x" onClick={onClose} data-testid="close-modal">×</button>
           <h2 className="upgrade-modal-title">Request Too Large</h2>
           <p className="upgrade-modal-message">
             You have {dailyRemaining} citations remaining in your daily limit.
@@ -118,6 +119,7 @@ export const UpgradeModal = ({
     if (limitType === 'daily_limit') {
       return (
         <div className="upgrade-modal-content-centered">
+          <button className="upgrade-modal-close-x" onClick={onClose} data-testid="close-modal">×</button>
           <h2 className="upgrade-modal-title">Daily Limit Reached</h2>
           <p className="upgrade-modal-message">
             {formatDailyLimitMessage(resetTimestamp)}
@@ -136,6 +138,7 @@ export const UpgradeModal = ({
     if (limitType === 'pass_expired' && passInfo) {
       return (
         <div className="upgrade-modal-content-wide">
+          <button className="upgrade-modal-close-x" onClick={onClose} data-testid="close-modal">×</button>
           <h2 className="upgrade-modal-title">Your Pass Has Expired</h2>
           <p className="upgrade-modal-message">
             Your {passInfo.pass_type} pass has expired. Renew to continue validating.
@@ -151,13 +154,16 @@ export const UpgradeModal = ({
     // Credits exhausted or free limit - show pricing based on variant
     return (
       <div className="upgrade-modal-content-wide pricing-modal">
+        <button className="upgrade-modal-close-x" onClick={onClose} data-testid="close-modal">×</button>
         <h2 className="upgrade-modal-title">
           {limitType === 'credits_exhausted' ? 'Out of Credits' : 'Upgrade for More Access'}
         </h2>
         <p className="upgrade-modal-message">
           {limitType === 'credits_exhausted'
             ? "You've used all your credits. Purchase more to continue."
-            : "Get unlimited citation validations with our affordable pricing."}
+            : variant === '1'
+              ? "Credit never expires. Use them at your own pace."
+              : "Unlimited citation validation with the most accurate formatting insights."}
         </p>
 
         <div className="pricing-table" data-variant={variant === '1' ? 'credits' : 'passes'}>
@@ -180,8 +186,6 @@ export const UpgradeModal = ({
   return (
     <div className="upgrade-modal-overlay" onClick={onClose}>
       <div className="upgrade-modal-container" onClick={(e) => e.stopPropagation()}>
-        <button className="upgrade-modal-close-x" onClick={onClose} data-testid="close-modal">×</button>
-
         {error && (
           <div className="upgrade-modal-error">
             {error}
