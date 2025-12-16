@@ -1,0 +1,186 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - img [ref=e7]
+        - heading "Citation Format Checker" [level=1] [ref=e10]
+      - generic [ref=e12]:
+        - generic [ref=e13]: 7-Day Pass Active
+        - generic [ref=e14]: 5 days left
+  - generic [ref=e17]:
+    - heading "Stop wasting 5 minutes on every citation" [level=2] [ref=e18]
+    - paragraph [ref=e19]: The fastest, most accurate APA citation checker.
+    - generic [ref=e21]: ⚡ Instant validation • Catches citation generator errors • No sign up required
+  - generic [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic: Paste your citations below (APA 7th edition)
+        - paragraph [ref=e29]: Days remaining test
+        - paragraph [ref=e30]: Paste one or multiple citations. We'll check each one.
+      - generic [ref=e31]:
+        - generic: Or upload a document
+        - button "File drop zone" [ref=e32]:
+          - generic [ref=e33]:
+            - paragraph [ref=e34]: Drag and drop
+            - paragraph [ref=e35]:
+              - text: or
+              - button "browse files" [ref=e36] [cursor=pointer]
+            - paragraph [ref=e37]: PDF, DOCX, TXT, or RTF files accepted
+        - paragraph [ref=e38]: We'll automatically find & validate citations.
+    - generic [ref=e39]:
+      - button "Check My Citations" [ref=e40] [cursor=pointer]
+      - paragraph [ref=e41]: No login required • Get results in seconds
+    - generic [ref=e42]:
+      - generic [ref=e43]: ✓ Capitalization check
+      - generic [ref=e44]: ✓ Italics validation
+      - generic [ref=e45]: ✓ DOI formatting
+      - generic [ref=e46]: ✓ Punctuation rules
+  - generic [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]: ✓
+      - generic [ref=e53]:
+        - heading "Your citation validation is complete" [level=3] [ref=e54]
+        - paragraph [ref=e55]: 1 valid • 0 errors found
+    - button "View Results (1 citations)" [ref=e57] [cursor=pointer]: View Results (1 citation)
+  - generic [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - heading "Validation Results" [level=2] [ref=e62]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - strong [ref=e65]: "1"
+            - text: citations
+          - generic [ref=e66]: •
+          - generic [ref=e67]:
+            - generic [ref=e68]: "1"
+            - text: perfect
+          - generic [ref=e69]: •
+          - generic [ref=e70]:
+            - generic [ref=e71]: "0"
+            - text: need fixes
+      - table [ref=e72]:
+        - rowgroup [ref=e73]:
+          - row "# Citation Status" [ref=e74]:
+            - cell "#" [ref=e75]
+            - cell "Citation" [ref=e76]
+            - cell "Status" [ref=e77]
+            - cell [ref=e78]
+        - rowgroup [ref=e79]:
+          - row "Days remaining test journal ✓ Perfect Expand" [ref=e80]:
+            - cell [ref=e81]
+            - cell "Days remaining test journal" [ref=e82]:
+              - generic [ref=e83]: Days remaining test
+              - generic [ref=e84]: journal
+            - cell "✓ Perfect" [ref=e85]:
+              - generic [ref=e86]:
+                - generic [ref=e87]: ✓
+                - generic [ref=e88]: Perfect
+            - cell "Expand" [ref=e89]:
+              - button "Expand" [ref=e90] [cursor=pointer]:
+                - img [ref=e91]
+    - generic [ref=e95]:
+      - generic [ref=e96]:
+        - generic [ref=e97]: ✓
+        - generic [ref=e98]:
+          - heading "Your citation validation is complete" [level=3] [ref=e99]
+          - paragraph [ref=e100]: 1 valid • 0 errors found
+      - button "View Results (1 citations)" [ref=e102] [cursor=pointer]: View Results (1 citation)
+  - generic [ref=e104]:
+    - heading "Why Citation Format Checker Works" [level=3] [ref=e105]
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - heading "Catches 99% of citation errors" [level=4] [ref=e108]
+        - paragraph [ref=e109]: Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.
+      - generic [ref=e110]:
+        - heading "Never lose points" [level=5] [ref=e111]
+        - paragraph [ref=e112]: Submit with confidence. No more losing grades on formatting mistakes.
+      - generic [ref=e113]:
+        - heading "Finds generator mistakes" [level=5] [ref=e114]
+        - paragraph [ref=e115]: Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.
+      - generic [ref=e116]:
+        - heading "Custom AI Models" [level=6] [ref=e117]
+        - paragraph [ref=e118]: Trained on thousands of expert-verified citations for each source type
+      - generic [ref=e119]:
+        - heading "APA Expert Verified" [level=6] [ref=e120]
+        - paragraph [ref=e121]: Every error type validated against official APA 7th Edition manual
+      - generic [ref=e122]:
+        - heading "Trusted Worldwide" [level=6] [ref=e123]
+        - paragraph [ref=e124]: Join thousands of students and academics who rely on us
+  - generic [ref=e126]:
+    - heading "Frequently Asked Questions" [level=3] [ref=e127]
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - heading "How do I check my APA citations?" [level=4] [ref=e130]
+        - paragraph [ref=e131]: Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
+      - generic [ref=e132]:
+        - heading "Is this citation checker free?" [level=4] [ref=e133]
+        - paragraph [ref=e134]: Yes! You get 5 free citation checks to try the tool. For unlimited checking, you can purchase credits or unlimited passes starting at just $1.99.
+      - generic [ref=e135]:
+        - heading "What citation style does this tool support?" [level=4] [ref=e136]
+        - paragraph [ref=e137]: Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
+      - generic [ref=e138]:
+        - heading "What types of errors does this tool catch?" [level=4] [ref=e139]
+        - paragraph [ref=e140]: Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
+      - generic [ref=e141]:
+        - heading "Can I check multiple citations at once?" [level=4] [ref=e142]
+        - paragraph [ref=e143]: Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
+      - generic [ref=e144]:
+        - heading "What are Citation Credits and how do they work?" [level=4] [ref=e145]
+        - paragraph [ref=e146]: Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
+      - generic [ref=e147]:
+        - heading "Do Citation Credits expire?" [level=4] [ref=e148]
+        - paragraph [ref=e149]: No! Your credits never expire. Use them at your own pace — whether that's all at once or over several years.
+      - generic [ref=e150]:
+        - heading "Can I get a refund?" [level=4] [ref=e151]
+        - paragraph [ref=e152]: Absolutely! We offer a no-questions-asked refund policy. If you're not completely satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
+      - generic [ref=e153]:
+        - heading "How is this different from ChatGPT or citation generators?" [level=4] [ref=e154]
+        - paragraph [ref=e155]: ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not specialized for citation validation. Our AI models are custom-trained exclusively on APA 7th Edition rules with expert verification, achieving 99% accuracy.
+  - contentinfo [ref=e156]:
+    - generic [ref=e157]:
+      - generic [ref=e158]:
+        - heading "Citation Guides" [level=3] [ref=e159]
+        - generic [ref=e160]:
+          - link "APA for Graduate Students" [ref=e161] [cursor=pointer]:
+            - /url: /guide/apa-graduate-students/
+          - link "APA Title Page" [ref=e162] [cursor=pointer]:
+            - /url: /guide/apa-title-page/
+          - link "APA Reference List" [ref=e163] [cursor=pointer]:
+            - /url: /guide/apa-reference-list/
+          - link "In-Text Citations" [ref=e164] [cursor=pointer]:
+            - /url: /guide/apa-in-text-citations/
+          - link "Common Citation Errors" [ref=e165] [cursor=pointer]:
+            - /url: /guide/apa-citation-errors/
+          - link "Fix Citation Errors" [ref=e166] [cursor=pointer]:
+            - /url: /guide/fix-apa-citation-errors/
+          - link "Check Citations" [ref=e167] [cursor=pointer]:
+            - /url: /guide/check-apa-citations/
+          - link "Validate Reference List" [ref=e168] [cursor=pointer]:
+            - /url: /guide/validate-reference-list/
+          - link "APA for Psychology" [ref=e169] [cursor=pointer]:
+            - /url: /guide/apa-citations-psychology/
+          - link "APA for Education" [ref=e170] [cursor=pointer]:
+            - /url: /guide/apa-citations-education/
+          - link "APA for Nursing" [ref=e171] [cursor=pointer]:
+            - /url: /guide/apa-citations-nursing/
+          - link "APA 7th Edition Changes" [ref=e172] [cursor=pointer]:
+            - /url: /guide/apa-7th-edition-changes/
+          - link "APA vs MLA vs Chicago" [ref=e173] [cursor=pointer]:
+            - /url: /guide/apa-vs-mla-vs-chicago/
+          - link "Citation Workflow" [ref=e174] [cursor=pointer]:
+            - /url: /guide/apa-citation-workflow/
+      - generic [ref=e176]:
+        - link "Privacy Policy" [ref=e177] [cursor=pointer]:
+          - /url: /privacy
+        - text: •
+        - link "Terms of Service" [ref=e178] [cursor=pointer]:
+          - /url: /terms
+        - text: •
+        - link "Contact Us" [ref=e179] [cursor=pointer]:
+          - /url: /contact
+      - paragraph [ref=e180]: © 2025 Citation Checker. All rights reserved.
+      - paragraph [ref=e181]: Built for researchers, by researchers
+```

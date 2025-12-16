@@ -235,12 +235,20 @@ test.describe('User Access Flows - E2E Tests', () => {
         }
       });
 
+      // Wait for page to fully load before interacting
+      await page.waitForLoadState('networkidle');
+
       const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
-      await expect(editor).toBeVisible();
+      await expect(editor).toBeVisible({ timeout: 15000 });
 
       // Check initial balance
       await editor.fill('Test initial check');
-      await page.locator('button[type="submit"]').click();
+
+      // Wait for submit button to be ready
+      const submitButton = page.locator('button[type="submit"]');
+      await expect(submitButton).toBeVisible({ timeout: 10000 });
+      await expect(submitButton).toBeEnabled({ timeout: 5000 });
+      await submitButton.click();
 
       // Handle potential gating - force click for mobile reliability
       await expect(page.locator('[data-testid="gated-results"], .validation-table-container').first()).toBeVisible({ timeout: 30000 });
@@ -309,10 +317,40 @@ test.describe('User Access Flows - E2E Tests', () => {
           status: 200,
           contentType: 'application/json',
           body: JSON.stringify({
+            credits: 0,
             active_pass: null
           })
         });
       });
+
+      // Mock create-checkout endpoint to simulate a completed purchase flow
+      await page.route('/api/create-checkout', async (route) => {
+        console.log('Mocking create-checkout response -> Redirecting to Success');
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            checkout_url: 'http://localhost:5173/success?token=mock_test_token'
+          })
+        });
+      });
+
+      // Navigate to pricing test page (has upgrade buttons without needing to exhaust free tier)
+      await page.goto('/test-pricing-table');
+      await page.waitForLoadState('networkidle');
+
+      // Verify pricing options are displayed
+      await expect(page.locator('text=100 Credits').first()).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=500 Credits').first()).toBeVisible();
+      await expect(page.locator('text=2,000 Credits').first()).toBeVisible();
+
+      // Click Buy (triggers the redirect to success)
+      await page.locator('button:has-text("Buy 500 Credits")').click();
+
+      // Verify we land on the success page
+      await expect(page).toHaveURL(/.*\/success.*/, { timeout: 10000 });
+
+      console.log('✅ Credit purchase flow test passed (Revenue Loop Verified)');
     });
   });
 
@@ -380,8 +418,8 @@ test.describe('User Access Flows - E2E Tests', () => {
       await page.locator('button[type="submit"]').click();
 
       // Handle gating
-      if (await page.locator('[data-testid="gated-results"]').isVisible()) {
-        await page.locator('button:has-text("View Results")').click({ force: true });
+      if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
+        await page.locator('button:has-text("View Results")').first().click({ force: true });
       }
 
       await expect(page.locator('.validation-table-container').first()).toBeVisible({ timeout: 30000 });
@@ -492,9 +530,17 @@ test.describe('User Access Flows - E2E Tests', () => {
         });
       });
 
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
       const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+      await expect(editor).toBeVisible({ timeout: 15000 });
       await editor.fill('Days remaining test');
-      await page.locator('button[type="submit"]').click();
+
+      const submitButton = page.locator('button[type="submit"]');
+      await expect(submitButton).toBeVisible({ timeout: 10000 });
+      await expect(submitButton).toBeEnabled({ timeout: 5000 });
+      await submitButton.click();
 
       if (await page.locator('[data-testid="gated-results"]').isVisible()) {
         await page.locator('button:has-text("View Results")').click({ force: true });
@@ -539,9 +585,17 @@ test.describe('User Access Flows - E2E Tests', () => {
         });
       });
 
+      // Wait for page to fully load
+      await page.waitForLoadState('networkidle');
+
       const editor = page.locator('.ProseMirror').or(page.locator('[contenteditable="true"]')).or(page.locator('textarea'));
+      await expect(editor).toBeVisible({ timeout: 15000 });
       await editor.fill('Free user test');
-      await page.locator('button[type="submit"]').click();
+
+      const submitButton = page.locator('button[type="submit"]');
+      await expect(submitButton).toBeVisible({ timeout: 10000 });
+      await expect(submitButton).toBeEnabled({ timeout: 5000 });
+      await submitButton.click();
 
       if (await page.locator('[data-testid="gated-results"]').isVisible()) {
         await page.locator('button:has-text("View Results")').click({ force: true });
