@@ -293,10 +293,23 @@ function AppContent() {
         const response = await fetch(`/api/jobs/${jobId}`)
 
         if (!response.ok) {
+          let errorMessage = `Server error (${response.status}): Please try again`
+          try {
+            const errorData = await response.json()
+            // Prefer 'message' from backend, fall back to default
+            if (errorData.message) {
+              errorMessage = errorData.message
+            } else if (errorData.error) {
+              errorMessage = errorData.error
+            }
+          } catch (e) {
+            // If body isn't JSON, stick to default message
+          }
+
           if (response.status === 404) {
             throw new Error('Job not found - please try again')
           }
-          throw new Error(`Server error (${response.status}): Please try again`)
+          throw new Error(errorMessage)
         }
 
         const jobData = await response.json()
@@ -738,6 +751,7 @@ function AppContent() {
         // Track citation validation event
         const citationsCount = data.results.length
         const errorsFound = data.results.reduce((sum, result) => sum + (result.errors?.length || 0), 0)
+
         const perfectCount = data.results.filter(result => !result.errors || result.errors.length === 0).length
         const userType = token ? 'paid' : 'free'
 

@@ -258,7 +258,7 @@ class TestPassUserAccess:
 
         assert result['has_access'] is False
         assert result['access_type'] == 'pass'
-        assert "daily citation limit exceeded" in result['error_message'].lower()
+        assert "daily limit (1000) reached" in result['error_message'].lower()
 
     def test_pass_user_exceeds_daily_limit(self, setup_test_db):
         """Test pass user exceeding daily limit."""

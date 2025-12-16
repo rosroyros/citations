@@ -44,6 +44,7 @@ export const CreditProvider = ({ children }) => {
       setUserStatus({
         type: 'pass',
         pass_type: activePass.pass_type,
+        pass_product_name: activePass.pass_product_name, // Propagate explicit name from backend
         expiration_timestamp: activePass.expiration_timestamp,
         hours_remaining: activePass.hours_remaining,
         daily_used: activePass.daily_used || 0,
