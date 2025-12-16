@@ -2085,140 +2085,19 @@ async def handle_checkout_updated(webhook):
     """
     Handle checkout.updated webhook when status is completed or succeeded.
 
-    Changes for A/B test:
-    - Extract product_id from line items
-    - Route to add_credits() or add_pass() based on PRODUCT_CONFIG
-    - Log purchase_completed and credits_applied events
-    - Track revenue data (Oracle #16)
+    Note: This webhook is processed to acknowledge receipt (allowing Polar to redirect),
+    but actual credit/pass granting is handled by order.created webhook which has the order_id.
 
-    Oracle Feedback #6: Idempotency handled in add_credits() and add_pass()
-
-    Note: Polar sends status "succeeded" for successful checkouts
+    checkout.updated with status "succeeded" doesn't have an order_id yet - the order
+    is created separately and sent via order.created webhook.
     """
     if webhook.data.status not in ["completed", "succeeded"]:
         logger.debug(f"Ignoring checkout.updated with status: {webhook.data.status}")
         return
 
-    # Extract customer token
-    customer_metadata = webhook.data.metadata
-    if not customer_metadata or not isinstance(customer_metadata, dict):
-        logger.error("No valid metadata in webhook")
-        return
-
-    token = customer_metadata.get('token')
-
-    if not token:
-        logger.error(f"Checkout missing token in metadata")
-        return
-
-    # Extract product information from checkout object
-    # checkout.updated webhooks have product_id directly, not in line_items
-    product_id = webhook.data.product_id
-    order_id = getattr(webhook.data, 'order_id', None)
-
-    if not product_id:
-        logger.error("No product_id in checkout webhook")
-        return
-
-    # Oracle #16: Capture revenue from checkout amount
-    amount_cents = webhook.data.amount
-
-    # Validate amount_cents
-    if amount_cents is None or amount_cents < 0:
-        logger.warning(f"Invalid or zero amount_cents: {amount_cents}")
-        # Don't return - free products are valid
-
-    # Look up product configuration
-    product_config = PRODUCT_CONFIG.get(product_id)
-
-    if not product_config:
-        logger.error(f"Unknown product_id in webhook: {product_id}")
-        return
-
-    # Get experiment variant from product config
-    experiment_variant = product_config['variant']  # '1' or '2'
-
-    # Log purchase completed event
-    log_upgrade_event(
-        'purchase_completed',
-        token,
-        experiment_variant=experiment_variant,
-        product_id=product_id,
-        amount_cents=amount_cents  # Oracle #16: Revenue tracking
-    )
-
-    # Route based on product type
-    success = False
-
-    if product_config['type'] == 'credits':
-        amount = product_config['amount']
-        from database import add_credits
-        success = add_credits(token, amount, order_id)
-
-        if success:
-            # Log credits applied event
-            log_upgrade_event(
-                'credits_applied',
-                token,
-                experiment_variant=experiment_variant,
-                product_id=product_id,
-                metadata={'amount': amount, 'type': 'credits'}
-            )
-
-            logger.info(
-                f"PURCHASE_COMPLETED | type=credits | product_id={product_id} | "
-                f"amount={amount} | revenue=${amount_cents/100:.2f} | "
-                f"token={token[:8]} | order_id={order_id}"
-            )
-
-    elif product_config['type'] == 'pass':
-        days = product_config['days']
-        pass_type = product_config.get('pass_type', f"{days}day")
-        success = add_pass(token, days, pass_type, order_id)
-
-        if success:
-            # Log pass applied event
-            log_upgrade_event(
-                'credits_applied',  # Same event name for consistency with credits
-                token,
-                experiment_variant=experiment_variant,
-                product_id=product_id,
-                metadata={'days': days, 'type': 'pass', 'pass_type': pass_type}
-            )
-
-            logger.info(
-                f"PURCHASE_COMPLETED | type=pass | product_id={product_id} | "
-                f"days={days} | revenue=${amount_cents/100:.2f} | "
-                f"token={token[:8]} | order_id={order_id}"
-            )
-
-    else:
-        logger.error(f"Unknown product type: {product_config['type']}")
-        return
-
-    if not success:
-        # Provide more specific error message based on context
-        error_msg = f"Failed to grant access for order {order_id}"
-
-        # Check if it's likely a duplicate order (idempotency in action)
-        if product_config['type'] == 'credits':
-            error_msg += " (possible duplicate order - idempotency)"
-        else:
-            error_msg += " (possible duplicate order or pass activation error)"
-
-        logger.error(error_msg)
-
-        # Log failure event with detailed error type
-        log_upgrade_event(
-            'purchase_failed',
-            token,
-            experiment_variant=experiment_variant,
-            product_id=product_id,
-            amount_cents=amount_cents,
-            error="Failed to grant access - likely duplicate order"
-        )
-
-        return
+    # Just acknowledge the webhook - credits/passes are granted via order.created
+    logger.info(f"Checkout {webhook.data.id} succeeded, order will be processed via order.created webhook")
+    return
 
 
 async def send_mock_webhook_later(product_id: str, checkout_id: str, order_id: str, token: str):
