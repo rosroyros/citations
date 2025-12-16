@@ -586,9 +586,10 @@ def get_active_pass(token: str) -> Optional[dict]:
         pass_type = row[1]
         
         # Determine static product name
-        if '7_day' in pass_type:
+        # Handle both '7day' and '7_day' formats for backward compatibility
+        if '7_day' in pass_type or '7day' in pass_type:
             pass_product_name = "7-Day Pass"
-        elif '1_day' in pass_type or '24_hour' in pass_type:
+        elif '1_day' in pass_type or '1day' in pass_type or '24_hour' in pass_type or '24hour' in pass_type:
             pass_product_name = "24-Hour Pass" 
         else:
             pass_product_name = "Pass"
