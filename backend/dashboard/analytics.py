@@ -129,51 +129,24 @@ def parse_upgrade_events(
 
             # Method 1: Regex for UPGRADE_WORKFLOW (New Format)
             if 'UPGRADE_WORKFLOW:' in line:
-                # Regex to match key-value pairs
-                # UPGRADE_WORKFLOW: job_id=... event=... variant=...
+                # Regex to match key-value pairs including token
                 workflow_match = re.search(
-                    r'UPGRADE_WORKFLOW: job_id=([\w-]+|None) event=(\w+)(?: variant=(\w+))?(?: product_id=([\w_]+))?(?: amount_cents=(\d+))?', 
+                    r'UPGRADE_WORKFLOW: job_id=([\w-]+|None) event=(\w+) token=([\w]+|None)(?: variant=(\w+))?(?: product_id=([\w_]+))?(?: amount_cents=(\d+))?', 
                     line
                 )
                 
                 if workflow_match:
-                    # job_id = workflow_match.group(1) # Not used in analytics yet, but parsed
+                    # job_id = workflow_match.group(1)
                     event_name = workflow_match.group(2)
-                    variant = workflow_match.group(3)
-                    # product_id = workflow_match.group(4)
-                    if workflow_match.group(5):
-                        amount_cents = int(workflow_match.group(5))
+                    token = workflow_match.group(3)
+                    variant = workflow_match.group(4)
+                    # product_id = workflow_match.group(5)
+                    if workflow_match.group(6):
+                        amount_cents = int(workflow_match.group(6))
                     
-                    # Attempt to extract token from line if present (e.g. earlier in the log message or context)
-                    # The logger usually includes token in context but maybe not in this specific string
-                    # But wait, log_upgrade_event doesn't put token in the UPGRADE_WORKFLOW string?
-                    # Let's check app.py: log_line = f"UPGRADE_WORKFLOW: {' '.join(parts)}"
-                    # parts = [job_id, event, variant, product_id, amount_cents]
-                    # It does NOT include token in the string!
-                    # However, legacy JSON had token.
-                    # The analytics function uses token to count unique users.
-                    # If I don't log token in UPGRADE_WORKFLOW, I lose unique user tracking for this chart?
-                    # "token": set() # Track unique users
-                    
-                    # I should probably update app.py to include token in UPGRADE_WORKFLOW string if I want to track unique users.
-                    # But the requirement didn't specify token in the Regex.
-                    # "UPGRADE_WORKFLOW: job_id=([a-f0-9-]+|None) event=(\w+)(?: variant=(\w+))?(?: product_id=([\w_]+))?(?: amount_cents=(\d+))?'"
-                    # It lists job_id, event, variant, product_id, amount_cents.
-                    # Maybe job_id is enough for uniqueness?
-                    # But the code uses `token`.
-                    # I will assume job_id can be used as token substitute if token is missing?
-                    # Or I should add token to the regex.
-                    # Given strict requirements, I'll stick to regex, but maybe try to find token elsewhere?
-                    # Wait, app.py: `log_upgrade_event` takes token.
-                    # I should probably include token in the log line if I want to maintain feature parity.
-                    # But I already updated app.py.
-                    
-                    # Let's check if I can assume job_id is unique enough or if I can extract token from standard log format if present.
-                    # Standard log: "INFO: UPGRADE_WORKFLOW: ..."
-                    # It doesn't usually have token unless I put it there.
-                    
-                    # If I can't find token, I'll use job_id as token for counting purposes?
-                    token = workflow_match.group(1) # job_id
+                    # Handle 'None' string from log
+                    if token == 'None':
+                        token = None
 
             # Method 2: Legacy JSON (UPGRADE_EVENT)
             elif 'UPGRADE_EVENT:' in line:

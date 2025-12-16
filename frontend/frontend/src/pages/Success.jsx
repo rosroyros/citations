@@ -234,6 +234,7 @@ const Success = () => {
 
     // Check for pending upgrade job_id and log success event
     // Check URL params first (more robust), then localStorage
+    // Standardize on 'job_id' (snake_case) for consistency with backend, support 'jobId' (camelCase) as legacy fallback
     const urlJobId = params.get('job_id') || params.get('jobId')
     const pendingJobId = urlJobId || localStorage.getItem('pending_upgrade_job_id')
     

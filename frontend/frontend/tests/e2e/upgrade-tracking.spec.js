@@ -258,6 +258,71 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     expect(variant).not.toBeNull();
     expect(['1', '2']).toContain(variant);
 
-    console.log('✅ First-trigger assignment verified');
+  test('passes job_id to create-checkout endpoint', async ({ page }) => {
+    console.log('🚀 Test: job_id propagation');
+
+    // Navigate to home page
+    await page.goto('/');
+
+    // Simulate user who has used 10 free validations (at limit)
+    await page.evaluate(() => {
+      localStorage.setItem('citation_checker_free_used', '10');
+    });
+
+    // Reload to apply localStorage
+    await page.goto('/');
+
+    // Intercept create-checkout to verify payload
+    let capturedRequest = null;
+    await page.route('/api/create-checkout', async route => {
+      capturedRequest = route.request();
+      
+      // Mock success response
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ checkout_url: 'http://localhost:5173/success?mock=true' })
+      });
+    });
+
+    // Submit a validation to create a job and see results
+    const editor = page.locator('.ProseMirror')
+      .or(page.locator('[contenteditable="true"]'))
+      .or(page.locator('textarea'));
+
+    await editor.fill('Smith, J. (2023). Test citation. Journal, 1(1), 1-10.');
+    await page.locator('button[type="submit"]').click();
+
+    // Wait for partial results
+    await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 60000 });
+
+    // Click "Unlock Results" / Upgrade button
+    // Note: Locator depends on implementation. Looking for upgrade button.
+    const upgradeButton = page.locator('button:has-text("Unlock"), button:has-text("Upgrade")').first();
+    await upgradeButton.click();
+
+    // Wait for modal
+    const modal = page.locator('.upgrade-modal-container');
+    await expect(modal).toBeVisible();
+
+    // Click a buy button in the modal
+    const buyButton = modal.locator('button:has-text("Buy")').first();
+    await buyButton.click();
+
+    // Wait for request capture
+    await expect(async () => {
+      expect(capturedRequest).not.toBeNull();
+    }).toPass({ timeout: 5000 });
+
+    // Verify payload
+    const postData = capturedRequest.postDataJSON();
+    console.log('📦 Checkout Payload:', postData);
+
+    expect(postData).toHaveProperty('job_id');
+    expect(postData.job_id).toMatch(/^[a-f0-9-]+$/); // Basic UUID/ID check (or whatever format job_id takes)
+    // Note: our sync job_ids might be "sync_..." which contains underscores, so regex might need adjustment if using sync endpoint
+    // But async endpoint uses UUIDs. Submitting form triggers async usually.
+    // Let's be permissive:
+    expect(postData.job_id).toBeTruthy(); 
   });
 });

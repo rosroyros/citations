@@ -589,7 +589,8 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 event_to_state = {
                     'clicked_upgrade': 'clicked',
                     'modal_proceed': 'modal',
-                    'success': 'success'
+                    'success': 'success',
+                    'purchase_completed': 'success'
                 }
 
                 # Get the new state

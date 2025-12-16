@@ -625,7 +625,8 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
     # Build log line parts
     parts = [
         f"job_id={job_id or 'None'}",
-        f"event={event_name}"
+        f"event={event_name}",
+        f"token={token[:8] if token else 'None'}"
     ]
     
     if experiment_variant:
