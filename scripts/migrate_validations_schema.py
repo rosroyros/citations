@@ -1,3 +1,19 @@
+"""
+Database Migration: Add upgrade flow analytics columns
+
+Version: 1.0
+Date: 2025-12-16
+Rollback: Manual removal required (SQLite ALTER TABLE DROP COLUMN supported in recent versions)
+
+Adds the following columns to validations table:
+- experiment_variant: TEXT - A/B test variant identifier
+- product_id: TEXT - Stripe/Polar product identifier
+- amount_cents: INTEGER - Purchase amount in cents
+- currency: TEXT - ISO currency code (USD, EUR, etc.)
+- order_id: TEXT - External payment provider order ID
+
+Idempotent: Safe to run multiple times (checks for column existence)
+"""
 import sqlite3
 import os
 import sys

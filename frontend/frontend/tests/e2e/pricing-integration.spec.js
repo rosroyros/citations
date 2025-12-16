@@ -510,6 +510,9 @@ test.describe('Pricing Integration Tests', () => {
     });
 
     // Mock the get-validation call to return the expected purchase event
+    // REQUIRED because the test simulates the webhook call in the browser,
+    // so the backend never receives it and thus never logs 'purchase_completed'.
+    // Real integration requires valid Polar signatures which are hard to mock here.
     await page.route(`**/test/get-validation?user_id=${checkoutToken}`, async (route) => {
       await route.fulfill({
         status: 200,

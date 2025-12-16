@@ -8,6 +8,36 @@ import gzip
 # Time window for associating user IDs with jobs (5 minutes)
 USER_ID_ASSOCIATION_TIMEOUT_SECONDS = 300
 
+# Funnel states in logical order
+EXPECTED_STATE_ORDER = ['locked', 'shown', 'clicked', 'modal', 'checkout', 'success']
+
+
+def add_upgrade_state(job: Dict[str, Any], new_state: str) -> None:
+    """
+    Add state to upgrade_state CSV, enforcing funnel order.
+
+    Args:
+        job: Job dictionary to update
+        new_state: State string to add
+    """
+    current_state_str = job.get('upgrade_state')
+    current_states = current_state_str.split(',') if current_state_str else []
+
+    if new_state not in current_states:
+        current_states.append(new_state)
+
+        # Sort states based on expected funnel order
+        # States not in expected list are appended at the end
+        def sort_key(state):
+            try:
+                return EXPECTED_STATE_ORDER.index(state)
+            except ValueError:
+                return len(EXPECTED_STATE_ORDER) + 1
+
+        current_states.sort(key=sort_key)
+
+        job["upgrade_state"] = ','.join(current_states)
+
 
 def extract_timestamp(log_line: str) -> Optional[datetime]:
     """
@@ -585,17 +615,7 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id] = {"job_id": job_id}
                 
             if job_id in jobs and jobs[job_id].get('upgrade_state') != 'success':
-                # Get current state (handle None or existing string)
-                current_state_str = jobs[job_id].get('upgrade_state')
-                current_states = current_state_str.split(',') if current_state_str else []
-                
-                # Add 'locked' if not present
-                if 'locked' not in current_states:
-                    # Locked should be first
-                    current_states.insert(0, 'locked')
-                    
-                    # Store back as comma-separated string
-                    jobs[job_id]["upgrade_state"] = ','.join(current_states)
+                add_upgrade_state(jobs[job_id], 'locked')
                     
                 jobs[job_id]["partial_results_type"] = partial_type  # Store for debugging
             # Do not continue, as this line might also be a completion event
@@ -680,22 +700,7 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 # Get the new state
                 new_state = event_to_state.get(event)
                 if new_state:
-                    # Get current state (handle None or existing string)
-                    current_state_str = jobs[job_id].get('upgrade_state')
-                    current_states = current_state_str.split(',') if current_state_str else []
-                    
-                    # Don't duplicate if already present
-                    if new_state not in current_states:
-                        # Logic to append state based on progression
-                        if new_state == 'locked':
-                            # Locked should be first
-                            current_states.insert(0, 'locked')
-                        else:
-                            # Append other states
-                            current_states.append(new_state)
-                        
-                        # Store back as comma-separated string
-                        jobs[job_id]["upgrade_state"] = ','.join(current_states)
+                    add_upgrade_state(jobs[job_id], new_state)
             continue
 
         # Check for validation request with user IDs

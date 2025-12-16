@@ -9,6 +9,7 @@ from typing import Optional
 import os
 import sqlite3
 import sys
+import logging
 from datetime import datetime, timedelta
 
 # Import database path helper
@@ -24,6 +25,8 @@ except ImportError:
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     from dashboard.log_parser import parse_logs
     from dashboard.database import DatabaseManager
+
+logger = logging.getLogger("citation_validator.tests")
 
 # Request models
 class GrantCreditsRequest(BaseModel):
@@ -213,7 +216,7 @@ def register_test_helpers(app):
                         db.insert_validation(job)
             except Exception as e:
                 # Log error but try to return from DB anyway (maybe synced previously)
-                print(f"Error syncing logs in test helper: {e}")
+                logger.error(f"Error syncing logs in test helper: {e}", exc_info=True)
                 pass
         
         # 3. Retrieve job
