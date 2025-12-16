@@ -77,7 +77,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
       <div className="upgrade-banner">
         <div className="upgrade-content">
-          <h3>{userStatus?.type === 'pass' ? 'Daily limit (1000) reached.' : 'Free tier limit (5) reached.'} Upgrade to continue.</h3>
+          <h3>{userStatus?.type === 'pass' ? 'Daily limit reached.' : 'Free tier limit reached.'} Upgrade to continue.</h3>
           <p>{citations_remaining} more citation{citations_remaining > 1 ? 's' : ''} available</p>
           <button
             onClick={() => {
