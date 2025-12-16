@@ -2083,7 +2083,7 @@ async def handle_order_created(webhook):
 
 async def handle_checkout_updated(webhook):
     """
-    Handle checkout.updated webhook when status is completed.
+    Handle checkout.updated webhook when status is completed or succeeded.
 
     Changes for A/B test:
     - Extract product_id from line items
@@ -2092,8 +2092,10 @@ async def handle_checkout_updated(webhook):
     - Track revenue data (Oracle #16)
 
     Oracle Feedback #6: Idempotency handled in add_credits() and add_pass()
+
+    Note: Polar sends status "succeeded" for successful checkouts
     """
-    if webhook.data.status != "completed":
+    if webhook.data.status not in ["completed", "succeeded"]:
         logger.debug(f"Ignoring checkout.updated with status: {webhook.data.status}")
         return
 
