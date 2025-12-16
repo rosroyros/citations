@@ -288,15 +288,30 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
       });
     });
 
-    // Submit a validation to create a job and see results
+    // Submit 6 citations to ensure we hit the limit behavior and generate a job with sufficient complexity
     const editor = page.locator('.ProseMirror')
       .or(page.locator('[contenteditable="true"]'))
       .or(page.locator('textarea'));
 
-    await editor.fill('Smith, J. (2023). Test citation. Journal, 1(1), 1-10.');
+    const citations = Array(6).fill(0).map((_, i) => 
+      `Smith, J. (2023). Test citation ${i+1}. Journal, 1(1), 1-10.`
+    ).join('\n\n');
+
+    await editor.fill(citations);
     await page.locator('button[type="submit"]').click();
 
-    // Wait for partial results
+    // Check if gated results overlay is visible (it might appear for free users)
+    // We need to wait a moment for the response
+    try {
+        const gatedOverlay = page.locator('[data-testid="gated-results"]');
+        await expect(gatedOverlay).toBeVisible({ timeout: 5000 });
+        console.log('Gated overlay detected, clicking view results...');
+        await page.locator('button:has-text("View Results")').click();
+    } catch (e) {
+        console.log('No gated overlay detected or timed out checking, continuing...');
+    }
+
+    // Wait for partial results to ensure the UI has settled
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 60000 });
 
     // Click "Unlock Results" / Upgrade button
