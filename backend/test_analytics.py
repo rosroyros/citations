@@ -22,14 +22,14 @@ def test_with_sample_data():
     import os
 
     sample_logs = """
-2025-12-11 10:00:00 INFO UPGRADE_EVENT: {"timestamp": 1733916000, "event": "pricing_table_shown", "token": "abc12345", "experiment_variant": "1"}
-2025-12-11 10:00:05 INFO UPGRADE_EVENT: {"timestamp": 1733916005, "event": "product_selected", "token": "abc12345", "experiment_variant": "1", "product_id": "prod_credits_500"}
-2025-12-11 10:00:10 INFO UPGRADE_EVENT: {"timestamp": 1733916010, "event": "checkout_started", "token": "abc12345", "experiment_variant": "1", "product_id": "prod_credits_500"}
-2025-12-11 10:00:30 INFO UPGRADE_EVENT: {"timestamp": 1733916030, "event": "purchase_completed", "token": "abc12345", "experiment_variant": "1", "product_id": "prod_credits_500", "amount_cents": 499}
-2025-12-11 10:00:35 INFO UPGRADE_EVENT: {"timestamp": 1733916035, "event": "credits_applied", "token": "abc12345", "experiment_variant": "1", "product_id": "prod_credits_500"}
-2025-12-11 10:05:00 INFO UPGRADE_EVENT: {"timestamp": 1733916300, "event": "pricing_table_shown", "token": "def67890", "experiment_variant": "2"}
-2025-12-11 10:05:05 INFO UPGRADE_EVENT: {"timestamp": 1733916305, "event": "product_selected", "token": "def67890", "experiment_variant": "2", "product_id": "prod_pass_7day"}
-2025-12-11 10:05:10 INFO UPGRADE_EVENT: {"timestamp": 1733916310, "event": "checkout_started", "token": "def67890", "experiment_variant": "2", "product_id": "prod_pass_7day"}
+2025-12-11 10:00:00 INFO UPGRADE_WORKFLOW: job_id=None event=pricing_table_shown token=abc12345 variant=1
+2025-12-11 10:00:05 INFO UPGRADE_WORKFLOW: job_id=None event=product_selected token=abc12345 variant=1 product_id=prod_credits_500
+2025-12-11 10:00:10 INFO UPGRADE_WORKFLOW: job_id=None event=checkout_started token=abc12345 variant=1 product_id=prod_credits_500
+2025-12-11 10:00:30 INFO UPGRADE_WORKFLOW: job_id=None event=purchase_completed token=abc12345 variant=1 product_id=prod_credits_500 amount_cents=499
+2025-12-11 10:00:35 INFO UPGRADE_WORKFLOW: job_id=None event=credits_applied token=abc12345 variant=1 product_id=prod_credits_500
+2025-12-11 10:05:00 INFO UPGRADE_WORKFLOW: job_id=None event=pricing_table_shown token=def67890 variant=2
+2025-12-11 10:05:05 INFO UPGRADE_WORKFLOW: job_id=None event=product_selected token=def67890 variant=2 product_id=prod_pass_7day
+2025-12-11 10:05:10 INFO UPGRADE_WORKFLOW: job_id=None event=checkout_started token=def67890 variant=2 product_id=prod_pass_7day
 """
 
     # Write to temp file

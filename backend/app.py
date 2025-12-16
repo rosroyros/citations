@@ -668,32 +668,6 @@ def log_upgrade_event(event_name: str, token: str, experiment_variant: str = Non
     # Also log human-readable version for debugging
     logger.debug(f"Upgrade funnel (JSON): {json.dumps(payload)}")
 
-    # For E2E testing: Write to database so tests can verify events
-    if os.getenv('TESTING') == 'true':
-        try:
-            from database import get_db_path
-            import sqlite3
-            with sqlite3.connect(get_db_path()) as conn:
-                conn.execute("PRAGMA busy_timeout=5000")
-                conn.execute(
-                    """
-                    INSERT INTO UPGRADE_EVENT 
-                    (user_id, event_type, timestamp, experiment_variant, product_id, amount_cents, metadata)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        token, 
-                        event_name, 
-                        payload['timestamp'], 
-                        experiment_variant, 
-                        product_id, 
-                        amount_cents,
-                        json.dumps(metadata) if metadata else None
-                    )
-                )
-        except Exception as e:
-            logger.error(f"Failed to write UPGRADE_EVENT to DB: {e}")
-
 
 def log_pricing_table_shown(token: str, experiment_variant: Optional[str] = None, reason: str = None, job_id: str = None, **metadata):
     """

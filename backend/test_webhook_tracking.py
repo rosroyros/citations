@@ -61,12 +61,12 @@ def check_logs_for_events():
 
     print("\nLooking for purchase_completed events:")
     for line in lines:
-        if 'UPGRADE_EVENT' in line and 'purchase_completed' in line:
+        if 'UPGRADE_WORKFLOW' in line and 'purchase_completed' in line:
             print(f"  ✓ {line.strip()}")
 
     print("\nLooking for credits_applied events:")
     for line in lines:
-        if 'UPGRADE_EVENT' in line and 'credits_applied' in line:
+        if 'UPGRADE_WORKFLOW' in line and 'credits_applied' in line:
             print(f"  ✓ {line.strip()}")
 
     print("\nLooking for PURCHASE_COMPLETED logs:")

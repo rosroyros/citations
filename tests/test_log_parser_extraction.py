@@ -103,6 +103,23 @@ class TestLogParserExtraction(unittest.TestCase):
         expected_state = "locked,clicked,modal"
         self.assertEqual(job.get('upgrade_state'), expected_state)
     
+    def test_state_reordering(self):
+        # Verify that out-of-order events are reordered according to the funnel
+        # Order: purchase_completed (success) -> checkout_started -> clicked_upgrade
+        log_lines = [
+            f"2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=purchase_completed",
+            f"2025-12-16 09:59:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=checkout_started",
+            f"2025-12-16 09:58:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade"
+        ]
+        
+        jobs = parse_job_events(log_lines)
+        job = jobs[self.job_id]
+        
+        # Expected logical order: clicked, checkout, success
+        # Note: 'success' comes from 'purchase_completed'
+        expected_state = "clicked,checkout,success"
+        self.assertEqual(job.get('upgrade_state'), expected_state)
+
     def test_job_creation_detection(self):
         # Use a new ID for this test
         job_id = "abc-456"

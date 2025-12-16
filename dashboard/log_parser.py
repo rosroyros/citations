@@ -252,7 +252,7 @@ def extract_provider_selection(log_line: str) -> Optional[Tuple[str, str]]:
     return None
 
 
-def sanitize_text(text: str, max_length: int) -> tuple[str, bool]:
+def sanitize_text(text: str, max_length: int) -> Tuple[str, bool]:
     """
     Sanitize text for security and length limits.
 
@@ -688,6 +688,8 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                     jobs[job_id]["paid_user_id"] = upgrade_result["token"]
 
                 # Map events to state values
+                # Note: Some events map to shorter state names for clarity
+                # e.g., 'pricing_table_shown' -> 'shown'
                 event_to_state = {
                     'pricing_table_shown': 'shown',
                     'clicked_upgrade': 'clicked',

@@ -109,20 +109,6 @@ def init_db():
             )
         ''')
 
-        # Create UPGRADE_EVENT table for E2E testing
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS UPGRADE_EVENT (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                user_id TEXT,
-                event_type TEXT,
-                timestamp INTEGER,
-                experiment_variant TEXT,
-                product_id TEXT,
-                amount_cents INTEGER,
-                metadata TEXT
-            )
-        ''')
-
         # Commit changes
         conn.commit()
         conn.close()

@@ -3,7 +3,16 @@ Database Migration: Add upgrade flow analytics columns
 
 Version: 1.0
 Date: 2025-12-16
-Rollback: Manual removal required (SQLite ALTER TABLE DROP COLUMN supported in recent versions)
+Rollback: Manual removal required
+Rollback Instructions:
+  SQLite 3.35+ (2021+):
+    ALTER TABLE validations DROP COLUMN experiment_variant;
+    ALTER TABLE validations DROP COLUMN product_id;
+    ALTER TABLE validations DROP COLUMN amount_cents;
+    ALTER TABLE validations DROP COLUMN currency;
+    ALTER TABLE validations DROP COLUMN order_id;
+  
+  Older SQLite: Requires table recreation (see docs/migrations/rollback_001.sql)
 
 Adds the following columns to validations table:
 - experiment_variant: TEXT - A/B test variant identifier
