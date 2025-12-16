@@ -909,7 +909,7 @@ function AppContent() {
             <ValidationLoadingState submittedHtml={submittedText} />
           </div>
         )}
-        {((results && results.partial) || (isGated && !resultsRevealed)) && !loading && (
+        {results && results.partial && !loading && (
           <div className="validation-results-section">
             <PartialResults
               results={results.results || []}
