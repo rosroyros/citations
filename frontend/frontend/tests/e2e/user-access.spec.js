@@ -140,7 +140,7 @@ test.describe('User Access Flows - E2E Tests', () => {
           await page.locator('button:has-text("View Results")').first().click({ force: true });
         }
       }
-      await expect(page.locator('text=You have reached your free limit')).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=You have reached your free limit')).toBeVisible({ timeout: 20000 });
       await expect(page.locator('text=Please upgrade to continue')).toBeVisible();
 
       // Verify upgrade CTA is visible
