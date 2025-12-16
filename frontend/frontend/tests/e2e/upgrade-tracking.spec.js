@@ -258,6 +258,9 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     expect(variant).not.toBeNull();
     expect(['1', '2']).toContain(variant);
 
+    console.log('✅ First-trigger assignment verified');
+  });
+
   test('passes job_id to create-checkout endpoint', async ({ page }) => {
     console.log('🚀 Test: job_id propagation');
 
@@ -319,10 +322,7 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     console.log('📦 Checkout Payload:', postData);
 
     expect(postData).toHaveProperty('job_id');
-    expect(postData.job_id).toMatch(/^[a-f0-9-]+$/); // Basic UUID/ID check (or whatever format job_id takes)
-    // Note: our sync job_ids might be "sync_..." which contains underscores, so regex might need adjustment if using sync endpoint
-    // But async endpoint uses UUIDs. Submitting form triggers async usually.
-    // Let's be permissive:
+    expect(postData.job_id).toMatch(/^[\w-]+$/); // Allow alphanumeric and dashes/underscores
     expect(postData.job_id).toBeTruthy(); 
   });
 });

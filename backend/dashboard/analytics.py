@@ -112,6 +112,7 @@ def parse_upgrade_events(
 
             # Initialize event variables
             timestamp = None
+            event_time = None
             event_name = None
             variant = None
             token = None
@@ -130,17 +131,16 @@ def parse_upgrade_events(
             # Method 1: Regex for UPGRADE_WORKFLOW (New Format)
             if 'UPGRADE_WORKFLOW:' in line:
                 # Regex to match key-value pairs including token
+                # Note: token is truncated to first 8 chars in logs for privacy
                 workflow_match = re.search(
                     r'UPGRADE_WORKFLOW: job_id=([\w-]+|None) event=(\w+) token=([\w]+|None)(?: variant=(\w+))?(?: product_id=([\w_]+))?(?: amount_cents=(\d+))?', 
                     line
                 )
                 
                 if workflow_match:
-                    # job_id = workflow_match.group(1)
                     event_name = workflow_match.group(2)
                     token = workflow_match.group(3)
                     variant = workflow_match.group(4)
-                    # product_id = workflow_match.group(5)
                     if workflow_match.group(6):
                         amount_cents = int(workflow_match.group(6))
                     
