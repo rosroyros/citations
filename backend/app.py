@@ -2111,26 +2111,22 @@ async def handle_checkout_updated(webhook):
         logger.error(f"Checkout missing token in metadata")
         return
 
-    # Extract product information from line items
-    line_items = webhook.data.line_items or []
-    if not line_items:
-        logger.error("No line items in webhook")
-        return
-
-    product_id = line_items[0].product_id
-    order_id = webhook.data.order_id
-
-    # Oracle #16: Capture revenue
-    amount_cents = line_items[0].price_amount
-
-    # Validate amount_cents
-    if amount_cents <= 0:
-        logger.error(f"Invalid amount_cents: {amount_cents}")
-        return
+    # Extract product information from checkout object
+    # checkout.updated webhooks have product_id directly, not in line_items
+    product_id = webhook.data.product_id
+    order_id = getattr(webhook.data, 'order_id', None)
 
     if not product_id:
-        logger.error("No product_id in line items")
+        logger.error("No product_id in checkout webhook")
         return
+
+    # Oracle #16: Capture revenue from checkout amount
+    amount_cents = webhook.data.amount
+
+    # Validate amount_cents
+    if amount_cents is None or amount_cents < 0:
+        logger.warning(f"Invalid or zero amount_cents: {amount_cents}")
+        # Don't return - free products are valid
 
     # Look up product configuration
     product_config = PRODUCT_CONFIG.get(product_id)
