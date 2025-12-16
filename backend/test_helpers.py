@@ -87,6 +87,11 @@ def register_test_helpers(app):
         )
 
         conn.commit()
+        
+        # Force WAL checkpoint to ensure write is visible to other connections
+        # This is critical for E2E tests where frontend immediately queries for pass
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        
         conn.close()
         return {"success": True}
 
@@ -113,6 +118,10 @@ def register_test_helpers(app):
         )
 
         conn.commit()
+        
+        # Force WAL checkpoint to ensure write is visible to other connections
+        conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
+        
         conn.close()
         return {"success": True}
 

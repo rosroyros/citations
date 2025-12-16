@@ -7,8 +7,10 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
 
-  // Run tests in files in parallel
-  fullyParallel: true,
+  // Run tests serially to avoid database concurrency issues
+  // Pricing integration tests use backend test helpers that write to SQLite,
+  // and parallel execution causes WAL mode visibility issues
+  fullyParallel: false,
 
   // Fail the build on CI if you accidentally left test.only in the source code
   forbidOnly: !!process.env.CI,
@@ -16,8 +18,9 @@ export default defineConfig({
   // Retry on CI only
   retries: process.env.CI ? 2 : 0,
 
-  // Opt out of parallel tests on CI
-  workers: process.env.CI ? 1 : undefined,
+  // Run with 1 worker to avoid database concurrency issues
+  // (Serial execution prevents SQLite WAL visibility problems)
+  workers: 1,
 
   // Reporter to use. See https://playwright.dev/docs/test-reporters
   reporter: 'list',
@@ -87,8 +90,6 @@ export default defineConfig({
       },
     },
   ],
-
-
 
   // Test timeout
   timeout: 60000,

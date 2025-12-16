@@ -209,12 +209,19 @@ test.describe('Pricing Integration Tests', () => {
       console.log('Updated localStorage citation_checker_token to:', userId);
     }, userId);
 
-    // Race condition mitigation: Wait for database transaction to commit
-    await page.waitForTimeout(5000);
+    // Race condition mitigation: Wait longer for database transaction to commit
+    // and become visible to other connections (increased from 5s to 8s for parallel tests)
+    await page.waitForTimeout(8000);
 
     // 4. Reload to see updated status
     await page.reload();
     await waitForPageLoad(page);
+
+    // CRITICAL: Wait for frontend to fetch and display pass status
+    // The CreditContext fetches from /api/credits on mount, we need to ensure
+    // this completes before submitting validation.
+    await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 15000 });
+    console.log('✓ Pass status displayed in UI');
 
     // 5. Make a validation to trigger UserStatus rendering
     // Note: This validation will increment usage from 999 → 1000
