@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { getExperimentVariant } from '../utils/experimentVariant';
+import { getExperimentVariant, getPricingType } from '../utils/experimentVariant';
 import { formatDailyLimitMessage } from '../utils/passStatus';
 import { trackEvent } from '../utils/analytics';
+import { initiateCheckout } from '../utils/checkoutFlow';
 import { PricingTableCredits } from './PricingTableCredits';
 import { PricingTablePasses } from './PricingTablePasses';
 import './UpgradeModal.css';
@@ -43,6 +44,12 @@ export const UpgradeModal = ({
         experiment_variant: variantId,
         limit_type: limitType
       });
+
+      // Truthful event for funnel comparison with inline variants
+      trackEvent("pricing_viewed", {
+        variant: variantId,
+        interaction_type: "active"  // User actively clicked to see this
+      });
     }
   }, [isOpen, limitType]);
 
@@ -50,48 +57,23 @@ export const UpgradeModal = ({
     setLoading(true);
     setError(null);
 
-    try {
-      const token = localStorage.getItem('userToken');
+    // Get job_id from URL params or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const jobId = urlParams.get('jobId') || localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id');
 
-      // Track product selection
-      trackEvent('product_selected', {
-        product_id: productId,
-        experiment_variant: experimentVariant
-      });
-
-      // Get job_id from URL params or localStorage
-      const urlParams = new URLSearchParams(window.location.search);
-      const jobId = urlParams.get('jobId') || localStorage.getItem('pending_upgrade_job_id') || localStorage.getItem('current_job_id');
-
-      // Create checkout
-      const response = await fetch('/api/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token,
-          productId: productId, // Note: backend expects productId, not product_id
-          variantId: experimentVariant,
-          job_id: jobId
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    await initiateCheckout({
+      productId,
+      experimentVariant,
+      jobId,
+      onError: (error) => {
+        setError(error.message);
+        setLoading(false);
+      },
+      onSuccess: () => {
+        // Optional: Add any pre-redirect logic here
+        console.log('Checkout session created, redirecting...');
       }
-
-      const { checkout_url } = await response.json();
-
-      if (!checkout_url) {
-        throw new Error('No checkout URL received');
-      }
-
-      // Redirect to checkout
-      window.location.href = checkout_url;
-
-    } catch (e) {
-      setError(e.message);
-      setLoading(false);
-    }
+    });
   };
 
   if (!isOpen || !variant) {
@@ -166,13 +148,13 @@ export const UpgradeModal = ({
         <p className="upgrade-modal-message">
           {limitType === 'credits_exhausted'
             ? "You've used all your credits. Purchase more to continue."
-            : variant === '1'
+            : getPricingType(variant) === 'credits'
               ? "Credit never expires. Use them at your own pace."
               : "Unlimited citation validation with the most accurate formatting insights."}
         </p>
 
-        <div className="pricing-table" data-variant={variant === '1' ? 'credits' : 'passes'}>
-          {variant === '1' ? (
+        <div className="pricing-table" data-variant={getPricingType(variant)}>
+          {getPricingType(variant) === 'credits' ? (
             <PricingTableCredits
               onSelectProduct={handleSelectProduct}
               experimentVariant={variant}

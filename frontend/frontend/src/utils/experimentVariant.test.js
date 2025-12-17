@@ -2,8 +2,9 @@
  * Unit tests for experimentVariant utility
  *
  * These verify:
- * - Random assignment works (50/50 split)
+ * - Random assignment works (25/25/25/25 split across 4 variants)
  * - Sticky assignment persists
+ * - Migration from old 2-variant to new 4-variant scheme
  * - localStorage integration works
  * - Helper functions work correctly
  */
@@ -14,7 +15,9 @@ import {
   getVariantName,
   hasExperimentVariant,
   resetExperimentVariant,
-  forceVariant
+  forceVariant,
+  isInlineVariant,
+  getPricingType
 } from './experimentVariant'
 
 // Mock localStorage
@@ -43,15 +46,15 @@ beforeEach(() => {
 
 describe('experimentVariant', () => {
   describe('getExperimentVariant', () => {
-    it('assigns variant 1 or 2 on first call', () => {
+    it('assigns one of 4 variants on first call', () => {
       const variant = getExperimentVariant()
-      expect(['1', '2']).toContain(variant)
+      expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant)
     })
 
     it('stores variant in localStorage', () => {
       getExperimentVariant()
       const stored = localStorageMock.getItem('experiment_v1')
-      expect(['1', '2']).toContain(stored)
+      expect(['1.1', '1.2', '2.1', '2.2']).toContain(stored)
     })
 
     it('returns same variant on subsequent calls (sticky)', () => {
@@ -63,20 +66,32 @@ describe('experimentVariant', () => {
       expect(third).toBe(first)
     })
 
-    it('respects existing localStorage value', () => {
-      localStorageMock.setItem('experiment_v1', '2')
+    it('respects existing valid localStorage value', () => {
+      localStorageMock.setItem('experiment_v1', '1.2')
       const variant = getExperimentVariant()
-      expect(variant).toBe('2')
+      expect(variant).toBe('1.2')
     })
 
-    it('returns variant 1 when localStorage is not available', () => {
+    it('migrates old "1"/"2" values to new 4-variant scheme', () => {
+      localStorageMock.setItem('experiment_v1', '1')
+      const variant = getExperimentVariant()
+      expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant)
+    })
+
+    it('migrates invalid values to new 4-variant scheme', () => {
+      localStorageMock.setItem('experiment_v1', 'invalid')
+      const variant = getExperimentVariant()
+      expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant)
+    })
+
+    it('returns variant 1.1 when localStorage is not available', () => {
       // Simulate SSR environment
       const originalLocalStorage = global.localStorage
       global.localStorage = undefined
 
       const variant = getExperimentVariant()
-      expect(variant).toBe('1')
-      expect(console.warn).toHaveBeenCalledWith('[A/B Test] localStorage not available, defaulting to variant 1')
+      expect(variant).toBe('1.1')
+      expect(console.warn).toHaveBeenCalledWith('[A/B Test] localStorage not available, defaulting to variant 1.1')
 
       // Restore
       global.localStorage = originalLocalStorage
@@ -84,18 +99,42 @@ describe('experimentVariant', () => {
   })
 
   describe('getVariantName', () => {
-    it('returns "Credits" for variant 1', () => {
-      expect(getVariantName('1')).toBe('Credits')
-    })
-
-    it('returns "Passes" for variant 2', () => {
-      expect(getVariantName('2')).toBe('Passes')
+    it('returns correct names for all 4 variants', () => {
+      expect(getVariantName('1.1')).toBe('Credits (Button)')
+      expect(getVariantName('1.2')).toBe('Credits (Inline)')
+      expect(getVariantName('2.1')).toBe('Passes (Button)')
+      expect(getVariantName('2.2')).toBe('Passes (Inline)')
     })
 
     it('returns "Unknown" for invalid variant', () => {
       expect(getVariantName('99')).toBe('Unknown')
+      expect(getVariantName('1')).toBe('Unknown')  // Old format
       expect(getVariantName(null)).toBe('Unknown')
       expect(getVariantName(undefined)).toBe('Unknown')
+    })
+  })
+
+  describe('isInlineVariant', () => {
+    it('returns true for inline variants', () => {
+      expect(isInlineVariant('1.2')).toBe(true)
+      expect(isInlineVariant('2.2')).toBe(true)
+    })
+
+    it('returns false for button variants', () => {
+      expect(isInlineVariant('1.1')).toBe(false)
+      expect(isInlineVariant('2.1')).toBe(false)
+    })
+  })
+
+  describe('getPricingType', () => {
+    it('returns "credits" for credits variants', () => {
+      expect(getPricingType('1.1')).toBe('credits')
+      expect(getPricingType('1.2')).toBe('credits')
+    })
+
+    it('returns "passes" for passes variants', () => {
+      expect(getPricingType('2.1')).toBe('passes')
+      expect(getPricingType('2.2')).toBe('passes')
     })
   })
 
@@ -135,7 +174,7 @@ describe('experimentVariant', () => {
 
       // Second assignment might be different (random)
       const second = getExperimentVariant()
-      expect(['1', '2']).toContain(second)
+      expect(['1.1', '1.2', '2.1', '2.2']).toContain(second)
     })
 
     it('handles localStorage not available', () => {
@@ -152,24 +191,36 @@ describe('experimentVariant', () => {
 
   describe('forceVariant', () => {
     it('sets specific variant', () => {
-      forceVariant('1')
-      expect(getExperimentVariant()).toBe('1')
+      forceVariant('1.1')
+      expect(getExperimentVariant()).toBe('1.1')
 
-      forceVariant('2')
-      expect(getExperimentVariant()).toBe('2')
+      forceVariant('1.2')
+      expect(getExperimentVariant()).toBe('1.2')
+
+      forceVariant('2.1')
+      expect(getExperimentVariant()).toBe('2.1')
+
+      forceVariant('2.2')
+      expect(getExperimentVariant()).toBe('2.2')
     })
 
     it('rejects invalid variant IDs', () => {
       const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
       forceVariant('99')
-      expect(consoleSpy).toHaveBeenCalledWith('[A/B Test] Invalid variant ID. Must be "1" or "2"')
+      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid variant ID: "99"'))
+
+      forceVariant('1')  // Old format
+      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Invalid variant ID: "1"'))
+
+      consoleSpy.mockRestore()
     })
 
     it('handles localStorage not available', () => {
       const originalLocalStorage = global.localStorage
       global.localStorage = undefined
 
-      forceVariant('1')
+      forceVariant('1.1')
       expect(console.warn).toHaveBeenCalledWith('[A/B Test] localStorage not available')
 
       // Restore
@@ -178,25 +229,29 @@ describe('experimentVariant', () => {
   })
 
   describe('distribution test (statistical)', () => {
-    it('should have roughly 50/50 distribution over 1000 trials', () => {
-      const trials = 1000
-      let countVariant1 = 0
-      let countVariant2 = 0
+    it('should have roughly 25/25/25/25 distribution over 2000 trials', () => {
+      const trials = 2000
+      const counts = {
+        '1.1': 0,
+        '1.2': 0,
+        '2.1': 0,
+        '2.2': 0
+      }
 
       for (let i = 0; i < trials; i++) {
         localStorageMock.clear()  // Reset for each trial
         const variant = getExperimentVariant()
-
-        if (variant === '1') countVariant1++
-        else if (variant === '2') countVariant2++
+        counts[variant]++
       }
 
-      // Should be roughly 50/50 (allow 10% variance)
-      const ratio = countVariant1 / trials
-      expect(ratio).toBeGreaterThan(0.40)  // At least 40%
-      expect(ratio).toBeLessThan(0.60)     // At most 60%
+      // Each variant should be roughly 25% (allow 8% variance)
+      Object.entries(counts).forEach(([variant, count]) => {
+        const ratio = count / trials
+        expect(ratio).toBeGreaterThan(0.17)  // At least 17%
+        expect(ratio).toBeLessThan(0.33)     // At most 33%
+      })
 
-      console.log(`Distribution: Variant 1: ${countVariant1}, Variant 2: ${countVariant2}`)
+      console.log(`Distribution: 1.1: ${counts['1.1']}, 1.2: ${counts['1.2']}, 2.1: ${counts['2.1']}, 2.2: ${counts['2.2']}`)
     })
   })
 })
