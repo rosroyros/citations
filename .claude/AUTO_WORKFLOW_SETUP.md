@@ -65,12 +65,13 @@ tmux select-pane -t 1
 
 ### Workflow Loop
 
-1. **Agent completes task** → Emits `::: WORKFLOW_STAGE: ISSUE_CLOSED :::`
-2. **Agent emits clear marker** → `::: END_SESSION_CLEAR_REQUESTED :::`
-3. **Monitor detects marker** → Sends `/clear` to agent pane
-4. **Session clears** → Fresh context
-5. **Hook injects next task** → Agent starts next issue from epic
-6. **Repeat** until epic complete
+1. **Session starts** → SessionStart hook finds next task and injects instructions
+2. **Agent implements task** → Guided through stages by Stop hook
+3. **Agent completes task** → Emits `::: WORKFLOW_STAGE: ISSUE_CLOSED :::`
+4. **Agent emits clear marker** → `::: END_SESSION_CLEAR_REQUESTED :::`
+5. **Monitor detects marker** → Sends `/clear` to agent pane
+6. **Session clears and restarts** → Back to step 1
+7. **Repeat** until epic complete
 
 ### Pane Layout
 
