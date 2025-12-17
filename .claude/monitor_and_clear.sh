@@ -35,8 +35,8 @@ while true; do
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected END_SESSION_CLEAR_REQUESTED marker!"
             echo "Sending /clear command to pane ${PANE_NUMBER}..."
 
-            # Send /clear command
-            tmux send-keys -t "${PANE_NUMBER}" "/clear" C-m
+            # Send /clear command in two steps (required for proper execution)
+            tmux send-keys -t "${PANE_NUMBER}" "/clear" && tmux send-keys -t "${PANE_NUMBER}" C-m
 
             echo "Clear command sent successfully"
             echo "Waiting 5 seconds before resuming monitoring..."
