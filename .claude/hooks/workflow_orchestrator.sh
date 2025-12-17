@@ -211,7 +211,7 @@ Next step: Request code review.
 - Ensure all changes are committed
 - Update issue description with implementation summary
 - Add `needs-review` label: `bd label add <id> needs-review`
-- Run `/oracle-review` command
+- Run `/zoracle-review` command
 - Address any feedback from review
 
 When review is approved, emit:
