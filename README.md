@@ -74,6 +74,7 @@ User → Frontend → POST /api/validate/async → Background Worker
 
 ## Upgrade Funnel
 Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
+- **Architecture**: See [docs/architecture/UPGRADE_FLOW_ARCHITECTURE.md](docs/architecture/UPGRADE_FLOW_ARCHITECTURE.md) for full documentation.
 - **Flow**: "Partial results" log sets `upgrade_state="locked"`. Frontend POSTs `clicked_upgrade`/`modal_proceed` -> `UPGRADE_WORKFLOW` log.
 - **Parser**: Appends events to DB `upgrade_state` CSV (e.g. `"locked,clicked"`).
 - **UI**: 4 fixed icons (🔒🛒💳✅), inactive=grey.
