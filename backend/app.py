@@ -1111,6 +1111,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     ),
                     "experiment_variant": experiment_variant
                 }
+                # Log partial results for dashboard parser to detect 'locked' state
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count - affordable} remaining")
                 return build_gated_response(response_data, gating_user_type, job_id, "Free tier over limit")
 
     except ValueError as e:
@@ -1265,6 +1267,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     "limit_type": "free_limit"
                 }
                 gating_reason = "Free tier over limit"
+                # Log partial results for dashboard parser to detect 'locked' state
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count - affordable} remaining")
         else:
             # Paid tier - use check_user_access function (which handles passes correctly)
             access_check = check_user_access(token, citation_count)
