@@ -236,34 +236,9 @@ Next step: Finalize and close the issue.
 - Close issue with summary: `bd close <id> --reason "[Summary of what was done]"`
 - Sync: `bd sync`
 
-When complete, emit BOTH markers:
+When complete, emit:
 ::: WORKFLOW_STAGE: ISSUE_CLOSED :::
 ::: END_SESSION_CLEAR_REQUESTED :::
-EOF
-            ;;
-        "SESSION_CLEARED"|"ISSUE_CLOSED")
-            EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" 2>/dev/null | tr -d '[:space:]')
-            cat << EOF
-========================================
-TASK COMPLETE - STARTING FRESH
-========================================
-
-Previous task is done. Clear your mind of previous context.
-
-CURRENT STAGE: CODING (New Task)
-WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
-
-CRITICAL: Start completely fresh for the next task.
-1. FIRST: Read CLAUDE.md and README.md to re-establish system understanding
-2. Find next ready issue from epic ${EPIC_ID}:
-   Use: \`bd dep tree ${EPIC_ID}\` or \`bd show ${EPIC_ID}\`
-3. If no open issues found, report "All tasks in epic ${EPIC_ID} complete" and STOP
-4. Start work with \`/bd-start <issue-id>\`
-5. Treat this as a brand new task - don't carry over assumptions from previous work
-6. Follow ALL instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
-
-When implementation is complete, emit:
-::: WORKFLOW_STAGE: CODING_COMPLETE :::
 EOF
             ;;
         "UNKNOWN")
