@@ -31,12 +31,17 @@ alias claude-auto="claude --settings .claude/settings.auto-workflow.json"
 
 **Important**: Regular `claude` sessions will NOT have the hook active.
 
-### Enable Workflow for Issues
+### Set Epic for Workflow
 
 ```bash
-# Add label to enable automated workflow for specific issues
-bd label add <issue-id> auto-workflow
+# In your auto-workflow session, set the epic to work on
+/set-epic <epic-id>
+
+# Example:
+/set-epic citations-epic1
 ```
+
+This creates `.claude/auto_workflow_epic.txt` with the epic ID. The hook will then process all open child issues of this epic in priority order.
 
 ### Start Working
 
@@ -179,18 +184,21 @@ Then emit the marker: `::: WORKFLOW_STAGE: <stage> :::`
 ## Example Workflow
 
 ```bash
-# 1. Create and label issues
+# 1. Create epic and child issues
+bd create "Epic: User Settings Features" -t epic -p 1
+# Returns: citations-epic1
+
 bd create "Feature: Add user preferences" -p 1
-bd label add citations-abcd auto-workflow
+bd dep add citations-abc1 citations-epic1 --type child-of
 
 bd create "Feature: Export settings" -p 1
-bd label add citations-efgh auto-workflow
+bd dep add citations-abc2 citations-epic1 --type child-of
 
 # 2. Start auto-workflow session
 claude --settings .claude/settings.auto-workflow.json
 
-# 3. Find and start first task
-/bd-start citations-abcd
+# 3. Set the epic to work on
+/set-epic citations-epic1
 
 # 4. Implement feature
 # ... write code ...

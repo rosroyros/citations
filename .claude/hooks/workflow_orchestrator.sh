@@ -28,7 +28,7 @@ if [[ -z "$TRANSCRIPT_PATH" ]] || [[ ! -f "$TRANSCRIPT_PATH" ]]; then
 fi
 
 # Configuration
-WORKFLOW_LABEL="auto-workflow"
+WORKFLOW_EPIC_FILE="${CLAUDE_PROJECT_DIR}/.claude/auto_workflow_epic.txt"
 MARKER_PATTERN="::: WORKFLOW_STAGE: ([A-Z_]+) :::"
 MAX_TAIL_LINES=100
 
@@ -39,10 +39,20 @@ if ! command -v bd &> /dev/null; then
     exit 0
 fi
 
-# Check if any auto-workflow issues exist
-WORKFLOW_ISSUES=$(bd list --json 2>/dev/null | jq '[.[] | select(.labels[]? == "auto-workflow")] | length' || echo "0")
+# Check if epic is set
+if [[ ! -f "$WORKFLOW_EPIC_FILE" ]]; then
+    log "No epic set, skipping orchestration (use /set-epic to configure)"
+    jq -n '{"continue": true}'
+    exit 0
+fi
+
+EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" | tr -d '[:space:]')
+log "Epic ID: $EPIC_ID"
+
+# Check if epic has any open child issues
+WORKFLOW_ISSUES=$(bd dep tree "$EPIC_ID" --format json 2>/dev/null | jq -r '.children[]? | select(.status == "open") | .id' | wc -l || echo "0")
 if [[ "$WORKFLOW_ISSUES" -eq 0 ]]; then
-    log "No auto-workflow issues found, skipping orchestration"
+    log "No open issues in epic $EPIC_ID, skipping orchestration"
     jq -n '{"continue": true}'
     exit 0
 fi
@@ -235,33 +245,19 @@ When issue is closed, emit:
 ::: WORKFLOW_STAGE: ISSUE_CLOSED :::
 EOF
             ;;
-        "ISSUE_CLOSED")
-            cat << 'EOF'
-Issue closed successfully.
-
-CURRENT STAGE: NEXT_TASK
-WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
-
-Next step: Clear session and prepare for next task.
-- Run `/clear` to start fresh context
-- Session will automatically continue with next available task
-
-When session is cleared, emit:
-::: WORKFLOW_STAGE: SESSION_CLEARED :::
-EOF
-            ;;
-        "SESSION_CLEARED")
-            cat << 'EOF'
-Session cleared. Ready for next task.
+        "SESSION_CLEARED"|"ISSUE_CLOSED")
+            EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" 2>/dev/null | tr -d '[:space:]')
+            cat << EOF
+Issue closed. Ready for next task from epic.
 
 CURRENT STAGE: CODING
 WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
 
-Next step: Find and start next task with label 'auto-workflow'.
+Next step: Find and start next task from epic ${EPIC_ID}.
 - FIRST: Read CLAUDE.md and README.md to understand the system and workflow
-- Find next ready issue: `bd ready --json | jq '[.[] | select(.labels[]? == "auto-workflow")] | .[0]'`
-- If no issues found, report "All auto-workflow tasks complete" and stop
-- Otherwise: Start work with `/bd-start <id>`
+- Find next ready issue: \`bd dep tree ${EPIC_ID} --format json | jq -r '.children[]? | select(.status == "open") | .id' | head -1\`
+- If no issues found, report "All tasks in epic ${EPIC_ID} complete" and stop
+- Otherwise: Start work with \`/bd-start <id>\`
 - Follow all instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
 - Implement the task according to project standards
 
