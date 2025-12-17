@@ -193,10 +193,12 @@ CURRENT STAGE: CODING
 WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
 
 Next step: Find and start next task with label 'auto-workflow'.
+- FIRST: Read CLAUDE.md and README.md to understand the system and workflow
 - Find next ready issue: `bd ready --json | jq '[.[] | select(.labels[]? == "auto-workflow")] | .[0]'`
 - If no issues found, report "All auto-workflow tasks complete" and stop
 - Otherwise: Start work with `/bd-start <id>`
-- Implement the task following beads-first workflow
+- Follow all instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
+- Implement the task according to project standards
 
 When implementation is complete, emit:
 ::: WORKFLOW_STAGE: CODING_COMPLETE :::

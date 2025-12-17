@@ -16,6 +16,9 @@ INPUT=$(cat)
 TRANSCRIPT_PATH=$(echo "$INPUT" | jq -r '.transcript_path // empty')
 CWD=$(echo "$INPUT" | jq -r '.cwd // empty')
 
+log "Transcript path: $TRANSCRIPT_PATH"
+log "CWD: $CWD"
+
 # Validate inputs
 if [[ -z "$TRANSCRIPT_PATH" ]] || [[ ! -f "$TRANSCRIPT_PATH" ]]; then
     log "ERROR: Invalid transcript path: $TRANSCRIPT_PATH"
@@ -44,8 +47,23 @@ if [[ "$WORKFLOW_ISSUES" -eq 0 ]]; then
     exit 0
 fi
 
-# Extract last agent message safely
-LAST_MESSAGE=$(tail -n "$MAX_TAIL_LINES" "$TRANSCRIPT_PATH" 2>/dev/null | grep -A 50 "^assistant:" | tail -n 50 || echo "")
+# Extract last agent message safely from JSONL format
+# Get last assistant message by parsing JSONL
+LAST_MESSAGE=$(tail -n "$MAX_TAIL_LINES" "$TRANSCRIPT_PATH" 2>/dev/null | \
+    grep '"type":"assistant"' | \
+    tail -1 | \
+    jq -r '.message.content[]? | select(.type == "text") | .text' 2>/dev/null || echo "")
+
+# Fallback: also check for tool_use responses in last message
+if [[ -z "$LAST_MESSAGE" ]]; then
+    LAST_MESSAGE=$(tail -n "$MAX_TAIL_LINES" "$TRANSCRIPT_PATH" 2>/dev/null | \
+        grep '"type":"assistant"' | \
+        tail -1 | \
+        jq -r '.message.content[]? | tostring' 2>/dev/null || echo "")
+fi
+
+log "Extracted message length: ${#LAST_MESSAGE} chars"
+log "Message preview: ${LAST_MESSAGE:0:200}..."
 
 if [[ -z "$LAST_MESSAGE" ]]; then
     log "WARNING: Could not extract last message from transcript"
@@ -240,10 +258,12 @@ CURRENT STAGE: CODING
 WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
 
 Next step: Find and start next task with label 'auto-workflow'.
+- FIRST: Read CLAUDE.md and README.md to understand the system and workflow
 - Find next ready issue: `bd ready --json | jq '[.[] | select(.labels[]? == "auto-workflow")] | .[0]'`
 - If no issues found, report "All auto-workflow tasks complete" and stop
 - Otherwise: Start work with `/bd-start <id>`
-- Implement the task following beads-first workflow
+- Follow all instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
+- Implement the task according to project standards
 
 When implementation is complete, emit:
 ::: WORKFLOW_STAGE: CODING_COMPLETE :::
@@ -282,18 +302,17 @@ log "Detected stage: $STAGE"
 if INSTRUCTION=$(get_next_instruction "$STAGE"); then
     log "Injecting instruction for stage: $STAGE"
 
-    # Block stop and inject system message with next stage instruction
+    # Block stop and inject reason - this feeds back to Claude as context
     jq -n \
-      --arg msg "$INSTRUCTION" \
+      --arg reason "$INSTRUCTION" \
       '{
-        "continue": false,
-        "stopReason": "Workflow stage transition",
-        "systemMessage": $msg
+        "decision": "block",
+        "reason": $reason
       }'
 else
     log "No instruction needed, continuing"
     # Allow normal continuation
-    jq -n '{"continue": true}'
+    exit 0
 fi
 
 exit 0
