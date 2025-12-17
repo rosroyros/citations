@@ -43,7 +43,8 @@ if ! command -v bd &> /dev/null; then
 fi
 
 # Check if epic has any open child issues
-NEXT_TASK=$(bd dep tree "$EPIC_ID" --format json 2>/dev/null | jq -r '.children[]? | select(.status == "open") | .id' | head -1 || echo "")
+# Use bd list to find children with pattern matching
+NEXT_TASK=$(bd list --json 2>/dev/null | jq -r --arg epic "$EPIC_ID" '.[] | select(.id | startswith($epic + ".")) | select(.status == "open") | .id' | head -1 || echo "")
 
 if [[ -z "$NEXT_TASK" ]]; then
     log "No open issues in epic $EPIC_ID"

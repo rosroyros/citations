@@ -50,7 +50,8 @@ EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" | tr -d '[:space:]')
 log "Epic ID: $EPIC_ID"
 
 # Check if epic has any open child issues
-WORKFLOW_ISSUES=$(bd dep tree "$EPIC_ID" --format json 2>/dev/null | jq -r '.children[]? | select(.status == "open") | .id' | wc -l || echo "0")
+# Use bd list to find children with pattern matching
+WORKFLOW_ISSUES=$(bd list --json 2>/dev/null | jq -r --arg epic "$EPIC_ID" '.[] | select(.id | startswith($epic + ".")) | select(.status == "open") | .id' | wc -l || echo "0")
 if [[ "$WORKFLOW_ISSUES" -eq 0 ]]; then
     log "No open issues in epic $EPIC_ID, skipping orchestration"
     jq -n '{"continue": true}'
@@ -260,7 +261,7 @@ WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW �
 
 CRITICAL: Start completely fresh for the next task.
 1. FIRST: Read CLAUDE.md and README.md to re-establish system understanding
-2. Find next ready issue: \`bd dep tree ${EPIC_ID} --format json | jq -r '.children[]? | select(.status == "open") | .id' | head -1\`
+2. Find next ready issue: \`bd list --json | jq -r '.[] | select(.id | startswith("${EPIC_ID}.")) | select(.status == "open") | .id' | head -1\`
 3. If no issues found, report "All tasks in epic ${EPIC_ID} complete" and STOP
 4. Start work with \`/bd-start <id>\`
 5. Treat this as a brand new task - don't carry over assumptions from previous work
