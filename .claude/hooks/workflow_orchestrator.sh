@@ -248,18 +248,22 @@ EOF
         "SESSION_CLEARED"|"ISSUE_CLOSED")
             EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" 2>/dev/null | tr -d '[:space:]')
             cat << EOF
-Issue closed. Ready for next task from epic.
+========================================
+TASK COMPLETE - STARTING FRESH
+========================================
 
-CURRENT STAGE: CODING
+Previous task is done. Clear your mind of previous context.
+
+CURRENT STAGE: CODING (New Task)
 WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
 
-Next step: Find and start next task from epic ${EPIC_ID}.
-- FIRST: Read CLAUDE.md and README.md to understand the system and workflow
-- Find next ready issue: \`bd dep tree ${EPIC_ID} --format json | jq -r '.children[]? | select(.status == "open") | .id' | head -1\`
-- If no issues found, report "All tasks in epic ${EPIC_ID} complete" and stop
-- Otherwise: Start work with \`/bd-start <id>\`
-- Follow all instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
-- Implement the task according to project standards
+CRITICAL: Start completely fresh for the next task.
+1. FIRST: Read CLAUDE.md and README.md to re-establish system understanding
+2. Find next ready issue: \`bd dep tree ${EPIC_ID} --format json | jq -r '.children[]? | select(.status == "open") | .id' | head -1\`
+3. If no issues found, report "All tasks in epic ${EPIC_ID} complete" and STOP
+4. Start work with \`/bd-start <id>\`
+5. Treat this as a brand new task - don't carry over assumptions from previous work
+6. Follow ALL instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
 
 When implementation is complete, emit:
 ::: WORKFLOW_STAGE: CODING_COMPLETE :::
