@@ -39,6 +39,25 @@ while true; do
             tmux send-keys -t "${PANE_NUMBER}" "/clear" && tmux send-keys -t "${PANE_NUMBER}" C-m
 
             echo "Clear command sent successfully"
+            echo "Waiting 3 seconds for session to clear..."
+            sleep 3
+
+            # Read epic ID
+            EPIC_FILE=".claude/auto_workflow_epic.txt"
+            if [[ -f "$EPIC_FILE" ]]; then
+                EPIC_ID=$(cat "$EPIC_FILE" | tr -d '[:space:]')
+                echo "Injecting bootstrap message for epic: $EPIC_ID"
+
+                # Inject bootstrap message
+                BOOTSTRAP_MSG="Read CLAUDE.md and README.md, then use bd show ${EPIC_ID} to find the next open task and start it with /bd-start <issue-id>. When implementation complete, emit ::: WORKFLOW_STAGE: CODING_COMPLETE :::"
+
+                tmux send-keys -t "${PANE_NUMBER}" "$BOOTSTRAP_MSG" && tmux send-keys -t "${PANE_NUMBER}" C-m
+
+                echo "Bootstrap message injected"
+            else
+                echo "No epic file found, skipping bootstrap"
+            fi
+
             echo "Waiting 5 seconds before resuming monitoring..."
             sleep 5
 
