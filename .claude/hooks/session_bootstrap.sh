@@ -41,7 +41,10 @@ log "Injecting bootstrap instructions for epic: $EPIC_ID"
 
 cat << EOF
 {
-  "additionalContext": "========================================\nAUTO-WORKFLOW SESSION STARTED\n========================================\n\nEpic: ${EPIC_ID}\n\nCURRENT STAGE: CODING (Fresh Session)\nWORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK\n\nStarting fresh session for next task from epic ${EPIC_ID}.\n\n1. FIRST: Read CLAUDE.md and README.md to understand the system and workflow\n2. Use bd to find the next open issue from epic ${EPIC_ID}\n   Command: bd dep tree ${EPIC_ID}\n   Or: bd show ${EPIC_ID} (shows children)\n3. If no open issues found, report 'All tasks in epic ${EPIC_ID} complete' and STOP\n4. Start work on the next task with: /bd-start <issue-id>\n5. Follow ALL instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)\n6. Implement the task according to project standards\n\nWhen implementation is complete, emit:\n::: WORKFLOW_STAGE: CODING_COMPLETE :::"
+  "hookSpecificOutput": {
+    "hookEventName": "SessionStart",
+    "additionalContext": "========================================\nAUTO-WORKFLOW SESSION STARTED\n========================================\n\nEpic: ${EPIC_ID}\n\nCURRENT STAGE: CODING (Fresh Session)\nWORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK\n\nStarting fresh session for next task from epic ${EPIC_ID}.\n\n1. FIRST: Read CLAUDE.md and README.md to understand the system and workflow\n2. Use bd to find the next open issue from epic ${EPIC_ID}\n   Command: bd dep tree ${EPIC_ID}\n   Or: bd show ${EPIC_ID} (shows children)\n3. If no open issues found, report 'All tasks in epic ${EPIC_ID} complete' and STOP\n4. Start work on the next task with: /bd-start <issue-id>\n5. Follow ALL instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)\n6. Implement the task according to project standards\n\nWhen implementation is complete, emit:\n::: WORKFLOW_STAGE: CODING_COMPLETE :::"
+  }
 }
 EOF
 
