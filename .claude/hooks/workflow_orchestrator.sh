@@ -241,8 +241,9 @@ Next step: Finalize and close the issue.
 - Close issue with summary: `bd close <id> --reason "[Summary of what was done]"`
 - Sync: `bd sync`
 
-When issue is closed, emit:
+When complete, emit BOTH markers:
 ::: WORKFLOW_STAGE: ISSUE_CLOSED :::
+::: END_SESSION_CLEAR_REQUESTED :::
 EOF
             ;;
         "SESSION_CLEARED"|"ISSUE_CLOSED")
