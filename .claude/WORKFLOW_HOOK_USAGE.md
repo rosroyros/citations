@@ -2,11 +2,11 @@
 
 ## Quick Start
 
-The workflow orchestrator hook is now configured and ready to use.
+The workflow orchestrator hook is configured for opt-in use via the `--settings` flag.
 
 ### How It Works
 
-1. **Automatic Activation**: Hook activates when issues with `auto-workflow` label exist
+1. **Opt-in Activation**: Start Claude with `claude --settings .claude/settings.auto-workflow.json`
 2. **Stage Detection**: Monitors your responses for completion markers or infers from actions
 3. **Instruction Injection**: Injects next-stage instructions after each completion
 4. **Continuous Operation**: Loops through all `auto-workflow` labeled issues
@@ -19,10 +19,22 @@ CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE �
 
 ## Using the Hook
 
-### Enable Workflow for an Issue
+### Start Auto-Workflow Session
 
 ```bash
-# Add label to enable automated workflow
+# Start Claude with workflow hook enabled
+claude --settings .claude/settings.auto-workflow.json
+
+# Or create an alias for convenience
+alias claude-auto="claude --settings .claude/settings.auto-workflow.json"
+```
+
+**Important**: Regular `claude` sessions will NOT have the hook active.
+
+### Enable Workflow for Issues
+
+```bash
+# Add label to enable automated workflow for specific issues
 bd label add <issue-id> auto-workflow
 ```
 
@@ -54,7 +66,7 @@ Emit these markers when completing each stage:
 ## Current Setup
 
 - **Hook Script**: `.claude/hooks/workflow_orchestrator.sh`
-- **Configuration**: `.claude/settings.json`
+- **Configuration**: `.claude/settings.auto-workflow.json` (opt-in via --settings flag)
 - **Test Issue**: `citations-5rww` (labeled with `auto-workflow`)
 - **Log File**: `.claude/workflow_orchestrator.log` (created on first hook execution)
 
@@ -82,52 +94,60 @@ tail -20 .claude/workflow_orchestrator.log
 
 Log format:
 ```
-[2025-12-17 14:50:00] Hook triggered
-[2025-12-17 14:50:00] Detecting stage from message
-[2025-12-17 14:50:00] Found explicit marker: CODING_COMPLETE
-[2025-12-17 14:50:00] Getting instruction for stage: CODING_COMPLETE
-[2025-12-17 14:50:00] Injecting instruction for stage: CODING_COMPLETE
+[2025-12-17 15:08:51] Hook triggered
+[2025-12-17 15:08:51] Transcript path: /Users/roy/.claude/projects/.../session.jsonl
+[2025-12-17 15:08:51] Detecting stage from message
+[2025-12-17 15:08:51] Found explicit marker: CODING_COMPLETE
+[2025-12-17 15:08:51] Injecting instruction for stage: CODING_COMPLETE
 ```
 
 ## Disabling the Hook
 
-### Temporarily (current session)
+### For Current Session
+
+Just exit the session - the hook only runs in sessions started with `--settings .claude/settings.auto-workflow.json`.
+
+### For Specific Issues
 
 ```bash
-# Remove auto-workflow label from issues
+# Remove auto-workflow label
 bd label remove <issue-id> auto-workflow
 ```
 
-### Permanently
+### Permanent Removal
 
-Remove or comment out the Stop hook in `.claude/settings.json`:
+Delete or move the settings file:
 
-```json
-{
-  "hooks": {
-    "Stop": []
-  }
-}
+```bash
+mv .claude/settings.auto-workflow.json .claude/settings.auto-workflow.json.disabled
 ```
 
 ## Troubleshooting
 
+### Hook Running in Wrong Sessions
+
+**Problem**: Hook runs in regular `claude` sessions or oracle-review sessions.
+
+**Solution**: Make sure you're NOT loading the settings file in those sessions. Only use `claude --settings .claude/settings.auto-workflow.json` for auto-workflow sessions.
+
 ### Hook Not Triggering
 
-1. Check if `auto-workflow` labeled issues exist:
+1. Verify you started with the settings flag:
+   ```bash
+   # Check process
+   ps aux | grep claude
+   # Should show --settings flag in arguments
+   ```
+
+2. Check if `auto-workflow` labeled issues exist:
    ```bash
    bd list --json | jq '[.[] | select(.labels[]? == "auto-workflow")]'
    ```
 
-2. Verify hook is executable:
+3. Verify hook is executable:
    ```bash
    ls -l .claude/hooks/workflow_orchestrator.sh
    # Should show: -rwxr-xr-x
-   ```
-
-3. Check hook configuration:
-   ```bash
-   cat .claude/settings.json
    ```
 
 ### Hook Errors
@@ -159,32 +179,37 @@ Then emit the marker: `::: WORKFLOW_STAGE: <stage> :::`
 ## Example Workflow
 
 ```bash
-# 1. Create and label issue
+# 1. Create and label issues
 bd create "Feature: Add user preferences" -p 1
 bd label add citations-abcd auto-workflow
 
-# 2. Start working (in Claude Code session)
+bd create "Feature: Export settings" -p 1
+bd label add citations-efgh auto-workflow
+
+# 2. Start auto-workflow session
+claude --settings .claude/settings.auto-workflow.json
+
+# 3. Find and start first task
 /bd-start citations-abcd
 
-# 3. Implement feature
+# 4. Implement feature
 # ... write code ...
 
-# 4. Signal completion
+# 5. Signal completion
 "Implementation complete!
 ::: WORKFLOW_STAGE: CODING_COMPLETE :::"
 
-# 5. Hook injects requirements review instruction
-# ... verify requirements ...
-
-# 6. Continue through stages
-# Hook automatically guides through:
+# 6. Hook guides through stages automatically:
+# - Requirements review
 # - Testing
 # - Oracle review
 # - Commit/close
-# - Next task pickup
+# - Session clear
+# - Picks up next auto-workflow issue (citations-efgh)
+# - Repeats until all complete
 
-# 7. Hook finds next auto-workflow issue and starts it
-# Cycle repeats until all auto-workflow issues complete
+# 7. Hook reports when done
+"All auto-workflow tasks complete"
 ```
 
 ## Advanced Usage
@@ -201,9 +226,18 @@ bd label add citations-abc3 auto-workflow
 
 Hook will process them in priority order (from `bd ready`).
 
-### Skipping Stages
+### Convenience Alias
 
-**Not recommended**, but you can force stage transitions by emitting markers even if work isn't complete. Hook trusts your markers.
+Add to your `.bashrc` or `.zshrc`:
+
+```bash
+alias claude-auto='claude --settings .claude/settings.auto-workflow.json'
+```
+
+Then simply:
+```bash
+claude-auto  # Starts session with workflow hook enabled
+```
 
 ### Custom Workflow Label
 
@@ -217,24 +251,38 @@ WORKFLOW_LABEL="auto-workflow"
 WORKFLOW_LABEL="my-custom-workflow"
 ```
 
+### Running in Background
+
+For truly autonomous operation:
+
+```bash
+# Start headless session with workflow
+nohup claude --settings .claude/settings.auto-workflow.json -m "Find next auto-workflow task and complete it" > auto-workflow.log 2>&1 &
+
+# Monitor progress
+tail -f auto-workflow.log
+tail -f .claude/workflow_orchestrator.log
+```
+
 ## Files Created
 
 ```
 .claude/
 ├── hooks/
-│   └── workflow_orchestrator.sh    # Hook script
-├── settings.json                   # Hook configuration
-├── workflow_orchestrator.log       # Execution log (created on first run)
-├── test_hook.sh                    # Test suite
-└── WORKFLOW_HOOK_USAGE.md         # This file
+│   └── workflow_orchestrator.sh       # Hook script
+├── settings.auto-workflow.json        # Hook configuration (opt-in)
+├── workflow_orchestrator.log          # Execution log
+├── test_hook.sh                       # Test suite
+└── WORKFLOW_HOOK_USAGE.md            # This file
 ```
 
 ## Next Steps
 
-1. Try running the hook with test issue `citations-5rww`
-2. Monitor `.claude/workflow_orchestrator.log` to see stage detection
-3. Create real issues and label them with `auto-workflow`
-4. Let the hook orchestrate your workflow!
+1. Start auto-workflow session: `claude --settings .claude/settings.auto-workflow.json`
+2. Try with test issue `citations-5rww`
+3. Monitor `.claude/workflow_orchestrator.log` to see stage detection
+4. Create real issues and label them with `auto-workflow`
+5. Let the hook orchestrate your workflow!
 
 ## Support
 
@@ -242,3 +290,9 @@ For issues or questions:
 - Check the design document: `docs/plans/2025-12-17-continuous-workflow-hook-design.md`
 - Review hook logs: `.claude/workflow_orchestrator.log`
 - Test with: `./.claude/test_hook.sh`
+
+## Important Notes
+
+⚠️ **Session Isolation**: The hook ONLY runs in sessions started with `--settings .claude/settings.auto-workflow.json`. Regular `claude` sessions, oracle-review sessions, and other tool sessions will NOT be affected.
+
+✅ **Best Practice**: Use `claude-auto` alias for workflow sessions, and regular `claude` for manual work and reviews.
