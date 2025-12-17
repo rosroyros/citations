@@ -49,14 +49,8 @@ fi
 EPIC_ID=$(cat "$WORKFLOW_EPIC_FILE" | tr -d '[:space:]')
 log "Epic ID: $EPIC_ID"
 
-# Check if epic has any open child issues
-# Use bd list to find children with pattern matching
-WORKFLOW_ISSUES=$(bd list --json 2>/dev/null | jq -r --arg epic "$EPIC_ID" '.[] | select(.id | startswith($epic + ".")) | select(.status == "open") | .id' | wc -l || echo "0")
-if [[ "$WORKFLOW_ISSUES" -eq 0 ]]; then
-    log "No open issues in epic $EPIC_ID, skipping orchestration"
-    jq -n '{"continue": true}'
-    exit 0
-fi
+# Epic is set, continue with orchestration
+# (We don't check for open issues here - let the agent discover that)
 
 # Extract last agent message safely from JSONL format
 # Get last assistant message by parsing JSONL
@@ -261,9 +255,10 @@ WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW �
 
 CRITICAL: Start completely fresh for the next task.
 1. FIRST: Read CLAUDE.md and README.md to re-establish system understanding
-2. Find next ready issue: \`bd list --json | jq -r '.[] | select(.id | startswith("${EPIC_ID}.")) | select(.status == "open") | .id' | head -1\`
-3. If no issues found, report "All tasks in epic ${EPIC_ID} complete" and STOP
-4. Start work with \`/bd-start <id>\`
+2. Find next ready issue from epic ${EPIC_ID}:
+   Use: \`bd dep tree ${EPIC_ID}\` or \`bd show ${EPIC_ID}\`
+3. If no open issues found, report "All tasks in epic ${EPIC_ID} complete" and STOP
+4. Start work with \`/bd-start <issue-id>\`
 5. Treat this as a brand new task - don't carry over assumptions from previous work
 6. Follow ALL instructions in CLAUDE.md (beads-first workflow, TDD, verification, etc.)
 
