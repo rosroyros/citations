@@ -66,6 +66,56 @@ class TestLogParserExtraction(unittest.TestCase):
         result = extract_upgrade_workflow_event(log_line)
         self.assertIsNone(result)
 
+    def test_extract_upgrade_workflow_event_interaction_type(self):
+        """Test extraction of interaction_type field from upgrade workflow events."""
+        # Test with interaction_type=auto (inline pricing)
+        log_line = f"2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade interaction_type=auto variant=1.2"
+        result = extract_upgrade_workflow_event(log_line)
+        self.assertEqual(result, {
+            "job_id": self.job_id,
+            "event": "clicked_upgrade",
+            "interaction_type": "auto",
+            "experiment_variant": "1.2"
+        })
+
+        # Test with interaction_type=active (button click)
+        log_line = f"2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade interaction_type=active variant=1.1"
+        result = extract_upgrade_workflow_event(log_line)
+        self.assertEqual(result, {
+            "job_id": self.job_id,
+            "event": "clicked_upgrade",
+            "interaction_type": "active",
+            "experiment_variant": "1.1"
+        })
+
+    def test_extract_upgrade_workflow_event_interaction_type_complex(self):
+        """Test extraction of interaction_type with all fields present."""
+        log_line = f"2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=purchase_completed variant=1.2 interaction_type=auto product_id=prod_123 amount_cents=1000 currency=USD order_id=ord_123"
+        result = extract_upgrade_workflow_event(log_line)
+        self.assertEqual(result, {
+            "job_id": self.job_id,
+            "event": "purchase_completed",
+            "experiment_variant": "1.2",
+            "interaction_type": "auto",
+            "product_id": "prod_123",
+            "amount_cents": 1000,
+            "currency": "USD",
+            "order_id": "ord_123"
+        })
+
+    def test_extract_upgrade_workflow_event_missing_interaction_type(self):
+        """Test that interaction_type is optional and defaults to not present."""
+        # Legacy format without interaction_type
+        log_line = f"2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade variant=1"
+        result = extract_upgrade_workflow_event(log_line)
+        self.assertEqual(result, {
+            "job_id": self.job_id,
+            "event": "clicked_upgrade",
+            "experiment_variant": "1"
+        })
+        # Ensure interaction_type is not present in result
+        self.assertNotIn("interaction_type", result)
+
     def test_state_accumulation(self):
         # Simulate a sequence of log lines for a single job
         log_lines = [
@@ -111,14 +161,51 @@ class TestLogParserExtraction(unittest.TestCase):
             f"2025-12-16 09:59:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=checkout_started",
             f"2025-12-16 09:58:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade"
         ]
-        
+
         jobs = parse_job_events(log_lines)
         job = jobs[self.job_id]
-        
+
         # Expected logical order: clicked, checkout, success
         # Note: 'success' comes from 'purchase_completed'
         expected_state = "clicked,checkout,success"
         self.assertEqual(job.get('upgrade_state'), expected_state)
+
+    def test_parse_job_events_with_interaction_type(self):
+        """Test that parse_job_events correctly extracts and stores interaction_type."""
+        log_lines = [
+            f"2025-12-16 10:00:00 INFO: Creating async job {self.job_id} for free user",
+            f"2025-12-16 10:01:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade interaction_type=auto variant=1.2",
+            f"2025-12-16 10:02:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=modal_proceed interaction_type=active"
+        ]
+
+        jobs = parse_job_events(log_lines)
+        job = jobs[self.job_id]
+
+        # Verify interaction_type is stored
+        self.assertEqual(job.get("interaction_type"), "active")  # Last event wins
+
+        # Verify other fields are still preserved
+        self.assertEqual(job.get("experiment_variant"), "1.2")
+        self.assertIn("clicked", job.get('upgrade_state', ''))
+        self.assertIn("modal", job.get('upgrade_state', ''))
+
+    def test_parse_job_events_interaction_type_persistence(self):
+        """Test that interaction_type persists through multiple events for the same job."""
+        log_lines = [
+            f"2025-12-16 10:00:00 INFO: Creating async job {self.job_id} for free user",
+            f"2025-12-16 10:01:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=pricing_viewed interaction_type=auto variant=1.2",
+            f"2025-12-16 10:02:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=clicked_upgrade interaction_type=auto",
+            f"2025-12-16 10:03:00 INFO: UPGRADE_WORKFLOW: job_id={self.job_id} event=modal_proceed interaction_type=active"
+        ]
+
+        jobs = parse_job_events(log_lines)
+        job = jobs[self.job_id]
+
+        # The last event with interaction_type should be stored
+        self.assertEqual(job.get("interaction_type"), "active")
+
+        # Verify variant is preserved from first event
+        self.assertEqual(job.get("experiment_variant"), "1.2")
 
     def test_job_creation_detection(self):
         # Use a new ID for this test

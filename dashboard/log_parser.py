@@ -446,6 +446,11 @@ def extract_upgrade_workflow_event(log_line: str) -> Optional[Dict[str, Any]]:
     if order_match:
         result["order_id"] = order_match.group(1)
 
+    # interaction_type
+    interaction_match = re.search(r'interaction_type=([^\s]+)', log_line)
+    if interaction_match:
+        result["interaction_type"] = interaction_match.group(1)
+
     # token (maps to paid_user_id)
     token_match = re.search(r'token=([^\s]+)', log_line)
     if token_match:
@@ -679,7 +684,7 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 
             if job_id in jobs:
                 # Store extra fields if present
-                for field in ["experiment_variant", "product_id", "amount_cents", "currency", "order_id"]:
+                for field in ["experiment_variant", "product_id", "amount_cents", "currency", "order_id", "interaction_type"]:
                     if field in upgrade_result:
                         jobs[job_id][field] = upgrade_result[field]
                 
