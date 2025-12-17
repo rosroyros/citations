@@ -120,7 +120,14 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
 ## Workflows
 - **Dev**:
   1. `bd show <id>` & `bd update <id> --status in_progress`.
-  2. Backend: `cd backend && python3 -m uvicorn app:app --reload`.
+  2. Backend (with venv):
+     ```bash
+     cd backend
+     source venv/bin/activate  # or `venv\Scripts\activate` on Windows
+     TESTING=true MOCK_LLM=true python3 -m uvicorn app:app --reload
+     ```
+     - `TESTING=true` - enables test helper endpoints
+     - `MOCK_LLM=true` - uses mock LLM responses for fast testing
   3. Frontend: `cd frontend/frontend && npm run dev`.
 - **Test**:
   - Backend: `python3 -m pytest`.
