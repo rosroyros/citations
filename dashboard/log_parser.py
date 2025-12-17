@@ -935,6 +935,7 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("free_user_id", None)
         job.setdefault("upgrade_state", None)
         job.setdefault("provider", None)
+        job.setdefault("interaction_type", None)
         job.setdefault("is_test_job", False)
         job.setdefault("experiment_variant", None)
         job.setdefault("product_id", None)
