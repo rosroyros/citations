@@ -943,8 +943,9 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
 
     # Get experiment variant from header or assign fallback
     experiment_variant = http_request.headers.get('X-Experiment-Variant')
-    if not experiment_variant:
-        experiment_variant = random.choice(['1', '2'])
+    valid_variants = ["1.1", "1.2", "2.1", "2.2"]
+    if not experiment_variant or experiment_variant not in valid_variants:
+        experiment_variant = random.choice(valid_variants)
         logger.info(f"Assigned missing experiment variant: {experiment_variant}")
 
     try:
@@ -1410,10 +1411,11 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Store experiment variant for async processing (if provided by frontend)
     experiment_variant = http_request.headers.get('X-Experiment-Variant')
+    valid_variants = ["1.1", "1.2", "2.1", "2.2"]
 
     # Fallback: Assign variant if missing (ensure sticky assignment log)
-    if not experiment_variant:
-        experiment_variant = random.choice(['1', '2'])
+    if not experiment_variant or experiment_variant not in valid_variants:
+        experiment_variant = random.choice(valid_variants)
         logger.info(f"Assigned missing experiment variant: {experiment_variant}")
 
     # Create job entry
