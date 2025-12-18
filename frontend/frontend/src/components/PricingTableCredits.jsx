@@ -112,7 +112,8 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
         body: JSON.stringify({
           token,
           productId,
-          variantId: experimentVariant || '1'
+          variantId: experimentVariant || '1',
+          job_id: jobId  // Include job_id for upgrade tracking
         })
       })
 

@@ -19,6 +19,11 @@ test.describe('Pricing Integration Tests', () => {
       return uid;
     });
 
+    // Force button variant ('1.1' = Credits + Button) early to ensure tests get the button UI
+    await page.evaluate(() => {
+      localStorage.setItem('experiment_v1', '1.1');
+    });
+
     // Intercept Polar checkout redirect to prevent navigation
     await page.route('https://polar.sh/**', (route) => {
       route.fulfill({
@@ -88,9 +93,9 @@ test.describe('Pricing Integration Tests', () => {
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 30000 });
     await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible();
 
-    // 3. Force variant '1' (Credits) before modal opens
+    // 3. Force variant '1.1' (Credits + Button) - already set in beforeEach, but ensure it's still set
     await page.evaluate(() => {
-      localStorage.setItem('experiment_v1', '1');
+      localStorage.setItem('experiment_v1', '1.1');
       console.log('Set localStorage experiment_v1 to:', localStorage.getItem('experiment_v1'));
     });
 
@@ -98,10 +103,9 @@ test.describe('Pricing Integration Tests', () => {
     await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
 
-    // 5. Verify correct variant shown
     const variant = await page.locator('.pricing-table').getAttribute('data-variant');
     console.log('Variant found:', variant);
-    expect(['credits', 'passes']).toContain(variant);
+    expect(['credits', 'passes']).toContain(variant); // data-variant is pricing type, not experiment variant
 
     // 6. Select product based on variant
     if (variant === 'credits') {

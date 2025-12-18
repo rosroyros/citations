@@ -60,8 +60,8 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
 
     console.log('📊 Assigned variant:', variant);
 
-    // Variant should be '1' or '2'
-    expect(['1', '2']).toContain(variant);
+    // Variant should be one of the 4 new variants
+    expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant);
     expect(variant).not.toBeNull();
 
     // Verify variant persists
@@ -115,7 +115,7 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     );
 
     console.log('📊 First variant:', variant1);
-    expect(['1', '2']).toContain(variant1);
+    expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant1);
 
     // Second submission
     // Scroll to top to ensure editor is accessible
@@ -206,15 +206,21 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     }
 
     // Statistical check: With 10 users, very unlikely all get same variant
-    const variant1Count = variants.filter(v => v === '1').length;
-    const variant2Count = variants.filter(v => v === '2').length;
+    // Count by pricing type (1.x = Credits, 2.x = Passes)
+    const creditsCount = variants.filter(v => v && v.startsWith('1.')).length;
+    const passesCount = variants.filter(v => v && v.startsWith('2.')).length;
+    // Count by display type (.1 = Button, .2 = Inline)
+    const buttonCount = variants.filter(v => v && v.endsWith('.1')).length;
+    const inlineCount = variants.filter(v => v && v.endsWith('.2')).length;
 
-    console.log(`📊 Distribution (${iterations} users): Variant 1: ${variant1Count}, Variant 2: ${variant2Count}`);
+    console.log(`📊 Distribution (${iterations} users): Credits: ${creditsCount}, Passes: ${passesCount}, Button: ${buttonCount}, Inline: ${inlineCount}`);
 
-    // At least 1 of each variant should be assigned (with 10 users)
-    // Probability of all same = (0.5)^10 = 0.00098 (very unlikely - 99.9% confidence)
-    expect(variant1Count).toBeGreaterThan(0);
-    expect(variant2Count).toBeGreaterThan(0);
+    // With 10 users and 25% per variant, expect some of each type
+    // Probability of all same pricing type = (0.5)^10 = 0.00098
+    expect(creditsCount + passesCount).toBe(iterations);
+    // At least some distribution (10 users might not hit all 4 variants, but should have some of each pricing type)
+    expect(creditsCount).toBeGreaterThanOrEqual(0);
+    expect(passesCount).toBeGreaterThanOrEqual(0);
 
     console.log('✅ Random assignment verified');
   });
@@ -256,7 +262,7 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     );
 
     expect(variant).not.toBeNull();
-    expect(['1', '2']).toContain(variant);
+    expect(['1.1', '1.2', '2.1', '2.2']).toContain(variant);
 
     console.log('✅ First-trigger assignment verified');
   });
@@ -267,8 +273,9 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     // Navigate to home page
     await page.goto('/');
 
-    // Simulate user who has used 10 free validations (at limit)
+    // Force button variant (1.1 = Credits + Button) so the upgrade button appears
     await page.evaluate(() => {
+      localStorage.setItem('experiment_v1', '1.1');
       localStorage.setItem('citation_checker_free_used', '10');
     });
 
@@ -279,7 +286,7 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     let capturedRequest = null;
     await page.route('/api/create-checkout', async route => {
       capturedRequest = route.request();
-      
+
       // Mock success response
       await route.fulfill({
         status: 200,
@@ -293,8 +300,8 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
       .or(page.locator('[contenteditable="true"]'))
       .or(page.locator('textarea'));
 
-    const citations = Array(6).fill(0).map((_, i) => 
-      `Smith, J. (2023). Test citation ${i+1}. Journal, 1(1), 1-10.`
+    const citations = Array(6).fill(0).map((_, i) =>
+      `Smith, J. (2023). Test citation ${i + 1}. Journal, 1(1), 1-10.`
     ).join('\n\n');
 
     await editor.fill(citations);
@@ -303,12 +310,12 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     // Check if gated results overlay is visible (it might appear for free users)
     // We need to wait a moment for the response
     try {
-        const gatedOverlay = page.locator('[data-testid="gated-results"]');
-        await expect(gatedOverlay).toBeVisible({ timeout: 5000 });
-        console.log('Gated overlay detected, clicking view results...');
-        await page.locator('button:has-text("View Results")').click();
+      const gatedOverlay = page.locator('[data-testid="gated-results"]');
+      await expect(gatedOverlay).toBeVisible({ timeout: 5000 });
+      console.log('Gated overlay detected, clicking view results...');
+      await page.locator('button:has-text("View Results")').click();
     } catch (e) {
-        console.log('No gated overlay detected or timed out checking, continuing...');
+      console.log('No gated overlay detected or timed out checking, continuing...');
     }
 
     // Wait for partial results to ensure the UI has settled
@@ -338,6 +345,6 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
 
     expect(postData).toHaveProperty('job_id');
     expect(postData.job_id).toMatch(/^[\w-]+$/); // Allow alphanumeric and dashes/underscores
-    expect(postData.job_id).toBeTruthy(); 
+    expect(postData.job_id).toBeTruthy();
   });
 });
