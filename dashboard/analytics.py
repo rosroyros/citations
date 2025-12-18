@@ -77,29 +77,28 @@ def parse_upgrade_events(
             f"Set APP_LOG_PATH environment variable or pass log_file_path argument."
         )
 
-    # Initialize counters per variant
-    variants_data = {
-        '1': {
-            'pricing_table_shown': 0,
-            'product_selected': 0,
-            'checkout_started': 0,
-            'purchase_completed': 0,
-            'purchase_failed': 0,
-            'credits_applied': 0,
-            'revenue_cents': 0,
-            'tokens': set()  # Track unique users
-        },
-        '2': {
-            'pricing_table_shown': 0,
-            'product_selected': 0,
-            'checkout_started': 0,
-            'purchase_completed': 0,
-            'purchase_failed': 0,
-            'credits_applied': 0,
-            'revenue_cents': 0,
-            'tokens': set()
-        }
+    # Initialize counters per variant (4-variant scheme for A/B test)
+    # 1.1: Credits + Button, 1.2: Credits + Inline
+    # 2.1: Passes + Button, 2.2: Passes + Inline
+    variant_template = {
+        'pricing_table_shown': 0,
+        'product_selected': 0,
+        'checkout_started': 0,
+        'purchase_completed': 0,
+        'purchase_failed': 0,
+        'credits_applied': 0,
+        'revenue_cents': 0,
+        'tokens': set()  # Track unique users
     }
+    variants_data = {
+        '1.1': variant_template.copy(),
+        '1.2': {**variant_template, 'tokens': set()},
+        '2.1': {**variant_template, 'tokens': set()},
+        '2.2': {**variant_template, 'tokens': set()},
+    }
+    # Re-initialize tokens as sets (copy doesn't deep copy)
+    for v in variants_data.values():
+        v['tokens'] = set()
 
     total_events = 0
     first_timestamp = None
@@ -189,8 +188,14 @@ def parse_upgrade_events(
             if last_timestamp is None or event_time > last_timestamp:
                 last_timestamp = event_time
 
-            # Skip events without variant (shouldn't happen per Oracle #5, but defensive)
-            if variant not in ['1', '2']:
+            # Map legacy variants to new format (backward compatibility)
+            # Legacy '1' -> '1.1' (Credits + Button)
+            # Legacy '2' -> '2.1' (Passes + Button)
+            if variant == '1':
+                variant = '1.1'
+            elif variant == '2':
+                variant = '2.1'
+            elif variant not in ['1.1', '1.2', '2.1', '2.2']:
                 # print(f"Warning: Unknown variant '{variant}' at line {line_num}")
                 continue
 
@@ -226,36 +231,49 @@ def parse_upgrade_events(
 
         return rates
 
-    # Build result
+    # Build result with 4 variants
+    def build_variant_result(v_key):
+        return {
+            'pricing_table_shown': variants_data[v_key]['pricing_table_shown'],
+            'product_selected': variants_data[v_key]['product_selected'],
+            'checkout_started': variants_data[v_key]['checkout_started'],
+            'purchase_completed': variants_data[v_key]['purchase_completed'],
+            'purchase_failed': variants_data[v_key]['purchase_failed'],
+            'credits_applied': variants_data[v_key]['credits_applied'],
+            'conversion_rates': calculate_conversion_rates(variants_data[v_key]),
+            'revenue_cents': variants_data[v_key]['revenue_cents']
+        }
+
     result = {
-        'variant_1': {
-            'pricing_table_shown': variants_data['1']['pricing_table_shown'],
-            'product_selected': variants_data['1']['product_selected'],
-            'checkout_started': variants_data['1']['checkout_started'],
-            'purchase_completed': variants_data['1']['purchase_completed'],
-            'purchase_failed': variants_data['1']['purchase_failed'],
-            'credits_applied': variants_data['1']['credits_applied'],
-            'conversion_rates': calculate_conversion_rates(variants_data['1']),
-            'revenue_cents': variants_data['1']['revenue_cents']
-        },
-        'variant_2': {
-            'pricing_table_shown': variants_data['2']['pricing_table_shown'],
-            'product_selected': variants_data['2']['product_selected'],
-            'checkout_started': variants_data['2']['checkout_started'],
-            'purchase_completed': variants_data['2']['purchase_completed'],
-            'purchase_failed': variants_data['2']['purchase_failed'],
-            'credits_applied': variants_data['2']['credits_applied'],
-            'conversion_rates': calculate_conversion_rates(variants_data['2']),
-            'revenue_cents': variants_data['2']['revenue_cents']
-        },
+        'variant_1_1': build_variant_result('1.1'),
+        'variant_1_2': build_variant_result('1.2'),
+        'variant_2_1': build_variant_result('2.1'),
+        'variant_2_2': build_variant_result('2.2'),
+        # Legacy aliases for backward compatibility
+        'variant_1': build_variant_result('1.1'),
+        'variant_2': build_variant_result('2.1'),
         'total_events': total_events,
         'date_range': {
             'start': first_timestamp.isoformat() if first_timestamp else None,
             'end': last_timestamp.isoformat() if last_timestamp else None
         },
         'unique_tokens': {
-            'variant_1': len(variants_data['1']['tokens']),
-            'variant_2': len(variants_data['2']['tokens'])
+            'variant_1_1': len(variants_data['1.1']['tokens']),
+            'variant_1_2': len(variants_data['1.2']['tokens']),
+            'variant_2_1': len(variants_data['2.1']['tokens']),
+            'variant_2_2': len(variants_data['2.2']['tokens']),
+            # Legacy aliases
+            'variant_1': len(variants_data['1.1']['tokens']),
+            'variant_2': len(variants_data['2.1']['tokens'])
+        },
+        'conversion_rates': {
+            'variant_1_1': calculate_conversion_rates(variants_data['1.1']),
+            'variant_1_2': calculate_conversion_rates(variants_data['1.2']),
+            'variant_2_1': calculate_conversion_rates(variants_data['2.1']),
+            'variant_2_2': calculate_conversion_rates(variants_data['2.2']),
+            # Legacy aliases
+            'variant_1': calculate_conversion_rates(variants_data['1.1']),
+            'variant_2': calculate_conversion_rates(variants_data['2.1'])
         }
     }
 

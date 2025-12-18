@@ -2539,56 +2539,95 @@
 
                 const data = await response.json();
 
-                // Extract counts for each stage
+                // Extract counts for each stage - 4 variants
                 const labels = ['Pricing Shown', 'Product Selected', 'Checkout Started', 'Purchase Completed'];
 
-                const variant1Data = [
-                    data.variant_1.pricing_table_shown,
-                    data.variant_1.product_selected,
-                    data.variant_1.checkout_started,
-                    data.variant_1.purchase_completed
+                // 1.1: Credits + Button (legacy variant_1)
+                const variant1_1Data = [
+                    (data.variant_1_1 || data.variant_1).pricing_table_shown,
+                    (data.variant_1_1 || data.variant_1).product_selected,
+                    (data.variant_1_1 || data.variant_1).checkout_started,
+                    (data.variant_1_1 || data.variant_1).purchase_completed
                 ];
 
-                const variant2Data = [
-                    data.variant_2.pricing_table_shown,
-                    data.variant_2.product_selected,
-                    data.variant_2.checkout_started,
-                    data.variant_2.purchase_completed
+                // 1.2: Credits + Inline
+                const variant1_2Data = data.variant_1_2 ? [
+                    data.variant_1_2.pricing_table_shown,
+                    data.variant_1_2.product_selected,
+                    data.variant_1_2.checkout_started,
+                    data.variant_1_2.purchase_completed
+                ] : [0, 0, 0, 0];
+
+                // 2.1: Passes + Button (legacy variant_2)
+                const variant2_1Data = [
+                    (data.variant_2_1 || data.variant_2).pricing_table_shown,
+                    (data.variant_2_1 || data.variant_2).product_selected,
+                    (data.variant_2_1 || data.variant_2).checkout_started,
+                    (data.variant_2_1 || data.variant_2).purchase_completed
                 ];
 
-                // Update summary stats
-                const v1Rate = (data.conversion_rates.variant_1.overall * 100).toFixed(1);
-                const v2Rate = (data.conversion_rates.variant_2.overall * 100).toFixed(1);
+                // 2.2: Passes + Inline
+                const variant2_2Data = data.variant_2_2 ? [
+                    data.variant_2_2.pricing_table_shown,
+                    data.variant_2_2.product_selected,
+                    data.variant_2_2.checkout_started,
+                    data.variant_2_2.purchase_completed
+                ] : [0, 0, 0, 0];
 
-                document.getElementById('variant1-conversion').textContent = `${v1Rate}%`;
-                document.getElementById('variant1-count').textContent = `${data.variant_1.purchase_completed} purchases`;
+                // Update summary stats - aggregate button vs inline for display
+                const rates = data.conversion_rates || {};
+                const v1_1Rate = ((rates.variant_1_1 || rates.variant_1 || {}).overall * 100 || 0).toFixed(1);
+                const v1_2Rate = ((rates.variant_1_2 || {}).overall * 100 || 0).toFixed(1);
+                const v2_1Rate = ((rates.variant_2_1 || rates.variant_2 || {}).overall * 100 || 0).toFixed(1);
+                const v2_2Rate = ((rates.variant_2_2 || {}).overall * 100 || 0).toFixed(1);
 
-                document.getElementById('variant2-conversion').textContent = `${v2Rate}%`;
-                document.getElementById('variant2-count').textContent = `${data.variant_2.purchase_completed} purchases`;
+                // Display combined stats (Button vs Inline comparison)
+                const buttonConversion = Math.max(parseFloat(v1_1Rate), parseFloat(v2_1Rate));
+                const inlineConversion = Math.max(parseFloat(v1_2Rate), parseFloat(v2_2Rate));
+
+                document.getElementById('variant1-conversion').textContent = `${v1_1Rate}% / ${v1_2Rate}%`;
+                document.getElementById('variant1-count').textContent = `Credits: Button/Inline`;
+
+                document.getElementById('variant2-conversion').textContent = `${v2_1Rate}% / ${v2_2Rate}%`;
+                document.getElementById('variant2-count').textContent = `Passes: Button/Inline`;
 
                 // Destroy existing chart if it exists
                 if (funnelChart) {
                     funnelChart.destroy();
                 }
 
-                // Create new chart
+                // Create new chart with 4 datasets
                 funnelChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: labels,
                         datasets: [
                             {
-                                label: 'Variant 1 (Credits)',
-                                data: variant1Data,
-                                backgroundColor: 'rgba(147, 51, 234, 0.8)', // Brand purple
+                                label: '1.1 Credits (Button)',
+                                data: variant1_1Data,
+                                backgroundColor: 'rgba(147, 51, 234, 0.9)', // Solid purple
                                 borderColor: 'rgba(147, 51, 234, 1)',
                                 borderWidth: 1
                             },
                             {
-                                label: 'Variant 2 (Passes)',
-                                data: variant2Data,
-                                backgroundColor: 'rgba(59, 130, 246, 0.8)', // Blue
+                                label: '1.2 Credits (Inline)',
+                                data: variant1_2Data,
+                                backgroundColor: 'rgba(147, 51, 234, 0.4)', // Light purple
+                                borderColor: 'rgba(147, 51, 234, 0.8)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: '2.1 Passes (Button)',
+                                data: variant2_1Data,
+                                backgroundColor: 'rgba(59, 130, 246, 0.9)', // Solid blue
                                 borderColor: 'rgba(59, 130, 246, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: '2.2 Passes (Inline)',
+                                data: variant2_2Data,
+                                backgroundColor: 'rgba(59, 130, 246, 0.4)', // Light blue
+                                borderColor: 'rgba(59, 130, 246, 0.8)',
                                 borderWidth: 1
                             }
                         ]

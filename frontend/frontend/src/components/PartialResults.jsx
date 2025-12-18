@@ -41,7 +41,8 @@ export function PartialResults({ results, partial, citations_checked, citations_
           event: 'upgrade_presented',
           job_id: job_id,
           trigger_location: 'partial_results',
-          citations_locked: citations_remaining
+          citations_locked: citations_remaining,
+          variant: variant
         })
       }).catch(error => {
         console.error('Error tracking upgrade presentation:', error);
@@ -178,7 +179,8 @@ export function PartialResults({ results, partial, citations_checked, citations_
                     event: 'clicked_upgrade',
                     job_id: job_id,
                     trigger_location: 'partial_results',
-                    citations_locked: citations_remaining
+                    citations_locked: citations_remaining,
+                    variant: variant
                   })
                 }).catch(error => {
                   console.error('Error tracking upgrade event:', error);

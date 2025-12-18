@@ -116,6 +116,12 @@ class TestLogParserExtraction(unittest.TestCase):
         # Ensure interaction_type is not present in result
         self.assertNotIn("interaction_type", result)
 
+    def test_extract_upgrade_workflow_event_missing_job_id(self):
+        """Test that missing job_id returns None."""
+        log_line = "2025-12-16 10:00:00 INFO: UPGRADE_WORKFLOW: event=clicked_upgrade"
+        result = extract_upgrade_workflow_event(log_line)
+        self.assertIsNone(result)
+
     def test_state_accumulation(self):
         # Simulate a sequence of log lines for a single job
         log_lines = [

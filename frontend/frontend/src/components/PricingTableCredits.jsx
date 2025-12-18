@@ -95,7 +95,9 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
           },
           body: JSON.stringify({
             event: 'modal_proceed',
-            job_id: jobId
+            job_id: jobId,
+            variant: experimentVariant,
+            product_id: productId
           })
         }).catch(error => {
           console.error('Error tracking modal proceed event:', error)

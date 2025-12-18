@@ -997,6 +997,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                         token,
                         experiment_variant,
                         reason='zero_credits' if access_check['user_status'].balance == 0 else 'insufficient_credits',
+                        job_id=job_id,
                         credits_remaining=access_check['user_status'].balance
                     )
 
@@ -1046,6 +1047,7 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                     free_user_id or 'anonymous',
                     experiment_variant,
                     reason='free_limit_reached',
+                    job_id=job_id,
                     free_used=free_used
                 )
 
@@ -1188,6 +1190,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     free_user_id or 'anonymous',
                     jobs[job_id].get("experiment_variant"),
                     reason='free_limit_reached',
+                    job_id=job_id,
                     free_used=free_used
                 )
 
@@ -1199,7 +1202,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     citations_remaining=citation_count,
                     free_used=FREE_LIMIT,
                     free_used_total=FREE_LIMIT,
-                    limit_type="free_limit"
+                    limit_type="free_limit",
+                    job_id=job_id  # Include job_id for upgrade tracking
                 ).model_dump()
                 jobs[job_id]["results_gated"] = True  # This is a gated response
                 logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
@@ -1285,6 +1289,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                         token,
                         jobs[job_id].get("experiment_variant"),
                         reason='insufficient_credits',
+                        job_id=job_id,
                         credits_remaining=user_credits,
                         credits_needed=citation_count,
                         partial_available=user_credits
