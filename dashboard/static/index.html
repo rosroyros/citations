@@ -1241,7 +1241,17 @@
             filter: grayscale(0%);
         }
 
+        .upgrade-shown {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
         .upgrade-clicked {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+
+        .upgrade-checkout {
             opacity: 1;
             filter: grayscale(0%);
         }
@@ -2237,9 +2247,12 @@
         // Get upgrade state icons function
         function getUpgradeStateIcons(upgradeState) {
             // Define upgrade states and their icons
+            // Order matches the expected funnel progression
             const upgradeStates = [
                 { state: 'locked', icon: '🔒', label: 'Results gated' },
+                { state: 'shown', icon: '👁️', label: 'Pricing shown' },
                 { state: 'clicked', icon: '🛒', label: 'Upgrade clicked' },
+                { state: 'checkout', icon: '💰', label: 'Checkout started' },
                 { state: 'modal', icon: '💳', label: 'Modal opened' },
                 { state: 'success', icon: '✅', label: 'Upgrade completed' }
             ];
@@ -2250,7 +2263,7 @@
                 (typeof upgradeState === 'string' ? upgradeState.split(',') : upgradeState) :
                 [];
 
-            // Always show all 4 icons, with completed ones highlighted
+            // Always show all icons, with completed ones highlighted
             return upgradeStates.map(stateInfo => {
                 const isCompleted = completedStates.includes(stateInfo.state);
                 const activeClass = isCompleted ? ` upgrade-${stateInfo.state}` : '';

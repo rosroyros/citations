@@ -66,7 +66,7 @@ const PRODUCTS = [
  *
  * A/B Test Hypothesis: Lower price point ($1.99) converts better than single $8.99 option
  */
-export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
+export function PricingTableCredits({ onSelectProduct, experimentVariant, onCheckout }) {
   const [loadingProductId, setLoadingProductId] = useState(null)
   const [error, setError] = useState(null)
 
@@ -76,6 +76,23 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }) {
   }, [experimentVariant])
 
   const handleCheckout = async (productId) => {
+    // If parent provides onCheckout callback, use it (preserves job_id from parent scope)
+    // This is critical for inline variants where job_id is passed from PartialResults
+    if (onCheckout) {
+      setLoadingProductId(productId)
+      setError(null)
+      try {
+        await onCheckout(productId)
+      } catch (err) {
+        setError('Failed to open checkout. Please try again.')
+        console.error('Checkout error:', err)
+      } finally {
+        setLoadingProductId(null)
+      }
+      return
+    }
+
+    // Fallback: internal checkout logic for standalone/modal usage
     setLoadingProductId(productId)
     setError(null)
 

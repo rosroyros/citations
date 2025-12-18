@@ -1539,14 +1539,34 @@ async def upgrade_event(request: dict):
         raise HTTPException(status_code=400, detail="event is required")
 
     # Validate event type
-    valid_events = ['clicked_upgrade', 'modal_proceed', 'success', 'upgrade_presented']
+    valid_events = ['clicked_upgrade', 'modal_proceed', 'success', 'upgrade_presented', 'pricing_viewed']
     if event not in valid_events:
         raise HTTPException(
             status_code=400,
             detail=f"Invalid event. Must be one of: {', '.join(valid_events)}"
         )
 
-    logger.info(f"UPGRADE_WORKFLOW: job_id={job_id} event={event}")
+    # Extract optional fields for analytics
+    variant = request.get('variant')
+    interaction_type = request.get('interaction_type')
+    citations_locked = request.get('citations_locked')
+    trigger_location = request.get('trigger_location')
+    product_id = request.get('product_id')
+    
+    # Build log line with optional fields
+    log_parts = [f"job_id={job_id}", f"event={event}"]
+    if variant:
+        log_parts.append(f"variant={variant}")
+    if interaction_type:
+        log_parts.append(f"interaction_type={interaction_type}")
+    if citations_locked is not None:
+        log_parts.append(f"citations_locked={citations_locked}")
+    if trigger_location:
+        log_parts.append(f"trigger_location={trigger_location}")
+    if product_id:
+        log_parts.append(f"product_id={product_id}")
+    
+    logger.info(f"UPGRADE_WORKFLOW: {' '.join(log_parts)}")
 
     return {
         "success": True,

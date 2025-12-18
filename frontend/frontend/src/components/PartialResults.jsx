@@ -63,11 +63,31 @@ export function PartialResults({ results, partial, citations_checked, citations_
   // Analytics for inline variants - fire pricing_viewed and clicked events on mount
   useEffect(() => {
     if (showInline) {
-      // Truthful event for new analysis
+      // Truthful event for new analysis (GA)
       trackEvent("pricing_viewed", {
         variant,
         interaction_type: "auto"
       });
+
+      // Send to backend for dashboard tracking
+      if (job_id) {
+        fetch('/api/upgrade-event', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            event: 'pricing_viewed',
+            job_id: job_id,
+            variant: variant,
+            interaction_type: 'auto',
+            trigger_location: 'partial_results_inline',
+            citations_locked: citations_remaining
+          })
+        }).catch(error => {
+          console.error('Error tracking pricing_viewed:', error);
+        });
+      }
 
       // Legacy compatibility - maintain funnel step 2 count
       trackEvent("clicked", {
@@ -76,7 +96,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
         note: "legacy_funnel_support"
       });
     }
-  }, [showInline, variant]);
+  }, [showInline, variant, job_id, citations_remaining]);
 
   const handleReveal = async () => {
     if (onReveal) {

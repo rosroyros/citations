@@ -214,6 +214,7 @@ class ValidationResponse(BaseModel):
         None,
         description="Current state in upgrade workflow (clicked, modal, success, locked)"
     )
+    interaction_type: Optional[str] = Field(None, description="How upgrade was presented: 'auto' for inline, 'click' for button-triggered")
     experiment_variant: Optional[str] = Field(None, description="A/B test variant (1 or 2)")
     product_id: Optional[str] = Field(None, description="Purchased product ID")
     amount_cents: Optional[int] = Field(None, description="Purchase amount in cents")
@@ -670,6 +671,7 @@ async def get_dashboard_data(
                 "gated_outcome": validation.get("gated_outcome"),
                 # Upgrade workflow state
                 "upgrade_state": validation.get("upgrade_state"),
+                "interaction_type": validation.get("interaction_type"),
                 "experiment_variant": validation.get("experiment_variant"),
                 "product_id": validation.get("product_id"),
                 "amount_cents": validation.get("amount_cents"),

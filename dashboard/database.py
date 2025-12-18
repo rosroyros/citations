@@ -114,7 +114,8 @@ class DatabaseManager:
             'product_id': 'TEXT',
             'amount_cents': 'INTEGER',
             'currency': 'TEXT',
-            'order_id': 'TEXT'
+            'order_id': 'TEXT',
+            'interaction_type': 'TEXT'
         }
 
         for col_name, col_def in new_columns.items():
@@ -232,7 +233,8 @@ class DatabaseManager:
                 'user_type', 'error_message', 'paid_user_id', 'free_user_id',
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
                 'provider', 'is_test_job',
-                'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id'
+                'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
+                'interaction_type'
             ]
             
             for field in simple_fields:
@@ -320,7 +322,8 @@ class DatabaseManager:
                             'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
                             'results_gated', 'results_revealed_at', 'gated_outcome',
                             'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job',
-                            'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id']:
+                            'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
+                            'interaction_type']:
                     values.append(validation_data.get(col))
     
             # Build the INSERT statement dynamically

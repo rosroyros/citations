@@ -81,17 +81,33 @@ const PRODUCTS = [
  *   experimentVariant="2"
  * />
  */
-export function PricingTablePasses({ onSelectProduct, experimentVariant }) {
+export function PricingTablePasses({ onSelectProduct, experimentVariant, onCheckout }) {
   const [loadingProductId, setLoadingProductId] = useState(null)
   const [error, setError] = useState(null)
 
   // Log pricing table shown event
   useEffect(() => {
-    // TODO: Implement analytics logging
     console.log('pricing_table_shown', { variant: experimentVariant || '2' })
   }, [experimentVariant])
 
   const handleCheckout = async (productId) => {
+    // If parent provides onCheckout callback, use it (preserves job_id from parent scope)
+    // This is critical for inline variants where job_id is passed from PartialResults
+    if (onCheckout) {
+      setLoadingProductId(productId)
+      setError(null)
+      try {
+        await onCheckout(productId)
+      } catch (err) {
+        setError('Failed to open checkout. Please try again.')
+        console.error('Checkout error:', err)
+      } finally {
+        setLoadingProductId(null)
+      }
+      return
+    }
+
+    // Fallback: internal checkout logic for standalone/modal usage
     setLoadingProductId(productId)
     setError(null)
 
