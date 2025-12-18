@@ -33,14 +33,17 @@ while true; do
         # Only trigger if this is new (not same content as last check)
         if [ "$CURRENT_CONTENT" != "$LAST_CONTENT" ]; then
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] Detected END_SESSION_CLEAR_REQUESTED marker!"
+            echo "Waiting 2 seconds before clearing..."
+            sleep 2
+
             echo "Sending /clear command to pane ${PANE_NUMBER}..."
 
             # Send /clear command in two steps (required for proper execution)
             tmux send-keys -t "${PANE_NUMBER}" "/clear" && tmux send-keys -t "${PANE_NUMBER}" C-m
 
             echo "Clear command sent successfully"
-            echo "Waiting 3 seconds for session to clear..."
-            sleep 3
+            echo "Waiting 2 seconds for session to clear..."
+            sleep 2
 
             # Read epic ID
             EPIC_FILE=".claude/auto_workflow_epic.txt"

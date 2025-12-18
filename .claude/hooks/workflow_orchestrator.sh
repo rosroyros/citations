@@ -231,13 +231,15 @@ CURRENT STAGE: COMMIT_CLOSE
 WORKFLOW STAGES: CODING → REQUIREMENTS_REVIEW → TESTING → ORACLE_REVIEW → COMMIT_CLOSE → NEXT_TASK
 
 Next step: Finalize and close the issue.
-- Ensure all changes are committed and pushed
-- Deploy if required: `./deploy_prod.sh`
+- Ensure all changes are committed
 - Close issue with summary: `bd close <id> --reason "[Summary of what was done]"`
-- Sync: `bd sync`
 
 When complete, emit:
 ::: WORKFLOW_STAGE: ISSUE_CLOSED :::
+EOF
+            ;;
+        "ISSUE_CLOSED")
+            cat << 'EOF'
 ::: END_SESSION_CLEAR_REQUESTED :::
 EOF
             ;;
@@ -252,8 +254,7 @@ Which stage are you at? Respond with ONE of:
 - REQUIREMENTS_REVIEWED (verified requirements)
 - TESTS_PASSING (all tests pass)
 - ORACLE_APPROVED (code review approved)
-- ISSUE_CLOSED (issue closed and deployed)
-- SESSION_CLEARED (ready for next task)
+- ISSUE_CLOSED (issue closed)
 
 Then emit: ::: WORKFLOW_STAGE: <YOUR_STAGE> :::
 EOF
