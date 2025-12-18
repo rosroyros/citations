@@ -62,3 +62,17 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
 }
+
+.inline-pricing-container {
+  margin-top: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;  /* Allow horizontal scroll on very small screens */
+}
+
+/* Ensure pricing tables stack on mobile */
+@media (max-width: 640px) {
+  .inline-pricing-container {
+    padding: 0 0.5rem;
+  }
+}
