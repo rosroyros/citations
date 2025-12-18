@@ -61,8 +61,9 @@ while true; do
                 echo "No epic file found, skipping bootstrap"
             fi
 
-            echo "Waiting 5 seconds before resuming monitoring..."
-            sleep 5
+            echo "Waiting 15 seconds before resuming monitoring..."
+            echo "(This prevents re-detecting the same marker)"
+            sleep 15
 
             # Update last seen content
             LAST_CONTENT="$CURRENT_CONTENT"
