@@ -1543,9 +1543,10 @@
         };
 
         function getVariantDisplay(variantId) {
-            if (!variantId) return '-';
-            const name = EXPERIMENT_VARIANTS[variantId];
-            return name ? `${variantId} (${name})` : variantId;
+            if (variantId === null || variantId === undefined) return '-';
+            const idStr = String(variantId);
+            const name = EXPERIMENT_VARIANTS[idStr];
+            return name ? `${idStr} (${name})` : idStr;
         }
 
         function getProductDisplay(productId) {
