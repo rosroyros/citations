@@ -10,6 +10,39 @@ The current `Success.jsx` (655 lines) duplicates nearly all of `App.jsx`:
 
 This creates **maintenance burden** when either file changes, and risks divergence.
 
+---
+
+## External Review Feedback (Incorporated)
+
+External review approved the approach. Three enhancements accepted:
+
+### 1. Robust Polling Logic ✅
+**Enhancement:** Check `credits > 0 OR active_pass` instead of just credits.
+**Why:** Handles both credits and pass purchases correctly.
+
+### 2. Fallback Redirect ✅  
+**Enhancement:** On timeout/error, auto-redirect after brief delay with `?purchased=pending`.
+**Why:** "Fail open" (redirect to homepage) is better than "fail closed" (stuck on spinner).
+
+### 3. Banner Specificity ✅
+**Enhancement:** Extract product details from `/api/credits` response (not just URL params).
+**Why:** More accurate banner text (e.g., "7-Day Pass" vs generic "Pass").
+
+### Implementation Corrections Needed
+
+> [!WARNING]
+> The reviewer's code samples need adjustments for our codebase:
+
+| Issue | Reviewer's Code | Correct Code |
+|-------|-----------------|--------------|
+| API auth | `{ headers: { 'Authorization': token } }` | `?token=${token}` (query param) |
+| Credits field | `data.total_credits` | `data.credits` |
+| Pass name | `data.active_pass?.name` | `data.active_pass?.pass_product_name` |
+| Analytics import | `'../analytics'` | `'../utils/analytics'` |
+| CSS approach | Tailwind classes | Vanilla CSS (`.success-page`, etc.) |
+
+---
+
 ## Solution
 
 Replace the duplicated page with a **minimal "handoff" Success page** (~100 lines) that:
@@ -142,6 +175,119 @@ Polar Checkout (or mock)
 | `PricingTableCredits.tsx` | Reads `pending_upgrade_job_id` | None |
 | `UpgradeModal.jsx` | Reads `pending_upgrade_job_id` | None |
 | `creditStorage.js` | `saveToken()`, `clearFreeUserId()` | None - still called |
+
+### Corrected Success.jsx Reference Implementation
+
+Based on reviewer feedback with corrections for our codebase:
+
+```jsx
+import { useState, useEffect, useRef } from 'react';
+import { saveToken, clearFreeUserId } from '../utils/creditStorage';
+import { trackEvent } from '../utils/analytics';
+import '../App.css';
+
+const Success = () => {
+  const [status, setStatus] = useState('activating'); // activating | success | error
+  const [errorMessage, setErrorMessage] = useState('');
+  const attempts = useRef(0);
+  const maxAttempts = 15; // 30 seconds max (15 × 2s)
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const jobId = params.get('job_id');
+
+    if (!token) {
+      setStatus('error');
+      setErrorMessage('Invalid purchase link. Please contact support@citationformatchecker.com');
+      return;
+    }
+
+    // 1. Secure the session immediately
+    saveToken(token);
+    clearFreeUserId();
+
+    // 2. Notify backend of upgrade success (non-blocking)
+    fetch('/api/upgrade-event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-Token': token },
+      body: JSON.stringify({ event: 'success', job_id: jobId })
+    }).catch(console.error);
+
+    // 3. Poll for credit activation
+    const checkCredits = async () => {
+      try {
+        // NOTE: API uses query param, not Authorization header
+        const res = await fetch(`/api/credits?token=${token}`);
+
+        if (res.ok) {
+          const data = await res.json();
+          // NOTE: API returns 'credits' not 'total_credits'
+          const hasCredits = data.credits > 0;
+          const hasPass = !!data.active_pass;
+
+          if (hasCredits || hasPass) {
+            setStatus('success');
+
+            // Track analytics with correct field names
+            trackEvent('purchase', {
+              type: hasPass ? 'pass' : 'credits',
+              amount: data.credits,
+              name: data.active_pass?.pass_product_name
+            });
+
+            // Brief delay to show checkmark, then redirect
+            setTimeout(() => {
+              const redirectParams = new URLSearchParams({
+                purchased: 'true',
+                type: hasPass ? 'pass' : 'credits',
+                name: data.active_pass?.pass_product_name || '',
+                amount: String(data.credits || 0)
+              });
+              window.location.replace(`/?${redirectParams.toString()}`);
+            }, 1000);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error('Polling error:', err);
+      }
+
+      // Retry logic
+      attempts.current += 1;
+      if (attempts.current < maxAttempts) {
+        setTimeout(checkCredits, 2000);
+      } else {
+        // Timeout: Redirect with pending flag
+        setStatus('error');
+        setTimeout(() => {
+          window.location.replace('/?purchased=pending');
+        }, 2000);
+      }
+    };
+
+    checkCredits();
+  }, []);
+
+  return (
+    <div className="success-page">
+      {status === 'activating' && (
+        <div className="activating-spinner">Activating your purchase...</div>
+      )}
+      {status === 'success' && (
+        <div className="success-message">✅ Success! Redirecting...</div>
+      )}
+      {status === 'error' && (
+        <div className="error-message">
+          {errorMessage || "Taking longer than expected. Redirecting..."}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Success;
+```
 
 ---
 
