@@ -222,21 +222,98 @@ These tests reference `/success` and need updates:
 
 ---
 
-## Simplification Opportunities Identified
+## Dead Code Being Removed (Detailed Breakdown)
 
-### 1. Remove Duplicate Editor (HIGH IMPACT)
-Current Success.jsx includes full TipTap setup (35-58 lines) that's never used on success flow. This is dead code.
+The current Success.jsx is 655 lines. Here's exactly what we're removing:
 
-### 2. Remove Duplicate Validation Flow (HIGH IMPACT)
-Lines 60-219 (`pollForResults`, `handleSubmit`) duplicate App.jsx exactly. Users don't validate citations on success page - they just activated credits.
+| Lines | Code | Why It's Dead |
+|-------|------|---------------|
+| 1-14 | Imports (TipTap, PartialResults, UpgradeModal, etc.) | Won't need these components |
+| 35-58 | TipTap editor setup | Users never type citations after payment |
+| 60-143 | `pollForResults()` | Validation polling - never called on success page |
+| 145-219 | `handleSubmit()` | Form submission - never used |
+| 27-31 | State for loading, results, error, hasPlaceholder | Validation state - not needed |
+| 308-318 | Scroll listener effect for banner | Moving to homepage |
+| 351-412 | Input section (form, editor, UploadArea) | Duplicate of homepage |
+| 420-501 | Results display (ValidationTable, PartialResults) | Never shown on success page |
+| 503-538 | "Benefits" section | Marketing copy duplicate |
+| 540-562 | "Why We're Different" section | Marketing copy duplicate |
+| 564-635 | FAQ section | Marketing copy duplicate |
+| 637-650 | Footer + UpgradeModal | Already purchased |
 
-### 3. Remove FAQ/Benefits Sections (HIGH IMPACT)  
-Lines 503-635 duplicate homepage marketing content. No SEO benefit since success pages aren't indexed.
+**What remains (~100 lines):**
+- Lines 22-26: Core state (status, credits, activePass, showBanner)
+- Lines 220-306: Token handling, upgrade event logging, credits polling
+- Lines 320-350: Status rendering (activating, error, success states)
+- New: Redirect logic with query params
 
-### 4. Simplify Polling Config
-Current: 90 attempts × 2s = 3 minutes max
-Actual webhook latency: typically < 10 seconds
-Recommendation: Keep 30s timeout (15 × 2s) which is more than enough
+---
+
+## E2E Testing Strategy
+
+> [!IMPORTANT]
+> **No Polar sandbox or ngrok required!** The existing `MOCK_LLM=true` mode handles everything.
+
+### How Mock Mode Works
+
+When backend runs with `MOCK_LLM=true`:
+
+```
+1. Frontend calls POST /api/create-checkout
+   └── Backend returns mock URL: /success?token=XXX&mock=true&job_id=YYY
+       (NOT a real Polar URL)
+
+2. Frontend redirects to /success page immediately
+
+3. Backend schedules background task: send_mock_webhook_later()
+   └── Waits 1 second (simulates webhook delay)
+   └── Calls handle_checkout_updated() directly with mock payload
+   └── Credits get added to database
+
+4. Success page polls /api/credits
+   └── Credits appear within 1-2 seconds (mock webhook already fired)
+```
+
+### Redirect URL Formats
+
+**Mock mode (E2E tests):**
+```
+/success?token=abc123&mock=true&job_id=xyz789
+```
+
+**Production (real Polar):**
+```
+/success?token=abc123&job_id=xyz789
+```
+
+Both formats are handled identically by Success.jsx - the `mock=true` param is only used for logging/debugging.
+
+### Mock Webhook Details
+
+From `backend/app.py` lines 2221-2276:
+
+```python
+async def send_mock_webhook_later(product_id, checkout_id, order_id, token):
+    await asyncio.sleep(1)  # 1 second delay
+    # Creates MockWebhookData with product info
+    # Calls handle_checkout_updated(mock_webhook) directly
+```
+
+This means E2E tests get credits activated **within 1-2 seconds** of landing on success page.
+
+### Updated E2E Test Pattern
+
+```javascript
+// BEFORE (current tests):
+await page.waitForURL('**/success?**');
+await expect(page.locator('text=Payment Successful!')).toBeVisible();
+
+// AFTER (new behavior):
+await page.waitForURL('**/success?**');           // Brief stop on success page
+await page.waitForURL('**/?purchased=**');        // Redirect to homepage
+await expect(page.locator('.success-banner')).toBeVisible();
+await expect(page.locator('.success-banner')).toContainText('Payment successful');
+```
 
 ---
 
