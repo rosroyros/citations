@@ -1086,17 +1086,20 @@ function AppContent() {
 function App() {
   const pathname = window.location.pathname
 
-  if (pathname === '/debug-html') {
-    return <DebugHTMLTest />
-  }
-  if (pathname === '/test-pricing-table') {
-    return <TestPricingTable />
-  }
-  if (pathname === '/test-pricing-table-passes') {
-    return <PricingTablePassesDemo />
-  }
-  if (pathname === '/test-pricing-comparison') {
-    return <PricingTableComparison />
+  // Test/debug routes - only available in development mode
+  if (import.meta.env.DEV) {
+    if (pathname === '/debug-html') {
+      return <DebugHTMLTest />
+    }
+    if (pathname === '/test-pricing-table') {
+      return <TestPricingTable />
+    }
+    if (pathname === '/test-pricing-table-passes') {
+      return <PricingTablePassesDemo />
+    }
+    if (pathname === '/test-pricing-comparison') {
+      return <PricingTableComparison />
+    }
   }
   if (pathname === '/dashboard') {
     return (
