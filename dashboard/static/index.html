@@ -1527,6 +1527,32 @@
         let sortDir = 'DESC';
         let totalPages = 1;
 
+        // Configuration mappings
+        const EXPERIMENT_VARIANTS = {
+            '1': 'Credits',
+            '2': 'Passes'
+        };
+
+        const PRODUCT_CONFIG = {
+            '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': '100 Credits ($1.99)',
+            '2a3c8913-2e82-4f12-9eb7-767e4bc98089': '500 Credits ($4.99)',
+            'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '2000 Credits ($9.99)',
+            '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': '1-Day Pass ($1.99)',
+            '5b311653-7127-41b5-aed6-496fb713149c': '7-Day Pass ($4.99)',
+            'e0bec30d-5576-481e-86f3-d704529651ae': '30-Day Pass ($9.99)'
+        };
+
+        function getVariantDisplay(variantId) {
+            if (!variantId) return '-';
+            const name = EXPERIMENT_VARIANTS[variantId];
+            return name ? `${variantId} (${name})` : variantId;
+        }
+
+        function getProductDisplay(productId) {
+            if (!productId) return '-';
+            return PRODUCT_CONFIG[productId] || productId;
+        }
+
         async function loadData() {
             const dateRange = document.getElementById('dateRange').value;
             const status = document.getElementById('status').value;
@@ -1751,8 +1777,8 @@
                         <td>${mapProviderToDisplay(validation.provider)}</td>
                         <td>${validation.user_type}</td>
                         <td>${userIdDisplay}</td>
-                        <td>${validation.experiment_variant || '-'}</td>
-                        <td>${validation.product_id || '-'}</td>
+                        <td>${getVariantDisplay(validation.experiment_variant)}</td>
+                        <td>${getProductDisplay(validation.product_id)}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
                         <td><span class="${revealedClass}">${revealedStatus}</span></td>
                         <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
@@ -1976,11 +2002,11 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Experiment Variant:</span>
-                            <span class="detail-value">${validation.experiment_variant || 'N/A'}</span>
+                            <span class="detail-value">${getVariantDisplay(validation.experiment_variant)}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Product ID:</span>
-                            <span class="detail-value">${validation.product_id || 'N/A'}</span>
+                            <span class="detail-value">${getProductDisplay(validation.product_id)}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Status:</span>
