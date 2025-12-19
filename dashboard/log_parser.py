@@ -698,7 +698,7 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 event_to_state = {
                     'pricing_table_shown': 'shown',
                     'pricing_viewed': 'shown',  # Synonym for inline variants
-                    'upgrade_presented': 'shown',  # When upgrade banner is first shown
+                    'upgrade_presented': 'locked',  # When upgrade banner is first shown (locked state)
                     'clicked_upgrade': 'clicked',
                     'modal_proceed': 'modal',
                     'checkout_started': 'checkout',
