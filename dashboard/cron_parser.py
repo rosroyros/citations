@@ -9,6 +9,7 @@ from typing import List, Dict
 
 from database import DatabaseManager
 from log_parser import parse_logs
+from nginx_log_parser import parse_nginx_logs
 
 logger = logging.getLogger(__name__)
 
@@ -66,6 +67,31 @@ class CronLogParser:
             now = datetime.now()
             db.set_metadata("last_parsed_timestamp", now.strftime("%Y-%m-%d %H:%M:%S"))
 
+    def _update_nginx_timestamp_metadata(self, db: DatabaseManager, parsed_visits: List[Dict]):
+        """
+        Update last Nginx parsed timestamp
+
+        Args:
+            db: Database manager instance
+            parsed_visits: List of parsed visits
+        """
+        if parsed_visits:
+            # Find the most recent timestamp among parsed visits
+            latest_timestamp = None
+            for visit in parsed_visits:
+                visit_time = datetime.strptime(visit["timestamp"], "%Y-%m-%d %H:%M:%S")
+                if latest_timestamp is None or visit_time > latest_timestamp:
+                    latest_timestamp = visit_time
+
+            if latest_timestamp:
+                db.set_metadata("last_nginx_parsed_timestamp", latest_timestamp.strftime("%Y-%m-%d %H:%M:%S"))
+            else:
+                now = datetime.now()
+                db.set_metadata("last_nginx_parsed_timestamp", now.strftime("%Y-%m-%d %H:%M:%S"))
+        else:
+            now = datetime.now()
+            db.set_metadata("last_nginx_parsed_timestamp", now.strftime("%Y-%m-%d %H:%M:%S"))
+
     def _insert_parsed_jobs(self, db: DatabaseManager, parsed_jobs: List[Dict]):
         """
         Insert parsed jobs into database
@@ -86,6 +112,20 @@ class CronLogParser:
                 error_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 error_msg = f"Job insertion failed: {str(e)}"
                 db.insert_parser_error(error_time, error_msg, f"Job ID: {job.get('job_id', 'unknown')}")
+
+    def _insert_parsed_visits(self, db: DatabaseManager, parsed_visits: List[Dict]):
+        """
+        Insert parsed visits into database
+
+        Args:
+            db: Database manager instance
+            parsed_visits: List of parsed visits
+        """
+        for visit in parsed_visits:
+            try:
+                db.insert_site_visit(visit)
+            except Exception as e:
+                logger.warning(f"Failed to insert visit: {str(e)}")
 
     def parse_incremental(self, log_file_path: str):
         """
@@ -149,6 +189,42 @@ class CronLogParser:
                     db.set_metadata("last_parsed_timestamp", last_timestamp.strftime("%Y-%m-%d %H:%M:%S"))
                 else:
                     db.set_metadata("last_parsed_timestamp", error_time)
+
+    def parse_nginx_incremental(self, nginx_log_path: str):
+        """
+        Parse Nginx logs incrementally
+
+        Args:
+            nginx_log_path: Path to Nginx access log
+        """
+        with DatabaseManager(self.db_path) as db:
+            last_timestamp_str = db.get_metadata("last_nginx_parsed_timestamp")
+            last_timestamp = None
+
+            if last_timestamp_str:
+                try:
+                    last_timestamp = datetime.strptime(last_timestamp_str, "%Y-%m-%d %H:%M:%S")
+                except ValueError:
+                    pass
+            
+            if not last_timestamp:
+                # Initial load: last 3 days
+                last_timestamp = datetime.now() - timedelta(days=3)
+
+            try:
+                logger.info(f"Parsing Nginx logs from {last_timestamp}")
+                visits = parse_nginx_logs(nginx_log_path, start_timestamp=last_timestamp)
+                
+                if visits:
+                    logger.info(f"Found {len(visits)} new site visits")
+                    self._insert_parsed_visits(db, visits)
+                    self._update_nginx_timestamp_metadata(db, visits)
+                else:
+                    logger.info("No new visits found")
+                    db.set_metadata("last_nginx_parsed_timestamp", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+
+            except Exception as e:
+                logger.error(f"Error parsing Nginx logs: {e}")
 
     def parse_initial_load(self, log_file_path: str):
         """

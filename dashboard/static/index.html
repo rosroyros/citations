@@ -1474,6 +1474,30 @@
                 </div>
             </div>
             <div class="charts-row"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">👥 Unique Free Users (Daily)</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="uniqueFreeUsersChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🌐 Active Users (Validations)</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="totalUniqueUsersChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="charts-row"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl);">
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📈 Site Visitors (Nginx)</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="siteVisitorsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="charts-row"
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: var(--space-xl);">
                 <div class="glass-card">
                     <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🤖 Jobs per Provider</h3>
@@ -2378,6 +2402,9 @@
         let validationsChart = null;
         let citationsChart = null;
         let providerChart = null;
+        let uniqueFreeUsersChart = null;
+        let totalUniqueUsersChart = null;
+        let siteVisitorsChart = null;
 
         // Initialize chart after data loads
         async function initializeChart() {
@@ -2390,10 +2417,213 @@
 
                 createValidationsChart(data.daily);
                 createCitationsChart(data.daily);
+                createUniqueFreeUsersChart(data.daily);
+                createTotalUniqueUsersChart(data.daily);
+                createSiteVisitorsChart(data.daily);
                 createProviderChart(data.providers);
             } catch (error) {
                 console.error('Error loading chart data:', error);
             }
+        }
+
+        function createUniqueFreeUsersChart(dailyData) {
+            const ctx = document.getElementById('uniqueFreeUsersChart').getContext('2d');
+
+            if (uniqueFreeUsersChart) {
+                uniqueFreeUsersChart.destroy();
+            }
+
+            uniqueFreeUsersChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Unique Free Users',
+                            data: dailyData.map(d => d.unique_free_users),
+                            backgroundColor: 'rgba(59, 130, 246, 0.7)',
+                            borderColor: '#3b82f6',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Users: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTotalUniqueUsersChart(dailyData) {
+            const ctx = document.getElementById('totalUniqueUsersChart').getContext('2d');
+
+            if (totalUniqueUsersChart) {
+                totalUniqueUsersChart.destroy();
+            }
+
+            totalUniqueUsersChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Active Users',
+                            data: dailyData.map(d => d.total_unique_users),
+                            backgroundColor: 'rgba(147, 51, 234, 0.7)',
+                            borderColor: '#9333ea',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Users: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createSiteVisitorsChart(dailyData) {
+            const ctx = document.getElementById('siteVisitorsChart').getContext('2d');
+
+            if (siteVisitorsChart) {
+                siteVisitorsChart.destroy();
+            }
+
+            siteVisitorsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Site Visitors',
+                            data: dailyData.map(d => d.site_visitors || 0),
+                            borderColor: '#10b981', // Emerald green
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return `Visitors: ${context.parsed.y}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                stepSize: 1,
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function createValidationsChart(dailyData) {

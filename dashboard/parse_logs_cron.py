@@ -34,10 +34,12 @@ logger = logging.getLogger(__name__)
 # Production paths (default)
 DEFAULT_LOG_PATH = "/opt/citations/logs/app.log"
 DEFAULT_DB_PATH = "/opt/citations/dashboard/data/validations.db"
+DEFAULT_NGINX_LOG_PATH = "/var/log/nginx/access.log"
 
 # Allow overrides via environment variables
 PRODUCTION_LOG_PATH = os.getenv("CITATION_LOG_PATH", DEFAULT_LOG_PATH)
 PRODUCTION_DB_PATH = os.getenv("CITATION_DB_PATH", DEFAULT_DB_PATH)
+PRODUCTION_NGINX_LOG_PATH = os.getenv("NGINX_LOG_PATH", DEFAULT_NGINX_LOG_PATH)
 
 def main():
     """Main cron job function"""
@@ -52,15 +54,25 @@ def main():
 
         if not log_path.exists():
             logger.error(f"Log file not found: {PRODUCTION_LOG_PATH}")
-            sys.exit(1)
+            # Don't exit, try parsing nginx logs even if app log is missing
 
         if not db_path.exists():
             logger.error(f"Database not found: {PRODUCTION_DB_PATH}")
             sys.exit(1)
 
-        # Initialize parser and run incremental parsing
+        # Initialize parser
         parser = CronLogParser(PRODUCTION_DB_PATH)
-        parser.parse_incremental(PRODUCTION_LOG_PATH)
+        
+        # Parse application logs
+        if log_path.exists():
+            parser.parse_incremental(PRODUCTION_LOG_PATH)
+            
+        # Parse Nginx logs
+        if os.path.exists(PRODUCTION_NGINX_LOG_PATH):
+            logger.info(f"Parsing Nginx logs: {PRODUCTION_NGINX_LOG_PATH}")
+            parser.parse_nginx_incremental(PRODUCTION_NGINX_LOG_PATH)
+        else:
+            logger.warning(f"Nginx log file not found: {PRODUCTION_NGINX_LOG_PATH}")
 
         duration = time.time() - start_time
         logger.info(f"Incremental log parsing completed successfully in {duration:.2f} seconds")

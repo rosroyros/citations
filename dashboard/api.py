@@ -817,7 +817,9 @@ async def get_chart_data(
                 COUNT(CASE WHEN validation_status = 'pending' THEN 1 END) as pending,
                 SUM(CASE WHEN validation_status = 'completed' THEN citation_count ELSE 0 END) as successful_citations,
                 SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
-                SUM(citation_count) as total_citations
+                SUM(citation_count) as total_citations,
+                COUNT(DISTINCT CASE WHEN user_type = 'free' THEN free_user_id END) as unique_free_users,
+                COUNT(DISTINCT COALESCE(paid_user_id, free_user_id)) as total_unique_users
             FROM validations
             WHERE 1=1
         """
@@ -848,7 +850,9 @@ async def get_chart_data(
                 "pending": row[4],
                 "successful_citations": row[5] or 0,
                 "failed_citations": row[6] or 0,
-                "total_citations": row[7] or 0
+                "total_citations": row[7] or 0,
+                "unique_free_users": row[8] or 0,
+                "total_unique_users": row[9] or 0
             })
 
         # Also get provider distribution
@@ -876,6 +880,15 @@ async def get_chart_data(
         for row in provider_rows:
             provider = row[0] or 'unknown'
             provider_data[provider] = row[1]
+
+        # Get site visits data
+        visits_data = database.get_daily_site_visitors(from_date, to_date)
+        
+        # Merge visits into daily_data
+        # Note: daily_data is a list of dicts, visits_data is a dict {date: count}
+        for day in daily_data:
+            day_date = day["date"]
+            day["site_visitors"] = visits_data.get(day_date, 0)
 
         return {"daily": daily_data, "providers": provider_data}
 

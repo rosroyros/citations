@@ -89,9 +89,25 @@ class DatabaseManager:
             )
         """)
 
+        # Create site_visits table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS site_visits (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                timestamp TEXT NOT NULL,
+                ip_address TEXT,
+                path TEXT,
+                status_code INTEGER,
+                referer TEXT,
+                user_agent TEXT,
+                visitor_id TEXT
+            )
+        """)
+
         # Create indexes for performance
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_created_at ON validations(created_at)")
         cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON validations(user_type)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_site_visits_timestamp ON site_visits(timestamp)")
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_site_visits_visitor_id ON site_visits(visitor_id)")
 
         # Create user ID indexes only if columns exist (for backward compatibility)
         cursor.execute("PRAGMA table_info(validations)")
@@ -804,6 +820,29 @@ class DatabaseManager:
 
         self.conn.commit()
 
+    def insert_site_visit(self, visit_data: Dict[str, Any]):
+        """
+        Insert a site visit record
+
+        Args:
+            visit_data: Dictionary with visit fields
+        """
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            INSERT INTO site_visits (
+                timestamp, ip_address, path, status_code, referer, user_agent, visitor_id
+            ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            visit_data['timestamp'],
+            visit_data.get('ip_address'),
+            visit_data.get('path'),
+            visit_data.get('status_code'),
+            visit_data.get('referer'),
+            visit_data.get('user_agent'),
+            visit_data.get('visitor_id')
+        ))
+        self.conn.commit()
+
     def get_parser_errors(self, limit: int = 50) -> List[Dict[str, Any]]:
         """
         Get recent parser errors
@@ -893,6 +932,46 @@ class DatabaseManager:
             "avg_duration_seconds": round(result[7] or 0, 1),
             "avg_citations_per_validation": round(result[8] or 0, 1)
         }
+
+    def get_daily_site_visitors(
+        self,
+        from_date: Optional[str] = None,
+        to_date: Optional[str] = None
+    ) -> Dict[str, int]:
+        """
+        Get daily unique site visitors count
+
+        Args:
+            from_date: Filter start date
+            to_date: Filter end date
+
+        Returns:
+            Dictionary mapping date string to visitor count
+        """
+        query = """
+            SELECT
+                DATE(timestamp) as date,
+                COUNT(DISTINCT visitor_id) as visitors
+            FROM site_visits
+            WHERE 1=1
+        """
+        params = []
+
+        if from_date:
+            query += " AND timestamp >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND timestamp <= ?"
+            params.append(to_date)
+
+        query += " GROUP BY DATE(timestamp) ORDER BY date ASC"
+
+        cursor = self.conn.cursor()
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+
+        return {row[0]: row[1] for row in rows}
 
     def delete_old_records(self, days: int = 90) -> int:
         """
