@@ -3,6 +3,7 @@ import { getExperimentVariant, getPricingType } from '../utils/experimentVariant
 import { formatDailyLimitMessage } from '../utils/passStatus';
 import { trackEvent } from '../utils/analytics';
 import { initiateCheckout } from '../utils/checkoutFlow';
+import { useCredits } from '../contexts/CreditContext';
 import { PricingTableCredits } from './PricingTableCredits';
 import { PricingTablePasses } from './PricingTablePasses';
 import './UpgradeModal.css';
@@ -32,9 +33,16 @@ export const UpgradeModal = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [variant, setVariant] = useState(null);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const { refreshCredits } = useCredits();
 
   useEffect(() => {
     if (isOpen) {
+      // Reset success state when modal opens/reopens
+      setCheckoutSuccess(false);
+      setError(null);
+      setLoading(false);
+
       // Determine variant when modal opens
       const variantId = getExperimentVariant();
       setVariant(variantId);
@@ -69,9 +77,15 @@ export const UpgradeModal = ({
         setError(error.message);
         setLoading(false);
       },
-      onSuccess: () => {
-        // Optional: Add any pre-redirect logic here
-        console.log('Checkout session created, redirecting...');
+      onSuccess: async () => {
+        // Refresh credits after successful purchase
+        await refreshCredits();
+        setLoading(false);
+        setCheckoutSuccess(true);
+      },
+      onClose: () => {
+        // User closed/abandoned checkout - reset loading state
+        setLoading(false);
       }
     });
   };
@@ -82,6 +96,26 @@ export const UpgradeModal = ({
 
   // Render content based on limit type
   const renderContent = () => {
+    // Success state after checkout completes
+    if (checkoutSuccess) {
+      return (
+        <div className="upgrade-modal-content-centered" data-testid="checkout-success">
+          <div className="upgrade-modal-success-icon">✅</div>
+          <h2 className="upgrade-modal-title">Payment Successful!</h2>
+          <p className="upgrade-modal-message">
+            Your purchase is now active. You can continue validating citations.
+          </p>
+          <button
+            className="upgrade-modal-continue-button"
+            onClick={onClose}
+            data-testid="continue-button"
+          >
+            Continue
+          </button>
+        </div>
+      );
+    }
+
     // Oracle Feedback #2: Daily limit insufficient - show helpful message, no pricing
     if (limitType === 'daily_limit_insufficient') {
       return (
@@ -131,7 +165,7 @@ export const UpgradeModal = ({
             Your {passInfo.pass_type} pass has expired. Renew to continue validating.
           </p>
           <PricingTablePasses
-            onSelectProduct={handleSelectProduct}
+            onCheckout={(productId) => handleSelectProduct(productId, '2')}
             experimentVariant="2"  // Always show passes if they had a pass
           />
         </div>
@@ -156,12 +190,12 @@ export const UpgradeModal = ({
         <div className="pricing-table" data-variant={getPricingType(variant)}>
           {getPricingType(variant) === 'credits' ? (
             <PricingTableCredits
-              onSelectProduct={handleSelectProduct}
+              onCheckout={(productId) => handleSelectProduct(productId, variant)}
               experimentVariant={variant}
             />
           ) : (
             <PricingTablePasses
-              onSelectProduct={handleSelectProduct}
+              onCheckout={(productId) => handleSelectProduct(productId, variant)}
               experimentVariant={variant}
             />
           )}
