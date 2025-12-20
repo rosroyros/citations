@@ -1,0 +1,46 @@
+Context: Before launching embedded checkout to production, there are several verification and external coordination tasks.
+
+Pre-Launch Checklist:
+
+1. Email Polar (hello@polar.sh) to enable Apple Pay/Google Pay for our domain
+   - Send: Request to add citationformatchecker.com to wallet payments allowlist
+   - Why: Wallet payments (Apple Pay, Google Pay) require domain allowlisting
+   - When: Do this early, may take 1-2 business days to process
+
+2. Deploy to staging
+   - Deploy all changes to staging environment
+   - Verify build succeeds
+
+3. Manual integration test with Polar sandbox + ngrok
+   - Start ngrok: ngrok http 5173
+   - Set FRONTEND_URL to ngrok URL in backend
+   - Test full checkout flow with sandbox card
+   - Verify: iframe opens, success state shows, credits refresh
+   - Test BOTH modal and inline checkout paths
+
+4. Deploy to production
+   - Deploy via normal deploy_prod.sh workflow
+   - Run E2E tests
+
+5. Monitor checkout_error events for first week
+   - Watch dashboard for checkout_error analytics events
+   - If error rate > 1%, investigate whether fallback is needed
+   - This validates our "no fallback" decision
+
+ROLLBACK PLAN (if issues found):
+1. Frontend: Revert checkoutFlow.js to use window.location.href redirect
+2. Frontend: Revert component changes (success state removal)
+3. Frontend: Restore Success.jsx and route (from git)
+4. Backend: Remove embed_origin, restore success_url (backward compatible)
+5. Deploy: Deploy both frontend and backend reverts
+
+Time estimate for rollback: ~30 minutes if pre-prepared.
+Recommendation: Keep a "rollback" git branch ready with reverted changes.
+
+Dependencies:
+- Blocked by: All component updates, cleanup, and tests complete
+
+Verification:
+- Production flow works end-to-end for both modal and inline paths
+- Analytics events firing correctly (especially checkout_error)
+- No unusual error rates in first 24 hours

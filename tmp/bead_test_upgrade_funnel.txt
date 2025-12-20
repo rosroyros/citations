@@ -1,0 +1,69 @@
+File: frontend/frontend/tests/e2e/upgrade-funnel.spec.cjs
+Lines: 253
+Tests: 6
+
+CRITICAL: This file is HEAVILY dependent on /success page redirects!
+
+Test 1: 'track complete upgrade funnel from partial results to success' (lines 65-122)
+   - Line 106: await page.goto('/success?token=test-token-123')  <- NAVIGATES TO /success
+   - Line 109-110: Expects 'Payment Successful!' on /success page
+   - MAJOR CHANGES NEEDED
+
+Test 2: 'handle upgrade funnel with modal flow' (lines 124-143)
+   - Has modal but no checkout completion test
+   - MINOR CHANGES
+
+Test 3: 'persist job_id across page reloads' (lines 145-164)
+   - No checkout, just localStorage
+   - NO CHANGES NEEDED
+
+Test 4: 'handle upgrade funnel errors gracefully' (lines 166-191)
+   - Tests API error handling, no checkout
+   - NO CHANGES NEEDED
+
+Test 5: 'track upgrade funnel in dashboard' (lines 193-224)
+   - Tests dashboard display, no checkout
+   - NO CHANGES NEEDED
+
+Test 6: 'handle multiple upgrade attempts correctly' (lines 226-252)
+   - Line 244-245: await page.goto('/success?token=test-token-123') <- NAVIGATES TO /success
+   - Line 248-251: Verifies localStorage cleared after /success
+   - MAJOR CHANGES NEEDED
+
+CHANGES REQUIRED:
+
+TEST 1 (lines 65-122):
+1. Remove line 106: page.goto('/success')
+2. Add PolarEmbedCheckout mock at test start
+3. After buy button click, mock should fire success event
+4. Change assertions to look for success state IN MODAL, not on /success page
+5. localStorage clear should still happen (just triggered differently)
+
+TEST 6 (lines 226-252):
+1. Same pattern as Test 1 - remove /success navigation
+2. Mock SDK success event
+3. Verify modal shows success state
+4. Verify localStorage still gets cleared
+
+NEW MOCKING NEEDED:
+  await page.addInitScript(() => {
+    window.PolarEmbedCheckout = {
+      create: async (url, theme) => ({
+        addEventListener: (event, cb) => {
+          if (event === 'success') setTimeout(cb, 200);
+        }
+      })
+    };
+  });
+
+SPECIFIC LINE CHANGES:
+- Lines 53-62: Update /api/create-checkout mock (keep but add SDK mock)
+- Line 106: DELETE this line
+- Lines 109-110: Change to expect modal success message
+- Lines 115-118: Keep localStorage assertions
+- Line 244-245: DELETE this line  
+- Lines 248-251: Change to expect success state in PartialResults
+
+DEPENDENCY:
+- Requires PartialResults success state implementation (citations-mcyw)
+- Requires UpgradeModal success state (citations-n8t4)

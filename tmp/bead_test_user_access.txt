@@ -1,0 +1,51 @@
+File: frontend/frontend/tests/e2e/user-access.spec.js
+Lines: 652
+Tests: 8
+
+ANALYSIS:
+Most tests mock /api/jobs/* and /api/validate/async for user state testing.
+Only ONE test involves checkout:
+
+Test: 'should handle credit purchase flow' (lines 301-354)
+   - Line 327-335: Mocks /api/create-checkout to return /success URL
+   - Line 348: Clicks Buy 500 Credits
+   - Line 351: await expect(page).toHaveURL(/.*\/success.*/)  <- WAITS FOR /success
+   - CHANGES NEEDED
+
+OTHER TESTS (No changes needed):
+- 'should allow 5 validations then block free user' (lines 41-151) - NO CHECKOUT
+- 'should allow purchase and track credit usage' (lines 155-299) - Mocks credits, no checkout
+- 'should allow 1000 daily validations with reset timer' (lines 358-461) - NO CHECKOUT
+- 'should show correct reset timer countdown' (lines 463-504) - NO CHECKOUT
+- 'should show correct days remaining' (lines 506-562) - NO CHECKOUT
+- 'should update correctly for each user type' (lines 566-644) - NO CHECKOUT
+- 'Mobile Responsiveness' (lines 647-651) - EMPTY BLOCK
+
+CHANGES REQUIRED FOR 'credit purchase flow' (lines 301-354):
+
+1. Add PolarEmbedCheckout mock before the test:
+   await page.addInitScript(() => {
+     window.PolarEmbedCheckout = {
+       create: async (url, theme) => ({
+         addEventListener: (event, cb) => {
+           if (event === 'success') setTimeout(cb, 100);
+         }
+       })
+     };
+   });
+
+2. Line 327-335: Keep API mock (returns URL for SDK)
+
+3. Line 351: Change from:
+   await expect(page).toHaveURL(/.*\/success.*/)
+   To:
+   await expect(page.locator('text=Payment Successful')).toBeVisible()
+
+4. Lines 352-354: Update success verification to check modal state
+
+SINGLE TEST NEEDS CHANGES:
+- Lines 301-354: Credit purchase flow test
+
+DEPENDENCIES:
+- Requires PricingTable component update (citations-ysv0)
+- Uses test-pricing-table page directly, not upgrade modal

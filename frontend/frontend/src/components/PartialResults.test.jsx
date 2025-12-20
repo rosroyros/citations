@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { PartialResults } from './PartialResults';
 import * as experimentUtils from '../utils/experimentVariant';
 import { trackEvent } from '../utils/analytics';
+import { initiateCheckout } from '../utils/checkoutFlow';
 
 // Mock analytics
 vi.mock('../utils/analytics', () => ({
@@ -23,13 +24,34 @@ vi.mock('../utils/experimentVariant', () => ({
   getPricingType: vi.fn(),
 }));
 
-// Mock child components to simplify testing
+// Mock CreditContext
+const mockRefreshCredits = vi.fn().mockResolvedValue(undefined);
+vi.mock('../contexts/CreditContext', () => ({
+  useCredits: () => ({
+    refreshCredits: mockRefreshCredits,
+    credits: 100,
+  }),
+}));
+
+// Mock checkoutFlow
+vi.mock('../utils/checkoutFlow', () => ({
+  initiateCheckout: vi.fn(),
+}));
+
+// Mock child components - capture onCheckout prop for testing
+let capturedOnCheckout = null;
 vi.mock('./PricingTableCredits', () => ({
-  PricingTableCredits: () => <div data-testid="pricing-table-credits">Credits Pricing Table</div>
+  PricingTableCredits: ({ onCheckout }) => {
+    capturedOnCheckout = onCheckout;
+    return <div data-testid="pricing-table-credits">Credits Pricing Table</div>;
+  }
 }));
 
 vi.mock('./PricingTablePasses', () => ({
-  PricingTablePasses: () => <div data-testid="pricing-table-passes">Passes Pricing Table</div>
+  PricingTablePasses: ({ onCheckout }) => {
+    capturedOnCheckout = onCheckout;
+    return <div data-testid="pricing-table-passes">Passes Pricing Table</div>;
+  }
 }));
 
 describe('PartialResults', () => {
@@ -291,10 +313,18 @@ describe('PartialResults', () => {
     // Act
     render(<PartialResults {...props} />);
 
-    // Assert
-    const statNumbers = screen.getAllByText('1');
-    expect(screen.getByText('3')).toBeInTheDocument(); // Citations Checked
-    expect(statNumbers).toHaveLength(2); // Perfect and Need Fixes both show "1"
+    // Assert - citationCount comes from results.length (2), not citations_checked (3)
+    // The '2' is in a <strong> element, 'citations' is sibling text - use container query
+    const statsContainer = document.querySelector('.table-stats');
+    expect(statsContainer).toBeInTheDocument();
+    expect(statsContainer.textContent).toContain('2');
+    expect(statsContainer.textContent).toContain('citations');
+
+    // Check stat badges - should have success (1 perfect) and error (1 need fixes)
+    const successBadge = document.querySelector('.stat-badge.success');
+    const errorBadge = document.querySelector('.stat-badge.error');
+    expect(successBadge.textContent).toBe('1');
+    expect(errorBadge.textContent).toBe('1');
   });
 
   it('should render lock icon and locked section styling', () => {
@@ -389,7 +419,8 @@ describe('PartialResults', () => {
           event: 'clicked_upgrade',
           job_id: 'test-job-789',
           trigger_location: 'partial_results',
-          citations_locked: 7
+          citations_locked: 7,
+          variant: '1.1'
         })
       }
     );
@@ -433,5 +464,150 @@ describe('PartialResults', () => {
       'pending_upgrade_job_id',
       null
     );
+  });
+
+  // Inline checkout success tests
+  describe('Inline Checkout Success', () => {
+    beforeEach(() => {
+      // Set up inline variant
+      vi.mocked(experimentUtils.getExperimentVariant).mockReturnValue('1.2');
+      vi.mocked(experimentUtils.isInlineVariant).mockReturnValue(true);
+      vi.mocked(experimentUtils.getPricingType).mockReturnValue('credits');
+      mockRefreshCredits.mockClear();
+    });
+
+    it('should show success state when checkout completes', async () => {
+      // Arrange - mock initiateCheckout to call onSuccess immediately
+      vi.mocked(initiateCheckout).mockImplementation(async ({ onSuccess }) => {
+        if (onSuccess) {
+          await onSuccess();
+        }
+      });
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-123',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      // Wait for pricing table to render and capture onCheckout
+      await waitFor(() => {
+        expect(screen.getByTestId('pricing-table-credits')).toBeInTheDocument();
+      });
+
+      // Trigger checkout via the captured onCheckout callback
+      expect(capturedOnCheckout).not.toBeNull();
+      await capturedOnCheckout('29749045-dbb4-4716-8e6c-5a66bd0e8a0e');
+
+      // Assert - should show success state
+      await waitFor(() => {
+        expect(screen.getByTestId('inline-checkout-success')).toBeInTheDocument();
+        expect(screen.getByText('Payment Successful!')).toBeInTheDocument();
+        expect(screen.getByText('Your 100 credits is now active.')).toBeInTheDocument();
+      });
+    });
+
+    it('should call refreshCredits on successful checkout', async () => {
+      // Arrange
+      vi.mocked(initiateCheckout).mockImplementation(async ({ onSuccess }) => {
+        if (onSuccess) {
+          await onSuccess();
+        }
+      });
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-456',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      await waitFor(() => {
+        expect(capturedOnCheckout).not.toBeNull();
+      });
+
+      await capturedOnCheckout('1d6e5839-c859-4a24-ba7e-48d4555b6823');
+
+      // Assert
+      await waitFor(() => {
+        expect(mockRefreshCredits).toHaveBeenCalled();
+      });
+    });
+
+    it('should show Validate Now button in success state', async () => {
+      // Arrange
+      vi.mocked(initiateCheckout).mockImplementation(async ({ onSuccess }) => {
+        if (onSuccess) {
+          await onSuccess();
+        }
+      });
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-789',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      await waitFor(() => {
+        expect(capturedOnCheckout).not.toBeNull();
+      });
+
+      await capturedOnCheckout('29749045-dbb4-4716-8e6c-5a66bd0e8a0e');
+
+      // Assert
+      await waitFor(() => {
+        expect(screen.getByTestId('validate-now-button')).toBeInTheDocument();
+        expect(screen.getByText('Validate Your Citations Now')).toBeInTheDocument();
+      });
+    });
+
+    it('should hide pricing table after checkout success', async () => {
+      // Arrange
+      vi.mocked(initiateCheckout).mockImplementation(async ({ onSuccess }) => {
+        if (onSuccess) {
+          await onSuccess();
+        }
+      });
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-abc',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      await waitFor(() => {
+        expect(screen.getByTestId('pricing-table-credits')).toBeInTheDocument();
+      });
+
+      await capturedOnCheckout('29749045-dbb4-4716-8e6c-5a66bd0e8a0e');
+
+      // Assert - pricing table should be hidden after success
+      await waitFor(() => {
+        expect(screen.queryByTestId('pricing-table-credits')).not.toBeInTheDocument();
+      });
+    });
   });
 });

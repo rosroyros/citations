@@ -1,0 +1,55 @@
+File: frontend/frontend/tests/e2e/checkout-flow.spec.js
+Lines: 226
+Tests: 3
+
+ANALYSIS:
+- 'complete purchase flow for 500 credits' (lines 18-108)
+- 'complete purchase flow for 7-day pass' (lines 115-198)
+- 'handles checkout API failure gracefully' (lines 203-224)
+
+CURRENT MOCKING (lines 29-44, 126-140):
+  await page.route('/api/create-checkout', async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({
+        checkout_url: 'https://checkout.polar.sh/test-checkout-credits'
+      })
+    });
+  });
+
+WHAT TESTS VERIFY NOW:
+1. console events: pricing_table_shown, product_selected, checkout_started
+2. API request payload: productId, variantId
+3. Does NOT verify redirect happens (no window.location assertion)
+4. Does NOT verify checkout URL is opened (mock just fulfills)
+
+CHANGES REQUIRED:
+1. Add PolarEmbedCheckout mock via page.addInitScript():
+   window.PolarEmbedCheckout = {
+     create: async (url, theme) => ({
+       addEventListener: (event, cb) => {
+         if (event === 'success') setTimeout(cb, 100);
+       },
+       close: () => {}
+     })
+   };
+
+2. Update tests to verify success state appears in UI after mock fires success
+
+3. Add assertions for new analytics events:
+   - checkout_embed_opened (when PolarEmbedCheckout.create called)
+   - checkout_completed (on success event)
+
+4. Error handling test: Mock PolarEmbedCheckout.create to throw, verify error UI
+
+SPECIFIC LINE CHANGES:
+- Line 29-44: Keep API mock, add PolarEmbedCheckout mock after it
+- Lines 76-96: After clicking buy, wait for success state instead of just request
+- Lines 100-103: Change checkout_started to checkout_embed_opened
+- Lines 204-224: Mock SDK to throw error instead of API error
+
+NEW TEST TO ADD:
+- 'handles checkout abandonment (user closes)' - mock close event, verify loading reset
+
+DEPENDENCIES:
+- Component changes must be done first (checkoutFlow.js, UpgradeModal)
+- This test targets test-pricing-table pages, not modal flow

@@ -1,0 +1,76 @@
+File: frontend/frontend/tests/e2e/pricing-integration.spec.js
+Lines: 616
+Tests: 6
+
+CRITICAL: Heavy use of /success redirects!
+
+BEFOREEACH (lines 36-47):
+  await page.route('/api/create-checkout', async (route) => {
+    await route.fulfill({
+      body: JSON.stringify({
+        checkout_url: 'http://localhost:5173/success?token=mock_test_token'
+      })
+    });
+  });
+
+This affects ALL tests in this file.
+
+Test 1: 'complete credits purchase and usage through UI' (lines 50-181)
+   - Line 118: await page.waitForURL('**/success?token=*&mock=true')  <- WAITS FOR /success
+   - Lines 121-126: Extracts token from /success URL
+   - MAJOR CHANGES NEEDED
+
+Test 2: 'pass daily limit enforcement' (lines 183-268)
+   - No checkout in this test
+   - NO CHANGES NEEDED
+
+Test 3: 'pass priority over credits' (lines 270-384)
+   - No checkout in this test
+   - NO CHANGES NEEDED
+
+Test 4: 'variant assignment persistence' (lines 386-435)
+   - Uses upgrade modal but no actual checkout completion
+   - MINOR: Close modal assertion may change
+
+Test 5: 'tracking events fire throughout user journey' (lines 437-609)
+   - Line 509: await page.waitForURL('**/success?token=*', { timeout: 10000 })
+   - Lines 517-521: Navigates to success and extracts token
+   - MAJOR CHANGES NEEDED
+
+Test 6: (none - file ends at 616)
+
+CHANGES REQUIRED:
+
+BEFOREEACH (lines 36-47):
+1. Keep API mock (returns checkout_url)
+2. Add PolarEmbedCheckout global mock
+
+TEST 1 (lines 50-181):
+1. Line 118: Change waitForURL to waitFor modal success state
+2. Lines 121-126: Token is now in localStorage (set by checkoutFlow.js)
+3. Lines 129-134: Navigate home after success state shown
+
+TEST 5 (lines 437-609):
+1. Line 509: Remove waitForURL, wait for success state
+2. Lines 517-521: Get token from localStorage instead of URL
+
+NEW MOCK IN BEFOREEACH:
+  await page.addInitScript(() => {
+    window.PolarEmbedCheckout = {
+      create: async (url, theme) => {
+        // Extract token from URL for test access
+        const urlParams = new URLSearchParams(new URL(url).search);
+        window.__mockCheckoutToken = urlParams.get('token');
+        
+        return {
+          addEventListener: (event, cb) => {
+            if (event === 'success') setTimeout(() => cb({ detail: {} }), 100);
+          }
+        };
+      }
+    };
+  });
+
+DEPENDENCY:
+- Requires UpgradeModal success state (citations-n8t4)
+- beforeEach mock must match /api/create-checkout format from backend

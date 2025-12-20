@@ -1,0 +1,30 @@
+Context: checkoutFlow.js is the shared utility that handles checkout initiation across UpgradeModal and PricingTable components. Currently it uses redirect flow (window.location.href). This is the CORE change that enables embedded checkout.
+
+Current Behavior (src/utils/checkoutFlow.js line 86):
+  window.location.href = checkout_url;
+
+New Behavior:
+  - Import PolarEmbedCheckout from @polar-sh/checkout/embed
+  - Auto-detect theme using prefers-color-scheme media query
+  - Open embedded checkout: PolarEmbedCheckout.create(checkout_url, theme)
+  - Add success event listener -> call onSuccess callback
+  - Add close event listener -> call onClose callback (tracks abandonment)
+  - Wrap in try/catch for error tracking
+
+Key Changes:
+1. No more redirect - Remove window.location.href = checkout_url
+2. Add theme detection - Use prefers-color-scheme for dark/light
+3. Add onClose callback - Distinguish user abandonment from errors
+4. Add 4 analytics events: checkout_embed_opened, checkout_completed, checkout_abandoned, checkout_error
+5. Error handling - Catch SDK errors, track them, call onError
+
+Why onClose Matters:
+Without close event, we cant distinguish abandoned (expected) from SDK errors (needs monitoring). This helps us verify the no-fallback decision.
+
+Dependencies:
+- Requires: SDK install (citations-fkjo)
+- Required by: All component updates (UpgradeModal, PricingTables, PartialResults)
+
+Files: frontend/frontend/src/utils/checkoutFlow.js
+
+Testing: Via component tests (UpgradeModal.test.jsx, PricingTable tests)

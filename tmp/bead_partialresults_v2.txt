@@ -1,0 +1,60 @@
+Context: PartialResults.jsx shows locked/partial results for free tier users who hit limits. For A/B test variants 1.2 and 2.2, pricing is shown INLINE (not in a modal). When inline checkout succeeds, we need to show a success state that makes sense.
+
+PROBLEM WITH ORIGINAL PLAN:
+Just showing a success banner while locked results are still visible is BAD UX. User sees "Payment Successful!" but also still sees their locked results below - confusing!
+
+REVISED SOLUTION:
+After inline checkout succeeds:
+1. HIDE the locked/partial results (they're now stale - user has credits!)
+2. Show success message prominently
+3. Show clear CTA: "Validate Your Citations Now" button
+4. Clicking button re-submits their citations (or scrolls to editor)
+
+This is SIMPLER than auto-resubmit (no complex state management) but provides clear next step for user.
+
+Current State:
+- PartialResults renders PricingTableCredits or PricingTablePasses inline for variants 1.2/2.2
+- Uses onCheckout prop to pass to pricing components
+- After purchase, user was redirected to /success page
+
+New Behavior:
+- Checkout happens in embedded iframe over the page
+- On success:
+  1. Call refreshCredits() from CreditContext
+  2. Set inlineCheckoutSuccess = true
+  3. HIDE the locked results and pricing table
+  4. Show success state with CTA
+
+Success State UI:
+  if (inlineCheckoutSuccess) {
+    return (
+      <div className="inline-checkout-success">
+        <div className="success-icon">✅</div>
+        <h3>Payment Successful!</h3>
+        <p>Your {purchasedItem} is now active.</p>
+        <Button onClick={scrollToEditorAndFocus}>
+          Validate Your Citations Now
+        </Button>
+      </div>
+    );
+  }
+
+Changes Required:
+1. Add inlineCheckoutSuccess state
+2. Add purchasedProductName state (to show what they bought)
+3. Pass onCheckoutSuccess callback to PricingTable components with product info
+4. On success: set states, hide old results, show CTA
+5. CTA button scrolls to editor (or triggers re-validation)
+
+Why NOT auto-resubmit:
+- Adds complexity (need to preserve original citations somewhere)
+- User might want to modify citations before re-validating
+- Simpler is better for v1
+
+Dependencies:
+- Requires: checkoutFlow.js refactor (citations-oaed)
+- Parallel with: UpgradeModal and PricingTable updates
+
+Files: frontend/frontend/src/components/PartialResults.jsx
+
+Testing: Add E2E test for inline checkout success flow

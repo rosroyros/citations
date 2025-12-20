@@ -1,0 +1,85 @@
+BEFORE STARTING THIS BEAD:
+1. Read GEMINI.md to understand project conventions and workflow
+2. Read README.md for system architecture and context
+3. Run bd show [this-bead-id] to review requirements
+
+---
+
+## Overview
+
+Replace Polar redirect-based checkout with embedded iframe checkout to reduce friction and improve conversion rates.
+
+## Assumptions at Start
+- The /success page exists and works (will be deleted in cleanup phase AFTER embed works)
+- Tests currently verify redirect behavior (will update in test phase)
+- Apple Pay/Google Pay are OPTIONAL - basic card payments work immediately
+
+## Business Context
+
+Currently, when users click 'Buy' on a pricing tier, they are redirected away from our site to polar.sh's hosted checkout page. After payment, Polar redirects them back to our /success page. This creates:
+
+1. Context switching friction - Users leave our app, breaking their mental flow
+2. Trust concerns - Some users hesitate when redirected to unfamiliar domains
+3. Tracking gaps - Harder to track the full funnel within our analytics
+4. UX inconsistency - Payment flow doesn't match our app's look and feel
+
+## Solution
+
+Use Polar's Embedded Checkout SDK (@polar-sh/checkout) to open checkout as an iframe overlay within our app. Users stay on-site throughout the entire payment flow.
+
+## Key Design Decisions
+
+| Decision | Choice | Rationale |
+|----------|--------|-----------|
+| Integration pattern | Inline in components | Simple for 2 entry points (modal + inline) |
+| Success UX | In-place confirmation | Modal transforms to show success, user clicks Continue |
+| /success page | Delete entirely | No emails with links, clean codebase |
+| Fallback | None | Accept lost conversions in restrictive envs for simplicity |
+| Theme | Auto-detect | Use prefers-color-scheme for dark/light |
+| Apple/Google Pay | OPTIONAL enhancement | Works without contacting Polar |
+
+## Entry Points Affected
+
+1. UpgradeModal - Full-screen modal triggered by hitting free tier limits
+2. PartialResults inline pricing - For A/B test variants 1.2 and 2.2
+
+## Deploy Strategy
+
+PHASE 1 (Backend + SDK): Can deploy together after tests pass
+- Backend changes are backward compatible
+- SDK install doesn't affect existing behavior
+
+PHASE 2 (Components): Deploy together after all component tests pass
+- checkoutFlow.js, UpgradeModal, PricingTables, PartialResults
+- Deploy BEFORE deleting /success page
+
+PHASE 3 (Cleanup): Deploy after manual verification in staging
+- Delete /success page and route
+- Deploy only after confirming embed works end-to-end
+
+PHASE 4 (Optional): Email Polar for wallet payments
+- Not required for launch
+- Can add Apple Pay/Google Pay later
+
+## Success Criteria
+
+- [ ] Checkout opens as iframe overlay (no redirect)
+- [ ] Success shows in-place confirmation
+- [ ] Credits refresh automatically after purchase
+- [ ] Analytics track embed_opened, completed, abandoned, error
+- [ ] All E2E tests pass with new mocking strategy
+- [ ] checkout_error events monitored for first week post-launch
+
+## Polar Sandbox Setup (for manual testing)
+
+1. Get sandbox API keys from Polar dashboard (polar.sh/dashboard)
+2. Set in .env: POLAR_ACCESS_TOKEN=<sandbox_token>
+3. Start ngrok: ngrok http 5173
+4. Set FRONTEND_URL=<ngrok_url> in backend .env
+5. Restart backend and frontend
+6. Use test card: 4242 4242 4242 4242, any future date, any CVC
+
+## References
+
+- Polar Embed Docs: https://polar.sh/docs/features/checkout/embed
+- Design discussion: docs/plans/2024-12-19-embedded-checkout-design.md

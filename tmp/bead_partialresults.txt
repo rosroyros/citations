@@ -1,0 +1,37 @@
+Context: PartialResults.jsx shows locked/partial results for free tier users who hit limits. For A/B test variants 1.2 and 2.2, pricing is shown INLINE (not in a modal). When inline checkout succeeds, we need to show a success banner and refresh the UI.
+
+Current State:
+- PartialResults renders PricingTableCredits or PricingTablePasses inline for variants 1.2/2.2
+- Uses onCheckout prop to pass to pricing components
+- After purchase, user was redirected to /success page
+
+New Behavior:
+- Checkout happens in embedded iframe (no redirect)
+- On success: show inline success banner, refresh credits
+- Optionally re-trigger validation to show full results
+
+Changes Required:
+1. Add inlineCheckoutSuccess state
+2. Pass onCheckoutSuccess callback to PricingTable components
+3. On success:
+   - Set inlineCheckoutSuccess = true
+   - Call refreshCredits() from CreditContext
+   - Show success banner above or replacing pricing table
+4. Success banner should:
+   - Show "Payment Successful! Your credits are now active"
+   - Optionally show "Check your citations again" button to re-validate
+
+Important Consideration:
+For inline variants, after purchase user is still looking at partial/locked results. We may want to:
+A) Show success banner only (simple)
+B) Auto-resubmit their citations to show full results (complex)
+
+Recommendation: Start with (A), iterate based on user feedback.
+
+Dependencies:
+- Requires: checkoutFlow.js refactor (citations-oaed)
+- Parallel with: UpgradeModal and PricingTable updates
+
+Files: frontend/frontend/src/components/PartialResults.jsx
+
+Testing: Add E2E test for inline checkout success flow

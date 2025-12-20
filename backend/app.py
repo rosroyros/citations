@@ -812,12 +812,12 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
          frontend_url = f"{scheme}://{forwarded_host}".rstrip('/')
          logger.info(f"Using frontend URL: {frontend_url}")
 
-         # Include job_id in success URL if available
-         success_url_params = f"token={token}&mock=true"
+         # Return mock Polar checkout URL for E2E tests to intercept
+         mock_checkout_url = f"https://mock.polar.sh/checkout?token={token}&mock=true"
          if job_id:
-             success_url_params += f"&job_id={job_id}"
+             mock_checkout_url += f"&job_id={job_id}"
 
-         return {"checkout_url": f"{frontend_url}/success?{success_url_params}", "token": token}
+         return {"checkout_url": mock_checkout_url, "token": token}
 
     try:
         # Create Polar checkout
@@ -832,14 +832,10 @@ async def create_checkout(http_request: Request, request: dict, background_tasks
         if job_id:
             metadata["job_id"] = job_id
 
-        # Construct success URL
-        success_url = f"{os.getenv('FRONTEND_URL')}/success?token={token}"
-        if job_id:
-            success_url += f"&job_id={job_id}"
-
+        # Use embed_origin for embedded checkout (allows iframe from this origin)
         checkout_request = {
             "products": [product_id],
-            "success_url": success_url,
+            "embed_origin": os.getenv('FRONTEND_URL'),
             "metadata": metadata
         }
         logger.info(f"Checkout request: {checkout_request}")

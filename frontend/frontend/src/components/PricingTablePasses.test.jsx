@@ -206,4 +206,80 @@ describe('PricingTablePasses', () => {
     render(<PricingTablePasses experimentVariant="2" />)
     expect(screen.getByText(/Fair use: 1,000 citations per day/)).toBeInTheDocument()
   })
+
+  // Tests for onCheckout prop (embedded checkout delegation to parent)
+  describe('onCheckout prop (embedded checkout)', () => {
+    it('calls onCheckout callback instead of internal checkout when provided', async () => {
+      const mockOnCheckout = vi.fn()
+
+      render(<PricingTablePasses onCheckout={mockOnCheckout} experimentVariant="2" />)
+
+      const buyButton = screen.getByText('Buy 1-Day Pass')
+      fireEvent.click(buyButton)
+
+      await waitFor(() => {
+        expect(mockOnCheckout).toHaveBeenCalledWith('1282bd9b-81b6-4f06-a1f2-29bb0be01f26')
+      })
+
+      // Verify internal fetch was NOT called (parent handles checkout)
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
+
+    it('shows loading state while onCheckout callback is pending', async () => {
+      let resolveCheckout
+      const checkoutPromise = new Promise(resolve => {
+        resolveCheckout = resolve
+      })
+      const mockOnCheckout = vi.fn(() => checkoutPromise)
+
+      render(<PricingTablePasses onCheckout={mockOnCheckout} experimentVariant="2" />)
+
+      const buyButton = screen.getByText('Buy 1-Day Pass')
+      fireEvent.click(buyButton)
+
+      // Check for loading state
+      expect(screen.getByText('Opening checkout...')).toBeInTheDocument()
+      expect(buyButton).toBeDisabled()
+
+      // Resolve the callback
+      resolveCheckout()
+
+      // Button should be back to normal after loading
+      await waitFor(() => {
+        expect(screen.queryByText('Opening checkout...')).not.toBeInTheDocument()
+        expect(buyButton).not.toBeDisabled()
+      })
+    })
+
+    it('shows error message when onCheckout callback throws', async () => {
+      const mockOnCheckout = vi.fn(() => Promise.reject(new Error('Checkout failed')))
+
+      render(<PricingTablePasses onCheckout={mockOnCheckout} experimentVariant="2" />)
+
+      const buyButton = screen.getByText('Buy 1-Day Pass')
+      fireEvent.click(buyButton)
+
+      // Wait for error message to appear
+      await waitFor(() => {
+        expect(screen.getByText('Failed to open checkout. Please try again.')).toBeInTheDocument()
+      })
+
+      // Verify button is not disabled after error
+      expect(buyButton).not.toBeDisabled()
+    })
+
+    it('passes correct productId for different pass tiers', async () => {
+      const mockOnCheckout = vi.fn()
+
+      render(<PricingTablePasses onCheckout={mockOnCheckout} experimentVariant="2" />)
+
+      // Click 7-Day Pass
+      const buy7DayButton = screen.getByText('Buy 7-Day Pass')
+      fireEvent.click(buy7DayButton)
+
+      await waitFor(() => {
+        expect(mockOnCheckout).toHaveBeenCalledWith('5b311653-7127-41b5-aed6-496fb713149c')
+      })
+    })
+  })
 })

@@ -26,17 +26,21 @@
 }
 
 .lock-icon {
-  color: #ca8a04; /* Dark gold stroke */
-  fill: #fde047;   /* Light gold fill */
+  color: #ca8a04;
+  /* Dark gold stroke */
+  fill: #fde047;
+  /* Light gold fill */
   min-width: 24px;
 }
 
 .upgrade-content h3 {
   font-family: var(--font-heading);
   font-size: 1.5rem;
-  font-weight: 700; /* Bolder as per image */
+  font-weight: 700;
+  /* Bolder as per image */
   color: var(--color-text-primary);
-  margin: 0; /* Margin handled by container */
+  margin: 0;
+  /* Margin handled by container */
 }
 
 .upgrade-content p {
@@ -67,7 +71,8 @@
   margin-top: 1.5rem;
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;  /* Allow horizontal scroll on very small screens */
+  overflow-x: auto;
+  /* Allow horizontal scroll on very small screens */
 }
 
 /* Ensure pricing tables stack on mobile */
@@ -75,4 +80,52 @@
   .inline-pricing-container {
     padding: 0 0.5rem;
   }
+}
+
+/* Inline checkout success state */
+.inline-checkout-success {
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border: 2px solid #10b981;
+  border-radius: 12px;
+  padding: var(--space-2xl);
+  text-align: center;
+  max-width: 500px;
+  margin: var(--space-xl) auto;
+}
+
+.inline-checkout-success .success-icon {
+  color: #10b981;
+  margin-bottom: var(--space-md);
+}
+
+.inline-checkout-success h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+.inline-checkout-success p {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-lg) 0;
+}
+
+.validate-now-button {
+  background: var(--color-brand);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.validate-now-button:hover {
+  background: var(--color-brand-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
 }

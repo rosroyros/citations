@@ -1,0 +1,42 @@
+Context: All E2E and unit tests that mock checkout behavior assume redirect flow. With embedded checkout, mocking strategy changes from intercepting window.location.href to mocking the PolarEmbedCheckout SDK.
+
+E2E Tests to Update (5 files):
+1. checkout-flow.spec.js - Core checkout flow test
+2. upgrade-tracking.spec.js - Tracks job_id passed to checkout
+3. upgrade-funnel.spec.cjs - Full upgrade funnel test
+4. pricing-integration.spec.js - Pricing table integration
+5. user-access.spec.js - User access flow tests
+
+Unit Tests to Update (3 files):
+1. UpgradeModal.test.jsx - Mock embedded checkout success/close
+2. PricingTableCredits.test.tsx - Remove redirect assertions
+3. PricingTablePasses.test.jsx - Remove redirect assertions
+
+New Mocking Strategy for E2E:
+- Mock the Polar checkout URL pattern in API response
+- Inject mock PolarEmbedCheckout module via page.addInitScript
+- Simulate success/close events programmatically
+
+Example E2E Mock:
+  await page.addInitScript(() => {
+    window.PolarEmbedCheckout = {
+      create: async (url, theme) => ({
+        addEventListener: (event, callback) => {
+          if (event === 'success') setTimeout(callback, 100);
+        },
+        close: () => {}
+      })
+    };
+  });
+
+New Mocking Strategy for Unit Tests:
+- jest.mock('@polar-sh/checkout/embed')
+- Mock PolarEmbedCheckout.create to return controllable mock
+- Trigger success/close events in tests
+
+Dependencies:
+- Should be done IN PARALLEL with component updates
+- Each test file can be updated alongside its component
+
+Verification:
+- All tests pass: npm test && npx playwright test

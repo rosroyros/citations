@@ -114,8 +114,8 @@ test.describe('Pricing Integration Tests', () => {
       await page.click('button:has-text("Buy 7-Day Pass")');
     }
 
-    // 6. Wait for navigation to success page
-    await page.waitForURL('**/success?token=*&mock=true');
+    // 6. Wait for navigation to success page (regex to allow additional query params like job_id)
+    await page.waitForURL(/\/success\?token=.*&mock=true/);
 
     // 7. Get the token from URL and save it to localStorage
     const url = new URL(page.url());
@@ -125,21 +125,16 @@ test.describe('Pricing Integration Tests', () => {
       console.log('Updated localStorage citation_checker_token to:', token);
     }, token);
 
-    // 8. Navigate back to app to update user status
-    await page.goto('http://localhost:5173');
-    await waitForPageLoad(page);
-
-    // 9. Reload page to ensure token is read correctly
-    await page.reload();
-    await waitForPageLoad(page);
-
-    // Mock credits endpoint to reflect purchase (since backend is down)
-    await page.route('**/api/user/credits**', async (route) => {
+    // Mock credits endpoint with stateful response (500 before validation, 499 after)
+    let validationSubmitted = false;
+    await page.route('**/api/credits**', async (route) => {
+      // Return 499 only after a validation was submitted
+      const currentCredits = validationSubmitted ? 499 : 500;
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
-          credits: variant === 'credits' ? 500 : 0,
+          credits: variant === 'credits' ? currentCredits : 0,
           active_pass: variant === 'credits' ? null : {
             pass_type: '7_day_pass',
             pass_product_name: '7-Day Pass', // Matches new backend format
@@ -152,7 +147,11 @@ test.describe('Pricing Integration Tests', () => {
       });
     });
 
-    // 10. Wait for credits to be reflected (simulated)
+    // 8. Navigate back to app to update user status
+    await page.goto('http://localhost:5173');
+    await waitForPageLoad(page);
+
+    // 9. Wait for credits to be reflected (simulated)
     await page.waitForTimeout(1000); // reduced wait since mock is instant
 
     // 10. Verify user status updated
@@ -163,12 +162,13 @@ test.describe('Pricing Integration Tests', () => {
       await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 5000 });
     }
 
-    // 10. Submit another validation
+    // 10. Submit another validation (mark flag AFTER clicking the button)
     await page.fill('.ProseMirror', 'Paid citation: Wilson, K. (2023). Paid validation. Academic Journal.');
     await page.click('button:has-text("Check My Citations")');
+    validationSubmitted = true; // Now the mock will return 499
     await page.waitForTimeout(2000);
 
-    // 11. Verify usage updated
+    // 11. Verify usage updated (mock returns 499 now that validationSubmitted is true)
     await page.reload();
     await waitForPageLoad(page);
 

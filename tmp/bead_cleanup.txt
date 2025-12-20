@@ -1,0 +1,30 @@
+Context: The /success page was used as the landing page after redirect-based checkout. With embedded checkout, success is handled in-place (modal shows success state). The /success page is no longer needed and adds code/route maintenance burden.
+
+Decision Made: Delete entirely (not soft-deprecate). Rationale from brainstorm:
+- We don't send emails with links to /success
+- No need to maintain legacy routes
+- Simpler codebase
+
+Files to Delete:
+1. frontend/frontend/src/pages/Success.jsx - The full success page component (655 lines)
+2. frontend/frontend/src/pages/Success.test.jsx - Associated tests
+3. frontend/frontend/src/pages/Success.css - Styles (if exists)
+
+Files to Modify:
+1. frontend/frontend/src/App.jsx - Remove:
+   - Import: import Success from './pages/Success'
+   - Route: if (pathname === '/success') { return <CreditProvider><Success /></CreditProvider> }
+
+Why Delete vs Redirect:
+External reviewer suggested soft-deprecation (redirect to homepage). User rejected this because:
+- No emails with /success links
+- Simpler to delete than maintain redirect logic
+- Accept that bookmarks will 404 (acceptable tradeoff)
+
+Dependencies:
+- Should be done AFTER all component updates are complete
+- Blocked by: n8t4 (UpgradeModal), ysv0 (PricingTables), mcyw (PartialResults)
+
+Verification:
+- grep -r "Success" frontend/frontend/src to find remaining references
+- Run build to verify no broken imports

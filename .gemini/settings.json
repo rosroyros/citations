@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "prompt_input_exit",
+        "hooks": [
+          {
+            "name": "notify-user",
+            "type": "command",
+            "command": ".gemini/hooks/notify.sh",
+            "description": "Play a sound when waiting for user input",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}

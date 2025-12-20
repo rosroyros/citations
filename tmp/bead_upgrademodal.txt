@@ -1,0 +1,44 @@
+Context: UpgradeModal is the primary conversion UI shown when users hit free tier limits. It displays PricingTable components and handles the checkout flow. Currently it uses initiateCheckout which redirects. We need to add success state handling.
+
+Current Behavior:
+- Modal shows pricing table
+- User clicks Buy -> initiateCheckout() redirects to Polar
+- After payment, user lands on /success page (separate experience)
+
+New Behavior:
+- Modal shows pricing table  
+- User clicks Buy -> embedded checkout iframe opens OVER the modal
+- After payment, iframe closes -> modal transforms to show success state
+- User clicks Continue -> modal closes, they're back on main page
+
+Changes Required:
+1. Import useCredits hook for refreshCredits function
+2. Add checkoutSuccess state: const [checkoutSuccess, setCheckoutSuccess] = useState(false)
+3. Update handleSelectProduct to pass onSuccess callback:
+   - Call refreshCredits() to update credit display
+   - Set checkoutSuccess to true
+4. Add onClose callback to reset loading state if user cancels
+5. Add success state UI rendering in renderContent():
+   - Show checkmark icon, "Payment Successful!" message
+   - Show what they bought (pass name or credit amount)
+   - Continue button that calls onClose()
+
+Success State UI Example:
+  if (checkoutSuccess) {
+    return (
+      <div className="upgrade-modal-success">
+        <div className="success-icon">✅</div>
+        <h2>Payment Successful!</h2>
+        <p>Your purchase is now active.</p>
+        <Button onClick={onClose}>Continue</Button>
+      </div>
+    );
+  }
+
+Dependencies:
+- Requires: checkoutFlow.js refactor (citations-oaed)
+- Required by: E2E test updates
+
+Files: frontend/frontend/src/components/UpgradeModal.jsx
+
+Testing: Update UpgradeModal.test.jsx to mock embedded checkout and verify success state

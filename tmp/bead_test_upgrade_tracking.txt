@@ -1,0 +1,63 @@
+File: frontend/frontend/tests/e2e/upgrade-tracking.spec.js
+Lines: 350
+Tests: 5
+
+ANALYSIS:
+Test 1: 'tracks pricing_table_shown event when user hits free limit' (lines 14-74)
+   - No checkout mocking, just verifies variant assignment
+   - NO CHANGES NEEDED
+
+Test 2: 'variant assignment is sticky across multiple upgrade clicks' (lines 76-148)
+   - No checkout mocking, verifies localStorage persistence
+   - NO CHANGES NEEDED
+
+Test 3: 'different users get randomly assigned to different variants' (lines 150-226)
+   - No checkout mocking, verifies random distribution
+   - NO CHANGES NEEDED
+
+Test 4: 'variant assignment happens on first upgrade trigger' (lines 228-268)
+   - No checkout mocking, verifies timing of variant assignment
+   - NO CHANGES NEEDED
+
+Test 5: 'passes job_id to create-checkout endpoint' (lines 270-349)
+   - CRITICAL: Mocks /api/create-checkout to return /success redirect (line 288-296)
+   - Currently: returns checkout_url pointing to /success
+   - Changes needed
+
+CURRENT MOCKING (lines 287-296):
+  await page.route('/api/create-checkout', async route => {
+    await route.fulfill({
+      body: JSON.stringify({ 
+        checkout_url: 'http://localhost:5173/success?mock=true' 
+      })
+    });
+  });
+
+CHANGES REQUIRED FOR TEST 5 ONLY:
+1. Add PolarEmbedCheckout mock:
+   await page.addInitScript(() => {
+     window.PolarEmbedCheckout = {
+       create: async (url, theme) => ({
+         addEventListener: (event, cb) => {
+           if (event === 'success') setTimeout(cb, 100);
+         }
+       })
+     };
+   });
+
+2. After clicking buy button, wait for success state in modal instead of navigation
+
+3. Keep the API mock as-is (it returns a URL that SDK will use)
+
+4. Update test to verify job_id in API payload (this part stays same)
+
+5. Remove any /success page navigation expectations
+
+SPECIFIC LINE CHANGES:
+- Line 288-296: Keep API mock, add SDK mock before it
+- Lines 337-340: Change to wait for success state in modal
+- Lines 342-348: job_id verification stays the same (we still call API)
+
+SUMMARY:
+4 of 5 tests need NO CHANGES (they don't test checkout)
+1 test needs SDK mock + wait for modal success state

@@ -1,0 +1,35 @@
+Context: Before launching embedded checkout to production, there are several verification and external coordination tasks.
+
+Pre-Launch Checklist:
+
+1. Email Polar (hello@polar.sh) to enable Apple Pay/Google Pay for our domain
+   - Send: Request to add citationformatchecker.com to wallet payments allowlist
+   - Why: Wallet payments (Apple Pay, Google Pay) require domain allowlisting
+   - When: Do this early, may take 1-2 business days to process
+
+2. Deploy to staging
+   - Deploy all changes to staging environment
+   - Verify build succeeds
+
+3. Manual integration test with Polar sandbox + ngrok
+   - Start ngrok: ngrok http 5173
+   - Set FRONTEND_URL to ngrok URL in backend
+   - Test full checkout flow with sandbox card
+   - Verify: iframe opens, success state shows, credits refresh
+
+4. Deploy to production
+   - Deploy via normal deploy_prod.sh workflow
+   - Run E2E tests
+
+5. Monitor checkout_error events for first week
+   - Watch dashboard for checkout_error analytics events
+   - If error rate > 1%, investigate whether fallback is needed
+   - This validates our "no fallback" decision
+
+Dependencies:
+- Blocked by: All component updates, cleanup, and tests complete
+
+Verification:
+- Production flow works end-to-end
+- Analytics events firing correctly
+- No unusual error rates

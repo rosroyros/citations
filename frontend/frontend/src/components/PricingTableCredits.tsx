@@ -16,17 +16,21 @@ import React from "react"
  * A/B Test Hypothesis: Lower price point ($1.99) converts better than single $8.99 option
  *
  * Props:
- * @param {function} onSelectProduct - Callback when user clicks buy button
+ * @param {function} onCheckout - Callback when user clicks buy button (preferred for embedded checkout)
+ *                                Parent handles initiateCheckout with success/close/error callbacks
+ *                                Signature: (productId) => void | Promise<void>
+ * @param {function} onSelectProduct - Legacy callback (deprecated in favor of onCheckout)
  *                                      Signature: (productId, variantId) => void
  * @param {string} experimentVariant - The variant ID ('1' for credits)
  *
  * Usage:
  * <PricingTableCredits
- *   onSelectProduct={(productId, variant) => handlePurchase(productId, variant)}
+ *   onCheckout={(productId) => handleCheckout(productId, variant)}
  *   experimentVariant="1"
  * />
  */
-export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
+export function PricingTableCredits({ onCheckout, onSelectProduct, experimentVariant }: {
+  onCheckout?: (productId: string) => void | Promise<void>;
   onSelectProduct?: (productId: string, variantId: string) => void;
   experimentVariant?: string;
 }) {
@@ -40,6 +44,23 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant }: {
   }, [experimentVariant])
 
   const handleCheckout = async (productId: string) => {
+    // If parent provides onCheckout callback, use it (enables embedded checkout)
+    // Parent controls initiateCheckout with success/close/error callbacks
+    if (onCheckout) {
+      setLoadingProductId(productId)
+      setError(null)
+      try {
+        await onCheckout(productId)
+      } catch (err) {
+        setError('Failed to open checkout. Please try again.')
+        console.error('Checkout error:', err)
+      } finally {
+        setLoadingProductId(null)
+      }
+      return
+    }
+
+    // Fallback: internal checkout logic for standalone/modal usage (redirect flow)
     setLoadingProductId(productId)
     setError(null)
 

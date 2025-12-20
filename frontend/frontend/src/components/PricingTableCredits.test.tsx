@@ -232,4 +232,80 @@ describe('PricingTableCredits', () => {
       })
     })
   })
+
+  // Tests for onCheckout prop (embedded checkout delegation to parent)
+  describe('onCheckout prop (embedded checkout)', () => {
+    it('calls onCheckout callback instead of internal checkout when provided', async () => {
+      const mockOnCheckout = vi.fn()
+
+      render(<PricingTableCredits onCheckout={mockOnCheckout} experimentVariant="1" />)
+
+      const buy100Button = screen.getByText('Buy 100 Credits')
+      fireEvent.click(buy100Button)
+
+      await waitFor(() => {
+        expect(mockOnCheckout).toHaveBeenCalledWith('817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e')
+      })
+
+      // Verify internal fetch was NOT called (parent handles checkout)
+      expect(mockFetch).not.toHaveBeenCalled()
+    })
+
+    it('shows loading state while onCheckout callback is pending', async () => {
+      let resolveCheckout: () => void
+      const checkoutPromise = new Promise<void>(resolve => {
+        resolveCheckout = resolve
+      })
+      const mockOnCheckout = vi.fn(() => checkoutPromise)
+
+      render(<PricingTableCredits onCheckout={mockOnCheckout} experimentVariant="1" />)
+
+      const buy100Button = screen.getByText('Buy 100 Credits')
+      fireEvent.click(buy100Button)
+
+      // Check for loading state
+      expect(screen.getByText('Opening checkout...')).toBeInTheDocument()
+      expect(buy100Button).toBeDisabled()
+
+      // Resolve the callback
+      resolveCheckout!()
+
+      // Button should be back to normal after loading
+      await waitFor(() => {
+        expect(screen.queryByText('Opening checkout...')).not.toBeInTheDocument()
+        expect(buy100Button).not.toBeDisabled()
+      })
+    })
+
+    it('shows error message when onCheckout callback throws', async () => {
+      const mockOnCheckout = vi.fn(() => Promise.reject(new Error('Checkout failed')))
+
+      render(<PricingTableCredits onCheckout={mockOnCheckout} experimentVariant="1" />)
+
+      const buy100Button = screen.getByText('Buy 100 Credits')
+      fireEvent.click(buy100Button)
+
+      // Wait for error message to appear
+      await waitFor(() => {
+        expect(screen.getByText('Failed to open checkout. Please try again.')).toBeInTheDocument()
+      })
+
+      // Verify button is not disabled after error
+      expect(buy100Button).not.toBeDisabled()
+    })
+
+    it('passes correct productId for different credit tiers', async () => {
+      const mockOnCheckout = vi.fn()
+
+      render(<PricingTableCredits onCheckout={mockOnCheckout} experimentVariant="1" />)
+
+      // Click 500 credits
+      const buy500Button = screen.getByText('Buy 500 Credits')
+      fireEvent.click(buy500Button)
+
+      await waitFor(() => {
+        expect(mockOnCheckout).toHaveBeenCalledWith('2a3c8913-2e82-4f12-9eb7-767e4bc98089')
+      })
+    })
+  })
 })

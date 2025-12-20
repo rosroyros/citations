@@ -1,0 +1,34 @@
+Context: PricingTableCredits.tsx and PricingTablePasses.jsx are the pricing components embedded in UpgradeModal and PartialResults (inline variants). They need to notify their parent component when checkout succeeds.
+
+Current Behavior:
+- Each component has handleCheckout() that calls /api/create-checkout
+- Then does window.location.href = checkout_url (redirect)
+- Or calls parent's onCheckout prop if provided
+
+New Behavior:
+- Import and use checkoutFlow's initiateCheckout
+- Pass onSuccess callback that notifies parent via new prop
+- Parent (UpgradeModal or PartialResults) handles the success state
+
+Changes Required for Both Components:
+1. Add onCheckoutSuccess prop to component signature
+2. In handleCheckout, use initiateCheckout with:
+   - onSuccess: () => onCheckoutSuccess?.(productId)
+   - onClose: () => setLoadingProductId(null)
+   - onError: (error) => setError(error.message)
+3. Remove window.location.href redirect code
+
+Why This Pattern:
+- Parent controls success UI (modal shows success message OR inline shows banner)
+- Components stay reusable - don't hardcode success behavior
+- Consistent with existing onSelectProduct pattern
+
+Dependencies:
+- Requires: checkoutFlow.js refactor (citations-oaed)
+- Parallel with: UpgradeModal update (citations-n8t4)
+
+Files:
+- frontend/frontend/src/components/PricingTableCredits.tsx
+- frontend/frontend/src/components/PricingTablePasses.jsx
+
+Testing: Update PricingTableCredits.test.tsx and PricingTablePasses.test.jsx
