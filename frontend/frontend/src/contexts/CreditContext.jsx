@@ -46,25 +46,53 @@ export const CreditProvider = ({ children }) => {
   }, []);
 
   /**
+   * Fetch credits without setting loading state - used for polling to avoid UI flicker.
+   */
+  const fetchCreditsQuiet = useCallback(async () => {
+    const currentToken = getToken();
+    if (!currentToken) return { credits: null, activePass: null };
+
+    try {
+      const response = await fetch(`/api/credits?token=${currentToken}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setCredits(data.credits);
+      setActivePass(data.active_pass);
+      return { credits: data.credits, activePass: data.active_pass };
+    } catch (e) {
+      return { credits: null, activePass: null };
+    }
+  }, []);
+
+  /**
    * Poll for credit/pass changes after purchase.
    * Keeps checking until values change from baseline or max attempts reached.
    * This handles webhook processing delays from Polar.
+   * 
+   * IMPORTANT: We capture the baseline ONCE at the start and compare against it.
+   * The baseline is stored locally in this function, not from closure values,
+   * to avoid issues with re-renders updating the baseline mid-polling.
    */
   const refreshCreditsWithPolling = useCallback(async () => {
-    // Capture baseline before polling starts
+    // Capture baseline ONCE before polling starts
+    // Use fetchCreditsQuiet to get current values without loading state
+    const currentState = await fetchCreditsQuiet();
     const baseline = {
-      credits: credits,
-      hasPass: activePass !== null,
-      passExpiration: activePass?.expiration_timestamp
+      credits: currentState.credits,
+      hasPass: currentState.activePass !== null,
+      passExpiration: currentState.activePass?.expiration_timestamp
     };
 
     console.log('[CreditContext] Starting polling, baseline:', baseline);
 
     for (let attempt = 1; attempt <= MAX_POLL_ATTEMPTS; attempt++) {
-      // Wait before each attempt (including first, to give webhook time)
+      // Wait before each attempt (to give webhook time)
       await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
 
-      const result = await fetchCredits();
+      // Use quiet fetch to avoid loading UI flicker during polling
+      const result = await fetchCreditsQuiet();
 
       // Check if credits increased
       if (result.credits !== null && baseline.credits !== null && result.credits > baseline.credits) {
@@ -89,7 +117,7 @@ export const CreditProvider = ({ children }) => {
 
     console.log('[CreditContext] Polling timed out, no change detected');
     return false;
-  }, [credits, activePass, fetchCredits]);
+  }, [fetchCreditsQuiet]);
 
   useEffect(() => {
     fetchCredits();
