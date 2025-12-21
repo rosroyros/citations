@@ -17,7 +17,6 @@ import { getToken, getFreeUsage, ensureFreeUserId } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent, trackResultsRevealedSafe } from './utils/analytics'
 import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
-import Success from './pages/Success'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
@@ -1108,9 +1107,6 @@ function App() {
         <CreditProvider><Dashboard /></CreditProvider>
       </>
     )
-  }
-  if (pathname === '/success') {
-    return <CreditProvider><Success /></CreditProvider>
   }
   if (pathname === '/privacy') {
     return <CreditProvider><PrivacyPolicy /></CreditProvider>

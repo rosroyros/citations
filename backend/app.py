@@ -1274,12 +1274,14 @@ async def process_validation_job(job_id: str, citations: str, style: str):
             access_check = check_user_access(token, citation_count)
 
             if not access_check['has_access']:
-                # User denied access (pass limit exceeded or insufficient credits)
+                # User denied access - handle differently based on access type
                 logger.warning(f"Job {job_id}: Access denied for token {token[:8]}: {access_check['error_message']}")
 
-                # Log pricing table shown event for upgrade funnel tracking
                 if access_check['access_type'] == 'credits':
+                    # Credits user with insufficient balance - return partial results instead of error
                     user_credits = access_check['user_status'].balance
+                    
+                    # Log pricing table shown event for upgrade funnel tracking
                     log_pricing_table_shown(
                         token,
                         jobs[job_id].get("experiment_variant"),
@@ -1289,12 +1291,39 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                         credits_needed=citation_count,
                         partial_available=user_credits
                     )
-
-                # Return error that matches what frontend expects
-                jobs[job_id]["status"] = "failed"
-                jobs[job_id]["error"] = access_check['error_message']
-                update_validation_tracking(job_id, status='failed', error_message=access_check['error_message'])
-                return
+                    
+                    # Determine how many we can process
+                    affordable = user_credits
+                    remaining = citation_count - affordable
+                    
+                    # Deduct what credits they have (if any)
+                    if affordable > 0:
+                        deduct_credits(token, affordable)
+                    
+                    # Build partial results response
+                    response_data = {
+                        "results": results[:affordable] if affordable > 0 else [],
+                        "partial": True,
+                        "citations_checked": affordable,
+                        "citations_remaining": remaining,
+                        "credits_remaining": 0,
+                        "user_status": access_check['user_status'],
+                        "limit_type": "credits_exhausted"
+                    }
+                    
+                    # Build and store gated response
+                    gated_response = build_gated_response(response_data, user_type, job_id, "Credits exhausted")
+                    jobs[job_id]["results"] = gated_response.model_dump()
+                    jobs[job_id]["status"] = "completed"
+                    jobs[job_id]["results_gated"] = True
+                    logger.info(f"Job {job_id}: Credits exhausted ({user_credits}/{citation_count}) - returning partial results with {remaining} locked")
+                    return
+                else:
+                    # Pass user daily limit exceeded - return error
+                    jobs[job_id]["status"] = "failed"
+                    jobs[job_id]["error"] = access_check['error_message']
+                    update_validation_tracking(job_id, status='failed', error_message=access_check['error_message'])
+                    return
 
             # User has access - build response based on access type
             if access_check['access_type'] == 'pass':
