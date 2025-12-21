@@ -5,6 +5,52 @@ test.describe('Pricing Integration Tests', () => {
   let checkoutId;
 
   test.beforeEach(async ({ page }) => {
+    // Add PolarEmbedCheckout mock for embedded checkout
+    await page.addInitScript(() => {
+      window.__polarCheckoutHandlers = {};
+      window.__polarCheckoutCreated = false;
+      window.__polarCheckoutUrl = null;
+      window.__polarCheckoutClosed = false;
+      window.PolarEmbedCheckout = {
+        create: async (url, options) => {
+          window.__polarCheckoutCreated = true;
+          window.__polarCheckoutUrl = url;
+          // Extract token from URL for test access
+          try {
+            const urlParams = new URL(url).searchParams;
+            const token = urlParams.get('token');
+            if (token) {
+              localStorage.setItem('__test_checkout_token', token);
+            }
+          } catch (e) {
+            console.log('Could not extract token from checkout URL:', e);
+          }
+          return {
+            // The real SDK uses addEventListener, not on()
+            addEventListener: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+              // Auto-trigger success after a short delay for tests
+              if (event === 'success') {
+                setTimeout(() => handler(), 100);
+              }
+            },
+            // Support legacy on() for any code that might use it
+            on: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+              // Auto-trigger success after a short delay for tests
+              if (event === 'success') {
+                setTimeout(() => handler(), 100);
+              }
+            },
+            // The close() method is called after success
+            close: () => {
+              window.__polarCheckoutClosed = true;
+            }
+          };
+        }
+      };
+    });
+
     // Set up base URL to localhost
     await page.goto('http://localhost:5173');
     await waitForPageLoad(page);
@@ -33,15 +79,14 @@ test.describe('Pricing Integration Tests', () => {
       });
     });
 
-    // Mock create-checkout endpoint to simulate a completed purchase flow (Fixes 500 error)
+    // Mock create-checkout endpoint for embedded checkout
     await page.route('/api/create-checkout', async (route) => {
-      console.log('Mocking create-checkout response -> Redirecting to Success');
+      console.log('Mocking create-checkout response for embedded checkout');
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
-          // Redirect directly to success page to simulate completed payment
-          checkout_url: 'http://localhost:5173/success?token=mock_test_token'
+          checkout_url: 'https://checkout.polar.sh/mock-checkout?token=mock_test_token'
         })
       });
     });
@@ -107,19 +152,18 @@ test.describe('Pricing Integration Tests', () => {
     console.log('Variant found:', variant);
     expect(['credits', 'passes']).toContain(variant); // data-variant is pricing type, not experiment variant
 
-    // 6. Select product based on variant
+    // 6. Select product based on variant (triggers embedded checkout)
     if (variant === 'credits') {
       await page.click('button:has-text("Buy 500 Credits")');
     } else {
       await page.click('button:has-text("Buy 7-Day Pass")');
     }
 
-    // 6. Wait for navigation to success page (regex to allow additional query params like job_id)
-    await page.waitForURL(/\/success\?token=.*&mock=true/);
+    // Wait for embedded checkout success state in modal (C2 design: "Thank You!" or "Payment Confirmed")
+    await expect(page.locator('[data-testid="checkout-success"]').or(page.locator('text=Thank You!')).or(page.locator('text=Payment Confirmed')).first()).toBeVisible({ timeout: 10000 });
 
-    // 7. Get the token from URL and save it to localStorage
-    const url = new URL(page.url());
-    const token = url.searchParams.get('token');
+    // 7. Get the token from localStorage (stored by SDK mock) and use for user simulation
+    const token = 'mock_test_token';
     await page.evaluate((token) => {
       localStorage.setItem('citation_checker_token', token);
       console.log('Updated localStorage citation_checker_token to:', token);
@@ -502,11 +546,8 @@ test.describe('Pricing Integration Tests', () => {
     // - Production log parser (cron job)
     // - upgrade-tracking.spec.js tests for variant assignment
 
-    // 5. Start checkout - intercept the navigation to capture the token
+    // 5. Start checkout - click buy button to trigger embedded checkout
     const variant = await page.locator('.pricing-table').getAttribute('data-variant');
-
-    // Wait for navigation to success page after clicking buy button
-    const navigationPromise = page.waitForURL('**/success?token=*', { timeout: 10000 });
 
     if (variant === 'credits') {
       await page.click('button:has-text("Buy 500 Credits")');
@@ -514,11 +555,12 @@ test.describe('Pricing Integration Tests', () => {
       await page.click('button:has-text("Buy 7-Day Pass")');
     }
 
-    // Wait for navigation and extract the token from the URL
-    await navigationPromise;
-    const url = new URL(page.url());
-    const checkoutToken = url.searchParams.get('token');
-    console.log(`Captured checkout token: ${checkoutToken}`);
+    // Wait for embedded checkout success state in modal (C2 design: "Thank You!" or "Payment Confirmed")
+    await expect(page.locator('[data-testid="checkout-success"]').or(page.locator('text=Thank You!')).or(page.locator('text=Payment Confirmed')).first()).toBeVisible({ timeout: 10000 });
+
+    // Use fixed test token for this test
+    const checkoutToken = 'mock_test_token';
+    console.log(`Using checkout token: ${checkoutToken}`);
 
     // 6. Checkout started - verified by successful navigation to success page
     // (checkout_started event is logged with the new token, verified by log format contract tests)

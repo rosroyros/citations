@@ -12,13 +12,15 @@ export const CreditProvider = ({ children }) => {
   const token = getToken();
 
   const fetchCredits = useCallback(async () => {
-    if (!token) return;
+    // Get token fresh each time - important after checkout saves new token
+    const currentToken = getToken();
+    if (!currentToken) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`/api/credits?token=${token}`);
+      const response = await fetch(`/api/credits?token=${currentToken}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -32,7 +34,7 @@ export const CreditProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     fetchCredits();

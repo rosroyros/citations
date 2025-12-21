@@ -301,6 +301,26 @@ test.describe('User Access Flows - E2E Tests', () => {
     test('should handle credit purchase flow', async ({ page }) => {
       console.log('🧪 Testing credit purchase flow...');
 
+      // Add PolarEmbedCheckout mock for embedded checkout
+      await page.addInitScript(() => {
+        window.__polarCheckoutHandlers = {};
+        window.__polarCheckoutCreated = false;
+        window.PolarEmbedCheckout = {
+          create: async (url, options) => {
+            window.__polarCheckoutCreated = true;
+            return {
+              on: (event, handler) => {
+                window.__polarCheckoutHandlers[event] = handler;
+                // Auto-trigger success after a short delay
+                if (event === 'success') {
+                  setTimeout(() => handler(), 100);
+                }
+              }
+            };
+          }
+        };
+      });
+
       // Mock Polar checkout success - catch both main domain and sandbox
       await page.route(/.*polar\.sh.*/, async (route) => {
         console.log('Mocking Polar checkout page');
@@ -323,14 +343,14 @@ test.describe('User Access Flows - E2E Tests', () => {
         });
       });
 
-      // Mock create-checkout endpoint to simulate a completed purchase flow
+      // Mock create-checkout endpoint - returns checkout URL for SDK
       await page.route('/api/create-checkout', async (route) => {
-        console.log('Mocking create-checkout response -> Redirecting to Success');
+        console.log('Mocking create-checkout response for embedded checkout');
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
           body: JSON.stringify({
-            checkout_url: 'http://localhost:5173/success?token=mock_test_token'
+            checkout_url: 'https://checkout.polar.sh/mock-checkout-session'
           })
         });
       });
@@ -344,13 +364,14 @@ test.describe('User Access Flows - E2E Tests', () => {
       await expect(page.locator('text=500 Credits').first()).toBeVisible();
       await expect(page.locator('text=2,000 Credits').first()).toBeVisible();
 
-      // Click Buy (triggers the redirect to success)
+      // Click Buy (triggers embedded checkout now, not redirect)
       await page.locator('button:has-text("Buy 500 Credits")').click();
 
-      // Verify we land on the success page
-      await expect(page).toHaveURL(/.*\/success.*/, { timeout: 10000 });
+      // Wait for success state to appear (displayed after embedded checkout completes)
+      // The test-pricing-table page shows a success message after checkout
+      await expect(page.locator('text=Payment Successful')).toBeVisible({ timeout: 10000 });
 
-      console.log('✅ Credit purchase flow test passed (Revenue Loop Verified)');
+      console.log('✅ Credit purchase flow test passed (Embedded Checkout Verified)');
     });
   });
 

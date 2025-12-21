@@ -311,3 +311,173 @@
 .upgrade-modal-continue-button:hover {
   background-color: #6d28d9;
 }
+
+/* ========================================
+   C2 Receipt Light Success State
+   ======================================== */
+
+.checkout-success-container {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 440px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  animation: successFadeIn 0.4s ease-out;
+}
+
+@keyframes successFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.checkout-success-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.checkout-success-icon {
+  width: 52px;
+  height: 52px;
+  background: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.checkout-success-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 4px 0;
+}
+
+.checkout-success-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Receipt card */
+.checkout-success-receipt {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.checkout-success-receipt-label {
+  font-size: 13px;
+  color: #64748b;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.checkout-success-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-success-product-name {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.checkout-success-price {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* What's next section */
+.checkout-success-next {
+  margin-bottom: 24px;
+}
+
+.checkout-success-next-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 12px 0;
+}
+
+.checkout-success-next-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-success-next-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.checkout-success-next-list li:last-child {
+  margin-bottom: 0;
+}
+
+.checkout-success-bullet {
+  width: 6px;
+  height: 6px;
+  background: #7c3aed;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* Support link */
+.checkout-success-support {
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.checkout-success-support a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.checkout-success-support a:hover {
+  text-decoration: underline;
+}
+
+/* CTA Button */
+.checkout-success-button {
+  width: 100%;
+  background: #7c3aed;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.checkout-success-button:hover {
+  background: #6d28d9;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .checkout-success-container {
+    padding: 28px 24px;
+  }
+}

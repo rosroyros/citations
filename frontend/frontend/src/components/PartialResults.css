@@ -82,50 +82,172 @@
   }
 }
 
-/* Inline checkout success state */
-.inline-checkout-success {
-  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-  border: 2px solid #10b981;
-  border-radius: 12px;
-  padding: var(--space-2xl);
-  text-align: center;
-  max-width: 500px;
+/* ========================================
+   C2 Receipt Light Success State (Inline)
+   ======================================== */
+
+.checkout-success-inline {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  max-width: 440px;
   margin: var(--space-xl) auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  animation: successFadeIn 0.4s ease-out;
 }
 
-.inline-checkout-success .success-icon {
-  color: #10b981;
-  margin-bottom: var(--space-md);
+@keyframes successFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.inline-checkout-success h3 {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
+.checkout-success-inline .checkout-success-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.checkout-success-inline .checkout-success-icon {
+  width: 52px;
+  height: 52px;
+  background: #dcfce7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.checkout-success-inline .checkout-success-title {
+  font-size: 22px;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0 0 var(--space-sm) 0;
+  color: #1a202c;
+  margin: 0 0 4px 0;
 }
 
-.inline-checkout-success p {
-  font-size: 1rem;
-  color: var(--color-text-secondary);
-  margin: 0 0 var(--space-lg) 0;
+.checkout-success-inline .checkout-success-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
 }
 
-.validate-now-button {
-  background: var(--color-brand);
+/* Receipt card */
+.checkout-success-inline .checkout-success-receipt {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.checkout-success-inline .checkout-success-receipt-label {
+  font-size: 13px;
+  color: #64748b;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.checkout-success-inline .checkout-success-receipt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkout-success-inline .checkout-success-product-name {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+.checkout-success-inline .checkout-success-price {
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* What's next section */
+.checkout-success-inline .checkout-success-next {
+  margin-bottom: 24px;
+}
+
+.checkout-success-inline .checkout-success-next-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 12px 0;
+}
+
+.checkout-success-inline .checkout-success-next-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkout-success-inline .checkout-success-next-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.checkout-success-inline .checkout-success-next-list li:last-child {
+  margin-bottom: 0;
+}
+
+.checkout-success-inline .checkout-success-bullet {
+  width: 6px;
+  height: 6px;
+  background: #7c3aed;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* Support link */
+.checkout-success-inline .checkout-success-support {
+  text-align: center;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.checkout-success-inline .checkout-success-support a {
+  color: #7c3aed;
+  text-decoration: none;
+}
+
+.checkout-success-inline .checkout-success-support a:hover {
+  text-decoration: underline;
+}
+
+/* CTA Button */
+.checkout-success-inline .checkout-success-button {
+  width: 100%;
+  background: #7c3aed;
   color: white;
   border: none;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 14px;
   border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.validate-now-button:hover {
-  background: var(--color-brand-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+.checkout-success-inline .checkout-success-button:hover {
+  background: #6d28d9;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .checkout-success-inline {
+    padding: 28px 24px;
+  }
 }

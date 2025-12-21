@@ -270,32 +270,47 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
   test('passes job_id to create-checkout endpoint', async ({ page }) => {
     console.log('🚀 Test: job_id propagation');
 
-    // Navigate to home page
-    await page.goto('/');
-
-    // Force button variant (1.1 = Credits + Button) so the upgrade button appears
-    await page.evaluate(() => {
+    // Add PolarEmbedCheckout mock AND force button variant in same addInitScript
+    // This ensures the variant is set BEFORE React reads localStorage
+    await page.addInitScript(() => {
+      // Force button variant (1.1 = Credits + Button) so the upgrade button appears
       localStorage.setItem('experiment_v1', '1.1');
       localStorage.setItem('citation_checker_free_used', '10');
-    });
 
-    // Reload to apply localStorage
-    await page.goto('/');
+      // Mock Polar SDK
+      window.__polarCheckoutHandlers = {};
+      window.__polarCheckoutCreated = false;
+      window.PolarEmbedCheckout = {
+        create: async (url, options) => {
+          window.__polarCheckoutCreated = true;
+          return {
+            on: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+              // Auto-trigger success after a short delay for this test
+              if (event === 'success') {
+                setTimeout(() => handler(), 100);
+              }
+            }
+          };
+        }
+      };
+    });
 
     // Intercept create-checkout to verify payload
     let capturedRequest = null;
     await page.route('/api/create-checkout', async route => {
       capturedRequest = route.request();
 
-      // Mock success response
+      // Mock success response - returns a checkout URL for the SDK to use
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify({ checkout_url: 'http://localhost:5173/success?mock=true' })
+        body: JSON.stringify({ checkout_url: 'https://checkout.polar.sh/mock-checkout' })
       });
     });
 
-    // Submit 6 citations to ensure we hit the limit behavior and generate a job with sufficient complexity
+    // Navigate to home page (variant will be set before React reads it)
+    await page.goto('/');
     const editor = page.locator('.ProseMirror')
       .or(page.locator('[contenteditable="true"]'))
       .or(page.locator('textarea'));
@@ -321,9 +336,8 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     // Wait for partial results to ensure the UI has settled
     await expect(page.locator('[data-testid="partial-results"]')).toBeVisible({ timeout: 60000 });
 
-    // Click "Unlock Results" / Upgrade button
-    // Note: Locator depends on implementation. Looking for upgrade button.
-    const upgradeButton = page.locator('button:has-text("Unlock"), button:has-text("Upgrade")').first();
+    // Click "Upgrade to Unlock Now" button
+    const upgradeButton = page.locator('button:has-text("Upgrade to Unlock Now")').first();
     await upgradeButton.click();
 
     // Wait for modal
@@ -346,5 +360,9 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     expect(postData).toHaveProperty('job_id');
     expect(postData.job_id).toMatch(/^[\w-]+$/); // Allow alphanumeric and dashes/underscores
     expect(postData.job_id).toBeTruthy();
+
+    // Wait for embedded checkout success state in modal
+    await expect(page.locator('[data-testid="checkout-success"]')).toBeVisible({ timeout: 5000 });
+    console.log('✅ Embedded checkout success state verified');
   });
 });

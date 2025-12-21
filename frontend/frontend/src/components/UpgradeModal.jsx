@@ -78,10 +78,13 @@ export const UpgradeModal = ({
         setLoading(false);
       },
       onSuccess: async () => {
-        // Refresh credits after successful purchase
-        await refreshCredits();
+        // Show success state immediately
         setLoading(false);
         setCheckoutSuccess(true);
+
+        // Wait 2 seconds for Polar's order.created webhook to be processed
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await refreshCredits();
       },
       onClose: () => {
         // User closed/abandoned checkout - reset loading state
@@ -96,18 +99,64 @@ export const UpgradeModal = ({
 
   // Render content based on limit type
   const renderContent = () => {
-    // Success state after checkout completes
+    // Success state after checkout completes (C2 Receipt Light design)
     if (checkoutSuccess) {
       return (
-        <div className="upgrade-modal-content-centered" data-testid="checkout-success">
-          <div className="upgrade-modal-success-icon">✅</div>
-          <h2 className="upgrade-modal-title">Payment Successful!</h2>
-          <p className="upgrade-modal-message">
-            Your purchase is now active. You can continue validating citations.
+        <div className="checkout-success-container" data-testid="checkout-success">
+          {/* Header with checkmark */}
+          <div className="checkout-success-header">
+            <div className="checkout-success-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h2 className="checkout-success-title">Thank You!</h2>
+            <p className="checkout-success-subtitle">Payment Confirmed</p>
+          </div>
+
+          {/* Receipt card */}
+          <div className="checkout-success-receipt">
+            <span className="checkout-success-receipt-label">Purchased</span>
+            <div className="checkout-success-receipt-row">
+              <span className="checkout-success-product-name">7-Day Pass</span>
+              <span className="checkout-success-price">$4.99</span>
+            </div>
+          </div>
+
+          {/* What's next section */}
+          <div className="checkout-success-next">
+            <p className="checkout-success-next-title">What's next?</p>
+            <ul className="checkout-success-next-list">
+              <li>
+                <span className="checkout-success-bullet"></span>
+                <span>Check your status in the header (top-right)</span>
+              </li>
+              <li>
+                <span className="checkout-success-bullet"></span>
+                <span>Re-submit your citations to see full results</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support link */}
+          <p className="checkout-success-support">
+            Questions? <a href="mailto:support@citationformatchecker.com">Contact support</a>
           </p>
+
+          {/* CTA button */}
           <button
-            className="upgrade-modal-continue-button"
-            onClick={onClose}
+            className="checkout-success-button"
+            onClick={() => {
+              onClose();
+              // Scroll to editor after modal closes
+              setTimeout(() => {
+                const editor = document.querySelector('.ProseMirror');
+                if (editor) {
+                  editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  editor.focus();
+                }
+              }, 100);
+            }}
             data-testid="continue-button"
           >
             Continue

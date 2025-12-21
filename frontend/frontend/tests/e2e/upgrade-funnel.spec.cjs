@@ -2,6 +2,26 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Upgrade Funnel Full Flow', () => {
   test.beforeEach(async ({ page }) => {
+    // Add PolarEmbedCheckout mock for embedded checkout
+    await page.addInitScript(() => {
+      window.__polarCheckoutHandlers = {};
+      window.__polarCheckoutCreated = false;
+      window.PolarEmbedCheckout = {
+        create: async (url, options) => {
+          window.__polarCheckoutCreated = true;
+          return {
+            on: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+              // Auto-trigger success after a short delay for tests
+              if (event === 'success') {
+                setTimeout(() => handler(), 100);
+              }
+            }
+          };
+        }
+      };
+    });
+
     // Mock the API endpoints for testing
     await page.route('/api/credits', async route => {
       await route.fulfill({
@@ -50,13 +70,13 @@ test.describe('Upgrade Funnel Full Flow', () => {
       });
     });
 
-    // Mock Polar checkout API
+    // Mock Polar checkout API - returns checkout_url for SDK
     await page.route('/api/create-checkout', async route => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
         body: JSON.stringify({
-          url: 'https://checkout.polar.sh/test-checkout'
+          checkout_url: 'https://checkout.polar.sh/test-checkout'
         })
       });
     });
@@ -67,7 +87,7 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await page.goto('/');
 
     // Fill in citation
-    await page.fill('[data-testid="citation-editor"]', 'Smith, J. (2023). Test citation.');
+    await page.fill('.ProseMirror', 'Smith, J. (2023). Test citation.');
 
     // Submit validation
     await page.click('button:has-text("Validate Citations")');
@@ -94,23 +114,16 @@ test.describe('Upgrade Funnel Full Flow', () => {
     });
     expect(storedJobId).toBe('test-job-123');
 
-    // Verify upgrade event was called
-    const upgradeRequests = [];
-    page.on('request', request => {
-      if (request.url().includes('/api/upgrade-event')) {
-        upgradeRequests.push(request);
-      }
-    });
+    // Step 3: Wait for upgrade modal and click a buy button to trigger embedded checkout
+    await expect(page.locator('.upgrade-modal-container, [data-testid="upgrade-modal"]').first()).toBeVisible({ timeout: 5000 });
+    const buyButton = page.locator('button:has-text("Buy")').first();
+    await buyButton.click();
 
-    // Step 3: Mock Polar redirect to success page
-    await page.goto('/success?token=test-token-123');
+    // Step 4: Wait for embedded checkout to complete - success state shows in modal
+    await expect(page.locator('[data-testid="checkout-success"]').or(page.locator('text=Payment Successful')).first()).toBeVisible({ timeout: 10000 });
 
-    // Verify success page loads
-    await expect(page.locator('text=Payment Successful!')).toBeVisible();
-    await expect(page.locator('text=1,000 credits have been added to your account')).toBeVisible();
-
-    // Step 4: Verify localStorage is cleared after success
-    await page.waitForTimeout(1000); // Wait for async operations
+    // Step 5: Verify localStorage is cleared after success
+    await page.waitForTimeout(500); // Wait for async operations
 
     const clearedJobId = await page.evaluate(() => {
       return localStorage.getItem('pending_upgrade_job_id');
@@ -125,7 +138,7 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await page.goto('/');
 
     // Fill and submit to get partial results
-    await page.fill('[data-testid="citation-editor"]', 'Smith, J. (2023). Test citation.');
+    await page.fill('.ProseMirror', 'Smith, J. (2023). Test citation.');
     await page.click('button:has-text("Validate Citations")');
     await expect(page.locator('text=Validation Results')).toBeVisible();
 
@@ -146,7 +159,7 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await page.goto('/');
 
     // Get to partial results
-    await page.fill('[data-testid="citation-editor"]', 'Smith, J. (2023). Test citation.');
+    await page.fill('.ProseMirror', 'Smith, J. (2023). Test citation.');
     await page.click('button:has-text("Validate Citations")');
     await expect(page.locator('text=Validation Results')).toBeVisible();
 
@@ -176,7 +189,7 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await page.goto('/');
 
     // Get to partial results
-    await page.fill('[data-testid="citation-editor"]', 'Smith, J. (2023). Test citation.');
+    await page.fill('.ProseMirror', 'Smith, J. (2023). Test citation.');
     await page.click('button:has-text("Validate Citations")');
     await expect(page.locator('text=Validation Results')).toBeVisible();
 
@@ -227,24 +240,35 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await page.goto('/');
 
     // Get to partial results
-    await page.fill('[data-testid="citation-editor"]', 'Smith, J. (2023). Test citation.');
+    await page.fill('.ProseMirror', 'Smith, J. (2023). Test citation.');
     await page.click('button:has-text("Validate Citations")');
     await expect(page.locator('text=Validation Results')).toBeVisible();
 
-    // Click upgrade multiple times
-    await page.click('button:has-text("Upgrade Now")');
+    // Click upgrade button (opens modal)
     await page.click('button:has-text("Upgrade Now")');
 
-    // Should still only have one job_id
+    // Wait for modal then close it
+    await expect(page.locator('.upgrade-modal-container, [data-testid="upgrade-modal"]').first()).toBeVisible({ timeout: 5000 });
+    await page.locator('[data-testid="close-modal"], .upgrade-modal-close-x').first().click();
+
+    // Click upgrade again
+    await page.click('button:has-text("Upgrade Now")');
+
+    // Should still only have one job_id (same job)
     const storedJobId = await page.evaluate(() => {
       return localStorage.getItem('pending_upgrade_job_id');
     });
     expect(storedJobId).toBe('test-job-123');
 
-    // Go to success page
-    await page.goto('/success?token=test-token-123');
+    // Click a buy button to trigger embedded checkout
+    await expect(page.locator('.upgrade-modal-container, [data-testid="upgrade-modal"]').first()).toBeVisible({ timeout: 5000 });
+    const buyButton = page.locator('button:has-text("Buy")').first();
+    await buyButton.click();
 
-    // Should clear localStorage
+    // Wait for embedded checkout success state
+    await expect(page.locator('[data-testid="checkout-success"]').or(page.locator('text=Payment Successful')).first()).toBeVisible({ timeout: 10000 });
+
+    // Should clear localStorage after success
     const clearedJobId = await page.evaluate(() => {
       return localStorage.getItem('pending_upgrade_job_id');
     });

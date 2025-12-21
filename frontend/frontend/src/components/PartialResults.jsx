@@ -17,6 +17,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
   const [error, setError] = useState(null);
   const [inlineCheckoutSuccess, setInlineCheckoutSuccess] = useState(false);
   const [purchasedProductName, setPurchasedProductName] = useState(null);
+  const [purchasedProductPrice, setPurchasedProductPrice] = useState(null);
   const { trackSourceTypeView } = useAnalyticsTracking();
   const { refreshCredits } = useCredits();
 
@@ -102,6 +103,20 @@ export function PartialResults({ results, partial, citations_checked, citations_
     }
   }, [showInline, variant, job_id, citations_remaining]);
 
+  // Scroll success modal into view when it appears
+  useEffect(() => {
+    if (inlineCheckoutSuccess) {
+      // Wait for the success UI to render, then scroll it into view
+      setTimeout(() => {
+        const successElement = document.querySelector('[data-testid="inline-checkout-success"]');
+        // Check if scrollIntoView exists (not available in JSDOM tests)
+        if (successElement && typeof successElement.scrollIntoView === 'function') {
+          successElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, [inlineCheckoutSuccess]);
+
   const handleReveal = async () => {
     if (onReveal) {
       onReveal();
@@ -113,22 +128,44 @@ export function PartialResults({ results, partial, citations_checked, citations_
   const getProductName = (productId) => {
     // Map product IDs to display names
     const productNames = {
+      // Production product IDs
       '29749045-dbb4-4716-8e6c-5a66bd0e8a0e': '100 credits',
       '1d6e5839-c859-4a24-ba7e-48d4555b6823': '500 credits',
       'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '2000 credits',
       '54e09bb2-3e4c-41a5-a304-ce7db642dbe5': 'Day Pass',
-      '76aa138a-e7fe-4815-9a32-f52312e0035d': 'Week Pass',
+      '76aa138a-e7fe-4815-9a32-f52312e0035d': '7-Day Pass',
       '7efb5825-e5df-480a-8f3d-04ce8c5ec01c': 'Month Pass'
     };
     return productNames[productId] || 'purchase';
   };
 
+  // Helper to get product price from product ID
+  const getProductPrice = (productId) => {
+    const productPrices = {
+      // Production product IDs
+      '29749045-dbb4-4716-8e6c-5a66bd0e8a0e': '$1.99',
+      '1d6e5839-c859-4a24-ba7e-48d4555b6823': '$7.99',
+      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '$24.99',
+      '54e09bb2-3e4c-41a5-a304-ce7db642dbe5': '$0.99',
+      '76aa138a-e7fe-4815-9a32-f52312e0035d': '$4.99',
+      '7efb5825-e5df-480a-8f3d-04ce8c5ec01c': '$14.99'
+    };
+    return productPrices[productId] || '';
+  };
+
   // Scroll to editor and focus
   const scrollToEditor = () => {
-    const editor = document.querySelector('.ProseMirror');
+    // Try multiple selectors for the editor
+    const editor = document.querySelector('.ProseMirror') ||
+      document.querySelector('.citation-editor') ||
+      document.querySelector('[data-testid="citation-input"]');
+
     if (editor) {
       editor.scrollIntoView({ behavior: 'smooth', block: 'center' });
       editor.focus();
+    } else {
+      // Fallback: scroll to top of page where editor typically is
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -140,11 +177,16 @@ export function PartialResults({ results, partial, citations_checked, citations_
       jobId: job_id,
       onError: (err) => setError(err.message),
       onSuccess: async () => {
-        // Refresh credits after successful purchase
-        await refreshCredits();
-        // Set success state
+        // Set success state with product details immediately
         setPurchasedProductName(getProductName(productId));
+        setPurchasedProductPrice(getProductPrice(productId));
         setInlineCheckoutSuccess(true);
+
+        // Wait 2 seconds for Polar's order.created webhook to be processed
+        // before refreshing credits (webhook grants the pass/credits)
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        await refreshCredits();
+
         // Track success
         trackEvent('inline_checkout_completed', {
           product_id: productId,
@@ -157,20 +199,57 @@ export function PartialResults({ results, partial, citations_checked, citations_
     });
   };
 
-  // Success state after inline checkout completes
+  // Success state after inline checkout completes (C2 Receipt Light design)
+  // Note: Scroll to top is handled centrally in checkoutFlow.js
   if (inlineCheckoutSuccess) {
     return (
       <div className="partial-results-container" data-testid="partial-results">
-        <div className="inline-checkout-success" data-testid="inline-checkout-success">
-          <CheckCircle className="success-icon" size={48} />
-          <h3>Payment Successful!</h3>
-          <p>Your {purchasedProductName} is now active.</p>
+        <div className="checkout-success-inline" data-testid="inline-checkout-success">
+          {/* Header with checkmark */}
+          <div className="checkout-success-header">
+            <div className="checkout-success-icon">
+              <CheckCircle size={28} color="#16a34a" strokeWidth={2.5} />
+            </div>
+            <h2 className="checkout-success-title">Thank You!</h2>
+            <p className="checkout-success-subtitle">Payment Confirmed</p>
+          </div>
+
+          {/* Receipt card */}
+          <div className="checkout-success-receipt">
+            <span className="checkout-success-receipt-label">Purchased</span>
+            <div className="checkout-success-receipt-row">
+              <span className="checkout-success-product-name">{purchasedProductName}</span>
+              <span className="checkout-success-price">{purchasedProductPrice}</span>
+            </div>
+          </div>
+
+          {/* What's next section */}
+          <div className="checkout-success-next">
+            <p className="checkout-success-next-title">What's next?</p>
+            <ul className="checkout-success-next-list">
+              <li>
+                <span className="checkout-success-bullet"></span>
+                <span>Check your status in the header (top-right)</span>
+              </li>
+              <li>
+                <span className="checkout-success-bullet"></span>
+                <span>Re-submit your citations to see full results</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support link */}
+          <p className="checkout-success-support">
+            Questions? <a href="mailto:support@citationformatchecker.com">Contact support</a>
+          </p>
+
+          {/* CTA button */}
           <button
-            className="validate-now-button"
+            className="checkout-success-button"
             onClick={scrollToEditor}
             data-testid="validate-now-button"
           >
-            Validate Your Citations Now
+            Validate Again
           </button>
         </div>
       </div>

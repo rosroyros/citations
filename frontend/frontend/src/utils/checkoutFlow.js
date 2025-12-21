@@ -24,6 +24,7 @@
 
 import { PolarEmbedCheckout } from '@polar-sh/checkout/embed';
 import { trackEvent } from './analytics';
+import { getToken, saveToken } from './creditStorage';
 
 /**
  * Detect user's preferred theme for checkout styling
@@ -68,8 +69,8 @@ export async function initiateCheckout({
       localStorage.setItem('pending_upgrade_job_id', jobId);
     }
 
-    // Get user token
-    const token = localStorage.getItem('userToken');
+    // Get user token (uses correct key from creditStorage)
+    const token = getToken();
 
     // Create checkout session
     const response = await fetch('/api/create-checkout', {
@@ -87,7 +88,14 @@ export async function initiateCheckout({
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const { checkout_url } = await response.json();
+    const data = await response.json();
+    const checkout_url = data.checkout_url;
+    const newToken = data.token;
+
+    // Save the new token if returned (critical for user recognition after purchase)
+    if (newToken) {
+      saveToken(newToken);
+    }
 
     if (!checkout_url) {
       throw new Error('No checkout URL received');
@@ -103,10 +111,14 @@ export async function initiateCheckout({
     const theme = detectTheme();
 
     // Open embedded checkout
-    const embedCheckout = await PolarEmbedCheckout.create(checkout_url, { theme });
+    // Use window mock if available (E2E testing), otherwise use real SDK
+    const CheckoutSDK = window.PolarEmbedCheckout || PolarEmbedCheckout;
+    // Note: SDK.create() takes (url, theme) where theme is a string, not an object
+    const embedCheckout = await CheckoutSDK.create(checkout_url, theme);
 
     // Handle checkout success
-    embedCheckout.on('success', () => {
+    // Note: SDK uses addEventListener, not .on()
+    embedCheckout.addEventListener('success', () => {
       trackEvent('checkout_completed', {
         product_id: productId,
         experiment_variant: experimentVariant
@@ -115,13 +127,17 @@ export async function initiateCheckout({
       // Clean up pending job ID
       localStorage.removeItem('pending_upgrade_job_id');
 
+      // Close the embedded checkout iframe
+      // This is required when using embed_origin instead of success_url redirect
+      embedCheckout.close();
+
       if (onSuccess) {
         onSuccess();
       }
     });
 
     // Handle checkout close (user abandonment)
-    embedCheckout.on('close', () => {
+    embedCheckout.addEventListener('close', () => {
       trackEvent('checkout_abandoned', {
         product_id: productId,
         experiment_variant: experimentVariant
@@ -142,6 +158,9 @@ export async function initiateCheckout({
 
     // Call error callback
     onError(error);
+
+    // Re-throw so callers can also handle the error (e.g., PricingTableCredits shows error UI)
+    throw error;
   }
 }
 

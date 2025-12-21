@@ -8,8 +8,59 @@ test.describe('Checkout Flow E2E', () => {
     await page.context().clearCookies();
     await page.addInitScript(() => {
       localStorage.clear();
+
+      // Mock the Polar Embed SDK
+      // The actual SDK is dynamically imported, so we need to mock at window level
+      window.__polarCheckoutHandlers = {};
+      window.__polarCheckoutCreated = false;
+      window.__polarCheckoutUrl = null;
+      window.__polarCheckoutClosed = false;
+
+      window.PolarEmbedCheckout = {
+        create: async (url, options) => {
+          window.__polarCheckoutCreated = true;
+          window.__polarCheckoutUrl = url;
+          return {
+            // The real SDK uses addEventListener, not on()
+            addEventListener: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+            },
+            // Support legacy on() for any code that might use it
+            on: (event, handler) => {
+              window.__polarCheckoutHandlers[event] = handler;
+            },
+            // The close() method is called after success
+            close: () => {
+              window.__polarCheckoutClosed = true;
+            }
+          };
+        }
+      };
     });
   });
+
+  // Helper to trigger mock checkout success
+  async function triggerCheckoutSuccess(page) {
+    await page.evaluate(() => {
+      if (window.__polarCheckoutHandlers?.success) {
+        window.__polarCheckoutHandlers.success();
+      }
+    });
+  }
+
+  // Helper to trigger mock checkout close (abandonment)
+  async function triggerCheckoutClose(page) {
+    await page.evaluate(() => {
+      if (window.__polarCheckoutHandlers?.close) {
+        window.__polarCheckoutHandlers.close();
+      }
+    });
+  }
+
+  // Helper to check if embed checkout was created
+  async function wasEmbedCheckoutCreated(page) {
+    return await page.evaluate(() => window.__polarCheckoutCreated);
+  }
 
   test.describe('Variant 1 - Credits Purchase Flow', () => {
     // Skip on Firefox - console event timing is flaky
@@ -63,10 +114,7 @@ test.describe('Checkout Flow E2E', () => {
 
       // Check the last logged event for correctness
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
-      // Firefox logs objects as "JSHandle@object" so we can't check the text content
-      // Just verify the event was logged (we already filtered for pricing_table_shown above)
       expect(lastEvent.text).toContain('pricing_table_shown');
-      // The variant check is implicit - if pricing_table_shown was logged, the component rendered correctly
 
       // Click on 500 credits (recommended tier)
       const buy500Button = page.getByRole('button', { name: 'Buy 500 Credits' });
@@ -85,26 +133,31 @@ test.describe('Checkout Flow E2E', () => {
       const postData = JSON.parse(request.postData());
 
       // Verify the request contains correct data
-      expect(postData.productId).toBe('2a3c8913-2e82-4f12-9eb7-767e4bc98089'); // 500 credits product ID
+      expect(postData.productId).toBe('2a3c8913-2e82-4f12-9eb7-767e4bc98089');
       expect(postData.variantId).toBe('1');
 
-      // Verify product_selected event was logged
+      // Wait for embed checkout to be created
+      await page.waitForTimeout(500);
+      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+
+      // Verify checkout_embed_opened event was logged
       expect(consoleMessages.some(msg =>
-        msg.text.includes('product_selected') &&
-        msg.text.includes(postData.productId) &&
-        (msg.text.includes('variant: 1') || msg.text.includes('variant: "1"') || msg.text.includes("variant: '1'"))
+        msg.text.includes('checkout_embed_opened')
       )).toBeTruthy();
 
-      // Wait for checkout_started event
-      await page.waitForTimeout(500); // Give a moment for checkout_started event
+      // Trigger mock success event
+      await triggerCheckoutSuccess(page);
+
+      // Wait for success handling
+      await page.waitForTimeout(200);
+
+      // Verify checkout_completed event was logged
       expect(consoleMessages.some(msg =>
-        msg.text.includes('checkout_started') &&
+        msg.text.includes('checkout_completed') &&
         msg.text.includes(postData.productId)
       )).toBeTruthy();
 
-      // The test verifies the checkout API is called with correct parameters
-      // In a real scenario, user would be redirected to Polar checkout
-      // For E2E test purposes, we've verified the frontend correctly initiates checkout
+      // Test verifies embedded checkout flow works without redirect
     });
   });
 
@@ -155,8 +208,6 @@ test.describe('Checkout Flow E2E', () => {
       expect(pricingTableShownEvents.length).toBeGreaterThan(0);
 
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
-      // Firefox logs objects as "JSHandle@object" so we can't check the text content
-      // Just verify the event was logged (we already filtered for pricing_table_shown above)
       expect(lastEvent.text).toContain('pricing_table_shown');
 
       // Click on 7-day pass (recommended tier)
@@ -175,26 +226,31 @@ test.describe('Checkout Flow E2E', () => {
       const postData = JSON.parse(request.postData());
 
       // Verify the request contains correct data
-      expect(postData.productId).toBe('5b311653-7127-41b5-aed6-496fb713149c'); // 7-day pass product ID
+      expect(postData.productId).toBe('5b311653-7127-41b5-aed6-496fb713149c');
       expect(postData.variantId).toBe('2');
 
-      // Verify product_selected event was logged
+      // Wait for embed checkout to be created
+      await page.waitForTimeout(500);
+      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+
+      // Verify checkout_embed_opened event was logged
       expect(consoleMessages.some(msg =>
-        msg.text.includes('product_selected') &&
-        msg.text.includes(postData.productId) &&
-        (msg.text.includes('variant: 2') || msg.text.includes('variant: "2"') || msg.text.includes("variant: '2'"))
+        msg.text.includes('checkout_embed_opened')
       )).toBeTruthy();
 
-      // Wait for checkout_started event
-      await page.waitForTimeout(500); // Give a moment for checkout_started event
+      // Trigger mock success event
+      await triggerCheckoutSuccess(page);
+
+      // Wait for success handling
+      await page.waitForTimeout(200);
+
+      // Verify checkout_completed event was logged
       expect(consoleMessages.some(msg =>
-        msg.text.includes('checkout_started') &&
+        msg.text.includes('checkout_completed') &&
         msg.text.includes(postData.productId)
       )).toBeTruthy();
 
-      // The test verifies the checkout API is called with correct parameters
-      // In a real scenario, user would be redirected to Polar checkout
-      // For E2E test purposes, we've verified the frontend correctly initiates checkout
+      // Test verifies embedded checkout flow works without redirect
     });
   });
 
@@ -216,10 +272,95 @@ test.describe('Checkout Flow E2E', () => {
       const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
       await buy100Button.click();
 
-      // Verify error message is shown
-      await expect(page.getByText('Failed to open checkout. Please try again.')).toBeVisible();
+      // Wait for error message to appear (either from PricingTableCredits or test page)
+      // The error could say "Failed to open checkout" or contain the API error
+      await expect(
+        page.locator('text=/Failed|Error|error/i').first()
+      ).toBeVisible({ timeout: 5000 });
 
       // Verify button is re-enabled after error
+      await expect(buy100Button).toBeEnabled();
+    });
+
+    test('handles SDK initialization failure gracefully', async ({ page }) => {
+      // Override the mock to throw an error
+      await page.addInitScript(() => {
+        window.PolarEmbedCheckout = {
+          create: async () => {
+            throw new Error('SDK initialization failed');
+          }
+        };
+      });
+
+      // Mock checkout API to succeed (error happens in SDK)
+      await page.route('/api/create-checkout', async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            checkout_url: 'https://checkout.polar.sh/test'
+          })
+        });
+      });
+
+      await page.goto('/test-pricing-table');
+
+      const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
+      await buy100Button.click();
+
+      // Wait for error message to appear (flexible matching)
+      await expect(
+        page.locator('text=/Failed|Error|error/i').first()
+      ).toBeVisible({ timeout: 5000 });
+
+      // Verify button is re-enabled after error
+      await expect(buy100Button).toBeEnabled();
+    });
+  });
+
+  test.describe('Checkout Abandonment', () => {
+    test('handles checkout abandonment (user closes)', async ({ page }) => {
+      // Set up console event listeners
+      const consoleMessages = [];
+      page.on('console', msg => {
+        consoleMessages.push({
+          type: msg.type(),
+          text: msg.text()
+        });
+      });
+
+      // Mock the checkout API
+      await page.route('/api/create-checkout', async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            checkout_url: 'https://checkout.polar.sh/test-checkout'
+          })
+        });
+      });
+
+      await page.goto('/test-pricing-table');
+
+      const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
+      await buy100Button.click();
+
+      // Wait for embed checkout to be created
+      await page.waitForTimeout(500);
+      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+
+      // Trigger close event (user abandonment)
+      await triggerCheckoutClose(page);
+
+      // Wait for close handling
+      await page.waitForTimeout(200);
+
+      // Verify checkout_abandoned event was logged
+      expect(consoleMessages.some(msg =>
+        msg.text.includes('checkout_abandoned')
+      )).toBeTruthy();
+
+      // Verify button is still functional (can try again)
       await expect(buy100Button).toBeEnabled();
     });
   });

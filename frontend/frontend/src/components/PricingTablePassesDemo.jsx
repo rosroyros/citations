@@ -1,9 +1,35 @@
+import { useState } from 'react'
 import { PricingTablePasses } from './PricingTablePasses'
+import { initiateCheckout } from '../utils/checkoutFlow'
 
 export function PricingTablePassesDemo() {
-  const handleSelect = (productId, variant) => {
-    alert(`Selected: ${productId} (Variant: ${variant})`)
-    console.log('Product selected:', { productId, variant })
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(null);
+
+  const handleCheckout = (productId) => {
+    initiateCheckout({
+      productId,
+      experimentVariant: '2',
+      jobId: null,
+      onError: (err) => setCheckoutError(err.message),
+      onSuccess: () => setCheckoutSuccess(true),
+      onClose: () => {
+        // User closed checkout without completing
+      }
+    });
+  };
+
+  if (checkoutSuccess) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="max-w-6xl mx-auto text-center">
+          <div className="bg-green-100 border-2 border-green-500 rounded-lg p-8 max-w-md mx-auto">
+            <h2 className="text-2xl font-bold text-green-700 mb-2">Payment Successful!</h2>
+            <p className="text-green-600">Your pass has been activated.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -16,8 +42,14 @@ export function PricingTablePassesDemo() {
           Time-based unlimited access model
         </p>
 
+        {checkoutError && (
+          <div className="text-center text-red-600 mb-4">
+            {checkoutError}
+          </div>
+        )}
+
         <PricingTablePasses
-          onSelectProduct={handleSelect}
+          onCheckout={handleCheckout}
           experimentVariant="2"
         />
 

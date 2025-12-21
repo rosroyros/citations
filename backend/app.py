@@ -161,9 +161,11 @@ async def validate_with_provider_fallback(
             raise provider_error
 
 # Initialize Polar client
+# NOTE: Set server="sandbox" for testing with sandbox.polar.sh
+# Remove this before production deployment!
 polar = Polar(
-    access_token=os.getenv('POLAR_ACCESS_TOKEN')
-    # No server parameter = production API
+    access_token=os.getenv('POLAR_ACCESS_TOKEN'),
+    server="sandbox"  # TESTING ONLY - remove for production
 )
 
 # Global in-memory job storage
