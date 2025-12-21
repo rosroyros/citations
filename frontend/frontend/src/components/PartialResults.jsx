@@ -126,15 +126,16 @@ export function PartialResults({ results, partial, citations_checked, citations_
 
   // Helper to get product name from product ID
   const getProductName = (productId) => {
-    // Map product IDs to display names
+    // Map product IDs to display names (must match PricingTableCredits.jsx and PricingTablePasses.jsx)
     const productNames = {
-      // Production product IDs
-      '29749045-dbb4-4716-8e6c-5a66bd0e8a0e': '100 credits',
-      '1d6e5839-c859-4a24-ba7e-48d4555b6823': '500 credits',
-      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '2000 credits',
-      '54e09bb2-3e4c-41a5-a304-ce7db642dbe5': 'Day Pass',
-      '76aa138a-e7fe-4815-9a32-f52312e0035d': '7-Day Pass',
-      '7efb5825-e5df-480a-8f3d-04ce8c5ec01c': 'Month Pass'
+      // Credits (from PricingTableCredits.jsx)
+      '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': '100 credits',
+      '2a3c8913-2e82-4f12-9eb7-767e4bc98089': '500 credits',
+      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '2,000 credits',
+      // Passes (from PricingTablePasses.jsx)
+      '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': '1-Day Pass',
+      '5b311653-7127-41b5-aed6-496fb713149c': '7-Day Pass',
+      'e0bec30d-5576-481e-86f3-d704529651ae': '30-Day Pass'
     };
     return productNames[productId] || 'purchase';
   };
@@ -142,13 +143,14 @@ export function PartialResults({ results, partial, citations_checked, citations_
   // Helper to get product price from product ID
   const getProductPrice = (productId) => {
     const productPrices = {
-      // Production product IDs
-      '29749045-dbb4-4716-8e6c-5a66bd0e8a0e': '$1.99',
-      '1d6e5839-c859-4a24-ba7e-48d4555b6823': '$7.99',
-      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '$24.99',
-      '54e09bb2-3e4c-41a5-a304-ce7db642dbe5': '$0.99',
-      '76aa138a-e7fe-4815-9a32-f52312e0035d': '$4.99',
-      '7efb5825-e5df-480a-8f3d-04ce8c5ec01c': '$14.99'
+      // Credits (from PricingTableCredits.jsx)
+      '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': '$1.99',
+      '2a3c8913-2e82-4f12-9eb7-767e4bc98089': '$4.99',
+      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '$9.99',
+      // Passes (from PricingTablePasses.jsx)
+      '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': '$1.99',
+      '5b311653-7127-41b5-aed6-496fb713149c': '$4.99',
+      'e0bec30d-5576-481e-86f3-d704529651ae': '$9.99'
     };
     return productPrices[productId] || '';
   };
