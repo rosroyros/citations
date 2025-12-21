@@ -34,7 +34,35 @@ export const UpgradeModal = ({
   const [error, setError] = useState(null);
   const [variant, setVariant] = useState(null);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
+  const [purchasedProductId, setPurchasedProductId] = useState(null);
   const { refreshCreditsWithPolling } = useCredits();
+
+  // Helper to get product name from product ID (must match PricingTableCredits/Passes)
+  const getProductName = (productId) => {
+    const productNames = {
+      // Credits
+      '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': '100 credits',
+      '2a3c8913-2e82-4f12-9eb7-767e4bc98089': '500 credits',
+      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '2,000 credits',
+      // Passes
+      '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': '1-Day Pass',
+      '5b311653-7127-41b5-aed6-496fb713149c': '7-Day Pass',
+      'e0bec30d-5576-481e-86f3-d704529651ae': '30-Day Pass'
+    };
+    return productNames[productId] || 'purchase';
+  };
+
+  const getProductPrice = (productId) => {
+    const productPrices = {
+      '817c70f8-6cd1-4bdc-aa80-dd0a43e69a5e': '$1.99',
+      '2a3c8913-2e82-4f12-9eb7-767e4bc98089': '$4.99',
+      'fe7b0260-e411-4f9a-87c8-0856bf1d8b95': '$9.99',
+      '1282bd9b-81b6-4f06-a1f2-29bb0be01f26': '$1.99',
+      '5b311653-7127-41b5-aed6-496fb713149c': '$4.99',
+      'e0bec30d-5576-481e-86f3-d704529651ae': '$9.99'
+    };
+    return productPrices[productId] || '';
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -78,8 +106,9 @@ export const UpgradeModal = ({
         setLoading(false);
       },
       onSuccess: async () => {
-        // Show success state immediately
+        // Show success state immediately with purchased product
         setLoading(false);
+        setPurchasedProductId(productId);
         setCheckoutSuccess(true);
 
         // Poll for credit/pass update (handles webhook delay)
@@ -120,8 +149,8 @@ export const UpgradeModal = ({
           <div className="checkout-success-receipt">
             <span className="checkout-success-receipt-label">Purchased</span>
             <div className="checkout-success-receipt-row">
-              <span className="checkout-success-product-name">7-Day Pass</span>
-              <span className="checkout-success-price">$4.99</span>
+              <span className="checkout-success-product-name">{getProductName(purchasedProductId)}</span>
+              <span className="checkout-success-price">{getProductPrice(purchasedProductId)}</span>
             </div>
           </div>
 
