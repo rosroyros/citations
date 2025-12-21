@@ -202,6 +202,31 @@ def extract_token_usage(log_line: str) -> Optional[Dict[str, int]]:
     return None
 
 
+def extract_validation_results(log_line: str) -> Optional[Tuple[int, int]]:
+    """
+    Extract valid/invalid citation counts from a log line.
+
+    Args:
+        log_line: The log line to extract validation results from
+
+    Returns:
+        tuple of (valid_count, invalid_count) if found, None otherwise
+    """
+    # Pattern matches: Validation summary: 2 valid, 1 invalid
+    validation_pattern = r'Validation summary: (\d+) valid, (\d+) invalid'
+    match = re.search(validation_pattern, log_line)
+
+    if match:
+        try:
+            valid_count = int(match.group(1))
+            invalid_count = int(match.group(2))
+            return valid_count, invalid_count
+        except ValueError:
+            return None
+
+    return None
+
+
 def extract_failure(log_line: str) -> Optional[tuple]:
     """
     Extract job failure information from a log line.
@@ -819,6 +844,13 @@ def parse_metrics(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict
             job["token_usage_completion"] = token_usage["completion"]
             job["token_usage_total"] = token_usage["total"]
 
+        # Extract validation results (valid/invalid counts)
+        validation_results = extract_validation_results(line)
+        if validation_results is not None:
+            valid_count, invalid_count = validation_results
+            job["valid_citations_count"] = valid_count
+            job["invalid_citations_count"] = invalid_count
+
         # Extract citation preview (single line)
         preview_result = extract_citations_preview(line)
         if preview_result is not None:
@@ -929,6 +961,8 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("token_usage_prompt", None)
         job.setdefault("token_usage_completion", None)
         job.setdefault("token_usage_total", None)
+        job.setdefault("valid_citations_count", None)
+        job.setdefault("invalid_citations_count", None)
         job.setdefault("citations_preview", None)
         job.setdefault("citations_preview_truncated", False)
         job.setdefault("citations_full", None)

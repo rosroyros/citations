@@ -131,7 +131,9 @@ class DatabaseManager:
             'amount_cents': 'INTEGER',
             'currency': 'TEXT',
             'order_id': 'TEXT',
-            'interaction_type': 'TEXT'
+            'interaction_type': 'TEXT',
+            'valid_citations_count': 'INTEGER',
+            'invalid_citations_count': 'INTEGER'
         }
 
         for col_name, col_def in new_columns.items():

@@ -26,9 +26,11 @@ vi.mock('../utils/experimentVariant', () => ({
 
 // Mock CreditContext
 const mockRefreshCredits = vi.fn().mockResolvedValue(undefined);
+const mockRefreshCreditsWithPolling = vi.fn().mockResolvedValue(true);
 vi.mock('../contexts/CreditContext', () => ({
   useCredits: () => ({
     refreshCredits: mockRefreshCredits,
+    refreshCreditsWithPolling: mockRefreshCreditsWithPolling,
     credits: 100,
   }),
 }));
@@ -474,6 +476,7 @@ describe('PartialResults', () => {
       vi.mocked(experimentUtils.isInlineVariant).mockReturnValue(true);
       vi.mocked(experimentUtils.getPricingType).mockReturnValue('credits');
       mockRefreshCredits.mockClear();
+      mockRefreshCreditsWithPolling.mockClear();
     });
 
     it('should show success state when checkout completes', async () => {
@@ -508,8 +511,8 @@ describe('PartialResults', () => {
       // Assert - should show success state
       await waitFor(() => {
         expect(screen.getByTestId('inline-checkout-success')).toBeInTheDocument();
-        expect(screen.getByText('Payment Successful!')).toBeInTheDocument();
-        expect(screen.getByText('Your 100 credits is now active.')).toBeInTheDocument();
+        expect(screen.getByText('Thank You!')).toBeInTheDocument();
+        expect(screen.getByText('Payment Confirmed')).toBeInTheDocument();
       });
     });
 
@@ -539,9 +542,9 @@ describe('PartialResults', () => {
 
       await capturedOnCheckout('1d6e5839-c859-4a24-ba7e-48d4555b6823');
 
-      // Assert
+      // Assert - should use polling-based refresh
       await waitFor(() => {
-        expect(mockRefreshCredits).toHaveBeenCalled();
+        expect(mockRefreshCreditsWithPolling).toHaveBeenCalled();
       });
     });
 
@@ -574,7 +577,7 @@ describe('PartialResults', () => {
       // Assert
       await waitFor(() => {
         expect(screen.getByTestId('validate-now-button')).toBeInTheDocument();
-        expect(screen.getByText('Validate Your Citations Now')).toBeInTheDocument();
+        expect(screen.getByText('Validate Again')).toBeInTheDocument();
       });
     });
 

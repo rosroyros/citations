@@ -19,7 +19,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
   const [purchasedProductName, setPurchasedProductName] = useState(null);
   const [purchasedProductPrice, setPurchasedProductPrice] = useState(null);
   const { trackSourceTypeView } = useAnalyticsTracking();
-  const { refreshCredits } = useCredits();
+  const { refreshCreditsWithPolling } = useCredits();
 
   // Get experiment variant
   const variant = getExperimentVariant();
@@ -182,10 +182,11 @@ export function PartialResults({ results, partial, citations_checked, citations_
         setPurchasedProductPrice(getProductPrice(productId));
         setInlineCheckoutSuccess(true);
 
-        // Wait 2 seconds for Polar's order.created webhook to be processed
-        // before refreshing credits (webhook grants the pass/credits)
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        await refreshCredits();
+        // Poll for credit/pass update (handles webhook delay)
+        const updated = await refreshCreditsWithPolling();
+        if (!updated) {
+          console.log('[PartialResults] Credits did not update after polling, user may need to refresh');
+        }
 
         // Track success
         trackEvent('inline_checkout_completed', {

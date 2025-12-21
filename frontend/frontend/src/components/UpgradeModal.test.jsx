@@ -4,6 +4,7 @@ import { UpgradeModal } from './UpgradeModal';
 
 // Create mock functions at module level
 const mockRefreshCredits = vi.fn().mockResolvedValue(undefined);
+const mockRefreshCreditsWithPolling = vi.fn().mockResolvedValue(true);
 const mockInitiateCheckout = vi.fn();
 
 // Mock CreditContext at module level
@@ -13,6 +14,7 @@ vi.mock('../contexts/CreditContext', () => ({
     hasCredits: true,
     creditsLoading: false,
     refreshCredits: mockRefreshCredits,
+    refreshCreditsWithPolling: mockRefreshCreditsWithPolling,
     decrementCredits: vi.fn(),
   }),
   CreditProvider: ({ children }) => children,
@@ -39,6 +41,7 @@ describe('UpgradeModal', () => {
     vi.clearAllMocks();
     mockInitiateCheckout.mockImplementation(async () => { });
     mockRefreshCredits.mockResolvedValue(undefined);
+    mockRefreshCreditsWithPolling.mockResolvedValue(true);
   });
 
   it('should not render when isOpen is false', () => {
@@ -111,7 +114,7 @@ describe('UpgradeModal', () => {
     // Assert - should show success state
     await waitFor(() => {
       expect(screen.getByTestId('checkout-success')).toBeInTheDocument();
-      expect(screen.getByText('Payment Successful!')).toBeInTheDocument();
+      expect(screen.getByText('Thank You!')).toBeInTheDocument();
       expect(screen.getByTestId('continue-button')).toBeInTheDocument();
     });
   });
@@ -138,9 +141,9 @@ describe('UpgradeModal', () => {
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
-    // Assert - refreshCredits should be called
+    // Assert - refreshCreditsWithPolling should be called (not refreshCredits)
     await waitFor(() => {
-      expect(mockRefreshCredits).toHaveBeenCalled();
+      expect(mockRefreshCreditsWithPolling).toHaveBeenCalled();
     });
   });
 

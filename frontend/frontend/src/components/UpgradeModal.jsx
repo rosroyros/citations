@@ -34,7 +34,7 @@ export const UpgradeModal = ({
   const [error, setError] = useState(null);
   const [variant, setVariant] = useState(null);
   const [checkoutSuccess, setCheckoutSuccess] = useState(false);
-  const { refreshCredits } = useCredits();
+  const { refreshCreditsWithPolling } = useCredits();
 
   useEffect(() => {
     if (isOpen) {
@@ -82,9 +82,11 @@ export const UpgradeModal = ({
         setLoading(false);
         setCheckoutSuccess(true);
 
-        // Wait 2 seconds for Polar's order.created webhook to be processed
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        await refreshCredits();
+        // Poll for credit/pass update (handles webhook delay)
+        const updated = await refreshCreditsWithPolling();
+        if (!updated) {
+          console.log('[UpgradeModal] Credits did not update after polling, user may need to refresh');
+        }
       },
       onClose: () => {
         // User closed/abandoned checkout - reset loading state

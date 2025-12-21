@@ -1464,6 +1464,9 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="validationsChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Count of validation jobs per day. Successful vs. Failed/Error status.
+                    </p>
                 </div>
                 <div class="glass-card">
                     <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">📄 Citations Processed Over Time
@@ -1471,6 +1474,9 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="citationsChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Total individual citations processed within validation jobs per day.
+                    </p>
                 </div>
             </div>
             <div class="charts-row"
@@ -1480,12 +1486,18 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="uniqueFreeUsersChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Daily count of distinct anonymous user UUIDs who ran at least one free validation.
+                    </p>
                 </div>
                 <div class="glass-card">
                     <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🌐 Active Users (Validations)</h3>
                     <div style="height: 300px; position: relative;">
                         <canvas id="totalUniqueUsersChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Daily count of all distinct users (Free UUIDs + Paid Tokens) who actively used the tool.
+                    </p>
                 </div>
             </div>
             <div class="charts-row"
@@ -1495,6 +1507,9 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="siteVisitorsChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Daily unique visitors based on IP + User Agent hash from Nginx logs (includes passive visitors).
+                    </p>
                 </div>
             </div>
             <div class="charts-row"
@@ -1504,6 +1519,9 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="providerChart"></canvas>
                     </div>
+                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Distribution of AI models used for validation (e.g. OpenAI vs Gemini).
+                    </p>
                 </div>
             </div>
             <!-- Conversion Funnel Chart (A/B Test) -->
@@ -1519,6 +1537,9 @@
                 <div style="position: relative; height: 400px;">
                     <canvas id="funnelChart"></canvas>
                 </div>
+                <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    User progression through upgrade steps. 1.1/2.1 = Button trigger, 1.2/2.2 = Inline trigger.
+                </p>
                 <!-- Summary stats below chart -->
                 <div
                     style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg); margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border);">
