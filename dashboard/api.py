@@ -787,6 +787,7 @@ async def get_gated_stats(
 async def get_chart_data(
     from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    exclude_tests: Optional[bool] = Query(None, description="Exclude test jobs from chart data"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
@@ -819,7 +820,9 @@ async def get_chart_data(
                 SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
                 SUM(citation_count) as total_citations,
                 COUNT(DISTINCT CASE WHEN user_type = 'free' THEN free_user_id END) as unique_free_users,
-                COUNT(DISTINCT COALESCE(paid_user_id, free_user_id)) as total_unique_users
+                COUNT(DISTINCT COALESCE(paid_user_id, free_user_id)) as total_unique_users,
+                SUM(valid_citations_count) as valid_citations,
+                SUM(invalid_citations_count) as invalid_citations
             FROM validations
             WHERE 1=1
         """
@@ -832,6 +835,9 @@ async def get_chart_data(
         if to_date:
             query += " AND created_at <= ?"
             params.append(to_date)
+
+        if exclude_tests:
+            query += " AND (is_test_job = 0 OR is_test_job IS NULL)"
 
         query += " GROUP BY DATE(created_at) ORDER BY date ASC"
 
@@ -852,7 +858,9 @@ async def get_chart_data(
                 "failed_citations": row[6] or 0,
                 "total_citations": row[7] or 0,
                 "unique_free_users": row[8] or 0,
-                "total_unique_users": row[9] or 0
+                "total_unique_users": row[9] or 0,
+                "valid_citations": row[10] or 0,
+                "invalid_citations": row[11] or 0
             })
 
         # Also get provider distribution
@@ -870,6 +878,9 @@ async def get_chart_data(
         if to_date:
             provider_query += " AND created_at <= ?"
             provider_params.append(to_date)
+
+        if exclude_tests:
+            provider_query += " AND (is_test_job = 0 OR is_test_job IS NULL)"
 
         provider_query += " GROUP BY provider"
 

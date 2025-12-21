@@ -1464,7 +1464,8 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="validationsChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Count of validation jobs per day. Successful vs. Failed/Error status.
                     </p>
                 </div>
@@ -1474,7 +1475,8 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="citationsChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Total individual citations processed within validation jobs per day.
                     </p>
                 </div>
@@ -1486,16 +1488,19 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="uniqueFreeUsersChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Daily count of distinct anonymous user UUIDs who ran at least one free validation.
                     </p>
                 </div>
                 <div class="glass-card">
-                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🌐 Active Users (Validations)</h3>
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">🌐 Active Users (Validations)
+                    </h3>
                     <div style="height: 300px; position: relative;">
                         <canvas id="totalUniqueUsersChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Daily count of all distinct users (Free UUIDs + Paid Tokens) who actively used the tool.
                     </p>
                 </div>
@@ -1507,7 +1512,8 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="siteVisitorsChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Daily unique visitors based on IP + User Agent hash from Nginx logs (includes passive visitors).
                     </p>
                 </div>
@@ -1519,8 +1525,19 @@
                     <div style="height: 300px; position: relative;">
                         <canvas id="providerChart"></canvas>
                     </div>
-                    <p style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
                         Distribution of AI models used for validation (e.g. OpenAI vs Gemini).
+                    </p>
+                </div>
+                <div class="glass-card">
+                    <h3 style="margin-bottom: 16px; color: var(--color-text-primary);">✅ Citation Accuracy</h3>
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="citationAccuracyChart"></canvas>
+                    </div>
+                    <p
+                        style="margin-top: 12px; font-size: 12px; color: var(--color-text-tertiary); text-align: center;">
+                        Valid (Correct APA) vs. Invalid (Incorrect APA) citations found.
                     </p>
                 </div>
             </div>
@@ -2426,14 +2443,20 @@
         let uniqueFreeUsersChart = null;
         let totalUniqueUsersChart = null;
         let siteVisitorsChart = null;
+        let citationAccuracyChart = null;
 
         // Initialize chart after data loads
         async function initializeChart() {
             const dateRange = document.getElementById('dateRange').value;
+            const excludeTests = document.getElementById('excludeTests').checked;
             const from_date = getDateRange(dateRange);
 
             try {
-                const response = await fetch(`/api/chart-data?from_date=${from_date}`);
+                let url = `/api/chart-data?from_date=${from_date}`;
+                if (excludeTests) {
+                    url += '&exclude_tests=true';
+                }
+                const response = await fetch(url);
                 const data = await response.json();
 
                 createValidationsChart(data.daily);
@@ -2442,6 +2465,7 @@
                 createTotalUniqueUsersChart(data.daily);
                 createSiteVisitorsChart(data.daily);
                 createProviderChart(data.providers);
+                createCitationAccuracyChart(data.daily);
             } catch (error) {
                 console.error('Error loading chart data:', error);
             }
@@ -2483,7 +2507,7 @@
                             mode: 'index',
                             intersect: false,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return `Users: ${context.parsed.y}`;
                                 }
                             }
@@ -2549,7 +2573,7 @@
                             mode: 'index',
                             intersect: false,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return `Users: ${context.parsed.y}`;
                                 }
                             }
@@ -2617,7 +2641,7 @@
                             mode: 'index',
                             intersect: false,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return `Visitors: ${context.parsed.y}`;
                                 }
                             }
@@ -2635,6 +2659,83 @@
                             }
                         },
                         x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createCitationAccuracyChart(dailyData) {
+            const ctx = document.getElementById('citationAccuracyChart').getContext('2d');
+
+            if (citationAccuracyChart) {
+                citationAccuracyChart.destroy();
+            }
+
+            citationAccuracyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dailyData.map(d => {
+                        const date = new Date(d.date);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    }),
+                    datasets: [
+                        {
+                            label: 'Valid Citations',
+                            data: dailyData.map(d => d.valid_citations || 0),
+                            backgroundColor: 'rgba(16, 185, 129, 0.7)', // Emerald green
+                            borderColor: '#10b981',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Invalid Citations',
+                            data: dailyData.map(d => d.invalid_citations || 0),
+                            backgroundColor: 'rgba(239, 68, 68, 0.7)', // Red
+                            borderColor: '#ef4444',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#6b7280',
+                                padding: 15,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            stacked: true,
+                            grid: {
+                                color: 'rgba(156, 163, 175, 0.1)'
+                            },
+                            ticks: {
+                                color: '#6b7280'
+                            }
+                        },
+                        x: {
+                            stacked: true,
                             grid: {
                                 display: false
                             },
@@ -2888,6 +2989,7 @@
             try {
                 // Get current date range filter
                 const dateRange = document.getElementById('dateRange').value;
+                const excludeTests = document.getElementById('excludeTests').checked;
 
                 // Calculate from_date based on range
                 let from_date = '';
@@ -2899,7 +3001,10 @@
                 }
 
                 // Fetch funnel data
-                const url = from_date ? `/api/funnel-data?from_date=${from_date}` : '/api/funnel-data';
+                let url = from_date ? `/api/funnel-data?from_date=${from_date}` : '/api/funnel-data';
+                if (excludeTests) {
+                    url += (url.includes('?') ? '&' : '?') + 'exclude_tests=true';
+                }
                 const response = await fetch(url);
 
                 if (!response.ok) {
