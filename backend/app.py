@@ -986,15 +986,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 # User denied access (pass limit exceeded or insufficient credits)
                 logger.warning(f"Access denied for token {token[:8]}: {access_check['error_message']}")
 
-                # Log pricing table shown event if needed
-                if access_check['access_type'] == 'credits':
-                    log_pricing_table_shown(
-                        token,
-                        experiment_variant,
-                        reason='zero_credits' if access_check['user_status'].balance == 0 else 'insufficient_credits',
-                        job_id=job_id,
-                        credits_remaining=access_check['user_status'].balance
-                    )
+                # Note: pricing_table_shown tracking is now handled by frontend based on variant
+                # (inline variants track on mount, button variants track on click)
 
                 raise HTTPException(
                     status_code=402,  # Payment Required
@@ -1037,14 +1030,8 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
                 # Already at limit - return empty partial results to show locked teaser
                 logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
 
-                # Log pricing table shown event for upgrade funnel tracking
-                log_pricing_table_shown(
-                    free_user_id or 'anonymous',
-                    experiment_variant,
-                    reason='free_limit_reached',
-                    job_id=job_id,
-                    free_used=free_used
-                )
+                # Note: pricing_table_shown tracking is now handled by frontend based on variant
+                # (inline variants track on mount, button variants track on click)
 
                 response_data = {
                     "results": [],
@@ -1180,14 +1167,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
                     logger.debug(f"Job {job_id}: Fallback citation count: {citation_count}")
 
-                # Log pricing table shown event for upgrade funnel tracking
-                log_pricing_table_shown(
-                    free_user_id or 'anonymous',
-                    jobs[job_id].get("experiment_variant"),
-                    reason='free_limit_reached',
-                    job_id=job_id,
-                    free_used=free_used
-                )
+                # Note: pricing_table_shown tracking is now handled by frontend based on variant
+                # (inline variants track on mount, button variants track on click)
 
                 jobs[job_id]["status"] = "completed"
                 jobs[job_id]["results"] = ValidationResponse(
@@ -1235,6 +1216,15 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
         results = validation_results["results"]
         citation_count = len(results)
+        
+        # Calculate valid/invalid counts
+        # A citation is valid if it has no errors
+        valid_count = sum(1 for r in results if not r.get("errors"))
+        invalid_count = citation_count - valid_count
+        
+        # Log validation summary for dashboard parser
+        logger.info(f"Validation summary: {valid_count} valid, {invalid_count} invalid")
+        
         jobs[job_id]["citation_count"] = citation_count
         update_validation_tracking(job_id, status='completed')
 
@@ -1281,16 +1271,8 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                     # Credits user with insufficient balance - return partial results instead of error
                     user_credits = access_check['user_status'].balance
                     
-                    # Log pricing table shown event for upgrade funnel tracking
-                    log_pricing_table_shown(
-                        token,
-                        jobs[job_id].get("experiment_variant"),
-                        reason='insufficient_credits',
-                        job_id=job_id,
-                        credits_remaining=user_credits,
-                        credits_needed=citation_count,
-                        partial_available=user_credits
-                    )
+                    # Note: pricing_table_shown tracking is now handled by frontend based on variant
+                    # (inline variants track on mount, button variants track on click)
                     
                     # Determine how many we can process
                     affordable = user_credits
