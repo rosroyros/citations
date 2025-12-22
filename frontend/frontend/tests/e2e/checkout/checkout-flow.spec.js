@@ -100,17 +100,15 @@ test.describe('Checkout Flow E2E', () => {
       await expect(page.getByText('500 Credits').first()).toBeVisible();
       await expect(page.getByText('2,000 Credits').first()).toBeVisible();
 
-      // Wait a moment for the pricing_table_shown event
-      await page.waitForTimeout(100);
-
-      // Use a more robust check for console events
-      // Wait for pricing_table_shown event to ensure it was logged
-      await page.waitForTimeout(500);
+      // Wait for pricing_table_shown console event using polling
+      await expect.poll(
+        () => consoleMessages.filter(msg => msg.text.includes('pricing_table_shown')).length,
+        { timeout: 5000 }
+      ).toBeGreaterThan(0);
 
       const pricingTableShownEvents = consoleMessages.filter(msg =>
         msg.text.includes('pricing_table_shown')
       );
-      expect(pricingTableShownEvents.length).toBeGreaterThan(0);
 
       // Check the last logged event for correctness
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
@@ -136,9 +134,8 @@ test.describe('Checkout Flow E2E', () => {
       expect(postData.productId).toBe('2a3c8913-2e82-4f12-9eb7-767e4bc98089');
       expect(postData.variantId).toBe('1');
 
-      // Wait for embed checkout to be created
-      await page.waitForTimeout(500);
-      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+      // Wait for embed checkout to be created using polling
+      await expect.poll(() => wasEmbedCheckoutCreated(page), { timeout: 5000 }).toBe(true);
 
       // Verify checkout_embed_opened event was logged
       expect(consoleMessages.some(msg =>
@@ -148,8 +145,8 @@ test.describe('Checkout Flow E2E', () => {
       // Trigger mock success event
       await triggerCheckoutSuccess(page);
 
-      // Wait for success handling
-      await page.waitForTimeout(200);
+      // Wait for checkout to be closed after success
+      await expect.poll(() => page.evaluate(() => window.__polarCheckoutClosed), { timeout: 5000 }).toBe(true);
 
       // Verify checkout_completed event was logged
       expect(consoleMessages.some(msg =>
@@ -198,14 +195,15 @@ test.describe('Checkout Flow E2E', () => {
       await expect(page.getByText('7-Day Pass').first()).toBeVisible();
       await expect(page.getByText('30-Day Pass').first()).toBeVisible();
 
-      // Wait a moment for the pricing_table_shown event
-      await page.waitForTimeout(100);
+      // Wait for pricing_table_shown console event using polling
+      await expect.poll(
+        () => consoleMessages.filter(msg => msg.text.includes('pricing_table_shown')).length,
+        { timeout: 5000 }
+      ).toBeGreaterThan(0);
 
-      // Verify pricing_table_shown event was logged
       const pricingTableShownEvents = consoleMessages.filter(msg =>
         msg.text.includes('pricing_table_shown')
       );
-      expect(pricingTableShownEvents.length).toBeGreaterThan(0);
 
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
       expect(lastEvent.text).toContain('pricing_table_shown');
@@ -229,9 +227,8 @@ test.describe('Checkout Flow E2E', () => {
       expect(postData.productId).toBe('5b311653-7127-41b5-aed6-496fb713149c');
       expect(postData.variantId).toBe('2');
 
-      // Wait for embed checkout to be created
-      await page.waitForTimeout(500);
-      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+      // Wait for embed checkout to be created using polling
+      await expect.poll(() => wasEmbedCheckoutCreated(page), { timeout: 5000 }).toBe(true);
 
       // Verify checkout_embed_opened event was logged
       expect(consoleMessages.some(msg =>
@@ -241,8 +238,8 @@ test.describe('Checkout Flow E2E', () => {
       // Trigger mock success event
       await triggerCheckoutSuccess(page);
 
-      // Wait for success handling
-      await page.waitForTimeout(200);
+      // Wait for checkout to be closed after success
+      await expect.poll(() => page.evaluate(() => window.__polarCheckoutClosed), { timeout: 5000 }).toBe(true);
 
       // Verify checkout_completed event was logged
       expect(consoleMessages.some(msg =>
@@ -345,15 +342,14 @@ test.describe('Checkout Flow E2E', () => {
       const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
       await buy100Button.click();
 
-      // Wait for embed checkout to be created
-      await page.waitForTimeout(500);
-      expect(await wasEmbedCheckoutCreated(page)).toBe(true);
+      // Wait for embed checkout to be created using polling
+      await expect.poll(() => wasEmbedCheckoutCreated(page), { timeout: 5000 }).toBe(true);
 
       // Trigger close event (user abandonment)
       await triggerCheckoutClose(page);
 
-      // Wait for close handling
-      await page.waitForTimeout(200);
+      // Wait for checkout close event to be handled
+      await expect.poll(() => page.evaluate(() => window.__polarCheckoutClosed), { timeout: 5000 }).toBe(true);
 
       // Verify checkout_abandoned event was logged
       expect(consoleMessages.some(msg =>

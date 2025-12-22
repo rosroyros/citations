@@ -125,31 +125,28 @@ export function buildTestUrl(path) {
 
 /**
  * Wait for specific analytics event to be captured
- * @param {Array} capturedRequests - Array of captured requests
+ * Polls the live array reference for new events
+ * @param {Array} capturedRequests - Array of captured requests (live reference)
  * @param {string} eventName - Event name to wait for
- * @param {number} timeout - Timeout in milliseconds
+ * @param {number|object} timeoutOrOptions - Timeout in ms, or options object { timeout, minCount }
  * @returns {Promise<boolean>} True if event was captured
  */
-export function waitForEvent(capturedRequests, eventName, timeout = 5000) {
-  return new Promise((resolve) => {
-    const startTime = Date.now();
+export async function waitForEvent(capturedRequests, eventName, timeoutOrOptions = 10000) {
+  // Support both old API (timeout number) and new API (options object)
+  const options = typeof timeoutOrOptions === 'number'
+    ? { timeout: timeoutOrOptions, minCount: 1 }
+    : { timeout: 10000, minCount: 1, ...timeoutOrOptions };
 
-    const checkForEvent = () => {
-      const eventFound = getEventsByName(capturedRequests, eventName).length > 0;
+  const { timeout, minCount } = options;
+  const startTime = Date.now();
 
-      if (eventFound) {
-        resolve(true);
-        return;
-      }
+  while (Date.now() - startTime < timeout) {
+    const events = getEventsByName(capturedRequests, eventName);
+    if (events.length >= minCount) {
+      return true;
+    }
+    await new Promise(resolve => setTimeout(resolve, 100));
+  }
 
-      if (Date.now() - startTime > timeout) {
-        resolve(false);
-        return;
-      }
-
-      setTimeout(checkForEvent, 100);
-    };
-
-    checkForEvent();
-  });
+  return false;
 }

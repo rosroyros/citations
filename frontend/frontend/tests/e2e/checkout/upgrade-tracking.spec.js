@@ -192,7 +192,7 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
 
       // Wait briefly for submission to complete (variant is assigned during submission)
       // We don't need to wait for validation results - just for the API call to fire
-      await page.waitForTimeout(1000);
+      await expect.poll(() => page.evaluate(() => localStorage.getItem('experiment_v1')), { timeout: 5000 }).toBeTruthy();
 
       const variant = await page.evaluate(() =>
         localStorage.getItem('experiment_v1')

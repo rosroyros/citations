@@ -33,7 +33,7 @@ test.describe('Results Revealed Analytics Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on results revealed events
     const initialLength = capturedRequests.length;
@@ -97,8 +97,8 @@ test.describe('Results Revealed Analytics Validation', () => {
     console.log(`   ✅ trackResultsRevealedSafe handles valid data`);
     console.log(`   ✅ trackResultsRevealedSafe rejects invalid data`);
 
-    // Wait for events to be captured
-    await page.waitForTimeout(3000);
+    // Wait for results_revealed events to be captured
+    await waitForEvent(capturedRequests, 'results_revealed', 3000);
 
     // Get events (excluding the initial page view)
     const allEvents = capturedRequests.slice(initialLength);
@@ -216,7 +216,7 @@ test.describe('Results Revealed Analytics Validation', () => {
       console.log(`   ${result.test}: ${result.validation.isValid ? '✅' : '❌'} (${result.validation.errors?.join(', ') || 'No errors'})`);
 
       if (result.test.includes('Empty') || result.test.includes('Null') || result.test.includes('Negative') ||
-          result.test.includes('String') || result.test.includes('too long')) {
+        result.test.includes('String') || result.test.includes('too long')) {
         expect(result.validation.isValid).toBe(false);
       } else if (result.test.includes('Valid') || result.test.includes('Zero') || result.test.includes('Maximum')) {
         expect(result.validation.isValid).toBe(true);

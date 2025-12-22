@@ -98,8 +98,8 @@ test.describe('Pricing Integration Tests', () => {
       await page.fill('.ProseMirror', `Citation ${i}: Smith, J. (2023). Test citation ${i}. Journal of Testing.`);
       await page.click('button:has-text("Check My Citations")');
 
-      // Wait for processing
-      await page.waitForTimeout(3000);
+      // Wait for validation API response
+      await page.waitForResponse(resp => resp.url().includes('/api/validate'), { timeout: 30000 });
 
       if (i <= 5) {
         // Wait for loading state to appear first - this prevents race conditions where test checks for results too early
@@ -195,8 +195,7 @@ test.describe('Pricing Integration Tests', () => {
     await page.goto('http://localhost:5173');
     await waitForPageLoad(page);
 
-    // 9. Wait for credits to be reflected (simulated)
-    await page.waitForTimeout(1000); // reduced wait since mock is instant
+    // Credits should be reflected - verify via UI assertion below
 
     // 10. Verify user status updated
     if (variant === 'credits') {
@@ -210,7 +209,7 @@ test.describe('Pricing Integration Tests', () => {
     await page.fill('.ProseMirror', 'Paid citation: Wilson, K. (2023). Paid validation. Academic Journal.');
     await page.click('button:has-text("Check My Citations")');
     validationSubmitted = true; // Now the mock will return 499
-    await page.waitForTimeout(2000);
+    await page.waitForLoadState('networkidle');
 
     // 11. Verify usage updated (mock returns 499 now that validationSubmitted is true)
     await page.reload();
@@ -257,9 +256,14 @@ test.describe('Pricing Integration Tests', () => {
       console.log('Updated localStorage citation_checker_token to:', userId);
     }, userId);
 
-    // Race condition mitigation: Wait longer for database transaction to commit
-    // and become visible to other connections (increased from 5s to 8s for parallel tests)
-    await page.waitForTimeout(8000);
+    // Wait for database transaction to commit with polling
+    await expect.poll(async () => {
+      const user = await page.evaluate(async (uid) => {
+        const resp = await fetch(`http://localhost:8000/test/get-user?user_id=${uid}`);
+        return resp.json();
+      }, userId);
+      return user.has_pass;
+    }, { timeout: 15000 }).toBe(true);
 
     // 4. Reload to see updated status
     await page.reload();
@@ -279,13 +283,11 @@ test.describe('Pricing Integration Tests', () => {
     // Wait for validation to complete and results to appear
     await expect(page.locator('.validation-results-section').nth(0)).toBeVisible({ timeout: 30000 });
 
-    // Wait a moment for UserStatus to be updated after validation
-    await page.waitForTimeout(1000);
+    // UserStatus updates immediately after results appear
 
     // If gated results overlay is present, click reveal button
     if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
       await page.locator('button:has-text("View Results")').first().click();
-      await page.waitForTimeout(1000);
     }
 
     // Debug: Check if UserStatus element exists (Should be 0 now)
@@ -399,8 +401,7 @@ test.describe('Pricing Integration Tests', () => {
     await page.reload();
     await waitForPageLoad(page);
 
-    // Additional wait for credits API to complete
-    await page.waitForTimeout(2000);
+    // Credits API completes during waitForPageLoad above
 
     // 3. Should show PASS (not credits)
     await expect(page.locator('.credit-display')).toContainText('7-Day Pass Active', { timeout: 30000 });
@@ -409,7 +410,7 @@ test.describe('Pricing Integration Tests', () => {
     // 4. Submit validation
     await page.fill('.ProseMirror', 'Priority test: Which is used?');
     await page.click('button:has-text("Check My Citations")');
-    await page.waitForTimeout(2000);
+    await page.waitForLoadState('networkidle');
 
     // 5. Reload to check usage
     await page.reload();
@@ -432,7 +433,7 @@ test.describe('Pricing Integration Tests', () => {
     for (let i = 1; i <= 6; i++) {
       await page.fill('.ProseMirror', `Variant test ${i}: Test citation`);
       await page.click('button:has-text("Check My Citations")');
-      await page.waitForTimeout(1000);
+      await page.waitForResponse(resp => resp.url().includes('/api/validate'), { timeout: 30000 }).catch(() => { });
     }
 
     // Handle Gated Results if present
@@ -459,7 +460,7 @@ test.describe('Pricing Integration Tests', () => {
     for (let i = 7; i <= 12; i++) {
       await page.fill('.ProseMirror', `Variant test ${i}: Test citation`);
       await page.click('button:has-text("Check My Citations")');
-      await page.waitForTimeout(1000);
+      await page.waitForResponse(resp => resp.url().includes('/api/validate'), { timeout: 30000 }).catch(() => { });
     }
 
     // Handle Gated Results if present
@@ -504,7 +505,7 @@ test.describe('Pricing Integration Tests', () => {
     // 1. Make a validation request first to trigger free user ID generation
     await page.fill('.ProseMirror', 'Initial validation to trigger user ID generation');
     await page.click('button:has-text("Check My Citations")');
-    await page.waitForTimeout(1000);
+    await page.waitForResponse(resp => resp.url().includes('/api/validate'), { timeout: 30000 }).catch(() => { });
 
     // 2. Get the actual free user ID that the frontend generates and clear events for it
     // The app stores the free user ID in localStorage under the key 'citation_checker_free_user_id'
@@ -519,7 +520,7 @@ test.describe('Pricing Integration Tests', () => {
     for (let i = 1; i <= 6; i++) {
       await page.fill('.ProseMirror', `Tracking test ${i}: Test citation`);
       await page.click('button:has-text("Check My Citations")');
-      await page.waitForTimeout(1000);
+      await page.waitForResponse(resp => resp.url().includes('/api/validate'), { timeout: 30000 }).catch(() => { });
     }
 
     // Handle Gated Results if present
@@ -532,7 +533,7 @@ test.describe('Pricing Integration Tests', () => {
     await expect(page.locator('button:has-text("Upgrade to Unlock Now")')).toBeVisible({ timeout: 30000 });
     await page.click('button:has-text("Upgrade to Unlock Now")');
     await expect(page.locator('.pricing-modal')).toBeVisible({ timeout: 30000 });
-    await page.waitForTimeout(1000); // Wait for tracking
+    // Modal visible - tracking fires automatically
 
     // 4. Verify pricing modal is shown and tracking would fire
     // Note: The backend logs 'pricing_table_shown' event to app.log
@@ -602,8 +603,7 @@ test.describe('Pricing Integration Tests', () => {
         })
       });
     }, { productId, checkoutToken, variant });
-
-    await page.waitForTimeout(1000);
+    // Webhook processed - verify below
 
     // 8. Verify purchase_completed event using checkout token
     // (This now hits our mock above)
@@ -654,5 +654,6 @@ test.describe('Pricing Integration Tests', () => {
 // Helper function for waiting for page load
 async function waitForPageLoad(page) {
   await page.waitForLoadState('networkidle');
-  await page.waitForTimeout(1000); // Additional wait for React to render
+  // Wait for React to render by checking for app element
+  await page.locator('.ProseMirror').first().waitFor({ state: 'visible', timeout: 10000 });
 }

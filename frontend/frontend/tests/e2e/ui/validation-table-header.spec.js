@@ -119,8 +119,12 @@ test.describe('ValidationTable Header Display - Desktop', () => {
     // Click the partial indicator
     await partialIndicator.click();
 
-    // Wait a moment for scroll animation
-    await page.waitForTimeout(500);
+    // Wait for scroll animation to complete by checking banner is in viewport
+    await expect.poll(async () => {
+      const box = await upgradeBanner.boundingBox();
+      const viewport = page.viewportSize();
+      return box && box.y >= 0 && box.y < viewport.height;
+    }, { timeout: 2000 }).toBe(true);
 
 
 

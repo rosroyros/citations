@@ -454,7 +454,7 @@ test.describe('User Access Flows - E2E Tests', () => {
       // Simulate high usage (900 validations)
       dailyUsed = 900;
       await page.reload();
-      await page.waitForTimeout(1000);
+      await page.waitForLoadState('networkidle');
       await editor.fill('High usage test - 900 used');
       await page.locator('button[type="submit"]').click();
 
@@ -471,7 +471,7 @@ test.describe('User Access Flows - E2E Tests', () => {
       // Test limit exceeded
       dailyUsed = 1000;
       await page.reload();
-      await page.waitForTimeout(1000);
+      await page.waitForLoadState('networkidle');
       await editor.fill('Should hit limit now');
       await page.locator('button[type="submit"]').click();
 
@@ -646,7 +646,7 @@ test.describe('User Access Flows - E2E Tests', () => {
       });
 
       await page.reload();
-      await page.waitForTimeout(1000);
+      await page.waitForLoadState('networkidle');
       await editor.fill('Low credits test');
       await page.locator('button[type="submit"]').click();
 

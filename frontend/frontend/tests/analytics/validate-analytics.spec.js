@@ -34,8 +34,8 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Wait for page to load
     await page.waitForLoadState('networkidle');
 
-    // Wait a bit for analytics to fire
-    await page.waitForTimeout(5000);
+    // Wait for analytics page_view event to fire
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Check that we captured some requests
     expect(capturedRequests.length).toBeGreaterThan(0);
@@ -65,8 +65,8 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Wait for page to load
     await page.waitForLoadState('networkidle');
 
-    // Wait for analytics to fire
-    await page.waitForTimeout(3000);
+    // Wait for analytics page_view event
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Verify we captured page view events
     const pageViewEvents = getEventsByName(capturedRequests, 'page_view');
@@ -138,7 +138,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     }
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on scroll events
     const initialLength = capturedRequests.length;
@@ -150,25 +150,25 @@ test.describe('Google Analytics 4 Event Validation', () => {
     await page.evaluate((maxScroll) => {
       window.scrollTo(0, maxScroll * 0.25);
     }, pageInfo.maxScroll);
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(200); // Allow debounce to fire
 
     // Scroll to 50% milestone
     await page.evaluate((maxScroll) => {
       window.scrollTo(0, maxScroll * 0.5);
     }, pageInfo.maxScroll);
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(200); // Allow debounce to fire
 
     // Scroll to 75% milestone
     await page.evaluate((maxScroll) => {
       window.scrollTo(0, maxScroll * 0.75);
     }, pageInfo.maxScroll);
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(200); // Allow debounce to fire
 
     // Scroll to 100% (bottom)
     await page.evaluate(() => {
       window.scrollTo(0, document.documentElement.scrollHeight);
     });
-    await page.waitForTimeout(4000);
+    await page.waitForTimeout(200); // Allow debounce to fire
 
     // Get scroll depth events (excluding the initial page view)
     const allEvents = capturedRequests.slice(initialLength);
@@ -220,7 +220,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on validation events
     const initialLength = capturedRequests.length;
@@ -228,7 +228,6 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Fill the citation form to enable the submit button
     try {
       await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
-      await page.waitForTimeout(1000);
 
       // Check if the submit button is now enabled
       const submitButton = await page.locator('button[type="submit"]:not([disabled])').first();
@@ -238,7 +237,8 @@ test.describe('Google Analytics 4 Event Validation', () => {
         // Click the submit button
         console.log(`🖱️  Clicking validation button...`);
         await page.click('button[type="submit"]:not([disabled])');
-        await page.waitForTimeout(3000);
+        // Wait for API response or validation event
+        await page.waitForLoadState('networkidle');
       }
     } catch (e) {
       console.log('Could not fill form or enable submit button');
@@ -290,7 +290,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on navigation events
     const initialLength = capturedRequests.length;
@@ -353,7 +353,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Click the navigation link
     console.log(`🖱️  Clicking navigation link: "${navText}"...`);
     await page.click(`${navSelector}:has-text("${navText}")`);
-    await page.waitForTimeout(3000);
+    await page.waitForLoadState('networkidle');
 
     // Get navigation click events (excluding the initial page view)
     const allEvents = capturedRequests.slice(initialLength);
@@ -403,7 +403,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on validation events
     const initialLength = capturedRequests.length;
@@ -411,11 +411,10 @@ test.describe('Google Analytics 4 Event Validation', () => {
     // Fill the citation form
     try {
       await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
-      await page.waitForTimeout(1000);
 
       // Click the validation button
       await page.click('button[type="submit"]');
-      await page.waitForTimeout(5000);
+      await page.waitForLoadState('networkidle');
     } catch (e) {
       console.log('Could not complete citation validation flow');
     }
@@ -468,7 +467,7 @@ test.describe('Google Analytics 4 Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on editor events
     const initialLength = capturedRequests.length;
@@ -477,12 +476,10 @@ test.describe('Google Analytics 4 Event Validation', () => {
     try {
       // Fill the citation form to simulate editor interaction
       await page.fill('textarea, input[type="text"]', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
-      await page.waitForTimeout(2000);
 
       // Clear and re-type to simulate editing
       await page.fill('textarea, input[type="text"]', '');
       await page.fill('textarea, input[type="text"]', 'Doe, J. (2023). Another example. Test Journal, 10(1), 45-67.');
-      await page.waitForTimeout(3000);
     } catch (e) {
       console.log('Could not complete editor interaction flow');
     }

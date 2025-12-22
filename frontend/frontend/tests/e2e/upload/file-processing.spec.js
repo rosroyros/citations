@@ -58,10 +58,7 @@ test.describe('File Processing UI Tests', () => {
         // Wait for processing to complete - wait for completion state instead of fixed timeout
         await page.waitForSelector('[data-testid="processing-complete"], .processed-file', {
           timeout: 2000
-        }).catch(() => {
-          // Fallback to timing if completion selector not found
-          return page.waitForTimeout(1600)
-        })
+        }).catch(() => null); // Fallback gracefully if selector not found
 
         const processingEndTime = Date.now()
         const actualDuration = processingEndTime - processingStartTime
@@ -131,10 +128,8 @@ test.describe('File Processing UI Tests', () => {
         }
       })
 
-      // Look for processing indicators
-      await page.waitForTimeout(100)
-
-      const progressBars = page.locator('[role="progressbar"], .progress-bar')
+      // Look for processing indicators - wait for them to appear
+      await page.waitForSelector('[role="progressbar"], .progress-bar', { timeout: 500 }).catch(() => null);
       if (await progressBars.first().isVisible().catch(() => false)) {
         // Monitor progress animation
         let initialProgress = 0
@@ -147,8 +142,10 @@ test.describe('File Processing UI Tests', () => {
           // Progress might be shown differently
         }
 
-        // Wait for processing to complete
-        await page.waitForTimeout(1600)
+        // Wait for processing to complete - use waitForSelector for completion state
+        await page.waitForSelector('[data-testid="processing-complete"], .processed-file', {
+          timeout: 2000
+        }).catch(() => null);
 
         try {
           finalProgress = await progressBars.first().getAttribute('aria-valuenow') || '0'
@@ -179,8 +176,8 @@ test.describe('File Processing UI Tests', () => {
 
       await uploadArea.setInputFiles(invalidFile)
 
-      // Look for error states
-      await page.waitForTimeout(200)
+      // Look for error states - wait for error indicators to appear
+      await page.waitForSelector('[data-testid="error-message"], .error, [role="alert"]', { timeout: 500 }).catch(() => null);
 
       const errorIndicators = [
         page.locator('[data-testid="error-message"]'),

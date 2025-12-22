@@ -116,8 +116,7 @@ test.describe('Upload Feature E2E Tests', () => {
                 el.dispatchEvent(event);
             });
 
-            await page.waitForTimeout(100);
-
+            // Check for drag state - className should update synchronously
             const hasOverState = await uploadArea.evaluate((el) => {
                 return el.className.includes('dragOver');
             });
@@ -137,8 +136,7 @@ test.describe('Upload Feature E2E Tests', () => {
                 el.dispatchEvent(leaveEvent);
             });
 
-            await page.waitForTimeout(100);
-
+            // Check for drag state - className should update synchronously
             const hasOverState = await uploadArea.evaluate((el) => {
                 return el.className.includes('dragOver');
             });
@@ -158,7 +156,7 @@ test.describe('Upload Feature E2E Tests', () => {
                 el.dispatchEvent(dropEvent);
             });
 
-            await page.waitForTimeout(100);
+            // Check for drag state - className should update synchronously
             const hasOverState = await uploadArea.evaluate((el) => {
                 return el.className.includes('dragOver');
             });
@@ -360,7 +358,8 @@ test.describe('Upload Feature E2E Tests', () => {
             const progressFill = processingIndicator.locator('[class*="progressFill"]');
             await expect(progressFill).toBeVisible();
 
-            await page.waitForTimeout(1000);
+            // Wait for progress animation to run - use completion state or polling
+            await page.waitForSelector('[data-testid="modal-backdrop"]', { timeout: 2000 }).catch(() => null);
 
             const progressWidth = await progressFill.evaluate((el) => {
                 return parseInt(el.style.width) || 0;

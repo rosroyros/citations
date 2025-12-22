@@ -35,8 +35,10 @@ test.describe('Auto-scroll E2E Tests', () => {
     const validationSectionY = await validationSection.evaluate(el => el.getBoundingClientRect().top + window.scrollY)
     console.log('Validation section Y position:', validationSectionY)
 
-    // Wait a moment for the auto-scroll to trigger (100ms delay + rendering time)
-    await page.waitForTimeout(300)
+    // Wait for scroll position to change (polling for actual scroll)
+    await expect.poll(async () => {
+      return page.evaluate(() => window.scrollY);
+    }, { timeout: 2000 }).toBeGreaterThan(initialScrollY);
 
     // Get final scroll position
     const finalScrollY = await page.evaluate(() => window.scrollY)
@@ -84,8 +86,10 @@ test.describe('Auto-scroll E2E Tests', () => {
     const validationSection = page.locator('.validation-results-section')
     await expect(validationSection).toHaveCount(1)
 
-    // Wait for auto-scroll to trigger
-    await page.waitForTimeout(300)
+    // Wait for scroll position to change (polling for actual scroll)
+    await expect.poll(async () => {
+      return page.evaluate(() => window.scrollY);
+    }, { timeout: 2000 }).toBeGreaterThan(initialScrollY);
 
     // Get final scroll position
     const finalScrollY = await page.evaluate(() => window.scrollY)

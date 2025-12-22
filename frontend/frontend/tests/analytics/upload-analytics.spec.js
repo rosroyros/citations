@@ -33,7 +33,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -44,7 +44,7 @@ test.describe('Upload Analytics Event Validation', () => {
       if (await uploadArea.isVisible()) {
         console.log('🎯 Found upload area, clicking...');
         await uploadArea.click();
-        await page.waitForTimeout(3000);
+        await page.waitForLoadState('networkidle');
       } else {
         console.log('⚠️  Upload area not found, skipping upload area click test');
         test.skip();
@@ -99,7 +99,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -121,7 +121,7 @@ test.describe('Upload Analytics Event Validation', () => {
             buffer: fileContent
           });
 
-          await page.waitForTimeout(3000);
+          await page.waitForLoadState('networkidle');
         } else {
           console.log('⚠️  File input not found, skipping file selection test');
           test.skip();
@@ -193,7 +193,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -215,8 +215,7 @@ test.describe('Upload Analytics Event Validation', () => {
             buffer: fileContent
           });
 
-          // Wait longer for processing to potentially complete
-          await page.waitForTimeout(5000);
+          await page.waitForLoadState('networkidle');
         } else {
           console.log('⚠️  File input not found, skipping processing test');
           test.skip();
@@ -310,7 +309,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -339,7 +338,7 @@ test.describe('Upload Analytics Event Validation', () => {
             await element.selectOption({ index: 1 });
           }
 
-          await page.waitForTimeout(2000);
+          await page.waitForLoadState('networkidle');
           formatFound = true;
           break;
         }
@@ -402,7 +401,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -413,7 +412,6 @@ test.describe('Upload Analytics Event Validation', () => {
       if (await uploadArea.isVisible()) {
         // Step 1: Click upload area
         await uploadArea.click();
-        await page.waitForTimeout(1000);
 
         // Step 2: Select a file
         const fileInput = uploadArea.locator('input[type="file"]');
@@ -424,7 +422,7 @@ test.describe('Upload Analytics Event Validation', () => {
             mimeType: 'application/pdf',
             buffer: fileContent
           });
-          await page.waitForTimeout(3000);
+          await page.waitForLoadState('networkidle');
 
           // Step 3: Simulate going back to text input (if modal appears)
           // This would typically involve clicking a close button or text input option
@@ -440,12 +438,11 @@ test.describe('Upload Analytics Event Validation', () => {
             if (await closeBtn.isVisible()) {
               console.log(`🎯 Found close button: ${selector}`);
               await closeBtn.click();
-              await page.waitForTimeout(1000);
               break;
             }
           }
 
-          await page.waitForTimeout(2000);
+
         }
       }
     } catch (e) {
@@ -504,7 +501,7 @@ test.describe('Upload Analytics Event Validation', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for initial page view to fire
-    await page.waitForTimeout(2000);
+    await waitForEvent(capturedRequests, 'page_view');
 
     // Clear initial page view events to focus on upload events
     const initialLength = capturedRequests.length;
@@ -517,7 +514,6 @@ test.describe('Upload Analytics Event Validation', () => {
 
         // Click upload area
         await uploadArea.click();
-        await page.waitForTimeout(1000);
 
         // Select a file
         const fileInput = uploadArea.locator('input[type="file"]');
@@ -528,13 +524,12 @@ test.describe('Upload Analytics Event Validation', () => {
             mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             buffer: fileContent
           });
-          await page.waitForTimeout(5000);
+          await page.waitForLoadState('networkidle');
 
           // Look for retry functionality or format selection
           const retryButtons = page.locator('button:has-text("Retry"), button:has-text("Try Again")');
           if (await retryButtons.first().isVisible()) {
             await retryButtons.first().click();
-            await page.waitForTimeout(2000);
           }
         }
       } else {

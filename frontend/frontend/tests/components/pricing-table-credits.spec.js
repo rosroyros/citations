@@ -125,9 +125,9 @@ test.describe('PricingTableCredits Component', () => {
     // Click the buy button
     await page.getByRole('button', { name: 'Buy 100 Credits' }).click()
 
-    // Check for loading state
     await expect(page.getByText('Opening checkout...')).toBeVisible()
-    await page.waitForTimeout(500) // Brief wait for async operations
+    // Poll for console events instead of fixed timeout
+    await expect.poll(() => consoleMessages.some(msg => msg.includes('checkout_started')), { timeout: 5000 }).toBe(true)
 
     // Verify analytics events were logged
     expect(consoleMessages.some(msg => msg.includes('pricing_table_shown'))).toBeTruthy()
@@ -180,8 +180,7 @@ test.describe('PricingTableCredits Component', () => {
     await expect(page.getByText('Opening checkout...')).toBeVisible()
     await expect(page.getByRole('button', { name: 'Buy 100 Credits' })).toBeDisabled()
 
-    // Wait for loading to complete
-    await page.waitForTimeout(1100)
-    await expect(page.getByText('Opening checkout...')).not.toBeVisible()
+    // Wait for loading to complete by checking visibility
+    await expect(page.getByText('Opening checkout...')).not.toBeVisible({ timeout: 5000 })
   })
 })

@@ -17,15 +17,14 @@ test.describe('Upgrade Success Event Logging', () => {
     // Set up localStorage before navigation
     const jobId = 'job_12345';
     await page.addInitScript((id) => {
-        localStorage.setItem('pending_upgrade_job_id', id);
+      localStorage.setItem('pending_upgrade_job_id', id);
     }, jobId);
 
     // Navigate to Success page with token
     await page.goto('/success?token=test_token');
 
-    // Wait for the request to be captured
-    // We might need to wait a bit if it's not immediate, but it happens on mount
-    await page.waitForTimeout(1000);
+    // Wait for localStorage to be processed
+    await expect(page.evaluate(() => localStorage.getItem('pending_upgrade_job_id'))).resolves.toBeNull();
 
     // Verify request was made
     expect(upgradeEventRequest).not.toBeNull();
@@ -35,7 +34,7 @@ test.describe('Upgrade Success Event Logging', () => {
       job_id: jobId,
       event: 'success'
     });
-    
+
     // Verify headers
     const headers = upgradeEventRequest.headers();
     expect(headers['x-user-token']).toBe('test_token');
@@ -61,8 +60,8 @@ test.describe('Upgrade Success Event Logging', () => {
     // Navigate to Success page with token (no localStorage set)
     await page.goto('/success?token=test_token');
 
-    // Wait a bit
-    await page.waitForTimeout(1000);
+    // Wait by checking localStorage is still null
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('pending_upgrade_job_id')), { timeout: 3000 }).toBeNull();
 
     // Verify no request was made
     expect(requestMade).toBe(false);
@@ -82,14 +81,14 @@ test.describe('Upgrade Success Event Logging', () => {
     // Set up localStorage
     const jobId = 'job_fail_test';
     await page.addInitScript((id) => {
-        localStorage.setItem('pending_upgrade_job_id', id);
+      localStorage.setItem('pending_upgrade_job_id', id);
     }, jobId);
 
     // Navigate to Success page
     await page.goto('/success?token=test_token');
 
-    // Wait for the request to "fail" and finally block to run
-    await page.waitForTimeout(1000);
+    // Wait for localStorage to be cleared even after API failure
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('pending_upgrade_job_id')), { timeout: 3000 }).toBeNull();
 
     // Verify localStorage is cleared
     const storedJobId = await page.evaluate(() => localStorage.getItem('pending_upgrade_job_id'));

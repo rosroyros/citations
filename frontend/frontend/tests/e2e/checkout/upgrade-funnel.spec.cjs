@@ -123,7 +123,7 @@ test.describe('Upgrade Funnel Full Flow', () => {
     await expect(page.locator('[data-testid="checkout-success"]').or(page.locator('text=Payment Successful')).first()).toBeVisible({ timeout: 10000 });
 
     // Step 5: Verify localStorage is cleared after success
-    await page.waitForTimeout(500); // Wait for async operations
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('pending_upgrade_job_id')), { timeout: 5000 }).toBeNull();
 
     const clearedJobId = await page.evaluate(() => {
       return localStorage.getItem('pending_upgrade_job_id');

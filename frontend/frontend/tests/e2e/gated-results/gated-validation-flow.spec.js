@@ -38,8 +38,8 @@ test.describe('Gated Validation Results Flow - E2E Tests', () => {
     await page.goto(testUrl);
     await page.waitForLoadState('networkidle');
 
-    // Wait for initial page setup
-    await page.waitForTimeout(2000);
+    // Wait for page setup - analytics helpers may need time to initialize
+    await page.waitForLoadState('networkidle');
     const initialLength = capturedRequests.length;
 
     // Step 1: Upload a test file that will take some time to process
@@ -104,8 +104,8 @@ We want to simulate a real user scenario where the user waits for results.`;
     const fullResults = page.locator('.validation-results, .full-results, .results-content').first();
     await expect(fullResults).toBeVisible();
 
-    // Step 10: Verify analytics events were sent
-    await page.waitForTimeout(3000);
+    // Step 10: Verify analytics events were sent (poll for events to appear)
+    await expect.poll(() => capturedRequests.slice(initialLength).length, { timeout: 5000 }).toBeGreaterThan(0);
     const allEvents = capturedRequests.slice(initialLength);
     const resultsRevealedEvents = getEventsByName(allEvents, 'results_revealed');
 
@@ -224,8 +224,10 @@ We want to simulate a real user scenario where the user waits for results.`;
     const revealButton = page.locator('#error-reveal-btn').first();
     await revealButton.click();
 
-    // Verify error handling (results should still be revealed locally)
-    await page.waitForTimeout(1000);
+    // Wait for the error handling logic to complete (poll for log entries)
+    await expect.poll(async () => {
+      return page.evaluate(() => window.consoleLogs?.length || 0);
+    }, { timeout: 3000 }).toBeGreaterThan(0);
 
     // Check that error was logged but UI still works
     const consoleLogs = await page.evaluate(() => {

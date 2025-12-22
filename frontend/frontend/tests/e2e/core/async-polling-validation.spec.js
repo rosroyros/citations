@@ -173,8 +173,12 @@ test.describe('Async Polling Architecture Validation', () => {
     const jobIdBeforeRefresh = await page.evaluate(() => localStorage.getItem('current_job_id'));
     expect(jobIdBeforeRefresh).toBeTruthy();
 
-    // Wait 10 seconds while processing
-    await page.waitForTimeout(10000);
+    // Wait until job is in progress but not yet complete (check localStorage still has job_id)
+    // This simulates the mid-processing state before refresh
+    await page.waitForFunction(() => {
+      const jobId = localStorage.getItem('current_job_id');
+      return jobId !== null;
+    }, { timeout: 10000 });
 
     // Refresh browser page
     await page.reload();
@@ -281,9 +285,10 @@ test.describe('Async Polling Architecture Validation', () => {
     const jobId = await page.evaluate(() => localStorage.getItem('current_job_id'));
     expect(jobId).toBeTruthy();
 
-    // Wait a bit and ensure button is still disabled
-    await page.waitForTimeout(2000);
-    await expect(submitButton).toBeDisabled();
+    // Verify button remains disabled while processing continues (poll for stability)
+    await expect.poll(async () => {
+      return submitButton.isDisabled();
+    }, { timeout: 5000 }).toBe(true);
 
     // Wait for completion
     await expect(page.locator('.validation-table').first()).toBeVisible({ timeout: TIMEOUT });

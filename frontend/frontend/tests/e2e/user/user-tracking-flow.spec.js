@@ -11,11 +11,7 @@ import {
   printEventSummary
 } from '../../analytics/helpers.js';
 
-// Test timeout constants (in milliseconds)
-const ANALYTICS_WAIT_TIMEOUT = 2000;  // Wait for initial analytics events
-const FORM_INTERACTION_TIMEOUT = 1000;  // Wait after form interaction
-const VALIDATION_PROCESSING_TIMEOUT = 5000;  // Wait for validation to process
-const PAGE_LOAD_TIMEOUT = 3000;  // Wait for page operations
+// Removed hardcoded timeout constants - using explicit waits instead
 
 test.describe('User Tracking - End-to-End Flow', () => {
   let capturedRequests;
@@ -36,18 +32,14 @@ test.describe('User Tracking - End-to-End Flow', () => {
     await page.goto(testUrl);
     await page.waitForLoadState('networkidle');
 
-    // Wait for initial page view analytics
-    await page.waitForTimeout(ANALYTICS_WAIT_TIMEOUT);
-
     // Start a citation validation to trigger user tracking
     // First, focus the editor and clear any placeholder content
     await page.click('[data-testid="editor"] .ProseMirror');
     await page.keyboard.press('Control+a'); // Select all content
     await page.keyboard.press('Backspace'); // Clear content
     await page.type('[data-testid="editor"] .ProseMirror', 'Smith, J. (2023). Example citation. Journal Name, 15(2), 123-145.');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
 
-    // Verify button is enabled before clicking
+    // Wait for submit button to be enabled (indicates form is ready)
     await expect(page.locator('button[type="submit"]')).toBeEnabled();
 
     // Submit the validation
@@ -56,8 +48,10 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Wait for either loading state or error to appear (indicates validation attempt)
     await page.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
 
-    // Wait a bit more for the handleSubmit function to complete and localStorage to be set
-    await page.waitForTimeout(2000);
+    // Wait for localStorage to be set (poll for the value)
+    await expect.poll(async () => {
+      return page.evaluate(() => localStorage.getItem('citation_checker_free_user_id'));
+    }, { timeout: 10000 }).toBeTruthy();
 
     // Extract the free user ID from localStorage
     let freeUserId = await page.evaluate(() => {
@@ -105,7 +99,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Navigate back to site without clearing localStorage (simulates returning user)
     await newPage.goto(testUrl);
     await newPage.waitForLoadState('networkidle');
-    await newPage.waitForTimeout(ANALYTICS_WAIT_TIMEOUT);
 
     // Check that free user ID persists in new session
     let persistentFreeUserId = await newPage.evaluate(() => {
@@ -124,9 +117,9 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Perform another validation in new session
     await newPage.fill('textarea, input[type="text"]', 'Doe, J. (2023). Another citation. Test Journal, 10(1), 45-67.');
-    await newPage.waitForTimeout(FORM_INTERACTION_TIMEOUT);
+    await expect(newPage.locator('button[type="submit"]')).toBeEnabled();
     await newPage.click('button[type="submit"]');
-    await newPage.waitForTimeout(VALIDATION_PROCESSING_TIMEOUT);
+    await newPage.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
 
     // THIS SHOULD FAIL because the complete dashboard user tracking integration is not yet implemented
     // We expect the dashboard to show user IDs for free users, but it won't yet
@@ -134,7 +127,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Navigate to dashboard to check user tracking display
     await newPage.goto('/dashboard');
     await newPage.waitForLoadState('networkidle');
-    await newPage.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Look for user ID display in dashboard
     const userColumnVisible = await newPage.locator('th:has-text("User")').isVisible();
@@ -169,11 +161,11 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Start a citation validation
     await page.fill('textarea, input[type="text"]', 'Johnson, M. (2023). Paid user citation. Premium Journal, 20(3), 300-320.');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
+    await expect(page.locator('button[type="submit"]')).toBeEnabled();
 
     // Submit the validation
     await page.click('button[type="submit"]');
-    await page.waitForTimeout(VALIDATION_PROCESSING_TIMEOUT);
+    await page.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
 
     // Check that X-User-Token header was sent (not X-Free-User-ID)
     let requestsWithPaidToken = 0;
@@ -198,7 +190,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Navigate to dashboard to check paid user tracking
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Look for paid user identification in dashboard
     // THIS SHOULD FAIL because paid user dashboard display is not fully implemented
@@ -221,9 +212,9 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Generate free user ID by starting validation
     await page.fill('textarea, input[type="text"]', 'Free user citation. Test Journal, 5(1), 10-20.');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
+    await expect(page.locator('button[type="submit"]')).toBeEnabled();
     await page.click('button[type="submit"]');
-    await page.waitForTimeout(VALIDATION_PROCESSING_TIMEOUT);
+    await page.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
 
     // Get free user ID
     const freeUserId = await page.evaluate(() => {
@@ -265,9 +256,9 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Perform validation as paid user
     await page.fill('textarea, input[type="text"]', 'Converted user citation. Premium Journal, 15(2), 200-220.');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
+    await expect(page.locator('button[type="submit"]')).toBeEnabled();
     await page.click('button[type="submit"]');
-    await page.waitForTimeout(VALIDATION_PROCESSING_TIMEOUT);
+    await page.waitForSelector('.loading-container, .error-message, .results-section', { timeout: 10000 });
 
     // Verify requests use paid token, not free user ID
     let paidTokenRequests = 0;
@@ -299,7 +290,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Navigate to dashboard
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Check that User column exists in the data table
     const userColumnHeader = page.locator('th:has-text("User")');
@@ -356,7 +346,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Reload dashboard to get mock data
     await page.reload();
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Check that user IDs are displayed in the table
     await expect(page.locator('text=free-user-12345')).toBeVisible();
@@ -365,27 +354,25 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     // Test user filtering functionality
     await page.fill('#user', 'free-user-12345');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
-
-    // Should only show the filtered user's data
-    const visibleRows = page.locator('tbody tr');
-    await expect(visibleRows).toHaveCount(1);
-    await expect(visibleRows.locator('text=free-user-12345')).toBeVisible();
+    // Wait for filter to apply by polling for row count
+    await expect.poll(async () => {
+      return page.locator('tbody tr').count();
+    }, { timeout: 5000 }).toBe(1);
 
     // Test filtering by paid user token
     await page.fill('#user', 'abc12345');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
-
-    await expect(visibleRows).toHaveCount(1);
-    await expect(visibleRows.locator('text=abc12345')).toBeVisible();
+    // Wait for filter to apply by polling for row count
+    await expect.poll(async () => {
+      return page.locator('tbody tr').count();
+    }, { timeout: 5000 }).toBe(1);
+    await expect(page.locator('tbody tr').locator('text=abc12345')).toBeVisible();
 
     // Test clearing filter
     await page.fill('#user', '');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
-
-    // Should show all rows again
-    const allRows = page.locator('tbody tr');
-    await expect(allRows).toHaveCount(3);
+    // Wait for filter to clear by polling for row count
+    await expect.poll(async () => {
+      return page.locator('tbody tr').count();
+    }, { timeout: 5000 }).toBe(3);
 
     console.log('✅ Dashboard user tracking display test completed!');
   });
@@ -396,7 +383,6 @@ test.describe('User Tracking - End-to-End Flow', () => {
     // Navigate to dashboard as regular user
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Mock dashboard data with IP addresses
     await page.route('/api/dashboard-data', route => {
@@ -423,13 +409,10 @@ test.describe('User Tracking - End-to-End Flow', () => {
 
     await page.reload();
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(PAGE_LOAD_TIMEOUT);
 
     // Click on details button to open modal
     await page.click('.details-button');
-    await page.waitForTimeout(FORM_INTERACTION_TIMEOUT);
-
-    // Check that modal opens
+    // Wait for modal to be visible
     await expect(page.locator('.modal-overlay')).toBeVisible();
 
     // IP address should NOT be visible to regular users

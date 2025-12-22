@@ -38,8 +38,6 @@ test.describe('Pricing Variants E2E', () => {
     const viewResultsButton = page.getByRole('button', { name: /View Results/i });
     if (await viewResultsButton.isVisible()) {
       await viewResultsButton.click();
-      // Wait a moment for the reveal animation
-      await page.waitForTimeout(500);
     }
 
     // Now check for PartialResults with upgrade banner
@@ -97,8 +95,6 @@ test.describe('Pricing Variants E2E', () => {
     const viewResultsButton = page.getByRole('button', { name: /View Results/i });
     if (await viewResultsButton.isVisible()) {
       await viewResultsButton.click();
-      // Wait a moment for the reveal animation
-      await page.waitForTimeout(500);
     }
 
     // Wait for PartialResults to render
@@ -200,11 +196,8 @@ test.describe('Pricing Variants E2E', () => {
     await expect(page.locator('.validation-results-section')).toBeVisible({ timeout: 30000 });
 
     // Check if results are gated and click through if necessary
-    const viewResultsButton = page.getByRole('button', { name: /View Results/i });
     if (await viewResultsButton.isVisible()) {
       await viewResultsButton.click();
-      // Wait a moment for the reveal animation
-      await page.waitForTimeout(500);
     }
 
     // Wait for PartialResults to render
