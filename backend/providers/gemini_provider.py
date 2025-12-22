@@ -32,14 +32,14 @@ class GeminiProvider(CitationValidator):
     Uses the "User Content" strategy for better accuracy.
     """
 
-    def __init__(self, api_key: str = None, model: str = "gemini-2.5-flash", temperature: float = 1.0, prompt_path: str = None):
+    def __init__(self, api_key: str = None, model: str = "gemini-3-flash-preview", temperature: float = 0.0, prompt_path: str = None):
         """
         Initialize Gemini provider.
 
         Args:
             api_key: Gemini API key (defaults to GEMINI_API_KEY env var)
-            model: Model name to use (default: gemini-2.5-flash)
-            temperature: Temperature for generation (default: 1.0)
+            model: Model name to use (default: gemini-3-flash-preview)
+            temperature: Temperature for generation (default: 0.0)
             prompt_path: Optional path to specific prompt file
         """
         # Load environment variables

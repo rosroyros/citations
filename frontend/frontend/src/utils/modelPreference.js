@@ -1,36 +1,35 @@
 /**
  * Model preference utility for A/B testing
  * Uses opaque internal IDs to avoid exposing model names directly
+ * 
+ * Currently using Gemini 3 Flash (model_c) for all users.
+ * A/B testing infrastructure preserved for future experiments.
  */
 
 const MODEL_PREFERENCE_KEY = 'model_preference'
-const MODEL_A = 'model_a' // OpenAI (Default)
-const MODEL_B = 'model_b' // Gemini (Challenger)
+const MODEL_A = 'model_a' // OpenAI (Fallback)
+const MODEL_B = 'model_b' // Gemini 2.5 Flash (Legacy)
+const MODEL_C = 'model_c' // Gemini 3 Flash (Current Default)
 
 /**
- * Get or assign model preference for A/B testing
- * @returns {string} - 'model_a' or 'model_b'
+ * Get model preference.
+ * Currently returns model_c for all users (Gemini 3 Flash).
+ * A/B testing infrastructure preserved for future experiments.
+ * 
+ * @returns {string} - 'model_c' (Gemini 3 Flash)
  */
 export const getModelPreference = () => {
-  // Check if preference already exists in localStorage
-  const stored = localStorage.getItem(MODEL_PREFERENCE_KEY)
+  // Currently using Gemini 3 Flash (model_c) for all users
+  // To re-enable A/B testing, uncomment below and adjust split logic
+  // const stored = localStorage.getItem(MODEL_PREFERENCE_KEY)
+  // if (stored && [MODEL_A, MODEL_B, MODEL_C].includes(stored)) {
+  //   return stored
+  // }
+  // const assignment = Math.random() < 0.5 ? MODEL_B : MODEL_A
+  // localStorage.setItem(MODEL_PREFERENCE_KEY, assignment)
+  // return assignment
 
-  if (stored) {
-    // Validate stored value
-    if (stored === MODEL_A || stored === MODEL_B) {
-      return stored
-    }
-    // Clear invalid stored value
-    localStorage.removeItem(MODEL_PREFERENCE_KEY)
-  }
-
-  // Generate new random assignment (50/50 split)
-  const assignment = Math.random() < 0.5 ? MODEL_B : MODEL_A
-
-  // Store in localStorage for persistence
-  localStorage.setItem(MODEL_PREFERENCE_KEY, assignment)
-
-  return assignment
+  return MODEL_C
 }
 
 /**
@@ -44,6 +43,8 @@ export const getModelName = (modelId) => {
       return 'OpenAI'
     case MODEL_B:
       return 'Gemini'
+    case MODEL_C:
+      return 'Gemini 3'
     default:
       return 'Unknown'
   }

@@ -65,16 +65,9 @@ if os.getenv('MOCK_LLM', '').lower() == 'true':
 else:
     openai_provider = OpenAIProvider()
     try:
-        # Use v3 prompt and temperature 0.0 for Gemini 2.5 Flash validation
-        # This improves accuracy for edge cases (Social Media, DSM, etc.)
-        backend_dir = os.path.dirname(os.path.abspath(__file__))
-        v3_prompt_path = os.path.join(backend_dir, 'prompts', 'validator_prompt_v3.txt')
-        
-        gemini_provider = GeminiProvider(
-            temperature=0.0,
-            prompt_path=v3_prompt_path
-        )
-        logger.info("Using real providers: OpenAIProvider and GeminiProvider (v3 prompt, temp=0.0)")
+        # Use Gemini 3 Flash with optimized prompt (default) and temperature 0.0
+        gemini_provider = GeminiProvider(temperature=0.0)
+        logger.info("Using real providers: OpenAIProvider (fallback) and GeminiProvider (Gemini 3 Flash, temp=0.0)")
     except ValueError as e:
         logger.warning(f"Failed to initialize GeminiProvider: {str(e)}")
         gemini_provider = None
@@ -90,21 +83,21 @@ def get_provider_for_request(request: Request) -> tuple[Any, str, bool]:
     Returns:
         tuple: (provider, internal_id, fallback_occurred)
             - provider: The LLM provider instance to use
-            - internal_id: Internal model ID ('model_a' or 'model_b')
+            - internal_id: Internal model ID ('model_a', 'model_b', or 'model_c')
             - fallback_occurred: Whether fallback from Gemini to OpenAI occurred
     """
     model_preference = request.headers.get('X-Model-Preference', '').lower()
 
-    # Default to OpenAI (model_a)
-    if model_preference != 'model_b':
+    # Explicit OpenAI request (for fallback testing or legacy)
+    if model_preference == 'model_a':
         return openai_provider, 'model_a', False
 
-    # Try Gemini (model_b) if requested
+    # Default to Gemini 3 Flash (model_c)
     if gemini_provider is None:
-        logger.warning("Gemini provider requested but not available, falling back to OpenAI")
+        logger.warning("Gemini provider not available, falling back to OpenAI")
         return openai_provider, 'model_a', True  # fallback occurred
 
-    return gemini_provider, 'model_b', False
+    return gemini_provider, 'model_c', False
 
 
 async def validate_with_provider_fallback(
@@ -120,7 +113,7 @@ async def validate_with_provider_fallback(
 
     Args:
         provider: Initial LLM provider to use
-        internal_model_id: Internal model ID ('model_a' or 'model_b')
+        internal_model_id: Internal model ID ('model_a', 'model_b', or 'model_c')
         job_id: Job ID for logging
         citations: Citations text to validate
         style: Citation style
@@ -142,8 +135,8 @@ async def validate_with_provider_fallback(
         logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
         return validation_results
     except Exception as provider_error:
-        # If Gemini fails, fallback to OpenAI
-        if internal_model_id == 'model_b' and provider is gemini_provider:
+        # If Gemini (model_b or model_c) fails, fallback to OpenAI
+        if internal_model_id in ('model_b', 'model_c') and provider is gemini_provider:
             logger.warning(f"Gemini provider failed for job {job_id}, falling back to OpenAI: {str(provider_error)}")
             provider = openai_provider
             internal_model_id = 'model_a'  # Update to fallback provider
@@ -1186,20 +1179,25 @@ async def process_validation_job(job_id: str, citations: str, style: str):
                 return
 
         # Get provider based on stored model preference with fallback logic
-        model_preference = jobs[job_id].get("model_preference", "model_a")
+        # Default is Gemini 3 Flash (model_c), OpenAI (model_a) is fallback
+        model_preference = jobs[job_id].get("model_preference", "model_c")
 
-        if model_preference == 'model_b' and gemini_provider is not None:
-            provider = gemini_provider
-            internal_model_id = 'model_b'
-            fallback_occurred = False
-        else:
-            if model_preference == 'model_b' and gemini_provider is None:
-                logger.warning(f"Job {job_id}: Gemini requested but unavailable, using OpenAI")
-                fallback_occurred = True
-            else:
-                fallback_occurred = False
+        if model_preference == 'model_a':
+            # Explicit OpenAI request
             provider = openai_provider
             internal_model_id = 'model_a'
+            fallback_occurred = False
+        elif gemini_provider is not None:
+            # Default: Use Gemini 3 Flash (model_c)
+            provider = gemini_provider
+            internal_model_id = 'model_c'
+            fallback_occurred = False
+        else:
+            # Gemini unavailable, fallback to OpenAI
+            logger.warning(f"Job {job_id}: Gemini provider not available, falling back to OpenAI")
+            provider = openai_provider
+            internal_model_id = 'model_a'
+            fallback_occurred = True
 
         # Store provider in job for dashboard tracking
         jobs[job_id]["provider"] = internal_model_id
@@ -1414,11 +1412,13 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     )
 
     # Store model preference for async processing
+    # Default is Gemini 3 Flash (model_c), OpenAI (model_a) only if explicitly requested
     model_preference = http_request.headers.get('X-Model-Preference', '').lower()
-    if model_preference == 'model_b':
-        stored_model_preference = 'model_b'
-    else:
+    if model_preference == 'model_a':
         stored_model_preference = 'model_a'
+    else:
+        # Default to model_c (Gemini 3 Flash) for model_c, model_b, or no preference
+        stored_model_preference = 'model_c'
 
     # Store experiment variant for async processing (if provided by frontend)
     experiment_variant = http_request.headers.get('X-Experiment-Variant')

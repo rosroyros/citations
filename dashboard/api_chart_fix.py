@@ -38,7 +38,8 @@ async def get_chart_data(
                 SUM(CASE WHEN validation_status = 'failed' THEN citation_count ELSE 0 END) as failed_citations,
                 SUM(citation_count) as total_citations,
                 COUNT(CASE WHEN provider = 'model_a' OR provider = 'openai' THEN 1 END) as model_a_jobs,
-                COUNT(CASE WHEN provider = 'model_b' OR provider = 'gemini' THEN 1 END) as model_b_jobs
+                COUNT(CASE WHEN provider = 'model_b' OR provider = 'gemini' THEN 1 END) as model_b_jobs,
+                COUNT(CASE WHEN provider = 'model_c' THEN 1 END) as model_c_jobs
             FROM validations
             WHERE 1=1
         """
@@ -71,7 +72,8 @@ async def get_chart_data(
                 "failed_citations": row[6] or 0,
                 "total_citations": row[7] or 0,
                 "model_a_jobs": row[8] or 0,
-                "model_b_jobs": row[9] or 0
+                "model_b_jobs": row[9] or 0,
+                "model_c_jobs": row[10] or 0
             })
 
         # Also get provider distribution

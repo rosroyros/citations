@@ -16,9 +16,23 @@ def client():
     return TestClient(app.app)
 
 
+async def poll_job_completion(ac, job_id, timeout=5.0):
+    """Poll for job completion inside patched context."""
+    import time
+    start = time.time()
+    while time.time() - start < timeout:
+        response = await ac.get(f"/api/jobs/{job_id}")
+        if response.status_code == 200:
+            data = response.json()
+            if data.get("status") == "completed":
+                return data
+        await asyncio.sleep(0.1)
+    return None
+
+
 @pytest.mark.asyncio
 class TestGeminiRoutingIntegration:
-    """Integration tests for Gemini A/B routing and fallback mechanism."""
+    """Integration tests for Gemini 3 Flash (model_c) routing and fallback mechanism."""
 
     @pytest.fixture
     def mock_openai_provider(self):
@@ -56,34 +70,40 @@ class TestGeminiRoutingIntegration:
             "style": "apa7"
         }
 
-    async def test_model_b_routes_to_gemini_success(self, sample_citations,
+    async def test_default_routes_to_gemini_3_flash(self, sample_citations,
                                                     mock_openai_provider, mock_gemini_provider):
-        """Test that X-Model-Preference: model_b routes to Gemini successfully."""
+        """Test that default (no header or model_c) routes to Gemini 3 Flash."""
         with patch('app.openai_provider', mock_openai_provider), \
              patch('app.gemini_provider', mock_gemini_provider), \
              patch('app.get_provider_for_request') as mock_get_provider:
 
-            # Mock get_provider to return Gemini for model_b
-            mock_get_provider.return_value = (mock_gemini_provider, 'model_b', False)
+            # Mock get_provider to return Gemini for model_c (default)
+            mock_get_provider.return_value = (mock_gemini_provider, 'model_c', False)
 
             async with AsyncClient(transport=ASGITransport(app=app.app), base_url="http://test") as ac:
                 response = await ac.post(
                     "/api/validate/async",
                     json=sample_citations,
-                    headers={"X-Model-Preference": "model_b"}
+                    headers={"X-Model-Preference": "model_c"}
                 )
 
-            assert response.status_code == 200
-            data = response.json()
-            assert "job_id" in data
+                assert response.status_code == 200
+                data = response.json()
+                assert "job_id" in data
+                job_id = data["job_id"]
+
+                # Poll for completion inside patched context
+                result = await poll_job_completion(ac, job_id)
+                assert result is not None, "Job did not complete in time"
+                assert result["status"] == "completed"
 
             # Verify Gemini was called (not OpenAI)
             mock_gemini_provider.validate_citations.assert_called_once()
             mock_openai_provider.validate_citations.assert_not_called()
 
-    async def test_model_b_gemini_failure_fallback_to_openai(self, sample_citations,
+    async def test_gemini_3_failure_fallback_to_openai(self, sample_citations,
                                                             mock_openai_provider, mock_gemini_provider):
-        """Test that when Gemini fails with model_b, it falls back to OpenAI."""
+        """Test that when Gemini 3 (model_c) fails, it falls back to OpenAI."""
         # Make Gemini fail
         mock_gemini_provider.validate_citations.side_effect = Exception("Gemini API error")
 
@@ -97,13 +117,13 @@ class TestGeminiRoutingIntegration:
             # It doesn't call get_provider_for_request twice.
             # So we just need to return Gemini, and let validate_with_provider_fallback handle the error.
             
-            mock_get_provider.return_value = (mock_gemini_provider, 'model_b', False)
+            mock_get_provider.return_value = (mock_gemini_provider, 'model_c', False)
 
             async with AsyncClient(transport=ASGITransport(app=app.app), base_url="http://test") as ac:
                 response = await ac.post(
                     "/api/validate/async",
                     json=sample_citations,
-                    headers={"X-Model-Preference": "model_b"}
+                    headers={"X-Model-Preference": "model_c"}
                 )
 
             assert response.status_code == 200
@@ -117,9 +137,9 @@ class TestGeminiRoutingIntegration:
             # The error message might vary, but "falling back to OpenAI" should be present if logging is correct
             assert "falling back to OpenAI" in args[0]
 
-    async def test_model_a_forces_openai(self, sample_citations,
+    async def test_explicit_model_a_forces_openai(self, sample_citations,
                                        mock_openai_provider, mock_gemini_provider):
-        """Test that X-Model-Preference: model_a always uses OpenAI."""
+        """Test that X-Model-Preference: model_a explicitly uses OpenAI."""
         with patch('app.openai_provider', mock_openai_provider), \
              patch('app.gemini_provider', mock_gemini_provider), \
              patch('app.get_provider_for_request') as mock_get_provider:
@@ -140,15 +160,15 @@ class TestGeminiRoutingIntegration:
             mock_openai_provider.validate_citations.assert_called_once()
             mock_gemini_provider.validate_citations.assert_not_called()
 
-    async def test_no_header_defaults_to_openai(self, sample_citations,
+    async def test_no_header_defaults_to_gemini_3(self, sample_citations,
                                                mock_openai_provider, mock_gemini_provider):
-        """Test that no X-Model-Preference header defaults to OpenAI."""
+        """Test that no X-Model-Preference header defaults to Gemini 3 Flash."""
         with patch('app.openai_provider', mock_openai_provider), \
              patch('app.gemini_provider', mock_gemini_provider), \
              patch('app.get_provider_for_request') as mock_get_provider:
 
-            # Mock get_provider to return OpenAI by default
-            mock_get_provider.return_value = (mock_openai_provider, 'model_a', False)
+            # Mock get_provider to return Gemini 3 by default (new behavior)
+            mock_get_provider.return_value = (mock_gemini_provider, 'model_c', False)
 
             async with AsyncClient(transport=ASGITransport(app=app.app), base_url="http://test") as ac:
                 response = await ac.post(
@@ -158,9 +178,9 @@ class TestGeminiRoutingIntegration:
 
             assert response.status_code == 200
 
-            # Verify OpenAI was called by default
-            mock_openai_provider.validate_citations.assert_called_once()
-            mock_gemini_provider.validate_citations.assert_not_called()
+            # Verify Gemini 3 was called by default (new behavior)
+            mock_gemini_provider.validate_citations.assert_called_once()
+            mock_openai_provider.validate_citations.assert_not_called()
 
     async def test_job_polling_returns_model_info(self, sample_citations,
                                                  mock_openai_provider, mock_gemini_provider):
@@ -271,20 +291,20 @@ class TestGeminiRoutingIntegration:
             assert mock_logger.warning.called
             args, _ = mock_logger.warning.call_args
             # The error message might vary, but "falling back to OpenAI" should be present if logging is correct
-            assert "Gemini requested but unavailable, using OpenAI" in args[0]
+            assert "Gemini provider not available, falling back to OpenAI" in args[0]
 
     def test_get_provider_for_request_function_model_selection(self):
         """Test the get_provider function directly."""
         # Mock Request object with headers
         mock_request = Mock()
-        mock_request.headers = {"X-Model-Preference": "model_b"}
+        mock_request.headers = {"X-Model-Preference": "model_c"}
 
         with patch('app.openai_provider') as mock_openai, \
              patch('app.gemini_provider') as mock_gemini:
 
-            # Test model_b with available Gemini
+            # Test model_c (default) with available Gemini
             provider, model_id, fallback = app.get_provider_for_request(mock_request)
-            assert model_id == 'model_b'
+            assert model_id == 'model_c'
             assert fallback is False
 
             # Test model_a forces OpenAI
@@ -293,10 +313,10 @@ class TestGeminiRoutingIntegration:
             assert model_id == 'model_a'
             assert fallback is False
 
-            # Test no header defaults to model_a
+            # Test no header defaults to model_c (Gemini 3)
             mock_request.headers = {}
             provider, model_id, fallback = app.get_provider_for_request(mock_request)
-            assert model_id == 'model_a'
+            assert model_id == 'model_c'
             assert fallback is False
 
     async def test_multiple_concurrent_requests_model_routing(self, sample_citations,
@@ -323,9 +343,10 @@ class TestGeminiRoutingIntegration:
             
             def get_provider_side_effect(request):
                 pref = request.headers.get("X-Model-Preference")
-                if pref == "model_b":
-                    return (mock_gemini_provider, 'model_b', False)
-                return (mock_openai_provider, 'model_a', False)
+                if pref == "model_a":
+                    return (mock_openai_provider, 'model_a', False)
+                # Default to Gemini 3 (model_c) for model_c, model_b, or no header
+                return (mock_gemini_provider, 'model_c', False)
                 
             mock_get_provider.side_effect = get_provider_side_effect
 
@@ -335,7 +356,7 @@ class TestGeminiRoutingIntegration:
                     ac.post(
                         "/api/validate/async",
                         json=sample_citations,
-                        headers={"X-Model-Preference": "model_b"}
+                        headers={"X-Model-Preference": "model_c"}
                     ),
                     ac.post(
                         "/api/validate/async",
@@ -356,5 +377,5 @@ class TestGeminiRoutingIntegration:
                 assert response.status_code == 200
 
             # Verify routing worked correctly
-            assert len(gemini_calls) == 1  # One model_b request
-            assert len(openai_calls) == 2  # One model_a and one default
+            assert len(gemini_calls) == 2  # One model_c and one default (no header)
+            assert len(openai_calls) == 1  # One explicit model_a request

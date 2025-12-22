@@ -1,7 +1,7 @@
 # Citation Validator - AI Engineering Context
 
 ## Identity
-APA 7th edition citation validator using dual LLM providers (GPT-5-mini-med + Gemini-2.5-Flash A/B testing) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
+APA 7th edition citation validator using Gemini 3 Flash (with OpenAI fallback) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
 
 Important: connect to the server via `ssh deploy@178.156.161.140`
 
@@ -26,7 +26,7 @@ Smith, J. (2023). testtesttest: A study on validation methods. Journal of Testin
   - **Key Components**: `ValidationLoadingState` (Progressive Reveal), `ValidationTable` (Results).
 - **Testing**: Pytest (Backend), Vitest (Frontend Unit), Playwright (E2E).
 - **Infrastructure**: VPS (Ubuntu), Nginx (Reverse Proxy + Static), Systemd.
-- **Services**: OpenAI + Google Gemini (LLM A/B Testing), Polar SDK (Payments/Webhooks).
+- **Services**: Google Gemini 3 Flash (LLM), OpenAI (fallback), Polar SDK (Payments/Webhooks).
 - **Tooling**: `bd` (Beads Issue Tracker), `pip` (Python deps), `npm` (Node deps).
 
 ## Architecture
@@ -69,7 +69,7 @@ User → Frontend → POST /api/validate/async → Background Worker
 - **Stack**: FastAPI (Port 4646), SQLite (`dashboard/data/validations.db`).
 - **Ingestion**: Cron jobs parse `app.log` and `citations.log` -> SQLite.
 - **Frontend**: Static HTML served by FastAPI (`dashboard/static/`).
-- **Provider Column**: Displays which AI model handled each request (GPT-5-mini-med or Gemini-2.5-Flash).
+- **Provider Column**: Displays which AI model handled each request (Gemini 3 Flash or OpenAI fallback).
 - **Access**: Internal tool, no auth (dev), firewall protected (prod).
 
 ## Upgrade Funnel
@@ -99,7 +99,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - Backend: Queues job (In-Memory).
    - Poll: Frontend checks `/api/jobs/{job_id}` every 2s.
 4. **Core Logic**:
-   - **LLM Providers**: `backend/providers/openai_provider.py` (GPT-5-mini-med) + `backend/providers/gemini_provider.py` (Gemini-2.5-Flash). Frontend randomly assigns users to model_a or model_b for A/B testing.
+   - **LLM Providers**: `backend/providers/gemini_provider.py` (Gemini 3 Flash) with `backend/providers/openai_provider.py` (OpenAI) as fallback.
    - **System Prompt**: `backend/prompts/validator_prompt_optimized.txt` defines APA 7 rules and output format.
    - Consistency tests ensure deterministic output.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).

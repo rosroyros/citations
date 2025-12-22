@@ -677,8 +677,8 @@ async def get_dashboard_data(
                 "amount_cents": validation.get("amount_cents"),
                 "currency": validation.get("currency"),
                 "order_id": validation.get("order_id"),
-                # Provider field for A/B testing
-                "provider": validation.get("provider", "model_a"),
+                # Provider field for model tracking
+                "provider": validation.get("provider", "model_c"),
                 # Token usage fields
                 "token_usage": {
                     "prompt": validation.get("token_usage_prompt"),

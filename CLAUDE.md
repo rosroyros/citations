@@ -182,9 +182,10 @@ Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from d
 ## Python Environment
 - **Virtual Environment**: Use `venv` for Python development. Activate with `source venv/bin/activate` before running Python commands.
 
-## Model Selection & A/B Testing
-- **Production**: Dual provider A/B testing (GPT-5-mini-med + Gemini-2.5-Flash)
-- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required in production `.env`
-- **Routing**: Frontend sends `X-Model-Preference: model_a|model_b` header (random assignment)
-- **Fallback**: Gemini failures automatically fall back to OpenAI (GPT-5-mini-med)
-- **Monitoring**: Dashboard displays provider used for each validation (Provider column)
+## Model Selection
+- **Production**: Gemini 3 Flash (`gemini-3-flash-preview`) as default (model_c)
+- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required (OpenAI for fallback)
+- **Routing**: Frontend sends `X-Model-Preference: model_c` header (all users on Gemini 3)
+- **Fallback**: Gemini failures automatically fall back to OpenAI
+- **A/B Testing**: Infrastructure preserved in `modelPreference.js` for future experiments
+- **Monitoring**: Dashboard displays provider used (model_c = Gemini 3, model_a = OpenAI fallback)
