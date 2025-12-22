@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Auto-scroll E2E Tests', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5174/')
+    await page.goto('/')
     // Wait for the page to load completely
     await page.waitForSelector('.citation-editor')
   })
