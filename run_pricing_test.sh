@@ -38,7 +38,7 @@ sleep 5
 # Run Tests
 echo "Running E2E Tests..."
 cd frontend/frontend
-npx playwright test tests/e2e/pricing_variants.spec.cjs
+npx playwright test tests/e2e/checkout/pricing_variants.spec.cjs
 TEST_EXIT_CODE=$?
 
 # Cleanup

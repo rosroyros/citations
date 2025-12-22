@@ -37,7 +37,7 @@ OUTPUT_FILE=$(mktemp)
 echo "Running Playwright test... (Output captured)"
 # Ensure we installed dependencies
 # npm install (skip to save time, assume installed)
-npm run test:e2e -- tests/e2e-full-flow.spec.cjs --project=chromium > "$OUTPUT_FILE" 2>&1
+npm run test:e2e -- tests/e2e/core/e2e-full-flow.spec.cjs --project=chromium > "$OUTPUT_FILE" 2>&1
 EXIT_CODE=$?
 
 cat "$OUTPUT_FILE"
@@ -99,7 +99,7 @@ done
 # 4. Verify Internal Dashboard UI (Local -> Internal IP)
 echo -e "\n${GREEN}[4/4] Verifying Internal Dashboard UI (Local -> Internal IP)...${NC}"
 cd "$FRONTEND_DIR"
-npm run test:e2e -- tests/e2e-internal-dashboard.spec.cjs --project=chromium
+npm run test:e2e -- tests/internal/e2e-internal-dashboard.spec.cjs --project=chromium
 
 if [ $? -eq 0 ]; then
     echo -e "\n${GREEN}✅ Hybrid E2E Test PASSED!${NC}"

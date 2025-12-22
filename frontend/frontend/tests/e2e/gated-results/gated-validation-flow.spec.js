@@ -14,7 +14,7 @@ import {
   getEventParam,
   getEventsByName,
   waitForEvent
-} from '../analytics/helpers.js';
+} from '../../analytics/helpers.js';
 
 test.describe('Gated Validation Results Flow - E2E Tests', () => {
   let capturedRequests;
@@ -209,7 +209,7 @@ We want to simulate a real user scenario where the user waits for results.`;
 
       // Mock failed API response for reveal
       const originalFetch = window.fetch;
-      window.fetch = function(url, options) {
+      window.fetch = function (url, options) {
         if (url.includes('/api/reveal-results')) {
           return Promise.resolve({
             ok: false,

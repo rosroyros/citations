@@ -9,7 +9,7 @@ import {
   setupAnalyticsCapture,
   buildTestUrl,
   printEventSummary
-} from '../analytics/helpers.js';
+} from '../../analytics/helpers.js';
 
 // Test timeout constants (in milliseconds)
 const ANALYTICS_WAIT_TIMEOUT = 2000;  // Wait for initial analytics events
