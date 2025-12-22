@@ -1,0 +1,185 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e6]:
+      - img [ref=e7]
+      - heading "Citation Format Checker" [level=1] [ref=e10]
+  - generic [ref=e13]:
+    - heading "Stop wasting 5 minutes on every citation" [level=2] [ref=e14]
+    - paragraph [ref=e15]: The fastest, most accurate APA citation checker.
+    - generic [ref=e17]: ⚡ Instant validation • Catches citation generator errors • No sign up required
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]:
+        - generic: Paste your citations below (APA 7th edition)
+        - generic [ref=e24]:
+          - paragraph [ref=e25]: Smith, J. (2023). The impact of artificial intelligence on modern society. Journal of Technology Studies, 45(2), 123-145.
+          - paragraph [ref=e26]: "Johnson, M. K. (2023). Climate change and renewable energy: A comprehensive review. Environmental Science Quarterly, 78(4), 567-589."
+          - paragraph [ref=e27]: Williams, R. A. (2023). Educational psychology in the digital age. Learning and Instruction, 67, 101-115.
+          - paragraph [ref=e28]: "Brown, T. L. (2023). Global supply chain management: Challenges and opportunities. Business Logistics Review, 12(3), 234-251."
+          - paragraph [ref=e29]: Davis, S. M. (2023). Public health in post-pandemic era. Health Policy Journal, 23(1), 45-67.
+          - paragraph [ref=e30]: Miller, T. (2023). Database design patterns. Data Today, 14(1), 45-67.
+          - paragraph [ref=e31]: Wilson, S. (2023). Network security essentials. Security Focus, 9(4), 201-223.
+          - paragraph [ref=e32]: Moore, L. (2023). Mobile app development. App Developer Journal, 7(3), 134-156.
+          - paragraph [ref=e33]: Taylor, J. (2023). DevOps best practices. Ops Weekly, 11(2), 78-92.
+          - paragraph [ref=e34]: Anderson, P. (2023). UX design principles. Design Today, 6(1), 34-56.
+          - paragraph [ref=e35]: Thomas, E. (2023). Software architecture patterns. Architecture Monthly, 18(3), 234-267.
+          - paragraph [ref=e36]: Jackson, R. (2023). Cloud native applications. Cloud Computing Review, 9(2), 145-178.
+          - paragraph [ref=e37]: White, M. (2023). Data privacy regulations. Privacy Law Journal, 15(4), 345-378.
+          - paragraph [ref=e38]: Harris, D. (2023). Machine learning ethics. AI Ethics Review, 3(1), 23-45.
+          - paragraph [ref=e39]: Martin, S. (2023). Cybersecurity best practices. Security Today, 22(3), 189-212.
+          - paragraph [ref=e40]: Thompson, K. (2023). Blockchain technology fundamentals. Tech Innovation, 12(4), 456-489.
+          - paragraph [ref=e41]: Garcia, L. (2023). Quantum computing applications. Quantum Journal, 7(2), 123-156.
+          - paragraph [ref=e42]: Martinez, C. (2023). Big data analytics. Data Science Review, 19(1), 67-89.
+          - paragraph [ref=e43]: Robinson, J. (2023). IoT security challenges. Internet of Things, 8(3), 234-267.
+          - paragraph [ref=e44]: Clark, A. (2023). Digital transformation strategies. Business Tech, 16(2), 145-178.
+          - paragraph [ref=e45]: Rodriguez, M. (2023). Artificial intelligence in healthcare. Medical Tech Journal, 14(4), 289-312.
+          - paragraph [ref=e46]: Lewis, D. (2023). Sustainable technology practices. Green Computing, 6(1), 34-56.
+          - paragraph [ref=e47]: Lee, S. (2023). Robotics automation. Robotics Today, 11(3), 189-223.
+          - paragraph [ref=e48]: Walker, K. (2023). Cloud migration strategies. Cloud Strategies, 9(4), 345-378.
+          - paragraph [ref=e49]: Hall, B. (2023). Edge computing benefits. Distributed Systems, 15(2), 167-189.
+          - paragraph [ref=e50]: Author26, A. (2023). Research article 26. Academic Journal, 26(1), 1-20.
+          - paragraph [ref=e51]: Author27, A. (2023). Research article 27. Academic Journal, 27(1), 1-20.
+          - paragraph [ref=e52]: Author28, A. (2023). Research article 28. Academic Journal, 28(1), 1-20.
+          - paragraph [ref=e53]: Author29, A. (2023). Research article 29. Academic Journal, 29(1), 1-20.
+          - paragraph [ref=e54]: Author30, A. (2023). Research article 30. Academic Journal, 30(1), 1-20.
+          - paragraph [ref=e55]: Author31, A. (2023). Research article 31. Academic Journal, 31(1), 1-20.
+          - paragraph [ref=e56]: Author32, A. (2023). Research article 32. Academic Journal, 32(1), 1-20.
+          - paragraph [ref=e57]: Author33, A. (2023). Research article 33. Academic Journal, 33(1), 1-20.
+          - paragraph [ref=e58]: Author34, A. (2023). Research article 34. Academic Journal, 34(1), 1-20.
+          - paragraph [ref=e59]: Author35, A. (2023). Research article 35. Academic Journal, 35(1), 1-20.
+          - paragraph [ref=e60]: Author36, A. (2023). Research article 36. Academic Journal, 36(1), 1-20.
+          - paragraph [ref=e61]: Author37, A. (2023). Research article 37. Academic Journal, 37(1), 1-20.
+          - paragraph [ref=e62]: Author38, A. (2023). Research article 38. Academic Journal, 38(1), 1-20.
+          - paragraph [ref=e63]: Author39, A. (2023). Research article 39. Academic Journal, 39(1), 1-20.
+          - paragraph [ref=e64]: Author40, A. (2023). Research article 40. Academic Journal, 40(1), 1-20.
+          - paragraph [ref=e65]: Author41, A. (2023). Research article 41. Academic Journal, 41(1), 1-20.
+          - paragraph [ref=e66]: Author42, A. (2023). Research article 42. Academic Journal, 42(1), 1-20.
+          - paragraph [ref=e67]: Author43, A. (2023). Research article 43. Academic Journal, 43(1), 1-20.
+          - paragraph [ref=e68]: Author44, A. (2023). Research article 44. Academic Journal, 44(1), 1-20.
+          - paragraph [ref=e69]: Author45, A. (2023). Research article 45. Academic Journal, 45(1), 1-20.
+          - paragraph [ref=e70]: Author46, A. (2023). Research article 46. Academic Journal, 46(1), 1-20.
+          - paragraph [ref=e71]: Author47, A. (2023). Research article 47. Academic Journal, 47(1), 1-20.
+          - paragraph [ref=e72]: Author48, A. (2023). Research article 48. Academic Journal, 48(1), 1-20.
+          - paragraph [ref=e73]: Author49, A. (2023). Research article 49. Academic Journal, 49(1), 1-20.
+          - paragraph [ref=e74]: Author50, A. (2023). Research article 50. Academic Journal, 50(1), 1-20.
+        - paragraph [ref=e75]: Paste one or multiple citations. We'll check each one.
+      - generic [ref=e76]:
+        - generic: Or upload a document
+        - button "File drop zone" [ref=e77]:
+          - generic [ref=e78]:
+            - paragraph [ref=e79]: Drag and drop
+            - paragraph [ref=e80]:
+              - text: or
+              - button "browse files" [ref=e81] [cursor=pointer]
+            - paragraph [ref=e82]: PDF, DOCX, TXT, or RTF files accepted
+        - paragraph [ref=e83]: We'll automatically find & validate citations.
+    - generic [ref=e84]:
+      - button "Check My Citations" [ref=e85] [cursor=pointer]
+      - paragraph [ref=e86]: No login required • Get results in seconds
+    - generic [ref=e87]:
+      - generic [ref=e88]: ✓ Capitalization check
+      - generic [ref=e89]: ✓ Italics validation
+      - generic [ref=e90]: ✓ DOI formatting
+      - generic [ref=e91]: ✓ Punctuation rules
+  - generic [ref=e92]:
+    - strong [ref=e93]: "Error:"
+    - text: "Server error (500): Request failed"
+  - generic [ref=e95]:
+    - heading "Why Citation Format Checker Works" [level=3] [ref=e96]
+    - generic [ref=e97]:
+      - generic [ref=e98]:
+        - heading "Catches 99% of citation errors" [level=4] [ref=e99]
+        - paragraph [ref=e100]: Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.
+      - generic [ref=e101]:
+        - heading "Never lose points" [level=5] [ref=e102]
+        - paragraph [ref=e103]: Submit with confidence. No more losing grades on formatting mistakes.
+      - generic [ref=e104]:
+        - heading "Finds generator mistakes" [level=5] [ref=e105]
+        - paragraph [ref=e106]: Zotero, EasyBib, and ChatGPT make formatting errors. We catch them before your professor does.
+      - generic [ref=e107]:
+        - heading "Custom AI Models" [level=6] [ref=e108]
+        - paragraph [ref=e109]: Trained on thousands of expert-verified citations for each source type
+      - generic [ref=e110]:
+        - heading "APA Expert Verified" [level=6] [ref=e111]
+        - paragraph [ref=e112]: Every error type validated against official APA 7th Edition manual
+      - generic [ref=e113]:
+        - heading "Trusted Worldwide" [level=6] [ref=e114]
+        - paragraph [ref=e115]: Join thousands of students and academics who rely on us
+  - generic [ref=e117]:
+    - heading "Frequently Asked Questions" [level=3] [ref=e118]
+    - generic [ref=e119]:
+      - generic [ref=e120]:
+        - heading "How do I check my APA citations?" [level=4] [ref=e121]
+        - paragraph [ref=e122]: Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
+      - generic [ref=e123]:
+        - heading "Is this citation checker free?" [level=4] [ref=e124]
+        - paragraph [ref=e125]: Yes! You get 5 free citation checks to try the tool. For unlimited checking, you can purchase credits or unlimited passes starting at just $1.99.
+      - generic [ref=e126]:
+        - heading "What citation style does this tool support?" [level=4] [ref=e127]
+        - paragraph [ref=e128]: Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
+      - generic [ref=e129]:
+        - heading "What types of errors does this tool catch?" [level=4] [ref=e130]
+        - paragraph [ref=e131]: Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
+      - generic [ref=e132]:
+        - heading "Can I check multiple citations at once?" [level=4] [ref=e133]
+        - paragraph [ref=e134]: Yes! You can paste multiple citations at once, and our tool will check each one individually and provide detailed feedback for each citation.
+      - generic [ref=e135]:
+        - heading "What are Citation Credits and how do they work?" [level=4] [ref=e136]
+        - paragraph [ref=e137]: Each citation you check uses 1 credit. You can purchase affordable credit packs or get unlimited access with a pass depending on your needs. Credits never expire.
+      - generic [ref=e138]:
+        - heading "Do Citation Credits expire?" [level=4] [ref=e139]
+        - paragraph [ref=e140]: No! Your credits never expire. Use them at your own pace — whether that's all at once or over several years.
+      - generic [ref=e141]:
+        - heading "Can I get a refund?" [level=4] [ref=e142]
+        - paragraph [ref=e143]: Absolutely! We offer a no-questions-asked refund policy. If you're not completely satisfied with your Citation Credits purchase, just contact us anytime for a full refund.
+      - generic [ref=e144]:
+        - heading "How is this different from ChatGPT or citation generators?" [level=4] [ref=e145]
+        - paragraph [ref=e146]: ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not specialized for citation validation. Our AI models are custom-trained exclusively on APA 7th Edition rules with expert verification, achieving 99% accuracy.
+  - contentinfo [ref=e147]:
+    - generic [ref=e148]:
+      - generic [ref=e149]:
+        - heading "Citation Guides" [level=3] [ref=e150]
+        - generic [ref=e151]:
+          - link "APA for Graduate Students" [ref=e152] [cursor=pointer]:
+            - /url: /guide/apa-graduate-students/
+          - link "APA Title Page" [ref=e153] [cursor=pointer]:
+            - /url: /guide/apa-title-page/
+          - link "APA Reference List" [ref=e154] [cursor=pointer]:
+            - /url: /guide/apa-reference-list/
+          - link "In-Text Citations" [ref=e155] [cursor=pointer]:
+            - /url: /guide/apa-in-text-citations/
+          - link "Common Citation Errors" [ref=e156] [cursor=pointer]:
+            - /url: /guide/apa-citation-errors/
+          - link "Fix Citation Errors" [ref=e157] [cursor=pointer]:
+            - /url: /guide/fix-apa-citation-errors/
+          - link "Check Citations" [ref=e158] [cursor=pointer]:
+            - /url: /guide/check-apa-citations/
+          - link "Validate Reference List" [ref=e159] [cursor=pointer]:
+            - /url: /guide/validate-reference-list/
+          - link "APA for Psychology" [ref=e160] [cursor=pointer]:
+            - /url: /guide/apa-citations-psychology/
+          - link "APA for Education" [ref=e161] [cursor=pointer]:
+            - /url: /guide/apa-citations-education/
+          - link "APA for Nursing" [ref=e162] [cursor=pointer]:
+            - /url: /guide/apa-citations-nursing/
+          - link "APA 7th Edition Changes" [ref=e163] [cursor=pointer]:
+            - /url: /guide/apa-7th-edition-changes/
+          - link "APA vs MLA vs Chicago" [ref=e164] [cursor=pointer]:
+            - /url: /guide/apa-vs-mla-vs-chicago/
+          - link "Citation Workflow" [ref=e165] [cursor=pointer]:
+            - /url: /guide/apa-citation-workflow/
+      - generic [ref=e167]:
+        - link "Privacy Policy" [ref=e168] [cursor=pointer]:
+          - /url: /privacy
+        - text: •
+        - link "Terms of Service" [ref=e169] [cursor=pointer]:
+          - /url: /terms
+        - text: •
+        - link "Contact Us" [ref=e170] [cursor=pointer]:
+          - /url: /contact
+      - paragraph [ref=e171]: © 2025 Citation Checker. All rights reserved.
+      - paragraph [ref=e172]: Built for researchers, by researchers
+```

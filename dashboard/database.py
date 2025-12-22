@@ -248,6 +248,7 @@ class DatabaseManager:
             simple_fields = [
                 'created_at', 'completed_at', 'duration_seconds', 'citation_count',
                 'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                'valid_citations_count', 'invalid_citations_count',
                 'user_type', 'error_message', 'paid_user_id', 'free_user_id',
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
                 'provider', 'is_test_job',
@@ -281,7 +282,8 @@ class DatabaseManager:
             # Build dynamic column and value lists
             base_columns = ['job_id', 'created_at', 'user_type', 'error_message']
             optional_columns = ['completed_at', 'duration_seconds', 'citation_count',
-                              'token_usage_prompt', 'token_usage_completion', 'token_usage_total']
+                              'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                              'valid_citations_count', 'invalid_citations_count']
     
             # Add user ID columns if they exist
             if all(col in columns for col in ['paid_user_id', 'free_user_id']):
@@ -338,6 +340,7 @@ class DatabaseManager:
                     values.append(validation_data["status"])  # Map to both if present
                 elif col in ['completed_at', 'duration_seconds', 'citation_count',
                             'token_usage_prompt', 'token_usage_completion', 'token_usage_total',
+                            'valid_citations_count', 'invalid_citations_count',
                             'results_gated', 'results_revealed_at', 'gated_outcome',
                             'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job',
                             'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
