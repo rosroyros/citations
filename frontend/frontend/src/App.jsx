@@ -20,7 +20,6 @@ import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
-import Dashboard from './pages/Dashboard'
 import DebugHTMLTest from './components/DebugHTMLTest'
 import { TestPricingTable } from './test-pricing-table'
 import { PricingTablePassesDemo } from './components/PricingTablePassesDemo'
@@ -1099,14 +1098,6 @@ function App() {
     if (pathname === '/test-pricing-comparison') {
       return <PricingTableComparison />
     }
-  }
-  if (pathname === '/dashboard') {
-    return (
-      <>
-        <link rel="stylesheet" href="/src/pages/Dashboard.css" />
-        <CreditProvider><Dashboard /></CreditProvider>
-      </>
-    )
   }
   if (pathname === '/privacy') {
     return <CreditProvider><PrivacyPolicy /></CreditProvider>
