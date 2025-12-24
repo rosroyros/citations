@@ -6,7 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Test Categories (via file patterns):
  * - database-tests: pricing-integration, pricing_variants (must run serially)
  * - chromium: All other tests (parallel execution)
- * - Ignored: internal/** (VPN-only), e2e-full-flow (production-only)
+ * - Ignored: internal/** (VPN-only), components/** (dev-only), e2e-full-flow (production-only)
  * 
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -53,7 +53,8 @@ export default defineConfig({
   projects: [
     // Database tests - MUST run serially to avoid SQLite WAL visibility issues
     // These tests use backend /test/* endpoints that write to the database
-    {
+    // Only run when RUN_DB_TESTS=1 is set (requires proper database setup)
+    ...(process.env.RUN_DB_TESTS === '1' ? [{
       name: 'database-tests',
       testMatch: [
         '**/pricing-integration.spec.js',
@@ -62,13 +63,14 @@ export default defineConfig({
       fullyParallel: false,
       workers: 1,
       use: { ...devices['Desktop Chrome'] },
-    },
+    }] : []),
 
     // Main test suite - parallel execution on Chromium
     {
       name: 'chromium',
       testIgnore: [
         '**/internal/**',                    // VPN-only dashboard tests
+        '**/components/**',                  // Dev-only (use /test-* routes)
         '**/pricing-integration.spec.js',    // Handled by database-tests
         '**/pricing_variants.spec.cjs',      // Handled by database-tests
         '**/e2e-full-flow.spec.cjs',         // Production-only (run via deploy script)
@@ -81,6 +83,7 @@ export default defineConfig({
       name: 'firefox',
       testIgnore: [
         '**/internal/**',
+        '**/components/**',
         '**/pricing-integration.spec.js',
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
@@ -92,6 +95,7 @@ export default defineConfig({
       name: 'webkit',
       testIgnore: [
         '**/internal/**',
+        '**/components/**',
         '**/pricing-integration.spec.js',
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
@@ -104,6 +108,7 @@ export default defineConfig({
       name: 'Mobile Chrome',
       testIgnore: [
         '**/internal/**',
+        '**/components/**',
         '**/pricing-integration.spec.js',
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
@@ -123,6 +128,7 @@ export default defineConfig({
       name: 'Mobile Safari',
       testIgnore: [
         '**/internal/**',
+        '**/components/**',
         '**/pricing-integration.spec.js',
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
