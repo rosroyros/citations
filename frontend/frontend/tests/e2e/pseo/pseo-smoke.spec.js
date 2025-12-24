@@ -59,7 +59,7 @@ test.describe('PSEO Smoke Tests', () => {
         await expect(page.locator('script[type="application/ld+json"]')).toBeAttached();
 
         // MiniChecker visible
-        await expect(page.locator('.mini-checker')).toBeVisible();
+        await expect(page.locator('.mini-checker').first()).toBeVisible();
     });
 
     test('PSEO page navigation and interaction', async ({ page }) => {
