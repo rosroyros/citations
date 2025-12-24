@@ -141,7 +141,7 @@ def extract_duration(log_line: str) -> Optional[float]:
 
 def extract_citation_count(log_line: str) -> Optional[int]:
     """
-    Extract citation count from a log line.
+    Extract citation count from a log line (legacy, for backward compatibility).
 
     Args:
         log_line: The log line to extract citation count from
@@ -156,6 +156,29 @@ def extract_citation_count(log_line: str) -> Optional[int]:
     if match:
         try:
             return int(match.group(1))
+        except ValueError:
+            return None
+
+    return None
+
+
+def extract_citation_count_with_job(log_line: str) -> Optional[Tuple[str, int]]:
+    """
+    Extract job_id and citation count from a log line.
+
+    Args:
+        log_line: The log line to extract citation count from
+
+    Returns:
+        Tuple of (job_id, citation_count) if found, None otherwise
+    """
+    # Pattern matches: Job abc-123-def: Found 5 citation result(s)
+    pattern = r'Job ([a-f0-9-]+): Found (\d+) citation result'
+    match = re.search(pattern, log_line)
+
+    if match:
+        try:
+            return match.group(1), int(match.group(2))
         except ValueError:
             return None
 
@@ -685,6 +708,14 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["provider"] = provider
             continue
 
+        # Check for citation count (direct job_id matching, preferred over timestamp-based)
+        citation_result = extract_citation_count_with_job(line)
+        if citation_result:
+            job_id, count = citation_result
+            if job_id in jobs:
+                jobs[job_id]["citation_count"] = count
+            continue
+
         # Check for reveal event
         reveal_result = extract_reveal_event(line)
         if reveal_result:
@@ -832,10 +863,8 @@ def parse_metrics(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict
         if duration is not None:
             job["duration_seconds"] = duration
 
-        # Extract citation count
-        citation_count = extract_citation_count(line)
-        if citation_count is not None:
-            job["citation_count"] = citation_count
+        # Note: citation_count is now extracted in parse_job_events via direct job_id matching
+        # (see extract_citation_count_with_job) - no longer using timestamp-based matching
 
         # Extract token usage
         token_usage = extract_token_usage(line)

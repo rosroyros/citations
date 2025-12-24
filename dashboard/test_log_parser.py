@@ -12,6 +12,7 @@ from log_parser import (
     extract_completion,
     extract_duration,
     extract_citation_count,
+    extract_citation_count_with_job,
     extract_token_usage,
     extract_failure,
     extract_citations_preview,
@@ -123,6 +124,30 @@ class TestLogParser(unittest.TestCase):
         result = extract_citation_count(log_line)
         self.assertIsNone(result)
 
+    def test_extract_citation_count_with_job_valid(self):
+        """Test extracting citation count with job ID."""
+        log_line = "2025-11-27 07:58:33 - INFO - Job abc-123-def: Found 5 citation result(s)"
+        result = extract_citation_count_with_job(log_line)
+        self.assertIsNotNone(result)
+        job_id, count = result
+        self.assertEqual(job_id, "abc-123-def")
+        self.assertEqual(count, 5)
+
+    def test_extract_citation_count_with_job_uuid(self):
+        """Test extracting citation count with UUID job ID."""
+        log_line = "2025-11-27 07:58:33 - INFO - Job 12345678-1234-1234-1234-123456789abc: Found 100 citation results"
+        result = extract_citation_count_with_job(log_line)
+        self.assertIsNotNone(result)
+        job_id, count = result
+        self.assertEqual(job_id, "12345678-1234-1234-1234-123456789abc")
+        self.assertEqual(count, 100)
+
+    def test_extract_citation_count_with_job_invalid_line(self):
+        """Test extracting citation count with job from invalid line returns None."""
+        log_line = "Found 5 citation results"  # No job ID prefix
+        result = extract_citation_count_with_job(log_line)
+        self.assertIsNone(result)
+
     def test_parse_job_events_complete_flow(self):
         """Test parsing job events (Pass 1) with complete flow."""
         log_lines = [
@@ -150,20 +175,19 @@ class TestLogParser(unittest.TestCase):
         self.assertEqual(job["job_id"], "abc-123")
 
     def test_parse_metrics_duration_and_citations(self):
-        """Test parsing metrics (Pass 2) with duration and citations."""
+        """Test parsing metrics (Pass 2) with duration and citations (citation count via Pass 1)."""
         log_lines = [
+            "2025-11-27 07:57:46 - citation_validator - INFO - Creating async job abc-123 for free user",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - OpenAI API call completed in 47.0s",
-            "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Found 1 citation result(s)"
+            "2025-11-27 07:58:33 - citation_validator - INFO - Job abc-123: Found 1 citation result(s)",
+            "2025-11-27 07:58:33 - citation_validator - INFO - Job abc-123: Completed successfully"
         ]
-        jobs = {
-            "abc-123": {
-                "created_at": datetime(2025, 11, 27, 7, 57, 46),
-                "completed_at": datetime(2025, 11, 27, 7, 58, 33),
-                "status": "completed"
-            }
-        }
-        updated_jobs = parse_metrics(log_lines, jobs)
-        job = updated_jobs["abc-123"]
+        # First pass to create jobs and extract citation count
+        jobs = parse_job_events(log_lines)
+        # Second pass to match other metrics (duration, tokens)
+        jobs = parse_metrics(log_lines, jobs)
+        
+        job = jobs["abc-123"]
         self.assertEqual(job["duration_seconds"], 47.0)
         self.assertEqual(job["citation_count"], 1)
 
@@ -243,7 +267,7 @@ class TestLogParser(unittest.TestCase):
             "2025-11-27 07:57:46 - citation_validator - INFO - app.py:590 - Creating async job abc-123 for free user",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 prompt + 997 completion = 2022 total",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:101 - OpenAI API call completed in 47.0s",
-            "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Found 1 citation result(s)",
+            "2025-11-27 07:58:33 - citation_validator - INFO - Job abc-123: Found 1 citation result(s)",
             "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Job abc-123: Completed successfully"
         ]
 
@@ -394,7 +418,7 @@ class TestLogParser(unittest.TestCase):
             "Agarwal, D., Naaman, M., & Vashistha, V. (2013). Content credibility on Twitter. _WWW '13_: 549-558.",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:79 - Parsed response in 0.001s",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:101 - OpenAI API call completed in 47.0s",
-            "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Found 2 citation results",
+            "2025-11-27 07:58:33 - citation_validator - INFO - Job abc-123: Found 2 citation result(s)",
             "2025-11-27 07:58:33 - openai_provider - INFO - openai_provider.py:119 - Token usage: 1025 prompt + 997 completion = 2022 total",
             "2025-11-27 07:58:33 - citation_validator - INFO - app.py:539 - Job abc-123: Completed successfully"
         ]

@@ -954,11 +954,9 @@ async def validate_citations(http_request: Request, request: ValidationRequest):
             initial_fallback=initial_fallback
         )
 
-        logger.info(f"Validation completed: {len(validation_results['results'])} result(s)")
-
         results = validation_results["results"]
         citation_count = len(results)
-        logger.debug(f"Citation count: {citation_count}")
+        logger.info(f"Job {job_id}: Found {citation_count} citation result(s)")
 
         # Update validation record with citation count
         update_validation_tracking(job_id, status='completed')
@@ -1214,6 +1212,7 @@ async def process_validation_job(job_id: str, citations: str, style: str):
 
         results = validation_results["results"]
         citation_count = len(results)
+        logger.info(f"Job {job_id}: Found {citation_count} citation result(s)")
         
         # Calculate valid/invalid counts
         # A citation is valid if it has no errors
