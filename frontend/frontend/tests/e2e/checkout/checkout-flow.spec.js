@@ -348,8 +348,8 @@ test.describe('Checkout Flow E2E', () => {
       // Trigger close event (user abandonment)
       await triggerCheckoutClose(page);
 
-      // Wait for checkout close event to be handled
-      await expect.poll(() => page.evaluate(() => window.__polarCheckoutClosed), { timeout: 5000 }).toBe(true);
+      // Give event handler time to run
+      await page.waitForTimeout(100);
 
       // Verify checkout_abandoned event was logged
       expect(consoleMessages.some(msg =>

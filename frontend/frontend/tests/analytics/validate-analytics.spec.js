@@ -19,6 +19,15 @@ import {
 test.describe('Google Analytics 4 Event Validation', () => {
   let capturedRequests;
 
+  // These tests validate real Google Analytics events in production
+  // They require GA to be loaded, which only happens on the production site
+  test.beforeAll(async () => {
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5173';
+    if (baseUrl.includes('localhost')) {
+      test.skip();
+    }
+  });
+
   test.beforeEach(async ({ page }) => {
     // Setup analytics request interception
     capturedRequests = setupAnalyticsCapture(page);

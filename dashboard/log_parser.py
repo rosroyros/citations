@@ -139,6 +139,28 @@ def extract_duration(log_line: str) -> Optional[float]:
     return None
 
 
+def extract_duration_with_job(log_line: str) -> Optional[Tuple[str, float]]:
+    """
+    Extract job_id and duration from a log line.
+
+    Args:
+        log_line: The log line to extract duration from
+
+    Returns:
+        Tuple of (job_id, duration_seconds) if found, None otherwise
+    """
+    # Pattern matches: Job abc-123-def: LLM API completed in 15.5s
+    pattern = r'Job ([a-f0-9-]+): LLM API completed in ([\d.]+)s'
+    match = re.search(pattern, log_line)
+
+    if match:
+        try:
+            return match.group(1), float(match.group(2))
+        except ValueError:
+            return None
+
+    return None
+
 def extract_citation_count(log_line: str) -> Optional[int]:
     """
     Extract citation count from a log line (legacy, for backward compatibility).
@@ -716,6 +738,14 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 jobs[job_id]["citation_count"] = count
             continue
 
+        # Check for duration (direct job_id matching, preferred over timestamp-based)
+        duration_result = extract_duration_with_job(line)
+        if duration_result:
+            job_id, duration = duration_result
+            if job_id in jobs:
+                jobs[job_id]["duration_seconds"] = duration
+            continue
+
         # Check for reveal event
         reveal_result = extract_reveal_event(line)
         if reveal_result:
@@ -858,13 +888,17 @@ def parse_metrics(log_lines: List[str], jobs: Dict[str, Dict[str, Any]]) -> Dict
         if not job:
             continue
 
-        # Extract duration
-        duration = extract_duration(line)
-        if duration is not None:
-            job["duration_seconds"] = duration
+        # Extract duration (fallback for old logs without job_id prefix)
+        # Prefer direct job_id matching from parse_job_events (Pass 1)
+        if job.get("duration_seconds") is None:
+            duration = extract_duration(line)
+            if duration is not None:
+                job["duration_seconds"] = duration
 
         # Note: citation_count is now extracted in parse_job_events via direct job_id matching
         # (see extract_citation_count_with_job) - no longer using timestamp-based matching
+        # Note: duration_seconds is now also extracted in parse_job_events via direct job_id matching
+        # (see extract_duration_with_job) - timestamp-based matching is a fallback for old logs
 
         # Extract token usage
         token_usage = extract_token_usage(line)

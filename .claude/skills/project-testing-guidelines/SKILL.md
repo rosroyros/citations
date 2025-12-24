@@ -40,12 +40,51 @@ npm run dev
 
 ---
 
-## Test Infrastructure
+## Test Directory Structure
 
 ### Playwright E2E Tests (Frontend)
-- **Location**: `frontend/frontend/tests/` (`.spec.js` files)
-- **Config**: `frontend/frontend/playwright.config.js`
-- **Browsers**: Chromium, Firefox, WebKit, Mobile Chrome, Mobile Safari
+```
+frontend/frontend/tests/
+├── analytics/           # GA4 tracking & analytics tests
+│   ├── helpers.js       # Analytics capture utilities
+│   ├── validate-analytics.spec.js
+│   ├── upload-analytics.spec.js
+│   └── results-revealed-analytics.spec.js
+├── components/          # React component tests
+│   ├── pricing-table-credits.spec.js
+│   └── pricing-table-passes.spec.js
+├── e2e/                 # End-to-end flow tests
+│   ├── checkout/        # Payment & upgrade flows
+│   │   ├── checkout-flow.spec.js
+│   │   ├── pricing-integration.spec.js  # DB tests (serial)
+│   │   ├── pricing_variants.spec.cjs    # DB tests (serial)
+│   │   ├── upgrade-event.spec.cjs
+│   │   ├── upgrade-funnel.spec.cjs
+│   │   └── upgrade-tracking.spec.js
+│   ├── core/            # Core validation features
+│   │   ├── async-polling-validation.spec.js
+│   │   ├── auto-scroll.spec.js
+│   │   ├── e2e-full-flow.spec.cjs       # Production-only
+│   │   ├── error-recovery.spec.js
+│   │   └── markdown-formatting.spec.js
+│   ├── gated-results/   # Freemium gating tests
+│   ├── pseo/            # Programmatic SEO tests
+│   │   └── pseo-smoke.spec.js
+│   ├── ui/              # UI component integration
+│   │   └── validation-table-header.spec.js
+│   ├── upload/          # File upload tests
+│   │   ├── file-processing.spec.js
+│   │   └── upload.spec.js
+│   └── user/            # User flow tests
+│       ├── user-access.spec.js
+│       └── user-tracking-flow.spec.js
+├── helpers/             # Shared test utilities
+│   └── test-utils.js
+├── internal/            # VPN-only dashboard tests
+│   └── e2e-internal-dashboard.spec.cjs
+├── global-setup.js
+└── global-teardown.js
+```
 
 ### Pytest (Backend)
 - **Location**: `tests/` and `backend/tests/` (Python)
@@ -54,12 +93,52 @@ npm run dev
 
 ---
 
+## Playwright Project Configuration
+
+The test suite uses smart parallelization via Playwright projects:
+
+| Project | Pattern | Parallel | Workers | Purpose |
+|---------|---------|----------|---------|---------|
+| `database-tests` | `pricing-integration.spec.js`, `pricing_variants.spec.cjs` | No | 1 | DB tests (SQLite WAL) |
+| `chromium` | All others (excluding internal/*) | Yes | 4 | Main test suite |
+| `firefox` | All others | Yes | 4 | Cross-browser |
+| `webkit` | All others | Yes | 4 | Safari testing |
+| `Mobile Chrome` | All others | Yes | 4 | Mobile viewport |
+| `Mobile Safari` | All others | Yes | 4 | iOS viewport |
+
+**Always ignored:**
+- `**/internal/**` - VPN-only dashboard tests
+- `**/e2e-full-flow.spec.cjs` - Production-only (run via deploy script)
+
+---
+
 ## Critical Patterns
 
-### 1. Serial Execution (Database Concurrency)
-Tests run with `workers: 1` to avoid SQLite WAL visibility issues. Never assume parallel execution.
+### 1. Database Tests Must Run Serially
+Database tests (`pricing-integration.spec.js`, `pricing_variants.spec.cjs`) must run with `workers: 1` due to SQLite WAL visibility issues. The Playwright config handles this automatically.
 
-### 2. Database Polling for WAL Visibility
+### 2. Use Robust Waiting Patterns (Avoid waitForTimeout)
+Replace `waitForTimeout` with proper waiting strategies:
+
+```javascript
+// ❌ DON'T: Fixed timeout
+await page.waitForTimeout(2000);
+
+// ✅ DO: Wait for condition
+await expect(submitButton).toBeEnabled();
+await expect(page.locator('[data-testid="results"]')).toBeVisible();
+
+// ✅ DO: Wait for network
+await page.waitForLoadState('networkidle');
+
+// ✅ DO: Poll for state changes
+await expect.poll(async () => {
+  const text = await page.locator('.status').textContent();
+  return text;
+}, { timeout: 30000 }).toBe('Complete');
+```
+
+### 3. Database Polling for WAL Visibility
 After writing to the database via test helpers, poll until the data is visible:
 ```javascript
 await page.evaluate(async (userId) => {
@@ -73,7 +152,7 @@ await page.evaluate(async (userId) => {
 }, userId);
 ```
 
-### 3. Handle Gated Results Overlay
+### 4. Handle Gated Results Overlay
 Always check for and dismiss gated results before asserting on validation results:
 ```javascript
 if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
@@ -81,12 +160,15 @@ if (await page.locator('[data-testid="gated-results"]').first().isVisible()) {
 }
 ```
 
-### 4. Wait for Page Load
+### 5. Analytics Testing Pattern
+Use the analytics helpers for GA4 event testing:
 ```javascript
-async function waitForPageLoad(page) {
-  await page.waitForLoadState('networkidle');
-  await page.waitForTimeout(1000); // Wait for React to render
-}
+import { setupAnalyticsCapture, waitForEvent, getEventsByName } from '../analytics/helpers.js';
+
+const capturedRequests = setupAnalyticsCapture(page);
+// ... trigger action ...
+const eventCaptured = await waitForEvent(capturedRequests, 'page_view', 5000);
+expect(eventCaptured).toBe(true);
 ```
 
 ---
@@ -103,6 +185,7 @@ async function waitForPageLoad(page) {
 | `/test/get-user` | GET | `?user_id=X` | Get user state |
 | `/test/get-validation` | GET | `?user_id=X` or `?job_id=X` | Get validation state |
 | `/test/reset-user` | POST | `{user_id}` | Reset user to initial state |
+| `/test/simulate-webhook` | POST | `{user_id, ...}` | Simulate Polar webhook |
 | `/test/health` | GET | - | Health check for test env |
 
 ---
@@ -114,23 +197,39 @@ Use `"testtesttest"` in citations to flag test jobs. These are filtered from das
 
 ## Anti-Patterns to Avoid
 
-1. **DON'T** assume data is immediately visible after database writes - poll for state
-2. **DON'T** use fixed `waitForTimeout` without polling for actual state changes
+1. **DON'T** use `waitForTimeout` for waiting on state - use `expect.poll()` or `waitFor()`
+2. **DON'T** assume data is immediately visible after database writes - poll for state
 3. **DON'T** forget to handle gated results overlay in E2E tests
-4. **DON'T** run tests in parallel - they share a SQLite database
+4. **DON'T** modify database tests to run in parallel - they share SQLite
 5. **DON'T** hardcode variant values - use `localStorage.setItem('experiment_v1', 'X')`
 6. **DON'T** start backend without `TESTING=true` when running E2E tests
+7. **DON'T** run internal tests locally - they require VPN access
 
 ---
 
 ## Running Tests
 
-### Playwright E2E
+### Playwright E2E - Common Commands
 ```bash
 cd frontend/frontend
-npx playwright test                    # All tests
-npx playwright test --project=chromium # Single browser
-npx playwright test path/to/test.spec.js # Single file
+
+# Run all tests on Chromium (default)
+npx playwright test --project=chromium
+
+# Run database tests only (serial execution)
+npx playwright test --project=database-tests
+
+# Run a specific test file
+npx playwright test tests/e2e/core/auto-scroll.spec.js
+
+# Run tests matching a pattern
+npx playwright test -g "auto-scroll"
+
+# Run with headed browser (for debugging)
+npx playwright test --headed
+
+# Run cross-browser suite
+npx playwright test --project=firefox --project=webkit
 ```
 
 ### Pytest

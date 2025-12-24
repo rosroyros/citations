@@ -134,6 +134,14 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
   - Backend: `python3 -m pytest`.
   - Frontend: `npm test` (Unit), `npm run test:e2e` (Playwright).
   - **Production E2E**: `deploy_prod.sh` (runs Hybrid E2E suite).
+  - **Parallel Execution**: Split tests across terminals for faster local runs:
+    ```bash
+    # Terminal 1          # Terminal 2          # Terminal 3
+    npm run test:e2e -- --shard=1/3
+                         npm run test:e2e -- --shard=2/3
+                                              npm run test:e2e -- --shard=3/3
+    ```
+    Use any shard count (e.g., `--shard=1/4` for 4 shards).
 - **Deploy**:
   1. `git commit -am "feat: description"`.
   2. `git push origin main`.

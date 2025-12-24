@@ -428,6 +428,87 @@ test.describe('Pricing Integration Tests', () => {
     expect(credits).toBe(500); // Unchanged!
   });
 
+  test('polling detects credits granted after delay (webhook simulation)', async ({ page }) => {
+    // This tests the refreshCreditsWithPolling() retry behavior
+    // Scenario: User completes checkout, webhook grants credits 2s later
+    // This is the real integration risk - polling must handle webhook delays
+
+    // 1. Create a unique test user
+    const testUserId = 'poll_test_' + Date.now();
+    await page.evaluate((uid) => {
+      localStorage.setItem('citation_checker_token', uid);
+    }, testUserId);
+
+    // 2. First, create the user in the database with 0 credits
+    await page.evaluate(async (uid) => {
+      await fetch('http://localhost:8000/test/grant-credits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: uid, amount: 0 })
+      });
+    }, testUserId);
+
+    // 3. Navigate to app and wait for it to load
+    await page.goto('http://localhost:5173');
+    await waitForPageLoad(page);
+
+    // 4. Verify user starts with no credits displayed (free user)
+    // Free users may not see credit display, so we just verify the page loaded
+
+    // 5. Simulate the polling that happens after checkout success
+    // We run polling in parallel with a delayed credit grant
+    const pollPromise = page.evaluate(async (uid) => {
+      // This simulates what refreshCreditsWithPolling does
+      const startTime = Date.now();
+      const maxAttempts = 10;
+      const interval = 1000; // 1 second between attempts
+
+      for (let i = 0; i < maxAttempts; i++) {
+        await new Promise(r => setTimeout(r, interval));
+        try {
+          const resp = await fetch(`/api/credits?token=${uid}`);
+          const data = await resp.json();
+          // Check if credits appeared (simulating baseline comparison)
+          if (data.credits && data.credits > 0) {
+            return {
+              success: true,
+              attempt: i + 1,
+              elapsed: Date.now() - startTime,
+              credits: data.credits
+            };
+          }
+        } catch (e) {
+          console.log(`Poll attempt ${i + 1} failed:`, e.message);
+        }
+      }
+      return { success: false, elapsed: Date.now() - startTime };
+    }, testUserId);
+
+    // 6. After 2 seconds delay, grant credits (simulating delayed webhook)
+    await page.waitForTimeout(2000);
+    await page.evaluate(async (uid) => {
+      const resp = await fetch('http://localhost:8000/test/grant-credits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: uid, amount: 500 })
+      });
+      console.log('Credits granted, response:', await resp.json());
+    }, testUserId);
+
+    // 7. Wait for polling to complete and verify it detected the change
+    const pollResult = await pollPromise;
+    console.log('Poll result:', pollResult);
+
+    expect(pollResult.success).toBe(true);
+    expect(pollResult.attempt).toBeGreaterThan(1); // Should have taken multiple attempts
+    expect(pollResult.credits).toBe(500);
+
+    // 8. Verify UI shows credits after reload
+    await page.reload();
+    await waitForPageLoad(page);
+    await expect(page.locator('.credit-display')).toContainText('500 remaining', { timeout: 5000 });
+  });
+
   test('variant assignment persistence', async ({ page }) => {
     // 1. Trigger paywall to see variant
     for (let i = 1; i <= 6; i++) {

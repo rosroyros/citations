@@ -126,11 +126,15 @@ async def validate_with_provider_fallback(
         Exception: If both providers fail
     """
     logger.info(f"Calling {internal_model_id} provider for validation")
+    api_start = time.time()
     try:
         validation_results = await provider.validate_citations(
             citations=citations,
             style=style
         )
+        api_duration = time.time() - api_start
+        # Log duration with job_id for direct matching in dashboard log parser
+        logger.info(f"Job {job_id}: LLM API completed in {api_duration:.3f}s")
         # Log successful provider selection
         logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
         return validation_results
@@ -142,10 +146,14 @@ async def validate_with_provider_fallback(
             internal_model_id = 'model_a'  # Update to fallback provider
             jobs[job_id]["provider"] = internal_model_id  # Update job with actual provider
 
+            api_start = time.time()  # Reset timer for fallback
             validation_results = await provider.validate_citations(
                 citations=citations,
                 style=style
             )
+            api_duration = time.time() - api_start
+            # Log duration with job_id for direct matching in dashboard log parser
+            logger.info(f"Job {job_id}: LLM API completed in {api_duration:.3f}s")
             # Log fallback event
             logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
             return validation_results

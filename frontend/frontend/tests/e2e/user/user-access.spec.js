@@ -302,19 +302,30 @@ test.describe('User Access Flows - E2E Tests', () => {
       console.log('🧪 Testing credit purchase flow...');
 
       // Add PolarEmbedCheckout mock for embedded checkout
+      // IMPORTANT: Real SDK uses addEventListener, not .on()
       await page.addInitScript(() => {
         window.__polarCheckoutHandlers = {};
         window.__polarCheckoutCreated = false;
         window.PolarEmbedCheckout = {
-          create: async (url, options) => {
+          create: async (url, theme) => {
+            console.log('[Mock] PolarEmbedCheckout.create called with:', url, theme);
             window.__polarCheckoutCreated = true;
+            const handlers = {};
             return {
-              on: (event, handler) => {
+              addEventListener: (event, handler) => {
+                console.log('[Mock] addEventListener called for:', event);
+                handlers[event] = handler;
                 window.__polarCheckoutHandlers[event] = handler;
-                // Auto-trigger success after a short delay
+                // Auto-trigger success after a short delay to simulate completed checkout
                 if (event === 'success') {
-                  setTimeout(() => handler(), 100);
+                  setTimeout(() => {
+                    console.log('[Mock] Triggering success event');
+                    handler();
+                  }, 500);
                 }
+              },
+              close: () => {
+                console.log('[Mock] embedCheckout.close called');
               }
             };
           }
@@ -383,6 +394,19 @@ test.describe('User Access Flows - E2E Tests', () => {
       let dailyUsed = 0;
       const dailyLimit = 1000;
       const resetTime = Math.floor(Date.now() / 1000) + 3600 * 2; // 2 hours from now
+
+      // Mock job creation endpoint
+      await page.route(/\/api\/validate\/async/, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            job_id: 'mock-job-id-pass-123',
+            status: 'pending',
+            experiment_variant: 0
+          })
+        });
+      });
 
       await page.route('/api/jobs/**', async (route) => {
         dailyUsed += 3; // Each validation uses 3 citations
@@ -487,6 +511,19 @@ test.describe('User Access Flows - E2E Tests', () => {
       const now = Math.floor(Date.now() / 1000);
       const resetTime = now + 3600; // 1 hour from now
 
+      // Mock job creation endpoint
+      await page.route(/\/api\/validate\/async/, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            job_id: 'mock-job-id-pass-timer-123',
+            status: 'pending',
+            experiment_variant: 0
+          })
+        });
+      });
+
       await page.route('/api/jobs/**', async (route) => {
         await route.fulfill({
           status: 200,
@@ -529,6 +566,19 @@ test.describe('User Access Flows - E2E Tests', () => {
 
       const now = Math.floor(Date.now() / 1000);
       const resetTime = now + 3600; // 1 hour from now
+
+      // Mock job creation endpoint
+      await page.route(/\/api\/validate\/async/, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            job_id: 'mock-job-id-pass-days-123',
+            status: 'pending',
+            experiment_variant: 0
+          })
+        });
+      });
 
       await page.route('/api/jobs/**', async (route) => {
         await route.fulfill({
@@ -586,6 +636,19 @@ test.describe('User Access Flows - E2E Tests', () => {
   test.describe('UserStatus Component Updates', () => {
     test('should update correctly for each user type', async ({ page }) => {
       console.log('🧪 Testing UserStatus component updates...');
+
+      // Mock job creation endpoint
+      await page.route(/\/api\/validate\/async/, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({
+            job_id: 'mock-job-id-userstatus-123',
+            status: 'pending',
+            experiment_variant: 0
+          })
+        });
+      });
 
       // Test free user
       await page.route('/api/jobs/**', async (route) => {

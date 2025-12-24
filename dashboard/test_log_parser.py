@@ -11,6 +11,7 @@ from log_parser import (
     extract_creation,
     extract_completion,
     extract_duration,
+    extract_duration_with_job,
     extract_citation_count,
     extract_citation_count_with_job,
     extract_token_usage,
@@ -146,6 +147,30 @@ class TestLogParser(unittest.TestCase):
         """Test extracting citation count with job from invalid line returns None."""
         log_line = "Found 5 citation results"  # No job ID prefix
         result = extract_citation_count_with_job(log_line)
+        self.assertIsNone(result)
+
+    def test_extract_duration_with_job_valid(self):
+        """Test extracting duration with job ID."""
+        log_line = "2025-12-24 10:00:00 - INFO - Job abc-123-def: LLM API completed in 15.5s"
+        result = extract_duration_with_job(log_line)
+        self.assertIsNotNone(result)
+        job_id, duration = result
+        self.assertEqual(job_id, "abc-123-def")
+        self.assertEqual(duration, 15.5)
+
+    def test_extract_duration_with_job_uuid(self):
+        """Test extracting duration with UUID job ID."""
+        log_line = "2025-12-24 10:00:00 - INFO - Job 12345678-1234-1234-1234-123456789abc: LLM API completed in 47.123s"
+        result = extract_duration_with_job(log_line)
+        self.assertIsNotNone(result)
+        job_id, duration = result
+        self.assertEqual(job_id, "12345678-1234-1234-1234-123456789abc")
+        self.assertEqual(duration, 47.123)
+
+    def test_extract_duration_with_job_invalid_line(self):
+        """Test extracting duration with job from invalid line returns None."""
+        log_line = "OpenAI API call completed in 15.5s"  # Old format without job ID
+        result = extract_duration_with_job(log_line)
         self.assertIsNone(result)
 
     def test_parse_job_events_complete_flow(self):

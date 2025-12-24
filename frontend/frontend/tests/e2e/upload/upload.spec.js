@@ -356,17 +356,21 @@ test.describe('Upload Feature E2E Tests', () => {
             await expect(processingIndicator).toBeVisible({ timeout: 500 });
 
             const progressFill = processingIndicator.locator('[class*="progressFill"]');
-            await expect(progressFill).toBeVisible();
 
-            // Wait for progress animation to run - use completion state or polling
-            await page.waitForSelector('[data-testid="modal-backdrop"]', { timeout: 2000 }).catch(() => null);
-
-            const progressWidth = await progressFill.evaluate((el) => {
-                return parseInt(el.style.width) || 0;
-            });
-
-            expect(progressWidth).toBeGreaterThan(50);
+            // Use poll to check progress advances during animation (before modal appears)
+            let maxProgress = 0;
+            await expect.poll(async () => {
+                const isVisible = await progressFill.isVisible().catch(() => false);
+                if (isVisible) {
+                    const width = await progressFill.evaluate((el) => {
+                        return parseInt(el.style.width) || 0;
+                    }).catch(() => 0);
+                    maxProgress = Math.max(maxProgress, width);
+                }
+                return maxProgress;
+            }, { timeout: 2000 }).toBeGreaterThan(50);
         });
+
 
         test('Processing state shows percentage complete', async ({ page }) => {
             const fileInput = page.locator('input[type="file"]');

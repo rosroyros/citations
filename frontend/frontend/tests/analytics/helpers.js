@@ -3,8 +3,10 @@
  */
 
 // Test configuration
+// Use localhost for local testing (matches playwright.config.js baseURL)
+// Set BASE_URL env var to override for production site testing
 export const TEST_CONFIG = {
-  baseUrl: 'https://citationformatchecker.com',
+  baseUrl: process.env.BASE_URL || 'http://localhost:5173',
   trackingId: 'G-RZWHZQP8N9',
   utmParams: {
     utm_source: 'analytics_test',
