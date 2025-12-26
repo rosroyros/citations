@@ -40,6 +40,20 @@ vi.mock('../utils/checkoutFlow', () => ({
   initiateCheckout: vi.fn(),
 }));
 
+// Mock promoConfig - default to enabled state
+vi.mock('../config/promoConfig', () => ({
+  PROMO_CONFIG: {
+    enabled: true,
+    text: "New Year's Deal — 50% Off",
+    emoji: { left: "🎉", right: "⏰" },
+    discountPercent: 50
+  },
+  isPromoEnabled: () => true,
+  getPromoContent: () => ({ text: "New Year's Deal — 50% Off", emoji: { left: "🎉", right: "⏰" } }),
+  getOriginalPrice: (price) => Math.ceil(price / 0.5) - 0.01,
+  getButtonText: () => 'Get 50% Off'
+}));
+
 // Mock child components - capture onCheckout prop for testing
 let capturedOnCheckout = null;
 vi.mock('./PricingTableCredits', () => ({
@@ -47,6 +61,10 @@ vi.mock('./PricingTableCredits', () => ({
     capturedOnCheckout = onCheckout;
     return <div data-testid="pricing-table-credits">Credits Pricing Table</div>;
   }
+}));
+
+vi.mock('./PromoPill', () => ({
+  PromoPill: ({ className }) => <div data-testid="promo-pill" className={className}>Test Promo</div>
 }));
 
 vi.mock('./PricingTablePasses', () => ({
@@ -172,7 +190,9 @@ describe('PartialResults', () => {
     // Assert
     expect(trackEvent).toHaveBeenCalledWith('pricing_viewed', {
       variant: '1.2',
-      interaction_type: 'auto'
+      interaction_type: 'auto',
+      promo_enabled: true,
+      promo_text: "New Year's Deal — 50% Off"
     });
   });
 
@@ -466,6 +486,60 @@ describe('PartialResults', () => {
       'pending_upgrade_job_id',
       null
     );
+  });
+
+  // Promo Feature Tests
+  describe('Promo Feature', () => {
+    it('should show promo pill for button variant when promo enabled', () => {
+      // Arrange
+      vi.mocked(experimentUtils.getExperimentVariant).mockReturnValue('1.1');
+      vi.mocked(experimentUtils.isInlineVariant).mockReturnValue(false);
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-123',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      // Assert - promo pill should be visible in button variant
+      expect(screen.getByTestId('promo-pill')).toBeInTheDocument();
+      expect(screen.getByText('Test Promo')).toBeInTheDocument();
+    });
+
+    it('should track promo_enabled in pricing_viewed analytics for inline variant', () => {
+      // Arrange
+      vi.mocked(experimentUtils.getExperimentVariant).mockReturnValue('1.2');
+      vi.mocked(experimentUtils.isInlineVariant).mockReturnValue(true);
+      vi.mocked(experimentUtils.getPricingType).mockReturnValue('credits');
+
+      const props = {
+        results: mockResults,
+        partial: true,
+        citations_checked: 3,
+        citations_remaining: 7,
+        job_id: 'test-job-123',
+        onUpgrade: mockOnUpgrade
+      };
+
+      // Act
+      render(<PartialResults {...props} />);
+
+      // Assert - pricing_viewed should include promo_enabled
+      const pricingViewedCall = vi.mocked(trackEvent).mock.calls.find(
+        call => call[0] === 'pricing_viewed'
+      );
+      expect(pricingViewedCall).toBeDefined();
+      expect(pricingViewedCall[1]).toMatchObject({
+        promo_enabled: true,
+        promo_text: "New Year's Deal — 50% Off"
+      });
+    });
   });
 
   // Inline checkout success tests

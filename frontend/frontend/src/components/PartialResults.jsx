@@ -11,6 +11,8 @@ import { getExperimentVariant, isInlineVariant, getPricingType } from '../utils/
 import { initiateCheckout } from '../utils/checkoutFlow';
 import { PricingTableCredits } from './PricingTableCredits';
 import { PricingTablePasses } from './PricingTablePasses';
+import { PromoPill } from './PromoPill';
+import { PROMO_CONFIG } from '../config/promoConfig';
 
 export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal, userStatus }) {
   const [isRevealed, setIsRevealed] = useState(false);
@@ -71,7 +73,9 @@ export function PartialResults({ results, partial, citations_checked, citations_
       // Truthful event for new analysis (GA)
       trackEvent("pricing_viewed", {
         variant,
-        interaction_type: "auto"
+        interaction_type: "auto",
+        promo_enabled: PROMO_CONFIG.enabled,
+        promo_text: PROMO_CONFIG.enabled ? PROMO_CONFIG.text : null
       });
 
       // Send to backend for dashboard tracking
@@ -356,6 +360,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
             >
               Upgrade to Unlock Now
             </button>
+            <PromoPill className="mt-4" onClick={onUpgrade} />
           </div>
         </div>
       )}

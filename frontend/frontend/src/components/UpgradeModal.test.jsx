@@ -36,6 +36,20 @@ vi.mock('../utils/experimentVariant', () => ({
   getPricingType: vi.fn((variant) => variant?.startsWith('1') ? 'credits' : 'passes'),
 }));
 
+// Mock promoConfig - default to enabled state
+vi.mock('../config/promoConfig', () => ({
+  PROMO_CONFIG: {
+    enabled: true,
+    text: "New Year's Deal — 50% Off",
+    emoji: { left: "🎉", right: "⏰" },
+    discountPercent: 50
+  },
+  isPromoEnabled: () => true,
+  getPromoContent: () => ({ text: "New Year's Deal — 50% Off", emoji: { left: "🎉", right: "⏰" } }),
+  getOriginalPrice: (price) => Math.ceil(price / 0.5) - 0.01,
+  getButtonText: () => 'Get 50% Off'
+}));
+
 describe('UpgradeModal', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -107,7 +121,7 @@ describe('UpgradeModal', () => {
     });
 
     // Find and click a Buy button (from PricingTableCredits)
-    const buyButtons = screen.getAllByRole('button', { name: /buy/i });
+    const buyButtons = screen.getAllByRole('button', { name: /get.*off/i });
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
@@ -137,7 +151,7 @@ describe('UpgradeModal', () => {
     });
 
     // Click Buy button
-    const buyButtons = screen.getAllByRole('button', { name: /buy/i });
+    const buyButtons = screen.getAllByRole('button', { name: /get.*off/i });
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
@@ -167,7 +181,7 @@ describe('UpgradeModal', () => {
     });
 
     // Click Buy button to trigger success
-    const buyButtons = screen.getAllByRole('button', { name: /buy/i });
+    const buyButtons = screen.getAllByRole('button', { name: /get.*off/i });
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
@@ -202,7 +216,7 @@ describe('UpgradeModal', () => {
     });
 
     // Click Buy button
-    const buyButtons = screen.getAllByRole('button', { name: /buy/i });
+    const buyButtons = screen.getAllByRole('button', { name: /get.*off/i });
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
@@ -230,7 +244,7 @@ describe('UpgradeModal', () => {
     });
 
     // Click Buy button
-    const buyButtons = screen.getAllByRole('button', { name: /buy/i });
+    const buyButtons = screen.getAllByRole('button', { name: /get.*off/i });
     expect(buyButtons.length).toBeGreaterThan(0);
     fireEvent.click(buyButtons[0]);
 
@@ -296,5 +310,32 @@ describe('UpgradeModal', () => {
     fireEvent.click(overlay);
 
     expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  // Promo Feature Tests
+  describe('Promo Feature', () => {
+    it('should track promo_enabled in pricing_viewed analytics', async () => {
+      // Arrange
+      const { trackEvent } = await import('../utils/analytics');
+
+      // Act
+      render(
+        <UpgradeModal isOpen={true} onClose={() => { }} limitType="free_limit" />
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('Upgrade for More Access')).toBeInTheDocument();
+      });
+
+      // Assert - pricing_viewed should include promo_enabled
+      const pricingViewedCall = vi.mocked(trackEvent).mock.calls.find(
+        call => call[0] === 'pricing_viewed'
+      );
+      expect(pricingViewedCall).toBeDefined();
+      expect(pricingViewedCall[1]).toMatchObject({
+        promo_enabled: true,
+        promo_text: "New Year's Deal — 50% Off"
+      });
+    });
   });
 });

@@ -6,6 +6,7 @@ import { initiateCheckout } from '../utils/checkoutFlow';
 import { useCredits } from '../contexts/CreditContext';
 import { PricingTableCredits } from './PricingTableCredits';
 import { PricingTablePasses } from './PricingTablePasses';
+import { PROMO_CONFIG } from '../config/promoConfig';
 import './UpgradeModal.css';
 
 /**
@@ -84,7 +85,9 @@ export const UpgradeModal = ({
       // Truthful event for funnel comparison with inline variants
       trackEvent("pricing_viewed", {
         variant: variantId,
-        interaction_type: "active"  // User actively clicked to see this
+        interaction_type: "active",  // User actively clicked to see this
+        promo_enabled: PROMO_CONFIG.enabled,
+        promo_text: PROMO_CONFIG.enabled ? PROMO_CONFIG.text : null
       });
     }
   }, [isOpen, limitType]);

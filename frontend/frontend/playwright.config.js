@@ -65,6 +65,14 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     }] : []),
 
+    // Component tests - Dev-only, uses /test-* routes
+    // Run explicitly with: npx playwright test --project=component-tests
+    {
+      name: 'component-tests',
+      testMatch: ['**/components/**'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+
     // Main test suite - parallel execution on Chromium
     {
       name: 'chromium',

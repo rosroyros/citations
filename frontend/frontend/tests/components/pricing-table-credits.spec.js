@@ -13,21 +13,29 @@ test.describe('PricingTableCredits Component', () => {
     await expect(page.getByText('500 Credits', { exact: true }).first()).toBeVisible()
     await expect(page.getByText('2,000 Credits', { exact: true }).first()).toBeVisible()
 
-    // Check pricing is displayed
+    // Check pricing is displayed (discounted prices)
     await expect(page.getByText('$1.99').first()).toBeVisible()
     await expect(page.getByText('$4.99').first()).toBeVisible()
     await expect(page.getByText('$9.99').first()).toBeVisible()
   })
 
-  test('highlights the middle tier as Best Value', async ({ page }) => {
-    const bestValueBadge = page.getByText('Best Value')
-    await expect(bestValueBadge).toBeVisible()
+  test('highlights the middle tier as Most Popular', async ({ page }) => {
+    // The badge now says "Most Popular" (promo feature update)
+    const mostPopularBadge = page.getByText('Most Popular', { exact: true })
+    await expect(mostPopularBadge).toBeVisible()
 
     // Verify the middle card has the highlighted border (border-2 and border-purple-600)
     const middleCard = page.locator('.border-2.border-purple-600')
     await expect(middleCard).toBeVisible()
-    // The card with Best Value badge should contain 500 Credits
+    // The card with Most Popular badge should contain 500 Credits
     await expect(middleCard.getByText('500 Credits', { exact: true })).toBeVisible()
+  })
+
+  test('shows correct subtitles for each tier', async ({ page }) => {
+    // Updated subtitles from promo feature
+    await expect(page.getByText('For a paper or two')).toBeVisible()
+    await expect(page.getByText('For typical students')).toBeVisible()
+    await expect(page.getByText('Best for researchers')).toBeVisible()
   })
 
   test('shows correct benefits for each tier', async ({ page }) => {
@@ -39,20 +47,44 @@ test.describe('PricingTableCredits Component', () => {
     await expect(page.getByText('No expiration date').first()).toBeVisible()
   })
 
-  test('all buy buttons are clickable', async ({ page }) => {
-    // Check all three buttons exist and are clickable
-    const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' })
-    const buy500Button = page.getByRole('button', { name: 'Buy 500 Credits' })
-    const buy2000Button = page.getByRole('button', { name: 'Buy 2,000 Credits' })
+  test('all buy buttons show promo text and are clickable', async ({ page }) => {
+    // With promo enabled, all buttons say "Get 50% Off"
+    const promoButtons = page.getByRole('button', { name: /Get 50% Off/i })
 
-    await expect(buy100Button).toBeVisible()
-    await expect(buy500Button).toBeVisible()
-    await expect(buy2000Button).toBeVisible()
+    // Should have exactly 3 buttons (one per tier)
+    await expect(promoButtons).toHaveCount(3)
 
-    // Verify all buttons have the purple styling
-    await expect(buy100Button).toHaveClass(/bg-purple-600/)
-    await expect(buy500Button).toHaveClass(/bg-purple-600/)
-    await expect(buy2000Button).toHaveClass(/bg-purple-600/)
+    // All buttons should be visible
+    const count = await promoButtons.count()
+    for (let i = 0; i < count; i++) {
+      await expect(promoButtons.nth(i)).toBeVisible()
+    }
+  })
+
+  test('shows promo pill with promotional text', async ({ page }) => {
+    // Promo pill should be visible above the pricing cards
+    const promoPill = page.locator('.bg-gradient-to-r.from-amber-200')
+    await expect(promoPill).toBeVisible()
+
+    // Check promo text is displayed
+    await expect(page.getByText("New Year's Deal — 50% Off")).toBeVisible()
+  })
+
+  test('shows strikethrough original prices', async ({ page }) => {
+    // Strikethrough prices should be visible (original prices before discount)
+    const strikethroughPrices = page.locator('.line-through')
+    await expect(strikethroughPrices.first()).toBeVisible()
+
+    // Original prices should be shown: $3.99, $9.99, $19.99 (calculated from 50% off)
+    await expect(page.getByText('$3.99').first()).toBeVisible()
+    await expect(page.getByText('$19.99').first()).toBeVisible()
+  })
+
+  test('shows per-unit costs for all tiers', async ({ page }) => {
+    // Per-unit costs shown at bottom of cards
+    await expect(page.getByText('~2¢/citation')).toBeVisible()
+    await expect(page.getByText('~1¢/citation')).toBeVisible()
+    await expect(page.getByText('~0.5¢/citation')).toBeVisible()
   })
 
   test('is responsive - stacks cards on mobile', async ({ page }) => {

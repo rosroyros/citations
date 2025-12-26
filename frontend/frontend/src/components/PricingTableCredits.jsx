@@ -4,6 +4,8 @@ import { useState, useEffect } from "react"
 import React from "react"
 import { trackEvent } from '../utils/analytics'
 import { getToken } from '../utils/creditStorage'
+import { PromoPill } from './PromoPill'
+import { getOriginalPrice, getButtonText, isPromoEnabled } from '../config/promoConfig'
 
 // Product configuration
 // Updated with real Polar product IDs from pricing_config.py
@@ -13,9 +15,10 @@ const PRODUCTS = [
     title: '100 Credits',
     credits: 100,
     price: 1.99,
-    description: 'For occasional users.',
+    description: 'For a paper or two',
     pricePerCitation: 0.0199,
     recommended: false,
+    perUnit: '~2¢/citation',
     benefits: [
       'Full APA 7 Compliance',
       'Detailed citation analysis',
@@ -28,9 +31,10 @@ const PRODUCTS = [
     title: '500 Credits',
     credits: 500,
     price: 4.99,
-    description: 'Best balance of price & usage.',
+    description: 'For typical students',
     pricePerCitation: 0.00998,
     recommended: true,
+    perUnit: '~1¢/citation',
     benefits: [
       'Full APA 7 Compliance',
       'Detailed citation analysis',
@@ -43,9 +47,10 @@ const PRODUCTS = [
     title: '2,000 Credits',
     credits: 2000,
     price: 9.99,
-    description: 'For frequent academic writing.',
+    description: 'Best for researchers',
     pricePerCitation: 0.004995,
     recommended: false,
+    perUnit: '~0.5¢/citation',
     benefits: [
       'Full APA 7 Compliance',
       'Detailed citation analysis',
@@ -147,7 +152,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant, onChec
       }
 
       // Track checkout started
-      trackEvent('checkout_started', { productId, checkoutUrl: checkout_url })
+      trackEvent('checkout_started', { productId, checkoutUrl: checkout_url, promo_enabled: isPromoEnabled() })
 
       // Redirect to checkout
       window.location.href = checkout_url
@@ -160,85 +165,87 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant, onChec
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Promo Pill - Above cards */}
+      <PromoPill className="mb-6" />
+
       {/* Pricing Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto p-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-4xl mx-auto">
         {PRODUCTS.map(product => (
           <Card
             key={product.id}
             className={`flex flex-col relative transition-all duration-200 ${product.recommended
-              ? 'border-2 border-purple-600 shadow-xl -translate-y-1 z-10'
+              ? 'border-2 border-purple-600 shadow-xl'
               : 'border border-gray-200 hover:-translate-y-1 hover:shadow-md'
               }`}
           >
-            {/* "Recommended" badge - only shown on recommended tier */}
+            {/* "Most Popular" badge - only shown on recommended tier */}
             {product.recommended && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
-                Best Value
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wide shadow-md z-10">
+                Most Popular
               </div>
             )}
 
-            {/* Card Header */}
-            <CardHeader className="pb-2">
-              <CardTitle className="text-xl font-bold text-gray-900">
-                {product.title}
-              </CardTitle>
-              <CardDescription className="text-gray-500 mt-1 text-sm font-medium">
-                {product.description}
-              </CardDescription>
-            </CardHeader>
+            {/* Card Content - centered layout */}
+            <CardContent className="flex-1 flex flex-col text-center pt-8 pb-6">
+              {/* Title */}
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">{product.title}</h3>
 
-            {/* Card Content - Price and Benefits */}
-            <CardContent className="flex-1 pt-4">
-              {/* Price Display */}
-              <div className="mb-4">
-                <span className="text-4xl font-bold text-gray-900">
-                  ${product.price}
-                </span>
+              {/* Description */}
+              <p className="text-gray-500 text-sm mb-4">{product.description}</p>
+
+              {/* Price with strikethrough */}
+              <div className="mb-5">
+                {getOriginalPrice(product.price) && (
+                  <span className="text-lg text-gray-400 line-through decoration-1 mr-2">
+                    ${getOriginalPrice(product.price).toFixed(2)}
+                  </span>
+                )}
+                <span className="text-4xl font-bold text-gray-900">${product.price}</span>
               </div>
 
-              {/* Buy Button - Moved above benefits */}
-              <div className="mb-6">
-                <Button
-                  onClick={() => handleCheckout(product.id)}
-                  disabled={loadingProductId === product.id}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-lg transition-colors"
-                  variant="default"
-                >
-                  {loadingProductId === product.id ? (
-                    <>
-                      <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      Opening checkout...
-                    </>
-                  ) : (
-                    `Buy ${product.title}`
-                  )}
-                </Button>
-              </div>
+              {/* Buy Button with dynamic text and styling */}
+              <Button
+                onClick={() => handleCheckout(product.id)}
+                disabled={loadingProductId === product.id}
+                className={`w-full font-semibold py-3 rounded-lg transition-colors mb-5 ${product.recommended
+                  ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                  : 'bg-gray-900 hover:bg-gray-800 text-white'}`}
+              >
+                {loadingProductId === product.id ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Opening checkout...
+                  </>
+                ) : (
+                  getButtonText(product.title)
+                )}
+              </Button>
 
               {/* Benefits List with Checkmarks */}
-              <ul className="space-y-3">
+              <ul className="space-y-2 text-left">
                 {product.benefits.map((benefit, idx) => (
-                  <li key={idx} className="flex items-start text-sm text-gray-700">
-                    <span className="mr-3 text-green-600 font-bold">✓</span>
+                  <li key={idx} className="flex items-start text-sm text-gray-600">
+                    <span className="mr-2 text-green-600 font-bold">✓</span>
                     <span>{benefit}</span>
                   </li>
                 ))}
               </ul>
-            </CardContent>
 
-            {/* Empty footer acting as spacer if needed, or removed */}
-            <CardFooter className="pt-0 pb-6">
-            </CardFooter>
+              {/* Per-unit cost at bottom */}
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <span className="text-sm font-medium text-green-600">{product.perUnit}</span>
+              </div>
+            </CardContent>
           </Card>
         ))}
       </div>
 
       {/* Footer Info */}
-      <div className="text-center text-sm font-body text-body max-w-5xl mx-auto px-4 mt-4">
+      <div className="text-center text-sm text-gray-500 max-w-4xl mx-auto px-4">
         <p>
           Risk-free with money-back guarantee.
         </p>
@@ -246,7 +253,7 @@ export function PricingTableCredits({ onSelectProduct, experimentVariant, onChec
 
       {/* Error Display */}
       {error && (
-        <div className="text-center text-red-600 mt-4 max-w-5xl mx-auto">
+        <div className="text-center text-red-600 mt-4 max-w-4xl mx-auto">
           {error}
         </div>
       )}

@@ -24,6 +24,7 @@ import { TestPricingTable } from './test-pricing-table'
 import { PricingTablePassesDemo } from './components/PricingTablePassesDemo'
 import { PricingTableComparison } from './components/PricingTableComparison'
 import PricingMockups from './pages/PricingMockups'
+import CorrectionMockups from './pages/CorrectionMockups'
 import { mockValidationAPI } from './utils/mockData'
 import { getModelPreference } from './utils/modelPreference'
 import { getExperimentVariant } from './utils/experimentVariant'
@@ -1097,6 +1098,9 @@ function App() {
     }
     if (pathname === '/pricing-mockups') {
       return <PricingMockups />
+    }
+    if (pathname === '/correction-mockups') {
+      return <CorrectionMockups />
     }
   }
   if (pathname === '/privacy') {
