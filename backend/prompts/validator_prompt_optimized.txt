@@ -67,6 +67,11 @@ VALIDATION RESULTS:
 
 ───────────────────────────────────────────────────────────────────────────
 
+CORRECTED CITATION:
+[If (and ONLY if) errors are detected, provide the full corrected citation text here. Do not include markdown formatting (bold/italics) in this corrected text unless it is part of the citation style itself.]
+
+───────────────────────────────────────────────────────────────────────────
+
 This instruction requires knowledge of the specific formatting requirements of APA 7th edition, so consult an APA style guide if needed to ensure accuracy.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

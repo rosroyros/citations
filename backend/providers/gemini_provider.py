@@ -309,6 +309,28 @@ class GeminiProvider(CitationValidator):
                 else:
                     logger.error(f"Non-retryable Gemini legacy API error: {str(e)}")
                     raise
+    
+    def _format_markdown_to_html(self, text: str) -> str:
+        """
+        Convert markdown formatting (bold/italics) to HTML tags.
+        
+        Args:
+            text: Text with markdown formatting (**bold**, _italic_)
+            
+        Returns:
+            Text with HTML tags (<strong>bold</strong>, <em>italic</em>)
+        """
+        if not text:
+            return text
+            
+        # Convert bold (**text**) to HTML <strong>
+        text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
+        # Convert italics (_text_) to HTML <em>
+        text = re.sub(r'_([^_]+)_', r'<em>\1</em>', text)
+        # Convert italics (*text*) to HTML <em> (handle only single asterisks)
+        text = re.sub(r'(?<!\*)\*([^*]+)\*(?!\*)', r'<em>\1</em>', text)
+        
+        return text
 
     def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:
         """
@@ -384,12 +406,22 @@ class GeminiProvider(CitationValidator):
                 result["source_type"] = source_type
             elif line_stripped.startswith('VALIDATION RESULTS:'):
                 current_section = 'validation'
-            elif line_stripped.startswith('─'):
-                # End of block
-                break
+            elif line_stripped.startswith('VALIDATION RESULTS:'):
+                current_section = 'validation'
             # Parse content based on section
             elif current_section == 'original' and line_stripped and not line_stripped.startswith('SOURCE TYPE:'):
                 original_lines.append(line_stripped)
+            elif current_section == 'corrected_citation' and line_stripped:
+                # Handle separator at end of corrected citation
+                if line_stripped.startswith('─'):
+                    current_section = None
+                    continue
+                    
+                # Append line to corrected citation (handles multi-line wrap)
+                if result.get("corrected_citation") is None:
+                    result["corrected_citation"] = line_stripped
+                else:
+                    result["corrected_citation"] += " " + line_stripped
             elif current_section == 'validation':
                 # Check for no errors
                 if '✓ No APA 7 formatting errors detected' in line_stripped or 'No APA 7 formatting errors' in line_stripped:
@@ -409,23 +441,45 @@ class GeminiProvider(CitationValidator):
                 elif 'Should be:' in line_stripped and result["errors"]:
                     correction = line_stripped.split('Should be:')[1].strip()
                     result["errors"][-1]["correction"] = correction
-
+            
+            # Check for CORRECTED CITATION section start (checked last to avoid consuming current line if it's the header)
+            if line_stripped.startswith('CORRECTED CITATION:'):
+                current_section = 'corrected_citation'
+                # Extract content from the same line if present
+                content = line_stripped.replace('CORRECTED CITATION:', '').strip()
+                if content:
+                    result["corrected_citation"] = content
+                
         # Join original lines
         if original_lines:
             result["original"] = ' '.join(original_lines)
             # Convert markdown formatting back to HTML for frontend display
-            # Convert bold (**text**) to HTML <strong>
-            result["original"] = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', result["original"])
-            # Convert italics (_text_) to HTML <em>
-            result["original"] = re.sub(r'_([^_]+)_', r'<em>\1</em>', result["original"])
+            result["original"] = self._format_markdown_to_html(result["original"])
+
+        # Process corrected citation
+        if "corrected_citation" in result and result["corrected_citation"]:
+            # Defensive Logic 1: If no errors, discard corrected citation
+            if not result.get("errors"):
+                result["corrected_citation"] = None
+            else:
+                # normalize strings for comparison
+                cleaned_original = re.sub(r'\s+', ' ', result.get("original", "")).strip()
+                cleaned_corrected = re.sub(r'\s+', ' ', result["corrected_citation"]).strip()
+                
+                # Apply HTML formatting to corrected
+                formatted_corrected = self._format_markdown_to_html(cleaned_corrected)
+                
+                # Defensive Logic 2: If identical to original (comparing HTML vs HTML), discard
+                if cleaned_original == formatted_corrected:
+                     result["corrected_citation"] = None
+                else:
+                     result["corrected_citation"] = formatted_corrected
+                     logger.info(f"Parsed corrected citation for #{citation_num}")
 
         # Apply same markdown→HTML conversion to error corrections
         for error in result["errors"]:
             if error.get("correction"):
-                # Convert bold (**text**) to HTML <strong>
-                error["correction"] = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', error["correction"])
-                # Convert italics (_text_) to HTML <em>
-                error["correction"] = re.sub(r'_([^_]+)_', r'<em>\1</em>', error["correction"])
+                error["correction"] = self._format_markdown_to_html(error["correction"])
 
         return result
 

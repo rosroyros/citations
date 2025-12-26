@@ -36,7 +36,7 @@ class TestGeminiProvider:
             provider = GeminiProvider(api_key=mock_api_key, model="gemini-1.5-flash")
             provider.use_new_api = False
             # Mock the model
-            provider.model = Mock()
+            provider.model = "gemini-1.5-flash"
             return provider
 
     @pytest.fixture
@@ -69,6 +69,9 @@ Should be: Article title
 Should be: *Journal Name*, *15*(3), 123-145
 
 ───────────────────────────────────────────────────────────────
+CORRECTED CITATION:
+Doe, J. (2021). Article title. *Journal Name*, *15*(3), 123-145.
+───────────────────────────────────────────────────────────────
         """.strip()
 
     @pytest.fixture
@@ -87,6 +90,9 @@ Should be: Smith, J.
 Should be: <em>The Book Title</em>
 
 ───────────────────────────────────────────────────────────────
+CORRECTED CITATION:
+Smith, J. (2020). _The Book Title_. Publisher.
+───────────────────────────────────────────────────────────────
         """.strip()
 
     @pytest.mark.asyncio
@@ -95,6 +101,12 @@ Should be: <em>The Book Title</em>
         # Mock the API call
         mock_response = Mock()
         mock_response.text = sample_gemini_response
+        mock_response.text = sample_gemini_response
+        # Mock metadata for logging
+        mock_response.usage_metadata = Mock()
+        mock_response.usage_metadata.prompt_token_count = 10
+        mock_response.usage_metadata.candidates_token_count = 10
+        mock_response.usage_metadata.total_token_count = 20
         gemini_provider_new_api.client.models.generate_content = Mock(return_value=mock_response)
 
         # Mock prompt manager
@@ -124,23 +136,23 @@ Should be: <em>The Book Title</em>
             assert len(citation2["errors"]) == 2
             assert citation2["errors"][0]["component"] == "Title"
             assert citation2["errors"][1]["component"] == "Volume"
+            assert citation2.get("corrected_citation") is not None
+            assert "Article title" in citation2["corrected_citation"]
+            assert "<em>Journal Name</em>" in citation2["corrected_citation"]
 
     @pytest.mark.asyncio
     async def test_validate_citations_success_legacy_api(self, gemini_provider_legacy_api, sample_citations, sample_gemini_response):
         """Test successful citation validation with legacy API."""
-        # Mock the model's generate_content method
-        mock_model = Mock()
+        # Mock the response
         mock_response = Mock()
         mock_response.text = sample_gemini_response
-        # The legacy API method calls generate_content synchronously
-        mock_model.generate_content = Mock(return_value=mock_response)
-        gemini_provider_legacy_api.model = mock_model
-
-        # Mock prompt manager
-        with patch.object(gemini_provider_legacy_api, 'prompt_manager') as mock_pm:
-            mock_pm.load_prompt.return_value = "Test prompt template"
-            mock_pm.format_citations.return_value = "Formatted citations"
-
+        
+        # Patch GenerativeModel to return our mock
+        with patch('google.generativeai.GenerativeModel') as mock_model_cls:
+            mock_model_instance = Mock()
+            mock_model_instance.generate_content.return_value = mock_response
+            mock_model_cls.return_value = mock_model_instance
+            
             # Call validate_citations
             result = await gemini_provider_legacy_api.validate_citations(sample_citations)
 
@@ -175,6 +187,12 @@ Should be: <em>The Book Title</em>
             mock_response
         ])
         gemini_provider_new_api.client.models.generate_content = api_mock
+        
+        # Mock metadata for logging
+        mock_response.usage_metadata = Mock()
+        mock_response.usage_metadata.prompt_token_count = 10
+        mock_response.usage_metadata.candidates_token_count = 10
+        mock_response.usage_metadata.total_token_count = 20
 
         with patch.object(gemini_provider_new_api, 'prompt_manager') as mock_pm, \
              patch('asyncio.sleep') as mock_sleep:  # Mock sleep to speed up test
@@ -250,8 +268,10 @@ Some malformed content without proper sections
         """.strip()
 
         results = gemini_provider_new_api._parse_response(malformed_response)
-        # Should return empty list for malformed content
-        assert len(results) == 0
+        # Should return a result but with empty fields
+        assert len(results) == 1
+        assert results[0]["original"] == ""
+        assert results[0]["errors"] == []
 
     def test_parse_citation_block_missing_sections(self, gemini_provider_new_api):
         """Test parsing citation block with missing sections."""
@@ -283,13 +303,14 @@ Just some random text
         mock_response = Mock()
         mock_response.text = "Generated text"
 
-        mock_model = Mock()
-        # Mock to return mock_response directly (synchronous call)
-        mock_model.generate_content = Mock(return_value=mock_response)
-        gemini_provider_legacy_api.model = mock_model
-
-        result = gemini_provider_legacy_api.generate_completion("Test prompt")
-        assert result == "Generated text"
+        # The legacy API creates a new model instance, so we must mock the class
+        with patch('google.generativeai.GenerativeModel') as mock_model_cls:
+            mock_model_instance = Mock()
+            mock_model_instance.generate_content.return_value = mock_response
+            mock_model_cls.return_value = mock_model_instance
+            
+            result = gemini_provider_legacy_api.generate_completion("Test prompt")
+            assert result == "Generated text"
 
     def test_generate_completion_error_handling(self, gemini_provider_new_api):
         """Test generate_completion error handling."""
@@ -320,18 +341,80 @@ Just some random text
         results = gemini_provider_new_api._parse_response("")
         assert results == []
 
-    def test_parse_response_handles_partial_citation(self, gemini_provider_new_api):
-        """Test parsing response with incomplete citation."""
-        partial_response = """
+    def test_parse_response_corrected_citation_multiline(self, gemini_provider_new_api):
+        """Test parsing of multi-line corrected citation."""
+        response = """
 ═══════════════════════════════════════════════════════════════
 CITATION #1
 ═══════════════════════════════════════════════════════════════
-ORIGINAL: Smith, J. (2020). Title.
-        """.strip()
+ORIGINAL: Smith, J. (2020). WRONG Title. Publisher.
+SOURCE TYPE: Book
+VALIDATION RESULTS:
+❌ Title: Error found
+Should be: Correct Title
 
-        results = gemini_provider_new_api._parse_response(partial_response)
-        # Should handle gracefully - even partial responses should extract what they can
-        if len(results) > 0:
-            assert results[0]["citation_number"] == 1
-            # The parser should extract the original line if present
-        # If no results due to partial format, that's also acceptable
+───────────────────────────────────────────────────────────────
+CORRECTED CITATION:
+Smith, J. (2020).
+Correct Title.
+Publisher.
+───────────────────────────────────────────────────────────────
+        """.strip()
+        
+        results = gemini_provider_new_api._parse_response(response)
+        assert len(results) == 1
+        # Should join lines with space
+        assert results[0].get("corrected_citation") == "Smith, J. (2020). Correct Title. Publisher."
+
+    def test_corrected_citation_discarded_when_no_errors(self, gemini_provider_new_api):
+        """Test that corrected citation is discarded if no errors found."""
+        response = """
+═══════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════
+ORIGINAL: Smith, J. (2020). Title. Publisher.
+SOURCE TYPE: Book
+VALIDATION RESULTS:
+✓ No APA 7 formatting errors detected
+
+───────────────────────────────────────────────────────────────
+CORRECTED CITATION:
+Different Text
+───────────────────────────────────────────────────────────────
+        """.strip()
+        
+        results = gemini_provider_new_api._parse_response(response)
+        assert len(results) == 1
+        assert results[0].get("corrected_citation") is None
+
+    def test_corrected_citation_discarded_when_identical(self, gemini_provider_new_api):
+       """Test that corrected citation is discarded if identical to original."""
+       response = """
+═══════════════════════════════════════════════════════════════
+CITATION #1
+═══════════════════════════════════════════════════════════════
+ORIGINAL: Smith, J. (2020). _Title_. Publisher.
+SOURCE TYPE: Book
+VALIDATION RESULTS:
+❌ Random: Error
+Should be: fix
+
+───────────────────────────────────────────────────────────────
+CORRECTED CITATION:
+Smith, J. (2020). _Title_. Publisher.
+───────────────────────────────────────────────────────────────
+       """.strip()
+       
+       results = gemini_provider_new_api._parse_response(response)
+       assert len(results) == 1
+       assert results[0].get("corrected_citation") is None
+
+    def test_format_markdown_to_html(self, gemini_provider_new_api):
+        """Test markdown to HTML conversion helper."""
+        input_text = "This is **bold** and _italic_ and *other italic*."
+        expected = "This is <strong>bold</strong> and <em>italic</em> and <em>other italic</em>."
+        assert gemini_provider_new_api._format_markdown_to_html(input_text) == expected
+        
+        # Test empty
+        assert gemini_provider_new_api._format_markdown_to_html("") == ""
+        assert gemini_provider_new_api._format_markdown_to_html(None) is None
