@@ -27,8 +27,13 @@ function MiniChecker({
     setError(null)
     setResult(null)
 
+    // Polling config optimized for single citations (fast validation)
+    const POLL_INTERVAL = 500  // 500ms for snappy UX
+    const MAX_ATTEMPTS = 60    // 30s timeout (500ms × 60)
+
     try {
-      const response = await fetch('/api/validate', {
+      // Step 1: Create async validation job
+      const response = await fetch('/api/validate/async', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,7 +58,35 @@ function MiniChecker({
         }
       }
 
-      const data = await response.json()
+      const { job_id } = await response.json()
+
+      // Step 2: Poll for completion
+      let data = null
+      for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+        const statusResponse = await fetch(`/api/jobs/${job_id}`)
+        if (!statusResponse.ok) {
+          throw new Error('Failed to check validation status')
+        }
+
+        const jobData = await statusResponse.json()
+
+        if (jobData.status === 'completed') {
+          data = jobData.results
+          break
+        }
+        if (jobData.status === 'failed') {
+          throw new Error(jobData.error || 'Validation failed')
+        }
+
+        // Wait AFTER check (not before) for faster first response
+        if (attempt < MAX_ATTEMPTS - 1) {
+          await new Promise(r => setTimeout(r, POLL_INTERVAL))
+        }
+      }
+
+      if (data === null) {
+        throw new Error('Validation timed out. Please try again.')
+      }
 
       // Extract first result (single citation)
       if (data.results && data.results.length > 0) {

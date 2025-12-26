@@ -20,10 +20,10 @@ import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
 import ContactUs from './pages/ContactUs'
-import DebugHTMLTest from './components/DebugHTMLTest'
 import { TestPricingTable } from './test-pricing-table'
 import { PricingTablePassesDemo } from './components/PricingTablePassesDemo'
 import { PricingTableComparison } from './components/PricingTableComparison'
+import PricingMockups from './pages/PricingMockups'
 import { mockValidationAPI } from './utils/mockData'
 import { getModelPreference } from './utils/modelPreference'
 import { getExperimentVariant } from './utils/experimentVariant'
@@ -1086,9 +1086,6 @@ function App() {
 
   // Test/debug routes - only available in development mode
   if (import.meta.env.DEV) {
-    if (pathname === '/debug-html') {
-      return <DebugHTMLTest />
-    }
     if (pathname === '/test-pricing-table') {
       return <TestPricingTable />
     }
@@ -1097,6 +1094,9 @@ function App() {
     }
     if (pathname === '/test-pricing-comparison') {
       return <PricingTableComparison />
+    }
+    if (pathname === '/pricing-mockups') {
+      return <PricingMockups />
     }
   }
   if (pathname === '/privacy') {

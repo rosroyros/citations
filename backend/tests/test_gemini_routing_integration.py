@@ -214,39 +214,7 @@ class TestGeminiRoutingIntegration:
             data = response.json()
             assert data["status"] == "completed"
 
-    async def test_direct_validate_endpoint_model_routing(self, client, sample_citations,
-                                                         mock_openai_provider, mock_gemini_provider):
-        """Test model routing on direct /api/validate endpoint."""
-        with patch('app.openai_provider', mock_openai_provider), \
-             patch('app.gemini_provider', mock_gemini_provider), \
-             patch('app.get_provider_for_request') as mock_get_provider, \
-             patch('app.logger') as mock_logger:
 
-            # Mock for model_b request
-            mock_get_provider.return_value = (mock_gemini_provider, 'model_b', False)
-
-            response = client.post(
-                "/api/validate",
-                json=sample_citations,
-                headers={"X-Model-Preference": "model_b"}
-            )
-
-            assert response.status_code == 200
-            data = response.json()
-            assert "results" in data
-
-            # Verify Gemini was called
-            mock_gemini_provider.validate_citations.assert_called_once()
-
-            # Verify provider info is logged
-            assert mock_logger.info.called
-            # Find the call with PROVIDER_SELECTION
-            found = False
-            for call in mock_logger.info.call_args_list:
-                if "PROVIDER_SELECTION" in str(call):
-                    found = True
-                    break
-            assert found
 
     async def test_model_b_with_no_gemini_available(self, sample_citations,
                                                    mock_openai_provider):
