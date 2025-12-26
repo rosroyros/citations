@@ -57,8 +57,9 @@ test.describe('Pricing Variants E2E', () => {
     await expect(page.getByText('100 Credits', { exact: true })).toBeVisible();
     await expect(page.getByText('For occasional users.')).toBeVisible();
 
-    // 6. Click Buy (100 credits)
-    await page.click('button:has-text("Buy 100 Credits")');
+    // 6. Click Buy (100 credits) - find button within the card containing "100 Credits"
+    const credits100Card = page.locator('h3:has-text("100 Credits")').locator('..');
+    await credits100Card.getByRole('button').click();
 
     // 7. Expect Redirect to Success
     await page.waitForURL('**/success?**');
@@ -112,8 +113,9 @@ test.describe('Pricing Variants E2E', () => {
     await expect(page.getByText('500 Credits', { exact: true })).toBeVisible();
     await expect(page.getByText('2000 Credits', { exact: true })).toBeVisible();
 
-    // 6. Click Buy (100 credits)
-    await page.click('button:has-text("Buy 100 Credits")');
+    // 6. Click Buy (100 credits) - find button within the card containing "100 Credits"
+    const credits100Card = page.locator('h3:has-text("100 Credits")').locator('..');
+    await credits100Card.getByRole('button').click();
 
     // 7. Expect Redirect to Success
     await page.waitForURL('**/success?**');
@@ -162,8 +164,9 @@ test.describe('Pricing Variants E2E', () => {
     await expect(page.getByText('7-Day Pass', { exact: true })).toBeVisible();
     await expect(page.getByText('Unlimited validations for 7 days')).toBeVisible();
 
-    // 6. Click Buy (7-day pass)
-    await page.click('button:has-text("Buy 7-Day Pass")');
+    // 6. Click Buy (7-day pass) - find button within the card containing "7-Day Pass"
+    const pass7DayCard = page.locator('h3:has-text("7-Day Pass")').locator('..');
+    await pass7DayCard.getByRole('button').click();
 
     // 7. Expect Redirect to Success
     await page.waitForURL('**/success?**');
@@ -215,8 +218,9 @@ test.describe('Pricing Variants E2E', () => {
     await expect(page.getByText('7-Day Pass', { exact: true })).toBeVisible();
     await expect(page.getByText('30-Day Pass', { exact: true })).toBeVisible();
 
-    // 6. Click Buy (7-day pass)
-    await page.click('button:has-text("Buy 7-Day Pass")');
+    // 6. Click Buy (7-day pass) - find button within the card containing "7-Day Pass"
+    const pass7DayCard = page.locator('h3:has-text("7-Day Pass")').locator('..');
+    await pass7DayCard.getByRole('button').click();
 
     // 7. Expect Redirect to Success
     await page.waitForURL('**/success?**');

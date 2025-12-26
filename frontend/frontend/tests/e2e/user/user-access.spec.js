@@ -375,8 +375,9 @@ test.describe('User Access Flows - E2E Tests', () => {
       await expect(page.locator('text=500 Credits').first()).toBeVisible();
       await expect(page.locator('text=2,000 Credits').first()).toBeVisible();
 
-      // Click Buy (triggers embedded checkout now, not redirect)
-      await page.locator('button:has-text("Buy 500 Credits")').click();
+      // Click Buy (find button within the card containing "500 Credits")
+      const credits500Card = page.locator('h3:has-text("500 Credits")').locator('..');
+      await credits500Card.getByRole('button').click();
 
       // Wait for success state to appear (displayed after embedded checkout completes)
       // The test-pricing-table page shows a success message after checkout

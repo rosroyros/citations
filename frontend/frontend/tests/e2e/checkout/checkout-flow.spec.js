@@ -114,8 +114,9 @@ test.describe('Checkout Flow E2E', () => {
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
       expect(lastEvent.text).toContain('pricing_table_shown');
 
-      // Click on 500 credits (recommended tier)
-      const buy500Button = page.getByRole('button', { name: 'Buy 500 Credits' });
+      // Click on 500 credits (recommended tier) - find button within the card containing "500 Credits"
+      const credits500Card = page.locator('h3:has-text("500 Credits")').locator('..');
+      const buy500Button = credits500Card.getByRole('button');
       await expect(buy500Button).toBeVisible();
 
       // Set up request promise before clicking
@@ -208,8 +209,9 @@ test.describe('Checkout Flow E2E', () => {
       const lastEvent = pricingTableShownEvents[pricingTableShownEvents.length - 1];
       expect(lastEvent.text).toContain('pricing_table_shown');
 
-      // Click on 7-day pass (recommended tier)
-      const buy7DayButton = page.getByRole('button', { name: 'Buy 7-Day Pass' });
+      // Click on 7-day pass (recommended tier) - find button within the card containing "7-Day Pass"
+      const pass7DayCard = page.locator('h3:has-text("7-Day Pass")').locator('..');
+      const buy7DayButton = pass7DayCard.getByRole('button');
       await expect(buy7DayButton).toBeVisible();
 
       // Set up request promise before clicking
@@ -266,7 +268,8 @@ test.describe('Checkout Flow E2E', () => {
 
       await page.goto('/test-pricing-table');
 
-      const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
+      const credits100Card = page.locator('h3:has-text("100 Credits")').locator('..');
+      const buy100Button = credits100Card.getByRole('button');
       await buy100Button.click();
 
       // Wait for error message to appear (either from PricingTableCredits or test page)
@@ -302,7 +305,8 @@ test.describe('Checkout Flow E2E', () => {
 
       await page.goto('/test-pricing-table');
 
-      const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
+      const credits100Card = page.locator('h3:has-text("100 Credits")').locator('..');
+      const buy100Button = credits100Card.getByRole('button');
       await buy100Button.click();
 
       // Wait for error message to appear (flexible matching)
@@ -339,7 +343,8 @@ test.describe('Checkout Flow E2E', () => {
 
       await page.goto('/test-pricing-table');
 
-      const buy100Button = page.getByRole('button', { name: 'Buy 100 Credits' });
+      const credits100Card = page.locator('h3:has-text("100 Credits")').locator('..');
+      const buy100Button = credits100Card.getByRole('button');
       await buy100Button.click();
 
       // Wait for embed checkout to be created using polling

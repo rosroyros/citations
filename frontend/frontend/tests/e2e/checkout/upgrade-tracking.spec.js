@@ -439,8 +439,9 @@ test.describe('Upgrade Tracking - A/B Test Events', () => {
     const modal = page.locator('.upgrade-modal-container');
     await expect(modal).toBeVisible();
 
-    // Click a buy button in the modal
-    const buyButton = modal.locator('button:has-text("Buy")').first();
+    // Click a buy button in the modal (find button in first pricing card, resilient to promo text)
+    const firstPricingCard = modal.locator('h3').first().locator('..');
+    const buyButton = firstPricingCard.getByRole('button');
     await buyButton.click();
 
     // Wait for request capture

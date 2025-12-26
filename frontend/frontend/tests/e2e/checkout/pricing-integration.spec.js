@@ -154,9 +154,11 @@ test.describe('Pricing Integration Tests', () => {
 
     // 6. Select product based on variant (triggers embedded checkout)
     if (variant === 'credits') {
-      await page.click('button:has-text("Buy 500 Credits")');
+      const credits500Card = page.locator('h3:has-text("500 Credits")').locator('..');
+      await credits500Card.getByRole('button').click();
     } else {
-      await page.click('button:has-text("Buy 7-Day Pass")');
+      const pass7DayCard = page.locator('h3:has-text("7-Day Pass")').locator('..');
+      await pass7DayCard.getByRole('button').click();
     }
 
     // Wait for embedded checkout success state in modal (C2 design: "Thank You!" or "Payment Confirmed")
@@ -632,9 +634,11 @@ test.describe('Pricing Integration Tests', () => {
     const variant = await page.locator('.pricing-table').getAttribute('data-variant');
 
     if (variant === 'credits') {
-      await page.click('button:has-text("Buy 500 Credits")');
+      const credits500Card = page.locator('h3:has-text("500 Credits")').locator('..');
+      await credits500Card.getByRole('button').click();
     } else {
-      await page.click('button:has-text("Buy 7-Day Pass")');
+      const pass7DayCard = page.locator('h3:has-text("7-Day Pass")').locator('..');
+      await pass7DayCard.getByRole('button').click();
     }
 
     // Wait for embedded checkout success state in modal (C2 design: "Thank You!" or "Payment Confirmed")
