@@ -81,6 +81,14 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
+    // Production E2E tests - Run via deploy script against production
+    // Run explicitly with: npx playwright test --project=production
+    {
+      name: 'production',
+      testMatch: ['**/e2e-full-flow.spec.cjs'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+
     // Main test suite - parallel execution on Chromium
     {
       name: 'chromium',

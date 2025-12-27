@@ -37,7 +37,7 @@ OUTPUT_FILE=$(mktemp)
 echo "Running Playwright test... (Output captured)"
 # Ensure we installed dependencies
 # npm install (skip to save time, assume installed)
-npm run test:e2e -- tests/e2e/core/e2e-full-flow.spec.cjs --project=chromium > "$OUTPUT_FILE" 2>&1
+npm run test:e2e -- tests/e2e/core/e2e-full-flow.spec.cjs --project=production > "$OUTPUT_FILE" 2>&1
 EXIT_CODE=$?
 
 cat "$OUTPUT_FILE"
