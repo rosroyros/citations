@@ -166,9 +166,10 @@ def main():
     # 1. Get last notified timestamp
     last_ts = db.get_metadata(METADATA_KEY)
     
-    now = datetime.datetime.now()
+    # Use UTC time to match database format (2025-12-27T18:33:07Z)
+    now = datetime.datetime.utcnow()
     cutoff_time = now - datetime.timedelta(minutes=5)
-    cutoff_str = cutoff_time.isoformat(sep=' ')
+    cutoff_str = cutoff_time.strftime('%Y-%m-%dT%H:%M:%SZ')
     
     # Initial run handling: if no timestamp, start from 5 mins ago (don't spam history)
     if not last_ts:
@@ -181,7 +182,7 @@ def main():
     logger.info(f"Checking for jobs created between {last_ts} and {cutoff_str}")
     
     # 2. Query jobs
-    # Usig created_at as completed_at is missing from schema
+    # Using created_at as completed_at is missing from schema
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
