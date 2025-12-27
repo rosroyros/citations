@@ -930,21 +930,19 @@ async def process_validation_job(job_id: str, citations: str, style: str):
             # Free tier - check limit
             if free_used >= FREE_LIMIT:
                 # Return partial results with all citations locked (user can see upgrade prompt)
-                # We need to call LLM just to count citations properly, but return empty results
                 logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
 
-                try:
-                    validation_results = await llm_provider.validate_citations(
-                        citations=citations,
-                        style=style
-                    )
-                    citation_count = len(validation_results["results"])
-                    logger.debug(f"Job {job_id}: Counted {citation_count} citations via LLM")
-                except Exception as e:
-                    logger.error(f"Job {job_id}: Failed to count citations: {str(e)}")
-                    # Fallback: estimate by splitting on double newlines
-                    citation_count = len([c.strip() for c in citations.split('\n\n') if c.strip()])
-                    logger.debug(f"Job {job_id}: Fallback citation count: {citation_count}")
+                # Split raw citations for counting and logging (no LLM call needed)
+                raw_citations = [c.strip() for c in citations.split('\n\n') if c.strip()]
+                citation_count = len(raw_citations)
+                logger.debug(f"Job {job_id}: Citation count from raw input: {citation_count}")
+
+                # Log citations for dashboard (even for over-limit users)
+                if raw_citations and CITATION_LOGGING_ENABLED:
+                    log_citations_to_dashboard(job_id, raw_citations)
+
+                # Log GATING_DECISION for dashboard parser to detect gated state
+                logger.info(f"GATING_DECISION: job_id={job_id} user_type=free results_gated=True reason='Free tier limit exceeded'")
 
                 # Note: pricing_table_shown tracking is now handled by frontend based on variant
                 # (inline variants track on mount, button variants track on click)

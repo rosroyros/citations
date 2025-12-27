@@ -77,10 +77,10 @@
             /* Spacing System */
             --space-xs: 0.25rem;
             --space-sm: 0.5rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
+            --space-md: 0.75rem;
+            --space-lg: 1rem;
+            --space-xl: 1.5rem;
+            --space-2xl: 2rem;
 
             /* Component-specific dimensions */
             --citations-max-height: 400px;
@@ -492,68 +492,55 @@
             opacity: 0.1;
         }
 
-        /* Status styling with refined colors */
+        /* Status styling - icon only, compact */
+        .status-completed,
+        .status-failed,
+        .status-pending {
+            padding: var(--space-xs);
+            border-radius: 6px;
+            font-size: 0;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            min-height: 28px;
+        }
+
         .status-completed {
             background: var(--color-success-bg);
             color: var(--color-success);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             border: 1px solid var(--color-success-border);
-            display: inline-block;
-            position: relative;
         }
 
         .status-completed::before {
-            content: '✓ ';
-            margin-right: var(--space-xs);
+            content: '✓';
+            font-size: 1rem;
             font-weight: 700;
         }
 
         .status-failed {
             background: var(--color-error-bg);
             color: var(--color-error);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             border: 1px solid var(--color-error-border);
-            display: inline-block;
-            position: relative;
         }
 
         .status-failed::before {
-            content: '✗ ';
-            margin-right: var(--space-xs);
+            content: '✗';
+            font-size: 1rem;
             font-weight: 700;
         }
 
         .status-pending {
             background: var(--color-pending-bg);
             color: var(--color-pending);
-            padding: var(--space-xs) var(--space-sm);
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
             border: 1px solid var(--color-pending-border);
-            display: inline-block;
-            position: relative;
             animation: pulse 2s ease-in-out infinite;
         }
 
         .status-pending::before {
-            content: '⟳ ';
-            margin-right: var(--space-xs);
+            content: '⟳';
+            font-size: 1rem;
             font-weight: 700;
         }
 
@@ -1429,8 +1416,8 @@
                         <th onclick="sortTable('user_id')">User ID</th>
                         <th onclick="sortTable('experiment_variant')">Variant</th>
                         <th onclick="sortTable('product_id')">Product</th>
-                        <th onclick="sortTable('status')">Status</th>
-                        <th onclick="sortTable('revealed')">Revealed</th>
+                        <th onclick="sortTable('status')" title="Status">📊</th>
+                        <th onclick="sortTable('revealed')" title="Revealed">👀</th>
                         <th onclick="sortTable('upgrade_state')">Upgrade</th>
                         <th onclick="sortTable('corrections_copied')" title="Corrections Copied">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -1823,22 +1810,22 @@
                 const tokens = validation.token_usage_total ? validation.token_usage_total.toLocaleString() : '-';
                 const durationClass = validation.duration_seconds > 30 ? 'duration-slow' : '';
 
-                // Determine revealed status
+                // Determine revealed status - simplified logic with historical data fix
                 let revealedStatus = '-';
                 let revealedClass = '';
+                const isGated = validation.results_gated === true || validation.results_gated === 1;
 
-                if (validation.results_gated === true) {
+                // If revealed_at exists, treat as gated (handles historical bug where results_gated=0 but revealed)
+                if (isGated || validation.results_revealed_at) {
                     if (validation.results_revealed_at) {
-                        revealedStatus = '✅ Revealed';
+                        revealedStatus = '<span title="Revealed">👀</span>';
                         revealedClass = 'revealed-yes';
                     } else {
-                        revealedStatus = '🔒 Gated';
+                        revealedStatus = '<span title="Gated - Not Revealed">🚧</span>';
                         revealedClass = 'revealed-gated';
                     }
-                } else if (validation.results_gated === false) {
-                    revealedStatus = '⚡ Free';
-                    revealedClass = 'revealed-free';
                 }
+                // If not gated and not revealed, show '-' (free tier under limit, paid users)
 
                 // Generate User ID display
                 let userIdDisplay = 'unknown';

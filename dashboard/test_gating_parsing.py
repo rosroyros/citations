@@ -29,6 +29,11 @@ def test_extract_gating_decision():
             "expected": ("xyz-789-uvw", True, "Anonymous user limit")
         },
         {
+            # New: Early return path logs from citation_validator logger instead of gating
+            "input": "2025-12-27 10:00:00 - citation_validator - INFO - GATING_DECISION: job_id=abc-def-123 user_type=free results_gated=True reason='Free tier limit exceeded'",
+            "expected": ("abc-def-123", True, "Free tier limit exceeded")
+        },
+        {
             "input": "This is not a gating decision log line",
             "expected": None
         }
