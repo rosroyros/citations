@@ -1432,11 +1432,18 @@
                         <th onclick="sortTable('status')">Status</th>
                         <th onclick="sortTable('revealed')">Revealed</th>
                         <th onclick="sortTable('upgrade_state')">Upgrade</th>
+                        <th onclick="sortTable('corrections_copied')" title="Corrections Copied">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="11" class="loading">Loading data...</td>
+                        <td colspan="14" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1858,9 +1865,10 @@
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
                         <td><span class="${revealedClass}">${revealedStatus}</span></td>
                         <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
+                        <td>${validation.corrections_copied > 0 ? validation.corrections_copied : '-'}</td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="11">
+                        <td colspan="14">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>

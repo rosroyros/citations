@@ -310,27 +310,6 @@ class GeminiProvider(CitationValidator):
                     logger.error(f"Non-retryable Gemini legacy API error: {str(e)}")
                     raise
     
-    def _format_markdown_to_html(self, text: str) -> str:
-        """
-        Convert markdown formatting (bold/italics) to HTML tags.
-        
-        Args:
-            text: Text with markdown formatting (**bold**, _italic_)
-            
-        Returns:
-            Text with HTML tags (<strong>bold</strong>, <em>italic</em>)
-        """
-        if not text:
-            return text
-            
-        # Convert bold (**text**) to HTML <strong>
-        text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
-        # Convert italics (_text_) to HTML <em>
-        text = re.sub(r'_([^_]+)_', r'<em>\1</em>', text)
-        # Convert italics (*text*) to HTML <em> (handle only single asterisks)
-        text = re.sub(r'(?<!\*)\*([^*]+)\*(?!\*)', r'<em>\1</em>', text)
-        
-        return text
 
     def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:
         """

@@ -220,6 +220,7 @@ class ValidationResponse(BaseModel):
     amount_cents: Optional[int] = Field(None, description="Purchase amount in cents")
     currency: Optional[str] = Field(None, description="Purchase currency")
     order_id: Optional[str] = Field(None, description="Polar order ID")
+    corrections_copied: Optional[int] = Field(None, description="Count of correction copy events")
 
 
 class StatsResponse(BaseModel):

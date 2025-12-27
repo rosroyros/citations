@@ -100,7 +100,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - Poll: Frontend checks `/api/jobs/{job_id}` every 2s.
 4. **Core Logic**:
    - **LLM Providers**: `backend/providers/gemini_provider.py` (Gemini 3 Flash) with `backend/providers/openai_provider.py` (OpenAI) as fallback.
-   - **System Prompt**: `backend/prompts/validator_prompt_optimized.txt` defines APA 7 rules and output format.
+   - **System Prompt**: `backend/prompts/validator_prompt_v2_corrected.txt` defines APA 7 rules and output format (includes CORRECTED CITATION section).
    - Consistency tests ensure deterministic output.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).
 6. **Result**: Structured feedback (Correct/Incorrect + specific rule violations).
@@ -130,6 +130,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
      - `TESTING=true` - enables test helper endpoints
      - `MOCK_LLM=true` - uses mock LLM responses for fast testing
   3. Frontend: `cd frontend/frontend && npm run dev`.
+  4. Dashboard: `cd dashboard && python3 -m uvicorn api:app --host 0.0.0.0 --port 4646 --reload` → http://localhost:4646/
 - **Test**:
   - Backend: `python3 -m pytest`.
   - Frontend: `npm test` (Unit), `npm run test:e2e` (Playwright).

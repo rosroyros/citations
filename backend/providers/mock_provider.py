@@ -1,6 +1,5 @@
 """Mock LLM provider for fast E2E testing without API calls."""
 from typing import Dict, Any
-import re
 from providers.base import CitationValidator
 
 
@@ -9,14 +8,6 @@ class MockProvider(CitationValidator):
     Mock citation validator that returns instant responses without API calls.
     Used for E2E testing to avoid slow/expensive OpenAI calls.
     """
-
-    def _convert_markdown_to_html(self, text: str) -> str:
-        """Convert markdown formatting to HTML for frontend display."""
-        # Convert bold (**text**) to HTML <strong>
-        text = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', text)
-        # Convert italics (_text_) to HTML <em>
-        text = re.sub(r'_([^_]+)_', r'<em>\1</em>', text)
-        return text
 
     async def validate_citations(self, citations: str, style: str = "apa7") -> Dict[str, Any]:
         """
@@ -44,7 +35,8 @@ class MockProvider(CitationValidator):
             citation_text = citation_lines[i] if i < len(citation_lines) else f"Citation {i+1}"
 
             # Convert markdown formatting to HTML for frontend display
-            original_with_formatting = self._convert_markdown_to_html(citation_text)
+            # Use shared method from base class
+            original_with_formatting = self._format_markdown_to_html(citation_text)
 
             # Alternate between valid and citations with errors
             if i % 3 == 0:
@@ -53,10 +45,14 @@ class MockProvider(CitationValidator):
                     "citation_number": i + 1,
                     "original": original_with_formatting,
                     "source_type": "journal",
-                    "errors": []
+                    "errors": [],
+                    "corrected_citation": None
                 })
             else:
                 # Citation with typical APA 7 errors
+                # Create a simple "corrected" version by lowercasing to simulate the sentence case fix
+                corrected_text = original_with_formatting.lower()
+                
                 results.append({
                     "citation_number": i + 1,
                     "original": original_with_formatting,
@@ -65,9 +61,10 @@ class MockProvider(CitationValidator):
                         {
                             "component": "Title",
                             "problem": "Journal article title should use sentence case (only first word and proper nouns capitalized)",
-                            "correction": original_with_formatting.lower()
+                            "correction": corrected_text
                         }
-                    ]
+                    ],
+                    "corrected_citation": corrected_text
                 })
 
         return {

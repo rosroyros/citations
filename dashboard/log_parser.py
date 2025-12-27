@@ -531,7 +531,25 @@ def extract_upgrade_workflow_event(log_line: str) -> Optional[Dict[str, Any]]:
     return result
 
 
+def extract_correction_event(log_line: str) -> Optional[Dict[str, Any]]:
+    """
+    Extract correction event from log line.
+    
+    Args:
+        log_line: The log line to parse
+        
+    Returns:
+        Dict with job_id and action if found, None otherwise
+    """
+    if "CORRECTION_EVENT:" not in log_line:
+        return None
+    pattern = r'CORRECTION_EVENT: job_id=(\S+) action=(\S+)'
+    match = re.search(pattern, log_line)
+    return {"job_id": match.group(1), "action": match.group(2)} if match else None
+
+
 def extract_citations_preview(log_line: str) -> Optional[tuple[str, bool]]:
+
     """
     Extract citation preview text from a log line.
 
@@ -816,7 +834,17 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                             job["free_user_id"] = free_user_id
                             break
 
+        # Check for correction event
+        correction_result = extract_correction_event(line)
+        if correction_result:
+            job_id = correction_result["job_id"]
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+            jobs[job_id]["corrections_copied"] = jobs[job_id].get("corrections_copied", 0) + 1
+            continue
+
         # Check for test job detection
+
         test_job_id = extract_test_job_indicator(line)
         if test_job_id:
             # Allow partial updates for existing jobs

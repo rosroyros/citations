@@ -258,6 +258,26 @@ Smith, J. (2020). _The Book Title_. Publisher.
         assert results[0]["errors"][0]["correction"] == "Smith, J."
         assert "<em>The Book Title</em>" in results[0]["errors"][1]["correction"]
 
+    def test_parse_response_with_corrected_citation(self, gemini_provider_new_api, sample_gemini_response_errors):
+        """Test parsing corrected citation with proper HTML formatting."""
+        results = gemini_provider_new_api._parse_response(sample_gemini_response_errors)
+        
+        assert len(results) == 1
+        assert results[0]['corrected_citation'] is not None
+        # Corrected citation should have markdown converted to HTML
+        assert '<em>The Book Title</em>' in results[0]['corrected_citation']
+        # Author should no longer be bold (was an error in original)
+        assert '<strong>' not in results[0]['corrected_citation']
+
+    def test_corrected_citation_not_present(self, gemini_provider_new_api, sample_gemini_response):
+        """Test that perfect citations do not have corrected_citation."""
+        results = gemini_provider_new_api._parse_response(sample_gemini_response)
+        
+        # First citation has no errors, should not have corrected_citation
+        for result in results:
+            if len(result['errors']) == 0:
+                assert result.get('corrected_citation') is None
+
     def test_parse_response_malformed_block(self, gemini_provider_new_api):
         """Test parsing response with malformed citation block."""
         malformed_response = """

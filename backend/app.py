@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 from dotenv import load_dotenv
 from html.parser import HTMLParser
 from typing import Optional, Dict, Any
@@ -516,6 +516,15 @@ class CitationResult(BaseModel):
     original: str
     source_type: str
     errors: list[CitationError]
+    corrected_citation: Optional[str] = None  # NEW: Full corrected citation with HTML formatting
+
+    @model_validator(mode='after')
+    def check_correction_validity(self) -> 'CitationResult':
+        """Ensure corrected_citation is None if there are no errors."""
+        # If no errors, corrected_citation must be None (prevent hallucinations)
+        if not self.errors and self.corrected_citation is not None:
+            self.corrected_citation = None
+        return self
 
 
 class UserStatus(BaseModel):
@@ -1359,6 +1368,28 @@ async def upgrade_event(request: dict):
         "message": "Upgrade workflow event logged."
     }
 
+
+@app.post("/api/correction-event")
+async def track_correction_event(request: dict):
+    """
+    Log correction events for dashboard tracking (feature adoption).
+    
+    Args:
+        request: Dict containing 'job_id', 'action', 'citation_number', 'source_type'
+    
+    Returns:
+        dict: Success status
+    """
+    job_id = request.get('job_id', 'None')
+    action = request.get('action', 'unknown')
+    citation_number = request.get('citation_number', 0)
+    source_type = request.get('source_type', 'unknown')
+    
+    logger.info(
+        f"CORRECTION_EVENT: job_id={job_id} action={action} "
+        f"citation_number={citation_number} source_type={source_type}"
+    )
+    return {"status": "ok"}
 
 @app.get("/api/dashboard")
 async def get_dashboard_data(

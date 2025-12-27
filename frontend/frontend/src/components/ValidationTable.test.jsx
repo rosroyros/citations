@@ -31,8 +31,8 @@ describe('ValidationTable', () => {
       document.querySelector = vi.fn().mockReturnValue(mockUpgradeBanner);
 
       const { container } = render(
-        <ValidationTable 
-          results={mockResults} 
+        <ValidationTable
+          results={mockResults}
           isPartial={true}
           citationsRemaining={3}
         />
@@ -46,9 +46,9 @@ describe('ValidationTable', () => {
 
       // Verify scroll behavior was triggered
       expect(document.querySelector).toHaveBeenCalledWith('.upgrade-banner');
-      expect(mockScrollIntoView).toHaveBeenCalledWith({ 
-        behavior: 'smooth', 
-        block: 'nearest' 
+      expect(mockScrollIntoView).toHaveBeenCalledWith({
+        behavior: 'smooth',
+        block: 'nearest'
       });
     });
 
@@ -83,8 +83,8 @@ describe('ValidationTable', () => {
       document.querySelector = vi.fn();
 
       const { container } = render(
-        <ValidationTable 
-          results={mockResults} 
+        <ValidationTable
+          results={mockResults}
           isPartial={false}
         />
       );
@@ -99,8 +99,8 @@ describe('ValidationTable', () => {
 
     it('has correct ARIA attributes for accessibility', () => {
       const { container } = render(
-        <ValidationTable 
-          results={mockResults} 
+        <ValidationTable
+          results={mockResults}
           isPartial={true}
           citationsRemaining={3}
         />
@@ -168,8 +168,8 @@ describe('ValidationTable', () => {
 
     it('does not show remaining stat when not partial', () => {
       const { container } = render(
-        <ValidationTable 
-          results={mockResults} 
+        <ValidationTable
+          results={mockResults}
           isPartial={false}
         />
       );
@@ -178,5 +178,45 @@ describe('ValidationTable', () => {
       const remainingStat = container.querySelector('.stat-remaining');
       expect(remainingStat).toBeFalsy();
     });
+  });
+
+  describe('Corrected Citation Integration', () => {
+    it('renders CorrectedCitationCard when corrected_citation is present in expanded row', () => {
+      const resultsWithCorrection = [
+        {
+          citation_number: 1,
+          original: 'Bad citation',
+          source_type: 'journal',
+          errors: [{ component: 'Title', problem: 'Bad title' }],
+          corrected_citation: 'Good citation'
+        }
+      ]
+
+      const { container } = render(
+        <ValidationTable results={resultsWithCorrection} />
+      )
+
+      // Row is expanded by default for errors
+      expect(screen.getByText('✓ CORRECTED')).toBeTruthy()
+      expect(screen.getByText('Good citation')).toBeTruthy()
+    })
+
+    it('does not render CorrectedCitationCard when corrected_citation is missing', () => {
+      const resultsWithoutCorrection = [
+        {
+          citation_number: 1,
+          original: 'Bad citation',
+          source_type: 'journal',
+          errors: [{ component: 'Title', problem: 'Bad title' }],
+          corrected_citation: null
+        }
+      ]
+
+      const { container } = render(
+        <ValidationTable results={resultsWithoutCorrection} />
+      )
+
+      expect(screen.queryByText('✓ CORRECTED')).toBeNull()
+    })
   });
 });

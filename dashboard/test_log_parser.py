@@ -20,6 +20,7 @@ from log_parser import (
     extract_full_citations,
     extract_user_ids,
     extract_provider_selection,
+    extract_correction_event,
     parse_job_events,
     find_job_by_timestamp,
     parse_metrics,
@@ -715,6 +716,62 @@ class TestLogParser(unittest.TestCase):
         self.assertIsNotNone(job)
         # Even with fallback, the provider logged is model_a (the one actually used)
         self.assertEqual(job["provider"], "model_a")
+
+    # ==================== CORRECTION EVENT TESTS ====================
+
+    def test_extract_correction_event_valid(self):
+        """Test extracting correction event from valid log line."""
+        log_line = "2025-12-26 10:00:00 - INFO - CORRECTION_EVENT: job_id=abc-123-def action=copied citation_number=2 source_type=journal"
+        result = extract_correction_event(log_line)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["job_id"], "abc-123-def")
+        self.assertEqual(result["action"], "copied")
+
+    def test_extract_correction_event_uuid_job_id(self):
+        """Test extracting correction event with UUID job ID."""
+        log_line = "2025-12-26 10:00:00 - INFO - CORRECTION_EVENT: job_id=12345678-1234-1234-1234-123456789abc action=copied citation_number=1 source_type=book"
+        result = extract_correction_event(log_line)
+        self.assertIsNotNone(result)
+        self.assertEqual(result["job_id"], "12345678-1234-1234-1234-123456789abc")
+        self.assertEqual(result["action"], "copied")
+
+    def test_extract_correction_event_none(self):
+        """Test that non-matching lines return None."""
+        log_line = "2025-12-26 10:00:00 - INFO - Some other log line"
+        result = extract_correction_event(log_line)
+        self.assertIsNone(result)
+
+    def test_extract_correction_event_empty_line(self):
+        """Test extracting correction event from empty line."""
+        result = extract_correction_event("")
+        self.assertIsNone(result)
+
+    def test_parse_job_events_increments_corrections(self):
+        """Test that parse_job_events counts multiple correction events per job."""
+        log_lines = [
+            "2025-12-26 10:00:00 Creating async job abc-123-def for free user",
+            "2025-12-26 10:05:00 - INFO - CORRECTION_EVENT: job_id=abc-123-def action=copied citation_number=1 source_type=journal",
+            "2025-12-26 10:05:30 - INFO - CORRECTION_EVENT: job_id=abc-123-def action=copied citation_number=2 source_type=book",
+            "2025-12-26 10:06:00 - INFO - CORRECTION_EVENT: job_id=abc-123-def action=copied citation_number=3 source_type=website"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        job = jobs.get("abc-123-def")
+        self.assertIsNotNone(job)
+        self.assertEqual(job["corrections_copied"], 3)
+
+    def test_parse_job_events_correction_event_creates_job(self):
+        """Test that correction events can create jobs if they don't exist."""
+        log_lines = [
+            "2025-12-26 10:05:00 - INFO - CORRECTION_EVENT: job_id=new-job-123 action=copied citation_number=1 source_type=journal"
+        ]
+
+        jobs = parse_job_events(log_lines)
+
+        job = jobs.get("new-job-123")
+        self.assertIsNotNone(job)
+        self.assertEqual(job["corrections_copied"], 1)
 
 
 if __name__ == '__main__':

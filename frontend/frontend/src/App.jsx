@@ -929,6 +929,7 @@ function AppContent() {
               {/* Always render the validation table */}
               <ValidationTable
                 results={results.results}
+                jobId={results.job_id}
                 style={{
                   filter: isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? 'blur(8px)' : 'none',
                   transition: 'filter 0.3s ease-out',

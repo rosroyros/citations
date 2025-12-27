@@ -278,6 +278,7 @@ export function PartialResults({ results, partial, citations_checked, citations_
     <div className="partial-results-container" data-testid="partial-results">
       <ValidationTable
         results={results}
+        jobId={job_id}
         isPartial={true}
         totalSubmitted={citations_checked + citations_remaining}
         citationsRemaining={citations_remaining}
