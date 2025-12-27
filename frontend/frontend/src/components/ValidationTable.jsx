@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './ValidationTable.css'
+import CorrectedCitationCard from './CorrectedCitationCard'
 
-function ValidationTable({ results, isPartial = false, totalSubmitted = null, citationsRemaining = 0 }) {
+function ValidationTable({ results, isPartial = false, totalSubmitted = null, citationsRemaining = 0, jobId = null }) {
   const [expandedRows, setExpandedRows] = useState(() => {
     // Initialize with error rows expanded
     const initial = {}
@@ -112,25 +113,38 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
                   </div>
 
                   {hasErrors && isExpanded && (
-                    <div className="error-details">
-                      <ul className="error-list">
-                        {result.errors.map((error, index) => (
-                          <li key={index} className="error-item">
-                            <div className="error-component">
-                              {error.component}
-                            </div>
-                            <div className="error-problem">
-                              {error.problem}
-                            </div>
-                            {error.correction && (
-                              <div className="error-correction">
-                                <strong>Should be:</strong> <span dangerouslySetInnerHTML={{ __html: error.correction }} />
+                    <>
+                      {result.corrected_citation && (
+                        <CorrectedCitationCard
+                          correctedCitation={result.corrected_citation}
+                          citationNumber={result.citation_number}
+                          sourceType={result.source_type}
+                          jobId={jobId}
+                        />
+                      )}
+                      <div className="error-details">
+                        <div className="error-details-header">
+                          Issues Found ({result.errors.length})
+                        </div>
+                        <ul className="error-list">
+                          {result.errors.map((error, index) => (
+                            <li key={index} className="error-item">
+                              <div className="error-component">
+                                {error.component}
                               </div>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                              <div className="error-problem">
+                                {error.problem}
+                              </div>
+                              {error.correction && (
+                                <div className="error-correction">
+                                  <strong>Should be:</strong> <span dangerouslySetInnerHTML={{ __html: error.correction }} />
+                                </div>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </>
                   )}
                 </td>
                 <td>
