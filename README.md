@@ -72,6 +72,14 @@ User → Frontend → POST /api/validate/async → Background Worker
 - **Provider Column**: Displays which AI model handled each request (Gemini 3 Flash or OpenAI fallback).
 - **Access**: Internal tool, no auth (dev), firewall protected (prod).
 
+## Telegram Notifications
+- **Purpose**: Real-time notifications for completed validation jobs (excluding tests).
+- **Script**: `dashboard/telegram_notifier.py` (Run via Cron).
+- **Config**: Requires `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in `.env`.
+- **Logic**: Polls DB every minute for jobs completed > last notified timestamp AND < 5 min ago.
+- **Deduplication**: Uses `telegram_last_notified_timestamp` key in `parser_metadata` table.
+- **Message**: Includes job stats, user type, provider, revealed status, and upgrade funnel icons.
+
 ## Upgrade Funnel
 Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
 - **Architecture**: See [docs/architecture/UPGRADE_FLOW_ARCHITECTURE.md](docs/architecture/UPGRADE_FLOW_ARCHITECTURE.md) for full documentation.
