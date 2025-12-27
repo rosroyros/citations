@@ -65,6 +65,14 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     }] : []),
 
+    // Internal dashboard tests - VPN-only, requires Tailscale access
+    // Run explicitly with: npx playwright test --project=internal
+    {
+      name: 'internal',
+      testMatch: ['**/internal/**'],
+      use: { ...devices['Desktop Chrome'] },
+    },
+
     // Component tests - Dev-only, uses /test-* routes
     // Run explicitly with: npx playwright test --project=component-tests
     {

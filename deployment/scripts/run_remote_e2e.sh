@@ -99,7 +99,7 @@ done
 # 4. Verify Internal Dashboard UI (Local -> Internal IP)
 echo -e "\n${GREEN}[4/4] Verifying Internal Dashboard UI (Local -> Internal IP)...${NC}"
 cd "$FRONTEND_DIR"
-npm run test:e2e -- tests/internal/e2e-internal-dashboard.spec.cjs --project=chromium
+npm run test:e2e -- tests/internal/e2e-internal-dashboard.spec.cjs --project=internal
 
 if [ $? -eq 0 ]; then
     echo -e "\n${GREEN}✅ Hybrid E2E Test PASSED!${NC}"
