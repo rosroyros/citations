@@ -187,7 +187,7 @@ test.describe('Corrected Citation Feature', () => {
                             ],
                             corrected_citation: 'Smith, J. (2020). <em>The Wrong Title</em>. Publisher.'
                         }],
-                        user_status: { type: 'credits', balance: 99 }
+                        user_status: { type: 'credits', balance: 99, full_access: true }
                     }
                 })
             });
