@@ -221,6 +221,8 @@ class ValidationResponse(BaseModel):
     currency: Optional[str] = Field(None, description="Purchase currency")
     order_id: Optional[str] = Field(None, description="Polar order ID")
     corrections_copied: Optional[int] = Field(None, description="Count of correction copy events")
+    valid_citations_count: Optional[int] = Field(None, description="Number of valid citations")
+    invalid_citations_count: Optional[int] = Field(None, description="Number of invalid citations")
 
 
 class StatsResponse(BaseModel):

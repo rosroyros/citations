@@ -492,56 +492,34 @@
             opacity: 0.1;
         }
 
-        /* Status styling - icon only, compact */
+        /* Status styling - minimal sleek icons */
         .status-completed,
         .status-failed,
         .status-pending {
-            padding: var(--space-xs);
-            border-radius: 6px;
             font-size: 0;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 28px;
-            min-height: 28px;
-        }
-
-        .status-completed {
-            background: var(--color-success-bg);
-            color: var(--color-success);
-            border: 1px solid var(--color-success-border);
+            display: inline-block;
         }
 
         .status-completed::before {
             content: '✓';
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .status-failed {
-            background: var(--color-error-bg);
-            color: var(--color-error);
-            border: 1px solid var(--color-error-border);
+            font-size: 0.9rem;
+            color: var(--color-success);
         }
 
         .status-failed::before {
             content: '✗';
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--color-error);
         }
 
         .status-pending {
-            background: var(--color-pending-bg);
-            color: var(--color-pending);
-            border: 1px solid var(--color-pending-border);
             animation: pulse 2s ease-in-out infinite;
         }
 
         .status-pending::before {
             content: '⟳';
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--color-pending);
         }
 
         /* Gating status styles */
@@ -1410,6 +1388,10 @@
                         <th onclick="sortTable('created_at')">Time</th>
                         <th onclick="sortTable('duration_seconds')">Duration</th>
                         <th onclick="sortTable('citation_count')">Citations</th>
+                        <th onclick="sortTable('valid_citations_count')" title="Valid Citations"
+                            style="color: var(--color-success);">✓</th>
+                        <th onclick="sortTable('invalid_citations_count')" title="Invalid Citations"
+                            style="color: var(--color-error);">✗</th>
                         <th onclick="sortTable('token_usage')">Tokens</th>
                         <th onclick="sortTable('provider')">Provider</th>
                         <th onclick="sortTable('user_type')">User</th>
@@ -1418,7 +1400,6 @@
                         <th onclick="sortTable('product_id')">Product</th>
                         <th onclick="sortTable('status')" title="Status">📊</th>
                         <th onclick="sortTable('revealed')" title="Revealed">👀</th>
-                        <th onclick="sortTable('upgrade_state')">Upgrade</th>
                         <th onclick="sortTable('corrections_copied')" title="Corrections Copied">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
@@ -1426,6 +1407,7 @@
                                 <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                             </svg>
                         </th>
+                        <th onclick="sortTable('upgrade_state')">Upgrade</th>
                     </tr>
                 </thead>
                 <tbody id="validationsTable">
@@ -1843,6 +1825,8 @@
                         <td>${createdTime}</td>
                         <td class="${durationClass}">${duration}</td>
                         <td>${citations}</td>
+                        <td style="color: var(--color-success);">${validation.valid_citations_count || '-'}</td>
+                        <td style="color: var(--color-error);">${validation.invalid_citations_count || '-'}</td>
                         <td>${tokens}</td>
                         <td>${mapProviderToDisplay(validation.provider)}</td>
                         <td>${validation.user_type}</td>
@@ -1851,11 +1835,11 @@
                         <td>${getProductDisplay(validation.product_id)}</td>
                         <td><span class="status-${validation.status}">${validation.status}</span></td>
                         <td><span class="${revealedClass}">${revealedStatus}</span></td>
-                        <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
                         <td>${validation.corrections_copied > 0 ? validation.corrections_copied : '-'}</td>
+                        <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="14">
+                        <td colspan="16">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>
