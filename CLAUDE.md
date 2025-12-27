@@ -189,3 +189,11 @@ Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from d
 - **Fallback**: Gemini failures automatically fall back to OpenAI
 - **A/B Testing**: Infrastructure preserved in `modelPreference.js` for future experiments
 - **Monitoring**: Dashboard displays provider used (model_c = Gemini 3, model_a = OpenAI fallback)
+
+## Validation Prompt
+- **Current**: `validator_prompt_v3_no_hallucination.txt` (deployed 2025-12-27)
+- **Features**:
+  - Uses `[MISSING: ...]` placeholders for unavailable bibliographic data instead of hallucinating
+  - Ignores leading numbered bullets (1., 2., etc.) in user input
+- **Testing**: `Checker_Prompt_Optimization/test_v3_prompt_batched.py` validates accuracy
+

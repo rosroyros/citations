@@ -100,7 +100,9 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - Poll: Frontend checks `/api/jobs/{job_id}` every 2s.
 4. **Core Logic**:
    - **LLM Providers**: `backend/providers/gemini_provider.py` (Gemini 3 Flash) with `backend/providers/openai_provider.py` (OpenAI) as fallback.
-   - **System Prompt**: `backend/prompts/validator_prompt_v2_corrected.txt` defines APA 7 rules and output format (includes CORRECTED CITATION section).
+   - **System Prompt**: `backend/prompts/validator_prompt_v3_no_hallucination.txt` defines APA 7 rules and output format.
+     - Uses `[MISSING: ...]` placeholders for unavailable data instead of hallucinating
+     - Ignores leading numbered bullets (1., 2., etc.) in user input
    - Consistency tests ensure deterministic output.
 5. **UX**: Progressive Reveal + Status Rotator (Simulates detailed analysis).
 6. **Result**: Structured feedback (Correct/Incorrect + specific rule violations).

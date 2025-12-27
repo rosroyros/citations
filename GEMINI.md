@@ -179,7 +179,15 @@ print(f"✅ Sitemap updated with {len(entries)} entries")
 ## Test Job Indicator
 Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from dashboard metrics via `is_test_job` database column.
 
-## Model Selection Priority
-- Balance performance vs cost
-- Start with OpenAI (GPT-4o-mini or similar)
-- Support multiple providers (abstraction layer)
+## Model Selection
+- **Production**: Gemini 3 Flash (`gemini-3-flash-preview`) as default
+- **Fallback**: OpenAI (GPT-4o-mini) when Gemini fails
+- **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required
+
+## Validation Prompt
+- **Current**: `validator_prompt_v3_no_hallucination.txt` (deployed 2025-12-27)
+- **Features**:
+  - Uses `[MISSING: ...]` placeholders for unavailable bibliographic data instead of hallucinating
+  - Ignores leading numbered bullets (1., 2., etc.) in user input
+- **Testing**: `Checker_Prompt_Optimization/test_v3_prompt_batched.py` validates accuracy
+

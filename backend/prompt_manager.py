@@ -23,7 +23,7 @@ class PromptManager:
         if prompt_path is None:
             # Default to GEPA-optimized prompt in backend/prompts/
             backend_dir = Path(__file__).parent
-            prompt_path = backend_dir / "prompts" / "validator_prompt_optimized.txt"
+            prompt_path = backend_dir / "prompts" / "validator_prompt_v3_no_hallucination.txt"
 
         self.prompt_path = Path(prompt_path)
         logger.debug(f"PromptManager initialized with path: {self.prompt_path}")
