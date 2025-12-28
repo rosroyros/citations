@@ -299,7 +299,7 @@ def extract_failure(log_line: str) -> Optional[tuple]:
     return None
 
 
-def extract_provider_selection(log_line: str) -> Optional[Tuple[str, str]]:
+def extract_provider_selection(log_line: str) -> Optional[Tuple[str, str, str]]:
     """
     Extract provider selection information from a log line.
 
@@ -307,17 +307,28 @@ def extract_provider_selection(log_line: str) -> Optional[Tuple[str, str]]:
         log_line: The log line to extract provider selection info from
 
     Returns:
-        tuple of (job_id, provider) if found, None otherwise
+        tuple of (job_id, style, provider) if found, None otherwise
+        For backward compatibility with logs without style, defaults to 'apa7'
     """
-    # Pattern matches: PROVIDER_SELECTION: job_id=abc-123 model=model_a status=success fallback=False
+    # New pattern with style: PROVIDER_SELECTION: job_id=abc-123 style=apa7 model=model_a status=success fallback=False
     # Job ID pattern matches UUIDs and other job ID formats
-    provider_pattern = r'PROVIDER_SELECTION: job_id=([\w-]+) model=(\w+)'
-    match = re.search(provider_pattern, log_line)
+    provider_pattern_with_style = r'PROVIDER_SELECTION: job_id=([\w-]+) style=(\w+) model=(\w+)'
+    match = re.search(provider_pattern_with_style, log_line)
 
     if match:
         job_id = match.group(1)
-        provider = match.group(2)
-        return job_id, provider
+        style = match.group(2)
+        provider = match.group(3)
+        return job_id, style, provider
+
+    # Fallback for old logs without style field
+    provider_pattern_legacy = r'PROVIDER_SELECTION: job_id=([\w-]+) model=(\w+)'
+    match_legacy = re.search(provider_pattern_legacy, log_line)
+
+    if match_legacy:
+        job_id = match_legacy.group(1)
+        provider = match_legacy.group(2)
+        return job_id, 'apa7', provider  # Default to apa7 for historical logs
 
     return None
 
@@ -743,9 +754,10 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
         # Check for provider selection
         provider_result = extract_provider_selection(line)
         if provider_result:
-            job_id, provider = provider_result
+            job_id, style, provider = provider_result
             if job_id in jobs:
                 jobs[job_id]["provider"] = provider
+                jobs[job_id]["style"] = style
             continue
 
         # Check for citation count (direct job_id matching, preferred over timestamp-based)

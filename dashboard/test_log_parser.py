@@ -649,31 +649,44 @@ class TestLogParser(unittest.TestCase):
     # ==================== PROVIDER SELECTION TESTS ====================
 
     def test_extract_provider_selection_model_a(self):
-        """Test extracting provider selection for model_a."""
+        """Test extracting provider selection for model_a (legacy format without style)."""
         log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=abc-123 model=model_a status=success fallback=False"
         result = extract_provider_selection(log_line)
         self.assertIsNotNone(result)
-        job_id, provider = result
+        job_id, style, provider = result
         self.assertEqual(job_id, "abc-123")
+        self.assertEqual(style, "apa7")  # Default for legacy logs
         self.assertEqual(provider, "model_a")
 
     def test_extract_provider_selection_model_b(self):
-        """Test extracting provider selection for model_b."""
+        """Test extracting provider selection for model_b (legacy format without style)."""
         log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=test-job-456 model=model_b status=success fallback=false"
         result = extract_provider_selection(log_line)
         self.assertIsNotNone(result)
-        job_id, provider = result
+        job_id, style, provider = result
         self.assertEqual(job_id, "test-job-456")
+        self.assertEqual(style, "apa7")  # Default for legacy logs
         self.assertEqual(provider, "model_b")
 
     def test_extract_provider_selection_uuid_job_id(self):
-        """Test extracting provider selection with UUID job ID."""
+        """Test extracting provider selection with UUID job ID (legacy format)."""
         log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=12345678-1234-1234-1234-123456789abc model=model_b status=success fallback=False"
         result = extract_provider_selection(log_line)
         self.assertIsNotNone(result)
-        job_id, provider = result
+        job_id, style, provider = result
         self.assertEqual(job_id, "12345678-1234-1234-1234-123456789abc")
+        self.assertEqual(style, "apa7")  # Default for legacy logs
         self.assertEqual(provider, "model_b")
+
+    def test_extract_provider_selection_with_style(self):
+        """Test extracting provider selection with new format including style."""
+        log_line = "2025-12-09 10:00:00 - INFO - PROVIDER_SELECTION: job_id=abc-123-def style=mla9 model=model_c status=success fallback=False"
+        result = extract_provider_selection(log_line)
+        self.assertIsNotNone(result)
+        job_id, style, provider = result
+        self.assertEqual(job_id, "abc-123-def")
+        self.assertEqual(style, "mla9")
+        self.assertEqual(provider, "model_c")
 
     def test_extract_provider_selection_invalid_line(self):
         """Test extracting provider selection from non-matching line."""
