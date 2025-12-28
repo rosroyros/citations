@@ -33,8 +33,14 @@ from pricing_config import PRODUCT_CONFIG, get_next_utc_midnight
 # Import analytics for funnel data
 from dashboard.analytics import parse_upgrade_events
 
+# Import styles module for multi-style support
+from styles import SUPPORTED_STYLES, DEFAULT_STYLE, is_valid_style
+
 # Load environment variables
 load_dotenv()
+
+# MLA feature flag - controls visibility of MLA9 in /api/styles
+MLA_ENABLED = os.getenv('MLA_ENABLED', 'false').lower() == 'true'
 
 # Initialize logger
 logger = setup_logger("citation_validator")
@@ -725,6 +731,25 @@ async def health_check_api():
     Health check endpoint alias for frontend proxy.
     """
     return {"status": "ok"}
+
+
+@app.get("/api/styles")
+async def get_available_styles():
+    """
+    Return available citation styles based on feature flags.
+
+    Returns:
+        dict: Available styles with labels and default style
+    """
+    styles = {"apa7": SUPPORTED_STYLES["apa7"]["label"]}
+
+    if MLA_ENABLED:
+        styles["mla9"] = SUPPORTED_STYLES["mla9"]["label"]
+
+    return {
+        "styles": styles,
+        "default": DEFAULT_STYLE
+    }
 
 
 @app.get("/debug-env")

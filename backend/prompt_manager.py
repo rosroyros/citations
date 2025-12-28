@@ -4,7 +4,9 @@ Loads validation prompts and formats citations for LLM input.
 """
 import os
 from pathlib import Path
+from typing import Optional
 from logger import setup_logger
+from styles import StyleType, DEFAULT_STYLE, get_style_config
 
 logger = setup_logger("prompt_manager")
 
@@ -18,19 +20,18 @@ class PromptManager:
 
         Args:
             prompt_path: Optional custom path to prompt file.
-                        Defaults to backend/prompts/validator_prompt.txt
+                        If not provided, prompts are loaded dynamically based on style.
         """
-        if prompt_path is None:
-            # Default to GEPA-optimized prompt in backend/prompts/
-            backend_dir = Path(__file__).parent
-            prompt_path = backend_dir / "prompts" / "validator_prompt_v3_no_hallucination.txt"
+        self._custom_prompt_path = Path(prompt_path) if prompt_path else None
+        self._prompts_dir = Path(__file__).parent / "prompts"
+        logger.debug(f"PromptManager initialized with prompts dir: {self._prompts_dir}")
 
-        self.prompt_path = Path(prompt_path)
-        logger.debug(f"PromptManager initialized with path: {self.prompt_path}")
-
-    def load_prompt(self) -> str:
+    def load_prompt(self, style: StyleType = DEFAULT_STYLE) -> str:
         """
-        Load the validation prompt from file.
+        Load the validation prompt for a given citation style.
+
+        Args:
+            style: Citation style to load prompt for (default: apa7)
 
         Returns:
             str: The prompt template text
@@ -38,16 +39,24 @@ class PromptManager:
         Raises:
             FileNotFoundError: If prompt file doesn't exist
         """
-        logger.debug(f"Loading prompt from: {self.prompt_path}")
+        # Use custom path if provided (for backward compatibility)
+        if self._custom_prompt_path:
+            prompt_path = self._custom_prompt_path
+        else:
+            # Load from styles config
+            config = get_style_config(style)
+            prompt_path = self._prompts_dir / config["prompt_file"]
 
-        if not self.prompt_path.exists():
-            logger.error(f"Prompt file not found: {self.prompt_path}")
-            raise FileNotFoundError(f"Prompt file not found: {self.prompt_path}")
+        logger.debug(f"Loading prompt from: {prompt_path}")
 
-        with open(self.prompt_path, 'r', encoding='utf-8') as f:
+        if not prompt_path.exists():
+            logger.error(f"Prompt file not found: {prompt_path}")
+            raise FileNotFoundError(f"Prompt file not found: {prompt_path}")
+
+        with open(prompt_path, 'r', encoding='utf-8') as f:
             prompt = f.read()
 
-        logger.info(f"Loaded validation prompt: {self.prompt_path.name} ({len(prompt)} characters)")
+        logger.info(f"Loaded validation prompt: {prompt_path.name} ({len(prompt)} characters)")
         return prompt
 
     def format_citations(self, citations_text: str) -> str:
@@ -109,12 +118,13 @@ class PromptManager:
 
         return result
 
-    def build_prompt(self, citations_text: str) -> str:
+    def build_prompt(self, citations_text: str, style: StyleType = DEFAULT_STYLE) -> str:
         """
         Build complete prompt with validation rules + citations.
 
         Args:
             citations_text: Raw citation text from user
+            style: Citation style to use (default: apa7)
 
         Returns:
             str: Complete prompt ready for LLM
@@ -123,9 +133,9 @@ class PromptManager:
             ValueError: If citations_text is empty
             FileNotFoundError: If prompt template not found
         """
-        logger.debug("Building full prompt")
+        logger.debug(f"Building full prompt for style: {style}")
 
-        prompt_template = self.load_prompt()
+        prompt_template = self.load_prompt(style)
         formatted_citations = self.format_citations(citations_text)
 
         # Combine prompt + citations
