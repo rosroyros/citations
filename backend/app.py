@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, model_validator
+from pydantic import BaseModel, model_validator, field_validator
 from dotenv import load_dotenv
 from html.parser import HTMLParser
 from typing import Optional, Dict, Any
@@ -142,7 +142,7 @@ async def validate_with_provider_fallback(
         # Log duration with job_id for direct matching in dashboard log parser
         logger.info(f"Job {job_id}: LLM API completed in {api_duration:.3f}s")
         # Log successful provider selection
-        logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback={initial_fallback}")
+        logger.info(f"PROVIDER_SELECTION: job_id={job_id} style={style} model={internal_model_id} status=success fallback={initial_fallback}")
         return validation_results
     except Exception as provider_error:
         # If Gemini (model_b or model_c) fails, fallback to OpenAI
@@ -161,7 +161,7 @@ async def validate_with_provider_fallback(
             # Log duration with job_id for direct matching in dashboard log parser
             logger.info(f"Job {job_id}: LLM API completed in {api_duration:.3f}s")
             # Log fallback event
-            logger.info(f"PROVIDER_SELECTION: job_id={job_id} model={internal_model_id} status=success fallback=true")
+            logger.info(f"PROVIDER_SELECTION: job_id={job_id} style={style} model={internal_model_id} status=success fallback=true")
             return validation_results
         else:
             # Re-raise the error if it's not a Gemini provider or fallback already occurred
@@ -506,7 +506,16 @@ async def log_requests(request, call_next):
 class ValidationRequest(BaseModel):
     """Request model for citation validation."""
     citations: str
-    style: str
+    style: str = DEFAULT_STYLE  # Default to apa7 for backward compatibility
+
+    @field_validator('style')
+    @classmethod
+    def validate_style(cls, v: str) -> str:
+        """Validate that style is a supported citation style."""
+        if not is_valid_style(v):
+            styles_list = list(SUPPORTED_STYLES.keys())
+            raise ValueError(f"Unsupported style: '{v}'. Supported styles: {styles_list}")
+        return v
 
 
 class CitationError(BaseModel):
