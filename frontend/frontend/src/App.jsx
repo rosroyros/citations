@@ -13,6 +13,7 @@ import GatedResults from './components/GatedResults'
 import Footer from './components/Footer'
 import { UploadArea } from './components/UploadArea'
 import { ComingSoonModal } from './components/ComingSoonModal'
+import { StyleSelector } from './components/StyleSelector'
 import { getToken, getFreeUsage, ensureFreeUserId } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
 import { trackEvent, trackResultsRevealedSafe } from './utils/analytics'
@@ -107,6 +108,7 @@ function AppContent() {
   // Upload state
   const [showComingSoonModal, setShowComingSoonModal] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedStyle, setSelectedStyle] = useState('apa7')
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const validationSectionRef = useRef(null)
@@ -686,7 +688,7 @@ function AppContent() {
           headers,
           body: JSON.stringify({
             citations: htmlContent,
-            style: 'apa7',
+            style: selectedStyle,
           }),
         })
 
@@ -856,7 +858,12 @@ function AppContent() {
           <form onSubmit={handleSubmit}>
             <div className="input-layout">
               <div className="editor-column">
-                <label>Paste your citations below (APA 7th edition)</label>
+                <label>Paste your citations below</label>
+                <StyleSelector
+                  selectedStyle={selectedStyle}
+                  onStyleChange={setSelectedStyle}
+                  disabled={loading}
+                />
                 <div data-testid="editor">
                   <EditorContent editor={editor} />
                 </div>

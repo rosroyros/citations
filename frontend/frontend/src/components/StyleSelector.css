@@ -1,0 +1,81 @@
+/* StyleSelector - Tab-based citation style selector */
+
+.style-selector {
+  display: flex;
+  gap: 0;
+  margin-bottom: 1rem;
+  background: var(--background-secondary, #f8f9fa);
+  border-radius: 8px;
+  padding: 4px;
+  width: fit-content;
+}
+
+.style-tab {
+  padding: 8px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #6c757d);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.style-tab:hover:not(:disabled):not(.style-tab--active) {
+  background: var(--background-hover, rgba(0, 0, 0, 0.05));
+  color: var(--text-primary, #212529);
+}
+
+.style-tab--active {
+  background: white;
+  color: var(--brand-color, #4f46e5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+.style-tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Focus state for accessibility */
+.style-tab:focus-visible {
+  outline: 2px solid var(--brand-color, #4f46e5);
+  outline-offset: 2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .style-selector {
+    background: var(--background-secondary-dark, #1f2937);
+  }
+
+  .style-tab {
+    color: var(--text-muted-dark, #9ca3af);
+  }
+
+  .style-tab:hover:not(:disabled):not(.style-tab--active) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary-dark, #f9fafb);
+  }
+
+  .style-tab--active {
+    background: var(--background-dark, #374151);
+    color: var(--brand-color-light, #818cf8);
+  }
+}
+
+/* Responsive: Stack vertically on very narrow screens */
+@media (max-width: 360px) {
+  .style-selector {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .style-tab {
+    width: 100%;
+    text-align: center;
+  }
+}
