@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from providers.base import CitationValidator
 from prompt_manager import PromptManager
 from logger import setup_logger
+from styles import StyleType, DEFAULT_STYLE, get_style_config
 
 # Try to import the new Google genai API first, fallback to legacy
 try:
@@ -68,24 +69,24 @@ class GeminiProvider(CitationValidator):
             self.use_new_api = False
             logger.info(f"Gemini provider initialized with legacy API and model: {model}")
 
-    async def validate_citations(self, citations: str, style: str = "apa7") -> Dict[str, Any]:
+    async def validate_citations(self, citations: str, style: StyleType = DEFAULT_STYLE) -> Dict[str, Any]:
         """
         Validate citations using Gemini API.
 
         Args:
             citations: Raw citation text
-            style: Citation style (default: "apa7")
+            style: Citation style (default: apa7)
 
         Returns:
             Validation results dictionary with structured errors
         """
-        logger.info(f"Starting validation for {len(citations)} characters of citation text")
+        logger.info(f"Starting validation for {len(citations)} characters of citation text (style={style})")
         logger.debug(f"Citations to validate: {citations[:2000]}...")
 
         start_time = time.time()
 
-        # Build prompt components
-        prompt_template = self.prompt_manager.load_prompt()
+        # Build prompt components - pass style to load correct prompt
+        prompt_template = self.prompt_manager.load_prompt(style)
         formatted_citations = self.prompt_manager.format_citations(citations)
 
         # Build the full prompt using User Content strategy
@@ -137,7 +138,7 @@ class GeminiProvider(CitationValidator):
         # Parse the response
         parse_start = time.time()
         try:
-            parsed_results = self._parse_response(response_text)
+            parsed_results = self._parse_response(response_text, style)
             parse_duration = time.time() - parse_start
             logger.debug(f"Parsed response in {parse_duration:.3f}s")
         except Exception as e:
@@ -311,13 +312,14 @@ class GeminiProvider(CitationValidator):
                     raise
     
 
-    def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:
+    def _parse_response(self, response_text: str, style: StyleType = DEFAULT_STYLE) -> List[Dict[str, Any]]:
         """
         Parse Gemini response text into structured validation results.
         Uses the same parsing logic as OpenAI provider for consistency.
 
         Args:
             response_text: Raw text from Gemini
+            style: Citation style for parsing success messages
 
         Returns:
             List of validation results, one per citation
@@ -336,7 +338,7 @@ class GeminiProvider(CitationValidator):
             block_content = match.group(2)
 
             try:
-                result = self._parse_citation_block(citation_num, block_content)
+                result = self._parse_citation_block(citation_num, block_content, style)
                 if result:
                     results.append(result)
             except Exception as e:
@@ -345,7 +347,7 @@ class GeminiProvider(CitationValidator):
 
         return results
 
-    def _parse_citation_block(self, citation_num: int, block: str) -> Dict[str, Any]:
+    def _parse_citation_block(self, citation_num: int, block: str, style: StyleType = DEFAULT_STYLE) -> Dict[str, Any]:
         """
         Parse a single citation block from Gemini response.
         Mirrors the OpenAI provider's parsing logic.
@@ -353,6 +355,7 @@ class GeminiProvider(CitationValidator):
         Args:
             citation_num: Citation number
             block: Text block content for one citation
+            style: Citation style for parsing success messages
 
         Returns:
             Structured validation result
@@ -402,8 +405,9 @@ class GeminiProvider(CitationValidator):
                 else:
                     result["corrected_citation"] += " " + line_stripped
             elif current_section == 'validation':
-                # Check for no errors
-                if '✓ No APA 7 formatting errors detected' in line_stripped or 'No APA 7 formatting errors' in line_stripped:
+                # Check for no errors using style-specific success message
+                success_msg = get_style_config(style)["success_message"]
+                if f'✓ {success_msg}' in line_stripped or success_msg in line_stripped:
                     result["errors"] = []
                 # Parse error lines
                 elif line_stripped.startswith('❌'):

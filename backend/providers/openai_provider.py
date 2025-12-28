@@ -7,6 +7,7 @@ from openai import AsyncOpenAI, APIError, APITimeoutError, RateLimitError, Authe
 from providers.base import CitationValidator
 from prompt_manager import PromptManager
 from logger import setup_logger
+from styles import StyleType, DEFAULT_STYLE, get_style_config
 
 logger = setup_logger("openai_provider")
 
@@ -30,23 +31,23 @@ class OpenAIProvider(CitationValidator):
         self.prompt_manager = PromptManager()
         logger.info(f"OpenAI provider initialized with model: {model}")
 
-    async def validate_citations(self, citations: str, style: str = "apa7") -> Dict[str, Any]:
+    async def validate_citations(self, citations: str, style: StyleType = DEFAULT_STYLE) -> Dict[str, Any]:
         """
         Validate citations using OpenAI API.
 
         Args:
             citations: Raw citation text
-            style: Citation style (default: "apa7")
+            style: Citation style (default: apa7)
 
         Returns:
             Validation results dictionary with structured errors
         """
-        logger.info(f"Starting validation for {len(citations)} characters of citation text")
+        logger.info(f"Starting validation for {len(citations)} characters of citation text (style={style})")
         logger.debug(f"Citations to validate: {citations[:2000]}...")
 
-        # Build prompt components
+        # Build prompt components - pass style to load correct prompt
         start_time = time.time()
-        prompt_template = self.prompt_manager.load_prompt()
+        prompt_template = self.prompt_manager.load_prompt(style)
         formatted_citations = self.prompt_manager.format_citations(citations)
         logger.debug(f"Prepared prompt components in {time.time() - start_time:.3f}s")
 
@@ -139,7 +140,7 @@ class OpenAIProvider(CitationValidator):
 
         # Parse response into structured format
         parse_start = time.time()
-        results = self._parse_response(response_text)
+        results = self._parse_response(response_text, style)
         logger.info(f"Parsed response in {time.time() - parse_start:.3f}s")
         logger.info(f"Found {len(results)} citation result(s)")
 
@@ -173,12 +174,13 @@ class OpenAIProvider(CitationValidator):
         await asyncio.sleep(wait_time)
         return True
 
-    def _parse_response(self, response_text: str) -> List[Dict[str, Any]]:
+    def _parse_response(self, response_text: str, style: StyleType = DEFAULT_STYLE) -> List[Dict[str, Any]]:
         """
         Parse LLM response text into structured validation results.
 
         Args:
             response_text: Raw text from LLM
+            style: Citation style for parsing success messages
 
         Returns:
             List of validation results, one per citation
@@ -197,7 +199,7 @@ class OpenAIProvider(CitationValidator):
             block_content = match.group(2)
 
             try:
-                result = self._parse_citation_block(citation_num, block_content)
+                result = self._parse_citation_block(citation_num, block_content, style)
                 if result:
                     results.append(result)
             except Exception as e:
@@ -206,13 +208,14 @@ class OpenAIProvider(CitationValidator):
 
         return results
 
-    def _parse_citation_block(self, citation_num: int, block: str) -> Dict[str, Any]:
+    def _parse_citation_block(self, citation_num: int, block: str, style: StyleType = DEFAULT_STYLE) -> Dict[str, Any]:
         """
         Parse a single citation block from LLM response.
 
         Args:
             citation_num: Citation number
             block: Text block content for one citation
+            style: Citation style for parsing success messages
 
         Returns:
             Structured validation result
@@ -268,8 +271,9 @@ class OpenAIProvider(CitationValidator):
                 else:
                     result["corrected_citation"] += " " + line_stripped
             elif current_section == 'validation':
-                # Check for no errors
-                if '✓ No APA 7 formatting errors detected' in line_stripped or 'No APA 7 formatting errors' in line_stripped:
+                # Check for no errors using style-specific success message
+                success_msg = get_style_config(style)["success_message"]
+                if f'✓ {success_msg}' in line_stripped or success_msg in line_stripped:
                     result["errors"] = []
                 # Parse error lines
                 elif line_stripped.startswith('❌'):
