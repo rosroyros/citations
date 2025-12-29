@@ -20,7 +20,7 @@ const PRODUCTS = [
     recommended: false,
     perUnit: '~2¢/citation',
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'No expiration date'
@@ -36,7 +36,7 @@ const PRODUCTS = [
     recommended: true,
     perUnit: '~1¢/citation',
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'No expiration date'
@@ -52,7 +52,7 @@ const PRODUCTS = [
     recommended: false,
     perUnit: '~0.5¢/citation',
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'No expiration date'

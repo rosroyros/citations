@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citation Style Selector - Design Variations</title>
+  <style>
+    :root {
+      --brand-color: #7c3aed;
+      --brand-light: #a78bfa;
+      --brand-dark: #1e1b4b;
+      --text-primary: #1f2937;
+      --text-muted: #6b7280;
+      --text-lighter: #9ca3af;
+      --background: #f3f4f6;
+      --background-white: #ffffff;
+      --border-color: #e5e7eb;
+      --success-green: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #f9fafb;
+      padding: 40px 20px;
+      color: var(--text-primary);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .page-header p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .version-container {
+      max-width: 900px;
+      margin: 0 auto 80px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+    }
+
+    .version-header {
+      background: linear-gradient(135deg, var(--brand-color), #6366f1);
+      color: white;
+      padding: 20px 24px;
+    }
+
+    .version-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .version-header p {
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    .version-body {
+      padding: 32px;
+    }
+
+    /* Input section styling (mimicking the real app) */
+    .input-section {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+    }
+
+    .editor-column label,
+    .upload-column label {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .citation-editor {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 180px;
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: var(--text-lighter);
+      background: var(--background-white);
+    }
+
+    .citation-editor p {
+      margin-bottom: 12px;
+    }
+
+    .citation-editor p:last-child {
+      margin-bottom: 0;
+    }
+
+    .upload-column label {
+      text-decoration: underline;
+      color: var(--brand-color);
+    }
+
+    .upload-area {
+      border: 2px dashed var(--border-color);
+      border-radius: 12px;
+      padding: 40px 20px;
+      text-align: center;
+      background: #fafafa;
+    }
+
+    .upload-area .drag-text {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+
+    .upload-area .browse-link {
+      color: var(--brand-color);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .upload-area .file-types {
+      color: var(--text-lighter);
+      font-size: 0.75rem;
+      margin-top: 16px;
+    }
+
+    .upload-area .auto-detect {
+      color: var(--text-lighter);
+      font-size: 0.75rem;
+      margin-top: 8px;
+    }
+
+    .input-helper {
+      font-size: 0.8rem;
+      color: var(--text-lighter);
+      margin-top: 8px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #a78bfa, #7c3aed);
+      color: white;
+      border: none;
+      padding: 14px 48px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    }
+
+    .cta-micro-text {
+      font-size: 0.75rem;
+      color: var(--text-lighter);
+      margin-top: 8px;
+    }
+
+    .feature-pills {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .feature-pill {
+      background: var(--background);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      border: 1px solid var(--border-color);
+    }
+
+    /* ======================== */
+    /* VERSION 1: Improved Design */
+    /* ======================== */
+    .v1-selector {
+      display: flex;
+      gap: 0;
+      margin-bottom: 12px;
+      background: var(--background);
+      border-radius: 10px;
+      padding: 4px;
+      width: fit-content;
+      position: relative;
+    }
+
+    .v1-tab {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, transform 0.15s ease;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .v1-tab:hover:not(.v1-tab--active) {
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text-primary);
+    }
+
+    .v1-tab:active {
+      transform: scale(0.98);
+    }
+
+    .v1-tab--active {
+      background: white;
+      color: var(--brand-color);
+      box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-weight: 600;
+    }
+
+    /* ======================== */
+    /* VERSION 2: Underline Tabs */
+    /* ======================== */
+    .v2-selector {
+      display: flex;
+      gap: 0;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--border-color);
+      width: fit-content;
+    }
+
+    .v2-tab {
+      padding: 10px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .v2-tab::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: transparent;
+      transition: background 0.2s ease;
+    }
+
+    .v2-tab:hover:not(.v2-tab--active) {
+      color: var(--text-primary);
+    }
+
+    .v2-tab--active {
+      color: var(--brand-color);
+      font-weight: 600;
+    }
+
+    .v2-tab--active::after {
+      background: var(--brand-color);
+    }
+
+    /* ======================== */
+    /* VERSION 3: Pill/Badge Style */
+    /* ======================== */
+    .v3-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .v3-tab {
+      padding: 8px 16px;
+      border: 2px solid var(--border-color);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .v3-tab:hover:not(.v3-tab--active) {
+      border-color: var(--brand-light);
+      color: var(--brand-color);
+    }
+
+    .v3-tab--active {
+      background: var(--brand-color);
+      border-color: var(--brand-color);
+      color: white;
+      font-weight: 600;
+    }
+
+    /* ======================== */
+    /* VERSION 4: Dropdown/Select Style */
+    /* ======================== */
+    .v4-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .v4-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .v4-select {
+      padding: 8px 36px 8px 14px;
+      border: 1px solid var(--border-color);
+      background: white;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 8px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      transition: all 0.2s ease;
+    }
+
+    .v4-select:hover {
+      border-color: var(--brand-light);
+    }
+
+    .v4-select:focus {
+      outline: none;
+      border-color: var(--brand-color);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+
+    /* ======================== */
+    /* VERSION 5: Segmented Control with Icons */
+    /* ======================== */
+    .v5-selector {
+      display: flex;
+      gap: 0;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      border-radius: 10px;
+      padding: 4px;
+      width: fit-content;
+    }
+
+    .v5-tab {
+      padding: 8px 18px;
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 7px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .v5-tab:hover:not(.v5-tab--active) {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .v5-tab--active {
+      background: white;
+      color: var(--brand-dark);
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .v5-icon {
+      font-size: 0.7rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .input-section {
+        grid-template-columns: 1fr;
+      }
+
+      .upload-column {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>Citation Style Selector - Design Variations</h1>
+    <p>Comparing 5 different approaches for the APA/MLA format toggle</p>
+  </div>
+
+  <!-- VERSION 1: REVISED - Selector Above Entire Section -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 1 (Revised): Selector Above Full Section</h2>
+      <p>Selector positioned above both columns - fixes vertical alignment, establishes section hierarchy</p>
+    </div>
+    <div class="version-body">
+      <!-- V1 Selector - NOW ABOVE THE GRID -->
+      <div class="v1-selector" style="margin-bottom: 20px;">
+        <button class="v1-tab v1-tab--active">APA 7th Edition</button>
+        <button class="v1-tab">MLA 9th Edition</button>
+      </div>
+
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 1b: Alternative - Centered Above Section -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 1b: Centered Above Section</h2>
+      <p>Same positioning but centered - more balanced visual weight</p>
+    </div>
+    <div class="version-body">
+      <!-- V1b Selector - CENTERED ABOVE THE GRID -->
+      <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+        <div class="v1-selector">
+          <button class="v1-tab v1-tab--active">APA 7th Edition</button>
+          <button class="v1-tab">MLA 9th Edition</button>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 1c: Left-aligned with spacing adjustment -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 1c: Left-aligned with Label</h2>
+      <p>Left-aligned above the section with a "Citation style:" label for clarity</p>
+    </div>
+    <div class="version-body">
+      <!-- V1c Selector - WITH LABEL -->
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+        <span style="font-size: 0.875rem; color: #6b7280; font-weight: 500;">Validate using rules from</span>
+        <div class="v1-selector" style="margin-bottom: 0;">
+          <button class="v1-tab v1-tab--active">APA 7th Edition</button>
+          <button class="v1-tab">MLA 9th Edition</button>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 2: Underline Tabs -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 2: Underline Tabs</h2>
+      <p>Clean, minimal underline indicator - more traditional tab pattern</p>
+    </div>
+    <div class="version-body">
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+
+          <!-- V2 Selector -->
+          <div class="v2-selector">
+            <button class="v2-tab v2-tab--active">APA 7th Edition</button>
+            <button class="v2-tab">MLA 9th Edition</button>
+          </div>
+
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 3: Pill/Badge Style -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 3: Pill Badges</h2>
+      <p>Rounded pills with borders - feels like selecting tags</p>
+    </div>
+    <div class="version-body">
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+
+          <!-- V3 Selector -->
+          <div class="v3-selector">
+            <button class="v3-tab v3-tab--active">APA 7th Edition</button>
+            <button class="v3-tab">MLA 9th Edition</button>
+          </div>
+
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 4: Dropdown/Select Style -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 4: Dropdown Select</h2>
+      <p>Native-feeling dropdown - less prominent, more compact</p>
+    </div>
+    <div class="version-body">
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+
+          <!-- V4 Selector -->
+          <div class="v4-container">
+            <span class="v4-label">Citation style:</span>
+            <select class="v4-select">
+              <option selected>APA 7th Edition</option>
+              <option>MLA 9th Edition</option>
+            </select>
+          </div>
+
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION 5: Dark Segmented Control -->
+  <div class="version-container">
+    <div class="version-header">
+      <h2>Version 5: Dark Segmented Control</h2>
+      <p>Bold, premium look with dark background - makes the selector pop visually</p>
+    </div>
+    <div class="version-body">
+      <div class="input-section">
+        <div class="editor-column">
+          <label>Paste your citations below</label>
+
+          <!-- V5 Selector -->
+          <div class="v5-selector">
+            <button class="v5-tab v5-tab--active"><span class="v5-icon">📚</span> APA 7th Edition</button>
+            <button class="v5-tab"><span class="v5-icon">📖</span> MLA 9th Edition</button>
+          </div>
+
+          <div class="citation-editor">
+            <p>Example:</p>
+            <p></p>
+            <p>Smith, J., & Jones, M. (2023). Understanding research methods. <em>Journal of Academic Studies,
+                45</em>(2), 123-145. https://doi.org/10.1234/example</p>
+            <p></p>
+            <p>Brown, A. (2022). Writing in APA style. Academic Press.</p>
+          </div>
+          <p class="input-helper">Paste one or multiple citations. We'll check each one.</p>
+        </div>
+        <div class="upload-column">
+          <label>Or upload a document</label>
+          <div class="upload-area">
+            <div class="drag-text">Drag and drop<br>or<br><span class="browse-link">browse files</span></div>
+            <div class="file-types">PDF, DOCX, TXT, or RTF files accepted</div>
+            <div class="auto-detect">We'll automatically find & validate citations.</div>
+          </div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="submit-btn">Check My Citations</button>
+        <p class="cta-micro-text">No login required • Get results in seconds</p>
+      </div>
+      <div class="feature-pills">
+        <span class="feature-pill">✓ Capitalization check</span>
+        <span class="feature-pill">✓ Italics validation</span>
+        <span class="feature-pill">✓ DOI formatting</span>
+        <span class="feature-pill">✓ Punctuation rules</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add interactivity for tab switching
+    document.querySelectorAll('.v1-selector').forEach(selector => {
+      selector.querySelectorAll('.v1-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          selector.querySelectorAll('.v1-tab').forEach(t => t.classList.remove('v1-tab--active'));
+          tab.classList.add('v1-tab--active');
+        });
+      });
+    });
+
+    document.querySelectorAll('.v2-selector').forEach(selector => {
+      selector.querySelectorAll('.v2-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          selector.querySelectorAll('.v2-tab').forEach(t => t.classList.remove('v2-tab--active'));
+          tab.classList.add('v2-tab--active');
+        });
+      });
+    });
+
+    document.querySelectorAll('.v3-selector').forEach(selector => {
+      selector.querySelectorAll('.v3-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          selector.querySelectorAll('.v3-tab').forEach(t => t.classList.remove('v3-tab--active'));
+          tab.classList.add('v3-tab--active');
+        });
+      });
+    });
+
+    document.querySelectorAll('.v5-selector').forEach(selector => {
+      selector.querySelectorAll('.v5-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          selector.querySelectorAll('.v5-tab').forEach(t => t.classList.remove('v5-tab--active'));
+          tab.classList.add('v5-tab--active');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

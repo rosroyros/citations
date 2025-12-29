@@ -19,7 +19,7 @@ const PRODUCTS = [
     recommended: false,
     perUnit: null,
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'Risk-free with money-back guarantee'
@@ -34,7 +34,7 @@ const PRODUCTS = [
     recommended: true,  // This is the tier we want to highlight
     perUnit: 'Just $0.71/day',
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'Risk-free with money-back guarantee'
@@ -49,7 +49,7 @@ const PRODUCTS = [
     recommended: false,
     perUnit: 'Only $0.33/day',
     benefits: [
-      'Full APA 7 Compliance',
+      'Full APA 7 & MLA 9 Compliance',
       'Detailed citation analysis',
       'Actionable error correction feedback',
       'Risk-free with money-back guarantee'

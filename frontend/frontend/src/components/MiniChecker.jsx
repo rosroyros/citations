@@ -122,7 +122,7 @@ function MiniChecker({
     <div className="mini-checker">
       <div className="mini-checker-header">
         <h4>Quick Check Your Citation</h4>
-        <p>Instantly validate APA formatting</p>
+        <p>Instantly validate citation formatting</p>
       </div>
 
       <div className="mini-checker-form">
@@ -158,7 +158,7 @@ function MiniChecker({
           {result.errors.length === 0 ? (
             <div className="result-valid">
               <p>✅ <strong>No formatting errors found!</strong></p>
-              <p>Your citation follows APA 7th edition guidelines.</p>
+              <p>Your citation follows the correct formatting guidelines.</p>
             </div>
           ) : (
             <div className="result-invalid">

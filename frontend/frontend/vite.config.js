@@ -36,5 +36,13 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.js',
+    // Limit parallel threads to prevent CPU overload with jsdom + React 19
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        maxThreads: 2,
+        minThreads: 1,
+      }
+    },
   },
 })

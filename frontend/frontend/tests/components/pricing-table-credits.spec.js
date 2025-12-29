@@ -41,7 +41,7 @@ test.describe('PricingTableCredits Component', () => {
   test('shows correct benefits for each tier', async ({ page }) => {
     // All tiers have the same benefits in the current implementation
     // Check that benefits are displayed (use .first() to avoid multiple matches)
-    await expect(page.getByText('Full APA 7 Compliance').first()).toBeVisible()
+    await expect(page.getByText('Full APA 7 & MLA 9 Compliance').first()).toBeVisible()
     await expect(page.getByText('Detailed citation analysis').first()).toBeVisible()
     await expect(page.getByText('Actionable error correction feedback').first()).toBeVisible()
     await expect(page.getByText('No expiration date').first()).toBeVisible()

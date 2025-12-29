@@ -39,6 +39,12 @@ export const StyleSelector = ({ selectedStyle, onStyleChange, disabled = false }
         const urlParams = new URLSearchParams(window.location.search);
         const styleParam = urlParams.get('style');
         if (styleParam && availableStyles[styleParam]) {
+            // Track style selection from URL param
+            trackEvent('style_selected', {
+                style: styleParam,
+                source: 'url_param',
+                previous_style: selectedStyle
+            });
             onStyleChange(styleParam);
         }
     }, [availableStyles, onStyleChange]);
@@ -46,11 +52,11 @@ export const StyleSelector = ({ selectedStyle, onStyleChange, disabled = false }
     const handleStyleClick = (styleKey) => {
         if (disabled || styleKey === selectedStyle) return;
 
-        // Track style change event
-        trackEvent('style_changed', {
-            from_style: selectedStyle,
-            to_style: styleKey,
-            interface_source: 'style_selector'
+        // Track style selection event for MLA adoption analytics
+        trackEvent('style_selected', {
+            style: styleKey,
+            source: 'tab_click',
+            previous_style: selectedStyle
         });
 
         onStyleChange(styleKey);
@@ -67,6 +73,7 @@ export const StyleSelector = ({ selectedStyle, onStyleChange, disabled = false }
             {styleKeys.map((styleKey) => (
                 <button
                     key={styleKey}
+                    type="button"
                     role="tab"
                     aria-selected={selectedStyle === styleKey}
                     aria-controls="citation-editor"

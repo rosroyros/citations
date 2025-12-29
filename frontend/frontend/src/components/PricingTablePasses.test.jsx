@@ -197,7 +197,7 @@ describe('PricingTablePasses', () => {
   it('displays benefits correctly', () => {
     render(<PricingTablePasses experimentVariant="2" />)
 
-    expect(screen.getAllByText('Full APA 7 Compliance')).toHaveLength(3)
+    expect(screen.getAllByText('Full APA 7 & MLA 9 Compliance')).toHaveLength(3)
     expect(screen.getAllByText('Actionable error correction feedback')).toHaveLength(3)
     expect(screen.getAllByText('Risk-free with money-back guarantee')).toHaveLength(3)
   })

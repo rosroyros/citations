@@ -89,43 +89,9 @@ def test_fallback_variant_assignment():
         print(f"FAILED: Valid variant '1.1' was changed to {assigned_variant}")
         sys.exit(1)
 
-    print("SUCCESS: /api/validate/async tests passed!")
-
-    print("-" * 20)
-    print("Testing /api/validate endpoint...")
-
-    # Test 5: /api/validate missing header
-    print("Test 5: Calling /api/validate without header...")
-    response = client.post(
-        "/api/validate",
-        json={"citations": "Test citation", "style": "apa7"}
-    )
-    # /api/validate returns a list of results, and doesn't explicitly return the variant in the JSON body usually.
-    # Let's check how to verify it.
-    # The code in validate_citations doesn't seem to return the variant in the response body directly, 
-    # it returns ValidationResponse which has results.
-    # However, we can check the logs? Or maybe we can rely on the fact that the code is identical to async.
-    # Wait, looking at app.py, validate_citations returns `results`.
-    # It does NOT return the experiment variant.
-    
-    # We can't easily verify the assigned variant from the response of /api/validate 
-    # unless we mock random or check side effects (logs).
-    # Since we can't easily check logs in this script without complex setup, 
-    # and we verified the logic is identical in code review, 
-    # and we verified the logic works in async endpoint where it IS returned,
-    # we can assume it works if the code is the same.
-    
-    # Actually, looking at the code for validate_citations:
-    # experiment_variant = random.choice(valid_variants)
-    # ...
-    # It is used for logging and maybe passed to something?
-    # It seems it's used to log "Assigned missing experiment variant".
-    
-    # Let's just trust the code review for the sync endpoint + the fact that async works.
-    # But I will double check the code diff again to be 100% sure it's identical logic.
-    pass
 
     print("SUCCESS: All fallback tests passed!")
 
 if __name__ == "__main__":
     test_fallback_variant_assignment()
+

@@ -1,0 +1,1390 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-28 22:12:28",
+    "model": "gemini-3-flash-preview",
+    "config": "temp=0.0, thinking_budget=1024, batch_size=5",
+    "dataset": "/Users/roy/Documents/Projects/citations/Checker_Prompt_Optimization/mla9_test_set.jsonl",
+    "prompt": "/Users/roy/Documents/Projects/citations/backend/prompts/validator_prompt_mla9_v1.txt",
+    "total_citations": 112,
+    "expected_valid": 56,
+    "expected_invalid": 56
+  },
+  "metrics": {
+    "prompt_path": "/Users/roy/Documents/Projects/citations/backend/prompts/validator_prompt_mla9_v1.txt",
+    "accuracy": 74.10714285714286,
+    "correct": 83,
+    "total": 112,
+    "true_positives": 28,
+    "true_negatives": 55,
+    "false_positives": 1,
+    "false_negatives": 28,
+    "precision": 96.55172413793103,
+    "recall": 50.0,
+    "f1_score": 65.88235294117646,
+    "placeholder_count": 27,
+    "source_type_breakdown": {
+      "tv episode (other)": {
+        "correct": 2,
+        "total": 2
+      },
+      "journal article": {
+        "correct": 7,
+        "total": 14
+      },
+      "book": {
+        "correct": 24,
+        "total": 28
+      },
+      "website": {
+        "correct": 13,
+        "total": 17
+      },
+      "book chapter": {
+        "correct": 4,
+        "total": 8
+      },
+      "film": {
+        "correct": 5,
+        "total": 6
+      },
+      "video (youtube)": {
+        "correct": 2,
+        "total": 2
+      },
+      "film (streaming)": {
+        "correct": 2,
+        "total": 4
+      },
+      "tv episode (broadcast/streaming)": {
+        "correct": 2,
+        "total": 2
+      },
+      "tv episode (streaming)": {
+        "correct": 2,
+        "total": 3
+      },
+      "video/webinar": {
+        "correct": 1,
+        "total": 2
+      },
+      "journal article (magazine)": {
+        "correct": 4,
+        "total": 4
+      },
+      "book (online)": {
+        "correct": 2,
+        "total": 2
+      },
+      "book (edited collection)": {
+        "correct": 2,
+        "total": 3
+      },
+      "book (online/e-book)": {
+        "correct": 2,
+        "total": 3
+      },
+      "website (wiki)": {
+        "correct": 0,
+        "total": 1
+      },
+      "book chapter (introduction/foreword)": {
+        "correct": 1,
+        "total": 2
+      },
+      "video": {
+        "correct": 2,
+        "total": 2
+      },
+      "video (tv episode on streaming)": {
+        "correct": 1,
+        "total": 1
+      },
+      "radio program/podcast": {
+        "correct": 2,
+        "total": 2
+      },
+      "website (online book)": {
+        "correct": 1,
+        "total": 2
+      },
+      "book (e-book)": {
+        "correct": 2,
+        "total": 2
+      }
+    }
+  },
+  "launch_recommendation": "iterate",
+  "failure_analysis": {
+    "total_failures": 29,
+    "false_positives": {
+      "count": 1,
+      "description": "Invalid citations marked as valid (missed errors)",
+      "examples": [
+        {
+          "num": 6,
+          "citation": "Dorris, Michael and Louise Erdrich. _The Crown of Columbus._ HarperCollins Publishers, 1999."
+        }
+      ]
+    },
+    "false_negatives": {
+      "count": 28,
+      "description": "Valid citations marked as invalid (phantom errors)",
+      "examples": [
+        {
+          "num": 3,
+          "citation": "Kieffer, Alexandra. \"The Debussyist Ear: Listening, Representation, and French Musical Modernism.\" _"
+        },
+        {
+          "num": 7,
+          "citation": "Mabillard, Amanda. _Shakespeare Online,_ 29 Dec. 2011, www.shakespeare-online.com. Accessed 6 July 2"
+        },
+        {
+          "num": 11,
+          "citation": "Boys, Mary C. \"Learning in the Presence of the Other: Feminisms and the Interreligious Encounter.\" _"
+        },
+        {
+          "num": 23,
+          "citation": "Welch, Richard E., Jr. \"American Public Opinion and the Purchase of Russian America.\" _An Alaska Ant"
+        },
+        {
+          "num": 25,
+          "citation": "Riphagen, Marianne. \"Contested Categories: Brook Andrew, Christian Thompson and the Framing of Conte"
+        }
+      ]
+    }
+  },
+  "detailed_results": [
+    {
+      "citation_number": 1,
+      "is_valid": true,
+      "corrected": "\"The One Where Chandler Can't Cry.\" _Friends_, created by Marta Kauffman, performance by Matthew Perry, season 6, episode 14, Warner Brothers, 2004.",
+      "has_placeholder": false,
+      "source_type": "tv episode (other)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"The One Where Chandler Can't Cry.\" _Friends,_ created by Marta Kauffman, performance by Matthew Perry, season 6, episode 14, Warner Brothers, 2004."
+    },
+    {
+      "citation_number": 2,
+      "is_valid": false,
+      "corrected": "\"The One Where Chandler Can't Cry.\" _Friends_, created by Marta Kauffman, performance by Matthew Perry, season 6, episode 14, Warner Brothers, 2004.",
+      "has_placeholder": false,
+      "source_type": "tv episode (other)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"The One Where Chandler Can't Cry.\" _Friends,_ created by Marta Kauffman, performance by Matthew Perry, Season 6, Episode 14, Warner Brothers, 2004."
+    },
+    {
+      "citation_number": 3,
+      "is_valid": false,
+      "corrected": "Kieffer, Alexandra. \"The Debussyist Ear: Listening, Representation, and French Musical Modernism.\" _19th-Century Music_, vol. 39, no. 1, summer 2015, pp. 56-79. _JSTOR_, [MISSING: DOI or URL].",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Kieffer, Alexandra. \"The Debussyist Ear: Listening, Representation, and French Musical Modernism.\" _19th-Century Music,_ vol. 39, no. 1, summer 2015, pp. 56-79. _JSTOR._"
+    },
+    {
+      "citation_number": 4,
+      "is_valid": false,
+      "corrected": "Kieffer, Alexandra. \"The Debussyist Ear: Listening, Representation, and French Musical Modernism.\" _19th-Century Music_, vol. 39, no. 1, summer 2015, pp. 56-79. _JSTOR_, [MISSING: DOI or URL].",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Kieffer, Alexandra. \"The Debussyist Ear: Listening, Representation, and French Musical Modernism.\" _19th-Century Music,_ Vol. 39, No. 1, summer 2015, pp. 56-79. _JSTOR._"
+    },
+    {
+      "citation_number": 5,
+      "is_valid": true,
+      "corrected": "Dorris, Michael, and Louise Erdrich. _The Crown of Columbus_. HarperCollins Publishers, 1999.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Dorris, Michael, and Louise Erdrich. _The Crown of Columbus._ HarperCollins Publishers, 1999."
+    },
+    {
+      "citation_number": 6,
+      "is_valid": true,
+      "corrected": "Dorris, Michael and Louise Erdrich. _The Crown of Columbus._ HarperCollins Publishers, 1999.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": false,
+      "correct": false,
+      "citation_text": "Dorris, Michael and Louise Erdrich. _The Crown of Columbus._ HarperCollins Publishers, 1999."
+    },
+    {
+      "citation_number": 7,
+      "is_valid": false,
+      "corrected": "Mabillard, Amanda. [MISSING: page title]. _Shakespeare Online_, 29 Dec. 2011, www.shakespeare-online.com. Accessed 6 July 2016.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Mabillard, Amanda. _Shakespeare Online,_ 29 Dec. 2011, www.shakespeare-online.com. Accessed 6 July 2016."
+    },
+    {
+      "citation_number": 8,
+      "is_valid": false,
+      "corrected": "Mabillard, Amanda. [MISSING: page title]. _Shakespeare Online_, 29 Dec. 2011, www.shakespeare-online.com. Accessed 6 July 2016.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Mabillard, Amanda. _Shakespeare Online,_ December 29, 2011, www.shakespeare-online.com. Accessed 6 July 2016."
+    },
+    {
+      "citation_number": 9,
+      "is_valid": true,
+      "corrected": "Wykes, Maggie, and Barrie Gunter. _The Media and Body Image: If Looks Could Kill._ Sage, 2005.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Wykes, Maggie, and Barrie Gunter. _The Media and Body Image: If Looks Could Kill._ Sage, 2005."
+    },
+    {
+      "citation_number": 10,
+      "is_valid": false,
+      "corrected": "Wykes, Maggie, and Barrie Gunter. _The Media and Body Image: If Looks Could Kill._ Sage, 2005.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Wykes, Maggie & Barrie Gunter. _The Media and Body Image: If Looks Could Kill._ Sage, 2005."
+    },
+    {
+      "citation_number": 11,
+      "is_valid": false,
+      "corrected": "Boys, Mary C. \"Learning in the Presence of the Other: Feminisms and the Interreligious Encounter.\" _Faith and Feminism: Ecumenical Essays_, edited by Diane B. Lipsett, Westminster John Knox Press, 2014, pp. 103-114.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Boys, Mary C. \"Learning in the Presence of the Other: Feminisms and the Interreligious Encounter.\" _Faith and Feminism: Ecumenical Essays,_ edited by Diane B. Lipsett, Westminster John Knox Press, 2014, pp. 103-114."
+    },
+    {
+      "citation_number": 12,
+      "is_valid": false,
+      "corrected": "Boys, Mary C. \"Learning in the Presence of the Other: Feminisms and the Interreligious Encounter.\" _Faith and Feminism: Ecumenical Essays_, edited by Diane B. Lipsett, Westminster John Knox Press, 2014, pp. 103-114.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Boys, Mary C. \"Learning in the Presence of the Other: Feminisms and the Interreligious Encounter.\" _Faith and Feminism: Ecumenical Essays,_ edited by Diane B. Lipsett, Westminster John Knox Press, 2014, p. 103-114."
+    },
+    {
+      "citation_number": 13,
+      "is_valid": true,
+      "corrected": "_The Great Gatsby._ Directed by Baz Luhrmann, Warner Bros., 2013.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "_The Great Gatsby._ Directed by Baz Luhrmann, Warner Bros., 2013."
+    },
+    {
+      "citation_number": 14,
+      "is_valid": false,
+      "corrected": "_The Great Gatsby._ Directed by Baz Luhrmann, Warner Bros., 2013.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_The Great Gatsby._ Dir. Baz Luhrmann, Warner Bros., 2013."
+    },
+    {
+      "citation_number": 15,
+      "is_valid": true,
+      "corrected": "Berger, Kathleen S., and Ross A. Thompson. _The Developing Person Through Childhood._ Worth Publishers, 2003.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Berger, Kathleen S., and Ross A. Thompson. _The Developing Person Through Childhood._ Worth Publishers, 2003."
+    },
+    {
+      "citation_number": 16,
+      "is_valid": false,
+      "corrected": "Berger, Kathleen S., and Ross A. Thompson. _The Developing Person Through Childhood._ Worth Publishers, 2003.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Berger, Kathleen S. & Ross A. Thompson. _The Developing Person Through Childhood._ Worth Publishers, 2003."
+    },
+    {
+      "citation_number": 17,
+      "is_valid": true,
+      "corrected": "\"Accent Expert Gives a Tour of North American Accents - (Part 3).\" _YouTube_, uploaded by Wired, 25 Mar. 2021, youtu.be/Sw7pL7OkKEE.",
+      "has_placeholder": false,
+      "source_type": "video (youtube)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"Accent Expert Gives a Tour of North American Accents - (Part 3).\" _YouTube,_ uploaded by Wired, 25 Mar. 2021, youtu.be/Sw7pL7OkKEE."
+    },
+    {
+      "citation_number": 18,
+      "is_valid": false,
+      "corrected": "\"Accent Expert Gives a Tour of North American Accents - (Part 3).\" _YouTube_, uploaded by Wired, 25 Mar. 2021, youtu.be/Sw7pL7OkKEE.",
+      "has_placeholder": false,
+      "source_type": "video (youtube)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Accent Expert Gives a Tour of North American Accents - (Part 3).\" _YouTube,_ Uploaded by Wired, 25 Mar. 2021, youtu.be/Sw7pL7OkKEE."
+    },
+    {
+      "citation_number": 19,
+      "is_valid": true,
+      "corrected": "Palmer, William J. _Dickens and New Historicism._ St. Martin's, 1997.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Palmer, William J. _Dickens and New Historicism._ St. Martin's, 1997."
+    },
+    {
+      "citation_number": 20,
+      "is_valid": false,
+      "corrected": "Palmer, William J. _Dickens and New Historicism._ St. Martin's, 1997.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Palmer, William J. _Dickens and New Historicism._ St. Martin's. 1997."
+    },
+    {
+      "citation_number": 21,
+      "is_valid": true,
+      "corrected": "Garcia Marquez, Gabriel. _Love in the Time of Cholera._ 1988. Translated by Edith Grossman, Penguin, 1989.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Garcia Marquez, Gabriel. _Love in the Time of Cholera._ 1988. Translated by Edith Grossman, Penguin, 1989."
+    },
+    {
+      "citation_number": 22,
+      "is_valid": false,
+      "corrected": "Garcia Marquez, Gabriel. _Love in the Time of Cholera._ 1988. Translated by Edith Grossman, Penguin, 1989.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Garcia Marquez, Gabriel. _Love in the Time of Cholera._ 1988, Translated by Edith Grossman, Penguin, 1989."
+    },
+    {
+      "citation_number": 23,
+      "is_valid": false,
+      "corrected": "Welch, Richard E., Jr. \"American Public Opinion and the Purchase of Russian America.\" _An Alaska Anthology: Interpreting the Past,_ edited by Stephen W. Haycox and Mary Childers Mangusso, University of Washington UP, 1996, pp. 102-117. _ProQuest Ebook Central_, [MISSING: URL/DOI].",
+      "has_placeholder": true,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Welch, Richard E., Jr. \"American Public Opinion and the Purchase of Russian America.\" _An Alaska Anthology: Interpreting the Past,_ edited by Stephen W. Haycox and Mary Childers Mangusso, University of Washington Press, 1996, pp. 102-117. _ProQuest Ebook Central._"
+    },
+    {
+      "citation_number": 24,
+      "is_valid": false,
+      "corrected": "Welch, Richard E., Jr. \"American Public Opinion and the Purchase of Russian America.\" _An Alaska Anthology: Interpreting the Past,_ edited by Stephen W. Haycox and Mary Childers Mangusso, University of Washington UP, 1996, pp. 102-117. _ProQuest Ebook Central_, [MISSING: URL/DOI].",
+      "has_placeholder": true,
+      "source_type": "book chapter",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Welch, Richard E., Jr. \"American Public Opinion and the Purchase of Russian America.\" _An Alaska Anthology: Interpreting the Past,_ edited by Stephen W. Haycox and Mary Childers Mangusso, University of Washington Press, 1996, 102-117. _ProQuest Ebook Central._"
+    },
+    {
+      "citation_number": 25,
+      "is_valid": false,
+      "corrected": "Riphagen, Marianne. \"Contested Categories: Brook Andrew, Christian Thompson and the Framing of Contemporary Australian Art.\" _Australian Humanities Review_, [MISSING: vol. #], no. 55, Nov. 2013, pp. 67-91, australianhumanitiesreview.org/2013/11/01/contested-categories-brook-andrew-christian-thompson-and-the-framing-of-contemporary-australian-art/.",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Riphagen, Marianne. \"Contested Categories: Brook Andrew, Christian Thompson and the Framing of Contemporary Australian Art.\" _Australian Humanities Review,_ no. 55, 2008, Nov. 2013, pp. 67-91, australianhumanitiesreview.org/2013/11/01/contested-categories-brook-andrew-christian-thompson-and-the-framing-of-contemporary-australian-art/."
+    },
+    {
+      "citation_number": 26,
+      "is_valid": false,
+      "corrected": "Riphagen, Marianne. \"Contested Categories: Brook Andrew, Christian Thompson and the Framing of Contemporary Australian Art.\" _Australian Humanities Review_, no. 55, Nov. 2013, pp. 67-91, australianhumanitiesreview.org/2013/11/01/contested-categories-brook-andrew-christian-thompson-and-the-framing-of-contemporary-australian-art/.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Riphagen, Marianne. \"Contested Categories: Brook Andrew, Christian Thompson and the Framing of Contemporary Australian Art.\" _Australian Humanities Review,_ No. 55, 2008, Nov. 2013, pp. 67-91, australianhumanitiesreview.org/2013/11/01/contested-categories-brook-andrew-christian-thompson-and-the-framing-of-contemporary-australian-art/."
+    },
+    {
+      "citation_number": 27,
+      "is_valid": false,
+      "corrected": "Butler, Judith. _Gender Trouble_. 1990. Routledge, 1999.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Butler, Judith. _Gender Trouble._ 1990. Routledge, 1999."
+    },
+    {
+      "citation_number": 28,
+      "is_valid": false,
+      "corrected": "Butler, Judith. _Gender Trouble_. 1990. Routledge, 1999.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Butler, Judith. _Gender Trouble._ 1990, Routledge, 1999."
+    },
+    {
+      "citation_number": 29,
+      "is_valid": false,
+      "corrected": "Poe, Edgar Allan. \"The Masque of the Red Death.\" _The Art of the Personal Essay: An Anthology from the Classical Era to the Present_, edited by Phillip Lopate, Anchor Books, 1994, pp. 100-11.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Poe, Edgar Allan. \"The Masque of the Red Death.\" _The Art of the Personal Essay: An Anthology from the Classical Era to the Present,_ edited by Phillip Lopate, Anchor Books, 1994, pp. 100-11."
+    },
+    {
+      "citation_number": 30,
+      "is_valid": false,
+      "corrected": "Poe, Edgar Allan. \"The Masque of the Red Death.\" _The Art of the Personal Essay: An Anthology from the Classical Era to the Present_, edited by Phillip Lopate, Anchor Books, 1994, pp. 100-11.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Poe, Edgar Allan. \"The Masque of the Red Death.\" _The Art of the Personal Essay: An Anthology from the Classical Era to the Present,_ edited by Phillip Lopate, Anchor Books, 1994, 100-11."
+    },
+    {
+      "citation_number": 31,
+      "is_valid": false,
+      "corrected": "_Pan's Labyrinth._ [MISSING: directed by First Last], Warner Brothers, 2006. _Netflix_.",
+      "has_placeholder": true,
+      "source_type": "film (streaming)",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "_Pan's Labyrinth._ Warner Brothers, 2006. _Netflix_ app."
+    },
+    {
+      "citation_number": 32,
+      "is_valid": false,
+      "corrected": "_Pan's Labyrinth._ [MISSING: directed by First Last], Warner Brothers, 2006. _Netflix_.",
+      "has_placeholder": true,
+      "source_type": "film (streaming)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Pan's Labyrinth._ Warner Brothers, 2006. _Netflix._"
+    },
+    {
+      "citation_number": 33,
+      "is_valid": true,
+      "corrected": "Boyd, Brian, et al. _Evolution, Literature, and Film: A Reader._ Columbia UP, 2010.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Boyd, Brian, et al. _Evolution, Literature, and Film: A Reader._ Columbia UP, 2010."
+    },
+    {
+      "citation_number": 34,
+      "is_valid": false,
+      "corrected": "Boyd, Brian, et al. _Evolution, Literature, and Film: A Reader._ Columbia UP, 2010.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Boyd, Brian et al. _Evolution, Literature, and Film: A Reader._ Columbia UP, 2010."
+    },
+    {
+      "citation_number": 35,
+      "is_valid": true,
+      "corrected": "Jacobson, Diane L., and Robert Kysar. _A Beginner's Guide to the Books of the Bible._ Augsburg, 1991.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Jacobson, Diane L., and Robert Kysar. _A Beginner's Guide to the Books of the Bible._ Augsburg, 1991."
+    },
+    {
+      "citation_number": 36,
+      "is_valid": false,
+      "corrected": "Jacobson, Diane L., and Robert Kysar. _A Beginner's Guide to the Books of the Bible._ Augsburg, 1991.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Jacobson, Diane L. and Robert Kysar. _A Beginner's Guide to the Books of the Bible._ Augsburg, 1991."
+    },
+    {
+      "citation_number": 37,
+      "is_valid": false,
+      "corrected": "Meacham, Shuaib James, et al. \"Hip-Hop Early Literacy in K-1 Classrooms.\" _The Reading Teacher_ vol. 73, no. 1, July/August 2019, pp. 29-37. _Wiley Online Library Journals_ https://doi.org/10.1002/trtr.1809.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Meacham, Shuaib James, et al. \"Hip-Hop Early Literacy in K-1 Classrooms.\" _The Reading Teacher,_ vol. 73, no. 1, July/August 2019, pp. 29-37. _Wiley Online Library Journals,_ https://doi.org/10.1002/trtr.1809."
+    },
+    {
+      "citation_number": 38,
+      "is_valid": false,
+      "corrected": "Meacham, Shuaib James, et al. \"Hip-Hop Early Literacy in K-1 Classrooms.\" _The Reading Teacher_ vol. 73, no. 1, July/August 2019, pp. 29-37. _Wiley Online Library Journals_ https://doi.org/10.1002/trtr.1809.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Meacham, Shuaib James, et al. \"Hip-Hop Early Literacy in K-1 Classrooms.\" _The Reading Teacher,_ Vol. 73, No. 1, July/August 2019, pp. 29-37. _Wiley Online Library Journals,_ https://doi.org/10.1002/trtr.1809."
+    },
+    {
+      "citation_number": 39,
+      "is_valid": true,
+      "corrected": "Sun, Jonny. _Goodbye, Again: Essays, Reflections, and Illustrations._ Harper Perennial, 2021.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Sun, Jonny. _Goodbye, Again: Essays, Reflections, and Illustrations._ Harper Perennial, 2021."
+    },
+    {
+      "citation_number": 40,
+      "is_valid": false,
+      "corrected": "Sun, Jonny. _Goodbye, Again: Essays, Reflections, and Illustrations._ Harper Perennial, 2021.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Sun, Jonny. _Goodbye, Again: Essays, Reflections, and Illustrations_ Harper Perennial, 2021."
+    },
+    {
+      "citation_number": 41,
+      "is_valid": true,
+      "corrected": "\"The Science of Success.\" Directed by Annamaria Tallas. _The Nature of Things,_ season 61, episode 14, CBC, 1 Apr. 2022.",
+      "has_placeholder": false,
+      "source_type": "tv episode (broadcast/streaming)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"The Science of Success.\" Directed by Annamaria Tallas. _The Nature of Things,_ season 61, episode 14, CBC, 1 Apr. 2022."
+    },
+    {
+      "citation_number": 42,
+      "is_valid": false,
+      "corrected": "\"The Science of Success.\" Directed by Annamaria Tallas. _The Nature of Things,_ season 61, episode 14, CBC, 1 Apr. 2022.",
+      "has_placeholder": false,
+      "source_type": "tv episode (broadcast/streaming)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"The Science of Success.\" Directed by Annamaria Tallas. _The Nature of Things,_ Season 61, Episode 14, CBC, 1 Apr. 2022."
+    },
+    {
+      "citation_number": 43,
+      "is_valid": false,
+      "corrected": "\"Let the Great World Spin.\" Directed by Andrew Bernstein. _Ozark,_ season 4, episode 2, Netflix, 21 Jan. 2022. _Netflix,_ www.netflix.com/ca/title/80117552.",
+      "has_placeholder": false,
+      "source_type": "tv episode (streaming)",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "\"Let the Great World Spin.\" Directed by Andrew Bernstein. _Ozark,_ season 4, episode 2, Netflix, 21 Jan. 2022. _Netflix,_ https://www.netflix.com/ca/title/80117552."
+    },
+    {
+      "citation_number": 44,
+      "is_valid": false,
+      "corrected": "\"Let the Great World Spin.\" Directed by Andrew Bernstein. _Ozark,_ season 4, episode 2, Netflix, 21 Jan. 2022. _Netflix,_ www.netflix.com/ca/title/80117552.",
+      "has_placeholder": false,
+      "source_type": "tv episode (streaming)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Let the Great World Spin.\" Dir. Andrew Bernstein. _Ozark,_ season 4, episode 2, Netflix, 21 Jan. 2022. _Netflix,_ https://www.netflix.com/ca/title/80117552."
+    },
+    {
+      "citation_number": 45,
+      "is_valid": false,
+      "corrected": "_It's a Wonderful Life._ Directed by Frank Capra, RKO, 1946.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Capra, Frank, director. _It's a Wonderful Life._ RKO, 1946."
+    },
+    {
+      "citation_number": 46,
+      "is_valid": false,
+      "corrected": "_It's a Wonderful Life_. Directed by Frank Capra, RKO, 1946.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Capra, Frank, dir. _It's a Wonderful Life._ RKO, 1946."
+    },
+    {
+      "citation_number": 47,
+      "is_valid": true,
+      "corrected": "Godin, Seth. \"NFTs Are a Dangerous Trap.\" _Seth's Blog_, 6 Mar. 2021, seths.blog/2021/03/nfts-are-a-dangerous-trap/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Godin, Seth. \"NFTs Are a Dangerous Trap.\" _Seth's Blog,_ 6 Mar. 2021, seths.blog/2021/03/nfts-are-a-dangerous-trap/."
+    },
+    {
+      "citation_number": 48,
+      "is_valid": false,
+      "corrected": "Godin, Seth. \"NFTs Are a Dangerous Trap.\" _Seth's Blog_, 6 Mar. 2021, seths.blog/2021/03/nfts-are-a-dangerous-trap/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Godin, Seth. \"NFTs are a dangerous trap.\" _Seth's Blog,_ 6 Mar. 2021, seths.blog/2021/03/nfts-are-a-dangerous-trap/."
+    },
+    {
+      "citation_number": 49,
+      "is_valid": false,
+      "corrected": "Pollard, Stephen. \"Mathematics and the Good Life.\" _Philosophia Mathematica_, vol. 21, no. 1, Feb. 2013, pp. 93-109. _Academic Search Complete_, [MISSING: DOI or URL].",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Pollard, Stephen. \"Mathematics and the Good Life.\" _Philosophia Mathematica,_ vol. 21, no. 1, Feb. 2013, pp. 93-109. _Academic Search Complete._"
+    },
+    {
+      "citation_number": 50,
+      "is_valid": false,
+      "corrected": "Pollard, Stephen. \"Mathematics and the Good Life.\" _Philosophia Mathematica_, vol. 21, no. 1, Feb. 2013, pp. 93-109. _Academic Search Complete_, [MISSING: DOI or URL].",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Pollard, Stephen. \"Mathematics and the Good Life.\" _Philosophia Mathematica,_ Vol. 21, No. 1, Feb. 2013, pp. 93-109. _Academic Search Complete._"
+    },
+    {
+      "citation_number": 51,
+      "is_valid": false,
+      "corrected": "Verschoor, Curtis C. \"How Colleges Hide Investments to Avoid Taxes: Should Universities Use Tax Haven Corporations?\" _Strategic Finance_ vol. 99, no. 9, Mar. 2018, pp. 21-22.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Verschoor, Curtis C. \"How Colleges Hide Investments to Avoid Taxes: Should Universities Use Tax Haven Corporations?\" _Strategic Finance,_ vol. 99, no. 9, Mar. 2018, pp. 21-22."
+    },
+    {
+      "citation_number": 52,
+      "is_valid": false,
+      "corrected": "Verschoor, Curtis C. \"How Colleges Hide Investments to Avoid Taxes: Should Universities Use Tax Haven Corporations?\" _Strategic Finance_ vol. 99, no. 9, Mar. 2018, pp. 21-22.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Verschoor, Curtis C. \"How Colleges Hide Investments to Avoid Taxes: Should Universities Use Tax Haven Corporations?\" _Strategic Finance,_ Vol. 99, No. 9, Mar. 2018, pp. 21-22."
+    },
+    {
+      "citation_number": 53,
+      "is_valid": false,
+      "corrected": "DeGrazia, Brian, and Sonia Nayak. \"Careers in the Humanities.\" 11 Aug. 2020. Webinar, [MISSING: URL].",
+      "has_placeholder": true,
+      "source_type": "video/webinar",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "DeGrazia, Brian, and Sonia Nayak. Careers in the Humanities, 11 Aug. 2020. Webinar."
+    },
+    {
+      "citation_number": 54,
+      "is_valid": false,
+      "corrected": "DeGrazia, Brian, and Sonia Nayak. \"Careers in the Humanities.\" 11 Aug. 2020. Webinar, [MISSING: URL].",
+      "has_placeholder": true,
+      "source_type": "video/webinar",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "DeGrazia, Brian & Sonia Nayak. Careers in the Humanities, 11 Aug. 2020. Webinar."
+    },
+    {
+      "citation_number": 55,
+      "is_valid": true,
+      "corrected": "Duncan, Randy, et al. _The Power of Comics: History, Form and Culture._ 2nd ed., Cambridge UP, 2007.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Duncan, Randy, et al. _The Power of Comics: History, Form and Culture._ 2nd ed., Cambridge UP, 2007."
+    },
+    {
+      "citation_number": 56,
+      "is_valid": false,
+      "corrected": "Duncan, Randy, et al. _The Power of Comics: History, Form and Culture._ 2nd ed., Cambridge UP, 2007.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Duncan, Randy et al. _The Power of Comics: History, Form and Culture._ 2nd ed., Cambridge UP, 2007."
+    },
+    {
+      "citation_number": 57,
+      "is_valid": true,
+      "corrected": "Kiviat, Barbara. \"The Case for Banning Laptops in the Classroom.\" _Time_, vol. 171, no. 12, 24 Mar. 2008, p. 57.",
+      "has_placeholder": false,
+      "source_type": "journal article (magazine)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Kiviat, Barbara. \"The Case for Banning Laptops in the Classroom.\" _Time,_ vol. 171, no. 12, 24 Mar. 2008, p. 57."
+    },
+    {
+      "citation_number": 58,
+      "is_valid": false,
+      "corrected": "Kiviat, Barbara. \"The Case for Banning Laptops in the Classroom.\" _Time_, vol. 171, no. 12, 24 Mar. 2008, p. 57.",
+      "has_placeholder": false,
+      "source_type": "journal article (magazine)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Kiviat, B. \"The Case for Banning Laptops in the Classroom.\" _Time,_ vol. 171, no. 12, 24 Mar. 2008, p. 57."
+    },
+    {
+      "citation_number": 59,
+      "is_valid": true,
+      "corrected": "Miller, Michele, and Anne Greenhoe. _Transition with Purpose: Pathways from English Language to Academic Study._ _Open Library_, eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=32d44c9a-9a65-413a-af20-5cb6b5d9a176.",
+      "has_placeholder": false,
+      "source_type": "book (online)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Miller, Michele, and Anne Greenhoe. _Transition with Purpose: Pathways from English Language to Academic Study._ _Open Library,_ eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=32d44c9a-9a65-413a-af20-5cb6b5d9a176."
+    },
+    {
+      "citation_number": 60,
+      "is_valid": false,
+      "corrected": "Miller, Michele, and Anne Greenhoe. _Transition with Purpose: Pathways from English Language to Academic Study._ _Open Library_, eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=32d44c9a-9a65-413a-af20-5cb6b5d9a176.",
+      "has_placeholder": false,
+      "source_type": "book (online)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Miller, Michele and Anne Greenhoe. _Transition with Purpose: Pathways from English Language to Academic Study._ _Open Library,_ eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=32d44c9a-9a65-413a-af20-5cb6b5d9a176."
+    },
+    {
+      "citation_number": 61,
+      "is_valid": true,
+      "corrected": "Jackson, Russell, editor. _The Cambridge Companion to Shakespeare on Film._ 2nd ed., Cambridge UP, 2007.",
+      "has_placeholder": false,
+      "source_type": "book (edited collection)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Jackson, Russell, editor. _The Cambridge Companion to Shakespeare on Film._ 2nd ed., Cambridge UP, 2007."
+    },
+    {
+      "citation_number": 62,
+      "is_valid": false,
+      "corrected": "Jackson, Russell, editor. _The Cambridge Companion to Shakespeare on Film._ 2nd ed., Cambridge UP, 2007.",
+      "has_placeholder": false,
+      "source_type": "book (edited collection)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Jackson, Russell, ed. _The Cambridge Companion to Shakespeare on Film._ 2nd ed., Cambridge UP, 2007."
+    },
+    {
+      "citation_number": 63,
+      "is_valid": false,
+      "corrected": "Illowsky, Barbara, et al. _Introductory Statistics_. _OpenStax_, Rice University, 2021, openstax.org/details/books/introductory-statistics.",
+      "has_placeholder": false,
+      "source_type": "book (online/e-book)",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Illowsky, Barbara, et al. _Introductory Statistics._ _OpenStax,_ Rice University, 2021, openstax.org/details/books/introductory-statistics."
+    },
+    {
+      "citation_number": 64,
+      "is_valid": false,
+      "corrected": "Illowsky, Barbara, et al. _Introductory Statistics_. _OpenStax_, Rice University, 2021, openstax.org/details/books/introductory-statistics.",
+      "has_placeholder": false,
+      "source_type": "book (online/e-book)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Illowsky, Barbara et al. _Introductory Statistics._ _OpenStax,_ Rice University, 2021, openstax.org/details/books/introductory-statistics."
+    },
+    {
+      "citation_number": 65,
+      "is_valid": false,
+      "corrected": "\"The Lark Ascending (Vaughan Williams).\" _Wikipedia_, Wikimedia Foundation, 18 May 2021, en.wikipedia.org/wiki/The_Lark_Ascending_(Vaughan_Williams).",
+      "has_placeholder": false,
+      "source_type": "website (wiki)",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "\"The Lark Ascending (Vaughan Williams).\" _Wikipedia,_ Wikimedia Foundation, 18 May 2021, 22:53 (UTC), en.wikipedia.org/wiki/The_Lark_Ascending_(Vaughan_Williams)."
+    },
+    {
+      "citation_number": 66,
+      "is_valid": false,
+      "corrected": "\"The Lark Ascending (Vaughan Williams).\" _Wikipedia_, Wikimedia Foundation, 18 May 2021, 22:53 (UTC), en.wikipedia.org/wiki/The_Lark_Ascending_(Vaughan_Williams).",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"The Lark Ascending (Vaughan Williams).\" Wikipedia, Wikimedia Foundation, 18 May 2021, 22:53 (UTC), en.wikipedia.org/wiki/The_Lark_Ascending_(Vaughan_Williams)."
+    },
+    {
+      "citation_number": 67,
+      "is_valid": true,
+      "corrected": "Oster, Emily. \"The Secret to Working at Home With Kids.\" _The Atlantic,_ 18 Aug. 2021, www.theatlantic.com/ideas/archive/2021/08/the-secret-to-working-at-home-with-kids/619782/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Oster, Emily. \"The Secret to Working at Home With Kids.\" _The Atlantic,_ 18 Aug. 2021, www.theatlantic.com/ideas/archive/2021/08/the-secret-to-working-at-home-with-kids/619782/."
+    },
+    {
+      "citation_number": 68,
+      "is_valid": false,
+      "corrected": "Oster, Emily. \"The Secret to Working at Home With Kids.\" _The Atlantic,_ 18 Aug. 2021, www.theatlantic.com/ideas/archive/2021/08/the-secret-to-working-at-home-with-kids/619782/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Oster, Emily. \"The secret to working at home with kids.\" _The Atlantic,_ 18 Aug. 2021, www.theatlantic.com/ideas/archive/2021/08/the-secret-to-working-at-home-with-kids/619782/."
+    },
+    {
+      "citation_number": 69,
+      "is_valid": false,
+      "corrected": "Rice, Emma, et al. \"Frameworks, Guidelines, and Tools to Develop a Learning Health System for Indigenous Health: An Environmental Scan for Canada.\" _Learning Health Systems,_ vol. 8, no. 1, 2024, [MISSING: page numbers]. _Wiley Online Library,_ doi.org/10.1002/lrh2.10376.",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Rice, Emma, et al. \"Frameworks, Guidelines, and Tools to Develop a Learning Health System for Indigenous Health: An Environmental Scan for Canada.\" _Learning Health Systems,_ vol. 8, no. 1, 2024. _Wiley Online Library,_ doi.org/10.1002/lrh2.10376."
+    },
+    {
+      "citation_number": 70,
+      "is_valid": false,
+      "corrected": "Rice, Emma, et al. \"Frameworks, Guidelines, and Tools to Develop a Learning Health System for Indigenous Health: An Environmental Scan for Canada.\" _Learning Health Systems,_ vol. 8, no. 1, 2024, [MISSING: page numbers]. _Wiley Online Library,_ doi.org/10.1002/lrh2.10376.",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Rice, Emma et al. \"Frameworks, Guidelines, and Tools to Develop a Learning Health System for Indigenous Health: An Environmental Scan for Canada.\" _Learning Health Systems,_ vol. 8, no. 1, 2024. _Wiley Online Library,_ doi.org/10.1002/lrh2.10376."
+    },
+    {
+      "citation_number": 71,
+      "is_valid": false,
+      "corrected": "Duncan, Hugh Dalziel. \"Introduction.\" _Permanence and Change: An Anatomy of Purpose_, by Kenneth Burke, 3rd ed., U of California P, 1984, pp. xiii-xliv.",
+      "has_placeholder": false,
+      "source_type": "book chapter (introduction/foreword)",
+      "error_count": 3,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Duncan, Hugh Dalziel. Introduction. _Permanence and Change: An Anatomy of Purpose,_ by Kenneth Burke, 1935, 3rd ed., U of California P, 1984, pp. xiii-xliv."
+    },
+    {
+      "citation_number": 72,
+      "is_valid": false,
+      "corrected": "Duncan, Hugh Dalziel. \"Introduction.\" _Permanence and Change: An Anatomy of Purpose_, by Kenneth Burke, 3rd ed., U of California P, 1984, pp. xiii-xliv.",
+      "has_placeholder": false,
+      "source_type": "book chapter (introduction/foreword)",
+      "error_count": 4,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Duncan, Hugh Dalziel. Introduction. _Permanence and Change: An Anatomy of Purpose,_ by Kenneth Burke, 1935, 3rd ed., University of California Press, 1984, pp. xiii-xliv."
+    },
+    {
+      "citation_number": 73,
+      "is_valid": false,
+      "corrected": "Narayanan, Nirupama, and Robin Sturtz. \"Success in the STEM Curricula.\" _College Quarterly_, vol. 21, no. 2, 2018, [MISSING: page numbers], collegequarterly.ca/2018-vol21-num02-spring/index.html.",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Narayanan, Nirupama, and Robin Sturtz. \"Success in the STEM Curricula.\" _College Quarterly,_ vol. 21, no. 2, 2018, collegequarterly.ca/2018-vol21-num02-spring/index.html."
+    },
+    {
+      "citation_number": 74,
+      "is_valid": false,
+      "corrected": "Narayanan, Nirupama, and Robin Sturtz. \"Success in the STEM Curricula.\" _College Quarterly_, vol. 21, no. 2, 2018, [MISSING: page numbers], collegequarterly.ca/2018-vol21-num02-spring/index.html.",
+      "has_placeholder": true,
+      "source_type": "journal article",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Narayanan, Nirupama & Robin Sturtz. \"Success in the STEM Curricula.\" _College Quarterly,_ vol. 21, no. 2, 2018, collegequarterly.ca/2018-vol21-num02-spring/index.html."
+    },
+    {
+      "citation_number": 75,
+      "is_valid": true,
+      "corrected": "_Avatar: The Way of Water._ Directed by James Cameron, 20th Century Studios, 2022.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "_Avatar: The Way of Water._ Directed by James Cameron, 20th Century Studios, 2022."
+    },
+    {
+      "citation_number": 76,
+      "is_valid": false,
+      "corrected": "_Avatar: The Way of Water._ Directed by James Cameron, 20th Century Studios, 2022.",
+      "has_placeholder": false,
+      "source_type": "film",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Avatar: The Way of Water._ Dir. James Cameron, 20th Century Studios, 2022."
+    },
+    {
+      "citation_number": 77,
+      "is_valid": true,
+      "corrected": "altamarea. \"Kookaburra.\" _Flickr,_ 2 May 2006, flic.kr/p/dheCp.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "altamarea. \"Kookaburra.\" _Flickr,_ 2 May 2006, flic.kr/p/dheCp."
+    },
+    {
+      "citation_number": 78,
+      "is_valid": false,
+      "corrected": "altamarea. \"Kookaburra.\" _Flickr_, 2 May 2006, flic.kr/p/dheCp.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "altamarea. \"Kookaburra.\" Flickr, 2 May 2006, flic.kr/p/dheCp."
+    },
+    {
+      "citation_number": 79,
+      "is_valid": true,
+      "corrected": "Sarago, Sasha Kutabah. \"The (De) Colonizing of Beauty.\" _TED,_ Nov. 2020, www.ted.com/talks/sasha_sarago_the_de_colonizing_of_beauty.",
+      "has_placeholder": false,
+      "source_type": "video",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Sarago, Sasha Kutabah. \"The (De) Colonizing of Beauty.\" _TED,_ Nov. 2020, www.ted.com/talks/sasha_sarago_the_de_colonizing_of_beauty."
+    },
+    {
+      "citation_number": 80,
+      "is_valid": false,
+      "corrected": "Sarago, Sasha Kutabah. \"The (De) Colonizing of Beauty.\" _TED_, Nov. 2020, www.ted.com/talks/sasha_sarago_the_de_colonizing_of_beauty.",
+      "has_placeholder": false,
+      "source_type": "video",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Sarago, Sasha Kutabah. \"The (De) Colonizing of Beauty.\" TED, Nov. 2020, www.ted.com/talks/sasha_sarago_the_de_colonizing_of_beauty."
+    },
+    {
+      "citation_number": 81,
+      "is_valid": false,
+      "corrected": "Hocking, Amanda. _Fate._ [MISSING: publisher], 2010.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Hocking, Amanda. _Fate._ 2010."
+    },
+    {
+      "citation_number": 82,
+      "is_valid": false,
+      "corrected": "Hocking, Amanda. _Fate._ [MISSING: publisher], 2010.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Hocking, A. _Fate._ 2010."
+    },
+    {
+      "citation_number": 83,
+      "is_valid": true,
+      "corrected": "\"Our History.\" _Bombardier,_ 2021, bombardier.com/en/who-we-are/our-history.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"Our History.\" _Bombardier,_ 2021, bombardier.com/en/who-we-are/our-history."
+    },
+    {
+      "citation_number": 84,
+      "is_valid": false,
+      "corrected": "\"Our History.\" _Bombardier,_ 2021, bombardier.com/en/who-we-are/our-history.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Our history.\" _Bombardier,_ 2021, bombardier.com/en/who-we-are/our-history."
+    },
+    {
+      "citation_number": 85,
+      "is_valid": true,
+      "corrected": "\"Jewel's Boot is Made for Walking.\" _Deadwood,_ directed by Mark Tinker, season 1, episode 11, HBO, 2004. _Informit EduTV,_ edutv.informit.com.au/watch-screen.php?videoID=957976. Accessed 16 Nov. 2015.",
+      "has_placeholder": false,
+      "source_type": "video (tv episode on streaming)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"Jewel's Boot is Made for Walking.\" _Deadwood,_ directed by Mark Tinker, season 1, episode 11, HBO, 2004. _Informit EduTV,_ edutv.informit.com.au/watch-screen.php?videoID=957976. Accessed 16 Nov. 2015."
+    },
+    {
+      "citation_number": 86,
+      "is_valid": false,
+      "corrected": "\"Jewel's Boot is Made for Walking.\" _Deadwood_, directed by Mark Tinker, season 1, episode 11, HBO, 2004. _Informit EduTV_, edutv.informit.com.au/watch-screen.php?videoID=957976. Accessed 16 Nov. 2015.",
+      "has_placeholder": false,
+      "source_type": "tv episode (streaming)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Jewel's Boot is Made for Walking.\" _Deadwood,_ directed by Mark Tinker, Season 1, Episode 11, HBO, 2004. _Informit EduTV,_ edutv.informit.com.au/watch-screen.php?videoID=957976. Accessed 16 Nov. 2015."
+    },
+    {
+      "citation_number": 87,
+      "is_valid": false,
+      "corrected": "_Soul._ Directed by Pete Docter, Pixar, 2020. _Audio Cine Films_, [MISSING: URL].",
+      "has_placeholder": true,
+      "source_type": "film (streaming)",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "_Soul._ Directed by Pete Docter, Pixar, 2020. _Audio Cine Films._"
+    },
+    {
+      "citation_number": 88,
+      "is_valid": false,
+      "corrected": "_Soul._ Directed by Pete Docter, Pixar, 2020. _Audio Cine Films_, [MISSING: URL].",
+      "has_placeholder": true,
+      "source_type": "film (streaming)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Soul._ Dir. Pete Docter, Pixar, 2020. _Audio Cine Films._"
+    },
+    {
+      "citation_number": 89,
+      "is_valid": true,
+      "corrected": "\"Welcome to Happyland.\" _Life Matters_, narrated by Joel Carnegie, Radio National, ABC, 13 Nov. 2015.",
+      "has_placeholder": false,
+      "source_type": "radio program/podcast",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"Welcome to Happyland.\" _Life Matters,_ narrated by Joel Carnegie, Radio National, ABC, 13 Nov. 2015."
+    },
+    {
+      "citation_number": 90,
+      "is_valid": false,
+      "corrected": "\"Welcome to Happyland.\" _Life Matters_, narrated by Joel Carnegie, Radio National, ABC, 13 Nov. 2015.",
+      "has_placeholder": false,
+      "source_type": "radio program/podcast",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Welcome to Happyland.\" _Life Matters,_ narrated by Joel Carnegie, Radio National, ABC, November 13, 2015."
+    },
+    {
+      "citation_number": 91,
+      "is_valid": true,
+      "corrected": "Burke, Tarana, and Bren\u00e9 Brown. _You Are Your Best Thing: Vulnerability, Shame Resilience, and the Black Experience._ Random House, 2021.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Burke, Tarana, and Bren\u00e9 Brown. _You Are Your Best Thing: Vulnerability, Shame Resilience, and the Black Experience._ Random House, 2021."
+    },
+    {
+      "citation_number": 92,
+      "is_valid": false,
+      "corrected": "Burke, Tarana, and Bren\u00e9 Brown. _You Are Your Best Thing: Vulnerability, Shame Resilience, and the Black Experience._ Random House, 2021.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Burke, Tarana & Bren\u00e9 Brown. _You Are Your Best Thing: Vulnerability, Shame Resilience, and the Black Experience._ Random House, 2021."
+    },
+    {
+      "citation_number": 93,
+      "is_valid": true,
+      "corrected": "Nickels, William, et al. _Understanding Canadian Business._ McGraw-Hill Ryerson, 2016.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Nickels, William, et al. _Understanding Canadian Business._ McGraw-Hill Ryerson, 2016."
+    },
+    {
+      "citation_number": 94,
+      "is_valid": false,
+      "corrected": "Nickels, William, et al. _Understanding Canadian Business._ McGraw-Hill Ryerson, 2016.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Nickels, William, et al. _Understanding Canadian Business_ McGraw-Hill Ryerson, 2016."
+    },
+    {
+      "citation_number": 95,
+      "is_valid": false,
+      "corrected": "Newman, Beth. \"_Wuthering Heights_ in Its Context(s).\" _Approaches to Teaching Emily Bront\u00eb's Wuthering Heights,_ edited by Sue Lonoff and Terri A. Hasseler, Modern Language Association of America, 2006, pp. 36-43.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Newman, Beth. \"_Wuthering Heights_ in its Context(s).\" _Approaches to Teaching Emily Bront\u00eb's Wuthering Heights,_ edited by Sue Lonoff and Terri A Hasseler, Modern Language Association of America, 2006, pp. 36-43."
+    },
+    {
+      "citation_number": 96,
+      "is_valid": false,
+      "corrected": "Newman, Beth. \"_Wuthering Heights_ in Its Context(s).\" _Approaches to Teaching Emily Bront\u00eb's Wuthering Heights_, edited by Sue Lonoff and Terri A. Hasseler, Modern Language Association of America, 2006, pp. 36-43.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Newman, Beth. \"_Wuthering Heights_ in its Context(s).\" _Approaches to Teaching Emily Bront\u00eb's Wuthering Heights,_ edited by Sue Lonoff and Terri A Hasseler, Modern Language Association of America, 2006, 36-43."
+    },
+    {
+      "citation_number": 97,
+      "is_valid": false,
+      "corrected": "\"Online Shopping During the COVID-19 Pandemic.\" _[MISSING: website name]_, Statistics Canada, 5 Feb. 2021, www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2020088-eng.htm.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "_Online Shopping During the COVID-19 Pandemic._ Statistics Canada, 5 Feb. 2021, www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2020088-eng.htm."
+    },
+    {
+      "citation_number": 98,
+      "is_valid": false,
+      "corrected": "\"Online Shopping During the COVID-19 Pandemic.\" _[MISSING: website name]_, Statistics Canada, 5 Feb. 2021, www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2020088-eng.htm.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Online Shopping During the COVID-19 Pandemic. Statistics Canada, 5 Feb. 2021, www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2020088-eng.htm."
+    },
+    {
+      "citation_number": 99,
+      "is_valid": false,
+      "corrected": "Ribecca, Severino. \"The Data Visualisation Catalogue.\" _The Data Visualisation Catalogue_, [MISSING: publication date], datavizcatalogue.com. Accessed 3 May 2021.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 3,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Ribecca, Severino. _The Data Visualisation Catalogue._ datavizcatalogue.com. Accessed 3 May 2021."
+    },
+    {
+      "citation_number": 100,
+      "is_valid": false,
+      "corrected": "Ribecca, Severino. \"The Data Visualisation Catalogue.\" _The Data Visualisation Catalogue_, [MISSING: publication date], datavizcatalogue.com. Accessed 3 May 2021.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Ribecca, Severino. The Data Visualisation Catalogue. datavizcatalogue.com. Accessed 3 May 2021."
+    },
+    {
+      "citation_number": 101,
+      "is_valid": false,
+      "corrected": "Anderson, Catherine. _Essentials of Linguistics_. _Open Library_, eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=890fb2bb-f721-422e-88a8-121e045a19c3.",
+      "has_placeholder": false,
+      "source_type": "website (online book)",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Anderson, Catherine. _Essentials of Linguistics._ _Open Library,_ eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=890fb2bb-f721-422e-88a8-121e045a19c3."
+    },
+    {
+      "citation_number": 102,
+      "is_valid": false,
+      "corrected": "Anderson, Catherine. _Essentials of Linguistics_. _Open Library_, eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=890fb2bb-f721-422e-88a8-121e045a19c3.",
+      "has_placeholder": false,
+      "source_type": "website (online book)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Anderson, Catherine. _Essentials of Linguistics._ Open Library, eCampus Ontario, 2018, openlibrary.ecampusontario.ca/catalogue/item/?id=890fb2bb-f721-422e-88a8-121e045a19c3."
+    },
+    {
+      "citation_number": 103,
+      "is_valid": true,
+      "corrected": "Gladwell, Malcolm. \"The Science of the Sleeper.\" _The New Yorker_, 10 Mar. 2008, pp. 36-39.",
+      "has_placeholder": false,
+      "source_type": "journal article (magazine)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Gladwell, Malcolm. \"The Science of the Sleeper.\" _The New Yorker,_ 10 Mar. 2008, pp. 36-39."
+    },
+    {
+      "citation_number": 104,
+      "is_valid": false,
+      "corrected": "Gladwell, Malcolm. \"The Science of the Sleeper.\" _The New Yorker_, 10 Mar. 2008, pp. 36-39.",
+      "has_placeholder": false,
+      "source_type": "journal article (magazine)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Gladwell, Malcolm. \"The Science of the Sleeper.\" _The New Yorker,_ 10 Mar. 2008, pp 36-39."
+    },
+    {
+      "citation_number": 105,
+      "is_valid": false,
+      "corrected": "Martin, Ann Smart, editor. _Creators, Collectors and Communities: Making Ethnic Identity Through Objects_. _Open Library_, eCampus Ontario, 2017, openlibrary.ecampusontario.ca/catalogue/item/?id=27d7a65b-a1e6-4b8f-9c4d-dc5d24feae12.",
+      "has_placeholder": false,
+      "source_type": "book (edited collection)",
+      "error_count": 2,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Martin, Ann Smart, editor. _Creators, Collectors & Communities: Making Ethnic Identity Through Objects._ _Open Library,_ eCampus Ontario, 2017, openlibrary.ecampusontario.ca/catalogue/item/?id=27d7a65b-a1e6-4b8f-9c4d-dc5d24feae12."
+    },
+    {
+      "citation_number": 106,
+      "is_valid": false,
+      "corrected": "Martin, Ann Smart, editor. _Creators, Collectors and Communities: Making Ethnic Identity Through Objects._ _Open Library_, eCampus Ontario, 2017, openlibrary.ecampusontario.ca/catalogue/item/?id=27d7a65b-a1e6-4b8f-9c4d-dc5d24feae12.",
+      "has_placeholder": false,
+      "source_type": "book (online/e-book)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Martin, Ann Smart, ed. _Creators, Collectors & Communities: Making Ethnic Identity Through Objects._ _Open Library,_ eCampus Ontario, 2017, openlibrary.ecampusontario.ca/catalogue/item/?id=27d7a65b-a1e6-4b8f-9c4d-dc5d24feae12."
+    },
+    {
+      "citation_number": 107,
+      "is_valid": true,
+      "corrected": "Haig, Matt. _The Midnight Library._ e-book ed., Harper Avenue, 2020.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Haig, Matt. _The Midnight Library._ e-book ed., Harper Avenue, 2020."
+    },
+    {
+      "citation_number": 108,
+      "is_valid": false,
+      "corrected": "Haig, Matt. _The Midnight Library._ e-book ed., Harper Avenue, 2020.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Haig, Matt. _The Midnight Library._ e-book edition, Harper Avenue, 2020."
+    },
+    {
+      "citation_number": 109,
+      "is_valid": false,
+      "corrected": "United Nations. _Consequences of Rapid Population Growth in Developing Countries._ Taylor and Francis, 1991.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "United Nations. _Consequences of Rapid Population Growth in Developing Countries._ Taylor and Francis, 1991."
+    },
+    {
+      "citation_number": 110,
+      "is_valid": false,
+      "corrected": "United Nations. _Consequences of Rapid Population Growth in Developing Countries._ Taylor and Francis, 1991.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "United Nations. _Consequences of rapid population growth in developing countries._ Taylor and Francis, 1991."
+    },
+    {
+      "citation_number": 111,
+      "is_valid": false,
+      "corrected": "\"How to Teach Yourself Guitar.\" _eHow_, Demand Media, [MISSING: publication date], www.ehow.com/how_5298173_teach-yourself-guitar.html.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "\"How to Teach Yourself Guitar.\" _eHow,_ Demand Media, www.ehow.com/how_5298173_teach-yourself-guitar.html."
+    },
+    {
+      "citation_number": 112,
+      "is_valid": false,
+      "corrected": "\"How to Teach Yourself Guitar.\" _eHow_, Demand Media, [MISSING: publication date], www.ehow.com/how_5298173_teach-yourself-guitar.html.",
+      "has_placeholder": true,
+      "source_type": "website",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "How to Teach Yourself Guitar. _eHow,_ Demand Media, www.ehow.com/how_5298173_teach-yourself-guitar.html."
+    }
+  ]
+}

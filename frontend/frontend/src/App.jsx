@@ -519,7 +519,7 @@ function AppContent() {
 <p style="color: #9ca3af;"></p>
 <p style="color: #9ca3af;">Smith, J., & Jones, M. (2023). Understanding research methods. Journal of Academic Studies, 45(2), 123-145. https://doi.org/10.1234/example</p>
 <p style="color: #9ca3af;"></p>
-<p style="color: #9ca3af;">Brown, A. (2022). Writing in APA style. Academic Press.</p>`,
+<p style="color: #9ca3af;">Brown, A. (2022). Writing research papers. Academic Press.</p>`,
     editorProps: {
       attributes: {
         class: 'citation-editor',
@@ -614,9 +614,11 @@ function AppContent() {
     const htmlContent = editor.getHTML()
     const textContent = editor.getText()
 
-
-    // Track validation attempt
-    trackEvent('validation_attempted', {
+    // Track validation attempt with style and citation count
+    const citationCount = textContent.split('\n').filter(line => line.trim()).length
+    trackEvent('validation_started', {
+      style: selectedStyle,
+      citation_count: citationCount,
       form_content_length: textContent.length,
       interface_source: 'main_page'
     })
@@ -842,7 +844,7 @@ function AppContent() {
                 Stop wasting 5 minutes on every{'\u00A0'}citation
               </h2>
               <p className="hero-subtitle">
-                The fastest, most accurate APA citation checker.
+                The fastest, most accurate citation checker.
               </p>
               <div className="hero-stat">
                 <span className="stat-text">
@@ -856,14 +858,14 @@ function AppContent() {
         {/* Input Section */}
         <section className="input-section">
           <form onSubmit={handleSubmit}>
+            <StyleSelector
+              selectedStyle={selectedStyle}
+              onStyleChange={setSelectedStyle}
+              disabled={loading}
+            />
             <div className="input-layout">
               <div className="editor-column">
                 <label>Paste your citations below</label>
-                <StyleSelector
-                  selectedStyle={selectedStyle}
-                  onStyleChange={setSelectedStyle}
-                  disabled={loading}
-                />
                 <div data-testid="editor">
                   <EditorContent editor={editor} />
                 </div>
@@ -964,7 +966,7 @@ function AppContent() {
             <div className="featured-bento-refined">
               <div className="featured-hero-refined">
                 <h4>Catches 99% of citation errors</h4>
-                <p>Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.</p>
+                <p>Our custom AI models are trained exclusively on citation formatting and validate against official APA 7th Edition and MLA 9th Edition rules. Significantly more accurate than ChatGPT, Zotero, or EasyBib.</p>
               </div>
 
               <div className="secondary-gradient secondary-teal">
@@ -983,8 +985,8 @@ function AppContent() {
               </div>
 
               <div className="bottom-card">
-                <h6>APA Expert Verified</h6>
-                <p>Every error type validated against official APA 7th Edition manual</p>
+                <h6>Expert Verified</h6>
+                <p>Every error type validated against official APA 7th and MLA 9th Edition manuals</p>
               </div>
 
               <div className="bottom-card">
@@ -1001,9 +1003,9 @@ function AppContent() {
             <h3 className="faq-title">Frequently Asked Questions</h3>
             <div className="faq-items">
               <div className="faq-item">
-                <h4 className="faq-question">How do I check my APA citations?</h4>
+                <h4 className="faq-question">How do I check my citations?</h4>
                 <p className="faq-answer">
-                  Simply paste your citations into the text box and click "Check My Citations". Our tool will instantly validate your APA 7th edition citations and highlight any formatting errors.
+                  Simply paste your citations into the text box, select your style (APA 7 or MLA 9), and click "Check My Citations". Our tool will instantly validate your citations and highlight any formatting errors.
                 </p>
               </div>
               <div className="faq-item">
@@ -1014,15 +1016,15 @@ function AppContent() {
                 </p>
               </div>
               <div className="faq-item">
-                <h4 className="faq-question">What citation style does this tool support?</h4>
+                <h4 className="faq-question">What citation styles does this tool support?</h4>
                 <p className="faq-answer">
-                  Currently, we support APA 7th edition citation style. This is the most current version of APA formatting used by most academic institutions.
+                  We support APA 7th Edition and MLA 9th Edition citation styles. These are the most current versions used by academic institutions worldwide.
                 </p>
               </div>
               <div className="faq-item">
                 <h4 className="faq-question">What types of errors does this tool catch?</h4>
                 <p className="faq-answer">
-                  Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall APA 7th edition compliance.
+                  Our tool checks for capitalization errors, italics validation, DOI formatting, punctuation rules, author name formatting, and overall style compliance.
                 </p>
               </div>
               <div className="faq-item">
@@ -1060,7 +1062,7 @@ function AppContent() {
                 <p className="faq-answer">
                   ChatGPT and tools like Zotero or EasyBib make formatting errors because they're not
                   specialized for citation validation. Our AI models are custom-trained exclusively on
-                  APA 7th Edition rules with expert verification, achieving 99% accuracy.
+                  APA 7th and MLA 9th Edition rules with expert verification, achieving 99% accuracy.
                 </p>
               </div>
             </div>

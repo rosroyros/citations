@@ -1,0 +1,922 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-28 22:45:49",
+    "model": "gemini-3-flash-preview",
+    "prompt": "validator_prompt_mla9_v1.1.txt",
+    "dataset": "mla9_holdout_set.jsonl",
+    "total_citations": 112
+  },
+  "metrics": {
+    "accuracy": 89.28571428571429,
+    "correct": 100,
+    "total": 112,
+    "true_positives": 45,
+    "true_negatives": 55,
+    "false_positives": 1,
+    "false_negatives": 11,
+    "placeholder_count": 10
+  },
+  "comparison": {
+    "training_accuracy": 83.93,
+    "holdout_accuracy": 89.28571428571429,
+    "difference": 5.355714285714285
+  },
+  "detailed_results": [
+    {
+      "citation_number": 1,
+      "is_valid": false,
+      "corrected": "Arthur, Charles. _Digital Wars: Apple, Google, Microsoft and the Battle for the Internet._ Kogan Page, 2012. _eBook Collection._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 2,
+      "is_valid": false,
+      "corrected": "Arthur, Charles. _Digital Wars: Apple, Google, Microsoft and the Battle for the Internet._ Kogan Page, 2012. _eBook Collection._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 3,
+      "is_valid": true,
+      "corrected": "Rich, Sarah. \"Inside the Design Process to Protect People's Health on Public Transit.\" _IDEO,_ 11 Feb. 2021, www.ideo.com/journal/inside-the-design-process-to-protect-peoples-health-on-public-transit.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 4,
+      "is_valid": false,
+      "corrected": "Rich, Sarah. \"Inside the Design Process to Protect People's Health on Public Transit.\" _IDEO,_ 11 Feb. 2021, www.ideo.com/journal/inside-the-design-process-to-protect-peoples-health-on-public-transit.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 5,
+      "is_valid": true,
+      "corrected": "Nossiter, Adam. \"In France, an Orchestrated Campaign of Anti-Muslim Hate.\" _The New York Times,_ vol. 171, no. 59288, 30 Dec. 2021, p. A1.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 6,
+      "is_valid": false,
+      "corrected": "Nossiter, Adam. \"In France, an Orchestrated Campaign of Anti-Muslim Hate.\" _The New York Times,_ vol. 171, no. 59288, 30 Dec. 2021, p. A1.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 7,
+      "is_valid": true,
+      "corrected": "Kurlansky, Mark. _Salt: A World History._ Walker, 2002.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 8,
+      "is_valid": false,
+      "corrected": "Kurlansky, Mark. _Salt: A World History._ Walker, 2002.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 9,
+      "is_valid": true,
+      "corrected": "Jamsa, Kris, and Andy Anderson. _HTML and Web Design: Tips and Techniques._ McGraw-Hill/Osborne, 2002. _EBSCO eBook and Audiobook Collection._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 10,
+      "is_valid": false,
+      "corrected": "Jamsa, Kris, and Andy Anderson. _HTML and Web Design: Tips and Techniques._ McGraw-Hill/Osborne, 2002. _EBSCO eBook and Audiobook Collection._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 11,
+      "is_valid": false,
+      "corrected": "Rawling, Barry H. J. \"Yorkshire English.\" _The British Isles,_ edited by Tometro Hopkins and John McKenny, vol. 1 of _World Englishes,_ Bloomsbury Academic, 2017, [MISSING: page numbers].",
+      "has_placeholder": true,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 12,
+      "is_valid": false,
+      "corrected": "Rawling, Barry H. J. \"Yorkshire English.\" _The British Isles,_ edited by Tometro Hopkins and John McKenny, vol. 1 of _World Englishes,_ Bloomsbury Academic, 2017, [MISSING: page numbers].",
+      "has_placeholder": true,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 13,
+      "is_valid": true,
+      "corrected": "Murakami, Haruki. \"Charlie Parker Plays Bossa Nova.\" _First Person Singular,_ Bond Street Books, 2021, pp. 50-74.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 14,
+      "is_valid": false,
+      "corrected": "Murakami, Haruki. \"Charlie Parker Plays Bossa Nova.\" _First Person Singular,_ Bond Street Books, 2021, pp. 50-74.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 15,
+      "is_valid": true,
+      "corrected": "Calgary Educational Partnership Foundation. _Employability Skills: Creating My Future,_ Nelson, 1996.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 16,
+      "is_valid": false,
+      "corrected": "Calgary Educational Partnership Foundation. _Employability Skills: Creating My Future_. [MISSING: publisher], 1996.",
+      "has_placeholder": true,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 17,
+      "is_valid": false,
+      "corrected": "Block, Bruce A. _The Visual Story: Creating the Visual Structure of Film, TV and Digital Media._ Focal Press/Elsevier, 2008. _ebrary._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 18,
+      "is_valid": true,
+      "corrected": "Block, Bruce A. _The Visual Story: Creating the Visual Structure of Film, TV and Digital Media._ Focal Press/Elsevier, 2008. _ebrary._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": false
+    },
+    {
+      "citation_number": 19,
+      "is_valid": false,
+      "corrected": "Twain, Mark. _A Connecticut Yankee in King Arthur's Court._ Edited by [MISSING: full first name] Thomas Inge, Oxford UP, 2008.",
+      "has_placeholder": true,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 20,
+      "is_valid": false,
+      "corrected": "Twain, Mark. _A Connecticut Yankee in King Arthur's Court._ Edited by [MISSING: full first name] Thomas Inge, Oxford UP, 2008.",
+      "has_placeholder": true,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 21,
+      "is_valid": true,
+      "corrected": "Glazebrook, Allison, and Christina Vester, editors. _Themes in Greek Society and Culture: An Introduction to Ancient Greece._ Oxford UP, 2017.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 22,
+      "is_valid": false,
+      "corrected": "Glazebrook, Allison, and Christina Vester, editors. _Themes in Greek Society and Culture: An Introduction to Ancient Greece._ Oxford UP, 2017.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 23,
+      "is_valid": false,
+      "corrected": "\"Secret Life of Twins.\" BBC, 2015. _Films on Demand,_ unr.idm.oclc.org/login?url=fod.infobase.com/PortalPlaylists.aspx?wID=98734&xtid=115671.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 24,
+      "is_valid": false,
+      "corrected": "\"Secret Life of Twins.\" BBC, 2015. _Films on Demand,_ unr.idm.oclc.org/login?url=fod.infobase.com/PortalPlaylists.aspx?wID=98734&xtid=115671.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 25,
+      "is_valid": true,
+      "corrected": "Hauck, Pia, and Heiko Hecht. \"Having a Drink with Tchaikovsky: The Crossmodal Influence of Background Music on the Taste of Beverages.\" _Multisensory Research,_ vol. 32, no. 1, Jan. 2019, pp. 1-24. _Academic Search Premier,_ https://doi.org/10.1163/22134808-20181321.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 26,
+      "is_valid": false,
+      "corrected": "Hauck, Pia, and Heiko Hecht. \"Having a Drink with Tchaikovsky: The Crossmodal Influence of Background Music on the Taste of Beverages.\" _Multisensory Research,_ vol. 32, no. 1, Jan. 2019, pp. 1-24. _Academic Search Premier,_ https://doi.org/10.1163/22134808-20181321.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 27,
+      "is_valid": true,
+      "corrected": "Huang, Alexa, and Elizabeth Rivlin. _Shakespeare and the Ethics of Appropriation._ Palgrave Macmillan, 2014. _EBL._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 28,
+      "is_valid": false,
+      "corrected": "Huang, Alexa, and Elizabeth Rivlin. _Shakespeare and the Ethics of Appropriation._ Palgrave Macmillan, 2014. _EBL._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 29,
+      "is_valid": true,
+      "corrected": "Eaves, Morris, et al., editors. _The William Blake Archive._ Library of Congress, 1996-2013, www.blakearchive.org/blake/.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 30,
+      "is_valid": false,
+      "corrected": "Eaves, Morris, et al., editors. _The William Blake Archive._ Library of Congress, 1996-2013, www.blakearchive.org/blake/.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 31,
+      "is_valid": true,
+      "corrected": "Spacks, Patricia Meyer. _Privacy: Concealing the Eighteenth Century Self._ U of Chicago P, 2003.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 32,
+      "is_valid": false,
+      "corrected": "Spacks, Patricia Meyer. _Privacy: Concealing the Eighteenth Century Self._ U of Chicago P, 2003.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 33,
+      "is_valid": true,
+      "corrected": "Sadie, Stanley, editor. _The New Grove Dictionary of Music and Musicians._ 2nd ed., Grove, 2001. 29 vols.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 34,
+      "is_valid": false,
+      "corrected": "Sadie, Stanley, editor. _The New Grove Dictionary of Music and Musicians._ 2nd ed., Grove, 2001. 29 vols.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 35,
+      "is_valid": true,
+      "corrected": "Robbins, Michael. \"Paul Muldoon's Covert Operations.\" _Modern Philology,_ vol. 109, no. 2, 2011, pp. 266-99. _JSTOR,_ https://doi.org/10.1086/663233.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 36,
+      "is_valid": false,
+      "corrected": "Robbins, Michael. \"Paul Muldoon's Covert Operations.\" _Modern Philology,_ vol. 109, no. 2, 2011, pp. 266-99. _JSTOR,_ https://doi.org/10.1086/663233.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 37,
+      "is_valid": false,
+      "corrected": "\"Bioengineers and Biomedical Engineers.\" _Occupational Outlook Handbook,_ U.S. Bureau of Labor Statistics, 9 Apr. 2021, www.bls.gov/ooh/architecture-and-engineering/biomedical-engineers.htm.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 38,
+      "is_valid": false,
+      "corrected": "\"Bioengineers and Biomedical Engineers.\" _Occupational Outlook Handbook,_ U.S. Bureau of Labor Statistics, 9 Apr. 2021, www.bls.gov/ooh/architecture-and-engineering/biomedical-engineers.htm.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 39,
+      "is_valid": true,
+      "corrected": "Pomeroy, Sarah B., et al. _A Brief History of Ancient Greece: Politics, Society, and Culture._ 4th ed., Oxford UP, 2019.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 40,
+      "is_valid": false,
+      "corrected": "Pomeroy, Sarah B., et al. _A Brief History of Ancient Greece: Politics, Society, and Culture._ 4th ed., Oxford UP, 2019.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 41,
+      "is_valid": true,
+      "corrected": "Eldred, Laura. \"Martin McDonagh and the Contemporary Gothic.\" _Martin McDonagh: A Casebook,_ edited by Richard Rankin Russell, Taylor & Francis, 2007, pp. 111-30. _EBL._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 42,
+      "is_valid": false,
+      "corrected": "Eldred, Laura. \"Martin McDonagh and the Contemporary Gothic.\" _Martin McDonagh: A Casebook,_ edited by Richard Rankin Russell, Taylor & Francis, 2007, pp. 111-30. _EBL._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 43,
+      "is_valid": false,
+      "corrected": "Cohen, Lara Langer. \"Emily Dickinson's Teenage Fanclub.\" _The Emily Dickinson Journal,_ vol. 23, no. 1, 2014, [MISSING: page numbers], muse.jhu.edu/article/543643.",
+      "has_placeholder": true,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 44,
+      "is_valid": false,
+      "corrected": "Cohen, Lara Langer. \"Emily Dickinson's Teenage Fanclub.\" _The Emily Dickinson Journal,_ vol. 23, no. 1, 2014, [MISSING: page numbers].",
+      "has_placeholder": true,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 45,
+      "is_valid": true,
+      "corrected": "Kirsh, Steven J. _Children, Adolescents, and Media Violence: A Critical Look at the Research._ Sage, 2006.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 46,
+      "is_valid": false,
+      "corrected": "Kirsh, Steven J. _Children, Adolescents, and Media Violence: A Critical Look at the Research._ Sage, 2006.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 47,
+      "is_valid": true,
+      "corrected": "Burton, Tim, director. _Ed Wood._ Touchstone, 1994.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 48,
+      "is_valid": false,
+      "corrected": "Burton, Tim, director. _Ed Wood._ Touchstone, 1994.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 49,
+      "is_valid": true,
+      "corrected": "Carter, Angela. \"The Tiger's Bride.\" _Burning Your Boats: The Collected Stories,_ Penguin, 1995, pp. 154-69.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 50,
+      "is_valid": false,
+      "corrected": "Carter, Angela. \"The Tiger's Bride.\" _Burning Your Boats: The Collected Stories,_ Penguin, 1995, pp. 154-69.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 51,
+      "is_valid": false,
+      "corrected": "\"The Hope That Kills You.\" Directed by M. J. Delaney. _Ted Lasso,_ season 2, episode 10, Apple TV+, 2 Oct. 2020. _Apple TV_ app.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 52,
+      "is_valid": false,
+      "corrected": "\"The Hope That Kills You.\" Directed by M. J. Delaney. _Ted Lasso,_ season 2, episode 10, Apple TV+, 2 Oct. 2020. _Apple TV_ app.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 53,
+      "is_valid": true,
+      "corrected": "_It's a Wonderful Life._ Directed by Frank Capra, performance by James Stewart et al., RKO, 1946.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 54,
+      "is_valid": false,
+      "corrected": "_It's a Wonderful Life._ Directed by Frank Capra, performance by James Stewart et al., RKO, 1946.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 55,
+      "is_valid": false,
+      "corrected": "[MISSING: creator]. \"Daniil Trifonov - Chopin: Prelude No. 9 in E major (Official Video).\" _YouTube,_ uploaded by Deutsche Grammophon - DG, 22 Oct. 2014, youtu.be/MWZmw7qKjNM.",
+      "has_placeholder": true,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 56,
+      "is_valid": false,
+      "corrected": "Trifonov, Daniil. \"Daniil Trifonov - Chopin: Prelude No. 9 in E Major (Official Video).\" _YouTube,_ uploaded by Deutsche Grammophon - DG, 22 Oct. 2014, youtu.be/MWZmw7qKjNM.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 57,
+      "is_valid": true,
+      "corrected": "Abellie, Anne, and Robert D. Borsley. \"Comparative Correlatives and Parameters.\" _Lingua,_ vol. 118, no. 8, 2008, pp. 1139-57.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 58,
+      "is_valid": false,
+      "corrected": "Abellie, Anne, and Robert D. Borsley. \"Comparative Correlatives and Parameters.\" _Lingua,_ vol. 118, no. 8, 2008, pp. 1139-57.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 59,
+      "is_valid": true,
+      "corrected": "_New York Public Library American History Desk Reference._ Macmillan, 1997.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 60,
+      "is_valid": false,
+      "corrected": "_New York Public Library American History Desk Reference._ Macmillan, 1997.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 61,
+      "is_valid": true,
+      "corrected": "Grammar Girl [Mignon Fogarty]. \"The Inverted Sentence.\" _YouTube,_ uploaded by GrammarGirl, 22 June 2011, www.youtube.com/watch?v=f9NpxvGIsxY.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 62,
+      "is_valid": false,
+      "corrected": "Grammar Girl [Mignon Fogarty]. \"The Inverted Sentence.\" _YouTube,_ uploaded by GrammarGirl, 22 June 2011, www.youtube.com/watch?v=f9NpxvGIsxY.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 63,
+      "is_valid": true,
+      "corrected": "Rauer, Amy, and Brenda Volling. \"More Than One Way to be Happy: A Typology of Marital Happiness.\" _Family Process,_ vol. 52, no. 3, 2013, pp. 519-534. _Academic Search Complete,_ doi:10.1111/famp.12028. Accessed 13 Apr. 2018.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 64,
+      "is_valid": false,
+      "corrected": "Rauer, Amy, and Brenda Volling. \"More Than One Way to be Happy: A Typology of Marital Happiness.\" _Family Process,_ vol. 52, no. 3, 2013, pp. 519-534. _Academic Search Complete,_ doi:10.1111/famp.12028. Accessed 13 Apr. 2018.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 65,
+      "is_valid": true,
+      "corrected": "Baguley, David. \"Event and Structure: The Plot of Zola's L'Assommoir.\" _PMLA,_ vol. 90, no. 5, 1975, pp. 823-33. _JSTOR,_ https://doi.org/10.2307/461468.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 66,
+      "is_valid": false,
+      "corrected": "Baguley, David. \"Event and Structure: The Plot of Zola's L'Assommoir.\" _PMLA,_ vol. 90, no. 5, 1975, pp. 823-33. _JSTOR,_ https://doi.org/10.2307/461468.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 67,
+      "is_valid": true,
+      "corrected": "Verdier, Thierry, et al. _The Organization of Firms in a Global Economy._ Harvard UP, 2008.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 68,
+      "is_valid": false,
+      "corrected": "Verdier, Thierry, et al. _The Organization of Firms in a Global Economy._ Harvard UP, 2008.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 69,
+      "is_valid": true,
+      "corrected": "IBM Cloud Education. \"Types of Artificial Intelligence: Weak AI vs. Strong AI.\" _IBM,_ 3 June 2020, www.ibm.com/cloud/learn/what-is-artificial-intelligence#toc-types-of-a-q56lfpGa.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 70,
+      "is_valid": false,
+      "corrected": "IBM Cloud Education. \"Types of Artificial Intelligence: Weak AI vs. Strong AI.\" _IBM,_ 3 June 2020, www.ibm.com/cloud/learn/what-is-artificial-intelligence#toc-types-of-a-q56lfpGa.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 71,
+      "is_valid": true,
+      "corrected": "Armstrong, Sonya L., and Mary Newman. \"Teaching Textual Conversations: Intertextuality in the College Reading Classroom.\" _Journal of College Reading and Learning,_ vol. 41, no. 2, 2011, pp. 6-21.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 72,
+      "is_valid": false,
+      "corrected": "Armstrong, Sonya L., and Mary Newman. \"Teaching Textual Conversations: Intertextuality in the College Reading Classroom.\" _Journal of College Reading and Learning,_ vol. 41, no. 2, 2011, pp. 6-21.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 73,
+      "is_valid": true,
+      "corrected": "\"The Final Frontier.\" _Mad About You,_ created by Paul Reiser and Danny Jacobson, season 7, episode 21, NBC, 24 May 1999.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 74,
+      "is_valid": false,
+      "corrected": "\"The Final Frontier.\" _Mad About You,_ created by Paul Reiser and Danny Jacobson, season 7, episode 21, NBC, 24 May 1999.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 75,
+      "is_valid": true,
+      "corrected": "Burns, Robert. \"Red, Red Rose.\" _100 Best-Loved Poems,_ edited by Philip Smith, Dover, 1995, p. 26.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 76,
+      "is_valid": false,
+      "corrected": "Burns, Robert. \"Red, Red Rose.\" _100 Best-Loved Poems,_ edited by Philip Smith, Dover, 1995, p. 26.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 77,
+      "is_valid": true,
+      "corrected": "\"Amuse-Bouche.\" _Hannibal,_ written by Jim Danger Gray, directed by Michael Rymer, season 1, episode 2, Twentieth Century Fox, 2013, disc 1.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 78,
+      "is_valid": false,
+      "corrected": "\"Amuse-Bouche.\" _Hannibal,_ written by Jim Danger Gray, directed by Michael Rymer, season 1, episode 2, Twentieth Century Fox, 2013, disc 1.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 79,
+      "is_valid": true,
+      "corrected": "Ross, Colin. \"The Story of Grey Owl.\" _Fiction/Non-Fiction: A Reader and Rhetoric,_ edited by Garry Engkent and Lucia Engkent, Thomson Nelson, 2006, pp. 327-333.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 80,
+      "is_valid": false,
+      "corrected": "Ross, Colin. \"The Story of Grey Owl.\" _Fiction/Non-Fiction: A Reader and Rhetoric,_ edited by Garry Engkent and Lucia Engkent, Thomson Nelson, 2006, pp. 327-333.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 81,
+      "is_valid": true,
+      "corrected": "_Fantastic Beasts: The Crimes of Grindelwald._ Directed by David Yates, Warner Brothers, 2018. _Criterion on Demand._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 82,
+      "is_valid": false,
+      "corrected": "_Fantastic Beasts: The Crimes of Grindelwald._ Directed by David Yates, Warner Brothers, 2018. _Criterion on Demand._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 83,
+      "is_valid": true,
+      "corrected": "Brettell, Caroline. _Anthropological Conversations: Talking Culture Across Disciplines._ Rowman & Littlefield, 2015.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 84,
+      "is_valid": false,
+      "corrected": "Brettell, Caroline. _Anthropological Conversations: Talking Culture Across Disciplines._ Rowman & Littlefield, 2015.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 85,
+      "is_valid": true,
+      "corrected": "\"Ideology.\" _The American Heritage Dictionary,_ 3rd ed., Dell, 1997, p. 369.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 86,
+      "is_valid": false,
+      "corrected": "\"Ideology.\" _The American Heritage Dictionary,_ 3rd ed., Dell, 1997, p. 369.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 87,
+      "is_valid": true,
+      "corrected": "Hunt, Paul D. \"World Emoji Day 2021: How Emoji Can Help Create a More Empathetic World, For All of Us.\" _Adobe Blog,_ 15 July 2021, blog.adobe.com/en/publish/2021/07/15/global-emoji-trend-report-2021.html.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 88,
+      "is_valid": false,
+      "corrected": "Hunt, Paul D. \"World Emoji Day 2021: How Emoji Can Help Create a More Empathetic World, For All of Us.\" _Adobe Blog,_ 15 July 2021, blog.adobe.com/en/publish/2021/07/15/global-emoji-trend-report-2021.html.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 89,
+      "is_valid": false,
+      "corrected": "Committee on Scholarly Editions. \"Guidelines for Editors of Scholarly Editions.\" _Modern Language Association,_ MLA, 29 June 2011, www.mla.org/Resources/Research/Surveys-Reports-and-Other-Documents/Publishing-and-Scholarship/Reports-from-the-MLA-Committee-on-Scholarly-Editions/Guidelines-for-Editors-of-Scholarly-Editions.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 90,
+      "is_valid": false,
+      "corrected": "Committee on Scholarly Editions. \"Guidelines for Editors of Scholarly Editions.\" _Modern Language Association,_ MLA, 29 June 2011, www.mla.org/Resources/Research/Surveys-Reports-and-Other-Documents/Publishing-and-Scholarship/Reports-from-the-MLA-Committee-on-Scholarly-Editions/Guidelines-for-Editors-of-Scholarly-Editions.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 91,
+      "is_valid": true,
+      "corrected": "_MLA Handbook._ 9th ed., Modern Language Association of America, 2021.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 92,
+      "is_valid": false,
+      "corrected": "_MLA Handbook._ 9th ed., Modern Language Association of America, 2021.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 93,
+      "is_valid": false,
+      "corrected": "Sethi, Ramit. \"How to Write a Winning Resume, With Ramit Sethi.\" _YouTube,_ uploaded by [MISSING: uploader], 23 June 2015, www.youtube.com/watch?v=_0fjkKCsM1w.",
+      "has_placeholder": true,
+      "ground_truth": true,
+      "correct": false
+    },
+    {
+      "citation_number": 94,
+      "is_valid": false,
+      "corrected": "Sethi, Ramit. \"How to Write a Winning Resume, With Ramit Sethi.\" _YouTube,_ uploaded by [MISSING: uploader], 23 June 2015, www.youtube.com/watch?v=_0fjkKCsM1w.",
+      "has_placeholder": true,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 95,
+      "is_valid": true,
+      "corrected": "_Stoker._ Directed by Park Chan-wook, performed by Mia Wasikowska et al., Fox Searchlight, 2013. _Netflix,_ www.netflix.com/WiMovie/70254927. Accessed 16 Nov. 2015.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 96,
+      "is_valid": false,
+      "corrected": "_Stoker._ Directed by Park Chan-wook, performed by Mia Wasikowska et al., Fox Searchlight, 2013. _Netflix,_ www.netflix.com/WiMovie/70254927. Accessed 16 Nov. 2015.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 97,
+      "is_valid": true,
+      "corrected": "Poncelet, Barbara. \"Mom Am I Fat?: Helping Your Teen Have a Positive Body Image.\" _Verywell.com,_ About Inc., 20 Apr. 2016, www.verywell.com/mom-am-i-fat-3200843.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 98,
+      "is_valid": false,
+      "corrected": "Poncelet, Barbara. \"Mom Am I Fat?: Helping Your Teen Have a Positive Body Image.\" _Verywell.com,_ About Inc., 20 Apr. 2016, www.verywell.com/mom-am-i-fat-3200843.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 99,
+      "is_valid": true,
+      "corrected": "Baron, Naomi S. \"Redefining Reading: The Impact of Digital Communication Media.\" _PMLA,_ vol. 128, no. 1, Jan. 2013, pp. 193-200.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 100,
+      "is_valid": false,
+      "corrected": "Baron, Naomi S. \"Redefining Reading: The Impact of Digital Communication Media.\" _PMLA,_ vol. 128, no. 1, Jan. 2013, pp. 193-200.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 101,
+      "is_valid": true,
+      "corrected": "Murfin, Ross, and Supryia M. Ray. _The Bedford Glossary of Critical and Literary Terms._ 2nd ed., Bedford/St. Martin's, 2003.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 102,
+      "is_valid": false,
+      "corrected": "Murfin, Ross, and Supryia M. Ray. _The Bedford Glossary of Critical and Literary Terms._ 2nd ed., Bedford/St. Martin's, 2003.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 103,
+      "is_valid": true,
+      "corrected": "Ziarek, Ewa Plonowska, et al. _A Time for the Humanities: Futurity and the Limits of Autonomy._ Fordham UP, 2008. _EBSCO eBook and Audiobook Collection._",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 104,
+      "is_valid": false,
+      "corrected": "Ziarek, Ewa Plonowska, et al. _A Time for the Humanities: Futurity and the Limits of Autonomy._ Fordham UP, 2008. _EBSCO eBook and Audiobook Collection._",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 105,
+      "is_valid": true,
+      "corrected": "Dostoevsky, Feodor. _Crime and Punishment._ Translated by Jessie Coulson, edited by George Gibian, Norton, 1964.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 106,
+      "is_valid": false,
+      "corrected": "Dostoevsky, Feodor. _Crime and Punishment._ translated by Jessie Coulson, edited by George Gibian, Norton, 1964.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 107,
+      "is_valid": true,
+      "corrected": "Matuz, Roger, editor. _Contemporary Canadian Artists._ Gale Canada, 1997.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 108,
+      "is_valid": false,
+      "corrected": "Matuz, Roger, editor. _Contemporary Canadian Artists._ Gale Canada, 1997.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 109,
+      "is_valid": true,
+      "corrected": "_The Usual Suspects._ Directed by Bryan Singer, performances by Kevin Spacey, Gabriel Byrne, Chazz Palminteri, Stephen Baldwin, and Benicio Del Toro, Polygram, 1995.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 110,
+      "is_valid": false,
+      "corrected": "_The Usual Suspects._ Directed by Bryan Singer, performances by Kevin Spacey, Gabriel Byrne, Chazz Palminteri, Stephen Baldwin, and Benicio Del Toro, Polygram, 1995.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    },
+    {
+      "citation_number": 111,
+      "is_valid": true,
+      "corrected": "Moore, Jane, and Catherine Belsey. _The Feminist Reader: Essays in Gender and the Politics of Literary Criticism._ Macmillan, 1989.",
+      "has_placeholder": false,
+      "ground_truth": true,
+      "correct": true
+    },
+    {
+      "citation_number": 112,
+      "is_valid": false,
+      "corrected": "Moore, Jane, and Catherine Belsey. _The Feminist Reader: Essays in Gender and the Politics of Literary Criticism._ Macmillan, 1989.",
+      "has_placeholder": false,
+      "ground_truth": false,
+      "correct": true
+    }
+  ]
+}

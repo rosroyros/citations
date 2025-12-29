@@ -53,7 +53,7 @@ class TestAsyncJobs:
 
         # NEW: Check that async user ID logging is present
         log_messages = [record.message for record in caplog.records]
-        validation_logs = [msg for msg in log_messages if "Async validation request - user_type=" in msg]
+        validation_logs = [msg for msg in log_messages if "Async Validation request - user_type=" in msg]
         assert len(validation_logs) > 0, "Expected to find user ID logging in async validation request"
 
         # Check that user type and IDs are logged correctly for anonymous user

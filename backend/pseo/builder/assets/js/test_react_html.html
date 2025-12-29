@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React HTML Rendering Test</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function TestHTMLRendering() {
+            const testCases = [
+                {
+                    name: "Direct HTML string",
+                    html: "Smith, J. <strong>2009</strong>. <em>Journal article</em>."
+                },
+                {
+                    name: "From API response simulation",
+                    html: 'Smith, J. <strong>2009</strong>. <em>Journal article</em>.'
+                }
+            ];
+
+            return React.createElement('div', { style: { padding: '20px', fontFamily: 'Arial, sans-serif' } },
+                React.createElement('h1', null, 'React HTML Rendering Test'),
+
+                testCases.map((testCase, index) =>
+                    React.createElement('div', {
+                        key: index,
+                        style: { marginBottom: '30px', border: '1px solid #ccc', padding: '15px' }
+                    },
+                        React.createElement('h3', null, testCase.name),
+
+                        React.createElement('div', { style: { marginBottom: '10px' } },
+                            React.createElement('strong', null, 'Raw string: '),
+                            JSON.stringify(testCase.html)
+                        ),
+
+                        React.createElement('div', { style: { marginBottom: '10px' } },
+                            React.createElement('strong', null, 'Direct HTML (control): '),
+                            React.createElement('div', { dangerouslySetInnerHTML: { __html: testCase.html } })
+                        ),
+
+                        React.createElement('div', null,
+                            React.createElement('strong', null, 'TextContent (check): '),
+                            React.createElement('div', null, testCase.html)
+                        )
+                    )
+                ),
+
+                React.createElement('div', {
+                    style: { marginTop: '20px', padding: '10px', backgroundColor: '#f0f0f0' }
+                },
+                    React.createElement('h3', null, 'Expected Results:'),
+                    React.createElement('ul', null,
+                        React.createElement('li', null, 'Direct HTML should show bold and italic formatting'),
+                        React.createElement('li', null, 'TextContent should show literal HTML tags'),
+                        React.createElement('li', null, 'If both show literal tags, there\'s a React/environment issue')
+                    )
+                )
+            );
+        }
+
+        // Validate native browser rendering first
+        function validateNativeRendering() {
+            console.log('=== Native Browser HTML Rendering ===');
+            const testElement = document.createElement('div');
+            testElement.innerHTML = 'Smith, J. <strong>2009</strong>. <em>Journal article</em>.';
+
+            console.log('Native innerHTML result:', testElement.innerHTML);
+            console.log('Native textContent:', testElement.textContent);
+            console.log('Contains strong tag:', testElement.querySelector('strong') !== null);
+            console.log('Contains em tag:', testElement.querySelector('em') !== null);
+
+            return testElement;
+        }
+
+        // Run validation
+        validateNativeRendering();
+
+        // Render React component
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(TestHTMLRendering));
+
+        console.log('React component rendered');
+    </script>
+</body>
+</html>

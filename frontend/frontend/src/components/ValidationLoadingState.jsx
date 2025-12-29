@@ -6,7 +6,7 @@ const STATUS_MESSAGES = [
   'Verifying authors...',
   'Analyzing structure...',
   'Reviewing punctuation...',
-  'Cross-referencing APA 7...'
+  'Cross-referencing style rules...'
 ]
 
 function ValidationLoadingState({ submittedHtml }) {

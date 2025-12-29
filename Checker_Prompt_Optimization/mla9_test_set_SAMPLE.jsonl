@@ -1,0 +1,20 @@
+{"citation": "Guillen, Jorge. \"The Stock Market and Geography: A Retrospective on the 1987 Crash.\" *Applied Econometrics and International Development*, vol. 11, no. 2, 2011, pp. 191-98. *Business Source Main Edition*, https://unr.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=bme&AN=66914371&site=ehost-live.", "ground_truth": true}
+{"citation": "Guillen, J. \"The Stock Market and Geography: A Retrospective on the 1987 Crash.\" *Applied Econometrics and International Development*, vol. 11, no. 2, 2011, pp. 191-98. *Business Source Main Edition*, https://unr.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=bme&AN=66914371&site=ehost-live.", "ground_truth": false}
+{"citation": "Latartara, John, and Melanie Bass. \"The Timbre of Thai Classical Singing.\" *Asian Music*, vol. 43, no. 2, 2012, pp. 88-114. *Project MUSE*, https://doi.org/10.1353/amu.2012.0013.", "ground_truth": true}
+{"citation": "Latartara, John, & Melanie Bass. \"The Timbre of Thai Classical Singing.\" *Asian Music*, vol. 43, no. 2, 2012, pp. 88-114. *Project MUSE*, https://doi.org/10.1353/amu.2012.0013.", "ground_truth": false}
+{"citation": "D'Angelo, Kristin. \"The 'How' and the 'Why' of Citation: A Lesson in Library Science.\" *Information Technology & Libraries*, vol. 30, no. 1, 2011, pp. 31-5. *ITAL*, https://ejournals.bc.edu/index.php/ital/article/view/3041.", "ground_truth": true}
+{"citation": "D'Angelo, Kristin. \"The 'How' and the 'Why' of Citation: A Lesson in Library Science.\" *Information Technology & Libraries*, Vol. 30, No. 1, 2011, pp. 31-5. *ITAL*, https://ejournals.bc.edu/index.php/ital/article/view/3041.", "ground_truth": false}
+{"citation": "Garcia Marquez, Gabriel. *Love in the Time of Cholera*. Vintage, 1988.", "ground_truth": true}
+{"citation": "Garcia Marquez, G. *Love in the Time of Cholera*. Vintage, 19 88.", "ground_truth": false}
+{"citation": "Casell, Kay Ann, and Uma Hiremath. *Reference and Information Services in the 21st Century: An Introduction*. Neal-Schuman, 2004.", "ground_truth": true}
+{"citation": "Casell, Kay Ann, and Uma Hiremath. *Reference and Information Services in the 21st Century: An Introduction*. Neal-Schuman, 2004.", "ground_truth": false}
+{"citation": "Robbins, Chandler S., et al. *Birds of North America: A Guide to Field Identification*. Golden, 1966.", "ground_truth": true}
+{"citation": "Robbins, Chandler S., Smith, John, et al. *Birds of North America: A Guide to Field Identification*. Golden, 1966.", "ground_truth": false}
+{"citation": "Kimball, Jean. \"Growing Up Together: Joyce and Psychoanalysis, 1900-1922.\" *Joyce through the Ages: A Nonlinear View*, edited by Michael Patrick Gillespie, UP of Florida, 1999, pp. 25-45.", "ground_truth": true}
+{"citation": "Kimball, Jean. \"Growing Up Together: Joyce and Psychoanalysis, 1900-1922.\" *Joyce through the Ages: A Nonlinear View*, edited by Michael Patrick Gillespie, UP of Florida, 1999, 25-45.", "ground_truth": false}
+{"citation": "Mabillard, Amanda. *Shakespeare Online*, 29 Dec. 2011, www.shakespeare-online.com. Accessed 6 July 2016.", "ground_truth": true}
+{"citation": "Mabillard, Amanda. *Shakespeare Online*, 29 Dec. 2011, https://www.shakespeare-online.com. Accessed 6 July 2016.", "ground_truth": false}
+{"citation": "\"Athlete's Foot - Topic Overview.\" *WebMD*, 25 Sept. 2014, www.webmd.com/skin-problems-and-treatments/tc/athletes-foot-topic-overview.", "ground_truth": true}
+{"citation": "\"Athlete's foot - topic overview.\" *WebMD*, 25 Sept. 2014, www.webmd.com/skin-problems-and-treatments/tc/athletes-foot-topic-overview.", "ground_truth": false}
+{"citation": "Morin, Amy. \"How to Prevent the Media From Damaging Your Teen's Body Image.\" *Verywell Family*, About Inc., 6 Oct. 2019, www.verywellfamily.com/media-and-teens-body-image-2611245. Accessed 1 Nov. 2019.", "ground_truth": true}
+{"citation": "Morin, Amy. \"How to prevent the media from damaging your teen's body image.\" *Verywell Family*, About Inc., 6 Oct. 2019, www.verywellfamily.com/media-and-teens-body-image-2611245. Accessed 1 Nov. 2019.", "ground_truth": false}
