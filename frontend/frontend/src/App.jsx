@@ -108,7 +108,12 @@ function AppContent() {
   // Upload state
   const [showComingSoonModal, setShowComingSoonModal] = useState(false)
   const [selectedFile, setSelectedFile] = useState(null)
-  const [selectedStyle, setSelectedStyle] = useState('apa7')
+  // Initialize style from localStorage or default to 'apa7'
+  const [selectedStyle, setSelectedStyle] = useState(() => {
+    const savedStyle = localStorage.getItem('citation_checker_style')
+    // Only use saved style if it's a valid option
+    return savedStyle === 'mla9' ? 'mla9' : 'apa7'
+  })
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
   const validationSectionRef = useRef(null)
@@ -118,6 +123,11 @@ function AppContent() {
   const userStatus = jobUserStatus || contextUserStatus
   // Analytics tracking hook - provides trackNavigationClick (used in Footer component)
   useAnalyticsTracking()
+
+  // Persist selected style to localStorage
+  useEffect(() => {
+    localStorage.setItem('citation_checker_style', selectedStyle)
+  }, [selectedStyle])
 
   // User type detection
   const getUserType = () => {

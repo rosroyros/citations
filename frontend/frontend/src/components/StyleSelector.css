@@ -33,10 +33,18 @@
 }
 
 .style-tab--active {
-  background: white;
-  color: #7c3aed;
+  background: white !important;
+  color: #7c3aed !important;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15), 0 1px 3px rgba(0, 0, 0, 0.08);
   font-weight: 600;
+}
+
+/* Ensure active tab hover doesn't change appearance - override global button:hover */
+.style-tab--active:hover,
+.style-tab.style-tab--active:hover:not(:disabled) {
+  background: white !important;
+  color: #7c3aed !important;
+  transform: none;
 }
 
 .style-tab:disabled {
