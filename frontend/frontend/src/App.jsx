@@ -1001,7 +1001,7 @@ function AppContent() {
 
               <div className="bottom-card">
                 <h6>Trusted Worldwide</h6>
-                <p>Join thousands of students and academics who rely on us</p>
+                <p>Join 10,000+ students and academics who rely on us</p>
               </div>
             </div>
           </div>
