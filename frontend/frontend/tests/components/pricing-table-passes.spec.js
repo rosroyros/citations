@@ -39,7 +39,8 @@ test.describe('PricingTablePasses Component', () => {
 
   test('shows correct benefits for each tier', async ({ page }) => {
     // All tiers have the same benefits in the current implementation
-    await expect(page.getByText('Full APA 7 Compliance').first()).toBeVisible()
+    // Updated for MLA 9 support (citations-568p)
+    await expect(page.getByText('Full APA 7 & MLA 9 Compliance').first()).toBeVisible()
     await expect(page.getByText('Detailed citation analysis').first()).toBeVisible()
     await expect(page.getByText('Actionable error correction feedback').first()).toBeVisible()
     await expect(page.getByText('Risk-free with money-back guarantee').first()).toBeVisible()
