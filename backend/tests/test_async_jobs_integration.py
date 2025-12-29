@@ -42,10 +42,17 @@ CONCURRENT_POLL_INTERVAL = 3  # seconds
 @pytest.fixture(scope="function")
 def test_database():
     """Set up test database for integration tests."""
+    # Ensure clean slate
+    db_path = "test_credits_temp.db"
+    if os.path.exists(db_path):
+        os.remove(db_path)
+        
     # Initialize database
     init_db()
     yield
-    # Cleanup could be added here if needed
+    # Cleanup
+    if os.path.exists(db_path):
+        os.remove(db_path)
 
 
 @pytest.fixture(scope="function")
@@ -158,25 +165,25 @@ class TestAsyncJobsIntegration:
         assert response.status_code == 200
         job_id = response.json()["job_id"]
 
-        # Wait for job to fail due to zero credits
+        # Wait for job to fail due to zero credits or complete with partial results
         max_wait = 30
         wait_time = 0
         while wait_time < max_wait:
             response = client.get(f"/api/jobs/{job_id}")
             data = response.json()
 
-            if data["status"] == "failed":
+            if data["status"] in ["completed", "failed"]:
                 break
-            elif data["status"] == "completed":
-                pytest.fail("Job should have failed due to zero credits")
 
             time.sleep(POLL_INTERVAL)
             wait_time += POLL_INTERVAL
 
-        # Verify failure was due to zero credits
-        assert data["status"] == "failed"
-        assert "0 Citation Credits" in data.get("error", "")
-
+        # Verify behavior for zero credits (should be completed with partial/locked results)
+        assert data["status"] == "completed"
+        assert "results" in data
+        assert data["results"]["partial"] is True
+        assert data["results"]["citations_checked"] == 0
+        
         # Test 2: Add credits and verify successful job with credit deduction
         # Give test user 5 credits
         test_user_credits(test_token, 5)
@@ -212,8 +219,8 @@ class TestAsyncJobsIntegration:
 
     def test_free_user_partial_results(self):
         """Test: Free user with X-Free-Used header (verify partial results)."""
-        # Setup - Free user has used 8 out of 10 free citations (2 remaining)
-        free_used = 8
+        # Setup - Free user has used 3 out of 5 free citations (2 remaining)
+        free_used = 3
         free_used_header = base64.b64encode(str(free_used).encode()).decode('utf-8')
 
         # Submit 5 citations (should only get 2 processed)

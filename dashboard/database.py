@@ -134,7 +134,8 @@ class DatabaseManager:
             'interaction_type': 'TEXT',
             'valid_citations_count': 'INTEGER',
             'invalid_citations_count': 'INTEGER',
-            'corrections_copied': 'INTEGER DEFAULT 0'
+            'corrections_copied': 'INTEGER DEFAULT 0',
+            'style': 'TEXT'
         }
 
 
@@ -255,7 +256,7 @@ class DatabaseManager:
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
                 'provider', 'is_test_job',
                 'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
-                'interaction_type', 'corrections_copied'
+                'interaction_type', 'corrections_copied', 'style'
             ]
             
             for field in simple_fields:

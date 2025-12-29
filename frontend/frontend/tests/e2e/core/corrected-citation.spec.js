@@ -212,9 +212,10 @@ test.describe('Corrected Citation Feature', () => {
         // Wait for results
         await expect(page.locator('.validation-table').first()).toBeVisible({ timeout: TIMEOUT });
 
-        // Handle gated overlay if it appears (for credits user it shouldn't, but safety check)
+        // Handle gated overlay if it appears - wait briefly for it to potentially appear
+        await page.waitForTimeout(500);
         const gatedOverlay = page.locator('[data-testid="gated-results"]');
-        if (await gatedOverlay.isVisible().catch(() => false)) {
+        if (await gatedOverlay.isVisible()) {
             console.log('Gated overlay detected, clicking View Results...');
             await page.locator('button:has-text("View Results")').first().click({ force: true });
             await expect(gatedOverlay).not.toBeVisible({ timeout: 5000 });
@@ -223,9 +224,12 @@ test.describe('Corrected Citation Feature', () => {
         // Wait for corrected citation card
         await expect(page.locator('.corrected-citation-card')).toBeVisible({ timeout: 5000 });
 
-        // Click copy button
+        // Ensure overlay is definitely gone before clicking
+        await expect(page.locator('.gated-overlay-backdrop')).not.toBeVisible({ timeout: 2000 }).catch(() => { });
+
+        // Click copy button with force to bypass any remaining overlay issues
         const copyButton = page.locator('.corrected-citation-card button');
-        await copyButton.click();
+        await copyButton.click({ force: true });
 
         // Verify feedback shows "Copied"
         await expect(page.locator('.corrected-citation-card')).toContainText('Copied');

@@ -1385,6 +1385,7 @@
                 <thead>
                     <tr>
                         <th onclick="sortTable('job_id')">Job ID</th>
+                        <th onclick="sortTable('style')">Style</th>
                         <th onclick="sortTable('created_at')">Time</th>
                         <th onclick="sortTable('duration_seconds')">Duration</th>
                         <th onclick="sortTable('citation_count')">Citations</th>
@@ -1412,7 +1413,7 @@
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="14" class="loading">Loading data...</td>
+                        <td colspan="17" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1603,6 +1604,15 @@
         function getProductDisplay(productId) {
             if (!productId) return '-';
             return PRODUCT_CONFIG[productId] || productId;
+        }
+
+        function getStyleDisplay(style) {
+            if (!style) return '-';
+            const styleMap = {
+                'apa7': 'APA 7',
+                'mla9': 'MLA 9'
+            };
+            return styleMap[style] || style.toUpperCase();
         }
 
         async function loadData() {
@@ -1822,6 +1832,7 @@
                 return `
                     <tr>
                         <td><span class="job-id" onclick="toggleJobDetails('${validation.job_id}')">${validation.job_id.substring(0, 8)}</span></td>
+                        <td>${getStyleDisplay(validation.style)}</td>
                         <td>${createdTime}</td>
                         <td class="${durationClass}">${duration}</td>
                         <td>${citations}</td>
@@ -1839,7 +1850,7 @@
                         <td>${getUpgradeStateIcons(validation.upgrade_state)}</td>
                     </tr>
                     <tr id="details-${validation.job_id}" style="display: none;">
-                        <td colspan="16">
+                        <td colspan="17">
                             <div class="job-details" id="job-details-${validation.job_id}">
                                 Loading details...
                             </div>
@@ -1978,6 +1989,10 @@
                         <div class="detail-row">
                             <span class="detail-label">Job ID:</span>
                             <span class="detail-value">${validation.job_id}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Style:</span>
+                            <span class="detail-value">${getStyleDisplay(validation.style)}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Created:</span>

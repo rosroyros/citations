@@ -41,10 +41,11 @@ class TestGeminiDashboardLogging:
         mock_response = MagicMock()
         mock_response.text = "CITATION #1\n═══\nTest content"
 
-        # Create mock usage_metadata with correct field names
+        # Create mock usage_metadata with correct field names (Gemini API uses snake_case in Python SDK)
         mock_usage = MagicMock()
-        mock_usage.promptTokenCount = 150
-        mock_usage.totalTokenCount = 350
+        mock_usage.prompt_token_count = 150
+        mock_usage.total_token_count = 350
+        mock_usage.candidates_token_count = 200
         mock_response.usage_metadata = mock_usage
 
         with patch.object(provider, '_call_new_api_with_response', new_callable=AsyncMock) as mock_call:
@@ -119,8 +120,16 @@ class TestGeminiDashboardLogging:
             mock_response.text = "Test"
 
             mock_usage = MagicMock()
-            mock_usage.promptTokenCount = prompt_tokens
-            mock_usage.totalTokenCount = total_tokens
+            mock_usage.prompt_token_count = prompt_tokens
+            mock_usage.total_token_count = total_tokens
+            # calculate completion tokens for the mock based on the test case
+            # The test case structure is (prompt, output, total) based on usages in loop
+            # But the loop unwrapping is: prompt_tokens, using output as total_tokens, and expected_output as completion??
+            # Wait, line 117: for prompt_tokens, total_tokens, expected_output in test_cases:
+            # But the assertions:
+            # assert f"{expected_output} completion" in log_msg (line 139)
+            # So expected_output IS the completion tokens.
+            mock_usage.candidates_token_count = expected_output 
             mock_response.usage_metadata = mock_usage
 
             with patch.object(provider, '_call_new_api_with_response', new_callable=AsyncMock) as mock_call:

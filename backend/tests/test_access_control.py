@@ -26,10 +26,7 @@ import os
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-# Mock the dashboard import
-sys.modules['dashboard'] = MagicMock()
-sys.modules['dashboard.log_parser'] = MagicMock()
-sys.modules['analytics'] = MagicMock()
+
 
 from app import (
     check_user_access,

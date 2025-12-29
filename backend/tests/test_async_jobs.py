@@ -9,21 +9,23 @@ from fastapi.testclient import TestClient
 import sys
 import os
 
+
+
 # Mock the dashboard import
 from unittest.mock import MagicMock
-sys.modules['dashboard'] = MagicMock()
-sys.modules['dashboard.log_parser'] = MagicMock()
 
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(__file__))
 
-from app import app
+from app import app, UserStatus
 
 client = TestClient(app)
 
 
 class TestAsyncJobs:
     """Test async job processing functionality."""
+    
+    # ... existing tests ...
 
     def test_create_async_job_returns_job_id(self, caplog):
         """Test that POST /api/validate/async creates a job and returns job_id."""
@@ -119,11 +121,16 @@ class TestAsyncJobs:
         assert callable(app.process_validation_job), \
             "process_validation_job should be callable"
 
-    @patch('app.get_credits')
-    def test_async_job_fails_with_zero_credits(self, mock_get_credits):
-        """Test that async job fails when user has zero credits."""
-        # Mock user has zero credits
-        mock_get_credits.return_value = 0
+    @patch('app.check_user_access')
+    def test_async_job_fails_with_zero_credits(self, mock_check_user_access):
+        """Test that async job returns locked results when user has zero credits."""
+        # Mock check_user_access to return failure due to insufficient credits
+        mock_check_user_access.return_value = {
+            'has_access': False,
+            'access_type': 'credits',
+            'user_status': UserStatus(type='credits', balance=0),
+            'error_message': '0 Citation Credits'
+        }
 
         # Create job with user token
         request_data = {
@@ -136,7 +143,7 @@ class TestAsyncJobs:
         assert response.status_code == 200
         job_id = response.json()["job_id"]
 
-        # Wait for job to fail due to zero credits
+        # Wait for job to complete
         import time
         max_wait = 30  # Max 30 seconds
         wait_time = 0
@@ -144,17 +151,22 @@ class TestAsyncJobs:
             response = client.get(f"/api/jobs/{job_id}")
             data = response.json()
 
-            if data["status"] == "failed":
+            if data["status"] in ["completed", "failed"]:
                 break
 
             time.sleep(1)
             wait_time += 1
 
-        # Should be failed with credit error message
-        assert data["status"] == "failed"
-        assert "error" in data
-        assert "0 Citation Credits" in data["error"]
-        mock_get_credits.assert_called_once_with("test_user_token")
+        # Should be completed (partial results) not failed
+        assert data["status"] == "completed"
+        # Check that results indicate locked/partial
+        assert "results" in data
+        assert data["results"]["partial"] is True
+        assert data["results"]["citations_checked"] == 0
+        
+        # Verify check_user_access was called (at least once) with correct token
+        args, _ = mock_check_user_access.call_args
+        assert args[0] == "test_user_token"
 
     def test_async_job_returns_partial_when_free_limit_exceeded(self):
         """Test that async job returns partial results when free tier has already used limit."""
@@ -197,9 +209,185 @@ class TestAsyncJobs:
 
     def test_async_job_returns_partial_results_for_insufficient_free_credits(self):
         """Test that async job returns partial results when free user has some credits left."""
-        # Create job with X-Free-Used header indicating user has already used 8 citations (2 remaining)
+        # Create job with X-Free-Used header indicating user has already used 3 citations (2 remaining)
         import base64
-        free_used_header = base64.b64encode(b"8").decode('utf-8')
+        # Assuming FREE_LIMIT=5, used 3 allows 2 more.
+        free_used_header = base64.b64encode(b"3").decode('utf-8')
+
+        # Submit 5 citations (should only get 2 processed)
+        request_data = {
+            "citations": "<p>Citation 1</p><p>Citation 2</p><p>Citation 3</p><p>Citation 4</p><p>Citation 5</p>",
+            "style": "apa7"
+        }
+        headers = {"X-Free-Used": free_used_header}
+
+        response = client.post("/api/validate/async", json=request_data, headers=headers)
+        assert response.status_code == 200
+        job_id = response.json()["job_id"]
+
+        # Wait for job to complete
+        import time
+        max_wait = 30  # Max 30 seconds
+        wait_time = 0
+        while wait_time < max_wait:
+            response = client.get(f"/api/jobs/{job_id}")
+            data = response.json()
+
+            if data["status"] == "completed":
+                break
+
+            time.sleep(1)
+            wait_time += 1
+
+        # Should be completed with partial results
+        assert data["status"] == "completed"
+        assert "results" in data
+
+        results = data["results"]
+        assert results["partial"] is True  # Should indicate partial results
+        assert results["citations_checked"] == 2  # Only 2 credits remaining
+        assert results["citations_remaining"] == 3  # 3 citations locked
+        assert results["free_used_total"] == 5  # Up to free limit
+        assert len(results["results"]) == 2  # Only 2 actual citation results
+
+    def test_job_cleanup_function_exists(self):
+        """Test that cleanup_old_jobs function exists and can be called."""
+        import app
+
+        # Verify cleanup function exists
+        assert hasattr(app, 'cleanup_old_jobs'), \
+            "cleanup_old_jobs function not found in app module"
+        assert callable(app.cleanup_old_jobs), \
+            "cleanup_old_jobs should be callable"
+
+    def test_job_cleanup_logic_structure(self):
+        """Test that cleanup logic has proper structure for removing old jobs."""
+        import app
+
+        # Verify the cleanup function contains the expected elements
+        # Since it runs in an infinite loop, we can't test execution directly
+        # but we can verify the function signature and import structure
+
+        # Get function source code and check it has key elements
+        import inspect
+        source = inspect.getsource(app.cleanup_old_jobs)
+
+        # Should contain infinite loop for background processing
+        assert "while True:" in source
+        # Should contain 30-minute threshold for cleanup
+        assert "30 * 60" in source
+        # Should contain deletion logic
+        assert "del jobs[" in source
+
+    def test_free_tier_limit_returns_accurate_citation_count(self):
+        """Test that free tier limit endpoint counts citations accurately using LLM."""
+        import base64
+
+        # Setup: User at free tier limit
+        request_data = {
+            "citations": (
+                "<p>Smith, J. (2023). First citation. <em>Journal</em>, 1(1), 1-10.</p>"
+                "<p>Doe, J. (2023). Second citation. <em>Journal</em>, 1(2), 11-20.</p>"
+                "<p>Brown, A. (2023). Third citation. <em>Journal</em>, 1(3), 21-30.</p>"
+            ),
+            "style": "apa7"
+        }
+        # Encode free_used as base64 per API design
+        free_used_header = base64.b64encode("10".encode('utf-8')).decode('utf-8')
+        headers = {"X-Free-Used": free_used_header}  # At free tier limit
+
+        # Create async job
+        response = client.post("/api/validate/async", json=request_data, headers=headers)
+        assert response.status_code == 200
+        job_id = response.json()["job_id"]
+
+        # Wait for job to complete
+        import time
+        max_wait = 60
+        wait_time = 0
+        result = None
+
+        while wait_time < max_wait:
+            response = client.get(f"/api/jobs/{job_id}")
+            assert response.status_code == 200
+            data = response.json()
+
+            if data["status"] == "completed":
+                result = data.get("results")  # API returns "results" not "result"
+                break
+
+            time.sleep(1)
+            wait_time += 1
+
+        # Verify job completed with partial results
+        assert result is not None, "Job did not complete within timeout"
+        assert result["partial"] is True, "Should return partial results"
+        assert result["citations_checked"] == 0, "Should have 0 checked (at limit)"
+        assert result["citations_remaining"] == 3, "Should accurately count 3 citations"
+        assert len(result["results"]) == 0, "Should return empty results array"
+        assert result["free_used"] == 5, "Should show free tier limit reached"
+
+    def test_free_tier_limit_citation_count_fallback(self):
+        """Test that citation counting falls back gracefully if LLM fails."""
+        # This test verifies the fallback logic exists in the code
+        import app
+        import inspect
+
+        # Get function source code
+        source = inspect.getsource(app.process_validation_job)
+
+        # Verify fallback logic exists for citation counting
+        assert "try:" in source, "Should have try-except for LLM call"
+        assert "except Exception" in source, "Should catch exceptions"
+        assert "split('\\n\\n')" in source, "Should have fallback parsing"
+        assert "Fallback citation count" in source or "fallback" in source.lower(), \
+            "Should log fallback behavior"
+
+    def test_async_job_returns_partial_when_free_limit_exceeded(self):
+        """Test that async job returns partial results when free tier has already used limit."""
+        # Create job with X-Free-Used header indicating user has already used 10 citations
+        import base64
+        free_used_header = base64.b64encode(b"10").decode('utf-8')
+
+        request_data = {
+            "citations": "<p>Test citation</p>",
+            "style": "apa7"
+        }
+        headers = {"X-Free-Used": free_used_header}
+
+        response = client.post("/api/validate/async", json=request_data, headers=headers)
+        assert response.status_code == 200
+        job_id = response.json()["job_id"]
+
+        # Wait for job to complete with partial results
+        import time
+        max_wait = 30  # Max 30 seconds
+        wait_time = 0
+        while wait_time < max_wait:
+            response = client.get(f"/api/jobs/{job_id}")
+            data = response.json()
+
+            if data["status"] == "completed":
+                break
+
+            time.sleep(1)
+            wait_time += 1
+
+        # Should be completed with partial results (all citations locked)
+        assert data["status"] == "completed"
+        assert "results" in data
+        result = data["results"]
+        assert result["partial"] is True
+        assert result["citations_checked"] == 0
+        assert result["citations_remaining"] >= 1
+        assert len(result["results"]) == 0  # Empty results array
+
+    def test_async_job_returns_partial_results_for_insufficient_free_credits(self):
+        """Test that async job returns partial results when free user has some credits left."""
+        # Create job with X-Free-Used header indicating user has already used 3 citations (2 remaining)
+        import base64
+        # Assuming FREE_LIMIT=5, used 3 allows 2 more.
+        free_used_header = base64.b64encode(b"3").decode('utf-8')
 
         # Submit 5 citations (should only get 2 processed)
         request_data = {

@@ -38,14 +38,18 @@ class TestOpenAITimeoutInstrumentation(unittest.TestCase):
         mock_client = MagicMock()
         mock_openai_class.return_value = mock_client
         
-        # Mock successful response
+        # Mock successful response (V2 API structure)
         mock_response = MagicMock()
-        mock_response.usage.prompt_tokens = 10
-        mock_response.usage.completion_tokens = 10
+        # Mock usage (checked via hasattr in code)
+        mock_response.usage = MagicMock()
+        mock_response.usage.input_tokens = 10
+        mock_response.usage.output_tokens = 10
         mock_response.usage.total_tokens = 20
-        mock_response.choices = [MagicMock(message=MagicMock(content="CITATION #1\n═══\nORIGINAL: Test\nSOURCE TYPE: Book\nVALIDATION RESULTS:\n✓ No APA 7 formatting errors detected"))]
+        mock_response.output_text = "CITATION #1\n═══\nORIGINAL: Test\nSOURCE TYPE: Book\nVALIDATION RESULTS:\n✓ No APA 7 formatting errors detected"
         
-        mock_client.chat.completions.create = AsyncMock(return_value=mock_response)
+        # Mock responses.create (V2 API)
+        mock_client.responses = MagicMock()
+        mock_client.responses.create = AsyncMock(return_value=mock_response)
 
         provider = OpenAIProvider(api_key="test-key")
         
@@ -73,7 +77,8 @@ class TestOpenAITimeoutInstrumentation(unittest.TestCase):
         mock_openai_class.return_value = mock_client
         
         # Mock timeout error
-        mock_client.chat.completions.create = AsyncMock(side_effect=APITimeoutError(request=MagicMock()))
+        mock_client.responses = MagicMock()
+        mock_client.responses.create = AsyncMock(side_effect=APITimeoutError(request=MagicMock()))
 
         provider = OpenAIProvider(api_key="test-key")
         
@@ -100,7 +105,8 @@ class TestOpenAITimeoutInstrumentation(unittest.TestCase):
         mock_openai_class.return_value = mock_client
         
         # Mock rate limit error
-        mock_client.chat.completions.create = AsyncMock(side_effect=RateLimitError(message="Rate limited", response=MagicMock(), body={}))
+        mock_client.responses = MagicMock()
+        mock_client.responses.create = AsyncMock(side_effect=RateLimitError(message="Rate limited", response=MagicMock(), body={}))
 
         provider = OpenAIProvider(api_key="test-key")
         

@@ -110,9 +110,9 @@ def test_orders_table_schema():
 
         # Check that table has correct columns
         column_names = [col[1] for col in columns]
-        expected_columns = ['order_id', 'token', 'credits_granted', 'created_at']
+        expected_columns = ['order_id', 'token', 'credits_granted', 'pass_days', 'pass_type', 'created_at']
 
-        assert len(columns) == 4, f"Expected 4 columns, got {len(columns)}"
+        assert len(columns) == 6, f"Expected 6 columns, got {len(columns)}"
         assert all(col in column_names for col in expected_columns), f"Missing columns. Expected: {expected_columns}, Got: {column_names}"
 
         # Check that order_id is PRIMARY KEY

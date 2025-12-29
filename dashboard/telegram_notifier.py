@@ -96,6 +96,11 @@ def format_message(job: Dict[str, Any]) -> str:
     provider_raw = job.get('provider')
     provider = provider_map.get(provider_raw, provider_raw or 'Unknown')
     
+    # Style
+    style_map = {'apa7': 'APA 7', 'mla9': 'MLA 9'}
+    style_raw = job.get('style')
+    style = style_map.get(style_raw, style_raw.upper() if style_raw else 'Unknown')
+    
     # Revealed
     revealed = "Yes" if job.get('results_revealed_at') else "No"
     is_gated = job.get('results_gated')
@@ -111,6 +116,7 @@ def format_message(job: Dict[str, Any]) -> str:
     msg = (
         f"🔔 *New Validation*\n\n"
         f"📋 Job: `{job['job_id'][:8]}`\n"
+        f"📝 Style: {style}\n"
         f"📊 {total} Citations\n"
         f"   ✅ {valid} Valid\n"
         f"   ❌ {invalid} Invalid\n\n"
