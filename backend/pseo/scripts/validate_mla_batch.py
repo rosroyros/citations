@@ -99,6 +99,12 @@ class MLAPageValidator:
             else:
                 self.failed_pages += 1
 
+        # Optional: Check TF-IDF distinctness (batch comparison)
+        # This checks if MLA pages are distinct from APA pages
+        apa_pages_dir = self.pages_dir.parent / "apa"  # Assumes apa pages at same level
+        if apa_pages_dir.exists():
+            self.check_tfidf_distinctness(self.pages_dir, apa_pages_dir)
+
         # Report results
         self.report_results()
 

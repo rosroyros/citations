@@ -269,6 +269,35 @@ def test_full_page_validation(test_output_dir, sample_html_content):
     assert len(validator.results.get("youtube", [])) == 0  # No failures
 
 
+def test_tfidf_distinctness_check(test_output_dir, sample_html_content):
+    """Test TF-IDF distinctness check between MLA and APA pages"""
+    from validate_mla_batch import MLAPageValidator
+
+    # Create MLA pages
+    mla_dir = test_output_dir / "mla"
+    mla_page_dir = mla_dir / "cite-youtube-mla"
+    mla_page_dir.mkdir(parents=True)
+    (mla_page_dir / "index.html").write_text(sample_html_content)
+
+    # Create APA pages with similar but different content
+    apa_dir = test_output_dir / "apa"
+    apa_page_dir = apa_dir / "cite-youtube-apa"
+    apa_page_dir.mkdir(parents=True)
+
+    # APA content - similar structure but different style mentions
+    apa_content = sample_html_content.replace("MLA", "APA").replace("mla9", "apa7")
+    (apa_page_dir / "index.html").write_text(apa_content)
+
+    # Run TF-IDF check
+    validator = MLAPageValidator(mla_dir)
+
+    # Should not raise exception - method handles gracefully
+    validator.check_tfidf_distinctness(mla_dir, apa_dir)
+
+    # The method logs results but doesn't fail validation
+    # This is intentional - TF-IDF is informational, not blocking
+
+
 # Integration Tests
 
 def test_script_imports_work():
