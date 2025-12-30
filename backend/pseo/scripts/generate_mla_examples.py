@@ -165,11 +165,11 @@ def format_authors_for_mla(authors: List[Dict[str, str]]) -> str:
         return f"{first_formatted}, and {second_formatted}"
 
     else:
-        # 3+ authors: first author + et al (without period - added by formatter)
+        # 3+ authors: first author + et al.
         first = authors[0]
         if first['middle_name']:
-            return f"{first['last_name']}, {first['first_name']} {first['middle_name']}, et al"
-        return f"{first['last_name']}, {first['first_name']}, et al"
+            return f"{first['last_name']}, {first['first_name']} {first['middle_name']}, et al."
+        return f"{first['last_name']}, {first['first_name']}, et al."
 
 
 def generate_doi() -> str:
@@ -227,7 +227,10 @@ def generate_book_example(number: int) -> Dict:
     year = random.randint(1985, 2024)
 
     # Format: Author. Title. Publisher, Year.
-    citation = f"{format_authors_for_mla(authors)}. *{title}*. {publisher}, {year}."
+    author_str = format_authors_for_mla(authors)
+    # Add period after author only if it doesn't already end with one (et al.)
+    author_part = author_str if author_str.endswith('.') else f"{author_str}."
+    citation = f"{author_part} *{title}*. {publisher}, {year}."
 
     return {
         "example_id": generate_example_id("book", number),
@@ -265,7 +268,9 @@ def generate_journal_article_example(number: int) -> Dict:
     doi = generate_doi() if has_doi else None
 
     # Format: Author. "Article Title." Journal Name, vol. #, no. #, Year, pp. ##-##.
-    citation = f"{format_authors_for_mla(authors)}. \"{article_title}.\" *{journal}*, vol. {volume}, no. {issue}, {year}, pp. {start_page}-{end_page}."
+    author_str = format_authors_for_mla(authors)
+    author_part = author_str if author_str.endswith('.') else f"{author_str}."
+    citation = f"{author_part} \"{article_title}.\" *{journal}*, vol. {volume}, no. {issue}, {year}, pp. {start_page}-{end_page}."
 
     if doi:
         citation = citation[:-1] + f" {doi}."
@@ -318,7 +323,9 @@ def generate_website_example(number: int) -> Dict:
 
     # Format
     if has_author:
-        citation = f"{format_authors_for_mla(authors)}. \"{page_title}.\" *{website}*, {day} {month} {year}, {url}."
+        author_str = format_authors_for_mla(authors)
+        author_part = author_str if author_str.endswith('.') else f"{author_str}."
+        citation = f"{author_part} \"{page_title}.\" *{website}*, {day} {month} {year}, {url}."
     else:
         citation = f"\"{page_title}.\" *{website}*, {day} {month} {year}, {url}."
 
@@ -364,7 +371,9 @@ def generate_book_chapter_example(number: int) -> Dict:
     end_page = start_page + random.randint(10, 40)
 
     # Format: Author. "Chapter Title." Book Title, edited by First Last, Publisher, Year, pp. ##-##.
-    citation = f"{format_authors_for_mla(authors)}. \"{chapter_title}.\" *{book_title}*, edited by {editor_formatted}, {publisher}, {year}, pp. {start_page}-{end_page}."
+    author_str = format_authors_for_mla(authors)
+    author_part = author_str if author_str.endswith('.') else f"{author_str}."
+    citation = f"{author_part} \"{chapter_title}.\" *{book_title}*, edited by {editor_formatted}, {publisher}, {year}, pp. {start_page}-{end_page}."
 
     return {
         "example_id": generate_example_id("chapter", number),
