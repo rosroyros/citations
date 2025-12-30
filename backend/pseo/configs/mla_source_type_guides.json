@@ -1,0 +1,277 @@
+[
+  {
+    "id": "mla_source_type_01",
+    "title": "How to Cite a Book in MLA 9 Format",
+    "topic": "book citation MLA",
+    "url": "/how-to-cite-book-mla/",
+    "url_slug": "book-mla",
+    "description": "Complete guide to citing books in MLA 9 including single and multiple authors, editions, and publishers",
+    "keywords": [
+      "cite book MLA",
+      "MLA book citation",
+      "book MLA 9",
+      "MLA book format"
+    ],
+    "pain_points": [
+      "multiple authors",
+      "edition information",
+      "publisher formatting",
+      "translator credits"
+    ],
+    "target_audience": "English and humanities students",
+    "word_count_target": 3500,
+    "priority": 1.0
+  },
+  {
+    "id": "mla_source_type_02",
+    "title": "How to Cite a Book Chapter in MLA 9 Format",
+    "topic": "book chapter citation MLA",
+    "url": "/how-to-cite-book-chapter-mla/",
+    "url_slug": "book-chapter-mla",
+    "description": "Complete guide to citing book chapters in MLA 9 including edited books and anthologies",
+    "keywords": [
+      "cite chapter MLA",
+      "MLA chapter citation",
+      "anthology MLA",
+      "edited book MLA"
+    ],
+    "pain_points": [
+      "chapter author vs book editor",
+      "page numbers",
+      "anthology formatting"
+    ],
+    "target_audience": "English and humanities students",
+    "word_count_target": 3000,
+    "priority": 0.85
+  },
+  {
+    "id": "mla_source_type_03",
+    "title": "How to Cite a Journal Article in MLA 9 Format",
+    "topic": "journal article citation MLA",
+    "url": "/how-to-cite-journal-article-mla/",
+    "url_slug": "journal-article-mla",
+    "description": "Complete guide to citing journal articles in MLA 9 including volume, issue, page ranges, and DOIs",
+    "keywords": [
+      "cite journal MLA",
+      "MLA journal citation",
+      "academic journal MLA",
+      "periodical MLA"
+    ],
+    "pain_points": [
+      "volume and issue numbers",
+      "page ranges",
+      "online vs print journals",
+      "DOI formatting"
+    ],
+    "target_audience": "undergraduate and graduate students",
+    "word_count_target": 3500,
+    "priority": 0.9
+  },
+  {
+    "id": "mla_source_type_04",
+    "title": "How to Cite a Website in MLA 9 Format",
+    "topic": "website citation MLA",
+    "url": "/how-to-cite-website-mla/",
+    "url_slug": "website-mla",
+    "description": "Complete guide to citing websites in MLA 9 including webpages, online articles, and web-only sources",
+    "keywords": [
+      "cite website MLA",
+      "MLA website citation",
+      "webpage MLA",
+      "online source MLA"
+    ],
+    "pain_points": [
+      "no author websites",
+      "access dates",
+      "URL formatting",
+      "web vs print sources"
+    ],
+    "target_audience": "all students",
+    "word_count_target": 3000,
+    "priority": 0.95
+  },
+  {
+    "id": "mla_source_type_05",
+    "title": "How to Cite a YouTube Video in MLA 9 Format",
+    "topic": "YouTube video citation MLA",
+    "url": "/how-to-cite-youtube-mla/",
+    "url_slug": "youtube-mla",
+    "description": "Complete guide to citing YouTube videos in MLA 9 including uploader names, timestamps, and video descriptions",
+    "keywords": [
+      "cite YouTube MLA",
+      "MLA YouTube citation",
+      "video MLA",
+      "online video MLA 9"
+    ],
+    "pain_points": [
+      "uploader vs creator",
+      "video titles",
+      "upload date",
+      "access date requirements"
+    ],
+    "target_audience": "all students",
+    "word_count_target": 3000,
+    "priority": 1.0
+  },
+  {
+    "id": "mla_source_type_06",
+    "title": "How to Cite a Newspaper Article in MLA 9 Format",
+    "topic": "newspaper citation MLA",
+    "url": "/how-to-cite-newspaper-mla/",
+    "url_slug": "newspaper-mla",
+    "description": "Complete guide to citing newspaper articles in MLA 9 including online and print newspapers",
+    "keywords": [
+      "cite newspaper MLA",
+      "MLA newspaper citation",
+      "news article MLA",
+      "newspaper MLA 9"
+    ],
+    "pain_points": [
+      "online vs print format",
+      "no author articles",
+      "section information",
+      "access dates"
+    ],
+    "target_audience": "all students",
+    "word_count_target": 3000,
+    "priority": 0.88
+  },
+  {
+    "id": "mla_source_type_07",
+    "title": "How to Cite a Film or Movie in MLA 9 Format",
+    "topic": "film citation MLA",
+    "url": "/how-to-cite-film-mla/",
+    "url_slug": "film-mla",
+    "description": "Complete guide to citing films and movies in MLA 9 including director, performers, and streaming platforms",
+    "keywords": [
+      "cite film MLA",
+      "MLA film citation",
+      "movie MLA",
+      "cite movie MLA 9"
+    ],
+    "pain_points": [
+      "director vs performers",
+      "streaming vs theatrical",
+      "contributor roles",
+      "format specification"
+    ],
+    "target_audience": "film and media students",
+    "word_count_target": 2500,
+    "priority": 0.75
+  },
+  {
+    "id": "mla_source_type_08",
+    "title": "How to Cite a Poem in MLA 9 Format",
+    "topic": "poem citation MLA",
+    "url": "/how-to-cite-poem-mla/",
+    "url_slug": "poem-mla",
+    "description": "Complete guide to citing poems in MLA 9 including anthologies, collections, and line numbers",
+    "keywords": [
+      "cite poem MLA",
+      "MLA poem citation",
+      "poetry MLA",
+      "verse citation MLA"
+    ],
+    "pain_points": [
+      "line numbers vs page numbers",
+      "anthology poems",
+      "epic poems",
+      "poem titles formatting"
+    ],
+    "target_audience": "English literature students",
+    "word_count_target": 3000,
+    "priority": 0.85
+  },
+  {
+    "id": "mla_source_type_09",
+    "title": "How to Cite a Short Story in MLA 9 Format",
+    "topic": "short story citation MLA",
+    "url": "/how-to-cite-short-story-mla/",
+    "url_slug": "short-story-mla",
+    "description": "Complete guide to citing short stories in MLA 9 including anthologies, collections, and page numbers",
+    "keywords": [
+      "cite short story MLA",
+      "MLA short story citation",
+      "story anthology MLA",
+      "fiction MLA"
+    ],
+    "pain_points": [
+      "anthology vs collection",
+      "page numbers",
+      "story vs novel titles",
+      "multiple printings"
+    ],
+    "target_audience": "English literature students",
+    "word_count_target": 3000,
+    "priority": 0.75
+  },
+  {
+    "id": "mla_source_type_10",
+    "title": "How to Cite a Play in MLA 9 Format",
+    "topic": "play citation MLA",
+    "url": "/how-to-cite-play-mla/",
+    "url_slug": "play-mla",
+    "description": "Complete guide to citing plays in MLA 9 including act, scene, line numbers and performance citations",
+    "keywords": [
+      "cite play MLA",
+      "MLA play citation",
+      "drama MLA",
+      "Shakespeare MLA"
+    ],
+    "pain_points": [
+      "act and scene numbers",
+      "line citations",
+      "performance vs text",
+      "classical plays"
+    ],
+    "target_audience": "English and theater students",
+    "word_count_target": 3000,
+    "priority": 0.82
+  },
+  {
+    "id": "mla_source_type_11",
+    "title": "How to Cite a Dictionary Entry in MLA 9 Format",
+    "topic": "dictionary citation MLA",
+    "url": "/how-to-cite-dictionary-mla/",
+    "url_slug": "dictionary-mla",
+    "description": "Complete guide to citing dictionary entries in MLA 9 including online and print dictionaries",
+    "keywords": [
+      "cite dictionary MLA",
+      "MLA dictionary citation",
+      "dictionary entry MLA",
+      "definition MLA"
+    ],
+    "pain_points": [
+      "online vs print format",
+      "entry word formatting",
+      "edition information",
+      "no author entries"
+    ],
+    "target_audience": "all students",
+    "word_count_target": 2500,
+    "priority": 0.7
+  },
+  {
+    "id": "mla_source_type_12",
+    "title": "How to Cite an Interview in MLA 9 Format",
+    "topic": "interview citation MLA",
+    "url": "/how-to-cite-interview-mla/",
+    "url_slug": "interview-mla",
+    "description": "Complete guide to citing interviews in MLA 9 including personal, published, and broadcast interviews",
+    "keywords": [
+      "cite interview MLA",
+      "MLA interview citation",
+      "personal interview MLA",
+      "published interview MLA"
+    ],
+    "pain_points": [
+      "personal vs published format",
+      "interview medium",
+      "interviewer information",
+      "date formatting"
+    ],
+    "target_audience": "all students",
+    "word_count_target": 2500,
+    "priority": 0.72
+  }
+]

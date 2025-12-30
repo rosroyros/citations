@@ -1,0 +1,159 @@
+[
+  {
+    "id": "mla_mega_01",
+    "title": "How to Cite in MLA 9: Complete MLA 9th Edition Citation Guide",
+    "topic": "MLA 9th edition complete guide",
+    "url": "/guide/mla-9th-edition/",
+    "url_slug": "mla-9th-edition",
+    "description": "Master MLA 9th edition citation format with comprehensive examples and guidelines for works cited and in-text citations",
+    "keywords": [
+      "MLA 9th edition",
+      "MLA citation guide",
+      "MLA formatting",
+      "MLA 9 rules"
+    ],
+    "pain_points": [
+      "MLA 8 vs MLA 9 confusion",
+      "complex citation formats",
+      "works cited organization"
+    ],
+    "target_audience": "English and humanities students",
+    "word_count_target": 6000,
+    "priority": 1.0
+  },
+  {
+    "id": "mla_mega_02",
+    "title": "How to Create an MLA 9 Works Cited Page: Format Guide",
+    "topic": "MLA works cited page format",
+    "url": "/guide/mla-works-cited/",
+    "url_slug": "mla-works-cited",
+    "description": "Complete guide to formatting MLA 9 works cited pages with organization, hanging indents, and proper citation order",
+    "keywords": [
+      "MLA works cited",
+      "MLA bibliography",
+      "works cited format",
+      "MLA 9 works cited page"
+    ],
+    "pain_points": [
+      "alphabetization rules",
+      "hanging indent formatting",
+      "multiple entries from same author"
+    ],
+    "target_audience": "English students and writers",
+    "word_count_target": 5800,
+    "priority": 0.9
+  },
+  {
+    "id": "mla_mega_03",
+    "title": "How to Do MLA 9 In-Text Citations: Complete Guide",
+    "topic": "MLA in-text citations",
+    "url": "/guide/mla-in-text-citations/",
+    "url_slug": "mla-in-text-citations",
+    "description": "Master MLA 9 in-text citation rules including parenthetical citations, narrative citations, and page number placement",
+    "keywords": [
+      "MLA in-text citations",
+      "MLA parenthetical citations",
+      "MLA page numbers",
+      "MLA quoting"
+    ],
+    "pain_points": [
+      "parenthetical vs narrative citations",
+      "multiple authors",
+      "no page numbers",
+      "indirect sources"
+    ],
+    "target_audience": "English and humanities students",
+    "word_count_target": 5700,
+    "priority": 0.9
+  },
+  {
+    "id": "mla_mega_04",
+    "title": "How to Check MLA 9 Citations: Validation Guide",
+    "topic": "checking MLA citations",
+    "url": "/guide/check-mla-citations/",
+    "url_slug": "check-mla-citations",
+    "description": "Learn how to validate MLA 9 citations and catch formatting errors in works cited and in-text citations",
+    "keywords": [
+      "check MLA citations",
+      "MLA validation",
+      "MLA citation checker",
+      "verify MLA format"
+    ],
+    "pain_points": [
+      "time-consuming manual checks",
+      "citation consistency",
+      "uncertainty about correctness"
+    ],
+    "target_audience": "English students",
+    "word_count_target": 5500,
+    "priority": 0.8
+  },
+  {
+    "id": "mla_mega_05",
+    "title": "How to Fix MLA 9 Citation Errors: Common Mistakes Guide",
+    "topic": "fixing MLA citation errors",
+    "url": "/guide/fix-mla-citation-errors/",
+    "url_slug": "fix-mla-citation-errors",
+    "description": "Identify and fix common MLA 9 citation mistakes in works cited pages and in-text citations",
+    "keywords": [
+      "MLA citation errors",
+      "fix MLA mistakes",
+      "common MLA errors",
+      "MLA error prevention"
+    ],
+    "pain_points": [
+      "repeated errors",
+      "grade deductions",
+      "confusion about rules"
+    ],
+    "target_audience": "undergraduate English students",
+    "word_count_target": 4900,
+    "priority": 0.7
+  },
+  {
+    "id": "mla_mega_06",
+    "title": "MLA 9 Citation Guide for English Majors",
+    "topic": "MLA citations for English majors",
+    "url": "/guide/mla-english-majors/",
+    "url_slug": "mla-english-majors",
+    "description": "Essential MLA 9 citation guide for English literature research and literary analysis papers",
+    "keywords": [
+      "MLA for English majors",
+      "literature citations MLA",
+      "literary analysis MLA",
+      "English major citations"
+    ],
+    "pain_points": [
+      "literary sources",
+      "poetry citations",
+      "play formatting",
+      "critical editions"
+    ],
+    "target_audience": "English literature students",
+    "word_count_target": 5400,
+    "priority": 0.6
+  },
+  {
+    "id": "mla_mega_07",
+    "title": "MLA 9 Citation Guide for Literature Studies",
+    "topic": "MLA citations for literature",
+    "url": "/guide/mla-literature-studies/",
+    "url_slug": "mla-literature-studies",
+    "description": "Complete MLA 9 citation guide for literature research including novels, poems, plays, and critical theory",
+    "keywords": [
+      "MLA literature citations",
+      "cite literary works MLA",
+      "MLA for literature",
+      "literary research MLA"
+    ],
+    "pain_points": [
+      "primary vs secondary sources",
+      "classical texts",
+      "anthologies",
+      "multiple editions"
+    ],
+    "target_audience": "literature students and researchers",
+    "word_count_target": 5300,
+    "priority": 0.6
+  }
+]
