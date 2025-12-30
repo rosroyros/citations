@@ -184,10 +184,18 @@ Use "testtesttest" in citations to flag test jobs. Test jobs are filtered from d
 - **Fallback**: OpenAI (GPT-4o-mini) when Gemini fails
 - **Configuration**: Both `OPENAI_API_KEY` and `GEMINI_API_KEY` required
 
-## Validation Prompt
-- **Current**: `validator_prompt_v3_no_hallucination.txt` (deployed 2025-12-27)
+## Style Management
+- **Module**: `backend/styles.py` handles style configuration and routing
+- **Supported Styles**: APA 7th Edition (default), MLA 9th Edition
+- **Feature Flag**: `MLA_ENABLED=true` enables MLA 9 support
+
+## Validation Prompts
+- **APA 7**: `validator_prompt_v3_no_hallucination.txt` (deployed 2025-12-27)
+- **MLA 9**: `validator_prompt_mla9_v1.1.txt`
 - **Features**:
   - Uses `[MISSING: ...]` placeholders for unavailable bibliographic data instead of hallucinating
   - Ignores leading numbered bullets (1., 2., etc.) in user input
-- **Testing**: `Checker_Prompt_Optimization/test_v3_prompt_batched.py` validates accuracy
+- **Testing**: 
+  - APA: `Checker_Prompt_Optimization/test_v3_prompt_batched.py`
+  - MLA: `Checker_Prompt_Optimization/mla9_golden_set.json` (offline validation)
 
