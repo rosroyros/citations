@@ -1,0 +1,524 @@
+[
+  {
+    "error_id": "MLA9-E1",
+    "error_name": "Initials Instead of Full First Name",
+    "category": "author_formatting",
+    "description": "Using initials for author names instead of full first names. This is likely confusion with APA style, which requires initials.",
+    "wrong_example": "Morrison, T. *Beloved*. Knopf, 1987.",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "MLA 9 requires full first names to provide clarity and respect for author identity. Students often confuse this with APA style which uses initials.",
+    "fix_instructions": [
+      "Replace all initials with full first names",
+      "Check middle names - use full middle name or omit entirely",
+      "Verify spelling of author's actual first name",
+      "Never use just an initial for first or middle name"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "APA style confusion - most common MLA error"
+    },
+    "rule_violated": "MLA9-R1.1",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA = full names, APA = initials",
+      "Look up author's full name if unsure",
+      "Check book cover or article byline for full name"
+    ]
+  },
+  {
+    "error_id": "MLA9-E2",
+    "error_name": "Ampersand Between Two Authors",
+    "category": "author_formatting",
+    "description": "Using '&' instead of 'and' between two author names. This is APA style, not MLA.",
+    "wrong_example": "Garcia, Maria, & Sanjay Patel. *Economics*. McGraw-Hill, 2019.",
+    "correct_example": "Garcia, Maria, and Sanjay Patel. *Economics*. McGraw-Hill, 2019.",
+    "explanation": "MLA uses the word 'and' for formality and readability. APA uses '&' for brevity.",
+    "fix_instructions": [
+      "Replace '&' with 'and'",
+      "Ensure 'and' is lowercase",
+      "Keep comma before 'and'",
+      "Second author name should not be inverted"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "APA style confusion"
+    },
+    "rule_violated": "MLA9-R1.3",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA = 'and', APA = '&'",
+      "Spell out 'and' fully"
+    ]
+  },
+  {
+    "error_id": "MLA9-E3",
+    "error_name": "Sentence Case Instead of Title Case",
+    "category": "title_formatting",
+    "description": "Using sentence case for titles instead of Title Case. This is likely confusion with APA style which uses sentence case for articles and chapters.",
+    "wrong_example": "Khan, Samira. \"Modern storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "MLA requires Title Case for ALL titles (articles, books, websites, etc.). APA uses sentence case for articles and chapters.",
+    "fix_instructions": [
+      "Capitalize first word",
+      "Capitalize last word",
+      "Capitalize all major words (nouns, verbs, adjectives, adverbs)",
+      "Keep articles (a, an, the), conjunctions, and prepositions lowercase unless first/last"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "THE most common MLA formatting error"
+    },
+    "rule_violated": "MLA9-R2.1",
+    "difficulty_to_fix": "medium",
+    "prevention_tips": [
+      "Remember: MLA = Title Case for everything",
+      "Check each major word for capitalization",
+      "Use title case converter if unsure"
+    ]
+  },
+  {
+    "error_id": "MLA9-E4",
+    "error_name": "Book Title in Quotation Marks",
+    "category": "title_formatting",
+    "description": "Using quotation marks for book titles instead of italics. Books are complete works and should be italicized.",
+    "wrong_example": "Morrison, Toni. \"Beloved.\" Knopf, 1987.",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "Complete works (books, journals, films) use italics. Shorter works (articles, chapters, poems) use quotation marks.",
+    "fix_instructions": [
+      "Remove quotation marks from book title",
+      "Apply italic formatting to entire book title",
+      "Keep subtitle italicized as well",
+      "Ensure period comes after italics"
+    ],
+    "affected_source_types": ["book"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Confusion about which titles use which formatting"
+    },
+    "rule_violated": "MLA9-R2.3",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: Big = italics (books, journals), Small = quotes (articles, chapters)",
+      "Ask: Is this a complete standalone work?"
+    ]
+  },
+  {
+    "error_id": "MLA9-E5",
+    "error_name": "Article Title in Italics",
+    "category": "title_formatting",
+    "description": "Using italics for article titles instead of quotation marks. Articles are shorter works contained in journals and should use quotation marks.",
+    "wrong_example": "Khan, Samira. *Modern Storytelling.* *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "Shorter works (articles, chapters, poems, web pages) use quotation marks to indicate they are part of a larger container.",
+    "fix_instructions": [
+      "Remove italic formatting from article title",
+      "Add quotation marks around article title",
+      "Keep container (journal) italicized",
+      "Period goes inside closing quotation mark"
+    ],
+    "affected_source_types": ["journal_article", "website"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Confusion about container hierarchy"
+    },
+    "rule_violated": "MLA9-R2.2",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: Articles go IN journals, so they get quotes",
+      "Container (journal) gets italics, content (article) gets quotes"
+    ]
+  },
+  {
+    "error_id": "MLA9-E6",
+    "error_name": "Date After Author (APA Style)",
+    "category": "date_formatting",
+    "description": "Placing publication date in parentheses after author name. This is APA style, not MLA.",
+    "wrong_example": "Morrison, Toni. (1987). *Beloved*. Knopf.",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "In MLA, date comes after publisher in the publication sequence. APA places date after author for emphasis on currency.",
+    "fix_instructions": [
+      "Remove parentheses around date",
+      "Move date after publisher",
+      "Add comma before date",
+      "Add period after date"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "APA style confusion - major structural difference"
+    },
+    "rule_violated": "MLA9-R3.1",
+    "difficulty_to_fix": "medium",
+    "prevention_tips": [
+      "Remember: MLA date after publisher, APA date after author",
+      "No parentheses around dates in MLA"
+    ]
+  },
+  {
+    "error_id": "MLA9-E7",
+    "error_name": "Capitalized Volume and Issue Abbreviations",
+    "category": "journal_formatting",
+    "description": "Capitalizing 'vol.' and 'no.' abbreviations as 'Vol.' and 'No.'. MLA requires lowercase.",
+    "wrong_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, Vol. 4, No. 2, 2022, pp. 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "MLA style uses lowercase abbreviations for volume and issue to maintain consistency with other abbreviations.",
+    "fix_instructions": [
+      "Change 'Vol.' to 'vol.'",
+      "Change 'No.' to 'no.'",
+      "Keep period after each abbreviation",
+      "Maintain comma after each number"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Inconsistency with capitalization rules"
+    },
+    "rule_violated": "MLA9-J2",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: lowercase vol. and no. in MLA",
+      "These are abbreviations, not proper nouns"
+    ]
+  },
+  {
+    "error_id": "MLA9-E8",
+    "error_name": "APA Volume/Issue Format",
+    "category": "journal_formatting",
+    "description": "Using APA's volume(issue) format like 4(2) instead of MLA's 'vol. 4, no. 2' format.",
+    "wrong_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts* 4(2), 2022, pp. 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "MLA uses spelled-out abbreviations for clarity. APA uses compact parenthetical format.",
+    "fix_instructions": [
+      "Replace volume(issue) with 'vol. #, no. #'",
+      "Add comma after journal title",
+      "Spell out vol. and no. abbreviations",
+      "Use lowercase for abbreviations"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "APA style confusion"
+    },
+    "rule_violated": "MLA9-J2",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA spells out vol. and no., APA uses parentheses",
+      "MLA is more explicit for readability"
+    ]
+  },
+  {
+    "error_id": "MLA9-E9",
+    "error_name": "Missing 'pp.' Before Page Numbers",
+    "category": "punctuation",
+    "description": "Omitting 'pp.' before page ranges in Works Cited entries.",
+    "wrong_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "MLA requires 'pp.' before page numbers in Works Cited (but not in in-text citations). This clarifies what the numbers represent.",
+    "fix_instructions": [
+      "Add 'pp.' before page range",
+      "Use 'p.' for single page",
+      "Include space after 'pp.'",
+      "Keep period at end"
+    ],
+    "affected_source_types": ["journal_article", "book_chapter"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Confusion with in-text citation format"
+    },
+    "rule_violated": "MLA9-R4.5",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: Works Cited = pp., In-text = no pp.",
+      "Always include pp. before ranges in Works Cited"
+    ]
+  },
+  {
+    "error_id": "MLA9-E10",
+    "error_name": "Including Place of Publication",
+    "category": "book_formatting",
+    "description": "Including city or place of publication before publisher. This was required in MLA 8 but removed in MLA 9.",
+    "wrong_example": "Morrison, Toni. *Beloved*. New York: Knopf, 1987.",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "MLA 9 simplified book citations by removing place of publication, which is no longer relevant in digital age.",
+    "fix_instructions": [
+      "Remove city/place name",
+      "Remove colon after place",
+      "Start directly with publisher name",
+      "Maintain comma before year"
+    ],
+    "affected_source_types": ["book"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Using outdated MLA 8 format"
+    },
+    "rule_violated": "MLA9-B1",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA 9 dropped place of publication",
+      "Go straight to publisher name"
+    ]
+  },
+  {
+    "error_id": "MLA9-E11",
+    "error_name": "URL with HTTP/HTTPS Protocol",
+    "category": "url_formatting",
+    "description": "Including http:// or https:// in URLs. MLA requires omitting the protocol for simplicity.",
+    "wrong_example": "Lee, Michael. \"Climate Trends 2024.\" *Eco Report*, 5 Feb. 2024, https://www.ecoreport.org/climate2024.",
+    "correct_example": "Lee, Michael. \"Climate Trends 2024.\" *Eco Report*, 5 Feb. 2024, www.ecoreport.org/climate2024.",
+    "explanation": "MLA simplifies URLs by removing unnecessary technical details. Protocol is assumed.",
+    "fix_instructions": [
+      "Remove http:// or https://",
+      "Start URL with domain (www. or direct domain)",
+      "Keep rest of URL path",
+      "End with period"
+    ],
+    "affected_source_types": ["website", "online_article"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Students copy-paste URLs from browser"
+    },
+    "rule_violated": "MLA9-R5.1",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: No http:// or https:// in MLA URLs",
+      "Exception: DOIs keep https://doi.org/ prefix"
+    ]
+  },
+  {
+    "error_id": "MLA9-E12",
+    "error_name": "Using 'n.d.' for No Date",
+    "category": "date_formatting",
+    "description": "Using 'n.d.' when publication date is unavailable. MLA simply omits the date element.",
+    "wrong_example": "Author, Name. \"Title.\" *Website*, n.d., www.example.com.",
+    "correct_example": "Author, Name. \"Title.\" *Website*, www.example.com.",
+    "explanation": "MLA 9 doesn't use placeholders like 'n.d.' - if information is unavailable, omit that element.",
+    "fix_instructions": [
+      "Remove 'n.d.' completely",
+      "Remove comma before 'n.d.'",
+      "Continue with next element (usually URL)",
+      "Consider adding access date if no publication date"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "APA style confusion"
+    },
+    "rule_violated": "MLA9-R3.4",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA = omit if missing, APA = use 'n.d.'",
+      "Don't use placeholders in MLA"
+    ]
+  },
+  {
+    "error_id": "MLA9-E13",
+    "error_name": "Inverted Second Author Name",
+    "category": "author_formatting",
+    "description": "Inverting the second author's name in a two-author citation. Only the first author's name should be inverted.",
+    "wrong_example": "Garcia, Maria, and Patel, Sanjay. *Economics*. McGraw-Hill, 2019.",
+    "correct_example": "Garcia, Maria, and Sanjay Patel. *Economics*. McGraw-Hill, 2019.",
+    "explanation": "In MLA, only the first author's name is inverted for alphabetization. Subsequent authors use normal (First Last) order for readability.",
+    "fix_instructions": [
+      "Keep first author inverted (Last, First)",
+      "Change second author to normal order (First Last)",
+      "Maintain 'and' between authors",
+      "Remove comma after second author's last name if present"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Logical assumption that all authors follow same pattern"
+    },
+    "rule_violated": "MLA9-R1.3",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: First author inverted, others normal",
+      "Only invert for alphabetization (first author)"
+    ]
+  },
+  {
+    "error_id": "MLA9-E14",
+    "error_name": "Missing Final Period",
+    "category": "punctuation",
+    "description": "Omitting the final period at the end of the citation.",
+    "wrong_example": "Morrison, Toni. *Beloved*. Knopf, 1987",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "Every MLA citation must end with a period, regardless of what element ends the citation (URL, page number, date, etc.).",
+    "fix_instructions": [
+      "Add period at the very end",
+      "Check that it comes after the final element",
+      "Ensure no double periods",
+      "Period goes outside URL"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Oversight in formatting"
+    },
+    "rule_violated": "MLA9-R4.3",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Always end with a period",
+      "Double-check final punctuation"
+    ]
+  },
+  {
+    "error_id": "MLA9-E15",
+    "error_name": "Editor Name Inverted in Chapter Citation",
+    "category": "book_chapter_formatting",
+    "description": "Inverting editor names (Last, First) in book chapter citations. Editor names should be in normal order (First Last) after 'edited by'.",
+    "wrong_example": "Harris, Muriel. \"Talk to Me.\" *A Tutor's Guide*, edited by Rafoth, Ben, Heinemann, 2000, pp. 24-34.",
+    "correct_example": "Harris, Muriel. \"Talk to Me.\" *A Tutor's Guide*, edited by Ben Rafoth, Heinemann, 2000, pp. 24-34.",
+    "explanation": "In MLA, contributor names (editors, translators, directors) after 'edited by', 'directed by', etc. use normal order (First Last), not inverted.",
+    "fix_instructions": [
+      "Change editor name from (Last, First) to (First Last)",
+      "Keep 'edited by' before name",
+      "Use normal order for all editors",
+      "Can use 'et al.' for multiple editors"
+    ],
+    "affected_source_types": ["book_chapter", "edited_book"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Logical assumption that all names follow same pattern"
+    },
+    "rule_violated": "MLA9-C1",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: Author inverted, contributors (editors/directors) normal",
+      "Names after 'edited by' or 'directed by' use normal order"
+    ]
+  },
+  {
+    "error_id": "MLA9-E16",
+    "error_name": "Multiple Authors Listed Before 'et al.'",
+    "category": "author_formatting",
+    "description": "Listing more than one author before 'et al.' when there are three or more authors.",
+    "wrong_example": "Nickels, William, Smith, John, et al. *Business*. McGraw-Hill, 2016.",
+    "correct_example": "Nickels, William, et al. *Business*. McGraw-Hill, 2016.",
+    "explanation": "MLA simplifies three-or-more author citations by using only the first author's name followed by 'et al.'",
+    "fix_instructions": [
+      "Keep only first author's name",
+      "Add comma after first author",
+      "Add 'et al.' after comma",
+      "Remove all other author names"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Confusion with other citation styles"
+    },
+    "rule_violated": "MLA9-R1.4",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: 3+ authors = first author only + et al.",
+      "Don't list additional authors before et al."
+    ]
+  },
+  {
+    "error_id": "MLA9-E17",
+    "error_name": "Both Quotation Marks and Italics on Title",
+    "category": "title_formatting",
+    "description": "Using both quotation marks AND italics on the same title. This is redundant and incorrect.",
+    "wrong_example": "Morrison, Toni. *\"Beloved\"*. Knopf, 1987.",
+    "correct_example": "Morrison, Toni. *Beloved*. Knopf, 1987.",
+    "explanation": "Titles use either quotation marks (shorter works) or italics (complete works), never both.",
+    "fix_instructions": [
+      "Determine if work is short or complete",
+      "Short works = quotation marks only",
+      "Complete works = italics only",
+      "Remove the incorrect formatting"
+    ],
+    "affected_source_types": ["all"],
+    "frequency": {
+      "estimated_frequency": "uncommon",
+      "research_basis": "Over-emphasis or confusion"
+    },
+    "rule_violated": "MLA9-R2.4",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Choose one: quotes OR italics, never both",
+      "Ask: Is it a part of something (quotes) or standalone (italics)?"
+    ]
+  },
+  {
+    "error_id": "MLA9-E18",
+    "error_name": "Wrong Date Format (Month-Day-Year)",
+    "category": "date_formatting",
+    "description": "Using American Month-Day-Year format instead of MLA's Day-Month-Year format.",
+    "wrong_example": "Lee, Michael. \"Climate Trends.\" *Eco Report*, Feb. 5, 2024, www.ecoreport.org.",
+    "correct_example": "Lee, Michael. \"Climate Trends.\" *Eco Report*, 5 Feb. 2024, www.ecoreport.org.",
+    "explanation": "MLA uses European-style Day-Month-Year format without commas for international consistency.",
+    "fix_instructions": [
+      "Move day before month",
+      "Remove comma after day",
+      "Use abbreviated month",
+      "Keep year at end"
+    ],
+    "affected_source_types": ["website", "journal_article", "newspaper"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "American date format is default for US students"
+    },
+    "rule_violated": "MLA9-R3.2",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: MLA uses Day Month Year (no commas)",
+      "Think European date format"
+    ]
+  },
+  {
+    "error_id": "MLA9-E19",
+    "error_name": "Using 'p.' or 'pp.' in In-Text Citations",
+    "category": "in_text_citations",
+    "description": "Including 'p.' or 'pp.' before page numbers in parenthetical in-text citations. MLA in-text citations omit this.",
+    "wrong_example": "(Morrison, p. 42)",
+    "correct_example": "(Morrison 42)",
+    "explanation": "MLA in-text citations are simplified - just author last name and page number, no 'p.' or comma.",
+    "fix_instructions": [
+      "Remove 'p.' or 'pp.'",
+      "Remove comma between author and page",
+      "Keep space between author and page number",
+      "Just: (Author Page)"
+    ],
+    "affected_source_types": ["in_text_citation"],
+    "frequency": {
+      "estimated_frequency": "very_common",
+      "research_basis": "Confusion with Works Cited format or APA style"
+    },
+    "rule_violated": "MLA9-R4.4",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: In-text = (Author Page), Works Cited = pp. pages",
+      "No 'p.' or comma in in-text citations"
+    ]
+  },
+  {
+    "error_id": "MLA9-E20",
+    "error_name": "Quotation Marks on Journal Title",
+    "category": "title_formatting",
+    "description": "Using quotation marks for journal titles instead of italics. Journals are containers and should be italicized.",
+    "wrong_example": "Khan, Samira. \"Modern Storytelling.\" \"Journal of Modern Arts\", vol. 4, no. 2, 2022, pp. 45-58.",
+    "correct_example": "Khan, Samira. \"Modern Storytelling.\" *Journal of Modern Arts*, vol. 4, no. 2, 2022, pp. 45-58.",
+    "explanation": "Containers (journals, magazines, websites) are always italicized. Only the article title uses quotation marks.",
+    "fix_instructions": [
+      "Remove quotation marks from journal title",
+      "Apply italic formatting to journal title",
+      "Keep article title in quotation marks",
+      "Ensure container is italicized"
+    ],
+    "affected_source_types": ["journal_article"],
+    "frequency": {
+      "estimated_frequency": "common",
+      "research_basis": "Confusion about formatting hierarchy"
+    },
+    "rule_violated": "MLA9-R6.4",
+    "difficulty_to_fix": "easy",
+    "prevention_tips": [
+      "Remember: Containers always italic (journals, websites, books)",
+      "Contents use quotes (articles, chapters)"
+    ]
+  }
+]

@@ -1,0 +1,2392 @@
+[
+  {
+    "example_id": "mla9_book_001",
+    "source_type": "book",
+    "citation": "Lewis, Sanjay. *The Effects of Global Trade*. Random House, 2003.",
+    "components": {
+      "authors": "Lewis, Sanjay",
+      "title": "The Effects of Global Trade",
+      "publisher": "Random House",
+      "year": 2003
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_002",
+    "source_type": "book",
+    "citation": "Taylor, Jennifer Thomas, et al. *Narrative Techniques in Contemporary Society*. Harper, 2007.",
+    "components": {
+      "authors": "Taylor, Jennifer Thomas, et al",
+      "title": "Narrative Techniques in Contemporary Society",
+      "publisher": "Harper",
+      "year": 2007
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_003",
+    "source_type": "book",
+    "citation": "Jones, Thomas Grace, et al. *Rethinking Social Media in Contemporary Society*. Cambridge UP, 2001.",
+    "components": {
+      "authors": "Jones, Thomas Grace, et al",
+      "title": "Rethinking Social Media in Contemporary Society",
+      "publisher": "Cambridge UP",
+      "year": 2001
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_004",
+    "source_type": "book",
+    "citation": "Morrison, Nancy. *Toward a New Understanding of Digital Technology*. Springer, 2021.",
+    "components": {
+      "authors": "Morrison, Nancy",
+      "title": "Toward a New Understanding of Digital Technology",
+      "publisher": "Springer",
+      "year": 2021
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_005",
+    "source_type": "book",
+    "citation": "Brown, Jessica Alexander. *Toward a New Understanding of Social Media*. Yale UP, 1987.",
+    "components": {
+      "authors": "Brown, Jessica Alexander",
+      "title": "Toward a New Understanding of Social Media",
+      "publisher": "Yale UP",
+      "year": 1987
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_006",
+    "source_type": "book",
+    "citation": "White, Maria. *Historical Memory in American Culture*. Wiley, 2001.",
+    "components": {
+      "authors": "White, Maria",
+      "title": "Historical Memory in American Culture",
+      "publisher": "Wiley",
+      "year": 2001
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_007",
+    "source_type": "book",
+    "citation": "Thompson, Karen, and Emily Elena Johnson. *Cultural Identity in the 21st Century*. Random House, 2002.",
+    "components": {
+      "authors": "Thompson, Karen, and Emily Elena Johnson",
+      "title": "Cultural Identity in the 21st Century",
+      "publisher": "Random House",
+      "year": 2002
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_008",
+    "source_type": "book",
+    "citation": "Rodriguez, Richard Joseph. *The Influence of Narrative Techniques*. Sage, 2020.",
+    "components": {
+      "authors": "Rodriguez, Richard Joseph",
+      "title": "The Influence of Narrative Techniques",
+      "publisher": "Sage",
+      "year": 2020
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_009",
+    "source_type": "book",
+    "citation": "Khan, Anthony. *Rethinking Narrative Techniques in Contemporary Society*. Wiley, 2016.",
+    "components": {
+      "authors": "Khan, Anthony",
+      "title": "Rethinking Narrative Techniques in Contemporary Society",
+      "publisher": "Wiley",
+      "year": 2016
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_010",
+    "source_type": "book",
+    "citation": "Williams, Matthew Anne. *Digital Technology in Higher Education*. Random House, 2001.",
+    "components": {
+      "authors": "Williams, Matthew Anne",
+      "title": "Digital Technology in Higher Education",
+      "publisher": "Random House",
+      "year": 2001
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_011",
+    "source_type": "book",
+    "citation": "Davis, Samira David. *Toward a New Understanding of Narrative Techniques*. Penguin, 2002.",
+    "components": {
+      "authors": "Davis, Samira David",
+      "title": "Toward a New Understanding of Narrative Techniques",
+      "publisher": "Penguin",
+      "year": 2002
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_012",
+    "source_type": "book",
+    "citation": "Smith, Emily Anne. *The Perspectives of Global Trade*. Routledge, 1987.",
+    "components": {
+      "authors": "Smith, Emily Anne",
+      "title": "The Perspectives of Global Trade",
+      "publisher": "Routledge",
+      "year": 1987
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_013",
+    "source_type": "book",
+    "citation": "Lee, Thomas James, and Daniel Thomas Smith. *The Perspectives of Cultural Identity*. Sage, 1989.",
+    "components": {
+      "authors": "Lee, Thomas James, and Daniel Thomas Smith",
+      "title": "The Perspectives of Cultural Identity",
+      "publisher": "Sage",
+      "year": 1989
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_014",
+    "source_type": "book",
+    "citation": "Martinez, Robert, and David Thompson. *The Exploration of Educational Reform*. Harvard UP, 2004.",
+    "components": {
+      "authors": "Martinez, Robert, and David Thompson",
+      "title": "The Exploration of Educational Reform",
+      "publisher": "Harvard UP",
+      "year": 2004
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_015",
+    "source_type": "book",
+    "citation": "Lee, Richard Joseph. *The Challenges of Educational Reform*. Random House, 2004.",
+    "components": {
+      "authors": "Lee, Richard Joseph",
+      "title": "The Challenges of Educational Reform",
+      "publisher": "Random House",
+      "year": 2004
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_016",
+    "source_type": "book",
+    "citation": "Harris, Daniel Lee, et al. *Rethinking Public Health in Urban Communities*. Yale UP, 1994.",
+    "components": {
+      "authors": "Harris, Daniel Lee, et al",
+      "title": "Rethinking Public Health in Urban Communities",
+      "publisher": "Yale UP",
+      "year": 1994
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_017",
+    "source_type": "book",
+    "citation": "Garcia, Karen. *Modern Storytelling: Perspectives and Study*. Princeton UP, 2006.",
+    "components": {
+      "authors": "Garcia, Karen",
+      "title": "Modern Storytelling: Perspectives and Study",
+      "publisher": "Princeton UP",
+      "year": 2006
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_018",
+    "source_type": "book",
+    "citation": "Martin, John. *Climate Change in Modern Literature*. Random House, 2021.",
+    "components": {
+      "authors": "Martin, John",
+      "title": "Climate Change in Modern Literature",
+      "publisher": "Random House",
+      "year": 2021
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_019",
+    "source_type": "book",
+    "citation": "Robinson, Barbara. *Rethinking Environmental Justice in Public Policy*. Yale UP, 2014.",
+    "components": {
+      "authors": "Robinson, Barbara",
+      "title": "Rethinking Environmental Justice in Public Policy",
+      "publisher": "Yale UP",
+      "year": 2014
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_020",
+    "source_type": "book",
+    "citation": "Smith, Barbara Elena. *Toward a New Understanding of Cultural Identity*. Harvard UP, 2016.",
+    "components": {
+      "authors": "Smith, Barbara Elena",
+      "title": "Toward a New Understanding of Cultural Identity",
+      "publisher": "Harvard UP",
+      "year": 2016
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_021",
+    "source_type": "book",
+    "citation": "Robinson, Christopher Joseph, and Susan Morrison. *The Impact of Global Trade*. Wiley, 1987.",
+    "components": {
+      "authors": "Robinson, Christopher Joseph, and Susan Morrison",
+      "title": "The Impact of Global Trade",
+      "publisher": "Wiley",
+      "year": 1987
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_022",
+    "source_type": "book",
+    "citation": "Kim, Jessica Marie. *The Challenges of Social Media*. Houghton Mifflin, 2000.",
+    "components": {
+      "authors": "Kim, Jessica Marie",
+      "title": "The Challenges of Social Media",
+      "publisher": "Houghton Mifflin",
+      "year": 2000
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_023",
+    "source_type": "book",
+    "citation": "Khan, Richard Elena, et al. *Toward a New Understanding of Social Media*. Harper, 2003.",
+    "components": {
+      "authors": "Khan, Richard Elena, et al",
+      "title": "Toward a New Understanding of Social Media",
+      "publisher": "Harper",
+      "year": 2003
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_024",
+    "source_type": "book",
+    "citation": "Hall, Maria Anne. *Toward a New Understanding of Environmental Justice*. Norton, 2020.",
+    "components": {
+      "authors": "Hall, Maria Anne",
+      "title": "Toward a New Understanding of Environmental Justice",
+      "publisher": "Norton",
+      "year": 2020
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_025",
+    "source_type": "book",
+    "citation": "Garcia, Susan Marie. *Toward a New Understanding of Mental Health*. Macmillan, 2016.",
+    "components": {
+      "authors": "Garcia, Susan Marie",
+      "title": "Toward a New Understanding of Mental Health",
+      "publisher": "Macmillan",
+      "year": 2016
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_026",
+    "source_type": "book",
+    "citation": "Young, Jennifer Lee, et al. *Social Media: Trends and Review*. Norton, 1990.",
+    "components": {
+      "authors": "Young, Jennifer Lee, et al",
+      "title": "Social Media: Trends and Review",
+      "publisher": "Norton",
+      "year": 1990
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_027",
+    "source_type": "book",
+    "citation": "Davis, Linda, and Patricia Brown. *Global Trade: Challenges and Understanding*. Sage, 1997.",
+    "components": {
+      "authors": "Davis, Linda, and Patricia Brown",
+      "title": "Global Trade: Challenges and Understanding",
+      "publisher": "Sage",
+      "year": 1997
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_028",
+    "source_type": "book",
+    "citation": "Martinez, Nancy Marie. *Historical Memory: Exploration and Influence*. Macmillan, 2013.",
+    "components": {
+      "authors": "Martinez, Nancy Marie",
+      "title": "Historical Memory: Exploration and Influence",
+      "publisher": "Macmillan",
+      "year": 2013
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_029",
+    "source_type": "book",
+    "citation": "Jones, Anthony. *The Review of Digital Technology*. Routledge, 1997.",
+    "components": {
+      "authors": "Jones, Anthony",
+      "title": "The Review of Digital Technology",
+      "publisher": "Routledge",
+      "year": 1997
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_book_030",
+    "source_type": "book",
+    "citation": "White, Anthony, and Barbara Clark. *Modern Storytelling: Exploration and Challenges*. Macmillan, 1990.",
+    "components": {
+      "authors": "White, Anthony, and Barbara Clark",
+      "title": "Modern Storytelling: Exploration and Challenges",
+      "publisher": "Macmillan",
+      "year": 1990
+    },
+    "validation_notes": [
+      "Full author names (not initials)",
+      "Book title in italics and Title Case",
+      "Year after publisher",
+      "Ends with period"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_001",
+    "source_type": "journal_article",
+    "citation": "Rodriguez, Lisa Anne, and Karen Jackson. \"Mental Health: Analysis and Exploration.\" *Annual Review of Sociology*, vol. 32, no. 1, 2015, pp. 188-206 https://doi.org/10.1080/9829389003.",
+    "components": {
+      "authors": "Rodriguez, Lisa Anne, and Karen Jackson",
+      "article_title": "Mental Health: Analysis and Exploration",
+      "journal_name": "Annual Review of Sociology",
+      "volume": 32,
+      "issue": 1,
+      "year": 2015,
+      "pages": "pp. 188-206",
+      "doi": "https://doi.org/10.1080/9829389003"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_002",
+    "source_type": "journal_article",
+    "citation": "Robinson, Samira Rose, and Richard David Thomas. \"Toward a New Understanding of Artificial Intelligence.\" *American Literary Review*, vol. 49, no. 1, 2021, pp. 170-216.",
+    "components": {
+      "authors": "Robinson, Samira Rose, and Richard David Thomas",
+      "article_title": "Toward a New Understanding of Artificial Intelligence",
+      "journal_name": "American Literary Review",
+      "volume": 49,
+      "issue": 1,
+      "year": 2021,
+      "pages": "pp. 170-216",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_003",
+    "source_type": "journal_article",
+    "citation": "Harris, Thomas Marie, et al. \"Educational Reform: Exploration and Perspectives.\" *American Literary Review*, vol. 30, no. 2, 2017, pp. 15-63 https://doi.org/10.1093/4226263695.",
+    "components": {
+      "authors": "Harris, Thomas Marie, et al",
+      "article_title": "Educational Reform: Exploration and Perspectives",
+      "journal_name": "American Literary Review",
+      "volume": 30,
+      "issue": 2,
+      "year": 2017,
+      "pages": "pp. 15-63",
+      "doi": "https://doi.org/10.1093/4226263695"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_004",
+    "source_type": "journal_article",
+    "citation": "Hall, Michael James. \"Toward a New Understanding of Artificial Intelligence.\" *American Journal of Sociology*, vol. 5, no. 3, 2017, pp. 165-212.",
+    "components": {
+      "authors": "Hall, Michael James",
+      "article_title": "Toward a New Understanding of Artificial Intelligence",
+      "journal_name": "American Journal of Sociology",
+      "volume": 5,
+      "issue": 3,
+      "year": 2017,
+      "pages": "pp. 165-212",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_005",
+    "source_type": "journal_article",
+    "citation": "Lee, Barbara Grace. \"The Analysis of Public Health.\" *Sociological Review*, vol. 33, no. 1, 2020, pp. 151-196.",
+    "components": {
+      "authors": "Lee, Barbara Grace",
+      "article_title": "The Analysis of Public Health",
+      "journal_name": "Sociological Review",
+      "volume": 33,
+      "issue": 1,
+      "year": 2020,
+      "pages": "pp. 151-196",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_006",
+    "source_type": "journal_article",
+    "citation": "Williams, Karen Joseph. \"Global Trade in Public Policy.\" *The Anthropocene Review*, vol. 12, no. 3, 2022, pp. 75-123.",
+    "components": {
+      "authors": "Williams, Karen Joseph",
+      "article_title": "Global Trade in Public Policy",
+      "journal_name": "The Anthropocene Review",
+      "volume": 12,
+      "issue": 3,
+      "year": 2022,
+      "pages": "pp. 75-123",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_007",
+    "source_type": "journal_article",
+    "citation": "Khan, David Lynn, et al. \"Rethinking Modern Storytelling in Public Policy.\" *Annual Review of Sociology*, vol. 49, no. 1, 2016, pp. 50-68.",
+    "components": {
+      "authors": "Khan, David Lynn, et al",
+      "article_title": "Rethinking Modern Storytelling in Public Policy",
+      "journal_name": "Annual Review of Sociology",
+      "volume": 49,
+      "issue": 1,
+      "year": 2016,
+      "pages": "pp. 50-68",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_008",
+    "source_type": "journal_article",
+    "citation": "Thomas, William Alexander, et al. \"Rethinking Environmental Justice in Higher Education.\" *Modern Fiction Studies*, vol. 42, no. 3, 2020, pp. 88-104 https://doi.org/10.1080/2748226542.",
+    "components": {
+      "authors": "Thomas, William Alexander, et al",
+      "article_title": "Rethinking Environmental Justice in Higher Education",
+      "journal_name": "Modern Fiction Studies",
+      "volume": 42,
+      "issue": 3,
+      "year": 2020,
+      "pages": "pp. 88-104",
+      "doi": "https://doi.org/10.1080/2748226542"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_009",
+    "source_type": "journal_article",
+    "citation": "Jackson, Christopher. \"Rethinking Literary Theory in American Culture.\" *Novel: A Forum on Fiction*, vol. 12, no. 1, 2018, pp. 171-216.",
+    "components": {
+      "authors": "Jackson, Christopher",
+      "article_title": "Rethinking Literary Theory in American Culture",
+      "journal_name": "Novel: A Forum on Fiction",
+      "volume": 12,
+      "issue": 1,
+      "year": 2018,
+      "pages": "pp. 171-216",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_010",
+    "source_type": "journal_article",
+    "citation": "Kim, Susan. \"Toward a New Understanding of Literary Theory.\" *Social Research*, vol. 27, no. 1, 2020, pp. 77-94.",
+    "components": {
+      "authors": "Kim, Susan",
+      "article_title": "Toward a New Understanding of Literary Theory",
+      "journal_name": "Social Research",
+      "volume": 27,
+      "issue": 1,
+      "year": 2020,
+      "pages": "pp. 77-94",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_011",
+    "source_type": "journal_article",
+    "citation": "Khan, David David. \"Toward a New Understanding of Cultural Identity.\" *American Literary Review*, vol. 33, no. 2, 2019, pp. 103-122 https://doi.org/10.1353/5213013323.",
+    "components": {
+      "authors": "Khan, David David",
+      "article_title": "Toward a New Understanding of Cultural Identity",
+      "journal_name": "American Literary Review",
+      "volume": 33,
+      "issue": 2,
+      "year": 2019,
+      "pages": "pp. 103-122",
+      "doi": "https://doi.org/10.1353/5213013323"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_012",
+    "source_type": "journal_article",
+    "citation": "Chen, Thomas Anne. \"Mental Health in Urban Communities.\" *American Historical Review*, vol. 24, no. 2, 2022, pp. 200-231.",
+    "components": {
+      "authors": "Chen, Thomas Anne",
+      "article_title": "Mental Health in Urban Communities",
+      "journal_name": "American Historical Review",
+      "volume": 24,
+      "issue": 2,
+      "year": 2022,
+      "pages": "pp. 200-231",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_013",
+    "source_type": "journal_article",
+    "citation": "Clark, Richard Lynn, et al. \"Toward a New Understanding of Urban Development.\" *Social History*, vol. 44, no. 4, 2021, pp. 179-210 https://doi.org/10.1093/2792472347.",
+    "components": {
+      "authors": "Clark, Richard Lynn, et al",
+      "article_title": "Toward a New Understanding of Urban Development",
+      "journal_name": "Social History",
+      "volume": 44,
+      "issue": 4,
+      "year": 2021,
+      "pages": "pp. 179-210",
+      "doi": "https://doi.org/10.1093/2792472347"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_014",
+    "source_type": "journal_article",
+    "citation": "Martin, Richard Lynn, and Jessica Joseph Patel. \"The Trends of Global Trade.\" *Past & Present*, vol. 17, no. 4, 2022, pp. 79-125 https://doi.org/10.1017/4509090426.",
+    "components": {
+      "authors": "Martin, Richard Lynn, and Jessica Joseph Patel",
+      "article_title": "The Trends of Global Trade",
+      "journal_name": "Past & Present",
+      "volume": 17,
+      "issue": 4,
+      "year": 2022,
+      "pages": "pp. 79-125",
+      "doi": "https://doi.org/10.1017/4509090426"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_015",
+    "source_type": "journal_article",
+    "citation": "Thompson, Patricia Lynn, et al. \"Modern Storytelling: Exploration and Review.\" *Qualitative Sociology*, vol. 50, no. 3, 2017, pp. 40-80 https://doi.org/10.1017/6331941169.",
+    "components": {
+      "authors": "Thompson, Patricia Lynn, et al",
+      "article_title": "Modern Storytelling: Exploration and Review",
+      "journal_name": "Qualitative Sociology",
+      "volume": 50,
+      "issue": 3,
+      "year": 2017,
+      "pages": "pp. 40-80",
+      "doi": "https://doi.org/10.1017/6331941169"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_016",
+    "source_type": "journal_article",
+    "citation": "Thomas, Michael, and Linda Rose Kim. \"The Trends of Global Trade.\" *Social History*, vol. 16, no. 2, 2020, pp. 62-77.",
+    "components": {
+      "authors": "Thomas, Michael, and Linda Rose Kim",
+      "article_title": "The Trends of Global Trade",
+      "journal_name": "Social History",
+      "volume": 16,
+      "issue": 2,
+      "year": 2020,
+      "pages": "pp. 62-77",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_017",
+    "source_type": "journal_article",
+    "citation": "Patel, Sanjay, et al. \"Historical Memory: Review and Trends.\" *American Literary Review*, vol. 8, no. 4, 2022, pp. 121-133.",
+    "components": {
+      "authors": "Patel, Sanjay, et al",
+      "article_title": "Historical Memory: Review and Trends",
+      "journal_name": "American Literary Review",
+      "volume": 8,
+      "issue": 4,
+      "year": 2022,
+      "pages": "pp. 121-133",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_018",
+    "source_type": "journal_article",
+    "citation": "Martin, Michael Lynn, et al. \"Rethinking Digital Technology in Public Policy.\" *The Anthropocene Review*, vol. 43, no. 2, 2016, pp. 39-65.",
+    "components": {
+      "authors": "Martin, Michael Lynn, et al",
+      "article_title": "Rethinking Digital Technology in Public Policy",
+      "journal_name": "The Anthropocene Review",
+      "volume": 43,
+      "issue": 2,
+      "year": 2016,
+      "pages": "pp. 39-65",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_019",
+    "source_type": "journal_article",
+    "citation": "Miller, Betty. \"Global Trade: Trends and Impact.\" *Historical Journal*, vol. 47, no. 2, 2024, pp. 70-104.",
+    "components": {
+      "authors": "Miller, Betty",
+      "article_title": "Global Trade: Trends and Impact",
+      "journal_name": "Historical Journal",
+      "volume": 47,
+      "issue": 2,
+      "year": 2024,
+      "pages": "pp. 70-104",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_020",
+    "source_type": "journal_article",
+    "citation": "Miller, Linda Jane. \"Public Health in Higher Education.\" *Journal of Modern Arts*, vol. 44, no. 2, 2016, pp. 99-127 https://doi.org/10.1215/1583883213.",
+    "components": {
+      "authors": "Miller, Linda Jane",
+      "article_title": "Public Health in Higher Education",
+      "journal_name": "Journal of Modern Arts",
+      "volume": 44,
+      "issue": 2,
+      "year": 2016,
+      "pages": "pp. 99-127",
+      "doi": "https://doi.org/10.1215/1583883213"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_021",
+    "source_type": "journal_article",
+    "citation": "Miller, Daniel, et al. \"Rethinking Climate Change in Higher Education.\" *Journal of Modern Arts*, vol. 14, no. 2, 2015, pp. 152-169.",
+    "components": {
+      "authors": "Miller, Daniel, et al",
+      "article_title": "Rethinking Climate Change in Higher Education",
+      "journal_name": "Journal of Modern Arts",
+      "volume": 14,
+      "issue": 2,
+      "year": 2015,
+      "pages": "pp. 152-169",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_022",
+    "source_type": "journal_article",
+    "citation": "Jones, Samira Rose, and Sanjay Elizabeth Taylor. \"Economic Policy in Contemporary Society.\" *Past & Present*, vol. 45, no. 3, 2017, pp. 126-144.",
+    "components": {
+      "authors": "Jones, Samira Rose, and Sanjay Elizabeth Taylor",
+      "article_title": "Economic Policy in Contemporary Society",
+      "journal_name": "Past & Present",
+      "volume": 45,
+      "issue": 3,
+      "year": 2017,
+      "pages": "pp. 126-144",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_023",
+    "source_type": "journal_article",
+    "citation": "Young, John, et al. \"Educational Reform in Modern Literature.\" *The Journal of Modern History*, vol. 23, no. 2, 2024, pp. 35-64.",
+    "components": {
+      "authors": "Young, John, et al",
+      "article_title": "Educational Reform in Modern Literature",
+      "journal_name": "The Journal of Modern History",
+      "volume": 23,
+      "issue": 2,
+      "year": 2024,
+      "pages": "pp. 35-64",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_024",
+    "source_type": "journal_article",
+    "citation": "Martinez, Thomas Elizabeth, and Michael Elena Robinson. \"The Effects of Educational Reform.\" *Journal of World History*, vol. 46, no. 3, 2017, pp. 142-183 https://doi.org/10.1353/2396511720.",
+    "components": {
+      "authors": "Martinez, Thomas Elizabeth, and Michael Elena Robinson",
+      "article_title": "The Effects of Educational Reform",
+      "journal_name": "Journal of World History",
+      "volume": 46,
+      "issue": 3,
+      "year": 2017,
+      "pages": "pp. 142-183",
+      "doi": "https://doi.org/10.1353/2396511720"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_025",
+    "source_type": "journal_article",
+    "citation": "Garcia, John, et al. \"Toward a New Understanding of Artificial Intelligence.\" *Novel: A Forum on Fiction*, vol. 23, no. 4, 2017, pp. 94-112.",
+    "components": {
+      "authors": "Garcia, John, et al",
+      "article_title": "Toward a New Understanding of Artificial Intelligence",
+      "journal_name": "Novel: A Forum on Fiction",
+      "volume": 23,
+      "issue": 4,
+      "year": 2017,
+      "pages": "pp. 94-112",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_026",
+    "source_type": "journal_article",
+    "citation": "Hall, Lisa. \"Mental Health in Higher Education.\" *Historical Journal*, vol. 8, no. 1, 2018, pp. 130-145.",
+    "components": {
+      "authors": "Hall, Lisa",
+      "article_title": "Mental Health in Higher Education",
+      "journal_name": "Historical Journal",
+      "volume": 8,
+      "issue": 1,
+      "year": 2018,
+      "pages": "pp. 130-145",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_027",
+    "source_type": "journal_article",
+    "citation": "White, Sarah Rose. \"The Influence of Artificial Intelligence.\" *Sociological Review*, vol. 42, no. 2, 2020, pp. 79-127 https://doi.org/10.1353/3757585116.",
+    "components": {
+      "authors": "White, Sarah Rose",
+      "article_title": "The Influence of Artificial Intelligence",
+      "journal_name": "Sociological Review",
+      "volume": 42,
+      "issue": 2,
+      "year": 2020,
+      "pages": "pp. 79-127",
+      "doi": "https://doi.org/10.1353/3757585116"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_028",
+    "source_type": "journal_article",
+    "citation": "Jackson, Lisa. \"Social Media: Challenges and Challenges.\" *American Historical Review*, vol. 32, no. 3, 2021, pp. 93-136.",
+    "components": {
+      "authors": "Jackson, Lisa",
+      "article_title": "Social Media: Challenges and Challenges",
+      "journal_name": "American Historical Review",
+      "volume": 32,
+      "issue": 3,
+      "year": 2021,
+      "pages": "pp. 93-136",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_029",
+    "source_type": "journal_article",
+    "citation": "Brown, Patricia Alexander, and Anthony Joseph Johnson. \"Cultural Identity in the 21st Century.\" *American Literary Review*, vol. 13, no. 3, 2023, pp. 174-199 https://doi.org/10.1080/8916054654.",
+    "components": {
+      "authors": "Brown, Patricia Alexander, and Anthony Joseph Johnson",
+      "article_title": "Cultural Identity in the 21st Century",
+      "journal_name": "American Literary Review",
+      "volume": 13,
+      "issue": 3,
+      "year": 2023,
+      "pages": "pp. 174-199",
+      "doi": "https://doi.org/10.1080/8916054654"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_030",
+    "source_type": "journal_article",
+    "citation": "Rodriguez, Sarah Thomas, and Anthony Lynn Brown. \"The Perspectives of Cultural Identity.\" *Contemporary Literature*, vol. 4, no. 4, 2015, pp. 37-65.",
+    "components": {
+      "authors": "Rodriguez, Sarah Thomas, and Anthony Lynn Brown",
+      "article_title": "The Perspectives of Cultural Identity",
+      "journal_name": "Contemporary Literature",
+      "volume": 4,
+      "issue": 4,
+      "year": 2015,
+      "pages": "pp. 37-65",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_031",
+    "source_type": "journal_article",
+    "citation": "Miller, Lisa, and Samira Rose Clark. \"The Understanding of Social Media.\" *The Anthropocene Review*, vol. 2, no. 1, 2020, pp. 122-146 https://doi.org/10.1017/5043986242.",
+    "components": {
+      "authors": "Miller, Lisa, and Samira Rose Clark",
+      "article_title": "The Understanding of Social Media",
+      "journal_name": "The Anthropocene Review",
+      "volume": 2,
+      "issue": 1,
+      "year": 2020,
+      "pages": "pp. 122-146",
+      "doi": "https://doi.org/10.1017/5043986242"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_032",
+    "source_type": "journal_article",
+    "citation": "Kim, Emily. \"Toward a New Understanding of Urban Development.\" *American Historical Review*, vol. 12, no. 1, 2021, pp. 193-232 https://doi.org/10.1093/0265443095.",
+    "components": {
+      "authors": "Kim, Emily",
+      "article_title": "Toward a New Understanding of Urban Development",
+      "journal_name": "American Historical Review",
+      "volume": 12,
+      "issue": 1,
+      "year": 2021,
+      "pages": "pp. 193-232",
+      "doi": "https://doi.org/10.1093/0265443095"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_033",
+    "source_type": "journal_article",
+    "citation": "Lee, Toni Grace, and William Anne Smith. \"Rethinking Modern Storytelling in Modern Literature.\" *Historical Journal*, vol. 24, no. 3, 2019, pp. 173-197.",
+    "components": {
+      "authors": "Lee, Toni Grace, and William Anne Smith",
+      "article_title": "Rethinking Modern Storytelling in Modern Literature",
+      "journal_name": "Historical Journal",
+      "volume": 24,
+      "issue": 3,
+      "year": 2019,
+      "pages": "pp. 173-197",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_034",
+    "source_type": "journal_article",
+    "citation": "Rodriguez, Richard, and Christopher Lynn Walker. \"The Analysis of Historical Memory.\" *Qualitative Sociology*, vol. 24, no. 2, 2020, pp. 53-103.",
+    "components": {
+      "authors": "Rodriguez, Richard, and Christopher Lynn Walker",
+      "article_title": "The Analysis of Historical Memory",
+      "journal_name": "Qualitative Sociology",
+      "volume": 24,
+      "issue": 2,
+      "year": 2020,
+      "pages": "pp. 53-103",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_035",
+    "source_type": "journal_article",
+    "citation": "Jones, Toni Grace, and Toni Jane Martinez. \"Global Trade: Impact and Study.\" *Comparative Literature Studies*, vol. 50, no. 1, 2019, pp. 70-107 https://doi.org/10.1353/8953894162.",
+    "components": {
+      "authors": "Jones, Toni Grace, and Toni Jane Martinez",
+      "article_title": "Global Trade: Impact and Study",
+      "journal_name": "Comparative Literature Studies",
+      "volume": 50,
+      "issue": 1,
+      "year": 2019,
+      "pages": "pp. 70-107",
+      "doi": "https://doi.org/10.1353/8953894162"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_036",
+    "source_type": "journal_article",
+    "citation": "Chen, Maria Elizabeth, and Christopher Elena Lewis. \"Environmental Justice: Effects and Trends.\" *Journal of American History*, vol. 45, no. 1, 2018, pp. 12-45.",
+    "components": {
+      "authors": "Chen, Maria Elizabeth, and Christopher Elena Lewis",
+      "article_title": "Environmental Justice: Effects and Trends",
+      "journal_name": "Journal of American History",
+      "volume": 45,
+      "issue": 1,
+      "year": 2018,
+      "pages": "pp. 12-45",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_037",
+    "source_type": "journal_article",
+    "citation": "Khan, John, and Toni Anne Robinson. \"Environmental Justice in Urban Communities.\" *The Anthropocene Review*, vol. 11, no. 3, 2021, pp. 47-78.",
+    "components": {
+      "authors": "Khan, John, and Toni Anne Robinson",
+      "article_title": "Environmental Justice in Urban Communities",
+      "journal_name": "The Anthropocene Review",
+      "volume": 11,
+      "issue": 3,
+      "year": 2021,
+      "pages": "pp. 47-78",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_038",
+    "source_type": "journal_article",
+    "citation": "Morrison, Daniel Alexander, et al. \"Digital Technology: Exploration and Impact.\" *Journal of American History*, vol. 1, no. 2, 2024, pp. 179-216 https://doi.org/10.1080/4487029262.",
+    "components": {
+      "authors": "Morrison, Daniel Alexander, et al",
+      "article_title": "Digital Technology: Exploration and Impact",
+      "journal_name": "Journal of American History",
+      "volume": 1,
+      "issue": 2,
+      "year": 2024,
+      "pages": "pp. 179-216",
+      "doi": "https://doi.org/10.1080/4487029262"
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "DOI includes https://doi.org/"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_039",
+    "source_type": "journal_article",
+    "citation": "Miller, David. \"Toward a New Understanding of Social Media.\" *American Journal of Sociology*, vol. 46, no. 2, 2023, pp. 67-107.",
+    "components": {
+      "authors": "Miller, David",
+      "article_title": "Toward a New Understanding of Social Media",
+      "journal_name": "American Journal of Sociology",
+      "volume": 46,
+      "issue": 2,
+      "year": 2023,
+      "pages": "pp. 67-107",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_journal_040",
+    "source_type": "journal_article",
+    "citation": "Hall, Michael. \"The Analysis of Global Trade.\" *Annual Review of Sociology*, vol. 39, no. 4, 2018, pp. 173-216.",
+    "components": {
+      "authors": "Hall, Michael",
+      "article_title": "The Analysis of Global Trade",
+      "journal_name": "Annual Review of Sociology",
+      "volume": 39,
+      "issue": 4,
+      "year": 2018,
+      "pages": "pp. 173-216",
+      "doi": null
+    },
+    "validation_notes": [
+      "Article title in quotation marks and Title Case",
+      "Journal name in italics",
+      "Lowercase 'vol.' and 'no.'",
+      "pp. before page numbers",
+      "No DOI"
+    ]
+  },
+  {
+    "example_id": "mla9_website_001",
+    "source_type": "website",
+    "citation": "Harris, James. \"The Analysis of Public Health.\" *Digital Trends*, 11 Nov. 2021, www.digitaltrends.org/the-analysis-of-public-health.",
+    "components": {
+      "authors": "Harris, James",
+      "page_title": "The Analysis of Public Health",
+      "website_name": "Digital Trends",
+      "date": "11 Nov. 2021",
+      "url": "www.digitaltrends.org/the-analysis-of-public-health",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_002",
+    "source_type": "website",
+    "citation": "\"The Understanding of Social Media.\" *Climate Watch*, 6 June 2020, www.climatewatch.org/the-understanding-of-social-media.",
+    "components": {
+      "authors": "No author",
+      "page_title": "The Understanding of Social Media",
+      "website_name": "Climate Watch",
+      "date": "6 June 2020",
+      "url": "www.climatewatch.org/the-understanding-of-social-media",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_003",
+    "source_type": "website",
+    "citation": "Martin, Barbara. \"Narrative Techniques: Analysis and Study.\" *Health Today*, 26 Mar. 2022, www.healthtoday.org/narrative-techniques-analysis-and-study.",
+    "components": {
+      "authors": "Martin, Barbara",
+      "page_title": "Narrative Techniques: Analysis and Study",
+      "website_name": "Health Today",
+      "date": "26 Mar. 2022",
+      "url": "www.healthtoday.org/narrative-techniques-analysis-and-study",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_004",
+    "source_type": "website",
+    "citation": "Lewis, Lisa Michael. \"The Exploration of Narrative Techniques.\" *Eco Report*, 25 July 2020, www.ecoreport.org/the-exploration-of-narrative-techniques.",
+    "components": {
+      "authors": "Lewis, Lisa Michael",
+      "page_title": "The Exploration of Narrative Techniques",
+      "website_name": "Eco Report",
+      "date": "25 July 2020",
+      "url": "www.ecoreport.org/the-exploration-of-narrative-techniques",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_005",
+    "source_type": "website",
+    "citation": "\"Rethinking Mental Health in Higher Education.\" *Climate Watch*, 6 Aug. 2023, www.climatewatch.org/rethinking-mental-health-in-higher-educa.",
+    "components": {
+      "authors": "No author",
+      "page_title": "Rethinking Mental Health in Higher Education",
+      "website_name": "Climate Watch",
+      "date": "6 Aug. 2023",
+      "url": "www.climatewatch.org/rethinking-mental-health-in-higher-educa",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_006",
+    "source_type": "website",
+    "citation": "\"Toward a New Understanding of Public Health.\" *Education Corner*, 1 Oct. 2023, www.educationcorner.org/toward-a-new-understanding-of-public-hea Accessed 15 Oct. 2024.",
+    "components": {
+      "authors": "No author",
+      "page_title": "Toward a New Understanding of Public Health",
+      "website_name": "Education Corner",
+      "date": "1 Oct. 2023",
+      "url": "www.educationcorner.org/toward-a-new-understanding-of-public-hea",
+      "access_date": "Accessed 15 Oct. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_007",
+    "source_type": "website",
+    "citation": "\"Rethinking Global Trade in Modern Literature.\" *Smithsonian*, 7 June 2020, www.smithsonian.org/rethinking-global-trade-in-modern-litera Accessed 7 Dec. 2025.",
+    "components": {
+      "authors": "No author",
+      "page_title": "Rethinking Global Trade in Modern Literature",
+      "website_name": "Smithsonian",
+      "date": "7 June 2020",
+      "url": "www.smithsonian.org/rethinking-global-trade-in-modern-litera",
+      "access_date": "Accessed 7 Dec. 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_008",
+    "source_type": "website",
+    "citation": "Lee, Christopher. \"The Study of Literary Theory.\" *Psychology Today*, 21 Dec. 2021, www.psychologytoday.org/the-study-of-literary-theory Accessed 10 Jan. 2024.",
+    "components": {
+      "authors": "Lee, Christopher",
+      "page_title": "The Study of Literary Theory",
+      "website_name": "Psychology Today",
+      "date": "21 Dec. 2021",
+      "url": "www.psychologytoday.org/the-study-of-literary-theory",
+      "access_date": "Accessed 10 Jan. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_009",
+    "source_type": "website",
+    "citation": "Harris, Sarah. \"Toward a New Understanding of Literary Theory.\" *Health Today*, 11 July 2022, www.healthtoday.org/toward-a-new-understanding-of-literary-t.",
+    "components": {
+      "authors": "Harris, Sarah",
+      "page_title": "Toward a New Understanding of Literary Theory",
+      "website_name": "Health Today",
+      "date": "11 July 2022",
+      "url": "www.healthtoday.org/toward-a-new-understanding-of-literary-t",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_010",
+    "source_type": "website",
+    "citation": "Clark, Emily. \"Narrative Techniques: Understanding and Challenges.\" *Nature Today*, 10 May 2022, www.naturetoday.org/narrative-techniques-understanding-and-c Accessed 7 Dec. 2025.",
+    "components": {
+      "authors": "Clark, Emily",
+      "page_title": "Narrative Techniques: Understanding and Challenges",
+      "website_name": "Nature Today",
+      "date": "10 May 2022",
+      "url": "www.naturetoday.org/narrative-techniques-understanding-and-c",
+      "access_date": "Accessed 7 Dec. 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_011",
+    "source_type": "website",
+    "citation": "Garcia, Joseph. \"The Influence of Digital Technology.\" *Smithsonian*, 13 Feb. 2021, www.smithsonian.org/the-influence-of-digital-technology.",
+    "components": {
+      "authors": "Garcia, Joseph",
+      "page_title": "The Influence of Digital Technology",
+      "website_name": "Smithsonian",
+      "date": "13 Feb. 2021",
+      "url": "www.smithsonian.org/the-influence-of-digital-technology",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_012",
+    "source_type": "website",
+    "citation": "\"Climate Change: Challenges and Understanding.\" *Digital Trends*, 20 Apr. 2024, www.digitaltrends.org/climate-change-challenges-and-understand.",
+    "components": {
+      "authors": "No author",
+      "page_title": "Climate Change: Challenges and Understanding",
+      "website_name": "Digital Trends",
+      "date": "20 Apr. 2024",
+      "url": "www.digitaltrends.org/climate-change-challenges-and-understand",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_013",
+    "source_type": "website",
+    "citation": "White, Nancy Rose. \"Mental Health in Public Policy.\" *National Geographic*, 26 Aug. 2024, www.nationalgeographic.org/mental-health-in-public-policy Accessed 19 July 2024.",
+    "components": {
+      "authors": "White, Nancy Rose",
+      "page_title": "Mental Health in Public Policy",
+      "website_name": "National Geographic",
+      "date": "26 Aug. 2024",
+      "url": "www.nationalgeographic.org/mental-health-in-public-policy",
+      "access_date": "Accessed 19 July 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_014",
+    "source_type": "website",
+    "citation": "\"The Effects of Narrative Techniques.\" *Smithsonian*, 13 May 2020, www.smithsonian.org/the-effects-of-narrative-techniques.",
+    "components": {
+      "authors": "No author",
+      "page_title": "The Effects of Narrative Techniques",
+      "website_name": "Smithsonian",
+      "date": "13 May 2020",
+      "url": "www.smithsonian.org/the-effects-of-narrative-techniques",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_015",
+    "source_type": "website",
+    "citation": "Martinez, Patricia. \"The Study of Global Trade.\" *National Geographic*, 28 Apr. 2020, www.nationalgeographic.org/the-study-of-global-trade Accessed 7 Aug. 2024.",
+    "components": {
+      "authors": "Martinez, Patricia",
+      "page_title": "The Study of Global Trade",
+      "website_name": "National Geographic",
+      "date": "28 Apr. 2020",
+      "url": "www.nationalgeographic.org/the-study-of-global-trade",
+      "access_date": "Accessed 7 Aug. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_016",
+    "source_type": "website",
+    "citation": "Taylor, Christopher Elizabeth. \"Rethinking Environmental Justice in the 21st Century.\" *Tech Insights*, 25 June 2021, www.techinsights.org/rethinking-environmental-justice-in-the- Accessed 22 Sept. 2025.",
+    "components": {
+      "authors": "Taylor, Christopher Elizabeth",
+      "page_title": "Rethinking Environmental Justice in the 21st Century",
+      "website_name": "Tech Insights",
+      "date": "25 June 2021",
+      "url": "www.techinsights.org/rethinking-environmental-justice-in-the-",
+      "access_date": "Accessed 22 Sept. 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_017",
+    "source_type": "website",
+    "citation": "Williams, Barbara. \"Rethinking Social Media in the 21st Century.\" *Digital Trends*, 6 Apr. 2020, www.digitaltrends.org/rethinking-social-media-in-the-21st-cent.",
+    "components": {
+      "authors": "Williams, Barbara",
+      "page_title": "Rethinking Social Media in the 21st Century",
+      "website_name": "Digital Trends",
+      "date": "6 Apr. 2020",
+      "url": "www.digitaltrends.org/rethinking-social-media-in-the-21st-cent",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_018",
+    "source_type": "website",
+    "citation": "Patel, Jennifer Joseph. \"Rethinking Mental Health in the 21st Century.\" *Eco Report*, 28 Sept. 2023, www.ecoreport.org/rethinking-mental-health-in-the-21st-cen.",
+    "components": {
+      "authors": "Patel, Jennifer Joseph",
+      "page_title": "Rethinking Mental Health in the 21st Century",
+      "website_name": "Eco Report",
+      "date": "28 Sept. 2023",
+      "url": "www.ecoreport.org/rethinking-mental-health-in-the-21st-cen",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_019",
+    "source_type": "website",
+    "citation": "Patel, Lisa Alexander. \"Literary Theory: Understanding and Perspectives.\" *Psychology Today*, 20 July 2023, www.psychologytoday.org/literary-theory-understanding-and-perspe Accessed 20 Jan. 2024.",
+    "components": {
+      "authors": "Patel, Lisa Alexander",
+      "page_title": "Literary Theory: Understanding and Perspectives",
+      "website_name": "Psychology Today",
+      "date": "20 July 2023",
+      "url": "www.psychologytoday.org/literary-theory-understanding-and-perspe",
+      "access_date": "Accessed 20 Jan. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_020",
+    "source_type": "website",
+    "citation": "Thomas, Linda. \"Toward a New Understanding of Modern Storytelling.\" *Nature Today*, 3 Mar. 2020, www.naturetoday.org/toward-a-new-understanding-of-modern-sto Accessed 14 Dec. 2024.",
+    "components": {
+      "authors": "Thomas, Linda",
+      "page_title": "Toward a New Understanding of Modern Storytelling",
+      "website_name": "Nature Today",
+      "date": "3 Mar. 2020",
+      "url": "www.naturetoday.org/toward-a-new-understanding-of-modern-sto",
+      "access_date": "Accessed 14 Dec. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_021",
+    "source_type": "website",
+    "citation": "Williams, Karen. \"Rethinking Environmental Justice in Urban Communities.\" *Science Daily*, 24 Apr. 2020, www.sciencedaily.org/rethinking-environmental-justice-in-urba.",
+    "components": {
+      "authors": "Williams, Karen",
+      "page_title": "Rethinking Environmental Justice in Urban Communities",
+      "website_name": "Science Daily",
+      "date": "24 Apr. 2020",
+      "url": "www.sciencedaily.org/rethinking-environmental-justice-in-urba",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_022",
+    "source_type": "website",
+    "citation": "\"The Influence of Cultural Identity.\" *Digital Trends*, 23 Apr. 2023, www.digitaltrends.org/the-influence-of-cultural-identity Accessed 21 June 2025.",
+    "components": {
+      "authors": "No author",
+      "page_title": "The Influence of Cultural Identity",
+      "website_name": "Digital Trends",
+      "date": "23 Apr. 2023",
+      "url": "www.digitaltrends.org/the-influence-of-cultural-identity",
+      "access_date": "Accessed 21 June 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_023",
+    "source_type": "website",
+    "citation": "Martinez, Richard. \"Digital Technology: Trends and Challenges.\" *Healthline*, 21 Aug. 2021, www.healthline.org/digital-technology-trends-and-challenges Accessed 22 May 2025.",
+    "components": {
+      "authors": "Martinez, Richard",
+      "page_title": "Digital Technology: Trends and Challenges",
+      "website_name": "Healthline",
+      "date": "21 Aug. 2021",
+      "url": "www.healthline.org/digital-technology-trends-and-challenges",
+      "access_date": "Accessed 22 May 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_024",
+    "source_type": "website",
+    "citation": "Harris, Maria. \"Environmental Justice: Analysis and Exploration.\" *Smithsonian*, 11 Feb. 2023, www.smithsonian.org/environmental-justice-analysis-and-explo Accessed 19 May 2025.",
+    "components": {
+      "authors": "Harris, Maria",
+      "page_title": "Environmental Justice: Analysis and Exploration",
+      "website_name": "Smithsonian",
+      "date": "11 Feb. 2023",
+      "url": "www.smithsonian.org/environmental-justice-analysis-and-explo",
+      "access_date": "Accessed 19 May 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_025",
+    "source_type": "website",
+    "citation": "Williams, Linda. \"Rethinking Cultural Identity in American Culture.\" *Smithsonian*, 27 May 2023, www.smithsonian.org/rethinking-cultural-identity-in-american Accessed 18 Mar. 2024.",
+    "components": {
+      "authors": "Williams, Linda",
+      "page_title": "Rethinking Cultural Identity in American Culture",
+      "website_name": "Smithsonian",
+      "date": "27 May 2023",
+      "url": "www.smithsonian.org/rethinking-cultural-identity-in-american",
+      "access_date": "Accessed 18 Mar. 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_026",
+    "source_type": "website",
+    "citation": "Taylor, James. \"Rethinking Modern Storytelling in Modern Literature.\" *Science Daily*, 23 Mar. 2023, www.sciencedaily.org/rethinking-modern-storytelling-in-modern Accessed 6 July 2024.",
+    "components": {
+      "authors": "Taylor, James",
+      "page_title": "Rethinking Modern Storytelling in Modern Literature",
+      "website_name": "Science Daily",
+      "date": "23 Mar. 2023",
+      "url": "www.sciencedaily.org/rethinking-modern-storytelling-in-modern",
+      "access_date": "Accessed 6 July 2024"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_027",
+    "source_type": "website",
+    "citation": "Taylor, John. \"The Effects of Public Health.\" *Tech Insights*, 10 Mar. 2022, www.techinsights.org/the-effects-of-public-health Accessed 18 May 2025.",
+    "components": {
+      "authors": "Taylor, John",
+      "page_title": "The Effects of Public Health",
+      "website_name": "Tech Insights",
+      "date": "10 Mar. 2022",
+      "url": "www.techinsights.org/the-effects-of-public-health",
+      "access_date": "Accessed 18 May 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_028",
+    "source_type": "website",
+    "citation": "Anderson, Samira. \"Toward a New Understanding of Urban Development.\" *Health Today*, 18 Aug. 2022, www.healthtoday.org/toward-a-new-understanding-of-urban-deve Accessed 17 Mar. 2025.",
+    "components": {
+      "authors": "Anderson, Samira",
+      "page_title": "Toward a New Understanding of Urban Development",
+      "website_name": "Health Today",
+      "date": "18 Aug. 2022",
+      "url": "www.healthtoday.org/toward-a-new-understanding-of-urban-deve",
+      "access_date": "Accessed 17 Mar. 2025"
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "Access date optional"
+    ]
+  },
+  {
+    "example_id": "mla9_website_029",
+    "source_type": "website",
+    "citation": "\"Toward a New Understanding of Public Health.\" *Climate Watch*, 22 May 2021, www.climatewatch.org/toward-a-new-understanding-of-public-hea.",
+    "components": {
+      "authors": "No author",
+      "page_title": "Toward a New Understanding of Public Health",
+      "website_name": "Climate Watch",
+      "date": "22 May 2021",
+      "url": "www.climatewatch.org/toward-a-new-understanding-of-public-hea",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_website_030",
+    "source_type": "website",
+    "citation": "Robinson, James Lynn. \"Digital Technology in Global Context.\" *Tech Insights*, 2 July 2022, www.techinsights.org/digital-technology-in-global-context.",
+    "components": {
+      "authors": "Robinson, James Lynn",
+      "page_title": "Digital Technology in Global Context",
+      "website_name": "Tech Insights",
+      "date": "2 July 2022",
+      "url": "www.techinsights.org/digital-technology-in-global-context",
+      "access_date": null
+    },
+    "validation_notes": [
+      "Page title in quotation marks and Title Case",
+      "Website name in italics",
+      "Date format: Day Month Year",
+      "URL without https://",
+      "No access date"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_001",
+    "source_type": "book_chapter",
+    "citation": "Garcia, Robert, and Patricia Khan. \"Global Trade in American Culture.\" *Toward a New Understanding of Public Health*, edited by James Johnson, Yale UP, 2000, pp. 128-144.",
+    "components": {
+      "authors": "Garcia, Robert, and Patricia Khan",
+      "chapter_title": "Global Trade in American Culture",
+      "book_title": "Toward a New Understanding of Public Health",
+      "editor": "James Johnson",
+      "publisher": "Yale UP",
+      "year": 2000,
+      "pages": "pp. 128-144"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_002",
+    "source_type": "book_chapter",
+    "citation": "Young, Thomas, and Betty James Lee. \"Rethinking Social Media in Higher Education.\" *Rethinking Artificial Intelligence in Contemporary Society*, edited by James Lewis, Yale UP, 2006, pp. 158-174.",
+    "components": {
+      "authors": "Young, Thomas, and Betty James Lee",
+      "chapter_title": "Rethinking Social Media in Higher Education",
+      "book_title": "Rethinking Artificial Intelligence in Contemporary Society",
+      "editor": "James Lewis",
+      "publisher": "Yale UP",
+      "year": 2006,
+      "pages": "pp. 158-174"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_003",
+    "source_type": "book_chapter",
+    "citation": "Thompson, Samira. \"Rethinking Public Health in the 21st Century.\" *Rethinking Global Trade in Modern Literature*, edited by Jennifer Davis, Springer, 2020, pp. 78-105.",
+    "components": {
+      "authors": "Thompson, Samira",
+      "chapter_title": "Rethinking Public Health in the 21st Century",
+      "book_title": "Rethinking Global Trade in Modern Literature",
+      "editor": "Jennifer Davis",
+      "publisher": "Springer",
+      "year": 2020,
+      "pages": "pp. 78-105"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_004",
+    "source_type": "book_chapter",
+    "citation": "Walker, James. \"Educational Reform in Higher Education.\" *The Trends of Narrative Techniques*, edited by Sarah Hall, Random House, 2018, pp. 92-112.",
+    "components": {
+      "authors": "Walker, James",
+      "chapter_title": "Educational Reform in Higher Education",
+      "book_title": "The Trends of Narrative Techniques",
+      "editor": "Sarah Hall",
+      "publisher": "Random House",
+      "year": 2018,
+      "pages": "pp. 92-112"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_005",
+    "source_type": "book_chapter",
+    "citation": "Brown, Anthony Anne, and Christopher Marie Morrison. \"Rethinking Modern Storytelling in Modern Literature.\" *Rethinking Artificial Intelligence in Public Policy*, edited by Linda Lewis, Cambridge UP, 2000, pp. 97-125.",
+    "components": {
+      "authors": "Brown, Anthony Anne, and Christopher Marie Morrison",
+      "chapter_title": "Rethinking Modern Storytelling in Modern Literature",
+      "book_title": "Rethinking Artificial Intelligence in Public Policy",
+      "editor": "Linda Lewis",
+      "publisher": "Cambridge UP",
+      "year": 2000,
+      "pages": "pp. 97-125"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_006",
+    "source_type": "book_chapter",
+    "citation": "Khan, Jessica. \"The Impact of Public Health.\" *Toward a New Understanding of Artificial Intelligence*, edited by Nancy Johnson, Harper, 2001, pp. 127-140.",
+    "components": {
+      "authors": "Khan, Jessica",
+      "chapter_title": "The Impact of Public Health",
+      "book_title": "Toward a New Understanding of Artificial Intelligence",
+      "editor": "Nancy Johnson",
+      "publisher": "Harper",
+      "year": 2001,
+      "pages": "pp. 127-140"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_007",
+    "source_type": "book_chapter",
+    "citation": "Lewis, Joseph, and Christopher Marie Chen. \"Social Media: Perspectives and Review.\" *Educational Reform in Global Context*, edited by Nancy Smith, Princeton UP, 2020, pp. 159-194.",
+    "components": {
+      "authors": "Lewis, Joseph, and Christopher Marie Chen",
+      "chapter_title": "Social Media: Perspectives and Review",
+      "book_title": "Educational Reform in Global Context",
+      "editor": "Nancy Smith",
+      "publisher": "Princeton UP",
+      "year": 2020,
+      "pages": "pp. 159-194"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_008",
+    "source_type": "book_chapter",
+    "citation": "Lewis, John Alexander. \"Literary Theory: Trends and Study.\" *The Influence of Narrative Techniques*, edited by Emily Brown, Harvard UP, 2016, pp. 22-51.",
+    "components": {
+      "authors": "Lewis, John Alexander",
+      "chapter_title": "Literary Theory: Trends and Study",
+      "book_title": "The Influence of Narrative Techniques",
+      "editor": "Emily Brown",
+      "publisher": "Harvard UP",
+      "year": 2016,
+      "pages": "pp. 22-51"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_009",
+    "source_type": "book_chapter",
+    "citation": "Garcia, Linda. \"Toward a New Understanding of Cultural Identity.\" *Rethinking Narrative Techniques in Contemporary Society*, edited by Thomas Kim, Macmillan, 2013, pp. 26-43.",
+    "components": {
+      "authors": "Garcia, Linda",
+      "chapter_title": "Toward a New Understanding of Cultural Identity",
+      "book_title": "Rethinking Narrative Techniques in Contemporary Society",
+      "editor": "Thomas Kim",
+      "publisher": "Macmillan",
+      "year": 2013,
+      "pages": "pp. 26-43"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_010",
+    "source_type": "book_chapter",
+    "citation": "Khan, Richard. \"Rethinking Literary Theory in Modern Literature.\" *The Influence of Educational Reform*, edited by Karen Morrison, Springer, 2009, pp. 92-107.",
+    "components": {
+      "authors": "Khan, Richard",
+      "chapter_title": "Rethinking Literary Theory in Modern Literature",
+      "book_title": "The Influence of Educational Reform",
+      "editor": "Karen Morrison",
+      "publisher": "Springer",
+      "year": 2009,
+      "pages": "pp. 92-107"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_011",
+    "source_type": "book_chapter",
+    "citation": "White, Samira Jane. \"Urban Development in American Culture.\" *Historical Memory in Global Context*, edited by James Miller, Cambridge UP, 2004, pp. 111-122.",
+    "components": {
+      "authors": "White, Samira Jane",
+      "chapter_title": "Urban Development in American Culture",
+      "book_title": "Historical Memory in Global Context",
+      "editor": "James Miller",
+      "publisher": "Cambridge UP",
+      "year": 2004,
+      "pages": "pp. 111-122"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_012",
+    "source_type": "book_chapter",
+    "citation": "Anderson, Michael Marie. \"Digital Technology: Analysis and Trends.\" *Toward a New Understanding of Public Health*, edited by Matthew Jones, McGraw-Hill, 2006, pp. 142-176.",
+    "components": {
+      "authors": "Anderson, Michael Marie",
+      "chapter_title": "Digital Technology: Analysis and Trends",
+      "book_title": "Toward a New Understanding of Public Health",
+      "editor": "Matthew Jones",
+      "publisher": "McGraw-Hill",
+      "year": 2006,
+      "pages": "pp. 142-176"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_013",
+    "source_type": "book_chapter",
+    "citation": "Clark, Christopher Michael, and Michael Thomas Rodriguez. \"Urban Development: Effects and Study.\" *Environmental Justice: Study and Impact*, edited by Barbara Hall, Random House, 2019, pp. 141-163.",
+    "components": {
+      "authors": "Clark, Christopher Michael, and Michael Thomas Rodriguez",
+      "chapter_title": "Urban Development: Effects and Study",
+      "book_title": "Environmental Justice: Study and Impact",
+      "editor": "Barbara Hall",
+      "publisher": "Random House",
+      "year": 2019,
+      "pages": "pp. 141-163"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_014",
+    "source_type": "book_chapter",
+    "citation": "Robinson, Joseph Lee. \"Economic Policy in American Culture.\" *Artificial Intelligence in Urban Communities*, edited by Toni Jackson, Norton, 2014, pp. 145-182.",
+    "components": {
+      "authors": "Robinson, Joseph Lee",
+      "chapter_title": "Economic Policy in American Culture",
+      "book_title": "Artificial Intelligence in Urban Communities",
+      "editor": "Toni Jackson",
+      "publisher": "Norton",
+      "year": 2014,
+      "pages": "pp. 145-182"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_015",
+    "source_type": "book_chapter",
+    "citation": "Jones, David Alexander. \"The Exploration of Social Media.\" *Rethinking Digital Technology in the 21st Century*, edited by Betty Williams, Princeton UP, 2004, pp. 179-197.",
+    "components": {
+      "authors": "Jones, David Alexander",
+      "chapter_title": "The Exploration of Social Media",
+      "book_title": "Rethinking Digital Technology in the 21st Century",
+      "editor": "Betty Williams",
+      "publisher": "Princeton UP",
+      "year": 2004,
+      "pages": "pp. 179-197"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_016",
+    "source_type": "book_chapter",
+    "citation": "Morrison, James, and Joseph Elena Jones. \"The Influence of Economic Policy.\" *Economic Policy in Higher Education*, edited by Toni Lewis, Sage, 2005, pp. 40-79.",
+    "components": {
+      "authors": "Morrison, James, and Joseph Elena Jones",
+      "chapter_title": "The Influence of Economic Policy",
+      "book_title": "Economic Policy in Higher Education",
+      "editor": "Toni Lewis",
+      "publisher": "Sage",
+      "year": 2005,
+      "pages": "pp. 40-79"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_017",
+    "source_type": "book_chapter",
+    "citation": "Harris, Emily. \"Toward a New Understanding of Environmental Justice.\" *Cultural Identity: Understanding and Understanding*, edited by Robert Martin, Pearson, 2006, pp. 75-114.",
+    "components": {
+      "authors": "Harris, Emily",
+      "chapter_title": "Toward a New Understanding of Environmental Justice",
+      "book_title": "Cultural Identity: Understanding and Understanding",
+      "editor": "Robert Martin",
+      "publisher": "Pearson",
+      "year": 2006,
+      "pages": "pp. 75-114"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_018",
+    "source_type": "book_chapter",
+    "citation": "Lee, Thomas. \"The Analysis of Global Trade.\" *Educational Reform: Impact and Trends*, edited by Patricia Khan, Knopf, 2015, pp. 179-200.",
+    "components": {
+      "authors": "Lee, Thomas",
+      "chapter_title": "The Analysis of Global Trade",
+      "book_title": "Educational Reform: Impact and Trends",
+      "editor": "Patricia Khan",
+      "publisher": "Knopf",
+      "year": 2015,
+      "pages": "pp. 179-200"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_019",
+    "source_type": "book_chapter",
+    "citation": "Robinson, Sarah. \"Toward a New Understanding of Mental Health.\" *Toward a New Understanding of Digital Technology*, edited by Lisa Lee, Yale UP, 2015, pp. 136-146.",
+    "components": {
+      "authors": "Robinson, Sarah",
+      "chapter_title": "Toward a New Understanding of Mental Health",
+      "book_title": "Toward a New Understanding of Digital Technology",
+      "editor": "Lisa Lee",
+      "publisher": "Yale UP",
+      "year": 2015,
+      "pages": "pp. 136-146"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  },
+  {
+    "example_id": "mla9_chapter_020",
+    "source_type": "book_chapter",
+    "citation": "Khan, Anthony Anne. \"Rethinking Climate Change in Modern Literature.\" *Toward a New Understanding of Cultural Identity*, edited by Thomas Morrison, Random House, 2019, pp. 91-103.",
+    "components": {
+      "authors": "Khan, Anthony Anne",
+      "chapter_title": "Rethinking Climate Change in Modern Literature",
+      "book_title": "Toward a New Understanding of Cultural Identity",
+      "editor": "Thomas Morrison",
+      "publisher": "Random House",
+      "year": 2019,
+      "pages": "pp. 91-103"
+    },
+    "validation_notes": [
+      "Chapter title in quotation marks and Title Case",
+      "Book title in italics",
+      "Editor name in normal order (not inverted)",
+      "pp. before page numbers"
+    ]
+  }
+]

@@ -1,0 +1,955 @@
+[
+  {
+    "rule_id": "MLA9-R1.1",
+    "source": "MLA Handbook 9th Edition, Section 2.1",
+    "category": "author_formatting",
+    "description": "Author names MUST use full first names, not initials. This is a fundamental difference from APA style. In MLA 9, the emphasis is on full names to provide clarity and respect for the author's identity. The first author's name is inverted (Last, First Middle), while subsequent authors in two-author works use normal order (First Last).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni"
+      },
+      {
+        "type": "correct",
+        "citation": "Garcia, Maria Elena"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Morrison, T.",
+        "error_reason": "Uses initials instead of full first name"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Morrison, T. E.",
+        "error_reason": "Uses initials for both first and middle names"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "last_name",
+      "comma",
+      "full_first_name",
+      "middle_name_optional"
+    ],
+    "common_errors": [
+      "Using initials (APA style confusion)",
+      "Not using full first name",
+      "Abbreviating middle names"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R1.2",
+    "source": "MLA Handbook 9th Edition, Section 2.1",
+    "category": "author_formatting",
+    "description": "First author name MUST be inverted (Last, First Middle). This applies to all source types and is the standard opening format for MLA citations. The inversion facilitates alphabetical ordering in the Works Cited list.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, John David"
+      },
+      {
+        "type": "incorrect",
+        "citation": "John David Smith",
+        "error_reason": "Name not inverted"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "last_name",
+      "comma",
+      "space",
+      "first_name"
+    ],
+    "common_errors": [
+      "Not inverting the first author's name",
+      "Inverting all author names instead of just the first"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R1.3",
+    "source": "MLA Handbook 9th Edition, Section 2.1",
+    "category": "author_formatting",
+    "description": "For TWO authors: use 'and' between names (second name NOT inverted). This differs from APA's use of '&' and from incorrectly inverting both names. The word 'and' is preferred in MLA for its formality and readability.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Garcia, Maria, and Sanjay Patel"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Garcia, Maria, & Sanjay Patel",
+        "error_reason": "Uses ampersand instead of 'and' (APA style)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Garcia, Maria and Patel, Sanjay",
+        "error_reason": "Second author name incorrectly inverted"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Garcia, Maria, Patel, Sanjay",
+        "error_reason": "Missing 'and' between authors"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "first_author_inverted",
+      "comma",
+      "and",
+      "second_author_normal_order"
+    ],
+    "common_errors": [
+      "Using '&' instead of 'and' (APA style)",
+      "Inverting both author names",
+      "Omitting 'and' between authors"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R1.4",
+    "source": "MLA Handbook 9th Edition, Section 2.1",
+    "category": "author_formatting",
+    "description": "For THREE OR MORE authors: use 'et al.' after first author only. Do not list additional authors before 'et al.' This simplifies lengthy author lists while maintaining proper attribution. The first author must still use full first name, not initials.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Nickels, William, et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Nickels, William, Smith, John, et al.",
+        "error_reason": "Lists additional authors before et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Nickels, W., et al.",
+        "error_reason": "Uses initials instead of full first name"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "first_author_inverted",
+      "comma",
+      "et_al"
+    ],
+    "common_errors": [
+      "Listing multiple authors before et al.",
+      "Using initials with et al.",
+      "Omitting comma before et al."
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R1.5",
+    "source": "MLA Handbook 9th Edition, Section 2.1",
+    "category": "author_formatting",
+    "description": "NO AUTHOR: Start with title (ignore 'A', 'An', 'The' for alphabetization). Do not use 'n.d.' or 'Anonymous'. The title becomes the first element and should maintain proper formatting (quotes for short works, italics for complete works).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "\"Climate Change Effects.\" *Nature Today*..."
+      },
+      {
+        "type": "incorrect",
+        "citation": "n.d. \"Climate Change Effects.\"",
+        "error_reason": "Uses 'n.d.' placeholder"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anonymous. \"Climate Change Effects.\"",
+        "error_reason": "Uses 'Anonymous' placeholder"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "title_as_first_element"
+    ],
+    "common_errors": [
+      "Using 'n.d.' for no author",
+      "Using 'Anonymous' or 'Anon.'",
+      "Starting with publication date"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R2.1",
+    "source": "MLA Handbook 9th Edition, Section 2.5",
+    "category": "title_formatting",
+    "description": "ALL titles MUST use Title Case (capitalize all major words). This includes articles, books, websites, and all other sources. Title Case means capitalizing the first and last words, and all principal words (nouns, pronouns, verbs, adjectives, adverbs). Articles (a, an, the), coordinating conjunctions, and prepositions are lowercase unless first or last word.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "\"The Impact of Climate Change\""
+      },
+      {
+        "type": "correct",
+        "citation": "*Beloved: A Novel of Love*"
+      },
+      {
+        "type": "incorrect",
+        "citation": "\"The impact of climate change\"",
+        "error_reason": "Uses sentence case instead of Title Case (APA style)"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "capitalize_first_word",
+      "capitalize_last_word",
+      "capitalize_major_words",
+      "lowercase_articles_conjunctions_prepositions"
+    ],
+    "common_errors": [
+      "Using sentence case (APA style)",
+      "Capitalizing all words including articles",
+      "Not capitalizing last word if it's a preposition"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R2.2",
+    "source": "MLA Handbook 9th Edition, Section 2.5",
+    "category": "title_formatting",
+    "description": "Shorter works use QUOTATION MARKS: Article titles, chapter titles, web page titles, poems, short stories, episodes. These are works that are part of a larger container. Quotation marks indicate the work is not standalone.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "\"Modern Storytelling\""
+      },
+      {
+        "type": "correct",
+        "citation": "\"Talk to Me: Engaging Reluctant Writers\""
+      },
+      {
+        "type": "incorrect",
+        "citation": "*Modern Storytelling*",
+        "error_reason": "Uses italics for article title"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "opening_quotation_mark",
+      "title_in_title_case",
+      "closing_quotation_mark"
+    ],
+    "common_errors": [
+      "Using italics instead of quotation marks",
+      "Omitting quotation marks entirely",
+      "Using both italics and quotation marks"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "website_page",
+      "book_chapter",
+      "short_story",
+      "poem",
+      "tv_episode"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R2.3",
+    "source": "MLA Handbook 9th Edition, Section 2.5",
+    "category": "title_formatting",
+    "description": "Complete works use ITALICS: Book titles, journal names, website names, films, TV series. These are standalone, self-contained works that serve as containers for shorter works. Italics indicate independence and completeness.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "*Journal of Modern Arts*"
+      },
+      {
+        "type": "correct",
+        "citation": "*Beloved*"
+      },
+      {
+        "type": "incorrect",
+        "citation": "\"Beloved\"",
+        "error_reason": "Uses quotation marks for book title"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "italic_formatting",
+      "title_in_title_case"
+    ],
+    "common_errors": [
+      "Using quotation marks instead of italics",
+      "Using both quotation marks and italics",
+      "Not italicizing container titles"
+    ],
+    "affected_source_types": [
+      "book",
+      "journal",
+      "website",
+      "film",
+      "tv_series"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R2.4",
+    "source": "MLA Handbook 9th Edition, Section 2.5",
+    "category": "title_formatting",
+    "description": "Do NOT use both italics AND quotation marks on same title. This is redundant and incorrect. Choose one based on whether the work is shorter (quotes) or complete (italics).",
+    "examples": [
+      {
+        "type": "incorrect",
+        "citation": "*\"Book Title\"*",
+        "error_reason": "Uses both italics and quotation marks"
+      },
+      {
+        "type": "incorrect",
+        "citation": "\"*Article Title*\"",
+        "error_reason": "Uses both quotation marks and italics in wrong order"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "single_formatting_type"
+    ],
+    "common_errors": [
+      "Double formatting for emphasis",
+      "Confusion about which formatting to use"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R3.1",
+    "source": "MLA Handbook 9th Edition, Section 2.6",
+    "category": "date_formatting",
+    "description": "Date placement: AFTER publisher, BEFORE page numbers/URL. This is a key difference from APA (which places date after author). The date follows the publisher in the publication sequence.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Publisher, 2024, pp. 45-58."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Publisher. pp. 45-58, 2024.",
+        "error_reason": "Date after page numbers (wrong order)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Author. (2024). Title.",
+        "error_reason": "Date after author in parentheses (APA style)"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "publisher_first",
+      "comma",
+      "date",
+      "comma",
+      "page_numbers_or_url"
+    ],
+    "common_errors": [
+      "Placing date after author (APA style)",
+      "Placing date after page numbers",
+      "Using parentheses around date"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R3.2",
+    "source": "MLA Handbook 9th Edition, Section 2.6",
+    "category": "date_formatting",
+    "description": "Date format: Day Month Year (abbreviated month, no commas). Use this format for specific dates in articles, websites, and other periodicals. Months are abbreviated (Jan., Feb., Mar., Apr., May, June, July, Aug., Sept., Oct., Nov., Dec.).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "5 Feb. 2024"
+      },
+      {
+        "type": "correct",
+        "citation": "28 Dec. 2025"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Feb. 5, 2024",
+        "error_reason": "Month-day-year format with comma (American style)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "2024-02-05",
+        "error_reason": "ISO format"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "day",
+      "space",
+      "abbreviated_month",
+      "space",
+      "year"
+    ],
+    "common_errors": [
+      "Using month-day-year format",
+      "Including commas in date",
+      "Not abbreviating months"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "website",
+      "newspaper"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R3.3",
+    "source": "MLA Handbook 9th Edition, Section 2.6",
+    "category": "date_formatting",
+    "description": "Year-only format: Just the year (for books, films). Use simple year format without parentheses. This applies to sources with only publication year, not specific dates.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "2024."
+      },
+      {
+        "type": "incorrect",
+        "citation": "(2024)",
+        "error_reason": "Uses parentheses (APA style)"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "year",
+      "period"
+    ],
+    "common_errors": [
+      "Using parentheses around year (APA style)",
+      "Omitting period after year"
+    ],
+    "affected_source_types": [
+      "book",
+      "film"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R3.4",
+    "source": "MLA Handbook 9th Edition, Section 2.6",
+    "category": "date_formatting",
+    "description": "NO DATE available: Omit date element (do not use 'n.d.'). If no publication date is available, simply skip the date element entirely. This differs from APA which requires 'n.d.' placeholder.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Author. Title. Publisher, URL."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Publisher, n.d.",
+        "error_reason": "Uses 'n.d.' placeholder (APA style)"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "omit_date_element"
+    ],
+    "common_errors": [
+      "Using 'n.d.' (APA style)",
+      "Using 'no date' or similar placeholder"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R3.5",
+    "source": "MLA Handbook 9th Edition, Section 2.6",
+    "category": "date_formatting",
+    "description": "Access dates: 'Accessed Day Month Year' at end (optional but recommended for changing content). Include access dates for web content that changes frequently, such as wikis, news sites, or dynamic databases.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Accessed 28 Dec. 2025."
+      },
+      {
+        "type": "correct",
+        "citation": "URL. Accessed 5 Feb. 2024."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "accessed",
+      "space",
+      "day_month_year"
+    ],
+    "common_errors": [
+      "Omitting 'Accessed' word",
+      "Wrong date format",
+      "Placing access date before URL"
+    ],
+    "affected_source_types": [
+      "website",
+      "database"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R4.1",
+    "source": "MLA Handbook 9th Edition, Section 2.7",
+    "category": "punctuation",
+    "description": "Period AFTER: Author, Title of Source. These major elements end with periods to create clear breaks between citation components.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. *Beloved*."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "period_after_author",
+      "period_after_source_title"
+    ],
+    "common_errors": [
+      "Using comma after author instead of period",
+      "Omitting period after title"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R4.2",
+    "source": "MLA Handbook 9th Edition, Section 2.7",
+    "category": "punctuation",
+    "description": "Comma BETWEEN: All other elements within a container. Use commas to separate publication information elements like publisher, date, and page numbers.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Publisher, 2024, pp. 45-58."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "comma_between_container_elements"
+    ],
+    "common_errors": [
+      "Using periods between all elements",
+      "Inconsistent comma usage"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R4.3",
+    "source": "MLA Handbook 9th Edition, Section 2.7",
+    "category": "punctuation",
+    "description": "Period AT END: Every citation ends with a period. This is the final punctuation mark regardless of what element ends the citation (URL, page number, date, etc.).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "...2024."
+      },
+      {
+        "type": "incorrect",
+        "citation": "...2024",
+        "error_reason": "Missing final period"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "final_period"
+    ],
+    "common_errors": [
+      "Omitting final period",
+      "Using other punctuation at end"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R4.4",
+    "source": "MLA Handbook 9th Edition, Section 6",
+    "category": "punctuation",
+    "description": "NO 'p.' or 'pp.' in in-text citations. In-text citations use only author and page number in parentheses, without 'p.' or 'pp.' prefix. Also, no comma between author and page number in parenthetical citations.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "(Morrison 42)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "(Morrison, p. 42)",
+        "error_reason": "Includes 'p.' and comma"
+      },
+      {
+        "type": "incorrect",
+        "citation": "(Morrison, 42)",
+        "error_reason": "Includes comma"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "author",
+      "space",
+      "page_number"
+    ],
+    "common_errors": [
+      "Including 'p.' or 'pp.' (APA style)",
+      "Adding comma between author and page"
+    ],
+    "affected_source_types": ["in_text_citation"]
+  },
+  {
+    "rule_id": "MLA9-R4.5",
+    "source": "MLA Handbook 9th Edition, Section 2.7",
+    "category": "punctuation",
+    "description": "USE 'pp.' for page ranges in Works Cited. Unlike in-text citations, Works Cited entries require 'pp.' before page numbers (or 'p.' for single page).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "pp. 45-58"
+      },
+      {
+        "type": "correct",
+        "citation": "p. 42"
+      },
+      {
+        "type": "incorrect",
+        "citation": "45-58",
+        "error_reason": "Missing 'pp.'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "pages 45-58",
+        "error_reason": "Uses 'pages' instead of 'pp.'"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "pp_prefix",
+      "space",
+      "page_range"
+    ],
+    "common_errors": [
+      "Omitting 'pp.'",
+      "Using 'pages' or 'page'",
+      "Using 'p.' for ranges"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R5.1",
+    "source": "MLA Handbook 9th Edition, Section 2.8",
+    "category": "url_formatting",
+    "description": "Omit http:// or https:// protocol from URLs. This simplifies citations and removes unnecessary technical details. Only include the domain and path.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "www.example.com"
+      },
+      {
+        "type": "incorrect",
+        "citation": "https://www.example.com",
+        "error_reason": "Includes protocol"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "domain",
+      "path"
+    ],
+    "common_errors": [
+      "Including http:// or https://",
+      "Including www. when not part of actual URL"
+    ],
+    "affected_source_types": [
+      "website",
+      "online_article"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R5.2",
+    "source": "MLA Handbook 9th Edition, Section 2.8",
+    "category": "url_formatting",
+    "description": "DOI preferred over URL when both available. DOIs are permanent identifiers and should be used when available. Keep 'https://doi.org/' prefix for DOIs as this is the standard resolver URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1177/2053019614564785"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "https_doi_org_prefix",
+      "doi_string"
+    ],
+    "common_errors": [
+      "Using URL when DOI available",
+      "Omitting https:// from DOI",
+      "Using dx.doi.org instead of doi.org"
+    ],
+    "affected_source_types": [
+      "journal_article"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R5.3",
+    "source": "MLA Handbook 9th Edition, Section 2.8",
+    "category": "url_formatting",
+    "description": "URLs come AFTER date, BEFORE access date. This maintains the logical flow of publication information followed by location information.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "...2024, www.example.com. Accessed 28 Dec. 2025."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "date",
+      "comma",
+      "url",
+      "period",
+      "accessed_date"
+    ],
+    "common_errors": [
+      "Placing URL before date",
+      "Placing access date before URL"
+    ],
+    "affected_source_types": [
+      "website",
+      "online_article"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R6.1",
+    "source": "MLA Handbook 9th Edition, Section 2.3",
+    "category": "container_system",
+    "description": "Container = larger work holding source. The container is the larger whole that contains the source. For example, an article (source) is contained in a journal (container 1), which may be accessed through a database (container 2).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Article (source) → Journal (container 1)"
+      },
+      {
+        "type": "correct",
+        "citation": "Journal → Database (container 2)"
+      }
+    ],
+    "changed_from_mla8": true,
+    "required_elements": [
+      "source_identification",
+      "container_identification"
+    ],
+    "common_errors": [
+      "Treating database as publisher",
+      "Not identifying container hierarchy"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R6.2",
+    "source": "MLA Handbook 9th Edition, Section 2.3",
+    "category": "container_system",
+    "description": "Single container punctuation: Period after source title, comma after container title. This creates clear separation between the source and its container information.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "\"Article Title.\" *Journal Name*, vol. 4..."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "source_title",
+      "period",
+      "container_title",
+      "comma"
+    ],
+    "common_errors": [
+      "Using comma after source title",
+      "Using period after container title"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-R6.3",
+    "source": "MLA Handbook 9th Edition, Section 2.3",
+    "category": "container_system",
+    "description": "Second container: Add after first container's location element. When a source is accessed through multiple containers (e.g., journal article from database), include both containers in sequence.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "*Journal*, vol. 4, 2024, pp. 45-58. *JSTOR*, doi..."
+      }
+    ],
+    "changed_from_mla8": true,
+    "required_elements": [
+      "first_container_location",
+      "period",
+      "second_container_title"
+    ],
+    "common_errors": [
+      "Omitting second container",
+      "Treating database as publisher",
+      "Wrong punctuation between containers"
+    ],
+    "affected_source_types": [
+      "database_article",
+      "streaming_film"
+    ]
+  },
+  {
+    "rule_id": "MLA9-R6.4",
+    "source": "MLA Handbook 9th Edition, Section 2.3",
+    "category": "container_system",
+    "description": "Container title always ITALICIZED. All container titles (journals, websites, databases, streaming services) use italic formatting to distinguish them from source titles.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "*Journal Name*"
+      },
+      {
+        "type": "correct",
+        "citation": "*JSTOR*"
+      },
+      {
+        "type": "incorrect",
+        "citation": "\"Journal Name\"",
+        "error_reason": "Uses quotation marks instead of italics"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "italic_formatting"
+    ],
+    "common_errors": [
+      "Using quotation marks for container",
+      "Not italicizing container",
+      "Inconsistent formatting"
+    ],
+    "affected_source_types": ["all"]
+  },
+  {
+    "rule_id": "MLA9-B1",
+    "source": "MLA Handbook 9th Edition, Section 5.5",
+    "category": "book_citations",
+    "description": "Basic book format: Author Last, First. Book Title. Publisher, Year. This is the fundamental structure for citing a book in MLA 9.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. Beloved. Knopf, 1987."
+      }
+    ],
+    "changed_from_mla8": true,
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "book_title_italic",
+      "period",
+      "publisher",
+      "comma",
+      "year",
+      "period"
+    ],
+    "common_errors": [
+      "Including place of publication (MLA 8 style)",
+      "Using sentence case for title"
+    ],
+    "affected_source_types": ["book"]
+  },
+  {
+    "rule_id": "MLA9-J1",
+    "source": "MLA Handbook 9th Edition, Section 5.4",
+    "category": "journal_citations",
+    "description": "Basic journal format: Author Last, First. 'Article Title.' Journal Name, vol. #, no. #, Year, pp. ##-##. This structure applies to peer-reviewed academic journals.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Khan, Samira. \"Modern Storytelling.\" Journal of Modern Arts, vol. 4, no. 2, 2022, pp. 45-58."
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "article_title_quoted",
+      "period",
+      "journal_title_italic",
+      "comma",
+      "volume",
+      "comma",
+      "issue",
+      "comma",
+      "year",
+      "comma",
+      "page_range",
+      "period"
+    ],
+    "common_errors": [
+      "Using sentence case for article title",
+      "Capitalizing 'Vol.' and 'No.'",
+      "Omitting 'pp.' before pages"
+    ],
+    "affected_source_types": ["journal_article"]
+  },
+  {
+    "rule_id": "MLA9-J2",
+    "source": "MLA Handbook 9th Edition, Section 5.4",
+    "category": "journal_citations",
+    "description": "Volume and issue: MUST use 'vol.' and 'no.' abbreviations (lowercase). This differs from APA's parenthetical format and from capitalizing the abbreviations.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "vol. 4, no. 2"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Vol. 4, No. 2",
+        "error_reason": "Capitalized abbreviations"
+      },
+      {
+        "type": "incorrect",
+        "citation": "4(2)",
+        "error_reason": "APA style format"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Volume 4, Number 2",
+        "error_reason": "Full words instead of abbreviations"
+      }
+    ],
+    "changed_from_mla8": false,
+    "required_elements": [
+      "vol_lowercase",
+      "period",
+      "space",
+      "number",
+      "comma",
+      "no_lowercase",
+      "period",
+      "space",
+      "number"
+    ],
+    "common_errors": [
+      "Capitalizing abbreviations",
+      "Using APA format 4(2)",
+      "Spelling out Volume/Number"
+    ],
+    "affected_source_types": ["journal_article"]
+  },
+  {
+    "rule_id": "MLA9-W1",
+    "source": "MLA Handbook 9th Edition, Section 5.6",
+    "category": "website_citations",
+    "description": "Basic website format: Author Last, First. 'Page Title.' Website Name, Date, URL. This applies to individual web pages and online articles.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Lee, Michael. \"Climate Trends 2024.\" Eco Report, 5 Feb. 2024, www.ecoreport.org/climate2024."
+      }
+    ],
+    "changed_from_mla8": true,
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "page_title_quoted",
+      "period",
+      "website_name_italic",
+      "comma",
+      "date",
+      "comma",
+      "url",
+      "period"
+    ],
+    "common_errors": [
+      "Including https://",
+      "Using 'Web' medium identifier (MLA 7)",
+      "Wrong date format"
+    ],
+    "affected_source_types": ["website"]
+  }
+]
