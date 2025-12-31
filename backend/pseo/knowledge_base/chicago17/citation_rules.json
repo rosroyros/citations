@@ -1,0 +1,1348 @@
+[
+  {
+    "rule_id": "CHI17-R1.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.72",
+    "category": "author_formatting",
+    "description": "Author names MUST use full first names, not initials. Chicago emphasizes complete names for clarity. The first author's name is inverted (Last, First Middle), while subsequent authors use normal order (First Last).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Kerouac, Jack"
+      },
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Kerouac, J.",
+        "error_reason": "Uses initials instead of full first name (APA habit)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Morrison, T. A.",
+        "error_reason": "Uses initials for both first and middle names"
+      }
+    ],
+    "required_elements": [
+      "last_name",
+      "comma",
+      "full_first_name",
+      "middle_name_optional"
+    ],
+    "common_errors": [
+      "Using initials instead of full names (APA habit)",
+      "Not using full first name",
+      "Abbreviating middle names"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.72",
+    "category": "author_formatting",
+    "description": "First author name MUST be inverted (Last, First Middle). This applies to all source types and facilitates alphabetical ordering in the bibliography.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, John David"
+      },
+      {
+        "type": "incorrect",
+        "citation": "John David Smith",
+        "error_reason": "Name not inverted"
+      }
+    ],
+    "required_elements": [
+      "last_name",
+      "comma",
+      "space",
+      "first_name"
+    ],
+    "common_errors": [
+      "Not inverting the first author's name",
+      "Inverting all author names instead of just the first"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.76",
+    "category": "author_formatting",
+    "description": "For TWO authors: use 'and' between names (second name NOT inverted). NEVER use ampersand (&). The word 'and' is required for Chicago's formal style.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Lash, Scott, and John Urry"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Lash, Scott, & John Urry",
+        "error_reason": "Uses ampersand instead of 'and'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Lash, Scott, and Urry, John",
+        "error_reason": "Second author name incorrectly inverted"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Lash, Scott, John Urry",
+        "error_reason": "Missing 'and' between authors"
+      }
+    ],
+    "required_elements": [
+      "first_author_inverted",
+      "comma",
+      "and",
+      "second_author_normal_order"
+    ],
+    "common_errors": [
+      "Using '&' instead of 'and'",
+      "Inverting both author names",
+      "Omitting 'and' between authors"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.76",
+    "category": "author_formatting",
+    "description": "For THREE authors: list all names. First author inverted, remaining in normal order, separated by commas with 'and' before the last.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, John, Jane Doe, and Bob Wilson"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, John, et al.",
+        "error_reason": "Uses 'et al.' for only 3 authors (MLA habit)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, John, Doe, Jane, and Wilson, Bob",
+        "error_reason": "All authors incorrectly inverted"
+      }
+    ],
+    "required_elements": [
+      "first_author_inverted",
+      "comma",
+      "second_author_normal",
+      "comma",
+      "and",
+      "third_author_normal"
+    ],
+    "common_errors": [
+      "Using 'et al.' for 3 authors",
+      "Inverting all author names",
+      "Missing 'and' before last author"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.5",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.76",
+    "category": "author_formatting",
+    "description": "For 4-10 authors: list ALL names in bibliography. First author inverted, all subsequent authors in normal order. Unlike MLA, do not use 'et al.' until 11+ authors.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, John, Jane Doe, Bob Wilson, and Mary Johnson"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, John, et al.",
+        "error_reason": "Uses 'et al.' for 4 authors (must list all through 10)"
+      }
+    ],
+    "required_elements": [
+      "first_author_inverted",
+      "all_subsequent_authors",
+      "and_before_last"
+    ],
+    "common_errors": [
+      "Using 'et al.' prematurely (only for 11+ authors)",
+      "Not listing all authors"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.6",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.76",
+    "category": "author_formatting",
+    "description": "For 11+ authors: list first 7 authors + 'et al.' This prevents excessively long entries while maintaining attribution.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Smith, John, Jane Doe, Bob Wilson, Mary Johnson, Tom Brown, Lisa White, Mike Green, et al."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Smith, John, et al.",
+        "error_reason": "Lists only first author (should list first 7)"
+      }
+    ],
+    "required_elements": [
+      "first_seven_authors",
+      "et_al"
+    ],
+    "common_errors": [
+      "Not listing first 7 authors",
+      "Listing all 11+ authors"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.7",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.79",
+    "category": "author_formatting",
+    "description": "Corporate/organizational author: Use organization name as author. Do not abbreviate unless commonly known by acronym.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "American Psychological Association. Publication Manual..."
+      },
+      {
+        "type": "correct",
+        "citation": "U.S. Department of State. Foreign Relations..."
+      },
+      {
+        "type": "incorrect",
+        "citation": "APA. Publication Manual...",
+        "error_reason": "Abbreviation without being established"
+      }
+    ],
+    "required_elements": [
+      "organization_name",
+      "period"
+    ],
+    "common_errors": [
+      "Using abbreviation without establishment",
+      "Omitting 'The' when part of official name"
+    ],
+    "affected_source_types": [
+      "government_document",
+      "report"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.8",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.79",
+    "category": "author_formatting",
+    "description": "NO AUTHOR: Begin entry with title. Do not use 'Anonymous' or placeholders. Alphabetize by first significant word (ignore A, An, The).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The Chicago Manual of Style. 17th ed. Chicago: University of Chicago Press, 2017."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Anonymous. The Chicago Manual...",
+        "error_reason": "Uses 'Anonymous' placeholder"
+      },
+      {
+        "type": "incorrect",
+        "citation": "n.a. The Chicago Manual...",
+        "error_reason": "Uses 'n.a.' placeholder"
+      }
+    ],
+    "required_elements": [
+      "title_as_first_element"
+    ],
+    "common_errors": [
+      "Using 'Anonymous' or 'Anon.'",
+      "Using 'n.a.' for no author"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R1.9",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.104",
+    "category": "author_formatting",
+    "description": "Editor notation: Use 'Edited by First Last' (spelled out, NOT abbreviated 'ed.' or 'eds.'). For edited books without author, editor comes first with ', ed.' or ', eds.' suffix.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Tylor, Edward B. Researches into the Early Development of Mankind. Edited by Paul Bohannan. Chicago: University of Chicago Press, 1964."
+      },
+      {
+        "type": "correct",
+        "citation": "Rafoth, Ben, ed. A Tutor's Guide. New Hampshire: Heinemann, 2000."
+      },
+      {
+        "type": "incorrect",
+        "citation": "...Ed. by Paul Bohannan...",
+        "error_reason": "Abbreviated 'Ed.' instead of 'Edited'"
+      }
+    ],
+    "required_elements": [
+      "edited_by_spelled_out",
+      "editor_name_normal_order"
+    ],
+    "common_errors": [
+      "Using 'Ed.' or 'Eds.' abbreviation mid-entry",
+      "Not spelling out 'Edited by'"
+    ],
+    "affected_source_types": [
+      "edited_book",
+      "book_chapter"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R2.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.85",
+    "category": "title_formatting",
+    "description": "ALL titles MUST use Title Case (Headline Style). Capitalize first and last words, and all major words (nouns, verbs, adjectives, adverbs). Lowercase articles (a, an, the), prepositions, and coordinating conjunctions unless first/last word.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The Dharma Bums"
+      },
+      {
+        "type": "correct",
+        "citation": "A Tale of Two Cities"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The dharma bums",
+        "error_reason": "Uses sentence case instead of Title Case"
+      }
+    ],
+    "required_elements": [
+      "capitalize_first_word",
+      "capitalize_last_word",
+      "capitalize_major_words",
+      "lowercase_articles_conjunctions_prepositions"
+    ],
+    "common_errors": [
+      "Using sentence case (APA habit)",
+      "Capitalizing all words including articles",
+      "Not capitalizing words after colon"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R2.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.85",
+    "category": "title_formatting",
+    "description": "Subtitle capitalization: Capitalize first word after colon in subtitles, regardless of word type.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Beloved: A Novel of Love and Memory"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Beloved: a Novel of Love",
+        "error_reason": "First word after colon not capitalized"
+      }
+    ],
+    "required_elements": [
+      "capitalize_after_colon"
+    ],
+    "common_errors": [
+      "Not capitalizing first word after colon",
+      "Missing colon before subtitle"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R2.3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.86",
+    "category": "title_formatting",
+    "description": "Complete works use ITALICS: Book titles, journal names, film titles, websites. These are standalone, self-contained works.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "The Dharma Bums"
+      },
+      {
+        "type": "correct",
+        "citation": "College Composition and Communication"
+      },
+      {
+        "type": "incorrect",
+        "citation": "\"The Dharma Bums\"",
+        "error_reason": "Uses quotation marks for book title"
+      }
+    ],
+    "required_elements": [
+      "italic_formatting",
+      "title_in_title_case"
+    ],
+    "common_errors": [
+      "Using quotation marks instead of italics",
+      "No formatting on book/journal titles"
+    ],
+    "affected_source_types": [
+      "book",
+      "journal",
+      "film",
+      "website"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R2.4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.86",
+    "category": "title_formatting",
+    "description": "Shorter works use QUOTATION MARKS: Article titles, chapter titles, poems, short stories, songs. These are works contained within larger works.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "\"The Erasure of Language\""
+      },
+      {
+        "type": "correct",
+        "citation": "\"Talk to Me: Engaging Reluctant Writers\""
+      },
+      {
+        "type": "incorrect",
+        "citation": "The Erasure of Language",
+        "error_reason": "Missing quotation marks for article title"
+      }
+    ],
+    "required_elements": [
+      "opening_quotation_mark",
+      "title_in_title_case",
+      "closing_quotation_mark"
+    ],
+    "common_errors": [
+      "Using italics instead of quotation marks",
+      "Omitting quotation marks entirely"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter",
+      "short_story",
+      "poem"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R2.5",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.86",
+    "category": "title_formatting",
+    "description": "Do NOT use both italics AND quotation marks on same title. Choose one based on whether work is complete (italics) or contained (quotes).",
+    "examples": [
+      {
+        "type": "incorrect",
+        "citation": "*\"Book Title\"*",
+        "error_reason": "Uses both italics and quotation marks"
+      }
+    ],
+    "required_elements": [
+      "single_formatting_type"
+    ],
+    "common_errors": [
+      "Double formatting for emphasis"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R3.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.129",
+    "category": "publication_info",
+    "description": "CRITICAL: Place of publication is REQUIRED for books. This is a major difference from APA and MLA. Format: Place: Publisher, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "New York: Viking Press, 1958"
+      },
+      {
+        "type": "correct",
+        "citation": "Chicago: University of Chicago Press, 2017"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Viking Press, 1958",
+        "error_reason": "Missing place of publication (REQUIRED in Chicago)"
+      }
+    ],
+    "required_elements": [
+      "place",
+      "colon",
+      "publisher",
+      "comma",
+      "year"
+    ],
+    "common_errors": [
+      "Omitting place of publication (APA/MLA habit)",
+      "Using comma instead of colon after place",
+      "Abbreviating place names"
+    ],
+    "affected_source_types": [
+      "book",
+      "edited_book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R3.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.129",
+    "category": "publication_info",
+    "description": "Colon separates place from publisher: Place: Publisher. No colon after publisher - use comma before year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "London: Sage Publications, 1994"
+      },
+      {
+        "type": "incorrect",
+        "citation": "London, Sage Publications, 1994",
+        "error_reason": "Uses comma instead of colon after place"
+      },
+      {
+        "type": "incorrect",
+        "citation": "London: Sage Publications: 1994",
+        "error_reason": "Uses colon before year"
+      }
+    ],
+    "required_elements": [
+      "place",
+      "colon",
+      "space",
+      "publisher",
+      "comma",
+      "space",
+      "year"
+    ],
+    "common_errors": [
+      "Using comma instead of colon after place",
+      "Using colon before year"
+    ],
+    "affected_source_types": [
+      "book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R3.3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.184",
+    "category": "publication_info",
+    "description": "Journal volume and issue format: Volume, no. Issue (Year): pages. Note the parentheses around year and colon before pages.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "58, no. 4 (2007): 585-625"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Vol. 58, No. 4 (2007): 585-625",
+        "error_reason": "Capitalizes 'Vol.' and 'No.'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "58(4), 585-625",
+        "error_reason": "APA format"
+      }
+    ],
+    "required_elements": [
+      "volume_number",
+      "comma",
+      "no_lowercase",
+      "issue_number",
+      "year_in_parentheses",
+      "colon",
+      "page_range"
+    ],
+    "common_errors": [
+      "Capitalizing 'Vol.' and 'No.'",
+      "Using APA volume(issue) format",
+      "Missing 'no.' before issue"
+    ],
+    "affected_source_types": [
+      "journal_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R3.4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.184",
+    "category": "publication_info",
+    "description": "NO 'p.' or 'pp.' before page numbers in Chicago. Simply include the page range directly after the colon.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "(2007): 585-625"
+      },
+      {
+        "type": "correct",
+        "citation": "24-34"
+      },
+      {
+        "type": "incorrect",
+        "citation": "pp. 585-625",
+        "error_reason": "Uses 'pp.' prefix (MLA habit)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "p. 42",
+        "error_reason": "Uses 'p.' prefix"
+      }
+    ],
+    "required_elements": [
+      "page_range_without_prefix"
+    ],
+    "common_errors": [
+      "Using 'p.' or 'pp.' (MLA habit)",
+      "Using 'pages' spelled out"
+    ],
+    "affected_source_types": [
+      "journal_article",
+      "book_chapter"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R3.5",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.129",
+    "category": "publication_info",
+    "description": "Publisher names: Write out in full (don't abbreviate). Omit initial articles like 'The' but keep other parts.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "University of Chicago Press"
+      },
+      {
+        "type": "correct",
+        "citation": "Oxford University Press"
+      },
+      {
+        "type": "incorrect",
+        "citation": "U of Chicago Press",
+        "error_reason": "Abbreviated 'University'"
+      },
+      {
+        "type": "incorrect",
+        "citation": "The University of Chicago Press",
+        "error_reason": "Includes 'The' (should omit)"
+      }
+    ],
+    "required_elements": [
+      "full_publisher_name",
+      "no_initial_article"
+    ],
+    "common_errors": [
+      "Abbreviating publisher name",
+      "Including 'The' at start"
+    ],
+    "affected_source_types": [
+      "book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R4.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.72",
+    "category": "punctuation",
+    "description": "Periods separate major elements in bibliography entries. Unlike footnotes (which use commas), bibliographies use periods after author, title, and at end.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Kerouac, Jack. The Dharma Bums. New York: Viking Press, 1958."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Kerouac, Jack, The Dharma Bums, New York: Viking Press, 1958",
+        "error_reason": "Uses commas between major elements (footnote style)"
+      }
+    ],
+    "required_elements": [
+      "period_after_author",
+      "period_after_title",
+      "period_at_end"
+    ],
+    "common_errors": [
+      "Using commas instead of periods (footnote habit)",
+      "Missing period after author"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R4.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.72",
+    "category": "punctuation",
+    "description": "Every bibliography entry MUST end with a period. This applies regardless of whether the entry ends with a URL, DOI, date, or other element.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "...1958."
+      },
+      {
+        "type": "correct",
+        "citation": "...https://doi.org/10.xxxx."
+      },
+      {
+        "type": "incorrect",
+        "citation": "...1958",
+        "error_reason": "Missing final period"
+      }
+    ],
+    "required_elements": [
+      "final_period"
+    ],
+    "common_errors": [
+      "Omitting final period",
+      "Omitting period after URL"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R4.3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.72",
+    "category": "punctuation",
+    "description": "Period after author name, followed by title. The author's name is a complete element ending with period.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. Beloved."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Morrison, Toni: Beloved.",
+        "error_reason": "Uses colon after author"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Morrison, Toni, Beloved.",
+        "error_reason": "Uses comma after author"
+      }
+    ],
+    "required_elements": [
+      "author",
+      "period",
+      "space",
+      "title"
+    ],
+    "common_errors": [
+      "Using colon after author",
+      "Using comma after author"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R4.4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.184",
+    "category": "punctuation",
+    "description": "Colon before page numbers in journal citations. After the year in parentheses, use a colon followed by the page range.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "(2007): 585-625"
+      },
+      {
+        "type": "incorrect",
+        "citation": "(2007), 585-625",
+        "error_reason": "Uses comma instead of colon before pages"
+      }
+    ],
+    "required_elements": [
+      "year_in_parentheses",
+      "colon",
+      "page_range"
+    ],
+    "common_errors": [
+      "Using comma instead of colon",
+      "Missing colon"
+    ],
+    "affected_source_types": [
+      "journal_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R5.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.8",
+    "category": "url_formatting",
+    "description": "DOI preferred over URL when both available. DOIs are permanent identifiers and should be formatted as full URLs: https://doi.org/10.xxxx/xxxxx",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://doi.org/10.1553/medievalworlds_no6_2017s61"
+      },
+      {
+        "type": "incorrect",
+        "citation": "doi:10.1553/medievalworlds_no6_2017s61",
+        "error_reason": "Uses 'doi:' prefix instead of URL format"
+      }
+    ],
+    "required_elements": [
+      "https_doi_org_prefix",
+      "doi_string"
+    ],
+    "common_errors": [
+      "Using 'doi:' prefix instead of URL",
+      "Using URL when DOI available"
+    ],
+    "affected_source_types": [
+      "journal_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R5.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.8",
+    "category": "url_formatting",
+    "description": "Access dates: Include ONLY when no publication date available. Format: 'Accessed Month Day, Year.' Note the American date format (differs from MLA).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Accessed January 15, 2024."
+      },
+      {
+        "type": "incorrect",
+        "citation": "Accessed 15 January 2024.",
+        "error_reason": "Uses day-month-year format (European/MLA style)"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved January 15, 2024.",
+        "error_reason": "Uses 'Retrieved' (APA habit)"
+      }
+    ],
+    "required_elements": [
+      "accessed",
+      "space",
+      "month_day_year"
+    ],
+    "common_errors": [
+      "Including access date when publication date exists",
+      "Using 'Retrieved' (APA habit)",
+      "Wrong date format"
+    ],
+    "affected_source_types": [
+      "website"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R5.3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.8",
+    "category": "url_formatting",
+    "description": "Do NOT use 'Retrieved from' before URLs. Simply include the URL directly, without introductory phrase.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "https://www.example.com/article"
+      },
+      {
+        "type": "incorrect",
+        "citation": "Retrieved from https://www.example.com/article",
+        "error_reason": "Includes 'Retrieved from' (APA habit)"
+      }
+    ],
+    "required_elements": [
+      "url_without_introduction"
+    ],
+    "common_errors": [
+      "Using 'Retrieved from' (APA habit)",
+      "Using 'Available at'"
+    ],
+    "affected_source_types": [
+      "website",
+      "online_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R5.4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.8",
+    "category": "url_formatting",
+    "description": "Database name may substitute for URL. When citing through academic databases, the database name can replace the URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Project MUSE."
+      },
+      {
+        "type": "correct",
+        "citation": "JSTOR."
+      }
+    ],
+    "required_elements": [
+      "database_name",
+      "period"
+    ],
+    "common_errors": [
+      "Including both database and URL",
+      "Not italicizing database name"
+    ],
+    "affected_source_types": [
+      "database_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R6.1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.67",
+    "category": "special_rules",
+    "description": "3-em dash rule: When listing multiple works by same author, traditional Chicago allows replacing author name with 3-em dash (———) in subsequent entries. However, 17th edition DISCOURAGES this practice.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. Beloved. New York: Knopf, 1987.\n———. Song of Solomon. New York: Knopf, 1977."
+      },
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. Beloved. New York: Knopf, 1987.\nMorrison, Toni. Song of Solomon. New York: Knopf, 1977."
+      }
+    ],
+    "validation_note": "Accept BOTH formats - 3-em dash OR repeated author name. This is a stylistic choice.",
+    "required_elements": [
+      "consistent_approach"
+    ],
+    "common_errors": [
+      "Mixing both approaches inconsistently"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-R6.2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.67",
+    "category": "special_rules",
+    "description": "Multiple works by same author: Arrange chronologically (oldest to newest). If same year, alphabetize by title.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Morrison, Toni. Song of Solomon. 1977.\nMorrison, Toni. Beloved. 1987."
+      }
+    ],
+    "required_elements": [
+      "chronological_order"
+    ],
+    "common_errors": [
+      "Alphabetizing by title instead of chronologically",
+      "Reverse chronological order"
+    ],
+    "affected_source_types": [
+      "all"
+    ]
+  },
+  {
+    "rule_id": "CHI17-B1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.100",
+    "category": "book_citations",
+    "description": "Basic book format: Author Last, First. Book Title. Place: Publisher, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Kerouac, Jack. The Dharma Bums. New York: Viking Press, 1958."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "book_title_italic",
+      "period",
+      "place",
+      "colon",
+      "publisher",
+      "comma",
+      "year",
+      "period"
+    ],
+    "common_errors": [
+      "Missing place of publication",
+      "Using sentence case for title"
+    ],
+    "affected_source_types": [
+      "book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-B2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.103",
+    "category": "book_citations",
+    "description": "Edited book format: Author Last, First. Book Title. Edited by First Last. Place: Publisher, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Tylor, Edward B. Researches into the Early Development of Mankind. Edited by Paul Bohannan. Chicago: University of Chicago Press, 1964."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "book_title_italic",
+      "period",
+      "edited_by",
+      "editor_name",
+      "period",
+      "publication_info"
+    ],
+    "common_errors": [
+      "Abbreviating 'Edited by'",
+      "Inverting editor name"
+    ],
+    "affected_source_types": [
+      "edited_book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-B3",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.106",
+    "category": "book_citations",
+    "description": "Translated book format: Author Last, First. Book Title. Translated by First Last. Place: Publisher, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Cortazar, Julio. Hopscotch. Translated by Gregory Rabassa. New York: Pantheon Books, 1966."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "book_title_italic",
+      "period",
+      "translated_by",
+      "translator_name",
+      "period",
+      "publication_info"
+    ],
+    "common_errors": [
+      "Abbreviating 'Translated by'",
+      "Missing translator"
+    ],
+    "affected_source_types": [
+      "translated_book"
+    ]
+  },
+  {
+    "rule_id": "CHI17-B4",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.107",
+    "category": "book_citations",
+    "description": "Chapter in edited book: Author Last, First. \"Chapter Title.\" In Book Title, edited by First Last, page range. Place: Publisher, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Harris, Muriel. \"Talk to Me: Engaging Reluctant Writers.\" In A Tutor's Guide, edited by Ben Rafoth, 24-34. New Hampshire: Heinemann, 2000."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "chapter_title_quoted",
+      "period",
+      "in",
+      "book_title_italic",
+      "comma",
+      "edited_by",
+      "editor_name",
+      "comma",
+      "page_range",
+      "period",
+      "publication_info"
+    ],
+    "common_errors": [
+      "Missing 'In' before book title",
+      "Using 'pp.' before page range"
+    ],
+    "affected_source_types": [
+      "book_chapter"
+    ]
+  },
+  {
+    "rule_id": "CHI17-J1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.175",
+    "category": "journal_citations",
+    "description": "Basic journal format: Author Last, First. \"Article Title.\" Journal Name Volume, no. Issue (Year): page range.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "MacDonald, Susan Peck. \"The Erasure of Language.\" College Composition and Communication 58, no. 4 (2007): 585-625."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "article_title_quoted",
+      "period",
+      "journal_title_italic",
+      "space",
+      "volume",
+      "comma",
+      "no_lowercase",
+      "issue",
+      "year_parentheses",
+      "colon",
+      "page_range",
+      "period"
+    ],
+    "common_errors": [
+      "Using sentence case for article title",
+      "Capitalizing 'Vol.' and 'No.'",
+      "Using 'pp.' before pages"
+    ],
+    "affected_source_types": [
+      "journal_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-J2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.175",
+    "category": "journal_citations",
+    "description": "Online journal with DOI: Add DOI at end as full URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Rennie, Kriston. \"The Normative Character of Monastic Exemption.\" Medieval Worlds 6 (2017): 61-77. https://doi.org/10.1553/medievalworlds_no6_2017s61."
+      }
+    ],
+    "required_elements": [
+      "basic_journal_format",
+      "doi_url"
+    ],
+    "common_errors": [
+      "Using 'doi:' prefix",
+      "Missing period after DOI"
+    ],
+    "affected_source_types": [
+      "online_journal_article"
+    ]
+  },
+  {
+    "rule_id": "CHI17-W1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.207",
+    "category": "website_citations",
+    "description": "Website with author: Author Last, First. \"Page Title.\" Website Name. Publication/modification date. URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Ross, Andrea. \"'It Still Fits': Diamond Ring Missing Since 2004 Turns Up on Garden Carrot.\" CBC.ca. Last modified August 15, 2017. http://www.cbc.ca/..."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "page_title_quoted",
+      "period",
+      "website_name_italic",
+      "period",
+      "date",
+      "period",
+      "url",
+      "period"
+    ],
+    "common_errors": [
+      "Missing website name",
+      "Wrong date format"
+    ],
+    "affected_source_types": [
+      "website"
+    ]
+  },
+  {
+    "rule_id": "CHI17-W2",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.207",
+    "category": "website_citations",
+    "description": "Website without author (corporate): Organization. \"Page Title.\" Date or Accessed Date. URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Google. \"Privacy Policy.\" Effective November 15, 2023. https://policies.google.com/privacy."
+      }
+    ],
+    "required_elements": [
+      "organization_name",
+      "period",
+      "page_title_quoted",
+      "period",
+      "date",
+      "period",
+      "url",
+      "period"
+    ],
+    "common_errors": [
+      "Using 'Anonymous' as author",
+      "Missing organization name"
+    ],
+    "affected_source_types": [
+      "website"
+    ]
+  },
+  {
+    "rule_id": "CHI17-N1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.203",
+    "category": "newspaper_citations",
+    "description": "Newspaper article: Author Last, First. \"Headline.\" Newspaper Name, Month Day, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Deo, Nisha. \"Visiting Professor Lectures on Photographer.\" Exponent (West Lafayette, IN), Feb. 13, 2009."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "headline_quoted",
+      "period",
+      "newspaper_name_italic",
+      "comma",
+      "date",
+      "period"
+    ],
+    "notes": [
+      "Omit 'The' from newspaper names",
+      "Add city/state for lesser-known newspapers",
+      "Page numbers typically omitted"
+    ],
+    "common_errors": [
+      "Including 'The' in newspaper name",
+      "Missing city for regional papers"
+    ],
+    "affected_source_types": [
+      "newspaper"
+    ]
+  },
+  {
+    "rule_id": "CHI17-F1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.265",
+    "category": "film_citations",
+    "description": "Film (DVD/Physical): Director Last, First, dir. Title. Original Year; Place: Distributor, Release Year. Format.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Singer, Bryan, dir. The Usual Suspects. 1995; Santa Monica, CA: Metro-Goldwyn-Mayer, 2014. DVD."
+      }
+    ],
+    "required_elements": [
+      "director_inverted",
+      "comma",
+      "dir",
+      "period",
+      "title_italic",
+      "period",
+      "original_year",
+      "semicolon",
+      "place",
+      "colon",
+      "distributor",
+      "comma",
+      "release_year",
+      "period",
+      "format",
+      "period"
+    ],
+    "common_errors": [
+      "Missing format",
+      "Missing original year"
+    ],
+    "affected_source_types": [
+      "film"
+    ]
+  },
+  {
+    "rule_id": "CHI17-V1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.267",
+    "category": "video_citations",
+    "description": "YouTube video: Author/Username. \"Video Title.\" YouTube video, duration. Date. URL.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Bellaimey, John. \"The Five Major World Religions.\" YouTube video, 11:09. November 14, 2013. https://www.youtube.com/watch?v=m6dCxo7t_aE."
+      }
+    ],
+    "notes": [
+      "YouTube videos often cited only in notes, not bibliography"
+    ],
+    "required_elements": [
+      "author_or_username",
+      "period",
+      "video_title_quoted",
+      "period",
+      "youtube_video",
+      "comma",
+      "duration",
+      "period",
+      "date",
+      "period",
+      "url",
+      "period"
+    ],
+    "common_errors": [
+      "Missing duration",
+      "Missing 'YouTube video' descriptor"
+    ],
+    "affected_source_types": [
+      "youtube_video"
+    ]
+  },
+  {
+    "rule_id": "CHI17-G1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.291",
+    "category": "government_citations",
+    "description": "Federal document: Country. Department/Agency. Title. Place: Publisher, Year. URL (if online).",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "U.S. Department of State. Foreign Relations of the United States: Diplomatic Papers, 1943. Washington, DC: GPO, 1965."
+      }
+    ],
+    "required_elements": [
+      "country",
+      "period",
+      "department",
+      "period",
+      "title_italic",
+      "period",
+      "publication_info"
+    ],
+    "common_errors": [
+      "Missing country prefix",
+      "Abbreviating department name"
+    ],
+    "affected_source_types": [
+      "government_document"
+    ]
+  },
+  {
+    "rule_id": "CHI17-D1",
+    "source": "Chicago Manual of Style 17th Edition, Section 14.215",
+    "category": "dissertation_citations",
+    "description": "Dissertation/Thesis: Author Last, First. \"Title.\" PhD diss. or MA thesis, Institution, Year.",
+    "examples": [
+      {
+        "type": "correct",
+        "citation": "Rutz, Cynthia Lillian. \"King Lear and Its Folktale Analogues.\" PhD diss., University of Chicago, 2013."
+      }
+    ],
+    "required_elements": [
+      "author_inverted",
+      "period",
+      "title_quoted",
+      "period",
+      "degree_type",
+      "comma",
+      "institution",
+      "comma",
+      "year",
+      "period"
+    ],
+    "common_errors": [
+      "Missing degree type",
+      "Italicizing title (should be quoted)"
+    ],
+    "affected_source_types": [
+      "dissertation",
+      "thesis"
+    ]
+  }
+]
