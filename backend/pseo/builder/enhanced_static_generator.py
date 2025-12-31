@@ -351,8 +351,8 @@ class EnhancedStaticSiteGenerator:
         # Add base_url to metadata for template
         template_data = {**metadata, 'base_url': self.base_url}
 
-        # Add sidebar content if it's a mega guide
-        if metadata.get('page_type') == 'mega_guide':
+        # Add sidebar content if it's a mega guide AND not already set by child class
+        if metadata.get('page_type') == 'mega_guide' and 'sidebar_content' not in metadata:
             template_data['sidebar_content'] = self._generate_sidebar_content(metadata)
 
         result = self.layout.render(content=html_content, **template_data)
@@ -370,16 +370,31 @@ class EnhancedStaticSiteGenerator:
         Returns:
             Sidebar HTML content
         """
+        # Select links based on citation style
+        citation_style = metadata.get('citation_style', 'apa7')
+        
+        if citation_style == 'mla9':
+            related_links = """
+            <li><a href="/mla/guide/mla-9th-edition/">📄 MLA 9th Edition Guide</a></li>
+            <li><a href="/mla/how-to-cite-book-mla/">📖 Books in MLA</a></li>
+            <li><a href="/mla/cite-youtube-mla/">🎬 YouTube in MLA</a></li>
+            <li><a href="/mla/cite-wikipedia-mla/">📰 Wikipedia in MLA</a></li>
+"""
+        else:
+            related_links = """
+            <li><a href="/how-to-cite-journal-article-apa/">📄 APA 7th Edition Guide</a></li>
+            <li><a href="/how-to-cite-journal-article-apa/">📰 Journal Articles</a></li>
+            <li><a href="/how-to-cite-book-apa/">📖 Books in APA</a></li>
+            <li><a href="/how-to-cite-website-apa/">🌐 Websites in APA</a></li>
+"""
+
         # Sidebar content matching mockup design with proper CSS classes
         sidebar_html = """
 <aside class="sidebar">
     <div class="sidebar-section">
         <h3>Related Guides</h3>
         <ul>
-            <li><a href="/how-to-cite-journal-article-apa/">📄 APA 7th Edition Guide</a></li>
-            <li><a href="/how-to-cite-journal-article-apa/">📰 Journal Articles</a></li>
-            <li><a href="/how-to-cite-book-apa/">📖 Books in APA</a></li>
-            <li><a href="/how-to-cite-website-apa/">🌐 Websites in APA</a></li>
+{related_links}
         </ul>
     </div>
 
@@ -405,6 +420,7 @@ class EnhancedStaticSiteGenerator:
     </div>
 </aside>
         """.format(
+            related_links=related_links,
             word_count=metadata.get('word_count', 'Unknown'),
             reading_time=metadata.get('reading_time', 'Unknown'),
             last_updated=metadata.get('last_updated', 'Unknown')
