@@ -1,196 +1,187 @@
-{"citation": "Haynes, Peter. \"Al-Qaeda, Oil Dependence, and U.S. Foreign Policy.\" In Energy Security and Global Politics: The Militarization of Resource Management, edited by Daniel Moran and James A. Russell, 62\u201374. New York: Routledge, 2009.", "ground_truth": true}
-{"citation": "Boitani, Piero. The Bible and Its Rewritings. Translated by Anita Weston. New York: Oxford University Press, 1999.", "ground_truth": true}
-{"citation": "Hansberry, Lorraine. A Raisin in the Sun. New York: Vintage Books, 1994.", "ground_truth": true}
-{"citation": "Deggans, Eric. \"Why Black characters in 'Rings of Power' and 'Little Mermaid' make fantasy better.\" September 18, 2022. https://www.npr.org/2022/09/18/1122073064/rings-of-power-little-mermaid-diversity-race.", "ground_truth": true}
-{"citation": "Fewell, Danna Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the Book of Ruth.\" Journal for the Study of the Old Testament 45 (1993): 45-59.", "ground_truth": true}
-{"citation": "Delaney, Samuel R. Stars in My Pocket Like Grains of Sand. Open Road Media Sci-Fi & Fantasy, 2014. Kindle", "ground_truth": false}
-{"citation": "Hoffman, Louis, Nathaniel Granger, and Lisa Vallejos. An Existential-Humanistic Perspective on Black Lives Matter and Contemporary Protest Movements. Journal of Humanistic Psychology 56, no. 6 (2016): 595-611. https://doi.org/10.1177/0022167816652273.", "ground_truth": false}
-{"citation": "Hansberry, Lorraine: A Raisin in the Sun. New York: Vintage Books, 1994.", "ground_truth": false}
-{"citation": "Kesh, Seroun. Dust cover for dog. U.S. Patent 3150641, filed September 4, 1963, and issued September 29, 1964. https://ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3150641", "ground_truth": false}
-{"citation": "Crabtree, John, and Ann Chaplin. Bolivia: Processes of Change. London: Zed Books, 2013. ProQuest.", "ground_truth": true}
-{"citation": "Berglund, Jeff, Jan Johnson & Kimberli Lee, eds. Indigenous Pop: Native American Music from Jazz to Hip Hop. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central.", "ground_truth": false}
-{"citation": "Barzun, J.. Simple and Direct: A Rhetoric for Writers. Rev. ed. Chicago: University of Chicago Press, 1994.", "ground_truth": false}
-{"citation": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M.", "ground_truth": true}
-{"citation": "Smith, John Maynard. \"The Origin of Altruism.\" Nature 393 (1998): 639\u201340.", "ground_truth": true}
-{"citation": "\"Religion & Public Life.\" Pew Research Center. Accessed January 26, 2021. https://www.pewforum.org.", "ground_truth": true}
-{"citation": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" Women & Therapy 42, no. 1\u20132 (2019): pp. 116\u201330. Taylor & Francis Social Science and Humanities Library.", "ground_truth": false}
-{"citation": "Hirsch, Jerry. \"Citrus Pest Infests Trees in Mexico.\" Los Angeles Times, August 18, 2009.", "ground_truth": true}
-{"citation": "Morrison, T.. Beloved. New York: Alfred A. Knopf, 1987.", "ground_truth": false}
-{"citation": "Doniger, Wendy. Splitting the Difference. Chicago: University of Chicago Press, 1999", "ground_truth": false}
-{"citation": "Grazer, Brian and Charles Fishman. A curious mind: the secret to a bigger life. New York: Simon & Schuster, 2015.", "ground_truth": false}
-{"citation": "McCurry, Steve: Afghan Girl. December 1984. Photograph. National Geographic, cover, June 1985.", "ground_truth": false}
-{"citation": "Savage, Courtney: \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" Master's thesis, Texas Tech University, 2019. https://ttu-ir.tdl.org/handle/2346/85057.", "ground_truth": false}
-{"citation": "Pieken, Rebecca. \"One New Yorker's Guide to Being a Total Badass.\" New York Times, July 22, 1926. ProQuest.", "ground_truth": true}
-{"citation": "Google. \"Satellite view of Chicago.\" Google Earth. Accessed April 2, 2016. https://www.google.com/maps/@41.7682665,-87.723154,93759m/data=!3m1!1e3.", "ground_truth": true}
-{"citation": "Kunzig, Robert: \"Shading the Earth.\" National Geographic, August 2009, 374-80. Gale Academic OneFile.", "ground_truth": false}
-{"citation": "Booij, Thijs. \"Psalm 141: A Prayer for Discipline & Protection.\" Biblica 86, no. 1 (2005): 97-106.", "ground_truth": false}
-{"citation": "Royko, Mike. \"Next Time, Dan, Take Aim at Arnold.\" Chicago Tribune, September 23, 1982, national edition.", "ground_truth": true}
-{"citation": "Janes. Jane's Fighting Ships. Accessed June 10, 2010. Retrieved from http://janes.com/.", "ground_truth": false}
-{"citation": "Niederkorn, William S. \"A Scholar Recants on His 'Shakespeare' Discovery.\" New York Times, June 20, 2002, Arts section, Midwest edition", "ground_truth": false}
-{"citation": "Los Angeles County Museum of Art. \"Conversation.\" Accessed March 10, 2020. https://www.lacma.org/learn/conservation.", "ground_truth": true}
-{"citation": "Cordesman, Anthony H., Adam Mausner, and David Kasten. Winning in afghanistan: creating effective afghan security forces. Washington, DC: Center for Strategic and International Studies, 2009.", "ground_truth": false}
-{"citation": "Lewis County Geographic Information Services. Population Density, 2000 U.S. Census. Accessed January 4, 2014. http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf.", "ground_truth": true}
-{"citation": "Barzun, Jacques. Simple and Direct: A Rhetoric for Writers. Rev. ed. Chicago: University of Chicago Press, 1994.", "ground_truth": true}
-{"citation": "\"Roman Catholic Church.\" Religious Groups. American Religion Data Archives. Accessed July 15, 2020. http://www.thearda.com/Denoms/D_836.asp", "ground_truth": false}
-{"citation": "Bhagavad Gita. Translated by Eknath Easwaran. Tomales, CA: Nilgiri Press, 2007.", "ground_truth": true}
-{"citation": "Bonds, Mark Evan. Absolute Music: The History of an Idea. New York: Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001", "ground_truth": false}
-{"citation": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. https://www.google.com/policies/privacy/.", "ground_truth": true}
-{"citation": "Marcel Breuer Digital Archive. \"Saint John's Church and Campanile.\" Accessed December 25, 2021, https://breuer.syr.edu/project.php?id=370.", "ground_truth": true}
-{"citation": "Department of Defense. Summary of the 2018 National Defense Strategy of the United States of America. Washington, DC: Department of Defense, 2018. https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf", "ground_truth": false}
-{"citation": "Sacks, Oliver. Foreword to A Man without Words, by Susan Schaller, 9-12. 2nd ed. Berkeley: University of California Press, 2012.", "ground_truth": true}
-{"citation": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" Dermatology Online Journal 15, no. 7 (2009): pp. 45\u201347. https://doi.org/10.5070/D394t0r445.", "ground_truth": false}
-{"citation": "Homer. The Iliad. Translated by Robert Fagles. New York: Penguin Books, 1990.", "ground_truth": true}
-{"citation": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. Retrieved from https://www.google.com/policies/privacy/.", "ground_truth": false}
-{"citation": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E.", "ground_truth": true}
-{"citation": "Bonds, Mark Evan. Absolute Music: The History of an Idea. New York: Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001.", "ground_truth": true}
-{"citation": "Hemingway, Colette and Sean Hemingway. \"Greek Gods and Religious Practices.\" The Met. The Metropolitan Museum of Art. Published October 2003. https://www.metmuseum.org/toah/hd/grlg/hd_grlg.htm", "ground_truth": false}
-{"citation": "Kilgallen, John J. \"The Elder Son.\" Expository Times 115, no. 6 (2004): 186-89.", "ground_truth": true}
-{"citation": "Harris, Muriel. \"Talk to Me: Engaging Reluctant Writers.\" In A Tutor's Guide: Helping Writers One to One, edited by Ben Rafoth, 24-34. New Hampshire: Heinemann, 2000.", "ground_truth": true}
-{"citation": "Coelho, Paulo. The Alchemist. Translated by Alan Clarke. New York: HarperCollins, 2015.", "ground_truth": true}
-{"citation": "Lewis County Geographic Information Services. Population Density, 2000 U.S. Census. Accessed January 4, 2014. http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf", "ground_truth": false}
-{"citation": "U.S. Census Bureau; American Community Survey, 2018 American Community Survey 1-Year Estimates, Table B01003; generated by John Smith; using data.census.gov; <https://data.census.gov/cedsci/> (8 April 2020).", "ground_truth": true}
-{"citation": "Department of the Army. Sniper Training. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf.", "ground_truth": true}
-{"citation": "Lomax, Michael E. \"Jackie Robinson: Racial Pioneer and Athlete Extraordinaire in an Era of Change.\" In Out of the Shadows: A Biographical History of African American Athletes, edited by David K Wiggins, 163\u201379. Fayetteville: University of Arkansas Press, 2006. https://doi.org/10.2307/j.ctt1ffjksv.15.", "ground_truth": true}
-{"citation": "P\u00e9rez, Patricia A, ed. The Tenure-Track Process for Chicana and Latina Faculty: Experiences of Resisting and Persisting in the Academy. Routledge, 2019. https://doi.org/10.4324/9780429275784.", "ground_truth": false}
-{"citation": "Griffin, Ged. \"Managing Peacekeeping Communications.\" Journal of Business Continuity & Emergency Planning 3, no. 4 (August 2009): 317\u201327.", "ground_truth": true}
-{"citation": "Berglund, Jeff, Jan Johnson, and Kimberli Lee, eds. Indigenous Pop: Native American Music from Jazz to Hip Hop. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central.", "ground_truth": true}
-{"citation": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" Dermatology Online Journal 15, no. 7 (2009): 45\u201347. https://doi.org/10.5070/D394t0r445.", "ground_truth": true}
-{"citation": "Gowers, Ernest. The Complete Plain Words. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987.", "ground_truth": true}
-{"citation": "Champlain, Samuel de, cartographer. \"Carte geographique de la Nouvelle Franse.\" 1612. In The History of Cartography, vol. 3, Cartography in the European Renaissance. Chicago: University of Chicago Press, 2007.", "ground_truth": true}
-{"citation": "Martin, Steve. Sports-Interview Shocker. New Yorker, May 6, 2002, 84.", "ground_truth": false}
-{"citation": "Li, L.. \"Nothing Is More American Than Chinese Food on Christmas.\" New York Times (Online), December 25, 2018. ProQuest.", "ground_truth": false}
-{"citation": "Wiese, Andrew. 'The House I Live In': Race, Class, and African American Suburban Dreams in the Postwar United States. In The New Suburban History, edited by Kevin M. Kruse and Thomas J. Sugrue, 101\u20132. Chicago: University of Chicago Press, 2006.", "ground_truth": false}
-{"citation": "Noble, Safiya Umoja. Algorithms of Oppression: How Search Engines Reinforce Racism. New York: New York University Press, 2018.", "ground_truth": true}
-{"citation": "Wright, Sewell: Evolution and the Genetics of Populations. Vol. 2, Theory of Gene Frequencies. Chicago: University of Chicago Press, 1969.", "ground_truth": false}
-{"citation": "Zamudio, Margaret, Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. Critical Race Theory Matters: Education and Ideology. New York: Routledge, 2011. ProQuest Ebook Central.", "ground_truth": true}
-{"citation": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M", "ground_truth": false}
-{"citation": "Holder, Arthur G. Christian spirituality: the classics. New York: Routledge, 2009. https://ebookcentral.proquest.com/lib/up/detail.action?docID=446822.", "ground_truth": false}
-{"citation": "Martin, Steve. \"Sports-Interview Shocker.\" New Yorker, May 6, 2002, 84.", "ground_truth": true}
-{"citation": "Shanley, John Patrick, dir. Joe Versus the Volcano. 1990; Burbank, CA: Warner Home Video, 2002. DVD.", "ground_truth": true}
-{"citation": "Koppelman, Alex. \"White House Counsel to Be Fired?\" Salon, August 4, 2009. https://www.salon.com/2009/08/04/craig_23/", "ground_truth": false}
-{"citation": "Strauss, Valerie. \"The Unusual Way Broadway's 'Hamilton' Is Teaching U.S. History to Kids.\" Washington Post, June 28, 2016. https://www.washingtonpost.com/news/answer-sheet/wp/2016/06/28/the-unusual-way-broadways-hamilton-is-teaching-american-history-to-kids", "ground_truth": false}
-{"citation": "Idle, Eric. \"Just a Flesh Wound.\" Hamster Moms (blog). June 25, 2014. http://omgitsadeadparrot.com/2014/06/25/hamstermoms.", "ground_truth": true}
-{"citation": "Richard, Lucien, editor. What are They Saying about the Theology of Suffering? New York: Paulist Press, 1992.", "ground_truth": true}
-{"citation": "Crabtree, John, and Ann Chaplin. Bolivia: Processes of Change. London: Zed Books, 2013. ProQuest", "ground_truth": false}
-{"citation": "Delaney, Samuel R. Stars in My Pocket Like Grains of Sand. Open Road Media Sci-Fi & Fantasy, 2014. Kindle.", "ground_truth": true}
-{"citation": "Bundy, McGeorge. Interview by Robert MacNeil. MacNeil/Lehrer NewsHour. PBS. February 7, 1990.", "ground_truth": true}
-{"citation": "Epstein, Saul, and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" Preternature 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232.", "ground_truth": true}
-{"citation": "Otsuki, Tomoe. \"Visualising Nuclear Futurism and Narrating Queer Futurity in Yanobe Kenji's The Sun Child and Tawada Y\u014dko's The Emissary.\" Asian Studies Review 46, no. 3 (2022): 455. https://doi.org/10.1080/10357823.2020.1849027.", "ground_truth": true}
-{"citation": "Shepard, P.. Introduction to Nature and Madness, 24-41. Athens: University of Georgia Press, 1998.", "ground_truth": false}
-{"citation": "CNN. \"US Military Sends Warships, Aircraft to Texas.\" Video, 1:31, August 31, 2017. https://www.cnn.com/2017/08/30/politics/texas-harvey-flooding-military-response/.", "ground_truth": true}
-{"citation": "McCurry, Steve. Afghan Girl. December 1984. Photograph. National Geographic, cover, June 1985.", "ground_truth": true}
-{"citation": "Morrison, Toni. Beloved. New York: Alfred A. Knopf, 1987.", "ground_truth": true}
-{"citation": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" CNN online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/", "ground_truth": false}
-{"citation": "Lacey, Stephen. \"The New German Style.\" Horticulture, March 2000, 44\u201350", "ground_truth": false}
-{"citation": "Melville, Herman: Moby-Dick; or, The Whale. New York: Harper & Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html.", "ground_truth": false}
-{"citation": "Zonta, Michela Maria. \"The Role of Ethnic Banks in the Residential Patterns of Asian Americans: The Case of Los Angeles.\" PhD diss., University of California Los Angeles, 2004. ProQuest Dissertations & Theses Global (Document ID 305197788).", "ground_truth": true}
-{"citation": "Google. \"Satellite view of Chicago.\" Google Earth. Accessed April 2, 2016. https://www.google.com/maps/@41.7682665,-87.723154,93759m/data=!3m1!1e3", "ground_truth": false}
-{"citation": "Monterey Herald. \"Toxic Algae in San Luis Reservoir Prompts Warning from State.\" June 30, 2017. http://www.montereyherald.com/environment-and-nature/20170630/toxic-algae-in-san-luis-reservoir-prompts-warning-from-state", "ground_truth": false}
-{"citation": "Niederkorn, William S. \"A Scholar Recants on His 'Shakespeare' Discovery.\" New York Times, June 20, 2002, Arts section, Midwest edition.", "ground_truth": true}
-{"citation": "Spielberg, Steven, dir. Jurassic Park. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. Netflix.", "ground_truth": true}
-{"citation": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard & Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" Studies in Social Justice 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals.", "ground_truth": false}
-{"citation": "Deo, Nisha: \"Visiting Professor Lectures on Photographer.\" Exponent (West Lafayette, IN), Feb. 13, 2009.", "ground_truth": false}
-{"citation": "Hunt, M. J. \"Red Sea.\" In The New Catholic Encyclopedia, 2nd ed., vol. 11, 962-963. Detroit, MI: Gale, 2003.", "ground_truth": true}
-{"citation": "Berrick, Cathleen A. Homeland Security: DHS's Progress and Challenges in Key Areas of Maritime, Aviation & Cybersecurity. GAO-10-106. Washington, DC: Government Accountability Office, 2009.", "ground_truth": false}
-{"citation": "Kling, David William. The Bible in History: How the Texts Have Shaped the Times. New York: Oxford University Press, 2004.", "ground_truth": true}
-{"citation": "Deggans, Eric. \"Why Black characters in 'Rings of Power' & 'Little Mermaid' make fantasy better.\" September 18, 2022. https://www.npr.org/2022/09/18/1122073064/rings-of-power-little-mermaid-diversity-race.", "ground_truth": false}
-{"citation": "Angelou, Maya. I Know Why the Caged Bird Sings. Random House, 2002.", "ground_truth": false}
-{"citation": "Waterhouse, John William. The Lady of Shalott. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543.", "ground_truth": true}
-{"citation": "Herodotus. Histories. Translated by David Grene. University of Chicago Press, 1987.", "ground_truth": false}
-{"citation": "Haynes, Peter. \"Al-Qaeda, Oil Dependence & U.S. Foreign Policy.\" In Energy Security and Global Politics: The Militarization of Resource Management, edited by Daniel Moran and James A. Russell, 62\u201374. New York: Routledge, 2009.", "ground_truth": false}
-{"citation": "Booij, Thijs. \"Psalm 141: A Prayer for Discipline and Protection.\" Biblica 86, no. 1 (2005): 97-106.", "ground_truth": true}
-{"citation": "Morentz, James W., Christopher Doyle, Lawrence Skelly, and Nabil Adam. \"Unified Incident Command and Decision Support (UICDS) a Department of Homeland Security Initiative in Information Sharing.\" In 2009 IEEE Conference on Technologies for Homeland Security, 182\u201387. Boston: IEEE, 2009. https://doi.org/10.1109/THS.2009.5168032.", "ground_truth": true}
-{"citation": "Department of the Army. Sniper Training. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf", "ground_truth": false}
-{"citation": "Erwin, Marshall C. Intelligence Issues for Congress. CRS Report No. RL33539. Washington, DC: Congressional Research Service, 2013. Retrieved from https://fas.org/sgp/crs/intel/RL33539.pdf.", "ground_truth": false}
-{"citation": "Melville, Herman. Moby-Dick; or, The Whale. New York: Harper & Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html.", "ground_truth": true}
-{"citation": "Lees, Clare A., and Gillian R. Overing. Double Agents: Women and Clerical Culture in Anglo-Saxon England. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009", "ground_truth": false}
-{"citation": "Otsuki, T.. \"Visualising Nuclear Futurism and Narrating Queer Futurity in Yanobe Kenji's The Sun Child and Tawada Y\u014dko's The Emissary.\" Asian Studies Review 46, no. 3 (2022): 455. https://doi.org/10.1080/10357823.2020.1849027.", "ground_truth": false}
-{"citation": "Homer. The Iliad. Translated by Robert Fagles. New York: Penguin Books, 1990", "ground_truth": false}
-{"citation": "Katz, I., Kevin Gabayan, and Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In Advanced Concepts for Intelligent Vision Systems: 9th International Conference, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007.", "ground_truth": false}
-{"citation": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E", "ground_truth": false}
-{"citation": "Clayton, Mary. Review of Bede's Ecclesiastical History of the English People: A Historical Commentary, by J. M. Wallace-Hadrill. The Review of English Studies 41, no. 161 (1990): 157. JSTOR.", "ground_truth": true}
-{"citation": "Hirsch, Jerry: \"Citrus Pest Infests Trees in Mexico.\" Los Angeles Times, August 18, 2009.", "ground_truth": false}
-{"citation": "Camelot, P. T. \"Ephesus.\" In The New Catholic Encyclopedia, edited by William J. McDonald, vol. 5, 457-458. New York: McGraw Hill, 1967.", "ground_truth": true}
-{"citation": "Shanley, J. Patrick, dir. Joe Versus the Volcano. 1990; Burbank, CA: Warner Home Video, 2002. DVD.", "ground_truth": false}
-{"citation": "Nye, B. (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change. Our students can see the problem....\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209.", "ground_truth": false}
-{"citation": "Richard, L., editor. What are They Saying about the Theology of Suffering? New York: Paulist Press, 1992.", "ground_truth": false}
-{"citation": "Lomax, Michael E. \"Jackie Robinson: Racial Pioneer and Athlete Extraordinaire in an Era of Change.\" In Out of the Shadows: A Biographical History of African American Athletes, edited by David K Wiggins, 163\u201379. University of Arkansas Press, 2006. https://doi.org/10.2307/j.ctt1ffjksv.15.", "ground_truth": false}
-{"citation": "Associated Press. \"Biden-Zelenskyy Hold Joint News Conference in Washington.\" Video, 36:30, YouTube, December 21, 2022. https://www.youtube.com/watch?v=GGJI2A2-G4A.", "ground_truth": true}
-{"citation": "Joint Chiefs of Staff. Doctrine for the Armed Forces of the United States. JP 1. Washington, DC: Joint Chiefs of Staff, 2017. Retrieved from https://fas.org/irp/doddir/dod/jp1.pdf.", "ground_truth": false}
-{"citation": "Champlain, Samuel de, cartographer. \"Carte geographique de la Nouvelle Franse.\" 1612. In The History of Cartography, vol. 3, Cartography in the European Renaissance. Chicago: University of Chicago Press, 2007", "ground_truth": false}
-{"citation": "Strayed, Cheryl. Wild: From Lost to Found on the Pacific Crest Trail. Read by Bernadette Dunne. New York: Random House Audio, 2012. Audible, 13:06:00.", "ground_truth": true}
-{"citation": "Joint Chiefs of Staff. Doctrine for the Armed Forces of the United States. JP 1. Washington, DC: Joint Chiefs of Staff, 2017. https://fas.org/irp/doddir/dod/jp1.pdf.", "ground_truth": true}
-{"citation": "Zamudio, Margaret, Caskey Russell, Francisco A Rios & Jacquelyn L Bridgeman. Critical Race Theory Matters: Education and Ideology. New York: Routledge, 2011. ProQuest Ebook Central.", "ground_truth": false}
-{"citation": "Harris, Muriel. \"Talk to Me: Engaging Reluctant Writers.\" In A Tutor's Guide: Helping Writers One to One, ed. Ben Rafoth, 24-34. New Hampshire: Heinemann, 2000.", "ground_truth": false}
-{"citation": "Bhagavad Gita. Translated by Eknath Easwaran. Nilgiri Press, 2007.", "ground_truth": false}
-{"citation": "Idle, Eric. \"Just a Flesh Wound.\" Hamster Moms (blog). June 25, 2014. http://omgitsadeadparrot.com/2014/06/25/hamstermoms", "ground_truth": false}
-{"citation": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change. Our students can see the problem....\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209.", "ground_truth": true}
-{"citation": "Soldatenko, Michael. Chicano Studies: The Genesis of a Discipline. University of Arizona Press, 2009. ProQuest Ebook Central.", "ground_truth": false}
-{"citation": "Dick, Kirby, dir. The Invisible War. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com.", "ground_truth": true}
-{"citation": "\"Religion & Public Life.\" Pew Research Center. Accessed January 26, 2021. https://www.pewforum.org", "ground_truth": false}
-{"citation": "Hunt, M. J. \"Red Sea.\" In The New Catholic Encyclopedia, 2nd ed., vol. 11, 962-963. Gale, 2003.", "ground_truth": false}
-{"citation": "Savage, Courtney. \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" Master's thesis, Texas Tech University, 2019. https://ttu-ir.tdl.org/handle/2346/85057.", "ground_truth": true}
-{"citation": "CNN. \"US Military Sends Warships, Aircraft to Texas.\" Video, 1:31, August 31, 2017. Retrieved from https://www.cnn.com/2017/08/30/politics/texas-harvey-flooding-military-response/.", "ground_truth": false}
-{"citation": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. https://www.yale.edu/about-yale/yale-facts.", "ground_truth": true}
-{"citation": "Coelho, Paulo: The Alchemist. Translated by Alan Clarke. New York: HarperCollins, 2015.", "ground_truth": false}
-{"citation": "Google Maps. Monterey Bay map. Accessed January 4, 2014. https://www.google.com/maps/place/Monterey+Bay/@36.7896106,-122.0843052,11z/data=!4m5!3m4!1s0x808e0ccfc5859dfd:0x124654a608855d43!8m2!3d36.8007413!4d-121.947311", "ground_truth": false}
-{"citation": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" Defence and Peace Economics 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419", "ground_truth": false}
-{"citation": "Berrick, Cathleen A. Homeland Security: DHS's Progress and Challenges in Key Areas of Maritime, Aviation, and Cybersecurity. GAO-10-106. Washington, DC: Government Accountability Office, 2009.", "ground_truth": true}
-{"citation": "Magee, Peter, Cameron Petrie, Robert Knox, Farid Khan, and Ken Thomas. \"The Achaemenid Empire in South Asia and Recent Excavations in Akra in Northwest Pakistan.\" American Journal of Archaeology 109, no. 4 (October 2005): 711\u201341. https://doi.org/10.3764/aja.109.4.711.", "ground_truth": true}
-{"citation": "Spielberg, S., dir. Jurassic Park. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. Netflix.", "ground_truth": false}
+{"citation": "Zamudio, M., Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central.", "ground_truth": false}
+{"citation": "Harris, Muriel. \"Talk to Me: Engaging Reluctant Writers.\" In _A Tutor's Guide: Helping Writers One to One_, edited by Ben Rafoth, 24-34. Heinemann, 2000.", "ground_truth": false}
+{"citation": "Hansberry, Lorraine. _A Raisin in the Sun_. New York: Vintage Books, 1994.", "ground_truth": true}
+{"citation": "Katz, Itai, Kevin Gabayan & Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In _Advanced Concepts for Intelligent Vision Systems: 9th International Conference_, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007.", "ground_truth": false}
+{"citation": "Preposterous, Geronimo. \"Mai Tais and Milkshakes: A Fast Ride to the ER.\" _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer.", "ground_truth": true}
+{"citation": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. Retrieved from https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf.", "ground_truth": false}
+{"citation": "Hunt, M. J. \"Red Sea.\" In _The New Catholic Encyclopedia_, 2nd ed., vol. 11, 962-963. Detroit, MI: Gale, 2003.", "ground_truth": true}
+{"citation": "Melville, Herman. _Moby-Dick; or, The Whale_. New York: Harper & Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html.", "ground_truth": true}
+{"citation": "Wright, Sewell. _Evolution and the Genetics of Populations_, vol. 2, _Theory of Gene Frequencies_. Chicago: University of Chicago Press, 1969", "ground_truth": false}
+{"citation": "Idle, Eric. \"Just a Flesh Wound.\" _Hamster Moms_ (blog). June 25, 2014. Retrieved from http://omgitsadeadparrot.com/2014/06/25/hamstermoms.", "ground_truth": false}
+{"citation": "_Midland Daily News_. \"CMU Scientists Identify Spread of Invasive Species.\" November 30, 2014. Retrieved from https://doi.org/10.1233/45678.", "ground_truth": false}
+{"citation": "Chaucer Doth Tweet (@LeVostreGV). \"A daye wythout anachronism ys lyke Emily Dickinson wythout her lightsaber.\" Twitter, April 7, 2018, 8:58 p.m. https://www.twitter.com/LeVostreGC/status/982829987286827009.", "ground_truth": true}
+{"citation": "Fewell, Danna Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the Book of Ruth.\" _Journal for the Study of the Old Testament_ 45 (1993): 45-59.", "ground_truth": true}
+{"citation": "Augustine. _The Confessions of St. Augustine_. Translated by Edward Bouverie Pusey. Waiheke Island, New Zealand: Floating Press, 1921.", "ground_truth": true}
+{"citation": "Lewis County Geographic Information Services. _Population Density, 2000 U.S. Census_. Accessed January 4, 2014. Retrieved from http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf.", "ground_truth": false}
+{"citation": "Boitani, Piero. _The Bible and Its Rewritings_. Translated by Anita Weston. New York: Oxford University Press, 1999", "ground_truth": false}
 {"citation": "Bouman, Katie. \"How to Take a Picture of a Black Hole.\" Filmed November 2016 at TEDxBeaconStreet, Brookline, MA. Video, 12:51. https://www.ted.com/talks/katie_bouman_what_does_a_black_hole_look_like.", "ground_truth": true}
-{"citation": "Lacey, Stephen. \"The New German Style.\" Horticulture, March 2000, 44\u201350.", "ground_truth": true}
-{"citation": "Camelot, P. T. \"Ephesus.\" In The New Catholic Encyclopedia, edited by William J. McDonald, vol. 5, 457-458. McGraw Hill, 1967.", "ground_truth": false}
-{"citation": "Morentz, James W., Christopher Doyle, Lawrence Skelly, and Nabil Adam. \"Unified Incident Command and Decision Support (UICDS) a Department of Homeland Security Initiative in Information Sharing.\" In 2009 IEEE Conference on Technologies for Homeland Security, 182\u201387. Boston: IEEE, 2009. https://doi.org/10.1109/THS.2009.5168032", "ground_truth": false}
-{"citation": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's Macbeth and Othello, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" Asian Theater Journal 35, no. 1 (Spring 2018): 112\u201332.", "ground_truth": true}
-{"citation": "Daley, Beth. \"A Tale of a Whale: Scientists, Museum Are Eager to Study, Display Rare Creature.\" Boston Globe, June 11, 2002, third edition.", "ground_truth": true}
-{"citation": "United States Government Accountability Office. Arctic Region: Factors that Facilitate and Hinder the Advancement of U.S. Priorities. September 2023. Retrieved from https://www.gao.gov/assets/gao-23-106002.pdf.", "ground_truth": false}
-{"citation": "Clayton, Mary: Review of Bede's Ecclesiastical History of the English People: A Historical Commentary, by J. M. Wallace-Hadrill. The Review of English Studies 41, no. 161 (1990): 157. JSTOR.", "ground_truth": false}
-{"citation": "Janes. Jane's Fighting Ships. Accessed June 10, 2010. http://janes.com/.", "ground_truth": true}
-{"citation": "Pai, Tanya. \"The Squishy, Sugary History of Peeps.\" Vox, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter", "ground_truth": false}
-{"citation": "Angelou, Maya. I Know Why the Caged Bird Sings. New York: Random House, 2002.", "ground_truth": true}
-{"citation": "Bundy, McGeorge. Interview by Robert MacNeil. MacNeil/Lehrer NewsHour. PBS. February 7, 1990", "ground_truth": false}
-{"citation": "Baer, Hester & Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n.\" South Central Review 21, no. 3 (2004): 150-168.", "ground_truth": false}
-{"citation": "Epstein, Saul, and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" Preternature 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232", "ground_truth": false}
-{"citation": "Krishnan, Armin. War as Business: Technological Change and Military Service Contracting. New York: Routledge, 2008. Kindle.", "ground_truth": true}
-{"citation": "Waterhouse, John William. The Lady of Shalott. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543", "ground_truth": false}
-{"citation": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. Journal of Transcultural Nursing 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722.", "ground_truth": true}
-{"citation": "Kesh, Seroun. Dust cover for dog. U.S. Patent 3150641, filed September 4, 1963, and issued September 29, 1964. https://ppubs.uspto.gov/dirsearch-public/print/downloadPdf/3150641.", "ground_truth": true}
-{"citation": "Erwin, Marshall C. Intelligence Issues for Congress. CRS Report No. RL33539. Washington, DC: Congressional Research Service, 2013. https://fas.org/sgp/crs/intel/RL33539.pdf.", "ground_truth": true}
-{"citation": "United States Government Accountability Office. Arctic Region: Factors that Facilitate and Hinder the Advancement of U.S. Priorities. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf.", "ground_truth": true}
-{"citation": "Pai, Tanya. \"The Squishy, Sugary History of Peeps.\" Vox, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter.", "ground_truth": true}
-{"citation": "Cordesman, Anthony H., Adam Mausner, and David Kasten. Winning in Afghanistan: Creating Effective Afghan Security Forces. Washington, DC: Center for Strategic and International Studies, 2009.", "ground_truth": true}
-{"citation": "Deo, Nisha. \"Visiting Professor Lectures on Photographer.\" Exponent (West Lafayette, IN), Feb. 13, 2009.", "ground_truth": true}
-{"citation": "Pollan, Michael. The Omnivore's Dilemma: A Natural History of Four Meals. Penguin, 2006.", "ground_truth": false}
-{"citation": "\"Roman Catholic Church.\" Religious Groups. American Religion Data Archives. Accessed July 15, 2020. http://www.thearda.com/Denoms/D_836.asp.", "ground_truth": true}
-{"citation": "Smith, J. Maynard. \"The Origin of Altruism.\" Nature 393 (1998): 639\u201340.", "ground_truth": false}
-{"citation": "Federation of American Scientists. \"Resolution Comparison: Reading License Plates and Headlines.\" Accessed November 17, 2006. http://www.fas.org/irp/imint/resolves5.htm", "ground_truth": false}
-{"citation": "Koppelman, Alex. \"White House Counsel to Be Fired?\" Salon, August 4, 2009. https://www.salon.com/2009/08/04/craig_23/.", "ground_truth": true}
-{"citation": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. https://www.yale.edu/about-yale/yale-facts", "ground_truth": false}
-{"citation": "Newmann, William W. Reorganizing for National Security and Homeland Security. Public Administration Review 62, no. 1 (September 2002): 126\u201337. ProQuest.", "ground_truth": false}
-{"citation": "Wright, Sewell. Evolution and the Genetics of Populations. Vol. 2, Theory of Gene Frequencies. Chicago: University of Chicago Press, 1969.", "ground_truth": true}
-{"citation": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" Defence and Peace Economics 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419.", "ground_truth": true}
-{"citation": "Strayed, C.. Wild: From Lost to Found on the Pacific Crest Trail. Read by Bernadette Dunne. New York: Random House Audio, 2012. Audible, 13:06:00.", "ground_truth": false}
-{"citation": "Augustine. The Confessions of St. Augustine. Translated by Edward Bouverie Pusey. Waiheke Island, N. Zealand: Floating Press, 1921.", "ground_truth": false}
-{"citation": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" Women & Therapy 42, no. 1\u20132 (2019): 116\u201330. Taylor & Francis Social Science and Humanities Library.", "ground_truth": true}
-{"citation": "Katz, Itai, Kevin Gabayan, and Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In Advanced Concepts for Intelligent Vision Systems: 9th International Conference, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007.", "ground_truth": true}
-{"citation": "Verducci, Tom: \"World Domination.\" Sports Illustrated, November 16, 2009.", "ground_truth": false}
-{"citation": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard, and Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" Studies in Social Justice 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals.", "ground_truth": true}
-{"citation": "Spielberg, Steven, dir. Jurassic Park. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. DVD", "ground_truth": false}
-{"citation": "Zonta, M. Maria. \"The Role of Ethnic Banks in the Residential Patterns of Asian Americans: The Case of Los Angeles.\" PhD diss., University of California Los Angeles, 2004. ProQuest Dissertations & Theses Global (Document ID 305197788).", "ground_truth": false}
-{"citation": "Wiese, Andrew. \"'The House I Live In': Race, Class, and African American Suburban Dreams in the Postwar United States.\" In The New Suburban History, edited by Kevin M. Kruse and Thomas J. Sugrue, 101\u20132. Chicago: University of Chicago Press, 2006.", "ground_truth": true}
-{"citation": "Cuellar, Norma Graciela. Study Abroad Programs. Editorial. Journal of Transcultural Nursing 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722.", "ground_truth": false}
-{"citation": "Streeter, Kurt. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" New York Times, July 29, 2021.", "ground_truth": true}
-{"citation": "Hemingway, Colette and Sean Hemingway. \"Greek Gods and Religious Practices.\" The Met. The Metropolitan Museum of Art. Published October 2003. https://www.metmuseum.org/toah/hd/grlg/hd_grlg.htm.", "ground_truth": true}
+{"citation": "Booij, Thijs. \"Psalm 141: A Prayer for Discipline and Protection.\" _Biblica_ 86, no. 1 (2005): 97-106.", "ground_truth": true}
+{"citation": "Deffenbaugh, Daniel G., and David L. Dungan. The Bible and Ecology. In _The International Bible Commentary_, edited by William R. Farmer, 314-323. Collegeville, MN: The Liturgical Press, 1998.", "ground_truth": false}
+{"citation": "Kilgallen, John J. \"The Elder Son.\" _Expository Times_ 115, no. 6 (2004): 186-89.", "ground_truth": true}
+{"citation": "Niederkorn, W. S. \"A Scholar Recants on His 'Shakespeare' Discovery.\" _New York Times_, June 20, 2002, Arts section, Midwest edition.", "ground_truth": false}
+{"citation": "Zamudio, Margaret, Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central.", "ground_truth": true}
+{"citation": "Department of the Army. _Sniper Training_. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf.", "ground_truth": true}
+{"citation": "Erwin, Marshall C. _Intelligence Issues for Congress_. CRS Report No. RL33539. Washington, DC: Congressional Research Service, 2013. https://fas.org/sgp/crs/intel/RL33539.pdf.", "ground_truth": true}
+{"citation": "Kilgallen, John J. \"The Elder Son.\" _Expository Times_ 115, no. 6 (2004): pp. 186-89.", "ground_truth": false}
+{"citation": "Barzun, Jacques. _Simple and Direct: A Rhetoric for Writers_. Rev. ed. Chicago: University of Chicago Press, 1994.", "ground_truth": true}
+{"citation": "Lomax, Michael E. \"Jackie Robinson: Racial Pioneer and Athlete Extraordinaire in an Era of Change.\" In _Out of the Shadows: A Biographical History of African American Athletes_, ed. David K Wiggins, 163\u201379. Fayetteville: University of Arkansas Press, 2006. https://doi.org/10.2307/j.ctt1ffjksv.15.", "ground_truth": false}
+{"citation": "Grazer, Brian and Charles Fishman. _A Curious Mind: The Secret to a Bigger Life_. New York: Simon & Schuster, 2015.", "ground_truth": true}
+{"citation": "Wiese, Andrew. 'The House I Live In': Race, Class, and African American Suburban Dreams in the Postwar United States. In _The New Suburban History_, edited by Kevin M. Kruse and Thomas J. Sugrue, 101\u20132. Chicago: University of Chicago Press, 2006.", "ground_truth": false}
+{"citation": "Dick, Kirby, dir. _The Invisible War_. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com.", "ground_truth": true}
+{"citation": "Streeter, Kurt. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" _New York Times_, July 29, 2021.", "ground_truth": true}
+{"citation": "Kunzig, Robert. Shading the Earth. _National Geographic_, August 2009, 374-80. Gale Academic OneFile.", "ground_truth": false}
+{"citation": "Shepard, Paul. Introduction to _Nature and Madness_, 24-41. Athens: University of Georgia Press, 1998.", "ground_truth": true}
+{"citation": "_Bhagavad Gita_. Translated by Eknath Easwaran. Tomales, CA: Nilgiri Press, 2007.", "ground_truth": true}
+{"citation": "Bonds, Mark Evan. _Absolute Music: The History of an Idea_. New York: Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001.", "ground_truth": true}
+{"citation": "Daley, Beth. \"A Tale of a Whale: Scientists, Museum Are Eager to Study, Display Rare Creature.\" _Boston Globe_, June 11, 2002, third edition.", "ground_truth": true}
+{"citation": "Kunzig, Robert. \"Shading the Earth.\" _National Geographic_, August 2009, 374-80. Gale Academic OneFile.", "ground_truth": true}
+{"citation": "Savage, Courtney. \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" Master's thesis, Texas Tech University, 2019. Retrieved from https://ttu-ir.tdl.org/handle/2346/85057.", "ground_truth": false}
+{"citation": "Magee, Peter, Cameron Petrie, Robert Knox, Farid Khan & Ken Thomas. \"The Achaemenid Empire in South Asia and Recent Excavations in Akra in Northwest Pakistan.\" _American Journal of Archaeology_ 109, no. 4 (October 2005): 711\u201341. https://doi.org/10.3764/aja.109.4.711.", "ground_truth": false}
+{"citation": "Homer. _The Iliad_. Translated by Robert Fagles. New York: Penguin Books, 1990.", "ground_truth": true}
+{"citation": "Augustine. _The Confessions of St. Augustine_. Translated by Edward Bouverie Pusey. Floating Press, 1921.", "ground_truth": false}
+{"citation": "Ndiaye, Mamadou (@mndiaye_97). \"Arctic Fox Facts You Need in your Life.\" TikTok, July 17, 2021. https://www.tiktok.com/@mndiaye_97/video/6986039209542847750.", "ground_truth": true}
+{"citation": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. Hoboken, NJ: John Wiley and Sons, 2011.", "ground_truth": true}
+{"citation": "Strayed, Cheryl. _Wild: From Lost to Found on the Pacific Crest Trail_. Read by Bernadette Dunne. New York: Random House Audio, 2012. Audible, 13:06:00.", "ground_truth": true}
+{"citation": "Marcel Breuer Digital Archive. \"Saint John's Church & Campanile.\" Accessed December 25, 2021, https://breuer.syr.edu/project.php?id=370.", "ground_truth": false}
+{"citation": "Tylor, Edward B. _Researches into the Early Development of Mankind and the Development of Civilization_. Edited by Paul Bohannan. University of Chicago Press, 1964.", "ground_truth": true}
+{"citation": "Coelho, Paulo. _The Alchemist_. Translated by Alan Clarke. New York: HarperCollins, 2015.", "ground_truth": true}
+{"citation": "Soldatenko, Michael. _Chicano Studies: The Genesis of a Discipline_. Tucson: University of Arizona Press, 2009. ProQuest Ebook Central", "ground_truth": false}
+{"citation": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. https://www.google.com/policies/privacy/.", "ground_truth": true}
+{"citation": "Deo, Nisha: \"Visiting Professor Lectures on Photographer.\" _Exponent_ (West Lafayette, IN), Feb. 13, 2009.", "ground_truth": false}
+{"citation": "Lomax, Michael E. \"Jackie Robinson: Racial Pioneer and Athlete Extraordinaire in an Era of Change.\" In _Out of the Shadows: A Biographical History of African American Athletes_, edited by David K Wiggins, 163\u201379. Fayetteville: University of Arkansas Press, 2006. https://doi.org/10.2307/j.ctt1ffjksv.15.", "ground_truth": true}
+{"citation": "_Qur'an_. Translated by m. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004.", "ground_truth": false}
+{"citation": "Rodriguez, Richard. \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates. Boston: Houghton Mifflin Co., 2000.", "ground_truth": true}
+{"citation": "Berglund, Jeff, Jan Johnson, and Kimberli Lee, eds. _Indigenous Pop: Native American Music from Jazz to Hip Hop_. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central.", "ground_truth": true}
+{"citation": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's Macbeth and Othello, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" _Asian Theater Journal_ 35, no. 1 (Spring 2018): 112\u201332.", "ground_truth": true}
+{"citation": "Camelot, P. T. Ephesus. In _The New Catholic Encyclopedia_, edited by William J. McDonald, vol. 5, 457-458. New York: McGraw Hill, 1967.", "ground_truth": false}
+{"citation": "_Monterey Herald_. \"Toxic Algae in San Luis Reservoir Prompts Warning from State.\" June 30 2017. http://www.montereyherald.com/environment-and-nature/20170630/toxic-algae-in-san-luis-reservoir-prompts-warning-from-state.", "ground_truth": false}
+{"citation": "Spielberg, S., dir. _Jurassic Park_. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. Netflix.", "ground_truth": false}
+{"citation": "Pai, Tanya. The Squishy, Sugary History of Peeps. _Vox_, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter.", "ground_truth": false}
+{"citation": "Lacey, S.. \"The New German Style.\" _Horticulture_, March 2000, 44-50.", "ground_truth": false}
+{"citation": "Bundy, McGeorge: Interview by Robert MacNeil. _MacNeil/Lehrer NewsHour_. PBS. February 7, 1990.", "ground_truth": false}
+{"citation": "Rodriguez, Richard: \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates. Boston: Houghton Mifflin Co., 2000.", "ground_truth": false}
+{"citation": "Hoffman, Louis, Nathaniel Granger, and Lisa Vallejos. \"An Existential-Humanistic Perspective on Black Lives Matter and Contemporary Protest Movements.\" _Journal of Humanistic Psychology_ 56, no. 6 (2016): 595-611. https://doi.org/10.1177/0022167816652273.", "ground_truth": true}
+{"citation": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M", "ground_truth": false}
+{"citation": "Preposterous, Geronimo. Mai Tais and Milkshakes: A Fast Ride to the ER. _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer.", "ground_truth": false}
+{"citation": "Gowers, Ernest. _The Complete Plain Words_. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987.", "ground_truth": true}
+{"citation": "Wright, Sewell. _Evolution and the Genetics of Populations_, vol. 2, _Theory of Gene Frequencies_. Chicago: University of Chicago Press, 1969.", "ground_truth": true}
+{"citation": "Crabtree, John, and Ann Chaplin. _Bolivia: Processes of Change_. London: Zed Books, 2013. ProQuest.", "ground_truth": true}
+{"citation": "Sacks, Oliver. Foreword to _A Man without Words_, by Susan Schaller, 9-12. 2nd ed. Berkeley: University of California Press, 2012.", "ground_truth": true}
+{"citation": "Strayed, Cheryl. _Wild: From Lost to Found on the Pacific Crest Trail_. Read by Bernadette Dunne. New York: Random House Audio, 2012. Audible, 13:06:00", "ground_truth": false}
+{"citation": "Royko, Mike. \"Next Time, Dan, Take Aim at Arnold.\" _Chicago Tribune_, September 23, 1982, national edition.", "ground_truth": true}
+{"citation": "Savage, Courtney. \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" Master's thesis, Texas Tech University, 2019. https://ttu-ir.tdl.org/handle/2346/85057.", "ground_truth": true}
+{"citation": "_Qur'an_. Translated by M. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004.", "ground_truth": true}
+{"citation": "Hunt, M. J. \"Red Sea.\" In _The New Catholic Encyclopedia_, 2nd ed., vol. 11, 962-963. Gale, 2003.", "ground_truth": false}
+{"citation": "Shepard, Paul. Introduction to _Nature and Madness_, 24-41. Athens: University of Georgia Press, 1998", "ground_truth": false}
+{"citation": "Joint Chiefs of Staff. _National Military Strategy of the United States of America_. Washington, DC: Joint Chiefs of Staff, 2015. https://www.jcs.mil/Portals/36/Documents/Publications/National_Military_Strategy_2015.pdf.", "ground_truth": true}
+{"citation": "Berglund, Jeff, Jan Johnson, and Kimberli Lee, eds. _Indigenous pop: native american music from jazz to hip hop_. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central.", "ground_truth": false}
+{"citation": "Morrison, Toni. _Beloved_. New York: Alfred A. Knopf, 1987.", "ground_truth": true}
+{"citation": "United States Government Accountability Office. _Arctic Region: Factors that Facilitate & Hinder the Advancement of U.S. Priorities_. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf.", "ground_truth": false}
+{"citation": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E", "ground_truth": false}
+{"citation": "Royko, Mike. \"Next Time, Dan, Take Aim at Arnold.\" _Chicago Tribune_, September 23, 1982, national edition", "ground_truth": false}
+{"citation": "Spielberg, Steven, dir. _Jurassic Park_. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. DVD.", "ground_truth": true}
+{"citation": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard & Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" _Studies in Social Justice_ 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals.", "ground_truth": false}
+{"citation": "Smith, Zadie: _Swing Time_. New York: Penguin Press, 2016.", "ground_truth": false}
+{"citation": "Delaney, Samuel R. _Stars in My Pocket Like Grains of Sand_. Open Road Media Sci-Fi & Fantasy, 2014. Kindle.", "ground_truth": true}
+{"citation": "Waterhouse, John William. _The Lady of Shalott_. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543.", "ground_truth": true}
+{"citation": "Coelho, Paulo. _The Alchemist_. Translated by Alan Clarke. New York: HarperCollins, 2015", "ground_truth": false}
+{"citation": "Camelot, P. T. \"Ephesus.\" In _The New Catholic Encyclopedia_, edited by William J. McDonald, vol. 5, 457-458. New York: McGraw Hill, 1967.", "ground_truth": true}
+{"citation": "Kling, David William. _The Bible in History: How the Texts Have Shaped the Times_. New York: Oxford University Press, 2004.", "ground_truth": true}
+{"citation": "Melville, Herman: _Moby-Dick; or, The Whale_. New York: Harper & Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html.", "ground_truth": false}
+{"citation": "Fewell, D. Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the Book of Ruth.\" _Journal for the Study of the Old Testament_ 45 (1993): 45-59.", "ground_truth": false}
+{"citation": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E.", "ground_truth": true}
+{"citation": "Joint Chiefs of Staff. _National Military Strategy of the United States of America_. Washington, DC: Joint Chiefs of Staff, 2015. https://www.jcs.mil/Portals/36/Documents/Publications/National_Military_Strategy_2015.pdf", "ground_truth": false}
+{"citation": "Bonds, Mark Evan. _Absolute Music: The History of an Idea_. Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001.", "ground_truth": false}
+{"citation": "Angelou, Maya. _I Know Why the Caged Bird Sings_. New York: Random House, 2002.", "ground_truth": true}
+{"citation": "Haynes, Peter. \"Al-Qaeda, Oil Dependence, and U.S. Foreign Policy.\" In _Energy Security and Global Politics: The Militarization of Resource Management_, edited by Daniel Moran and James A. Russell, 62\u201374. New York: Routledge, 2009.", "ground_truth": true}
+{"citation": "Griffin, Ged. Managing Peacekeeping Communications. _Journal of Business Continuity & Emergency Planning_ 3, no. 4 (August 2009): 317\u201327.", "ground_truth": false}
+{"citation": "Streeter, K.. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" _New York Times_, July 29, 2021.", "ground_truth": false}
+{"citation": "Lattimore, Richmond, trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951.", "ground_truth": true}
+{"citation": "Herodotus. _Histories_. Translated by David Grene. University of Chicago Press, 1987.", "ground_truth": false}
+{"citation": "Lattimore, R., trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951.", "ground_truth": false}
+{"citation": "Shanley, J. Patrick, dir. _Joe Versus the Volcano_. 1990; Burbank, CA: Warner Home Video, 2002. DVD.", "ground_truth": false}
+{"citation": "\"Religion & Public Life.\" Pew Research Center. Accessed January 26, 2021. https://www.pewforum.org", "ground_truth": false}
+{"citation": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's Macbeth and Othello, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" _Asian Theater Journal_ 35, no. 1 (Spring 2018): 112\u201332", "ground_truth": false}
+{"citation": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722.", "ground_truth": true}
+{"citation": "Strauss, Valerie. \"The Unusual Way Broadway's 'Hamilton' Is Teaching U.S. History to Kids.\" _Washington Post_, June 28 2016. https://www.washingtonpost.com/news/answer-sheet/wp/2016/06/28/the-unusual-way-broadways-hamilton-is-teaching-american-history-to-kids.", "ground_truth": false}
+{"citation": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. Retrieved from https://twitter.com/BillNye/status/1106242216123486209.", "ground_truth": false}
+{"citation": "Joint Chiefs of Staff. _Doctrine for the Armed Forces of the United States_. JP 1. Washington, DC: Joint Chiefs of Staff, 2017. https://fas.org/irp/doddir/dod/jp1.pdf", "ground_truth": false}
+{"citation": "Hoffman, Louis, Nathaniel Granger, and Lisa Vallejos. An Existential-Humanistic Perspective on Black Lives Matter and Contemporary Protest Movements. _Journal of Humanistic Psychology_ 56, no. 6 (2016): 595-611. https://doi.org/10.1177/0022167816652273.", "ground_truth": false}
+{"citation": "Biden Jr., Joseph R. _National Security Strategy of the United States of America_. Washington, DC: White House, 2022. https://www.whitehouse.gov/wp-content/uploads/2022/10/Biden-Harris-Administrations-National-Security-Strategy-10.2022.pdf.", "ground_truth": true}
+{"citation": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf.", "ground_truth": true}
+{"citation": "P\u00e9rez, Patricia A, ed. _The Tenure-Track Process for Chicana & Latina Faculty: Experiences of Resisting and Persisting in the Academy_. New York: Routledge, 2019. https://doi.org/10.4324/9780429275784.", "ground_truth": false}
+{"citation": "Bouman, Katie. \"How to Take a Picture of a Black Hole.\" Filmed November 2016 at TEDxBeaconStreet, Brookline, MA. Video, 12:51. Retrieved from https://www.ted.com/talks/katie_bouman_what_does_a_black_hole_look_like.", "ground_truth": false}
+{"citation": "Krishnan, Armin. _War as Business: Technological Change and Military Service Contracting_. New York: Routledge, 2008. Kindle.", "ground_truth": true}
+{"citation": "Griffin, Ged. \"Managing Peacekeeping Communications.\" _Journal of Business Continuity & Emergency Planning_ 3, no. 4 (August 2009): 317\u201327.", "ground_truth": true}
+{"citation": "Chaucer Doth Tweet (@LeVostreGV). \"A daye wythout anachronism ys lyke Emily Dickinson wythout her lightsaber.\" Twitter, April 7, 2018, 8:58 p.m. Retrieved from https://www.twitter.com/LeVostreGC/status/982829987286827009.", "ground_truth": false}
+{"citation": "Grazer, Brian and Charles Fishman. _A curious mind: the secret to a bigger life_. New York: Simon & Schuster, 2015.", "ground_truth": false}
+{"citation": "Epstein, S., and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" _Preternature_ 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232.", "ground_truth": false}
+{"citation": "Crabtree, John & Ann Chaplin. _Bolivia: Processes of Change_. London: Zed Books, 2013. ProQuest.", "ground_truth": false}
+{"citation": "Lobb, R. L. \"Military Rations.\" In _Encyclopedia of Food and Culture_, edited by Solomon H. Katz and William Woys Weaver, 2:159\u201360. New York: Charles Scribner's Sons, 2003.", "ground_truth": false}
+{"citation": "Hansberry, Lorraine. _A raisin in the sun_. New York: Vintage Books, 1994.", "ground_truth": false}
+{"citation": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" _Women & Therapy_ 42, no. 1\u20132 (2019): 116\u201330. Taylor & Francis Social Science and Humanities Library", "ground_truth": false}
+{"citation": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. John Wiley and Sons, 2011.", "ground_truth": false}
+{"citation": "Shanley, John Patrick, dir. _Joe Versus the Volcano_. 1990; Burbank, CA: Warner Home Video, 2002. DVD.", "ground_truth": true}
+{"citation": "Department of the Army. _Sniper Training_. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf", "ground_truth": false}
+{"citation": "Newmann, William W. \"Reorganizing for National Security & Homeland Security.\" _Public Administration Review_ 62, no. 1 (September 2002): 126\u201337. ProQuest.", "ground_truth": false}
 {"citation": "Cox, Elizabeth. \"The Hidden Treasures of Timbuktu.\" Directed by AIM Creative Studios. TED-Ed video, 5:16. October 2020. https://www.ted.com/talks/elizabeth_cox_the_hidden_treasures_of_timbuktu/details.", "ground_truth": true}
-{"citation": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's Macbeth and Othello, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" Asian Theater Journal 35, no. 1 (Spring 2018): pp. 112\u201332.", "ground_truth": false}
-{"citation": "Baer, Hester, and Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n.\" South Central Review 21, no. 3 (2004): 150-168.", "ground_truth": true}
-{"citation": "Dick, K., dir. The Invisible War. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com.", "ground_truth": false}
-{"citation": "Herodotus. Histories. Translated by David Grene. Chicago: University of Chicago Press, 1987.", "ground_truth": true}
-{"citation": "Monterey Herald. \"Toxic Algae in San Luis Reservoir Prompts Warning from State.\" June 30, 2017. http://www.montereyherald.com/environment-and-nature/20170630/toxic-algae-in-san-luis-reservoir-prompts-warning-from-state.", "ground_truth": true}
-{"citation": "Noble, S. Umoja. Algorithms of Oppression: How Search Engines Reinforce Racism. New York: New York University Press, 2018.", "ground_truth": false}
-{"citation": "Grazer, Brian and Charles Fishman. A Curious Mind: The Secret to a Bigger Life. New York: Simon & Schuster, 2015.", "ground_truth": true}
-{"citation": "Hoffman, Louis, Nathaniel Granger, and Lisa Vallejos. \"An Existential-Humanistic Perspective on Black Lives Matter and Contemporary Protest Movements.\" Journal of Humanistic Psychology 56, no. 6 (2016): 595-611. https://doi.org/10.1177/0022167816652273.", "ground_truth": true}
-{"citation": "Verducci, Tom. \"World Domination.\" Sports Illustrated, November 16, 2009.", "ground_truth": true}
-{"citation": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" CNN online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/.", "ground_truth": true}
-{"citation": "Kilgallen, John J. \"The Elder Son.\" Expository Times 115, no. 6 (2004): 186-89", "ground_truth": false}
+{"citation": "Spielberg, Steven, dir. _Jurassic Park_. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. Netflix.", "ground_truth": true}
+{"citation": "Guillen, Jorge. \"Does Financial Openness Matter in the Relationship Between Financial Development and Income Distribution in Latin America?\" _Emerging Markets Finance and Trade_ 52, no 2 (2016): 1145-1155. https://doi.org/10.1080/1540496X.2015.1046337", "ground_truth": false}
+{"citation": "Holder, Arthur G. _Christian Spirituality: The Classics_. New York: Routledge, 2009. https://ebookcentral.proquest.com/lib/up/detail.action?docID=446822.", "ground_truth": true}
+{"citation": "Homer. _The Iliad_. Translated by Robert Fagles. New York: Penguin Books, 1990", "ground_truth": false}
+{"citation": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" _Dermatology Online Journal_ 15, no. 7 (2009): 45\u201347. https://doi.org/10.5070/D394t0r445", "ground_truth": false}
+{"citation": "Barzun, Jacques. _Simple and Direct: A Rhetoric for Writers_. Rev. ed. Chicago: University of Chicago Press, 1994", "ground_truth": false}
+{"citation": "_Monterey Herald_. \"Toxic Algae in San Luis Reservoir Prompts Warning from State.\" June 30, 2017. http://www.montereyherald.com/environment-and-nature/20170630/toxic-algae-in-san-luis-reservoir-prompts-warning-from-state.", "ground_truth": true}
+{"citation": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" _Dermatology Online Journal_ 15, no. 7 (2009): 45\u201347. https://doi.org/10.5070/D394t0r445.", "ground_truth": true}
+{"citation": "McCurry, Steve. _Afghan Girl_. December 1984. Photograph. _National Geographic_, cover, June 1985", "ground_truth": false}
+{"citation": "Deffenbaugh, Daniel G., and David L. Dungan. \"The Bible and Ecology.\" In _The International Bible Commentary_, edited by William R. Farmer, 314-323. Collegeville, MN: The Liturgical Press, 1998.", "ground_truth": true}
+{"citation": "Wiese, Andrew. \"'The House I Live In': Race, Class, and African American Suburban Dreams in the Postwar United States.\" In _The New Suburban History_, edited by Kevin M. Kruse and Thomas J. Sugrue, 101\u20132. Chicago: University of Chicago Press, 2006.", "ground_truth": true}
+{"citation": "Kling, David William. _The bible in history: how the texts have shaped the times_. New York: Oxford University Press, 2004.", "ground_truth": false}
+{"citation": "Haynes, Peter: \"Al-Qaeda, Oil Dependence, and U.S. Foreign Policy.\" In _Energy Security and Global Politics: The Militarization of Resource Management_, edited by Daniel Moran and James A. Russell, 62\u201374. New York: Routledge, 2009.", "ground_truth": false}
+{"citation": "Epstein, Saul, and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" _Preternature_ 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232.", "ground_truth": true}
+{"citation": "Smith, Zadie. _Swing Time_. New York: Penguin Press, 2016.", "ground_truth": true}
+{"citation": "Tylor, E. B. _Researches into the Early Development of Mankind and the Development of Civilization_. Edited by Paul Bohannan. University of Chicago Press, 1964.", "ground_truth": false}
+{"citation": "Verducci, T.. \"World Domination.\" _Sports Illustrated_, November 16, 2009.", "ground_truth": false}
+{"citation": "Smith, John Maynard. \"The Origin of Altruism.\" _Nature_ 393 (1998): 639\u201340.", "ground_truth": true}
+{"citation": "Pieken, Rebecca. \"One New Yorker's Guide to Being a Total Badass.\" _New York Times_, July 22, 1926. ProQuest", "ground_truth": false}
+{"citation": "Lees, Clare A., and Gillian R. Overing. _Double Agents: Women and Clerical Culture in Anglo-Saxon England_. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009", "ground_truth": false}
+{"citation": "Zonta, Michela Maria. \"The Role of Ethnic Banks in the Residential Patterns of Asian Americans: The Case of Los Angeles.\" PhD diss., University of California Los Angeles, 2004. _ProQuest Dissertations & Theses Global_ (Document ID 305197788)", "ground_truth": false}
+{"citation": "Booij, T.. \"Psalm 141: A Prayer for Discipline and Protection.\" _Biblica_ 86, no. 1 (2005): 97-106.", "ground_truth": false}
+{"citation": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): p. 209. https://doi.org/10.1177/1043659616638722.", "ground_truth": false}
+{"citation": "Cordesman, Anthony H., Adam Mausner, and David Kasten. _Winning in Afghanistan: Creating Effective Afghan Security Forces_. Washington, DC: Center for Strategic and International Studies, 2009.", "ground_truth": true}
+{"citation": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" _Women & Therapy_ 42, no. 1\u20132 (2019): 116\u201330. Taylor & Francis Social Science and Humanities Library.", "ground_truth": true}
+{"citation": "Idle, Eric. \"Just a Flesh Wound.\" _Hamster Moms_ (blog). June 25, 2014. http://omgitsadeadparrot.com/2014/06/25/hamstermoms.", "ground_truth": true}
+{"citation": "_Midland Daily News_. \"CMU Scientists Identify Spread of Invasive Species.\" November 30, 2014. https://doi.org/10.1233/45678.", "ground_truth": true}
+{"citation": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard, and Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" _Studies in Social Justice_ 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals.", "ground_truth": true}
+{"citation": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/.", "ground_truth": true}
+{"citation": "Pollan, Michael. _The Omnivore's Dilemma: A Natural History of Four Meals_. New York: Penguin, 2006.", "ground_truth": true}
+{"citation": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209.", "ground_truth": true}
+{"citation": "\"Religion & Public Life.\" Pew Research Center. Accessed January 26, 2021. https://www.pewforum.org.", "ground_truth": true}
+{"citation": "Doniger, Wendy: _Splitting the Difference_. Chicago: University of Chicago Press, 1999.", "ground_truth": false}
+{"citation": "Smith, J. Maynard. \"The Origin of Altruism.\" _Nature_ 393 (1998): 639\u201340.", "ground_truth": false}
+{"citation": "Verducci, Tom. \"World Domination.\" _Sports Illustrated_, November 16, 2009.", "ground_truth": true}
+{"citation": "Baer, Hester, and Ryan Fred Long. Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n. _South Central Review_ 21, no. 3 (2004): 150-168.", "ground_truth": false}
+{"citation": "Department of Defense. _Information Assurance Training, Certification & Workforce Management_. DOD Directive 8570.01-M. Washington, DC: Department of Defense, 2005. http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/857001m.pdf.", "ground_truth": false}
+{"citation": "Niederkorn, William S. \"A Scholar Recants on His 'Shakespeare' Discovery.\" _New York Times_, June 20, 2002, Arts section, Midwest edition.", "ground_truth": true}
+{"citation": "Department of Defense. _Information Assurance Training, Certification, and Workforce Management_. DOD Directive 8570.01-M. Washington, DC: Department of Defense, 2005. http://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodm/857001m.pdf.", "ground_truth": true}
+{"citation": "Biden Jr., Joseph R. _National Security Strategy of the United States of America_. Washington, DC: White House, 2022. Retrieved from https://www.whitehouse.gov/wp-content/uploads/2022/10/Biden-Harris-Administrations-National-Security-Strategy-10.2022.pdf.", "ground_truth": false}
+{"citation": "Magee, Peter, Cameron Petrie, Robert Knox, Farid Khan, and Ken Thomas. \"The Achaemenid Empire in South Asia and Recent Excavations in Akra in Northwest Pakistan.\" _American Journal of Archaeology_ 109, no. 4 (October 2005): 711\u201341. https://doi.org/10.3764/aja.109.4.711.", "ground_truth": true}
+{"citation": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" _Defence and Peace Economics_ 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419.", "ground_truth": true}
+{"citation": "Ndiaye, Mamadou (@mndiaye_97). \"Arctic Fox Facts You Need in your Life.\" TikTok, July 17, 2021. https://www.tiktok.com/@mndiaye_97/video/6986039209542847750", "ground_truth": false}
+{"citation": "Pai, Tanya. \"The Squishy, Sugary History of Peeps.\" _Vox_, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter.", "ground_truth": true}
+{"citation": "Pollan, Michael: _The Omnivore's Dilemma: A Natural History of Four Meals_. New York: Penguin, 2006.", "ground_truth": false}
+{"citation": "Cordesman, Anthony H., Adam Mausner, and David Kasten. _Winning in Afghanistan: Creating Effective Afghan Security Forces_. Center for Strategic and International Studies, 2009.", "ground_truth": false}
+{"citation": "Doniger, Wendy. _Splitting the Difference_. Chicago: University of Chicago Press, 1999.", "ground_truth": true}
+{"citation": "Li, Lillian. Nothing Is More American Than Chinese Food on Christmas. _New York Times (Online)_, December 25, 2018. ProQuest.", "ground_truth": false}
+{"citation": "Clayton, Mary. Review of _Bede's Ecclesiastical History of the English People: A Historical Commentary_, by J. M. Wallace-Hadrill. _The Review of English Studies_ 41, no. 161 (1990): 157. JSTOR.", "ground_truth": true}
+{"citation": "Baer, Hester, and Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n.\" _South Central Review_ 21, no. 3 (2004): 150-168.", "ground_truth": true}
+{"citation": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M.", "ground_truth": true}
+{"citation": "Clayton, Mary. Review of _Bede's Ecclesiastical History of the English People: A Historical Commentary_, by J. M. Wallace-Hadrill. _The Review of English Studies_ 41, no. 161 (1990): p. 157. JSTOR.", "ground_truth": false}
+{"citation": "Morrison, Toni. _Beloved_. New York: Alfred A. Knopf, 1987", "ground_truth": false}
+{"citation": "Herodotus. _Histories_. Translated by David Grene. Chicago: University of Chicago Press, 1987.", "ground_truth": true}
+{"citation": "Lewis County Geographic Information Services. _Population Density, 2000 U.S. Census_. Accessed January 4, 2014. http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf.", "ground_truth": true}
+{"citation": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/", "ground_truth": false}
+{"citation": "Guillen, Jorge. \"Does Financial Openness Matter in the Relationship Between Financial Development and Income Distribution in Latin America?\" _Emerging Markets Finance and Trade_ 52, no 2 (2016): 1145-1155. https://doi.org/10.1080/1540496X.2015.1046337.", "ground_truth": true}
+{"citation": "Deo, Nisha. \"Visiting Professor Lectures on Photographer.\" _Exponent_ (West Lafayette, IN), Feb. 13, 2009.", "ground_truth": true}
+{"citation": "Li, Lillian. \"Nothing Is More American Than Chinese Food on Christmas.\" _New York Times (Online)_, December 25, 2018. ProQuest.", "ground_truth": true}
+{"citation": "Petrusich, Amanda. \"Taylor Swift's Self-Scrutiny in 'Miss Americana.'\" _The New Yorker_, February 4, 2020. https://www.newyorker.com/culture/cultural-comment/taylor-swifts-self-scrutiny-in-miss-americana.", "ground_truth": true}
