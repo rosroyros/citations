@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok</title>
+    <meta name="description" content="How to cite TikTok videos in MLA 9 format">
+    <link rel="canonical" href="https://citationformatchecker.com">
+
+    <!-- Schema.org markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "TikTok",
+        "description": "How to cite TikTok videos in MLA 9 format"
+    }
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="/assets/css/mini-checker.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RZWHZQP8N9"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RZWHZQP8N9');
+    </script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="/" class="logo">
+                <svg class="logo-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="logo-text">Citation Checker</span>
+            </a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="/checker/">Check Citations</a></li>
+                    <li><a href="/guides/">Guides</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Breadcrumbs -->
+    <nav class="breadcrumbs">
+        <a href="/">Home</a> >
+        <a href="/guides/">Citation Guides</a> >
+        <span class="current">TikTok</span>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content-wrapper specific_source">
+        <main class="main-content">
+            
+<div class="hero">
+    <h1>TikTok</h1>
+    <p>How to cite TikTok videos in MLA 9 format</p><div class="style-alternate" style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 0.5rem; padding: 1rem; margin: 1.5rem 0; text-align: center;">
+    <strong>Need APA format instead?</strong>
+    <a href="/cite-tiktok-apa/" style="color: #0ea5e9; font-weight: 600; text-decoration: underline;">View APA 7 version →</a>
+</div>
+</div>
+
+<section class="content-section">
+    <h2>Overview</h2>
+    <p>This page provides guidance on citing sources in MLA 9th Edition format.</p>
+</section>
+
+<div class="cta-placement" id="mini-checker-intro">
+    <!-- Mini-checker will be injected here -->
+</div>
+
+<section class="content-section">
+    <h2>Citation Format</h2>
+    <p>MLA 9 uses a flexible container system. Follow the core elements in order:</p>
+    <ol>
+        <li>Author</li>
+        <li>Title of source</li>
+        <li>Title of container</li>
+        <li>Other contributors</li>
+        <li>Version</li>
+        <li>Number</li>
+        <li>Publisher</li>
+        <li>Publication date</li>
+        <li>Location</li>
+    </ol>
+</section>
+
+
+            <!-- MiniChecker CTA placements (will be populated by JavaScript) -->
+            <div class="cta-placement" id="mini-checker-1">
+                <h4>Quick Check Your Citation</h4>
+                <p>Validate MLA 9 formatting instantly</p>
+                <!-- MiniChecker component will be mounted here -->
+            </div>
+
+            
+        </main>
+
+        
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <span class="footer-separator">•</span>
+                <a href="/terms">Terms of Service</a>
+                <span class="footer-separator">•</span>
+                <a href="/contact">Contact Us</a>
+            </div>
+            <p class="footer-text">&copy; 2025 Citation Checker. All rights reserved.</p>
+            <p class="footer-tagline">Built for researchers, by researchers</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Polyfill for process.env (needed for React development build)
+        window.process = { env: { NODE_ENV: 'production' } };
+        // Page citation style (set by template)
+        window.CITATION_STYLE = 'mla9';
+    </script>
+    <script>
+        // Helper function to extract source type from URL
+        function getSourceTypeFromURL() {
+            const path = window.location.pathname;
+
+            // Extract source type from URL patterns like /how-to-cite-[source]-[style]/
+            const match = path.match(/\/how-to-cite-([^-]+)-/);
+            if (match && match[1]) {
+                return match[1].toLowerCase();
+            }
+
+            // Extract source type from specific source URLs like /source/[source-type]/
+            const sourceMatch = path.match(/\/source\/([^\/]+)/);
+            if (sourceMatch && sourceMatch[1]) {
+                return sourceMatch[1].toLowerCase();
+            }
+
+            return 'unknown';
+        }
+
+        // Citation checking function for static MiniChecker components in markdown
+        async function checkCitation(button) {
+            // Find the textarea within the same mini-checker container
+            const miniChecker = button.closest('.mini-checker');
+            const textarea = miniChecker ? miniChecker.querySelector('textarea') : null;
+
+            if (!textarea) {
+                console.error('Could not find textarea for mini-checker');
+                alert('Error: Could not find citation input field.');
+                return;
+            }
+
+            const citation = textarea.value.trim();
+
+            if (!citation) {
+                alert('Please enter a citation to check.');
+                return;
+            }
+
+            // Track mini_checker_opened event
+            if (typeof gtag === 'function') {
+                const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                    document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                const sourceType = getSourceTypeFromURL();
+
+                gtag('event', 'mini_checker_opened', {
+                    page_type: pageType,
+                    source_type: sourceType
+                });
+            }
+
+            // Show loading state
+            button.disabled = true;
+            button.textContent = 'Checking...';
+
+            // Remove previous results
+            const existingResults = miniChecker.querySelector('.mini-checker-results');
+            if (existingResults) {
+                existingResults.remove();
+            }
+
+            try {
+                // Call validation API
+                const response = await fetch('/api/validate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        citations: citation,
+                        style: window.CITATION_STYLE || 'apa7',
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Validation failed');
+                }
+
+                const data = await response.json();
+
+                // Extract errors from response (API returns {results: [{errors: [...]}]})
+                const errors = data.results && data.results[0] && data.results[0].errors ? data.results[0].errors : [];
+
+                // Track mini_checker_validated event
+                if (typeof gtag === 'function') {
+                    const pageType = document.body.className.includes('source-type') ? 'source_type' :
+                        document.body.className.includes('mega-guide') ? 'mega_guide' : 'general';
+                    const sourceType = getSourceTypeFromURL();
+
+                    gtag('event', 'mini_checker_validated', {
+                        page_type: pageType,
+                        source_type: sourceType,
+                        validation_result: errors.length > 0 ? 'errors_found' : 'valid',
+                        errors_count: errors.length
+                    });
+                }
+
+                // Show results inline
+                const resultsDiv = document.createElement('div');
+                resultsDiv.className = 'mini-checker-results';
+                resultsDiv.style.marginTop = '1rem';
+                resultsDiv.style.padding = '1rem';
+                resultsDiv.style.backgroundColor = '#f9fafb';
+                resultsDiv.style.borderRadius = '0.5rem';
+                resultsDiv.style.border = '1px solid #e5e7eb';
+
+                if (errors.length > 0) {
+                    resultsDiv.innerHTML = '<h5 style="color: #dc2626; margin-bottom: 0.5rem;">❌ Issues Found:</h5><ul style="margin: 0; padding-left: 1.5rem;">' +
+                        errors.map(err => '<li style="color: #dc2626; margin-bottom: 0.25rem;"><strong>' + err.component + ':</strong> ' + err.problem + '</li>').join('') +
+                        '</ul><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                } else {
+                    resultsDiv.innerHTML = '<p style="color: #059669; margin: 0;">✅ Citation looks good!</p><p style="margin-top: 0.75rem;"><a href="/" style="color: #3b82f6;">Check more citations →</a></p>';
+                }
+
+                miniChecker.appendChild(resultsDiv);
+
+            } catch (err) {
+                console.error('Validation error:', err);
+                alert('Error checking citation. Please try again or use the main checker.');
+            } finally {
+                // Reset button
+                button.disabled = false;
+                button.textContent = button.getAttribute('data-original-text') || 'Check Citation';
+            }
+        }
+
+        // Initialize static mini-checkers when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const miniCheckers = document.querySelectorAll('.mini-checker');
+            console.log('Found static mini-checkers:', miniCheckers.length);
+
+            miniCheckers.forEach(function (miniChecker, index) {
+                const button = miniChecker.querySelector('button');
+                const textarea = miniChecker.querySelector('textarea');
+
+                console.log(`Mini-checker ${index + 1}:`, {
+                    button: !!button,
+                    textarea: !!textarea
+                });
+
+                if (button && textarea) {
+                    // Store original button text
+                    button.setAttribute('data-original-text', button.textContent);
+
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        console.log('Mini-checker button clicked');
+                        checkCitation(button);
+                    });
+
+                    // Add Enter key support
+                    textarea.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter' && e.ctrlKey) {
+                            e.preventDefault();
+                            checkCitation(button);
+                        }
+                    });
+                } else {
+                    console.error('Mini-checker missing button or textarea:', {
+                        button: !!button,
+                        textarea: !!textarea
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="/assets/js/mini-checker.js"></script>
+    <script>
+        // Mount MiniChecker components
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof mountMiniChecker === 'function') {
+                // Mount main MiniChecker
+                mountMiniChecker('mini-checker-1', {
+                    placeholder: "Enter your citation here...",
+                    contextType: "mega-guide",
+                    onFullChecker: function () {
+                        window.location.href = '/checker/';
+                    }
+                });
+
+                // Mount intro section MiniChecker
+                mountMiniChecker('mini-checker-intro', {
+                    placeholder: "Smith, J. A. (2020). Article title goes here. Journal Name, 15(2), 123-145. https://doi.org/10.1234/example",
+                    contextType: "mega-guide",
+                    onFullChecker: function () {
+                        window.location.href = '/checker/';
+                    }
+                });
+
+                // Mount test section MiniChecker
+                mountMiniChecker('mini-checker-test', {
+                    placeholder: "Paste your citation here...",
+                    contextType: "mega-guide",
+                    onFullChecker: function () {
+                        window.location.href = '/checker/';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
