@@ -33,8 +33,10 @@ test.describe('PSEO Smoke Tests', () => {
         // Contains PSEO pages (spot check)
         expect(body).toContain('/cite-youtube-apa/');
         expect(body).toContain('/cite-wikipedia-apa/');
+        // MLA pilot pages
+        expect(body).toContain('/mla/cite-youtube-mla/');
 
-        // URL count sanity check (currently ~195)
+        // URL count sanity check (currently ~195 + 3 MLA = ~198)
         const urlCount = (body.match(/<url>/g) || []).length;
         expect(urlCount).toBeGreaterThan(100);
     });

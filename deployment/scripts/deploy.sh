@@ -108,6 +108,21 @@ if [ -d "dashboard" ] && [ -f "dashboard/api.py" ]; then
     echo "✅ Dashboard deployed"
 fi
 
+# ═══ MLA PSEO Pages ═══
+echo "📚 Copying MLA PSEO pages..."
+if [ -d "$PROJECT_ROOT/backend/pseo/dist/mla" ]; then
+    mkdir -p "$PROJECT_ROOT/content/dist/mla"
+    cp -r "$PROJECT_ROOT/backend/pseo/dist/mla"/* "$PROJECT_ROOT/content/dist/mla/"
+    MLA_COUNT=$(find "$PROJECT_ROOT/content/dist/mla" -name 'index.html' | wc -l | tr -d ' ')
+    echo "✓ Copied $MLA_COUNT MLA pages to content/dist/mla/"
+    
+    # Merge MLA entries into sitemap BEFORE Vite build
+    echo "🗺️  Merging MLA pages into sitemap..."
+    python3 "$PROJECT_ROOT/backend/pseo/scripts/merge_mla_sitemap.py"
+else
+    echo "ℹ️  No MLA PSEO dist folder found (backend/pseo/dist/mla/)"
+fi
+
 # Update frontend
 echo "⚛️ Building frontend..."
 cd frontend/frontend

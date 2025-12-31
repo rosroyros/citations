@@ -35,7 +35,7 @@ class TestDeploymentSanity:
         namespaces = {'sitemap': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
         urls = root.findall('.//sitemap:loc', namespaces)
 
-        MIN_EXPECTED_URLS = 180  # Conservative minimum for deployment
+        MIN_EXPECTED_URLS = 183  # 180 APA + 3 MLA pilot pages
         actual_count = len(urls)
         assert actual_count >= MIN_EXPECTED_URLS, f"Only {actual_count} URLs in sitemap, expected >= {MIN_EXPECTED_URLS}"
 
@@ -59,6 +59,8 @@ class TestDeploymentSanity:
             f"{BASE_URL}/cite-developmental-psychology-apa/",
             f"{BASE_URL}/cite-consulting-clinical-psychology-apa/",
             f"{BASE_URL}/cite-cognitive-psychology-apa/",
+            # MLA pilot page
+            f"{BASE_URL}/mla/cite-youtube-mla/",
         ]
 
         for url in sample_urls:
