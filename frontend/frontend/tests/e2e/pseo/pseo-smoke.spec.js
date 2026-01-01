@@ -42,6 +42,42 @@ test.describe('PSEO Smoke Tests', () => {
     });
 
     // ═══════════════════════════════════════════════════════════════════
+    // FOOTER TESTS - Work in all environments
+    // ═══════════════════════════════════════════════════════════════════
+
+    test('Footer displays two-column layout with APA and MLA guides', async ({ page }) => {
+        await page.goto('/');
+
+        // Check for two columns
+        await expect(page.locator('.footer-column')).toHaveCount(2);
+
+        // Check column headers
+        await expect(page.locator('.footer-column-title').first()).toContainText(/APA/i);
+        await expect(page.locator('.footer-column-title').last()).toContainText(/MLA/i);
+
+        // Check key links exist (APA and MLA complete guides)
+        await expect(page.locator('a[href="/guide/apa-7th-edition/"]').first()).toBeVisible();
+        await expect(page.locator('a[href="/mla/guide/mla-9th-edition/"]').first()).toBeVisible();
+
+        // Check "View All" links
+        await expect(page.locator('.footer-view-all')).toHaveCount(2);
+    });
+
+    test('Footer is responsive on mobile', async ({ page }) => {
+        await page.setViewportSize({ width: 375, height: 667 });
+        await page.goto('/');
+
+        // Columns should exist
+        const columns = page.locator('.footer-column');
+        await expect(columns).toHaveCount(2);
+
+        // Verify they're stacked vertically (second column below first)
+        const firstBox = await columns.first().boundingBox();
+        const secondBox = await columns.last().boundingBox();
+        expect(secondBox.y).toBeGreaterThan(firstBox.y + firstBox.height - 10);
+    });
+
+    // ═══════════════════════════════════════════════════════════════════
     // PSEO PAGE TESTS - Production only (require nginx routing)
     // ═══════════════════════════════════════════════════════════════════
 

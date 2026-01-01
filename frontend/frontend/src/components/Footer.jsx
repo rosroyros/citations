@@ -9,55 +9,78 @@ const Footer = () => {
     trackNavigationClick(element, url);
   };
 
+  // APA 7th Edition guides - top 5 most useful
+  const apaGuides = [
+    { name: "Complete Guide", url: "/guide/apa-7th-edition/" },
+    { name: "For Graduate Students", url: "/guide/apa-graduate-students/" },
+    { name: "Title Page", url: "/guide/apa-title-page/" },
+    { name: "Reference List", url: "/guide/apa-reference-list/" },
+    { name: "In-Text Citations", url: "/guide/apa-in-text-citations/" },
+  ];
+
+  // MLA 9th Edition guides - top 5 most useful
+  const mlaGuides = [
+    { name: "Complete Guide", url: "/mla/guide/mla-9th-edition/" },
+    { name: "Cite Book", url: "/mla/how-to-cite-book-mla/" },
+    { name: "Cite YouTube", url: "/mla/cite-youtube-mla/" },
+    { name: "Cite Wikipedia", url: "/mla/cite-wikipedia-mla/" },
+    { name: "Cite New York Times", url: "/mla/cite-new-york-times-mla/" },
+  ];
+
   return (
     <footer className="footer">
       <div className="footer-content">
-        {/* Citation Guides Section */}
+        {/* Citation Guides Section - Two Column Layout */}
         <div className="footer-guides">
           <h3 className="footer-section-title">Citation Guides</h3>
-          <div className="footer-guides-grid">
-            <a href="/guide/apa-graduate-students/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-graduate-students/')}>
-              APA for Graduate Students
-            </a>
-            <a href="/guide/apa-title-page/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-title-page/')}>
-              APA Title Page
-            </a>
-            <a href="/guide/apa-reference-list/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-reference-list/')}>
-              APA Reference List
-            </a>
-            <a href="/guide/apa-in-text-citations/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-in-text-citations/')}>
-              In-Text Citations
-            </a>
-            <a href="/guide/apa-citation-errors/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-citation-errors/')}>
-              Common Citation Errors
-            </a>
-            <a href="/guide/fix-apa-citation-errors/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/fix-apa-citation-errors/')}>
-              Fix Citation Errors
-            </a>
-            <a href="/guide/check-apa-citations/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/check-apa-citations/')}>
-              Check Citations
-            </a>
-            <a href="/guide/validate-reference-list/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/validate-reference-list/')}>
-              Validate Reference List
-            </a>
-            <a href="/guide/apa-citations-psychology/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-citations-psychology/')}>
-              APA for Psychology
-            </a>
-            <a href="/guide/apa-citations-education/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-citations-education/')}>
-              APA for Education
-            </a>
-            <a href="/guide/apa-citations-nursing/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-citations-nursing/')}>
-              APA for Nursing
-            </a>
-            <a href="/guide/apa-7th-edition-changes/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-7th-edition-changes/')}>
-              APA 7th Edition Changes
-            </a>
-            <a href="/guide/apa-vs-mla-vs-chicago/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-vs-mla-vs-chicago/')}>
-              APA vs MLA vs Chicago
-            </a>
-            <a href="/guide/apa-citation-workflow/" className="footer-guide-link" onClick={() => handleNavClick('footer_guide', '/guide/apa-citation-workflow/')}>
-              Citation Workflow
-            </a>
+          <div className="footer-guides-columns">
+            {/* APA Column */}
+            <div className="footer-column">
+              <h4 className="footer-column-title">APA 7th Edition</h4>
+              <div className="footer-column-links">
+                {apaGuides.map((guide) => (
+                  <a
+                    key={guide.url}
+                    href={guide.url}
+                    className="footer-guide-link"
+                    onClick={() => handleNavClick('footer_guide', guide.url)}
+                  >
+                    {guide.name}
+                  </a>
+                ))}
+                <a
+                  href="/guide/apa-7th-edition/"
+                  className="footer-view-all"
+                  onClick={() => handleNavClick('footer_guide', '/guide/apa-7th-edition/')}
+                >
+                  View All APA Guides →
+                </a>
+              </div>
+            </div>
+
+            {/* MLA Column */}
+            <div className="footer-column">
+              <h4 className="footer-column-title">MLA 9th Edition</h4>
+              <div className="footer-column-links">
+                {mlaGuides.map((guide) => (
+                  <a
+                    key={guide.url}
+                    href={guide.url}
+                    className="footer-guide-link"
+                    onClick={() => handleNavClick('footer_guide', guide.url)}
+                  >
+                    {guide.name}
+                  </a>
+                ))}
+                <a
+                  href="/mla/guide/mla-9th-edition/"
+                  className="footer-view-all"
+                  onClick={() => handleNavClick('footer_guide', '/mla/guide/mla-9th-edition/')}
+                >
+                  View All MLA Guides →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -89,8 +112,8 @@ const Footer = () => {
             Contact Us
           </a>
         </div>
-      <p className="footer-text">© 2025 Citation Checker. All rights reserved.</p>
-      <p className="footer-tagline">Built for researchers, by researchers</p>
+        <p className="footer-text">© 2025 Citation Checker. All rights reserved.</p>
+        <p className="footer-tagline">Built for researchers, by researchers</p>
       </div>
     </footer>
   );
