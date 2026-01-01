@@ -43,7 +43,12 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Pilot pages for canary deployment
-PILOT_PAGES = ['youtube', 'book', 'website']
+# Format: (page_id, page_type, config_type)
+PILOT_PAGES = [
+    ('mla_mega_01', 'mega_guide', 'mega_guides'),  # Complete MLA 9th Edition Guide
+    ('mla_source_type_01', 'source_type', 'source_type_guides'),  # How to Cite Book in MLA
+    ('youtube', 'specific_source', 'specific_sources'),  # Cite YouTube in MLA
+]
 
 
 def load_config(config_type: str) -> list:
@@ -56,7 +61,8 @@ def load_config(config_type: str) -> list:
     Returns:
         List of page configurations
     """
-    config_file = Path(__file__).parent.parent / "configs" / f"{config_type}.json"
+    # Use MLA-specific config files
+    config_file = Path(__file__).parent.parent / "configs" / f"mla_{config_type}.json"
 
     if not config_file.exists():
         logger.error(f"Config file not found: {config_file}")
@@ -83,7 +89,7 @@ def load_layout_template() -> str:
     return template_file.read_text(encoding='utf-8')
 
 
-def generate_page(generator: MLAStaticSiteGenerator, page_config: dict, page_type: str, output_dir: Path) -> bool:
+def generate_page(generator: MLAStaticSiteGenerator, page_config: dict, page_type: str, output_dir: Path, content_assembler: ContentAssembler = None) -> bool:
     """
     Generate a single MLA page
 
@@ -92,6 +98,7 @@ def generate_page(generator: MLAStaticSiteGenerator, page_config: dict, page_typ
         page_config: Page configuration dict
         page_type: Type of page (mega_guide, source_type, specific_source)
         output_dir: Output directory for HTML files
+        content_assembler: ContentAssembler instance for LLM content generation
 
     Returns:
         True if successful, False otherwise
@@ -100,28 +107,38 @@ def generate_page(generator: MLAStaticSiteGenerator, page_config: dict, page_typ
         page_name = page_config.get('url_slug') or page_config.get('id')
         logger.info(f"Generating {page_type}: {page_name}")
 
-        # Create metadata for page
-        metadata = {
-            'page_type': page_type,
-            'title': page_config.get('title') or page_config.get('name'),
-            'meta_description': page_config.get('description', ''),
-            'url_slug': page_name,
-            'source_id': page_config.get('id'),
-            'last_updated': datetime.now().strftime('%Y-%m-%d'),
-            'date_published': datetime.now().strftime('%Y-%m-%d'),
-            'word_count': 'TBD',
-            'reading_time': 'TBD'
-        }
-
-        # Generate URL
-        url = generator.generate_url_structure(page_type, page_name)
-
-        # For now, create placeholder HTML content
-        # In full implementation, this would use ContentAssembler to generate content
-        html_content = f"""
+        # Generate content using ContentAssembler
+        if content_assembler:
+            logger.info(f"  Using ContentAssembler for LLM content generation")
+            
+            if page_type == 'mega_guide':
+                topic = page_config.get('topic', 'MLA 9th Edition citations')
+                result = content_assembler.assemble_mega_guide(topic, page_config)
+            elif page_type == 'source_type':
+                source_type = page_config.get('topic', page_config.get('title', 'source'))
+                result = content_assembler.assemble_source_type_page(source_type, page_config)
+            elif page_type == 'specific_source':
+                # Specific sources use source_type_page assembly
+                source_name = page_config.get('name', page_config.get('id', 'source'))
+                result = content_assembler.assemble_source_type_page(source_name, page_config)
+            else:
+                raise ValueError(f"Unknown page type: {page_type}")
+            
+            # Get content and metadata from result
+            markdown_content = result['content']
+            content_metadata = result['metadata']
+            
+            # Convert markdown to HTML
+            html_content = generator.convert_markdown_to_html(markdown_content)
+            word_count = content_metadata.get('word_count', 'Unknown')
+            reading_time = content_metadata.get('reading_time', 'Unknown')
+        else:
+            # Fallback to placeholder content if no ContentAssembler
+            logger.warning(f"  No ContentAssembler - using placeholder content")
+            html_content = f"""
 <div class="hero">
-    <h1>{metadata['title']}</h1>
-    <p>{metadata['meta_description']}</p>
+    <h1>{page_config.get('title') or page_config.get('name')}</h1>
+    <p>{page_config.get('description', '')}</p>
 </div>
 
 <section class="content-section">
@@ -149,6 +166,31 @@ def generate_page(generator: MLAStaticSiteGenerator, page_config: dict, page_typ
     </ol>
 </section>
 """
+            word_count = 'TBD'
+            reading_time = 'TBD'
+
+        # Create metadata for page
+        # Prefer title from ContentAssembler (which may have auto-generated it)
+        if content_assembler and 'content_metadata' in dir():
+            page_title = content_metadata.get('meta_title') or page_config.get('title') or page_config.get('name')
+        else:
+            page_title = page_config.get('title') or page_config.get('name')
+        metadata = {
+            'page_type': page_type,
+            'title': page_title,
+            'meta_title': page_title,  # For <title> tag
+            'meta_description': page_config.get('description', ''),
+            'url_slug': page_name,
+            'source_id': page_config.get('id'),
+            'last_updated': datetime.now().strftime('%Y-%m-%d'),
+            'date_published': datetime.now().strftime('%Y-%m-%d'),
+            'word_count': word_count,
+            'reading_time': reading_time
+        }
+
+
+        # Generate URL
+        url = generator.generate_url_structure(page_type, page_name)
 
         # Convert to final HTML
         final_html = generator.apply_layout(html_content, metadata)
@@ -188,6 +230,29 @@ def generate_pages(args):
 
     logger.info(f"Output directory: {output_dir}")
 
+    # Initialize ContentAssembler with MLA knowledge base
+    content_assembler = None
+    if args.use_llm:
+        knowledge_base_dir = Path(__file__).parent.parent / "knowledge_base" / "mla9"
+        templates_dir = Path(__file__).parent.parent / "templates"
+        
+        if knowledge_base_dir.exists() and templates_dir.exists():
+            try:
+                content_assembler = ContentAssembler(
+                    str(knowledge_base_dir),
+                    str(templates_dir),
+                    citation_style="MLA 9th edition"
+                )
+                logger.info(f"✅ ContentAssembler initialized with MLA knowledge base")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to initialize ContentAssembler: {e}")
+                logger.warning("   Continuing with placeholder content")
+        else:
+            logger.warning(f"⚠️ Knowledge base or templates not found")
+            logger.warning(f"   KB: {knowledge_base_dir.exists()}, Templates: {templates_dir.exists()}")
+    else:
+        logger.info("📝 LLM content generation disabled (use --use-llm to enable)")
+
     # Track statistics
     total_attempted = 0
     total_success = 0
@@ -196,16 +261,19 @@ def generate_pages(args):
     # Pilot mode - generate 3 pages for canary
     if args.pilot:
         logger.info("\n🚀 PILOT MODE: Generating 3 pages for canary deployment")
-        configs = load_config("specific_sources")
 
-        for page_id in PILOT_PAGES:
+        for page_id, page_type, config_type in PILOT_PAGES:
+            configs = load_config(config_type)
             page_config = next((c for c in configs if c['id'] == page_id), None)
+
             if page_config:
                 total_attempted += 1
-                if generate_page(generator, page_config, 'specific_source', output_dir):
+                if generate_page(generator, page_config, page_type, output_dir, content_assembler):
                     total_success += 1
                 else:
                     total_failed += 1
+            else:
+                logger.warning(f"Page config not found: {page_id} in {config_type}")
 
     # Specific source by ID
     elif args.source:
@@ -215,7 +283,7 @@ def generate_pages(args):
 
         if page_config:
             total_attempted += 1
-            if generate_page(generator, page_config, 'specific_source', output_dir):
+            if generate_page(generator, page_config, 'specific_source', output_dir, content_assembler):
                 total_success += 1
             else:
                 total_failed += 1
@@ -242,7 +310,7 @@ def generate_pages(args):
 
         for config in configs:
             total_attempted += 1
-            if generate_page(generator, config, page_type, output_dir):
+            if generate_page(generator, config, page_type, output_dir, content_assembler):
                 total_success += 1
             else:
                 total_failed += 1
@@ -255,7 +323,7 @@ def generate_pages(args):
         logger.info("\n📚 Generating MEGA GUIDES...")
         for config in load_config("mega_guides"):
             total_attempted += 1
-            if generate_page(generator, config, 'mega_guide', output_dir):
+            if generate_page(generator, config, 'mega_guide', output_dir, content_assembler):
                 total_success += 1
             else:
                 total_failed += 1
@@ -264,7 +332,7 @@ def generate_pages(args):
         logger.info("\n📝 Generating SOURCE TYPE GUIDES...")
         for config in load_config("source_type_guides"):
             total_attempted += 1
-            if generate_page(generator, config, 'source_type', output_dir):
+            if generate_page(generator, config, 'source_type', output_dir, content_assembler):
                 total_success += 1
             else:
                 total_failed += 1
@@ -273,7 +341,7 @@ def generate_pages(args):
         logger.info("\n🎯 Generating SPECIFIC SOURCE PAGES...")
         for config in load_config("specific_sources"):
             total_attempted += 1
-            if generate_page(generator, config, 'specific_source', output_dir):
+            if generate_page(generator, config, 'specific_source', output_dir, content_assembler):
                 total_success += 1
             else:
                 total_failed += 1
@@ -309,6 +377,8 @@ def main():
                         help='Generate specific source by ID (e.g., youtube)')
     parser.add_argument('--all', action='store_true',
                         help='Generate all 69 MLA pages')
+    parser.add_argument('--use-llm', action='store_true', dest='use_llm',
+                        help='Enable LLM content generation (requires API keys)')
 
     args = parser.parse_args()
 

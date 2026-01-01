@@ -1,6 +1,6 @@
-# How to Cite {{ source_name }} in APA Format
+# How to Cite {{ source_name }} in {{ style_display_name }}
 
-**Complete guide to citing {{ source_name }} in APA 7th edition with examples, unique formatting requirements, and common issues specific to this source.**
+**Complete guide to citing {{ source_name }} in {{ style_display_name }} with examples, unique formatting requirements, and common issues specific to this source.**
 
 {{ source_name }} presents unique citation challenges that require specific guidance beyond general source type rules. This page provides targeted help for finding citation information, handling {{ source_name }}'s particular format requirements, and avoiding common mistakes specific to this platform.
 

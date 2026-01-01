@@ -37,20 +37,23 @@ class ContentAssembler:
     LLM generation, and structured knowledge base data.
     """
 
-    def __init__(self, knowledge_base_dir: str, templates_dir: str):
+    def __init__(self, knowledge_base_dir: str, templates_dir: str, citation_style: str = "APA 7th edition"):
         """
         Initialize ContentAssembler
 
         Args:
             knowledge_base_dir: Path to knowledge base JSON files
             templates_dir: Path to Jinja2 templates
+            citation_style: Citation style for LLM content generation (default: APA 7th edition)
         """
         logger.info(f"Initializing ContentAssembler")
         logger.info(f"  Knowledge base: {knowledge_base_dir}")
         logger.info(f"  Templates: {templates_dir}")
+        logger.info(f"  Citation style: {citation_style}")
 
         self.knowledge_base_dir = Path(knowledge_base_dir)
         self.templates_dir = Path(templates_dir)
+        self.citation_style = citation_style
 
         # Validate directories exist
         if not self.knowledge_base_dir.exists():
@@ -60,7 +63,7 @@ class ContentAssembler:
 
         # Initialize components
         self.template_engine = TemplateEngine(templates_dir)
-        self.llm_writer = LLMWriter()
+        self.llm_writer = LLMWriter(citation_style=citation_style)
 
         # Token budget enforcement
         self.max_cost_per_page = 0.50  # USD per page
@@ -74,6 +77,13 @@ class ContentAssembler:
         }
 
         logger.info("ContentAssembler initialized successfully")
+
+    @property
+    def style_display_name(self) -> str:
+        """Get display name for citation style (e.g., 'MLA 9 Format' or 'APA Format')"""
+        if "mla" in self.citation_style.lower():
+            return "MLA 9 Format"
+        return "APA Format"
 
     def assemble_mega_guide(self, topic: str, config: dict) -> dict:
         """
@@ -159,6 +169,12 @@ class ContentAssembler:
         """
         logger.info(f"=== Assembling Source Type Page: {source_type} ===")
 
+        # Auto-generate title if missing (common for specific sources)
+        if not config.get('title'):
+            generated_title = f"How to Cite {source_type} in {self.style_display_name}"
+            config = {**config, 'title': generated_title}
+            logger.info(f"  Auto-generated title: {generated_title}")
+
         # 1. Load template
         logger.info("Step 1: Loading source type template")
         template = self.template_engine.load_template("source_type_template.md")
@@ -188,6 +204,7 @@ class ContentAssembler:
             "last_updated": datetime.now().strftime("%Y-%m-%d"),
             "reading_time": "10 minutes"  # Will recalculate
         }
+
 
         # 5. Render template
         logger.info("Step 5: Rendering template with data")
@@ -627,24 +644,57 @@ class ContentAssembler:
         """
         logger.debug("Generating main sections")
 
-        # Generate one comprehensive section
-        # In full version, would generate multiple sections
-
-        main_content = self.llm_writer.generate_explanation(
-            concept=f"comprehensive guide to {topic}",
-            rules={"rules": rules[:10]},
-            examples=[]
-        )
-
-        # Return as list of section objects
-        sections = [
+        # Define 5 comprehensive sections for mega guides
+        section_definitions = [
             {
-                "title": f"Understanding {topic.title()}",
-                "slug": f"understanding-{topic.replace(' ', '-')}",
-                "content": main_content,
-                "examples": []
+                "title": "Understanding MLA 9th Edition",
+                "slug": "understanding-mla-9th-edition", 
+                "concept": f"the core philosophy and container system in {topic}",
+                "rules_slice": rules[:5]
+            },
+            {
+                "title": "Author Formatting Rules",
+                "slug": "author-formatting-rules",
+                "concept": "author name formatting in MLA 9 including full names, name inversion, two authors with 'and', and et al. for three or more authors",
+                "rules_slice": [r for r in rules if r.get('category') == 'author_formatting'][:5] or rules[:3]
+            },
+            {
+                "title": "Title and Source Formatting", 
+                "slug": "title-source-formatting",
+                "concept": "title formatting in MLA 9 including Title Case capitalization, when to use italics for complete works, and when to use quotation marks for shorter works",
+                "rules_slice": [r for r in rules if r.get('category') == 'title_formatting'][:5] or rules[3:6]
+            },
+            {
+                "title": "Dates, Publishers, and Locations",
+                "slug": "dates-publishers-locations",
+                "concept": "date formatting in MLA 9 including Day Month Year format, date placement after publisher, URLs without http://, and DOI formatting",
+                "rules_slice": [r for r in rules if r.get('category') in ('date_formatting', 'url_formatting')][:5] or rules[5:8]
+            },
+            {
+                "title": "In-Text Citations",
+                "slug": "in-text-citations",
+                "concept": "in-text citations in MLA 9 including parenthetical and narrative citations, author-page format without p. or pp., and handling sources without page numbers",
+                "rules_slice": [r for r in rules if r.get('category') == 'punctuation'][:5] or rules[8:11]
             }
         ]
+
+        sections = []
+        for section_def in section_definitions:
+            logger.info(f"  Generating section: {section_def['title']}...")
+            
+            content = self.llm_writer.generate_explanation(
+                concept=section_def["concept"],
+                rules={"rules": section_def["rules_slice"]},
+                examples=[],
+                max_tokens=3000  # High value to avoid gpt-5.2 truncation bug
+            )
+            
+            sections.append({
+                "title": section_def["title"],
+                "slug": section_def["slug"],
+                "content": content,
+                "examples": []
+            })
 
         return sections
 
@@ -672,7 +722,7 @@ class ContentAssembler:
 
     def _generate_related_resources(self, topic: str) -> list:
         """
-        Generate list of related resources
+        Generate list of related resources based on citation style
 
         Args:
             topic: Guide topic
@@ -682,14 +732,19 @@ class ContentAssembler:
         """
         logger.debug(f"Generating related resources for {topic}")
 
-        # Simplified version - just return common related pages
-        # In full version, would be smarter about relationships
-
-        related = [
-            {"title": "APA Citation Checker", "url": "/checker/"},
-            {"title": "Common APA Errors", "url": "/guides/common-errors/"},
-            {"title": "APA Style Guide", "url": "/guides/apa-style/"}
-        ]
+        # Return style-appropriate resources
+        if "mla" in self.citation_style.lower():
+            related = [
+                {"title": "MLA Citation Checker", "url": "/"},
+                {"title": "How to Cite Books in MLA", "url": "/how-to-cite-book-mla/"},
+                {"title": "MLA 9th Edition Guide", "url": "/guide/mla-9th-edition/"}
+            ]
+        else:
+            related = [
+                {"title": "APA Citation Checker", "url": "/checker/"},
+                {"title": "Common APA Errors", "url": "/guides/common-errors/"},
+                {"title": "APA Style Guide", "url": "/guides/apa-style/"}
+            ]
 
         return related
 
@@ -716,7 +771,7 @@ class ContentAssembler:
 
     def _generate_quick_reference_template(self, source_type: str) -> str:
         """
-        Generate quick reference template based on source type
+        Generate quick reference template based on source type and citation style
 
         Args:
             source_type: Type of source
@@ -726,9 +781,25 @@ class ContentAssembler:
         """
         logger.debug(f"Generating quick reference template for {source_type}")
 
-        # Templates for different source types
-        templates = {
-            # Tier 1: Academic sources
+        # MLA 9 templates - use full first names, "and" between authors, year after publisher
+        mla_templates = {
+            "book citation": "Author Last, First Name. <em>Title of Book</em>. Publisher, Year.",
+            "book citation MLA": "Author Last, First Name. <em>Title of Book</em>. Publisher, Year.",
+            "journal_article": "Author Last, First Name. \"Title of Article.\" <em>Journal Name</em>, vol. X, no. X, Year, pp. XX-XX.",
+            "website citation": "Author Last, First Name. \"Title of Page.\" <em>Website Name</em>, Publisher, Day Month Year, URL.",
+            "newspaper citation": "Author Last, First Name. \"Title of Article.\" <em>Newspaper Name</em>, Day Month Year, p. XX.",
+            "youtube citation": "Author/Username. \"Title of Video.\" <em>YouTube</em>, uploaded by Channel Name, Day Month Year, URL.",
+            "YouTube": "Author/Username. \"Title of Video.\" <em>YouTube</em>, uploaded by Channel Name, Day Month Year, URL.",
+            "ebook citation": "Author Last, First Name. <em>Title of Book</em>. E-book ed., Publisher, Year.",
+            "dissertation citation": "Author Last, First Name. <em>Title of Dissertation</em>. Year. University, PhD dissertation.",
+            "conference paper citation": "Author Last, First Name. \"Title of Paper.\" <em>Conference Name</em>, Year, Location.",
+            "podcast citation": "Host Last, First Name, host. \"Episode Title.\" <em>Podcast Name</em>, Publisher, Day Month Year.",
+            "film citation": "Director Last, First Name, director. <em>Title of Film</em>. Studio, Year.",
+            "wikipedia citation": "\"Title of Article.\" <em>Wikipedia</em>, Wikimedia Foundation, Day Month Year, URL.",
+        }
+
+        # APA 7 templates (original)
+        apa_templates = {
             "conference paper citation": "Author, A. A. (Year). <em>Title of paper</em>. In E. E. Editor (Ed.), <em>Title of proceedings</em> (pp. pages). Publisher. https://doi.org/xxxxx",
             "dissertation citation": "Author, A. A. (Year). <em>Title of dissertation</em> [Doctoral dissertation, Institution Name]. Database Name. https://doi.org/xxxxx",
             "thesis citation": "Author, A. A. (Year). <em>Title of thesis</em> [Master's thesis, Institution Name]. Database Name. https://URL",
@@ -737,8 +808,6 @@ class ContentAssembler:
             "report citation": "Author, A. A. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://doi.org/xxxxx",
             "government report citation": "Agency Name. (Year). <em>Title of report</em> (Report No. XXX). Publisher. https://URL",
             "dataset citation": "Author, A. A. (Year). <em>Title of dataset</em> (Version X) [Data set]. Publisher. https://doi.org/xxxxx",
-
-            # Tier 2: Online & popular sources
             "newspaper citation": "Author, A. A. (Year, Month Day). Title of article. <em>Newspaper Name</em>. https://www.url.com",
             "magazine citation": "Author, A. A. (Year, Month Day). Title of article. <em>Magazine Name</em>, <em>volume</em>(issue), pages. https://www.url.com",
             "blog citation": "Author, A. A. (Year, Month Day). <em>Title of blog post</em>. Blog Name. https://www.url.com",
@@ -749,8 +818,6 @@ class ContentAssembler:
             "dictionary citation": "Author, A. A. (Year). Title of entry. In <em>Dictionary name</em> (edition ed.). Publisher. https://www.url.com",
             "encyclopedia citation": "Author, A. A. (Year). Title of entry. In E. E. Editor (Ed.), <em>Encyclopedia name</em> (Vol. volume, pp. pages). Publisher. https://www.url.com",
             "film citation": "Director, D. D. (Director). (Year). <em>Title of film</em> [Film]. Studio. https://www.url.com",
-
-            # Tier 3: Multimedia & social media
             "tv episode citation": "Writer, W. W. (Writer), & Director, D. D. (Director). (Year, Month Day). Episode title (Season X, Episode Y) [TV series episode]. In P. P. Producer (Executive Producer), <em>Series name</em>. Studio. https://www.url.com",
             "twitter citation": "Author [@username]. (Year, Month Day). <em>First 20 words of tweet</em> [Tweet]. Twitter. https://twitter.com/username/status/xxxxx",
             "instagram citation": "Author [@username]. (Year, Month Day). <em>First 20 words of caption</em> [Photograph]. Instagram. https://www.instagram.com/p/xxxxx",
@@ -760,16 +827,19 @@ class ContentAssembler:
             "patent citation": "Inventor, I. I. (Year). <em>Patent title</em> (U.S. Patent No. X,XXX,XXX). U.S. Patent and Trademark Office. https://www.url.com",
             "artwork citation": "Artist, A. A. (Year). <em>Title of work</em> [Medium]. Museum/Collection Name, Location. https://www.url.com",
             "music citation": "Artist, A. A. (Year). <em>Song title</em> [Song]. On <em>Album name</em>. Record Label. https://www.url.com",
-
-            # Additional high-priority sources
             "ebook citation": "Author, A. A. (Year). <em>Book title</em> [E-book]. Publisher. https://doi.org/xxxxx",
             "working paper citation": "Author, A. A. (Year). <em>Title of working paper</em> (Working Paper No. XXX). Institution Name. https://www.url.com",
             "white paper citation": "Author/Organization. (Year). <em>Title of white paper</em>. Publisher/Organization. https://www.url.com",
             "press release citation": "Organization Name. (Year, Month Day). <em>Title of press release</em> [Press release]. https://www.url.com"
         }
 
-        # Default template for journal articles (fallback)
-        default_template = "Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</em>(issue), pages. https://doi.org/xxxxx"
+        # Select templates based on citation style
+        if "mla" in self.citation_style.lower():
+            templates = mla_templates
+            default_template = "Author Last, First Name. <em>Title of Work</em>. Publisher, Year."
+        else:
+            templates = apa_templates
+            default_template = "Author, A. A. (Year). <em>Title of work</em>. <em>Source Name</em>, <em>volume</em>(issue), pages. https://doi.org/xxxxx"
 
         # Return appropriate template
         template = templates.get(source_type.lower(), default_template)
@@ -1684,6 +1754,7 @@ validation_element: {validation_element}
             "parent_source_name": parent_data["display_name"],
             "parent_source_url": parent_data["parent_page_url"],
             "inherited_template": parent_data["reference_template"],
+            "style_display_name": self.style_display_name,  # Dynamic style name
             **llm_content,  # Generated unique content
             "last_updated": datetime.now().strftime("%Y-%m-%d"),
             "reading_time": "5 minutes"  # Target 800-1200 words
@@ -2227,8 +2298,8 @@ validation_element: {validation_element}
         return {
             "@context": "https://schema.org",
             "@type": "HowTo",
-            "name": f"How to Cite {source_name} in APA Format",
-            "description": f"Step-by-step guide to citing {source_name} in APA 7th edition format",
+            "name": f"How to Cite {source_name} in {self.style_display_name}",
+            "description": f"Step-by-step guide to citing {source_name} in {self.style_display_name}",
             "step": [
                 {"@type": "HowToStep", "text": step}
                 for step in steps
@@ -2253,10 +2324,10 @@ validation_element: {validation_element}
 
         # Create front matter
         front_matter = f"""---
-title: "How to Cite {source_config['name']} in APA Format"
+title: "How to Cite {source_config['name']} in {self.style_display_name}"
 description: "{source_config['description']}"
-meta_title: "Cite {source_config['name']} in APA Format | Complete Guide"
-meta_description: "Learn how to cite {source_config['name']} in APA 7th edition. Includes examples, templates, and specific formatting requirements."
+meta_title: "Cite {source_config['name']} in {self.style_display_name} | Complete Guide"
+meta_description: "Learn how to cite {source_config['name']} in {self.style_display_name}. Includes examples, templates, and specific formatting requirements."
 page_type: "specific_source"
 url_slug: "{source_config['url_slug']}"
 source_name: "{source_config['name']}"
@@ -2280,7 +2351,7 @@ schema: {json.dumps(schema)}
         word_count = self._estimate_word_count(content)
 
         return {
-            "title": f"How to Cite {source_config['name']} in APA Format",
+            "title": f"How to Cite {source_config['name']} in {self.style_display_name}",
             "description": source_config["description"],
             "source_name": source_config["name"],
             "source_category": source_config["category"],

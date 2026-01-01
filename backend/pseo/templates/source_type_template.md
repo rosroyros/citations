@@ -14,12 +14,13 @@
 
 ---
 
-<div class="mini-checker">
+<div class="mini-checker" data-style="mla9">
 <h4>🔍 Try It Out</h4>
 <p>Paste a {{ source_type_name|lower }} citation to check your formatting</p>
-<textarea placeholder="Author, A. A. (Year). Title of work..."></textarea>
-<button>Check Citation</button>
+<textarea placeholder="Author Last, First Name. Title of Work. Publisher, Year."></textarea>
+<button onclick="checkCitation(this)">Check Citation</button>
 </div>
+
 
 ---
 
@@ -34,6 +35,7 @@
 
 {% for example in examples %}
 <div class="example-box">
+{% if example.metadata %}
 <div class="example-variation">{{ example.metadata.title }}</div>
 <div class="citation-example">
 {{ example.reference_citation }}
@@ -45,6 +47,21 @@
 <li><strong>{{ citation.type|title }}:</strong> {{ citation.citation }}</li>
 {% endfor %}
 </ul>
+{% else %}
+<div class="example-variation">{{ example.source_type|title }} Example</div>
+<div class="citation-example">
+{{ example.citation }}
+</div>
+
+{% if example.validation_notes %}
+<strong>Key Points:</strong>
+<ul>
+{% for note in example.validation_notes %}
+<li>{{ note }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endif %}
 </div>
 
 {% endfor %}

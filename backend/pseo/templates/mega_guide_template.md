@@ -4,7 +4,7 @@
 <div class="hero-meta">
 <div class="meta-badge">📖 Reading time: {{ reading_time }}</div>
 <div class="meta-badge">🔄 Last updated: {{ last_updated }}</div>
-<div class="meta-badge">✅ {{ citation_style or 'APA 7th Edition' }}</div>
+<div class="meta-badge">✅ {{ citation_style_display or 'Citation Style Guide' }}</div>
 </div>
 </div>
 
@@ -29,7 +29,7 @@
 <div class="tldr-box" id="tldr">
 <h2>⚡ TL;DR - Quick Summary</h2>
 <ul>
-<li>Master APA 7th edition citation formatting</li>
+<li>Master {{ citation_style_display or 'citation' }} formatting</li>
 <li>Identify and fix common citation errors</li>
 <li>Use validation tools to ensure accuracy</li>
 <li>Understand the rules that matter most</li>
@@ -74,6 +74,7 @@
 
 {% for example in examples %}
 <div class="example-box">
+{% if example.metadata %}
 <div class="example-variation">{{ example.metadata.title }}</div>
 <div class="citation-example">
 {{ example.reference_citation }}
@@ -87,6 +88,23 @@
 </ul>
 
 <p><strong>Source Type:</strong> {{ example.source_type }}</p>
+{% else %}
+<div class="example-variation">{{ example.source_type|title }} Example</div>
+<div class="citation-example">
+{{ example.citation }}
+</div>
+
+{% if example.validation_notes %}
+<strong>Key Points:</strong>
+<ul>
+{% for note in example.validation_notes %}
+<li>{{ note }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+<p><strong>Source Type:</strong> {{ example.source_type }}</p>
+{% endif %}
 </div>
 
 {% endfor %}

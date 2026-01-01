@@ -21,30 +21,34 @@ logger = logging.getLogger(__name__)
 
 class LLMWriter:
     """
-    Handles LLM content generation using GPT-4o-mini
+    Handles LLM content generation using GPT models
 
-    Pricing: $0.15/1M input tokens, $0.60/1M output tokens
+    Pricing: gpt-5.2 with flex mode = 50% cost reduction
     """
 
-    def __init__(self, model: str = "gpt-5-mini", api_key: Optional[str] = None):
+    def __init__(self, model: str = "gpt-5.2", api_key: Optional[str] = None, service_tier: str = "flex", citation_style: str = "APA 7th edition"):
         """
         Initialize LLM writer
 
         Args:
-            model: OpenAI model to use (default: gpt-5-mini)
+            model: OpenAI model to use (default: gpt-5.2)
             api_key: OpenAI API key (optional, uses env var if not provided)
+            service_tier: Service tier for API calls (default: flex for 50% savings)
+            citation_style: Citation style for content generation (default: APA 7th edition)
         """
-        logger.info(f"Initializing LLMWriter with model: {model}")
+        logger.info(f"Initializing LLMWriter with model: {model}, service_tier: {service_tier}, style: {citation_style}")
         self.model = model
+        self.service_tier = service_tier
+        self.citation_style = citation_style
         self.client = OpenAI(api_key=api_key) if api_key else OpenAI()
 
         # Token usage tracking
         self.total_input_tokens = 0
         self.total_output_tokens = 0
 
-        # Pricing (per 1M tokens)
-        self.input_price_per_million = 0.15
-        self.output_price_per_million = 0.60
+        # Pricing (per 1M tokens) - flex mode prices
+        self.input_price_per_million = 0.075  # 50% of standard
+        self.output_price_per_million = 0.30   # 50% of standard
 
         logger.info(f"LLMWriter initialized successfully")
 
@@ -76,12 +80,13 @@ class LLMWriter:
                 response = self.client.chat.completions.create(
                     model=self.model,
                     messages=[
-                        {"role": "system", "content": "You are an expert academic writing assistant specializing in APA citation guides. NEVER use em dashes (—) in your writing. Use commas, periods, or split into separate sentences instead."},
+                        {"role": "system", "content": f"You are an expert academic writing assistant specializing in {self.citation_style} citation guides. NEVER use em dashes (—) in your writing. Use commas, periods, or split into separate sentences instead."},
                         {"role": "user", "content": prompt}
                     ],
-                    max_tokens=max_tokens,
+                    max_completion_tokens=max_tokens,
                     temperature=temperature,
-                    timeout=60.0  # 60 second timeout
+                    timeout=60.0,  # 60 second timeout
+                    service_tier=self.service_tier
                 )
 
                 # Track token usage
@@ -148,7 +153,7 @@ Output only the introduction text."""
         return self._call_openai(prompt, max_tokens=600, temperature=0.7)
 
     def generate_explanation(self, concept: str, rules: Dict,
-                            examples: List[str]) -> str:
+                            examples: List[str], max_tokens: int = 3000) -> str:
         """
         Generate 800-1200 word explanation section
 
@@ -156,13 +161,14 @@ Output only the introduction text."""
             concept: Concept to explain
             rules: Relevant rules
             examples: Citation examples
+            max_tokens: Maximum tokens for response (default 1800)
 
         Returns:
             Explanation text (800-1200 words, markdown formatted)
         """
         logger.info(f"Generating explanation for concept: {concept}")
 
-        prompt = f"""Explain {concept} for an APA citation guide.
+        prompt = f"""Explain {concept} for a {self.citation_style} citation guide.
 
 RULES: {self._summarize_rules(rules)}
 EXAMPLES: {chr(10).join(examples[:3])}
@@ -180,7 +186,7 @@ Requirements:
 
 Use Markdown formatting for structure. Remember: NO H1 headings, only H2 (##) and below."""
 
-        return self._call_openai(prompt, max_tokens=1800, temperature=0.7)
+        return self._call_openai(prompt, max_tokens=max_tokens, temperature=0.7)
 
     def generate_why_errors_happen(self, errors: List[Dict]) -> str:
         """

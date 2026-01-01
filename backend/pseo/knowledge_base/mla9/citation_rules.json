@@ -3,7 +3,7 @@
     "rule_id": "MLA9-R1.1",
     "source": "MLA Handbook 9th Edition, Section 2.1",
     "category": "author_formatting",
-    "description": "Author names MUST use full first names, not initials. This is a fundamental difference from APA style. In MLA 9, the emphasis is on full names to provide clarity and respect for the author's identity. The first author's name is inverted (Last, First Middle), while subsequent authors in two-author works use normal order (First Last).",
+    "description": "Author names MUST use full first names, not initials. In MLA 9, the emphasis is on full names to provide clarity and respect for the author's identity. The first author's name is inverted (Last, First Middle), while subsequent authors in two-author works use normal order (First Last).",
     "examples": [
       {
         "type": "correct",
@@ -32,11 +32,13 @@
       "middle_name_optional"
     ],
     "common_errors": [
-      "Using initials (APA style confusion)",
+      "Using initials (initials error)",
       "Not using full first name",
       "Abbreviating middle names"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R1.2",
@@ -65,13 +67,15 @@
       "Not inverting the first author's name",
       "Inverting all author names instead of just the first"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R1.3",
     "source": "MLA Handbook 9th Edition, Section 2.1",
     "category": "author_formatting",
-    "description": "For TWO authors: use 'and' between names (second name NOT inverted). This differs from APA's use of '&' and from incorrectly inverting both names. The word 'and' is preferred in MLA for its formality and readability.",
+    "description": "For TWO authors: use 'and' between names (second name NOT inverted). The word 'and' is preferred in MLA for its formality and readability.",
     "examples": [
       {
         "type": "correct",
@@ -80,7 +84,7 @@
       {
         "type": "incorrect",
         "citation": "Garcia, Maria, & Sanjay Patel",
-        "error_reason": "Uses ampersand instead of 'and' (APA style)"
+        "error_reason": "Uses ampersand instead of 'and' "
       },
       {
         "type": "incorrect",
@@ -101,11 +105,13 @@
       "second_author_normal_order"
     ],
     "common_errors": [
-      "Using '&' instead of 'and' (APA style)",
+      "Using '&' instead of 'and' (use the word 'and')",
       "Inverting both author names",
       "Omitting 'and' between authors"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R1.4",
@@ -139,7 +145,9 @@
       "Using initials with et al.",
       "Omitting comma before et al."
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R1.5",
@@ -171,7 +179,9 @@
       "Using 'Anonymous' or 'Anon.'",
       "Starting with publication date"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R2.1",
@@ -190,7 +200,7 @@
       {
         "type": "incorrect",
         "citation": "\"The impact of climate change\"",
-        "error_reason": "Uses sentence case instead of Title Case (APA style)"
+        "error_reason": "Uses sentence case instead of Title Case "
       }
     ],
     "changed_from_mla8": false,
@@ -201,11 +211,13 @@
       "lowercase_articles_conjunctions_prepositions"
     ],
     "common_errors": [
-      "Using sentence case (APA style)",
+      "Using sentence case ",
       "Capitalizing all words including articles",
       "Not capitalizing last word if it's a preposition"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R2.2",
@@ -310,13 +322,15 @@
       "Double formatting for emphasis",
       "Confusion about which formatting to use"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R3.1",
     "source": "MLA Handbook 9th Edition, Section 2.6",
     "category": "date_formatting",
-    "description": "Date placement: AFTER publisher, BEFORE page numbers/URL. This is a key difference from APA (which places date after author). The date follows the publisher in the publication sequence.",
+    "description": "Date placement: AFTER publisher, BEFORE page numbers/URL. The date follows the publisher in the publication sequence.",
     "examples": [
       {
         "type": "correct",
@@ -330,7 +344,7 @@
       {
         "type": "incorrect",
         "citation": "Author. (2024). Title.",
-        "error_reason": "Date after author in parentheses (APA style)"
+        "error_reason": "Date after author in parentheses "
       }
     ],
     "changed_from_mla8": false,
@@ -342,11 +356,13 @@
       "page_numbers_or_url"
     ],
     "common_errors": [
-      "Placing date after author (APA style)",
+      "Placing date after author (incorrect in MLA)",
       "Placing date after page numbers",
       "Using parentheses around date"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R3.2",
@@ -405,7 +421,7 @@
       {
         "type": "incorrect",
         "citation": "(2024)",
-        "error_reason": "Uses parentheses (APA style)"
+        "error_reason": "Uses parentheses "
       }
     ],
     "changed_from_mla8": false,
@@ -414,7 +430,7 @@
       "period"
     ],
     "common_errors": [
-      "Using parentheses around year (APA style)",
+      "Using parentheses around year (incorrect in MLA)",
       "Omitting period after year"
     ],
     "affected_source_types": [
@@ -426,7 +442,7 @@
     "rule_id": "MLA9-R3.4",
     "source": "MLA Handbook 9th Edition, Section 2.6",
     "category": "date_formatting",
-    "description": "NO DATE available: Omit date element (do not use 'n.d.'). If no publication date is available, simply skip the date element entirely. This differs from APA which requires 'n.d.' placeholder.",
+    "description": "NO DATE available: Omit date element (do not use 'n.d.'). If no publication date is available, simply skip the date element entirely. ",
     "examples": [
       {
         "type": "correct",
@@ -435,7 +451,7 @@
       {
         "type": "incorrect",
         "citation": "Publisher, n.d.",
-        "error_reason": "Uses 'n.d.' placeholder (APA style)"
+        "error_reason": "Uses 'n.d.' placeholder "
       }
     ],
     "changed_from_mla8": false,
@@ -443,10 +459,12 @@
       "omit_date_element"
     ],
     "common_errors": [
-      "Using 'n.d.' (APA style)",
+      "Using 'n.d.' (not used in MLA)",
       "Using 'no date' or similar placeholder"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R3.5",
@@ -499,7 +517,9 @@
       "Using comma after author instead of period",
       "Omitting period after title"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R4.2",
@@ -520,7 +540,9 @@
       "Using periods between all elements",
       "Inconsistent comma usage"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R4.3",
@@ -546,7 +568,9 @@
       "Omitting final period",
       "Using other punctuation at end"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R4.4",
@@ -576,10 +600,12 @@
       "page_number"
     ],
     "common_errors": [
-      "Including 'p.' or 'pp.' (APA style)",
+      "Including 'p.' or 'pp.' (not used in MLA in-text)",
       "Adding comma between author and page"
     ],
-    "affected_source_types": ["in_text_citation"]
+    "affected_source_types": [
+      "in_text_citation"
+    ]
   },
   {
     "rule_id": "MLA9-R4.5",
@@ -713,11 +739,11 @@
     "examples": [
       {
         "type": "correct",
-        "citation": "Article (source) → Journal (container 1)"
+        "citation": "Article (source) \u2192 Journal (container 1)"
       },
       {
         "type": "correct",
-        "citation": "Journal → Database (container 2)"
+        "citation": "Journal \u2192 Database (container 2)"
       }
     ],
     "changed_from_mla8": true,
@@ -729,7 +755,9 @@
       "Treating database as publisher",
       "Not identifying container hierarchy"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R6.2",
@@ -753,7 +781,9 @@
       "Using comma after source title",
       "Using period after container title"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-R6.3",
@@ -811,7 +841,9 @@
       "Not italicizing container",
       "Inconsistent formatting"
     ],
-    "affected_source_types": ["all"]
+    "affected_source_types": [
+      "all"
+    ]
   },
   {
     "rule_id": "MLA9-B1",
@@ -839,7 +871,9 @@
       "Including place of publication (MLA 8 style)",
       "Using sentence case for title"
     ],
-    "affected_source_types": ["book"]
+    "affected_source_types": [
+      "book"
+    ]
   },
   {
     "rule_id": "MLA9-J1",
@@ -874,7 +908,9 @@
       "Capitalizing 'Vol.' and 'No.'",
       "Omitting 'pp.' before pages"
     ],
-    "affected_source_types": ["journal_article"]
+    "affected_source_types": [
+      "journal_article"
+    ]
   },
   {
     "rule_id": "MLA9-J2",
@@ -919,7 +955,9 @@
       "Using APA format 4(2)",
       "Spelling out Volume/Number"
     ],
-    "affected_source_types": ["journal_article"]
+    "affected_source_types": [
+      "journal_article"
+    ]
   },
   {
     "rule_id": "MLA9-W1",
@@ -950,6 +988,8 @@
       "Using 'Web' medium identifier (MLA 7)",
       "Wrong date format"
     ],
-    "affected_source_types": ["website"]
+    "affected_source_types": [
+      "website"
+    ]
   }
 ]

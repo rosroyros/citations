@@ -10,7 +10,7 @@ Quality Gates:
 3. No em dashes (—) that should be en dashes
 4. H1 contains "MLA"
 5. TF-IDF similarity vs APA pages < 0.3 (distinctness check)
-6. Mini-checker has data-style="mla9" attribute
+6. CITATION_STYLE set to 'mla9' (for mini-checker validation)
 7. Cross-style link to APA version present (for specific sources)
 
 Usage:
@@ -215,15 +215,16 @@ class MLAPageValidator:
             return False
 
     def check_minichecker_config(self, html_content: str, page_id: str) -> bool:
-        """Check for data-style='mla9' in mini-checker"""
-        has_data_style = 'data-style="mla9"' in html_content or "data-style='mla9'" in html_content
+        """Check for correct citation style configuration (CITATION_STYLE = 'mla9')"""
+        # Check the actual config used by static page JavaScript
+        has_correct_style = "CITATION_STYLE = 'mla9'" in html_content
 
-        if has_data_style:
-            logger.info(f"  ✅ Mini-checker has data-style='mla9'")
+        if has_correct_style:
+            logger.info(f"  ✅ CITATION_STYLE set to 'mla9'")
             return True
         else:
-            logger.error(f"  ❌ Mini-checker missing data-style='mla9'")
-            self.results[page_id].append("Mini-checker missing data-style attribute")
+            logger.error(f"  ❌ Missing CITATION_STYLE = 'mla9'")
+            self.results[page_id].append("CITATION_STYLE not set to mla9")
             return False
 
     def check_cross_style_link(self, html_content: str, page_id: str) -> bool:

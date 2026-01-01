@@ -49,61 +49,6 @@ class MLAStaticSiteGenerator(EnhancedStaticSiteGenerator):
             "placeholder": placeholder
         }
 
-    def _generate_sidebar_content(self, metadata: dict) -> str:
-        """
-        Generate MLA-specific sidebar content
-
-        Args:
-            metadata: Page metadata
-
-        Returns:
-            Sidebar HTML content with MLA guides
-        """
-        # Extract context for related guides
-        source_id = metadata.get('source_id', '')
-
-        # MLA-specific related guides
-        sidebar_html = """
-<aside class="sidebar">
-    <div class="sidebar-section">
-        <h3>Related Guides</h3>
-        <ul>
-            <li><a href="/guide/mla-9th-edition/">📄 MLA 9th Edition Guide</a></li>
-            <li><a href="/how-to-cite-journal-mla/">📰 Journal Articles in MLA</a></li>
-            <li><a href="/how-to-cite-book-mla/">📖 Books in MLA</a></li>
-            <li><a href="/how-to-cite-website-mla/">🌐 Websites in MLA</a></li>
-        </ul>
-    </div>
-
-    <div class="sidebar-section">
-        <h3>Quick Tools</h3>
-        <ul>
-            <li><a href="/?style=mla9">Citation Checker (MLA)</a></li>
-            <li><a href="/generator/?style=mla9">Format Generator</a></li>
-            <li><a href="/tools/style-comparison/">Style Comparison</a></li>
-        </ul>
-    </div>
-
-    <div class="sidebar-section sidebar-pro-tip">
-        <h3>💡 Pro Tip</h3>
-        <p>MLA 9 uses a flexible "container" system. The container is the larger work that holds your source (e.g., a website contains an article, a database contains a journal).</p>
-    </div>
-
-    <div class="sidebar-section">
-        <h3>Page Info</h3>
-        <p><strong>Word count:</strong> {word_count}</p>
-        <p><strong>Reading time:</strong> {reading_time}</p>
-        <p><strong>Last updated:</strong> {last_updated}</p>
-    </div>
-</aside>
-        """.format(
-            word_count=metadata.get('word_count', 'Unknown'),
-            reading_time=metadata.get('reading_time', 'Unknown'),
-            last_updated=metadata.get('last_updated', 'Unknown')
-        )
-
-        return sidebar_html
-
     def _generate_cross_style_banner(self, source_id: str) -> str:
         """
         Generate cross-style linking banner (MLA -> APA)
@@ -176,16 +121,22 @@ class MLAStaticSiteGenerator(EnhancedStaticSiteGenerator):
 
         Args:
             page_type: Type of page (mega_guide, source_type, specific_source)
-            page_name: URL slug for page
+            page_name: URL slug for page (from config)
 
         Returns:
-            URL path string with -mla suffix
+            URL path string for MLA page
         """
         if page_type == "mega_guide":
-            url = f"/guide/mla-{page_name}/"
+            # Mega guide slugs are already complete (e.g., "mla-9th-edition")
+            # URL pattern: /guide/[slug]/
+            url = f"/guide/{page_name}/"
         elif page_type == "source_type":
-            url = f"/how-to-cite-{page_name}-mla/"
+            # Source type slugs may have -mla suffix (e.g., "book-mla")
+            # Remove -mla suffix if present to avoid duplication
+            base_name = page_name.replace("-mla", "") if page_name.endswith("-mla") else page_name
+            url = f"/how-to-cite-{base_name}-mla/"
         elif page_type == "specific_source":
+            # Specific source uses id (e.g., "youtube")
             url = f"/cite-{page_name}-mla/"
         else:
             url = f"/{page_name}/"
@@ -223,11 +174,7 @@ class MLAStaticSiteGenerator(EnhancedStaticSiteGenerator):
             'page_type': metadata.get('page_type', 'unknown')
         }
 
-        # Generate sidebar for mega guides
-        if metadata.get('page_type') == 'mega_guide':
-            metadata['sidebar_content'] = self._generate_sidebar_content(metadata)
-
-        # Call parent apply_layout
+        # Call parent apply_layout (uses default template sidebar)
         return super().apply_layout(html_content, metadata)
 
     def generate_schema_markup(self, metadata: dict) -> dict:
