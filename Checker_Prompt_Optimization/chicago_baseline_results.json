@@ -1,0 +1,1481 @@
+{
+  "metadata": {
+    "timestamp": "2026-01-01 11:37:07",
+    "model": "gemini-3-flash-preview",
+    "config": "temp=0.0, thinking_budget=1024, batch_size=5",
+    "dataset": "/Users/roy/Documents/Projects/citations/Checker_Prompt_Optimization/chicago_train_set.jsonl",
+    "prompt": "/Users/roy/Documents/Projects/citations/backend/prompts/validator_prompt_chicago17_v1.2.txt",
+    "total_citations": 117,
+    "expected_valid": 49,
+    "expected_invalid": 68
+  },
+  "metrics": {
+    "prompt_path": "/Users/roy/Documents/Projects/citations/backend/prompts/validator_prompt_chicago17_v1.2.txt",
+    "accuracy": 94.01709401709401,
+    "correct": 110,
+    "total": 117,
+    "true_positives": 43,
+    "true_negatives": 67,
+    "false_positives": 1,
+    "false_negatives": 6,
+    "precision": 97.72727272727273,
+    "recall": 87.75510204081633,
+    "f1_score": 92.47311827956989,
+    "placeholder_count": 10,
+    "source_type_breakdown": {
+      "book chapter (encyclopedia entry)": {
+        "correct": 2,
+        "total": 2
+      },
+      "book": {
+        "correct": 26,
+        "total": 27
+      },
+      "website (blog)": {
+        "correct": 1,
+        "total": 1
+      },
+      "newspaper": {
+        "correct": 5,
+        "total": 6
+      },
+      "book chapter": {
+        "correct": 4,
+        "total": 4
+      },
+      "newspaper/website": {
+        "correct": 2,
+        "total": 2
+      },
+      "social media (twitter)": {
+        "correct": 3,
+        "total": 3
+      },
+      "film/video": {
+        "correct": 7,
+        "total": 7
+      },
+      "other (broadcast interview)": {
+        "correct": 1,
+        "total": 1
+      },
+      "newspaper (database)": {
+        "correct": 0,
+        "total": 1
+      },
+      "newspaper/magazine": {
+        "correct": 7,
+        "total": 7
+      },
+      "magazine": {
+        "correct": 3,
+        "total": 3
+      },
+      "other (artwork)": {
+        "correct": 1,
+        "total": 2
+      },
+      "book (government document)": {
+        "correct": 2,
+        "total": 2
+      },
+      "dissertation": {
+        "correct": 1,
+        "total": 1
+      },
+      "website (government report)": {
+        "correct": 2,
+        "total": 2
+      },
+      "book (e-book)": {
+        "correct": 7,
+        "total": 7
+      },
+      "journal article": {
+        "correct": 18,
+        "total": 19
+      },
+      "book (sacred text)": {
+        "correct": 1,
+        "total": 2
+      },
+      "other (photograph in a periodical)": {
+        "correct": 1,
+        "total": 1
+      },
+      "website": {
+        "correct": 6,
+        "total": 7
+      },
+      "book (government report)": {
+        "correct": 1,
+        "total": 1
+      },
+      "e-book": {
+        "correct": 1,
+        "total": 1
+      },
+      "book (online)": {
+        "correct": 1,
+        "total": 1
+      },
+      "social media (tiktok)": {
+        "correct": 1,
+        "total": 1
+      },
+      "book chapter (conference paper)": {
+        "correct": 1,
+        "total": 1
+      },
+      "book chapter (introduction/foreword)": {
+        "correct": 1,
+        "total": 1
+      },
+      "dissertation/thesis": {
+        "correct": 1,
+        "total": 1
+      },
+      "film/video (youtube/web video)": {
+        "correct": 1,
+        "total": 1
+      },
+      "book chapter (introduction)": {
+        "correct": 1,
+        "total": 1
+      },
+      "other (sacred text)": {
+        "correct": 1,
+        "total": 1
+      }
+    }
+  },
+  "launch_recommendation": "ship",
+  "failure_analysis": {
+    "total_failures": 7,
+    "false_positives": {
+      "count": 1,
+      "description": "Invalid citations marked as valid (missed errors)",
+      "examples": [
+        {
+          "num": 36,
+          "citation": "_Qur'an_. Translated by M. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004."
+        }
+      ]
+    },
+    "false_negatives": {
+      "count": 6,
+      "description": "Valid citations marked as invalid (phantom errors)",
+      "examples": [
+        {
+          "num": 2,
+          "citation": "Richard, Lucien, editor. _What are They Saying about the Theology of Suffering?_ New York: Paulist P"
+        },
+        {
+          "num": 10,
+          "citation": "Li, Lillian. \"Nothing Is More American Than Chinese Food on Christmas.\" _New York Times (Online)_, D"
+        },
+        {
+          "num": 34,
+          "citation": "Fewell, Danna Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the Book of R"
+        },
+        {
+          "num": 42,
+          "citation": "Streeter, Kurt. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" _New York Tim"
+        },
+        {
+          "num": 46,
+          "citation": "Waterhouse, John William. _The Lady of Shalott_. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London."
+        }
+      ]
+    }
+  },
+  "detailed_results": [
+    {
+      "citation_number": 1,
+      "is_valid": false,
+      "corrected": "Lobb, [MISSING: full first name]. \"Military Rations.\" In _Encyclopedia of Food and Culture_, edited by Solomon H. Katz and William Woys Weaver, 2:159\u201360. New York: Charles Scribner's Sons, 2003.",
+      "has_placeholder": true,
+      "source_type": "book chapter (encyclopedia entry)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Lobb, R. L. \"Military Rations.\" In _Encyclopedia of Food and Culture_, edited by Solomon H. Katz and William Woys Weaver, 2:159\u201360. New York: Charles Scribner's Sons, 2003."
+    },
+    {
+      "citation_number": 2,
+      "is_valid": false,
+      "corrected": "Richard, Lucien, editor. _What Are They Saying About the Theology of Suffering?_ New York: Paulist Press, 1992.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Richard, Lucien, editor. _What are They Saying about the Theology of Suffering?_ New York: Paulist Press, 1992."
+    },
+    {
+      "citation_number": 3,
+      "is_valid": false,
+      "corrected": "Idle, Eric. \"Just a Flesh Wound.\" _Hamster Moms_ (blog). June 25, 2014. http://omgitsadeadparrot.com/2014/06/25/hamstermoms.",
+      "has_placeholder": false,
+      "source_type": "website (blog)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Idle, Eric. \"Just a Flesh Wound.\" _Hamster Moms_ (blog). June 25, 2014. Retrieved from http://omgitsadeadparrot.com/2014/06/25/hamstermoms."
+    },
+    {
+      "citation_number": 4,
+      "is_valid": false,
+      "corrected": "Li, Lillian. \"Nothing Is More American Than Chinese Food on Christmas.\" _New York Times (Online)_, December 25, 2018. ProQuest.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Li, Lillian. Nothing Is More American Than Chinese Food on Christmas. _New York Times (Online)_, December 25, 2018. ProQuest."
+    },
+    {
+      "citation_number": 5,
+      "is_valid": false,
+      "corrected": "Rodriguez, Richard. \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates, [MISSING: page range]. Boston: Houghton Mifflin Co., 2000.",
+      "has_placeholder": true,
+      "source_type": "book chapter",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Rodriguez, Richard. \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates. Boston: Houghton Mifflin Co., 2000."
+    },
+    {
+      "citation_number": 6,
+      "is_valid": false,
+      "corrected": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/.",
+      "has_placeholder": false,
+      "source_type": "newspaper/website",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/"
+    },
+    {
+      "citation_number": 7,
+      "is_valid": false,
+      "corrected": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209.",
+      "has_placeholder": false,
+      "source_type": "social media (twitter)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. Retrieved from https://twitter.com/BillNye/status/1106242216123486209."
+    },
+    {
+      "citation_number": 8,
+      "is_valid": true,
+      "corrected": "Spielberg, Steven, dir. _Jurassic Park_. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. DVD.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Spielberg, Steven, dir. _Jurassic Park_. Universal City, CA: Amblin Entertainment, 1993. 2 hr., 7 min. DVD."
+    },
+    {
+      "citation_number": 9,
+      "is_valid": true,
+      "corrected": "Bundy, McGeorge. Interview by Robert MacNeil. _MacNeil/Lehrer NewsHour_. PBS. February 7, 1990.",
+      "has_placeholder": false,
+      "source_type": "other (broadcast interview)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Bundy, McGeorge. Interview by Robert MacNeil. _MacNeil/Lehrer NewsHour_. PBS. February 7, 1990."
+    },
+    {
+      "citation_number": 10,
+      "is_valid": false,
+      "corrected": "Li, Lillian. \"Nothing Is More American Than Chinese Food on Christmas.\" _New York Times (Online)_. December 25, 2018. ProQuest.",
+      "has_placeholder": false,
+      "source_type": "newspaper (database)",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Li, Lillian. \"Nothing Is More American Than Chinese Food on Christmas.\" _New York Times (Online)_, December 25, 2018. ProQuest."
+    },
+    {
+      "citation_number": 11,
+      "is_valid": true,
+      "corrected": "Pai, Tanya. \"The Squishy, Sugary History of Peeps.\" _Vox_, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Pai, Tanya. \"The Squishy, Sugary History of Peeps.\" _Vox_, April 11, 2017. https://www.vox.com/culture/2017/4/11/15209084/peeps-easter."
+    },
+    {
+      "citation_number": 12,
+      "is_valid": true,
+      "corrected": "Dick, Kirby, dir. _The Invisible War_. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Dick, Kirby, dir. _The Invisible War_. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com."
+    },
+    {
+      "citation_number": 13,
+      "is_valid": false,
+      "corrected": "Bouman, Katie. \"How to Take a Picture of a Black Hole.\" Filmed November 2016 at TEDxBeaconStreet, Brookline, MA. Video, 12:51. https://www.ted.com/talks/katie_bouman_what_does_a_black_hole_look_like.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Bouman, Katie. \"How to Take a Picture of a Black Hole.\" Filmed November 2016 at TEDxBeaconStreet, Brookline, MA. Video, 12:51. Retrieved from https://www.ted.com/talks/katie_bouman_what_does_a_black_hole_look_like."
+    },
+    {
+      "citation_number": 14,
+      "is_valid": true,
+      "corrected": "Biden Jr., Joseph R. _National Security Strategy of the United States of America_. Washington, DC: White House, 2022. https://www.whitehouse.gov/wp-content/uploads/2022/10/Biden-Harris-Administrations-National-Security-Strategy-10.2022.pdf.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Biden Jr., Joseph R. _National Security Strategy of the United States of America_. Washington, DC: White House, 2022. https://www.whitehouse.gov/wp-content/uploads/2022/10/Biden-Harris-Administrations-National-Security-Strategy-10.2022.pdf."
+    },
+    {
+      "citation_number": 15,
+      "is_valid": true,
+      "corrected": "Deo, Nisha. \"Visiting Professor Lectures on Photographer.\" _Exponent_ (West Lafayette, IN), Feb. 13, 2009.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Deo, Nisha. \"Visiting Professor Lectures on Photographer.\" _Exponent_ (West Lafayette, IN), Feb. 13, 2009."
+    },
+    {
+      "citation_number": 16,
+      "is_valid": false,
+      "corrected": "Martin, Steve. \"Sports-Interview Shocker.\" _New Yorker_, May 6, 2002, 84.",
+      "has_placeholder": false,
+      "source_type": "magazine",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Martin, Steve. \"Sports-Interview Shocker.\" _New Yorker_, May 6, 2002, 84"
+    },
+    {
+      "citation_number": 17,
+      "is_valid": false,
+      "corrected": "Chaucer Doth Tweet (@LeVostreGV). \"A daye wythout anachronism ys lyke Emily Dickinson wythout her lightsaber.\" Twitter, April 7, 2018, 8:58 p.m. https://www.twitter.com/LeVostreGC/status/982829987286827009.",
+      "has_placeholder": false,
+      "source_type": "social media (twitter)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Chaucer Doth Tweet (@LeVostreGV). \"A daye wythout anachronism ys lyke Emily Dickinson wythout her lightsaber.\" Twitter, April 7, 2018, 8:58 p.m. Retrieved from https://www.twitter.com/LeVostreGC/status/982829987286827009."
+    },
+    {
+      "citation_number": 18,
+      "is_valid": false,
+      "corrected": "P\u00e9rez, Patricia A., ed. _The Tenure-Track Process for Chicana and Latina Faculty: Experiences of Resisting and Persisting in the Academy_. New York: Routledge, 2019. https://doi.org/10.4324/9780429275784.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "P\u00e9rez, Patricia A, ed. _The Tenure-Track Process for Chicana & Latina Faculty: Experiences of Resisting and Persisting in the Academy_. New York: Routledge, 2019. https://doi.org/10.4324/9780429275784."
+    },
+    {
+      "citation_number": 19,
+      "is_valid": false,
+      "corrected": "Waterhouse, John William. _The Lady of Shalott_. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543.",
+      "has_placeholder": false,
+      "source_type": "other (artwork)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Waterhouse, John William. _The Lady of Shalott_. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. Retrieved from https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543."
+    },
+    {
+      "citation_number": 20,
+      "is_valid": true,
+      "corrected": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf.",
+      "has_placeholder": false,
+      "source_type": "book (government document)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf."
+    },
+    {
+      "citation_number": 21,
+      "is_valid": true,
+      "corrected": "Zonta, Michela Maria. \"The Role of Ethnic Banks in the Residential Patterns of Asian Americans: The Case of Los Angeles.\" PhD diss., University of California Los Angeles, 2004. _ProQuest Dissertations & Theses Global_ (Document ID 305197788).",
+      "has_placeholder": false,
+      "source_type": "dissertation",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Zonta, Michela Maria. \"The Role of Ethnic Banks in the Residential Patterns of Asian Americans: The Case of Los Angeles.\" PhD diss., University of California Los Angeles, 2004. _ProQuest Dissertations & Theses Global_ (Document ID 305197788)."
+    },
+    {
+      "citation_number": 22,
+      "is_valid": true,
+      "corrected": "Hansberry, Lorraine. _A Raisin in the Sun_. New York: Vintage Books, 1994.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Hansberry, Lorraine. _A Raisin in the Sun_. New York: Vintage Books, 1994."
+    },
+    {
+      "citation_number": 23,
+      "is_valid": false,
+      "corrected": "Bundy, McGeorge. Interview by Robert MacNeil. _MacNeil/Lehrer NewsHour_. PBS, February 7, 1990.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Bundy, McGeorge: Interview by Robert MacNeil. _MacNeil/Lehrer NewsHour_. PBS. February 7, 1990."
+    },
+    {
+      "citation_number": 24,
+      "is_valid": false,
+      "corrected": "Rodriguez, Richard. \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates, [MISSING: page range]. Boston: Houghton Mifflin Co., 2000.",
+      "has_placeholder": true,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Rodriguez, Richard: \"Aria: A Memoir of a Bilingual Childhood.\" In _The Best American Essays of the Century_, edited by Joyce Carol Oates. Boston: Houghton Mifflin Co., 2000."
+    },
+    {
+      "citation_number": 25,
+      "is_valid": true,
+      "corrected": "Katz, Itai, Kevin Gabayan, and Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In _Advanced Concepts for Intelligent Vision Systems: 9th International Conference_, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Katz, Itai, Kevin Gabayan, and Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In _Advanced Concepts for Intelligent Vision Systems: 9th International Conference_, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007."
+    },
+    {
+      "citation_number": 26,
+      "is_valid": false,
+      "corrected": "United States Government Accountability Office. _Arctic Region: Factors That Facilitate and Hinder the Advancement of U.S. Priorities_. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf.",
+      "has_placeholder": false,
+      "source_type": "website (government report)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "United States Government Accountability Office. _Arctic Region: Factors that Facilitate & Hinder the Advancement of U.S. Priorities_. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf."
+    },
+    {
+      "citation_number": 27,
+      "is_valid": false,
+      "corrected": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. [MISSING: place of publication]: John Wiley and Sons, 2011.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. John Wiley and Sons, 2011."
+    },
+    {
+      "citation_number": 28,
+      "is_valid": true,
+      "corrected": "Delaney, Samuel R. _Stars in My Pocket Like Grains of Sand_. Open Road Media Sci-Fi & Fantasy, 2014. Kindle.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Delaney, Samuel R. _Stars in My Pocket Like Grains of Sand_. Open Road Media Sci-Fi & Fantasy, 2014. Kindle."
+    },
+    {
+      "citation_number": 29,
+      "is_valid": false,
+      "corrected": "Gowers, Ernest. _The Complete Plain Words_. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Gowers, Ernest. _The Complete Plain Words_. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987"
+    },
+    {
+      "citation_number": 30,
+      "is_valid": true,
+      "corrected": "Wright, Sewell. _Evolution and the Genetics of Populations_, vol. 2, _Theory of Gene Frequencies_. Chicago: University of Chicago Press, 1969.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Wright, Sewell. _Evolution and the Genetics of Populations_, vol. 2, _Theory of Gene Frequencies_. Chicago: University of Chicago Press, 1969."
+    },
+    {
+      "citation_number": 31,
+      "is_valid": true,
+      "corrected": "Zamudio, Margaret, Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Zamudio, Margaret, Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central."
+    },
+    {
+      "citation_number": 32,
+      "is_valid": true,
+      "corrected": "Smith, John Maynard. \"The Origin of Altruism.\" _Nature_ 393 (1998): 639\u201340.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Smith, John Maynard. \"The Origin of Altruism.\" _Nature_ 393 (1998): 639\u201340."
+    },
+    {
+      "citation_number": 33,
+      "is_valid": false,
+      "corrected": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's _Macbeth_ and _Othello_, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" _Asian Theater Journal_ 35, no. 1 (Spring 2018): 112\u201332.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Ingham, Michael, and Kaoru Nakao. \"'Come, You Spirits': An Alternative Afterlife to Shakespeare's Macbeth and Othello, as Mediated through Japanese Classical N\u014d and Ky\u014dgen Theatre.\" _Asian Theater Journal_ 35, no. 1 (Spring 2018): 112\u201332"
+    },
+    {
+      "citation_number": 34,
+      "is_valid": false,
+      "corrected": "Fewell, Danna Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the _Book of Ruth_.\" _Journal for the Study of the Old Testament_ 45 (1993): 45-59.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Fewell, Danna Nolan, and David M. Gunn. \"Boaz, Pillar of Society: Measures of Worth in the Book of Ruth.\" _Journal for the Study of the Old Testament_ 45 (1993): 45-59."
+    },
+    {
+      "citation_number": 35,
+      "is_valid": false,
+      "corrected": "Tylor, Edward B. _Researches into the Early Development of Mankind and the Development of Civilization_. Edited by Paul Bohannan. [MISSING: place of publication]: University of Chicago Press, 1964.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Tylor, Edward B. _Researches into the Early Development of Mankind and the Development of Civilization_. Edited by Paul Bohannan. University of Chicago Press, 1964."
+    },
+    {
+      "citation_number": 36,
+      "is_valid": true,
+      "corrected": "_Qur'an_. Translated by M. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004.",
+      "has_placeholder": false,
+      "source_type": "book (sacred text)",
+      "error_count": 0,
+      "ground_truth": false,
+      "correct": false,
+      "citation_text": "_Qur'an_. Translated by M. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004."
+    },
+    {
+      "citation_number": 37,
+      "is_valid": false,
+      "corrected": "Grazer, Brian, and Charles Fishman. _A Curious Mind: The Secret to a Bigger Life_. New York: Simon & Schuster, 2015.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Grazer, Brian and Charles Fishman. _A Curious Mind: The Secret to a Bigger Life_. New York: Simon & Schuster, 2015."
+    },
+    {
+      "citation_number": 38,
+      "is_valid": true,
+      "corrected": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/.",
+      "has_placeholder": false,
+      "source_type": "newspaper/website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "\"Illinois Governor Wants to 'Fumigate' State's Government.\" _CNN_ online. January 30, 2009. https://edition.cnn.com/2009/POLITICS/01/30/illinois.governor.quinn/."
+    },
+    {
+      "citation_number": 39,
+      "is_valid": true,
+      "corrected": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" _Dermatology Online Journal_ 15, no. 7 (2009): 45\u201347. https://doi.org/10.5070/D394t0r445.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Mandy, Stephen H. \"Satisfying Patient Expectations with Soft\u2010Tissue Augmentation.\" _Dermatology Online Journal_ 15, no. 7 (2009): 45\u201347. https://doi.org/10.5070/D394t0r445."
+    },
+    {
+      "citation_number": 40,
+      "is_valid": false,
+      "corrected": "\"CMU Scientists Identify Spread of Invasive Species.\" _Midland Daily News_, November 30, 2014. https://doi.org/10.1233/45678.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Midland Daily News_. \"CMU Scientists Identify Spread of Invasive Species.\" November 30, 2014. Retrieved from https://doi.org/10.1233/45678."
+    },
+    {
+      "citation_number": 41,
+      "is_valid": true,
+      "corrected": "McCurry, Steve. _Afghan Girl_. December 1984. Photograph. _National Geographic_, cover, June 1985.",
+      "has_placeholder": false,
+      "source_type": "other (photograph in a periodical)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "McCurry, Steve. _Afghan Girl_. December 1984. Photograph. _National Geographic_, cover, June 1985."
+    },
+    {
+      "citation_number": 42,
+      "is_valid": false,
+      "corrected": "Streeter, Kurt. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" _New York Times_, July 29, 2021.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Streeter, Kurt. \"Standing Up for Herself by Sitting, And Empowering Others to Say No.\" _New York Times_, July 29, 2021."
+    },
+    {
+      "citation_number": 43,
+      "is_valid": true,
+      "corrected": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. Hoboken, NJ: John Wiley and Sons, 2011.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Strindberg, Anders, and Mats W\u00e4rn. _Islamism: Religion, Radicalization and Resistance_. 2nd ed. Hoboken, NJ: John Wiley and Sons, 2011."
+    },
+    {
+      "citation_number": 44,
+      "is_valid": false,
+      "corrected": "Marcel Breuer Digital Archive. \"Saint John's Church & Campanile.\" Accessed December 25, 2021. https://breuer.syr.edu/project.php?id=370.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Marcel Breuer Digital Archive. \"Saint John's Church & Campanile.\" Accessed December 25, 2021, https://breuer.syr.edu/project.php?id=370."
+    },
+    {
+      "citation_number": 45,
+      "is_valid": false,
+      "corrected": "Pieken, Rebecca. \"One New Yorker's Guide to Being a Total Badass.\" _New York Times_, July 22, 1926. ProQuest.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Pieken, Rebecca. \"One New Yorker's Guide to Being a Total Badass.\" _New York Times_, July 22, 1926. ProQuest"
+    },
+    {
+      "citation_number": 46,
+      "is_valid": false,
+      "corrected": "Waterhouse, John William. _The Lady of Shalott_. [MISSING: year of creation]. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543.",
+      "has_placeholder": true,
+      "source_type": "other (artwork)",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Waterhouse, John William. _The Lady of Shalott_. Oil on canvas, 5\u2032 0\u2033 x 6\u2032 7\u2033. Tate Gallery, London. https://www.tate.org.uk/art/artworks/waterhouse-the-lady-of-shalott-n01543."
+    },
+    {
+      "citation_number": 47,
+      "is_valid": true,
+      "corrected": "Preposterous, Geronimo. \"Mai Tais and Milkshakes: A Fast Ride to the ER.\" _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Preposterous, Geronimo. \"Mai Tais and Milkshakes: A Fast Ride to the ER.\" _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer."
+    },
+    {
+      "citation_number": 48,
+      "is_valid": false,
+      "corrected": "Department of the Army. _Sniper Training_. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf.",
+      "has_placeholder": false,
+      "source_type": "book (government document)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Department of the Army. _Sniper Training_. FM 23-10. Washington, DC: Department of the Army, 1995. http://www.bits.de/NRANEU/others/amd-us-archive/fm_23-10%2894%29.pdf"
+    },
+    {
+      "citation_number": 49,
+      "is_valid": true,
+      "corrected": "Krishnan, Armin. _War as Business: Technological Change and Military Service Contracting_. New York: Routledge, 2008. Kindle.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Krishnan, Armin. _War as Business: Technological Change and Military Service Contracting_. New York: Routledge, 2008. Kindle."
+    },
+    {
+      "citation_number": 50,
+      "is_valid": true,
+      "corrected": "Newmann, William W. \"Reorganizing for National Security and Homeland Security.\" _Public Administration Review_ 62, no. 1 (September 2002): 126\u201337. ProQuest.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Newmann, William W. \"Reorganizing for National Security and Homeland Security.\" _Public Administration Review_ 62, no. 1 (September 2002): 126\u201337. ProQuest."
+    },
+    {
+      "citation_number": 51,
+      "is_valid": false,
+      "corrected": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf.",
+      "has_placeholder": false,
+      "source_type": "book (government report)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Department of Defense. _Summary of the 2018 National Defense Strategy of the United States of America_. Washington, DC: Department of Defense, 2018. Retrieved from https://dod.defense.gov/Portals/1/Documents/pubs/2018-National-Defense-Strategy-Summary.pdf."
+    },
+    {
+      "citation_number": 52,
+      "is_valid": false,
+      "corrected": "Homer. _The Iliad_. Translated by Robert Fagles. New York: Penguin Books, 1990.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Homer. _The Iliad_. Translated by Robert Fagles. New York: Penguin Books, 1990"
+    },
+    {
+      "citation_number": 53,
+      "is_valid": false,
+      "corrected": "Herodotus. _Histories_. Translated by David Grene. [MISSING: place of publication]: University of Chicago Press, 1987.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Herodotus. _Histories_. Translated by David Grene. University of Chicago Press, 1987."
+    },
+    {
+      "citation_number": 54,
+      "is_valid": false,
+      "corrected": "Katz, Itai, Kevin Gabayan, and Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In _Advanced Concepts for Intelligent Vision Systems: 9th International Conference_, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007.",
+      "has_placeholder": false,
+      "source_type": "book chapter",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Katz, Itai, Kevin Gabayan & Hamid Aghajan. \"A Multi-touch Surface Using Multiple Cameras.\" In _Advanced Concepts for Intelligent Vision Systems: 9th International Conference_, edited by Jacques Blanc-Talon, Wilfried Philips, Dan Popescu, and Paul Scheunders, 97\u2013108. Lecture Notes in Computer Science, vol. 4678. Berlin, Germany: Springer-Verlag, 2007."
+    },
+    {
+      "citation_number": 55,
+      "is_valid": false,
+      "corrected": "Boitani, Piero. _The Bible and Its Rewritings_. Translated by Anita Weston. New York: Oxford University Press, 1999.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Boitani, Piero. _The Bible and Its Rewritings_. Translated by Anita Weston. New York: Oxford University Press, 1999"
+    },
+    {
+      "citation_number": 56,
+      "is_valid": false,
+      "corrected": "Google. \"Privacy Policy.\" _Privacy & Terms_. Last modified April 17, 2017. https://www.google.com/policies/privacy/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. Retrieved from https://www.google.com/policies/privacy/."
+    },
+    {
+      "citation_number": 57,
+      "is_valid": false,
+      "corrected": "Pollan, Michael. _The Omnivore's Dilemma: A Natural History of Four Meals_. New York: Penguin, 2006.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Pollan, Michael: _The Omnivore's Dilemma: A Natural History of Four Meals_. New York: Penguin, 2006."
+    },
+    {
+      "citation_number": 58,
+      "is_valid": true,
+      "corrected": "_Midland Daily News_. \"CMU Scientists Identify Spread of Invasive Species.\" November 30, 2014. https://doi.org/10.1233/45678.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "_Midland Daily News_. \"CMU Scientists Identify Spread of Invasive Species.\" November 30, 2014. https://doi.org/10.1233/45678."
+    },
+    {
+      "citation_number": 59,
+      "is_valid": false,
+      "corrected": "Koppelman, Alex. \"White House Counsel to Be Fired?\" _Salon_, August 4, 2009. https://www.salon.com/2009/08/04/craig_23/.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Koppelman, Alex. \"White House Counsel to Be Fired?\" _Salon_, August 4 2009. https://www.salon.com/2009/08/04/craig_23/."
+    },
+    {
+      "citation_number": 60,
+      "is_valid": false,
+      "corrected": "Angelou, Maya. _I Know Why the Caged Bird Sings_. New York: Random House, 2002.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Angelou, Maya. _I Know Why the Caged Bird Sings_. New York: Random House, 2002"
+    },
+    {
+      "citation_number": 61,
+      "is_valid": true,
+      "corrected": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209.",
+      "has_placeholder": false,
+      "source_type": "social media (twitter)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Nye, Bill (@BillNye). \"While I'm not much for skipping school, I sure am in favor of calling attention to the seriousness of climate change...\" Twitter, March 14, 2019. https://twitter.com/BillNye/status/1106242216123486209."
+    },
+    {
+      "citation_number": 62,
+      "is_valid": true,
+      "corrected": "Soldatenko, Michael. _Chicano Studies: The Genesis of a Discipline_. Tucson: University of Arizona Press, 2009. ProQuest Ebook Central.",
+      "has_placeholder": false,
+      "source_type": "e-book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Soldatenko, Michael. _Chicano Studies: The Genesis of a Discipline_. Tucson: University of Arizona Press, 2009. ProQuest Ebook Central."
+    },
+    {
+      "citation_number": 63,
+      "is_valid": false,
+      "corrected": "Melville, Herman. _Moby-Dick; or, The Whale_. New York: Harper and Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html.",
+      "has_placeholder": false,
+      "source_type": "book (online)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Melville, Herman: _Moby-Dick; or, The Whale_. New York: Harper & Brothers, 1851. http://mel.hofstra.edu/moby-dick-the-whale-proofs.html."
+    },
+    {
+      "citation_number": 64,
+      "is_valid": false,
+      "corrected": "Booij, Thijs. \"Psalm 141: A Prayer for Discipline and Protection.\" _Biblica_ 86, no. 1 (2005): 97-106.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Booij, T.. \"Psalm 141: A Prayer for Discipline and Protection.\" _Biblica_ 86, no. 1 (2005): 97-106."
+    },
+    {
+      "citation_number": 65,
+      "is_valid": false,
+      "corrected": "Ndiaye, Mamadou (@mndiaye_97). \"Arctic Fox Facts You Need in Your Life.\" TikTok, July 17, 2021. https://www.tiktok.com/@mndiaye_97/video/6986039209542847750.",
+      "has_placeholder": false,
+      "source_type": "social media (tiktok)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Ndiaye, Mamadou (@mndiaye_97). \"Arctic Fox Facts You Need in your Life.\" TikTok, July 17, 2021. https://www.tiktok.com/@mndiaye_97/video/6986039209542847750"
+    },
+    {
+      "citation_number": 66,
+      "is_valid": true,
+      "corrected": "Morrison, Toni. _Beloved_. New York: Alfred A. Knopf, 1987.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Morrison, Toni. _Beloved_. New York: Alfred A. Knopf, 1987."
+    },
+    {
+      "citation_number": 67,
+      "is_valid": false,
+      "corrected": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Snead, James. \"St. Francis Dam Lecture.\" Uploaded by Broome Library. YouTube video, 58:46. April 2, 2015. https://www.youtube.com/watch?v=FxFnGttUZ-E"
+    },
+    {
+      "citation_number": 68,
+      "is_valid": false,
+      "corrected": "Soldatenko, Michael. _Chicano Studies: The Genesis of a Discipline_. Tucson: University of Arizona Press, 2009. ProQuest Ebook Central.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Soldatenko, Michael. _Chicano Studies: The Genesis of a Discipline_. Tucson: University of Arizona Press, 2009. ProQuest Ebook Central"
+    },
+    {
+      "citation_number": 69,
+      "is_valid": true,
+      "corrected": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722."
+    },
+    {
+      "citation_number": 70,
+      "is_valid": true,
+      "corrected": "Verducci, Tom. \"World Domination.\" _Sports Illustrated_, November 16, 2009.",
+      "has_placeholder": false,
+      "source_type": "magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Verducci, Tom. \"World Domination.\" _Sports Illustrated_, November 16, 2009."
+    },
+    {
+      "citation_number": 71,
+      "is_valid": false,
+      "corrected": "Hunt, [MISSING: Full First Name] J. \"Red Sea.\" In _The New Catholic Encyclopedia_, 2nd ed., vol. 11, 962-63. [MISSING: Place of Publication]: Gale, 2003.",
+      "has_placeholder": true,
+      "source_type": "book chapter (encyclopedia entry)",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Hunt, M. J. \"Red Sea.\" In _The New Catholic Encyclopedia_, 2nd ed., vol. 11, 962-963. Gale, 2003."
+    },
+    {
+      "citation_number": 72,
+      "is_valid": false,
+      "corrected": "Magee, Peter, Cameron Petrie, Robert Knox, Farid Khan, and Ken Thomas. \"The Achaemenid Empire in South Asia and Recent Excavations in Akra in Northwest Pakistan.\" _American Journal of Archaeology_ 109, no. 4 (October 2005): 711\u201341. https://doi.org/10.3764/aja.109.4.711.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Magee, Peter, Cameron Petrie, Robert Knox, Farid Khan & Ken Thomas. \"The Achaemenid Empire in South Asia and Recent Excavations in Akra in Northwest Pakistan.\" _American Journal of Archaeology_ 109, no. 4 (October 2005): 711\u201341. https://doi.org/10.3764/aja.109.4.711."
+    },
+    {
+      "citation_number": 73,
+      "is_valid": true,
+      "corrected": "Augustine. _The Confessions of St. Augustine_. Translated by Edward Bouverie Pusey. Waiheke Island, New Zealand: Floating Press, 1921.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Augustine. _The Confessions of St. Augustine_. Translated by Edward Bouverie Pusey. Waiheke Island, New Zealand: Floating Press, 1921."
+    },
+    {
+      "citation_number": 74,
+      "is_valid": false,
+      "corrected": "Morentz, James W., Christopher Doyle, Lawrence Skelly, and Nabil Adam. \"Unified Incident Command and Decision Support (UICDS) a Department of Homeland Security Initiative in Information Sharing.\" In _2009 IEEE Conference on Technologies for Homeland Security_, 182\u201387. Boston: IEEE, 2009. https://doi.org/10.1109/THS.2009.5168032.",
+      "has_placeholder": false,
+      "source_type": "book chapter (conference paper)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Morentz, James W., Christopher Doyle, Lawrence Skelly, and Nabil Adam. \"Unified Incident Command and Decision Support (UICDS) a Department of Homeland Security Initiative in Information Sharing.\" In _2009 IEEE Conference on Technologies for Homeland Security_, 182\u201387. Boston: IEEE, 2009. Retrieved from https://doi.org/10.1109/THS.2009.5168032."
+    },
+    {
+      "citation_number": 75,
+      "is_valid": true,
+      "corrected": "Hirsch, Jerry. \"Citrus Pest Infests Trees in Mexico.\" _Los Angeles Times_, August 18, 2009.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Hirsch, Jerry. \"Citrus Pest Infests Trees in Mexico.\" _Los Angeles Times_, August 18, 2009."
+    },
+    {
+      "citation_number": 76,
+      "is_valid": false,
+      "corrected": "Preposterous, Geronimo. \"Mai Tais and Milkshakes: A Fast Ride to the ER.\" _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Preposterous, Geronimo. Mai Tais and Milkshakes: A Fast Ride to the ER. _Libation Incidents Monthly_, February 1, 2017. http://pollock.trashcan.com/2017/02/22/mtmer."
+    },
+    {
+      "citation_number": 77,
+      "is_valid": false,
+      "corrected": "Hansberry, Lorraine. _A Raisin in the Sun_. New York: Vintage Books, 1994.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Hansberry, Lorraine. _A raisin in the sun_. New York: Vintage Books, 1994."
+    },
+    {
+      "citation_number": 78,
+      "is_valid": false,
+      "corrected": "Zamudio, [MISSING: first name], [MISSING: first name] Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central.",
+      "has_placeholder": true,
+      "source_type": "book (e-book)",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Zamudio, M., Caskey Russell, Francisco A Rios, and Jacquelyn L Bridgeman. _Critical Race Theory Matters: Education and Ideology_. New York: Routledge, 2011. ProQuest Ebook Central."
+    },
+    {
+      "citation_number": 79,
+      "is_valid": false,
+      "corrected": "Sacks, Oliver. Foreword to _A Man without Words_, by Susan Schaller, 9-12. 2nd ed. Berkeley: University of California Press, 2012.",
+      "has_placeholder": false,
+      "source_type": "book chapter (introduction/foreword)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Sacks, Oliver. Foreword to _A Man without Words_, by Susan Schaller, 9-12. 2nd ed. Berkeley: University of California Press, 2012"
+    },
+    {
+      "citation_number": 80,
+      "is_valid": false,
+      "corrected": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): 209. https://doi.org/10.1177/1043659616638722.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Cuellar, Norma Graciela. \"Study Abroad Programs.\" Editorial. _Journal of Transcultural Nursing_ 27, no. 3 (May 2016): p. 209. https://doi.org/10.1177/1043659616638722."
+    },
+    {
+      "citation_number": 81,
+      "is_valid": false,
+      "corrected": "Petrusich, Amanda. \"Taylor Swift's Self-Scrutiny in 'Miss Americana.'\" _The New Yorker_, February 4, 2020. https://www.newyorker.com/culture/cultural-comment/taylor-swifts-self-scrutiny-in-miss-americana.",
+      "has_placeholder": false,
+      "source_type": "newspaper/magazine",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Petrusich, A.. \"Taylor Swift's Self-Scrutiny in 'Miss Americana.'\" _The New Yorker_, February 4, 2020. https://www.newyorker.com/culture/cultural-comment/taylor-swifts-self-scrutiny-in-miss-americana."
+    },
+    {
+      "citation_number": 82,
+      "is_valid": false,
+      "corrected": "Savage, Courtney. \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" MA thesis, Texas Tech University, 2019. https://ttu-ir.tdl.org/handle/2346/85057.",
+      "has_placeholder": false,
+      "source_type": "dissertation/thesis",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Savage, Courtney. \"The Impact of Experiences of Asexual Students in Four-Year Institutions of Higher Education.\" Master's thesis, Texas Tech University, 2019. Retrieved from https://ttu-ir.tdl.org/handle/2346/85057."
+    },
+    {
+      "citation_number": 83,
+      "is_valid": false,
+      "corrected": "Dick, Kirby, dir. _The Invisible War_. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Dick, Kirby, dir. _The Invisible War_. 2012; Los Angeles, CA: Docurama, 2012. http://www.netflix.com"
+    },
+    {
+      "citation_number": 84,
+      "is_valid": false,
+      "corrected": "Cox, Elizabeth. \"The Hidden Treasures of Timbuktu.\" Directed by AIM Creative Studios. TED-Ed video, 5:16. October 22, 2020. https://www.ted.com/talks/elizabeth_cox_the_hidden_treasures_of_timbuktu/details.",
+      "has_placeholder": false,
+      "source_type": "film/video (youtube/web video)",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Cox, E.. \"The Hidden Treasures of Timbuktu.\" Directed by AIM Creative Studios. TED-Ed video, 5:16. October 2020. https://www.ted.com/talks/elizabeth_cox_the_hidden_treasures_of_timbuktu/details."
+    },
+    {
+      "citation_number": 85,
+      "is_valid": false,
+      "corrected": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard, and Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" _Studies in Social Justice_ 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Simpson, Leanne Betasamosake, Rinaldo Walcott, Glen Coulthard & Michael Moats. \"Idle No More and Black Lives Matter: An Exchange (Panel Discussion).\" _Studies in Social Justice_ 12, no. 1 (Winter 2018): 75-89. Directory of Open Access Journals."
+    },
+    {
+      "citation_number": 86,
+      "is_valid": true,
+      "corrected": "Bonds, Mark Evan. _Absolute Music: The History of an Idea_. New York: Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Bonds, Mark Evan. _Absolute Music: The History of an Idea_. New York: Oxford University Press, 2014. https://doi.org/10.1093/acprof:oso/9780199343638.001.0001."
+    },
+    {
+      "citation_number": 87,
+      "is_valid": false,
+      "corrected": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" _Women & Therapy_ 42, no. 1\u20132 (2019): 116\u201330. Taylor & Francis Social Science and Humanities Library.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Kinavey, Hilary, and Carmen Cool. \"The Broken Lens: How Anti-Fat Bias in Psychotherapy Is Harming Our Clients and What To Do About It.\" _Women & Therapy_ 42, no. 1\u20132 (2019): 116\u201330. Taylor & Francis Social Science and Humanities Library"
+    },
+    {
+      "citation_number": 88,
+      "is_valid": false,
+      "corrected": "Strauss, Valerie. \"The Unusual Way Broadway's _Hamilton_ Is Teaching U.S. History to Kids.\" _Washington Post_, June 28, 2016. https://www.washingtonpost.com/news/answer-sheet/wp/2016/06/28/the-unusual-way-broadways-hamilton-is-teaching-american-history-to-kids.",
+      "has_placeholder": false,
+      "source_type": "newspaper",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Strauss, Valerie. \"The Unusual Way Broadway's 'Hamilton' Is Teaching U.S. History to Kids.\" _Washington Post_, June 28 2016. https://www.washingtonpost.com/news/answer-sheet/wp/2016/06/28/the-unusual-way-broadways-hamilton-is-teaching-american-history-to-kids."
+    },
+    {
+      "citation_number": 89,
+      "is_valid": false,
+      "corrected": "Lattimore, [MISSING: full first name], trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951.",
+      "has_placeholder": true,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Lattimore, R., trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951."
+    },
+    {
+      "citation_number": 90,
+      "is_valid": true,
+      "corrected": "Lees, Clare A., and Gillian R. Overing. _Double Agents: Women and Clerical Culture in Anglo-Saxon England_. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Lees, Clare A., and Gillian R. Overing. _Double Agents: Women and Clerical Culture in Anglo-Saxon England_. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009."
+    },
+    {
+      "citation_number": 91,
+      "is_valid": true,
+      "corrected": "Lacey, Stephen. \"The New German Style.\" _Horticulture_, March 2000, 44-50.",
+      "has_placeholder": false,
+      "source_type": "magazine",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Lacey, Stephen. \"The New German Style.\" _Horticulture_, March 2000, 44-50."
+    },
+    {
+      "citation_number": 92,
+      "is_valid": true,
+      "corrected": "Shepard, Paul. Introduction to _Nature and Madness_, 24-41. Athens: University of Georgia Press, 1998.",
+      "has_placeholder": false,
+      "source_type": "book chapter (introduction)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Shepard, Paul. Introduction to _Nature and Madness_, 24-41. Athens: University of Georgia Press, 1998."
+    },
+    {
+      "citation_number": 93,
+      "is_valid": true,
+      "corrected": "Lewis County Geographic Information Services. _Population Density, 2000 U.S. Census_. Accessed January 4, 2014. http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Lewis County Geographic Information Services. _Population Density, 2000 U.S. Census_. Accessed January 4, 2014. http://maps.lewiscountywa.gov/maps/Demographics/census-popdens_2000.pdf."
+    },
+    {
+      "citation_number": 94,
+      "is_valid": false,
+      "corrected": "Baer, Hester, and Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's _Y tu Mam\u00e1 Tambi\u00e9n_.\" _South Central Review_ 21, no. 3 (2004): 150-68.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 2,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Baer, Hester, and Ryan Fred Long. Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n. _South Central Review_ 21, no. 3 (2004): 150-168."
+    },
+    {
+      "citation_number": 95,
+      "is_valid": true,
+      "corrected": "Lattimore, Richmond, trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Lattimore, Richmond, trans. _The Iliad of Homer_. Chicago: University of Chicago Press, 1951."
+    },
+    {
+      "citation_number": 96,
+      "is_valid": true,
+      "corrected": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. https://www.google.com/policies/privacy/.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Google. \"Privacy Policy.\" Privacy & Terms. Last modified April 17, 2017. https://www.google.com/policies/privacy/."
+    },
+    {
+      "citation_number": 97,
+      "is_valid": true,
+      "corrected": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" _Defence and Peace Economics_ 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" _Defence and Peace Economics_ 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419."
+    },
+    {
+      "citation_number": 98,
+      "is_valid": false,
+      "corrected": "Kling, David William. _The Bible in History: How the Texts Have Shaped the Times_. New York: Oxford University Press, 2004.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Kling, David William. _The bible in history: how the texts have shaped the times_. New York: Oxford University Press, 2004."
+    },
+    {
+      "citation_number": 99,
+      "is_valid": false,
+      "corrected": "Berglund, Jeff, Jan Johnson, and Kimberli Lee, eds. _Indigenous Pop: Native American Music from Jazz to Hip Hop_. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Berglund, Jeff, Jan Johnson, and Kimberli Lee, eds. _Indigenous pop: native american music from jazz to hip hop_. Tucson: University of Arizona Press, 2016. ProQuest Ebook Central."
+    },
+    {
+      "citation_number": 100,
+      "is_valid": false,
+      "corrected": "Guillen, Jorge. \"Does Financial Openness Matter in the Relationship Between Financial Development and Income Distribution in Latin America?\" _Emerging Markets Finance and Trade_ 52, no. 2 (2016): 1145-1155. https://doi.org/10.1080/1540496X.2015.1046337.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 3,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Guillen, Jorge. \"Does Financial Openness Matter in the Relationship Between Financial Development and Income Distribution in Latin America?\" _Emerging Markets Finance and Trade_ 52, no 2 (2016): 1145-1155. https://doi.org/10.1080/1540496X.2015.1046337"
+    },
+    {
+      "citation_number": 101,
+      "is_valid": true,
+      "corrected": "United States Government Accountability Office. _Arctic Region: Factors that Facilitate and Hinder the Advancement of U.S. Priorities_. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf.",
+      "has_placeholder": false,
+      "source_type": "website (government report)",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "United States Government Accountability Office. _Arctic Region: Factors that Facilitate and Hinder the Advancement of U.S. Priorities_. September 2023. https://www.gao.gov/assets/gao-23-106002.pdf."
+    },
+    {
+      "citation_number": 102,
+      "is_valid": false,
+      "corrected": "_Bhagavad Gita_. Translated by Eknath Easwaran. Tomales, CA: Nilgiri Press, 2007.",
+      "has_placeholder": false,
+      "source_type": "book (sacred text)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Bhagavad Gita_. Translated by Eknath Easwaran. Tomales, CA: Nilgiri Press, 2007"
+    },
+    {
+      "citation_number": 103,
+      "is_valid": false,
+      "corrected": "Krishnan, Armin. _War as Business: Technological Change and Military Service Contracting_. New York: Routledge, 2008. Kindle.",
+      "has_placeholder": false,
+      "source_type": "book (e-book)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Krishnan, Armin. _War as Business: Technological Change and Military Service Contracting_. New York: Routledge, 2008. Kindle"
+    },
+    {
+      "citation_number": 104,
+      "is_valid": false,
+      "corrected": "Barzun, Jacques. _Simple and Direct: A Rhetoric for Writers_. Rev. ed. Chicago: University of Chicago Press, 1994.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Barzun, Jacques. _Simple and Direct: A Rhetoric for Writers_. Rev. ed. Chicago: University of Chicago Press, 1994"
+    },
+    {
+      "citation_number": 105,
+      "is_valid": true,
+      "corrected": "Kilgallen, John J. \"The Elder Son.\" _Expository Times_ 115, no. 6 (2004): 186-89.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Kilgallen, John J. \"The Elder Son.\" _Expository Times_ 115, no. 6 (2004): 186-89."
+    },
+    {
+      "citation_number": 106,
+      "is_valid": true,
+      "corrected": "Epstein, Saul, and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" _Preternature_ 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Epstein, Saul, and Sara Libby Robinson. \"The Soul, Evil Spirits, and the Undead: Vampires, Death, and Burial in Jewish Folklore and Law.\" _Preternature_ 1, no. 2 (2012): 232\u201351. https://doi.org/10.5325/preternature.1.2.0232."
+    },
+    {
+      "citation_number": 107,
+      "is_valid": false,
+      "corrected": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. https://www.yale.edu/about-yale/yale-facts.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. Retrieved from https://www.yale.edu/about-yale/yale-facts."
+    },
+    {
+      "citation_number": 108,
+      "is_valid": false,
+      "corrected": "Baer, Hester, and Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's _Y tu Mam\u00e1 Tambi\u00e9n_.\" _South Central Review_ 21, no. 3 (2004): 150-168.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Baer, Hester, and Ryan Fred Long. \"Transnational Cinema and the Mexican State in Alfonso Cuar\u00f3n's Y tu Mam\u00e1 Tambi\u00e9n.\" _South Central Review_ 21, no. 3 (2004): 150-168."
+    },
+    {
+      "citation_number": 109,
+      "is_valid": false,
+      "corrected": "Sanico, Grace F., and Makoto Kakinaka. \"Terrorism and Deterrence Policy with Transnational Support.\" _Defence and Peace Economics_ 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Sanico, Grace F., and Makoto Kakinaka. Terrorism and Deterrence Policy with Transnational Support. _Defence and Peace Economics_ 19, no. 2 (April 2008): 153\u201367. https://doi.org/10.1080/10242690701505419."
+    },
+    {
+      "citation_number": 110,
+      "is_valid": false,
+      "corrected": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M.",
+      "has_placeholder": false,
+      "source_type": "film/video",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Smart Student. \"How to Avoid Plagiarism in Academic Writing.\" YouTube video, 8:46. September 25, 2021. https://www.youtube.com/watch?v=R7WjaIRgO4M"
+    },
+    {
+      "citation_number": 111,
+      "is_valid": true,
+      "corrected": "Gowers, Ernest. _The Complete Plain Words_. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Gowers, Ernest. _The Complete Plain Words_. 3rd ed. London: H. M. Stationary Office, 1986; Harmondsworth, UK: Penguin Books, 1987."
+    },
+    {
+      "citation_number": 112,
+      "is_valid": false,
+      "corrected": "Newmann, William W. \"Reorganizing for National Security and Homeland Security.\" _Public Administration Review_ 62, no. 1 (September 2002): 126\u201337. ProQuest.",
+      "has_placeholder": false,
+      "source_type": "journal article",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Newmann, William W. \"Reorganizing for National Security & Homeland Security.\" _Public Administration Review_ 62, no. 1 (September 2002): 126\u201337. ProQuest."
+    },
+    {
+      "citation_number": 113,
+      "is_valid": false,
+      "corrected": "Marcel Breuer Digital Archive. \"Saint John's Church and Campanile.\" Accessed December 25, 2021. https://breuer.syr.edu/project.php?id=370.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 1,
+      "ground_truth": true,
+      "correct": false,
+      "citation_text": "Marcel Breuer Digital Archive. \"Saint John's Church and Campanile.\" Accessed December 25, 2021, https://breuer.syr.edu/project.php?id=370."
+    },
+    {
+      "citation_number": 114,
+      "is_valid": true,
+      "corrected": "Coelho, Paulo. _The Alchemist_. Translated by Alan Clarke. New York: HarperCollins, 2015.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Coelho, Paulo. _The Alchemist_. Translated by Alan Clarke. New York: HarperCollins, 2015."
+    },
+    {
+      "citation_number": 115,
+      "is_valid": false,
+      "corrected": "_Qur'an_. Translated by M. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004.",
+      "has_placeholder": false,
+      "source_type": "other (sacred text)",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "_Qur'an_. Translated by m. A. S. Abdel Haleen. Oxford: Oxford University Press, 2004."
+    },
+    {
+      "citation_number": 116,
+      "is_valid": false,
+      "corrected": "Lees, Clare A., and Gillian R. Overing. _Double Agents: Women and Clerical Culture in Anglo-Saxon England_. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009.",
+      "has_placeholder": false,
+      "source_type": "book",
+      "error_count": 1,
+      "ground_truth": false,
+      "correct": true,
+      "citation_text": "Lees, Clare A., and Gillian R. Overing. _Double Agents: Women and Clerical Culture in Anglo-Saxon England_. Edited by Denis Renevey and Diane Watt. Cardiff: University of Wales Press, 2009"
+    },
+    {
+      "citation_number": 117,
+      "is_valid": true,
+      "corrected": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. https://www.yale.edu/about-yale/yale-facts.",
+      "has_placeholder": false,
+      "source_type": "website",
+      "error_count": 0,
+      "ground_truth": true,
+      "correct": true,
+      "citation_text": "Yale University. \"About Yale: Yale Facts.\" Accessed May 1, 2017. https://www.yale.edu/about-yale/yale-facts."
+    }
+  ]
+}
