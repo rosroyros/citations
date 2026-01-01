@@ -1,7 +1,52 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { trackEvent } from '../utils/analytics'
 import { getExperimentVariant } from '../utils/experimentVariant'
 import './MiniChecker.css'
+
+/**
+ * Get the citation style from various sources (priority order):
+ * 1. URL parameter (?style=mla9)
+ * 2. data-style attribute on container element
+ * 3. Default to 'apa7'
+ */
+function getStyleFromContext(containerId) {
+  // Check URL parameter first
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlStyle = urlParams.get('style');
+  if (urlStyle && (urlStyle === 'apa7' || urlStyle === 'mla9')) {
+    return urlStyle;
+  }
+
+  // Check data-style attribute on container
+  if (containerId) {
+    const container = document.getElementById(containerId);
+    if (container) {
+      const dataStyle = container.getAttribute('data-style');
+      if (dataStyle && (dataStyle === 'apa7' || dataStyle === 'mla9')) {
+        return dataStyle;
+      }
+    }
+  }
+
+  // Also check for any parent with data-style (for static pages)
+  const miniCheckerEl = document.querySelector('.mini-checker[data-style]');
+  if (miniCheckerEl) {
+    const dataStyle = miniCheckerEl.getAttribute('data-style');
+    if (dataStyle && (dataStyle === 'apa7' || dataStyle === 'mla9')) {
+      return dataStyle;
+    }
+  }
+
+  // Default to APA 7
+  return 'apa7';
+}
+
+/**
+ * Get display name for citation style
+ */
+function getStyleDisplayName(style) {
+  return style === 'mla9' ? 'MLA 9th Edition' : 'APA 7th Edition';
+}
 
 /**
  * MiniChecker - Embedded citation validation component
@@ -9,16 +54,32 @@ import './MiniChecker.css'
  * A lightweight version of the main citation checker designed to be embedded
  * in static content pages. Validates a single citation and provides a CTA
  * to the main checker for bulk validation.
+ * 
+ * Supports style selection via:
+ * - URL parameter: ?style=mla9 or ?style=apa7
+ * - data-style attribute on container element
+ * - Default: apa7
  */
 function MiniChecker({
   placeholder = "Paste your citation here...",
   prefillExample = "",
-  onFullChecker = () => window.location.href = '/'
+  onFullChecker = () => window.location.href = '/',
+  containerId = null,
+  style: propStyle = null
 }) {
   const [citation, setCitation] = useState(prefillExample)
   const [isValidating, setIsValidating] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
+  const [citationStyle, setCitationStyle] = useState(propStyle || 'apa7')
+
+  // Determine style on mount
+  useEffect(() => {
+    if (!propStyle) {
+      const detectedStyle = getStyleFromContext(containerId);
+      setCitationStyle(detectedStyle);
+    }
+  }, [containerId, propStyle]);
 
   const handleValidate = async () => {
     if (!citation.trim()) return
@@ -41,7 +102,7 @@ function MiniChecker({
         },
         body: JSON.stringify({
           citations: citation,
-          style: 'apa7',
+          style: citationStyle,
         }),
       })
 
@@ -95,6 +156,7 @@ function MiniChecker({
         // Track mini checker validation
         trackEvent('mini_checker_validated', {
           citation_length: citation.length,
+          citation_style: citationStyle,
           validation_successful: true
         })
       }
@@ -105,6 +167,7 @@ function MiniChecker({
       // Track failed validation
       trackEvent('mini_checker_validated', {
         citation_length: citation.length,
+        citation_style: citationStyle,
         validation_successful: false
       })
     } finally {
@@ -122,7 +185,7 @@ function MiniChecker({
     <div className="mini-checker">
       <div className="mini-checker-header">
         <h4>Quick Check Your Citation</h4>
-        <p>Instantly validate citation formatting</p>
+        <p>Instantly validate {getStyleDisplayName(citationStyle)} formatting</p>
       </div>
 
       <div className="mini-checker-form">
