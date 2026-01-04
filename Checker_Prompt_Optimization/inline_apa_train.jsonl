@@ -1,100 +1,50 @@
 {"inline_citation": "(Smith, 2019)", "ref_list": ["Smith, J. (2019). The psychology of learning. Journal of Educational Psychology, 111(3), 456-478.", "Jones, K. (2020). Advanced teaching methods. Educational Review, 42(1), 123-145."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, p. 15)", "ref_list": ["Smith, J. (2019). The psychology of learning. Journal of Educational Psychology, 111(3), 456-478.", "Jones, K. (2020). Advanced teaching methods. Educational Review, 42(1), 123-145."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith & Jones, 2019)", "ref_list": ["Smith, J., & Jones, K. (2019). Collaborative learning in practice. Teaching and Teacher Education, 85, 45-56.", "Brown, L. (2020). Solo research methods. Research Quarterly, 33(2), 234-250."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith et al., 2019)", "ref_list": ["Smith, J., Jones, K., & Brown, L. (2019). Team dynamics in education. Educational Leadership, 76(5), 22-28.", "Wilson, R. (2020). Individual learning styles. Psychology Today, 15(2), 45-50."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith et al., 2019, p. 125)", "ref_list": ["Smith, J., Jones, K., Brown, L., & Davis, M. (2019). Multi-author research collaboration. Science and Education, 28(4), 567-589.", "White, P. (2020). Single-author publications. Academic Writing, 12(3), 78-92."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(American Psychological Association, 2020)", "ref_list": ["American Psychological Association. (2020). Publication manual of the American Psychological Association (7th ed.). https://doi.org/10.1037/0000165-000", "Modern Language Association. (2021). MLA handbook (9th ed.)."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(APA, 2020)", "ref_list": ["American Psychological Association. (2020). Publication manual of the American Psychological Association (7th ed.). https://doi.org/10.1037/0000165-000", "National Institutes of Health. (2019). Guidelines for research."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(National Institute of Mental Health, 2018)", "ref_list": ["National Institute of Mental Health. (2018). Mental health statistics. U.S. Department of Health and Human Services.", "World Health Organization. (2019). Global health reports."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(NIMH, 2018)", "ref_list": ["National Institute of Mental Health. (2018). Mental health statistics. U.S. Department of Health and Human Services.", "CDC. (2019). Public health guidelines."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019a)", "ref_list": ["Smith, J. (2019a). Learning theories explained. Journal of Psychology, 45(2), 123-140.", "Smith, J. (2019b). Applied learning practices. Educational Review, 61(4), 567-585.", "Jones, K. (2020). Modern education."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019b)", "ref_list": ["Smith, J. (2019a). Learning theories explained. Journal of Psychology, 45(2), 123-140.", "Smith, J. (2019b). Applied learning practices. Educational Review, 61(4), 567-585.", "Jones, K. (2020). Modern education."], "expected": {"match_status": "matched", "matched_ref_index": 1, "errors": []}}
-
 {"inline_citation": "(Johnson, 2020)", "ref_list": ["Smith, J. (2019). Learning theories. Journal of Psychology, 45(2), 123-140.", "Brown, L. (2021). Educational practices."], "expected": {"match_status": "not_found", "matched_ref_index": null, "errors": ["Reference not found in reference list"]}}
-
 {"inline_citation": "(Smyth, 2019)", "ref_list": ["Smith, J. (2019). Learning theories explained. Journal of Psychology, 45(2), 123-140.", "Jones, K. (2020). Teaching methods."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["Author name may be misspelled (Smyth vs Smith)"]}}
-
 {"inline_citation": "(Smith, 2020)", "ref_list": ["Smith, J. (2019). Learning theories explained. Journal of Psychology, 45(2), 123-140.", "Jones, K. (2020). Teaching methods."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["Year mismatch (2020 vs 2019)"]}}
-
 {"inline_citation": "(Smith, 2019; Jones, 2020)", "ref_list": ["Smith, J. (2019). Learning theories. Journal of Psychology, 45(2), 123-140.", "Jones, K. (2020). Teaching methods. Educational Review, 33(1), 45-60.", "Brown, L. (2021). Assessment strategies."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}]}}
-
 {"inline_citation": "(Smith, 2019, Jones, 2020, Brown, 2021)", "ref_list": ["Smith, J. (2019). First paper. Journal A, 1(1), 1-10.", "Jones, K. (2020). Second paper. Journal B, 2(2), 20-30.", "Brown, L. (2021). Third paper. Journal C, 3(3), 30-40."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}, {"inline_author": "Brown", "ref_index": 2}]}}
-
 {"inline_citation": "(Smith & Jones, 2019; Brown, 2020)", "ref_list": ["Smith, J., & Jones, K. (2019). Collaborative work. Journal of Collaboration, 5(2), 100-115.", "Brown, L. (2020). Individual work. Journal of Individual Studies, 8(3), 200-215."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_authors": ["Smith", "Jones"], "ref_index": 0}, {"inline_author": "Brown", "ref_index": 1}]}}
-
 {"inline_citation": "Smith (2019) argues that...", "ref_list": ["Smith, J. (2019). Argumentation theory. Rhetoric Quarterly, 29(4), 445-460.", "Johnson, A. (2020). Counter-arguments."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "According to Smith (2019)", "ref_list": ["Smith, J. (2019). Research methodology. Methods Journal, 12(2), 234-250.", "Williams, B. (2020). Alternative methods."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "Smith and Jones (2019) demonstrated", "ref_list": ["Smith, J., & Jones, K. (2019). Experimental results. Experimental Psychology, 66(3), 345-360.", "Miller, R. (2020). Replication studies."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "According to Smith and Jones (2019)", "ref_list": ["Smith, J., & Jones, K. (2019). Qualitative analysis. Qualitative Research, 19(4), 567-583.", "Taylor, S. (2020). Quantitative methods."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "Smith et al. (2019) found", "ref_list": ["Smith, J., Jones, K., Brown, L., & Davis, M. (2019). Large-scale study. Large-Scale Research, 7(1), 1-20.", "Wilson, T. (2020). Small-scale studies."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "As Smith et al. (2019) reported", "ref_list": ["Smith, J., Jones, K., & Brown, L. (2019). Team research findings. Team Science, 3(2), 150-165.", "Anderson, P. (2020). Solo research."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "(Smith et al., 2019)", "ref_list": ["Smith, J., & Jones, K. (2019). Two-author study. Dual Authorship Journal, 15(3), 300-315.", "Brown, L. (2020). Collaborative writing."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["et al. used incorrectly (reference has only 2 authors, should be \"Smith & Jones, 2019\""]}}
-
 {"inline_citation": "(Smith & Jones, 2019)", "ref_list": ["Smith, J., Jones, K., Brown, L., & Davis, M. (2019). Four-author research. Multi-Author Studies, 22(4), 440-460.", "Wilson, R. (2020). Two-author papers."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["Citation uses \"&\" for 3+ author reference (should use \"et al.\")"]}}
-
 {"inline_citation": "(U.S. Department of Education, 2018)", "ref_list": ["U.S. Department of Education. (2018). Education statistics. Government Printing Office.", "U.S. Department of Health. (2019). Health statistics."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "U.S. Department of Education (2018) reported", "ref_list": ["U.S. Department of Education. (2018). Education statistics. Government Printing Office.", "U.S. Department of Health. (2019). Health statistics."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "(van der Meer, 2019)", "ref_list": ["van der Meer, J. (2019). Dutch educational system. European Education, 51(2), 200-215.", "Smith, J. (2020). American education."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "van der Meer (2019) analyzed", "ref_list": ["van der Meer, J. (2019). Dutch educational system. European Education, 51(2), 200-215.", "Smith, J. (2020). American education."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "(De Vries, 2020)", "ref_list": ["De Vries, H. (2020). Primary education methods. International Journal of Education, 18(3), 345-360.", "Johnson, K. (2021). Secondary education."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(McDonald, 2019)", "ref_list": ["McDonald, R. (2019). Nutrition research. American Journal of Nutrition, 119(5), 1234-1245.", "Burger, K. (2020). Fast food studies."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(O'Connor, 2020)", "ref_list": ["O'Connor, S. (2020). Irish literature studies. Irish Studies Review, 28(2), 180-195.", "Murphy, P. (2021). Celtic literature."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(St. Jean, 2019)", "ref_list": ["St. Jean, M. (2019). Canadian geography. Canadian Geographic Journal, 67(4), 400-415.", "Smith, J. (2020). American geography."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, Figure 1)", "ref_list": ["Smith, J. (2019). Data visualization techniques. Information Visualization, 18(3), 245-260.", "Jones, K. (2020). Graph design."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, Table 3)", "ref_list": ["Smith, J. (2019). Statistical analysis methods. Statistical Journal, 14(2), 150-165.", "Brown, L. (2020). Data tables."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Jones, 2020, Chapter 4)", "ref_list": ["Jones, K. (2020). Educational psychology (3rd ed.). Pearson Education.", "Smith, J. (2019). Learning theories journal article."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(World Health Organization, 2019)", "ref_list": ["World Health Organization. (2019). World health statistics 2019. WHO Press.", "UNICEF. (2020). Child health report."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(WHO, 2019)", "ref_list": ["World Health Organization. (2019). World health statistics 2019. WHO Press.", "UNESCO. (2020). Education report."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, pp. 15-20)", "ref_list": ["Smith, J. (2019). Page range citations. Citation Studies, 10(2), 150-165.", "Jones, K. (2020). Page numbering."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, para. 5)", "ref_list": ["Smith, J. (2019). Online article without page numbers. Web Journal, 5(1). https://example.com/article", "Jones, K. (2020). Print article with pages."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, \u00a7 4.2)", "ref_list": ["Smith, J. (2019). Legal and policy citations. Law Review, 95(4), 789-810.", "Jones, K. (2020). Regular journal article."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, pp. 15-16, 20)", "ref_list": ["Smith, J. (2019). Multiple page references. Academic Writing, 25(3), 300-320.", "Brown, L. (2020). Single page citations."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019; Jones et al., 2020)", "ref_list": ["Smith, J. (2019). Single author work. Journal A, 10(1), 10-20.", "Jones, K., Brown, L., & Davis, M. (2020). Multiple author work. Journal B, 11(2), 30-45."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}]}}
-
 {"inline_citation": "(Smith & Brown, 2018; Jones, 2019; Davis, 2020)", "ref_list": ["Smith, J., & Brown, L. (2018). First study. Research Journal, 20(1), 1-15.", "Jones, K. (2019). Second study. Research Quarterly, 21(2), 30-45.", "Davis, M. (2020). Third study. Research Monthly, 22(3), 60-75."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_authors": ["Smith", "Brown"], "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}, {"inline_author": "Davis", "ref_index": 2}]}}
-
 {"inline_citation": "as discussed by Smith (2019, pp. 45-50)", "ref_list": ["Smith, J. (2019). Discussion analysis. Dialogue Journal, 17(2), 180-200.", "Johnson, A. (2020). Conversation studies."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
-
 {"inline_citation": "(Smith, in press)", "ref_list": ["Smith, J. (in press). Forthcoming research article. Journal of Future Studies.", "Jones, K. (2019). Already published article."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, n.d.)", "ref_list": ["Smith, J. (n.d.). Online article with no date. Website Name. https://example.com", "Jones, K. (2020). Dated article."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, Volume 2)", "ref_list": ["Smith, J. (2019). Multi-volume work (Vol. 2). University Press.", "Jones, K. (2020). Single volume work."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith et al., 2019, Experiment 2)", "ref_list": ["Smith, J., Jones, K., & Brown, L. (2019). Multiple experiments reported. Experimental Psychology, 76(4), 512-530.", "Wilson, R. (2020). Single experiment study."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
 {"inline_citation": "(Smith, 2019, 2nd ed.)", "ref_list": ["Smith, J. (2019). Educational textbook (2nd ed.). Pearson.", "Jones, K. (2020). First edition textbook."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
-
