@@ -87,10 +87,11 @@ def format_message(job: Dict[str, Any]) -> str:
     invalid = job.get('invalid_citations_count') or 0
     total = job.get('citation_count') or 0
     
-    # User / Provider
+    # User / Provider / User ID
     user_type = str(job.get('user_type', 'unknown')).capitalize()
+    user_id = job.get('paid_user_id') or job.get('free_user_id')
     provider_map = {
-        'model_c': 'Gemini', 
+        'model_c': 'Gemini',
         'model_a': 'OpenAI'
     }
     provider_raw = job.get('provider')
@@ -120,8 +121,9 @@ def format_message(job: Dict[str, Any]) -> str:
         f"📊 {total} Citations\n"
         f"   ✅ {valid} Valid\n"
         f"   ❌ {invalid} Invalid\n\n"
-        f"👤 {user_type} User\n"
-        f"🤖 {provider}\n"
+        f"👤 {user_type} User"
+        + (f" (ID: `{user_id[:12]}`)" if user_id else "") +
+        f"\n🤖 {provider}\n"
         f"{revealed_icon} Revealed: {revealed}"
         f"{corrections_line}"
         f"\n{funnel_text}\n\n"
