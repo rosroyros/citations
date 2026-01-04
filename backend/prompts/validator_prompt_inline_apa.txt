@@ -42,12 +42,7 @@ For each inline citation, return a JSON object with:
    - Use "p." for single page: (Smith, 2019, p. 15)
    - Use "pp." for range: (Smith, 2019, pp. 15-20)
 
-6. **Group citations**
-   - Alphabetical order: (Brown, 2019; Smith, 2020)
-   - Semicolon separator between different sources
-   - Ampersand for last author in each source
-
-7. **Narrative citations**
+6. **Narrative citations**
    - "Smith (2019) argued..." - author name outside parentheses
    - "Smith and Jones (2019) argued..." - "and" instead of "&"
 
@@ -98,10 +93,15 @@ Return a JSON array of results:
 - Reference: Smith, J. (2019). Title. Journal.
 - Result: match_status="matched", format_errors=["Missing comma after author name"], suggested_correction="(Smith, 2019)"
 
-**Group citation:**
-- Inline: (Brown, 2018; Smith, 2019)
-- References: Brown (2018), Smith (2019)
-- Result: match_status="matched" for both references
+**Ambiguous (same author, same year):**
+- Inline: (Smith, 2019)
+- References: Smith, J. (2019). Book One. Publisher. AND Smith, A. (2019). Book Two. Publisher.
+- Result: match_status="ambiguous", matched_ref_indices=[0, 1], mismatch_reason="Multiple references by Smith with year 2019. Use initials to disambiguate: (J. Smith, 2019) or (A. Smith, 2019)"
+
+**Narrative citation:**
+- Inline: Smith (2019) argued that...
+- Reference: Smith, J. (2019). Title. Journal.
+- Result: match_status="matched", matched_ref_index=0
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
