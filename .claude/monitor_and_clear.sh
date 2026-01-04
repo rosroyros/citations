@@ -36,9 +36,13 @@ while true; do
             echo "Waiting 2 seconds before clearing..."
             sleep 2
 
-            echo "Sending /clear command to pane ${PANE_NUMBER}..."
+            echo "Sending Escape and /clear command to pane ${PANE_NUMBER}..."
 
             # Send /clear command in two steps (required for proper execution)
+            tmux send-keys -t "${PANE_NUMBER}" Escape 
+            echo "Tried to Escape"            
+            echo "Waiting 10 seconds for session to clear..."
+            sleep 10
             tmux send-keys -t "${PANE_NUMBER}" "/clear" && tmux send-keys -t "${PANE_NUMBER}" C-m
 
             echo "Clear command sent successfully"

@@ -211,7 +211,9 @@ async def run_single_test(client, case: Dict, prompt_template: str, case_num: in
 
     # Format prompt
     ref_list_formatted = "\n".join([f"{i+1}. {ref}" for i, ref in enumerate(ref_list)])
-    inline_formatted = f'{{"id": "c1", "citation": "{inline_citation}"}}'
+    # Use json.dumps to safely handle quotes in citation text
+    inline_obj = {"id": "c1", "citation": inline_citation}
+    inline_formatted = json.dumps(inline_obj)
 
     full_prompt = prompt_template.replace("{reference_list}", ref_list_formatted)
     full_prompt = full_prompt.replace("{inline_citations}", inline_formatted)
