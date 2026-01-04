@@ -59,6 +59,42 @@ class PromptManager:
         logger.info(f"Loaded validation prompt: {prompt_path.name} ({len(prompt)} characters)")
         return prompt
 
+    def load_inline_prompt(self, style: StyleType = DEFAULT_STYLE) -> str:
+        """
+        Load the inline citation validation prompt for a given citation style.
+
+        Args:
+            style: Citation style to load inline prompt for (default: apa7)
+
+        Returns:
+            str: The inline prompt template text
+
+        Raises:
+            FileNotFoundError: If inline prompt file doesn't exist
+        """
+        config = get_style_config(style)
+        prompt_filename = config.get("inline_prompt_file")
+
+        # Fall back to APA if inline_prompt_file not defined
+        if not prompt_filename:
+            logger.warning(f"No inline_prompt_file for style '{style}', falling back to APA")
+            config = get_style_config(DEFAULT_STYLE)
+            prompt_filename = config.get("inline_prompt_file")
+
+        prompt_path = self._prompts_dir / prompt_filename
+
+        logger.debug(f"Loading inline prompt from: {prompt_path}")
+
+        if not prompt_path.exists():
+            logger.error(f"Inline prompt file not found: {prompt_path}")
+            raise FileNotFoundError(f"Inline prompt file not found: {prompt_path}")
+
+        with open(prompt_path, 'r', encoding='utf-8') as f:
+            prompt = f.read()
+
+        logger.info(f"Loaded inline validation prompt: {prompt_path.name} ({len(prompt)} characters)")
+        return prompt
+
     def format_citations(self, citations_text: str) -> str:
         """
         Format citations text for LLM input.

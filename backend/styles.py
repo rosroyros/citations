@@ -10,16 +10,19 @@ SUPPORTED_STYLES: Dict[str, Dict[str, str]] = {
     "apa7": {
         "label": "APA 7th Edition",
         "prompt_file": "validator_prompt_v3_no_hallucination.txt",
+        "inline_prompt_file": "validator_prompt_inline_apa.txt",
         "success_message": "No APA 7 formatting errors detected"
     },
     "mla9": {
         "label": "MLA 9th Edition",
         "prompt_file": "validator_prompt_mla9_v1.1.txt",
+        "inline_prompt_file": "validator_prompt_inline_mla.txt",
         "success_message": "No MLA 9 formatting errors detected"
     },
     "chicago17": {
         "label": "Chicago 17th Edition",
         "prompt_file": "validator_prompt_chicago17_v1.2.txt",
+        "inline_prompt_file": "validator_prompt_inline_chicago17.txt",
         "success_message": "No Chicago 17 formatting errors detected"
     }
 }
