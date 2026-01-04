@@ -82,7 +82,7 @@ class TestGetStyleConfig:
     def test_get_chicago17_config(self):
         """Get Chicago17 config should return correct values."""
         config = get_style_config("chicago17")
-        assert config["label"] == "Chicago 17th (Notes-Bib)"
+        assert config["label"] == "Chicago 17th Edition"
         assert config["prompt_file"] == "validator_prompt_chicago17_v1.2.txt"
         assert config["success_message"] == "No Chicago 17 formatting errors detected"
 

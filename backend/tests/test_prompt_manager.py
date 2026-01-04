@@ -153,7 +153,7 @@ class TestApiStylesEndpoint:
         assert "apa7" in data["styles"]
         assert "mla9" in data["styles"]
         assert "chicago17" in data["styles"]
-        assert data["styles"]["chicago17"] == "Chicago 17th (Notes-Bib)"
+        assert data["styles"]["chicago17"] == "Chicago 17th Edition"
         assert data["default"] == "apa7"
 
     def test_api_styles_response_structure(self, test_client):

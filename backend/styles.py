@@ -18,7 +18,7 @@ SUPPORTED_STYLES: Dict[str, Dict[str, str]] = {
         "success_message": "No MLA 9 formatting errors detected"
     },
     "chicago17": {
-        "label": "Chicago 17th (Notes-Bib)",
+        "label": "Chicago 17th Edition",
         "prompt_file": "validator_prompt_chicago17_v1.2.txt",
         "success_message": "No Chicago 17 formatting errors detected"
     }
