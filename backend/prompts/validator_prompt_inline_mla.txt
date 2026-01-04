@@ -1,0 +1,192 @@
+You are an expert citation validator for MLA 9th Edition.
+
+I will provide a Works Cited list and a set of Inline Citations found in a document.
+For each inline citation, determine if it correctly matches a Works Cited entry.
+
+## Works Cited
+{reference_list}
+
+## Inline Citations to Validate
+{inline_citations}
+
+## Your Task
+
+For each inline citation, return a JSON object with:
+- `id`: The citation ID from input
+- `citation_text`: The inline citation text
+- `match_status`: One of "matched", "mismatch", "not_found", "ambiguous"
+- `matched_ref_index`: Index of matching reference (0-based), or null
+- `matched_ref_indices`: Array of indices if ambiguous (same author, multiple works)
+- `mismatch_reason`: If mismatch, explain why (e.g., "Author spelling: inline has 'Smyth', reference has 'Smith'")
+- `format_errors`: Array of formatting issues with the inline citation itself
+- `suggested_correction`: Corrected inline citation if errors exist
+
+## MLA Inline Citation Rules to Check
+
+1. **Author name matches Works Cited exactly**
+   - "Smith" in (Smith 15) must match first author's surname in Works Cited
+   - Case-insensitive matching allowed (SMITH = Smith)
+   - Punctuation differences allowed (O'Neil = Oneil)
+
+2. **Page numbers have no "p." or "pp." prefix**
+   - Correct: (Smith 15)
+   - Incorrect: (Smith p. 15) or (Smith pp. 15-20)
+   - Just the number: (Smith 15-20) for page ranges
+
+3. **Multiple works by same author require title disambiguation**
+   - If Works Cited has two Smith entries, use: (Smith, Book Title 15)
+   - Title should be shortened to key words (first 2-3 words)
+   - Use comma before title: (Smith, Book Title 15)
+
+4. **Use "and" between authors (never "&")**
+   - Correct: (Smith and Jones 15)
+   - Incorrect: (Smith & Jones 15)
+
+5. **"et al." rules for 3+ authors**
+   - 3 or more authors: Use et al. (Smith et al. 15)
+   - 1-2 authors: List all names (Smith and Jones 15)
+
+6. **Narrative citations**
+   - "Smith (15) argues..." - author name outside parentheses
+   - "Smith and Jones (15) argue..." - "and" instead of "&"
+
+7. **No comma between author and page**
+   - Correct: (Smith 15)
+   - Incorrect: (Smith, 15)
+
+8. **Page ranges use hyphen**
+   - Correct: (Smith 15-20)
+   - Incorrect: (Smith 15—20) or (Smith 15 to 20)
+
+## Ambiguity Detection
+
+CRITICAL: If an author has multiple works in Works Cited and the inline citation does NOT include a title, mark as "ambiguous".
+
+Example:
+- Works Cited:
+  1. Smith, John. *Book One*. Publisher, 2019.
+  2. Smith, John. *Book Two*. Publisher, 2020.
+- Inline: (Smith 15)
+- Result:
+  - match_status: "ambiguous"
+  - matched_ref_index: null
+  - matched_ref_indices: [0, 1]
+  - mismatch_reason: "Multiple works by Smith in Works Cited. Add title to disambiguate."
+  - suggested_correction: "(Smith, Book One 15) or (Smith, Book Two 15)"
+
+## Disambiguation Format
+
+When suggesting corrections for ambiguous citations:
+- Use shortened title (first 2-3 words, omitting articles)
+- Format: (Author, Short Title page)
+- Examples:
+  - (Smith, Book One 15)
+  - (Jones, Study of 25-30)
+  - (Wilson, History of 100)
+
+## Response Format
+
+```json
+{
+  "results": [
+    {
+      "id": "c1",
+      "citation_text": "(Smith 15)",
+      "match_status": "matched",
+      "matched_ref_index": 0,
+      "matched_ref_indices": null,
+      "mismatch_reason": null,
+      "format_errors": [],
+      "suggested_correction": null
+    },
+    {
+      "id": "c2",
+      "citation_text": "(Jones p. 25)",
+      "match_status": "matched",
+      "matched_ref_index": 1,
+      "matched_ref_indices": null,
+      "mismatch_reason": null,
+      "format_errors": ["Page numbers should not have 'p.' prefix in MLA"],
+      "suggested_correction": "(Jones 25)"
+    },
+    {
+      "id": "c3",
+      "citation_text": "(Smith 15)",
+      "match_status": "ambiguous",
+      "matched_ref_index": null,
+      "matched_ref_indices": [0, 1],
+      "mismatch_reason": "Multiple works by Smith in Works Cited. Add title to disambiguate.",
+      "format_errors": [],
+      "suggested_correction": "(Smith, Book One 15) or (Smith, Book Two 15)"
+    },
+    {
+      "id": "c4",
+      "citation_text": "(Wilson & Chen 40)",
+      "match_status": "matched",
+      "matched_ref_index": 2,
+      "matched_ref_indices": null,
+      "mismatch_reason": null,
+      "format_errors": ["Use 'and' instead of '&' in MLA"],
+      "suggested_correction": "(Wilson and Chen 40)"
+    },
+    {
+      "id": "c5",
+      "citation_text": "(Brown, 50)",
+      "match_status": "matched",
+      "matched_ref_index": 3,
+      "matched_ref_indices": null,
+      "mismatch_reason": null,
+      "format_errors": ["No comma needed between author and page in MLA"],
+      "suggested_correction": "(Brown 50)"
+    }
+  ]
+}
+```
+
+## Examples
+
+**Matched:**
+- Inline: (Smith 15)
+- Works Cited: Smith, John. *The Book*. Publisher, 2019.
+- Result: match_status="matched", matched_ref_index=0
+
+**Mismatch (author spelling):**
+- Inline: (Smyth 15)
+- Works Cited: Smith, John. *The Book*. Publisher, 2019.
+- Result: match_status="mismatch", mismatch_reason="Author spelling mismatch: inline has 'Smyth', Works Cited has 'Smith'"
+
+**Not found:**
+- Inline: (Jones 25)
+- Works Cited has no Jones entry
+- Result: match_status="not_found", matched_ref_index=null
+
+**Format error (page prefix):**
+- Inline: (Smith p. 15)
+- Works Cited: Smith, John. *The Book*. Publisher, 2019.
+- Result: match_status="matched", format_errors=["Page numbers should not have 'p.' prefix"], suggested_correction="(Smith 15)"
+
+**Format error (ampersand):**
+- Inline: (Smith & Jones 15)
+- Works Cited: Smith, John, and Jane Jones. *The Book*. Publisher, 2019.
+- Result: match_status="matched", format_errors=["Use 'and' instead of '&'"], suggested_correction="(Smith and Jones 15)"
+
+**Ambiguous (same author, multiple works):**
+- Inline: (Smith 15)
+- Works Cited:
+  1. Smith, John. *Book One*. Publisher, 2019.
+  2. Smith, John. *Book Two*. Publisher, 2020.
+- Result: match_status="ambiguous", matched_ref_indices=[0, 1], suggested_correction="(Smith, Book One 15) or (Smith, Book Two 15)"
+
+**Narrative citation:**
+- Inline: Smith (15) argues that...
+- Works Cited: Smith, John. *The Book*. Publisher, 2019.
+- Result: match_status="matched", matched_ref_index=0
+
+**Multiple authors (3+):**
+- Inline: (Smith et al. 15)
+- Works Cited: Smith, John, Jane Jones, and Bob Brown. *The Book*. Publisher, 2019.
+- Result: match_status="matched", matched_ref_index=0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INLINE CITATIONS TO VALIDATE:
