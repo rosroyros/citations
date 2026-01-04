@@ -1,0 +1,44 @@
+.orphan-warning-box {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.orphan-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.warning-icon {
+  font-size: 1.2rem;
+}
+
+.orphan-list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.orphan-list li {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.orphan-list code {
+  background: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  border: 1px solid #ddd;
+}
+
+.orphan-count {
+  color: #856404;
+  font-size: 0.85rem;
+}
