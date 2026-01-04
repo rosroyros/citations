@@ -1,0 +1,100 @@
+{"inline_citation": "(Smith 15)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2019.", "Jones, Karen. Modern Education. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith 15-18)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2019.", "Jones, Karen. Modern Education. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith and Jones 23)", "ref_list": ["Smith, John, and Karen Jones. Collaborative Teaching. Harvard UP, 2019.", "Brown, Linda. Solo Learning. MIT Press, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith et al. 45)", "ref_list": ["Smith, John, Karen Jones, and Linda Brown. Team Research. Stanford UP, 2019.", "Wilson, Robert. Individual Studies. Yale UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith et al. 45-50)", "ref_list": ["Smith, John, Karen Jones, Linda Brown, and Mary Davis. Group Dynamics. Princeton UP, 2019.", "White, Peter. Solo Projects. Columbia UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Modern Language Association 112)", "ref_list": ["Modern Language Association. MLA Handbook. 9th ed., Modern Language Association of America, 2021.", "American Psychological Association. Publication Manual. 7th ed., American Psychological Association, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(MLA 112)", "ref_list": ["Modern Language Association. MLA Handbook. 9th ed., Modern Language Association of America, 2021.", "National Institutes of Health. Research Guidelines."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(National Institute of Mental Health 78)", "ref_list": ["National Institute of Mental Health. Mental Health Statistics. Government Printing Office, 2018.", "World Health Organization. Global Health Reports."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(NIMH 78)", "ref_list": ["National Institute of Mental Health. Mental Health Statistics. Government Printing Office, 2018.", "CDC. Public Health Guidelines."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Authoring 15)", "ref_list": ["Smith, John. Authoring: A Comprehensive Guide. Oxford UP, 2019.", "Smith, John. Writing Skills. Cambridge UP, 2020.", "Jones, Karen. Modern Education."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Writing 22)", "ref_list": ["Smith, John. Authoring: A Comprehensive Guide. Oxford UP, 2019.", "Smith, John. Writing Skills. Cambridge UP, 2020.", "Jones, Karen. Modern Education."], "expected": {"match_status": "matched", "matched_ref_index": 1, "errors": []}}
+
+{"inline_citation": "(Johnson 33)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2019.", "Brown, Linda. Educational Practices. Harvard UP, 2021."], "expected": {"match_status": "not_found", "matched_ref_index": null, "errors": ["Reference not found in reference list"]}}
+
+{"inline_citation": "(Smyth 15)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2019.", "Jones, Karen. Teaching Methods. Cambridge UP, 2020."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["Author name may be misspelled (Smyth vs Smith)"]}}
+
+{"inline_citation": "(Smith 15)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2020.", "Jones, Karen. Teaching Methods. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith 15; Jones 22)", "ref_list": ["Smith, John. The Art of Writing. Oxford UP, 2019.", "Jones, Karen. Teaching Methods. Cambridge UP, 2020.", "Brown, Linda. Assessment Strategies."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}]}}
+
+{"inline_citation": "(Smith 15; Jones 22; Brown 30)", "ref_list": ["Smith, John. First Book. Oxford UP, 2019.", "Jones, Karen. Second Book. Cambridge UP, 2020.", "Brown, Linda. Third Book. Harvard UP, 2021."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}, {"inline_author": "Brown", "ref_index": 2}]}}
+
+{"inline_citation": "(Smith and Jones 23; Brown 30)", "ref_list": ["Smith, John, and Karen Jones. Collaborative Work. MIT Press, 2019.", "Brown, Linda. Individual Work. Stanford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_authors": ["Smith", "Jones"], "ref_index": 0}, {"inline_author": "Brown", "ref_index": 1}]}}
+
+{"inline_citation": "Smith argues that (15)", "ref_list": ["Smith, John. Argumentation Theory. Yale UP, 2019.", "Johnson, Andrew. Counter-Arguments. Princeton UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "According to Smith (15)", "ref_list": ["Smith, John. Research Methodology. Cambridge UP, 2019.", "Williams, Brian. Alternative Methods. Oxford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "Smith and Jones demonstrate (23)", "ref_list": ["Smith, John, and Karen Jones. Experimental Results. MIT Press, 2019.", "Miller, Richard. Replication Studies. Harvard UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "According to Smith and Jones (23)", "ref_list": ["Smith, John, and Karen Jones. Qualitative Analysis. Stanford UP, 2019.", "Taylor, Susan. Quantitative Methods. Yale UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "Smith et al. found (45)", "ref_list": ["Smith, John, Karen Jones, Linda Brown, and Mary Davis. Large-Scale Study. Princeton UP, 2019.", "Wilson, Thomas. Small-Scale Studies. Columbia UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "As Smith et al. report (45-50)", "ref_list": ["Smith, John, Karen Jones, and Linda Brown. Team Research. Stanford UP, 2019.", "Anderson, Paul. Solo Research. MIT Press, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "(Smith et al. 45)", "ref_list": ["Smith, John, and Karen Jones. Two-Author Study. Harvard UP, 2019.", "Brown, Linda. Collaborative Writing. Yale UP, 2020."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["et al. used incorrectly (reference has only 2 authors, should be \"Smith and Jones\""]}}
+
+{"inline_citation": "(Smith and Jones 23)", "ref_list": ["Smith, John, Karen Jones, Linda Brown, and Mary Davis. Four-Author Research. Princeton UP, 2019.", "Wilson, Robert. Two-Author Papers. Stanford UP, 2020."], "expected": {"match_status": "mismatch", "matched_ref_index": 0, "errors": ["Citation uses \"and\" for 3+ author reference (should use \"et al.\")"]}}
+
+{"inline_citation": "(US Dept. of Education 78)", "ref_list": ["US Dept. of Education. Education Statistics. Government Printing Office, 2018.", "US Dept. of Health. Health Statistics."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "US Dept. of Education reports that (78)", "ref_list": ["US Dept. of Education. Education Statistics. Government Printing Office, 2018.", "US Dept. of Health. Health Statistics."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "(van der Meer 112)", "ref_list": ["van der Meer, Jan. Dutch Educational System. Amsterdam UP, 2019.", "Smith, John. American Education. Oxford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "van der Meer analyzes (112-15)", "ref_list": ["van der Meer, Jan. Dutch Educational System. Amsterdam UP, 2019.", "Smith, John. American Education. Oxford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "(De Vries 88)", "ref_list": ["De Vries, Henk. Primary Education Methods. Rotterdam UP, 2020.", "Johnson, Keith. Secondary Education. Utrecht UP, 2021."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(McDonald 145)", "ref_list": ["McDonald, Ronald. Nutrition Research. Chicago UP, 2019.", "Burger, Kevin. Fast Food Studies. Oxford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(O'Connor 67)", "ref_list": ["O'Connor, Sean. Irish Literature Studies. Dublin UP, 2020.", "Murphy, Patrick. Celtic Literature. Cork UP, 2021."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(St. Jean 89)", "ref_list": ["St. Jean, Marie. Canadian Geography. Toronto UP, 2019.", "Smith, John. American Geography. Oxford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, ch. 2)", "ref_list": ["Smith, John. Book Analysis. Oxford UP, 2019.", "Jones, Karen. Chapter Writing. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, vol. 2)", "ref_list": ["Smith, John. Multi-Volume Work. Vol. 2, Oxford UP, 2019.", "Jones, Karen. Single Volume. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(World Health Organization 45)", "ref_list": ["World Health Organization. World Health Statistics 2019. WHO Press, 2019.", "UNICEF. Child Health Report."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(WHO 45)", "ref_list": ["World Health Organization. World Health Statistics 2019. WHO Press, 2019.", "UNESCO. Education Report."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith 15-16, 20)", "ref_list": ["Smith, John. Multiple Page References. Harvard UP, 2019.", "Brown, Linda. Single Page Citations. Yale UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith; Jones et al.; Brown)", "ref_list": ["Smith, John. Single Author Work. Oxford UP, 2019.", "Jones, Karen, Linda Brown, and Mary Davis. Multiple Author Work. Cambridge UP, 2020.", "Chen, Ling. Another Work. MIT Press, 2021."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_author": "Smith", "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}]}}
+
+{"inline_citation": "(Smith and Brown; Jones; Davis)", "ref_list": ["Smith, John, and Linda Brown. First Study. Harvard UP, 2018.", "Jones, Karen. Second Study. Yale UP, 2019.", "Davis, Mary. Third Study. Princeton UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": null, "errors": [], "matches": [{"inline_authors": ["Smith", "Brown"], "ref_index": 0}, {"inline_author": "Jones", "ref_index": 1}, {"inline_author": "Davis", "ref_index": 2}]}}
+
+{"inline_citation": "as discussed by Smith (45-50)", "ref_list": ["Smith, John. Discussion Analysis. Stanford UP, 2019.", "Johnson, Andrew. Conversation Studies. MIT Press, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": true}}
+
+{"inline_citation": "(Smith, New York 15)", "ref_list": ["Smith, John. New York Publishing. Oxford UP, 2019.", "Smith, John. Boston Publishing. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Boston 22)", "ref_list": ["Smith, John. New York Publishing. Oxford UP, 2019.", "Smith, John. Boston Publishing. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 1, "errors": []}}
+
+{"inline_citation": "(Smith 15)", "ref_list": ["Smith, John. New York Publishing. Oxford UP, 2019.", "Smith, John. Boston Publishing. Cambridge UP, 2020."], "expected": {"match_status": "ambiguous", "matched_ref_indices": [0, 1], "errors": ["Multiple matches by same author - specify title or city to disambiguate"]}}
+
+{"inline_citation": "(Smith 15)", "ref_list": ["Smith, John. Authoring Guide. Oxford UP, 2019.", "Smith, John. Writing Handbook. Cambridge UP, 2020.", "Smith, John. Composition Textbook. Harvard UP, 2021."], "expected": {"match_status": "ambiguous", "matched_ref_indices": [0, 1, 2], "errors": ["Multiple matches by same author - specify title or city to disambiguate"]}}
+
+{"inline_citation": "(Smith, Essay 15)", "ref_list": ["Smith, John. Book of Essays. Oxford UP, 2019.", "Jones, Karen. Short Stories. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Introduction 12)", "ref_list": ["Smith, John. Edited Collection. Harvard UP, 2019.", "Brown, Linda. Anthology. Yale UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Letter 8)", "ref_list": ["Smith, John. Collected Letters. Princeton UP, 2019.", "Jones, Karen. Collected Poems. Stanford UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "(Smith, Afterword 95)", "ref_list": ["Smith, John. Book with Afterword. MIT Press, 2019.", "Brown, Linda. Book with Preface. Harvard UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": []}}
+
+{"inline_citation": "According to recent research (Smith 15)", "ref_list": ["Smith, John. Recent Research Findings. Oxford UP, 2019.", "Brown, Linda. Older Research. Cambridge UP, 2020."], "expected": {"match_status": "matched", "matched_ref_index": 0, "errors": [], "narrative": false}}
+
