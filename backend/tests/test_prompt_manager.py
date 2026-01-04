@@ -32,6 +32,14 @@ class TestLoadPromptStyles:
         # MLA prompt should contain MLA-specific content
         assert "MLA" in prompt.upper()
 
+    def test_load_prompt_chicago17(self):
+        """Loading chicago17 should load Chicago-specific prompt."""
+        pm = PromptManager()
+        prompt = pm.load_prompt("chicago17")
+        assert len(prompt) > 0
+        # Chicago prompt should contain Chicago-specific content
+        assert "CHICAGO" in prompt.upper()
+
     def test_load_prompt_different_content(self):
         """APA7 and MLA9 prompts should have different content."""
         pm = PromptManager()
@@ -110,13 +118,42 @@ class TestApiStylesEndpoint:
     def test_api_styles_mla_enabled(self, test_client, monkeypatch):
         """When MLA_ENABLED=true, both styles are returned."""
         monkeypatch.setattr('app.MLA_ENABLED', True)
-        
+
         response = test_client.get("/api/styles")
         assert response.status_code == 200
-        
+
         data = response.json()
         assert "apa7" in data["styles"]
         assert "mla9" in data["styles"]
+        assert data["default"] == "apa7"
+
+    def test_api_styles_chicago_disabled(self, test_client, monkeypatch):
+        """When CHICAGO_ENABLED=false, only apa7 and mla9 (if enabled) are returned."""
+        monkeypatch.setattr('app.MLA_ENABLED', True)
+        monkeypatch.setattr('app.CHICAGO_ENABLED', False)
+
+        response = test_client.get("/api/styles")
+        assert response.status_code == 200
+
+        data = response.json()
+        assert "apa7" in data["styles"]
+        assert "mla9" in data["styles"]
+        assert "chicago17" not in data["styles"]
+        assert data["default"] == "apa7"
+
+    def test_api_styles_chicago_enabled(self, test_client, monkeypatch):
+        """When CHICAGO_ENABLED=true, all three styles are returned."""
+        monkeypatch.setattr('app.MLA_ENABLED', True)
+        monkeypatch.setattr('app.CHICAGO_ENABLED', True)
+
+        response = test_client.get("/api/styles")
+        assert response.status_code == 200
+
+        data = response.json()
+        assert "apa7" in data["styles"]
+        assert "mla9" in data["styles"]
+        assert "chicago17" in data["styles"]
+        assert data["styles"]["chicago17"] == "Chicago 17th (Notes-Bib)"
         assert data["default"] == "apa7"
 
     def test_api_styles_response_structure(self, test_client):

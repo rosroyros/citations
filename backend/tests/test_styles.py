@@ -16,6 +16,7 @@ class TestSupportedStylesStructure:
         """Verify SUPPORTED_STYLES contains expected style keys."""
         assert "apa7" in SUPPORTED_STYLES
         assert "mla9" in SUPPORTED_STYLES
+        assert "chicago17" in SUPPORTED_STYLES
 
     def test_each_style_has_required_fields(self):
         """Verify each style config has label, prompt_file, and success_message."""
@@ -42,6 +43,10 @@ class TestIsValidStyle:
     def test_valid_style_mla9(self):
         """MLA9 should be a valid style."""
         assert is_valid_style("mla9") is True
+
+    def test_valid_style_chicago17(self):
+        """Chicago17 should be a valid style."""
+        assert is_valid_style("chicago17") is True
 
     def test_invalid_style_empty_string(self):
         """Empty string should be invalid."""
@@ -73,6 +78,13 @@ class TestGetStyleConfig:
         assert config["label"] == "MLA 9th Edition"
         assert config["prompt_file"] == "validator_prompt_mla9_v1.1.txt"
         assert config["success_message"] == "No MLA 9 formatting errors detected"
+
+    def test_get_chicago17_config(self):
+        """Get Chicago17 config should return correct values."""
+        config = get_style_config("chicago17")
+        assert config["label"] == "Chicago 17th (Notes-Bib)"
+        assert config["prompt_file"] == "validator_prompt_chicago17_v1.2.txt"
+        assert config["success_message"] == "No Chicago 17 formatting errors detected"
 
 
 class TestDefaultStyle:
