@@ -109,15 +109,15 @@ def save_position(position: int) -> None:
     try:
         # Ensure directory exists
         os.makedirs(os.path.dirname(POSITION_FILE_PATH), exist_ok=True)
-        
+
         # Write to temp file first to ensure atomicity
         with tempfile.NamedTemporaryFile(mode='w', delete=False, dir=os.path.dirname(POSITION_FILE_PATH)) as tf:
             tf.write(str(position))
             temp_name = tf.name
-            
+
         # Atomic rename
         os.replace(temp_name, POSITION_FILE_PATH)
-        
+
     except IOError as e:
         logger.error(f"Could not save position to {POSITION_FILE_PATH}: {e}")
         # Clean up temp file if rename failed
@@ -126,6 +126,59 @@ def save_position(position: int) -> None:
                 os.remove(temp_name)
             except OSError:
                 pass
+
+def adjust_to_utf8_boundary(file_handle, byte_pos: int) -> int:
+    """
+    Adjust byte position to nearest valid UTF-8 character boundary.
+
+    When seeking to a byte position in a UTF-8 file, the position might fall
+    in the middle of a multi-byte character (e.g., Greek letters use 2 bytes).
+    This function scans backwards to find the nearest valid character boundary.
+
+    UTF-8 continuation bytes have bit pattern 10xxxxxx (0x80-0xBF).
+    Valid start bytes do NOT have this pattern.
+
+    Args:
+        file_handle: File handle opened in binary mode
+        byte_pos: Desired byte position to adjust
+
+    Returns:
+        Adjusted byte position that aligns with UTF-8 character boundary
+    """
+    if byte_pos == 0:
+        return 0
+
+    # Read a few bytes before AND including the position to check
+    # UTF-8 characters are at most 4 bytes, so checking up to 3 bytes back plus
+    # the byte at the position gives us enough context
+    check_start = max(0, byte_pos - 3)
+    # Read one extra byte to check if the position itself is a continuation byte
+    check_end = min(byte_pos + 1, file_handle.seek(0, 2))  # Get file size
+    file_handle.seek(check_start)
+
+    chunk = file_handle.read(check_end - check_start)
+
+    # Calculate where our target byte is within this chunk
+    target_offset = byte_pos - check_start
+
+    # If the byte at our target position is a continuation byte,
+    # we need to scan backwards to find the start of the character
+    byte_at_target = chunk[target_offset] if target_offset < len(chunk) else None
+
+    if byte_at_target is not None and (byte_at_target & 0xC0) == 0x80:
+        # This is a continuation byte - scan backwards to find character start
+        for i in range(target_offset, -1, -1):
+            byte_val = chunk[i]
+            if (byte_val & 0xC0) != 0x80:  # Found a non-continuation byte
+                # If it's a start byte (0xC0-0xFD), the character starts here
+                # If it's ASCII (< 0x80), we're at a valid boundary
+                return check_start + i
+
+        # Shouldn't reach here, but if we do, return 0
+        return 0
+
+    # Target byte is not a continuation byte, so it's already at a valid boundary
+    return byte_pos
 
 def main():
     """Main cron job function for citation parsing"""
@@ -166,9 +219,19 @@ def main():
 
         logger.info(f"Processing new content from position {last_position} to {current_file_size}")
 
-        # Read only the new content
+        # LAYER 1: Adjust position to UTF-8 boundary BEFORE reading
+        # This prevents seeking to the middle of a multi-byte UTF-8 character
+        with open(PRODUCTION_CITATION_LOG_PATH, 'rb') as f:
+            adjusted_position = adjust_to_utf8_boundary(f, last_position)
+
+            if adjusted_position != last_position:
+                logger.warning(f"Adjusted position from {last_position} to {adjusted_position} (UTF-8 character boundary)")
+                last_position = adjusted_position
+
+        # LAYER 2: Read with errors='replace' as safety net
+        # Handles edge cases like incomplete multi-byte characters at EOF
         try:
-            with open(PRODUCTION_CITATION_LOG_PATH, 'r', encoding='utf-8') as f:
+            with open(PRODUCTION_CITATION_LOG_PATH, 'r', encoding='utf-8', errors='replace') as f:
                 f.seek(last_position)
                 new_content = f.read()
                 # Get the actual position after reading (handles if file grew during read)
@@ -176,6 +239,15 @@ def main():
         except IOError as e:
              logger.error(f"Failed to read log file: {e}")
              sys.exit(1)
+
+        # LAYER 3: Check for UTF-8 replacement characters (corruption detection)
+        # If we see replacement characters, don't save position - let it retry next time
+        if '\ufffd' in new_content:
+            logger.warning(f"UTF-8 replacement characters (\\ufffd) detected in content - possible data corruption")
+            logger.warning(f"Position NOT saved - will retry on next run to recover valid data")
+            # Don't update position, don't process this batch
+            # Next run will attempt to read from same position
+            return
 
         # CRITICAL: Update position immediately after reading to prevent re-reading
         # if the subsequent processing crashes or takes too long.

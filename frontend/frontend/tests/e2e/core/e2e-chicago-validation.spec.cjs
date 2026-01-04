@@ -25,12 +25,17 @@ test.describe('Chicago Validation Flow', () => {
         // 1. Visit Homepage
         await page.goto('/');
 
+        // Wait for page to load and styles to be fetched
+        await page.waitForLoadState('networkidle');
+
         // 2. Check if StyleSelector appears (only if Chicago is enabled via feature flag)
         // The StyleSelector only renders when multiple styles are available
         const styleSelector = page.locator('.style-selector');
         const styleTabChicago = page.locator('.style-tab', { hasText: /Chicago/i });
 
         // Check if style selector is visible (CHICAGO_ENABLED=true)
+        // Wait a bit for async styles fetch to complete
+        await page.waitForTimeout(500);
         const selectorVisible = await styleSelector.isVisible().catch(() => false);
 
         if (selectorVisible) {
@@ -92,6 +97,10 @@ test.describe('Chicago Validation Flow', () => {
         // Visit with style=chicago17 URL parameter
         await page.goto('/?style=chicago17');
 
+        // Wait for page to load and styles to be fetched
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(500);
+
         // Check if StyleSelector exists and Chicago is available
         const styleTabChicago = page.locator('.style-tab', { hasText: /Chicago/i });
         const chicagoTabVisible = await styleTabChicago.isVisible().catch(() => false);
@@ -116,6 +125,9 @@ test.describe('Chicago Validation Flow', () => {
 
         // 1. Visit Homepage
         await page.goto('/');
+
+        // Wait for page to load
+        await page.waitForLoadState('networkidle');
 
         // 2. If StyleSelector exists, ensure APA is selected (it's default)
         const styleTabApa = page.locator('.style-tab', { hasText: 'APA 7' });
@@ -166,6 +178,20 @@ test.describe('Chicago Validation Flow', () => {
         // Visit page
         await page.goto('/');
 
+        // Wait for page to load and styles to be fetched
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(500);
+
+        // Wait for StyleSelector to appear (async fetch from /api/styles)
+        const styleSelector = page.locator('.style-selector');
+        const selectorVisible = await styleSelector.isVisible().catch(() => false);
+
+        if (!selectorVisible) {
+            console.log('StyleSelector not visible - only one style available');
+            // This is expected when only APA is enabled (no feature flags)
+            test.skip(true, 'StyleSelector not visible (only one style enabled)');
+        }
+
         // Check for all three style tabs
         const styleTabApa = page.locator('.style-tab', { hasText: 'APA 7' });
         const styleTabMla = page.locator('.style-tab', { hasText: 'MLA 9' });
@@ -191,6 +217,10 @@ test.describe('Chicago Validation Flow', () => {
     test('Chicago selection persists after reload', async ({ page }) => {
         // Check if Chicago tab is available
         await page.goto('/');
+
+        // Wait for page to load and styles to be fetched
+        await page.waitForLoadState('networkidle');
+        await page.waitForTimeout(500);
 
         const styleTabChicago = page.locator('.style-tab', { hasText: /Chicago/i });
         const chicagoTabVisible = await styleTabChicago.isVisible().catch(() => false);
