@@ -1,33 +1,37 @@
-# Code Review: MLA PSEO Generation & Validation Scripts
+## Code Review: Add Chicago API Tests
 
-## Critical Issues
-1. **Unused Validation Gate (TF-IDF)**: 
-   - In `backend/pseo/scripts/validate_mla_batch.py`, the method `check_tfidf_distinctness` is defined but **never called**.
-   - The `validate_all` method calls `validate_page` loop, but `check_tfidf_distinctness` (which requires comparing all pages against APA pages) is not invoked.
-   - **Impact**: The "TF-IDF similarity to APA < 0.3" requirement is NOT being enforced.
+### Summary
+The implementation successfully adds the required API tests for Chicago style support and cleans up deprecated tests. The changes adhere to the requirements and pass all checks.
 
-## Important Issues
-1. **Missing Dependency**:
-   - `validate_mla_batch.py` imports `TfidfVectorizer` and `cosine_similarity` from `sklearn` (scikit-learn), but `scikit-learn` is **not listed in `requirements.txt`**.
-   - This will cause runtime errors in environments where it's not manually installed (e.g., CI/CD, other devs).
+### 1. Adherence to Task
+- **Satisfied**: ✅
+- **Details**: 
+    - Added tests for `/api/styles` checking `CHICAGO_ENABLED` behavior.
+    - Added tests for `/api/validate/async` accepting `chicago17`.
+    - Added negative tests for invalid style names (`chicago`, `chicago16`).
+    - Removed deprecated tests for the old `/api/validate` endpoint.
 
-2. **Missing Test Coverage (TF-IDF)**:
-   - `test_mla_scripts.py` does not contain any tests for `check_tfidf_distinctness`.
-   - While other gates are tested (word count, template vars, etc.), the complex logic of TF-IDF comparison remains untested.
+### 2. Security
+- **Status**: ✅ No Issues
+- **Details**: No security vulnerabilities, secret exposures, or unsafe inputs found in the test code.
 
-3. **Weak Test Coverage (Generation Script)**:
-   - `test_generate_pilot_pages_dry_run` only executes the `--help` command.
-   - There is no test that verifies the generator script actually runs (even in a dry-run or mocked mode) or produces files. The "comprehensive" test claim is overstated for `generate_mla_pages.py`.
+### 3. Code Quality
+- **Status**: ✅ Good
+- **Details**: 
+    - Test names are descriptive and follow conventions.
+    - `test_styles_includes_chicago_when_enabled` correctly handles environment variability, making the test robust.
+    - Code is clean and readable.
 
-## Minor Issues
-1. **Import Style in Tests**:
-   - `test_mla_scripts.py` modifies `sys.path` globally at the module level: `sys.path.insert(0, str(SCRIPTS_DIR))`.
-   - **Suggestion**: Consider moving this into the `scripts_dir` fixture or using `PYTHONPATH` during test execution to avoid side effects on other tests.
+### 4. Testing
+- **Status**: ✅ Passed with Minor Observation
+- **Details**: 
+    - All 8 tests in `tests/test_app.py` passed.
+    - **Minor Observation**: The removal of `test_empty_input_rejected` and `test_whitespace_only_input_rejected` means we lost explicit test coverage for 400 Bad Request on empty inputs. 
+        - *Mitigation*: verified `backend/app.py` contains logic to reject empty citations for the new endpoint, so functionality is preserved, just untracked by `test_app.py` now. Recommended to add a test case for empty input to `test_validate_async` in a future cleanup.
 
-## Strengths
-- **Modular Validation Tests**: The validation logic is well-tested by importing the `MLAPageValidator` class and testing individual gate methods (except TF-IDF).
-- **Fixture Usage**: Good use of `pytest` fixtures for temporary directories and sample content.
-- **Config Validation**: Tests properly verify the structure of the JSON configuration files.
+### 5. Conclusion
+**Approved**. The changes meet all acceptance criteria and existing tests pass.
 
-## Recommendation
-**Request Changes**. The missing dependency and the unconnected TF-IDF validation gate need to be addressed before this task can be considered complete according to requirements. The generation script test should also be strengthened to at least attempt a mock generation.
+**Strengths**:
+- Robust handling of feature flags in tests.
+- Clear separation of positive and negative test cases.
