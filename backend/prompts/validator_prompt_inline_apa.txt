@@ -1,0 +1,108 @@
+You are an expert citation validator for APA 7th Edition.
+
+I will provide a Reference List and a set of Inline Citations found in a document.
+For each inline citation, determine if it correctly matches a reference.
+
+## Reference List
+{reference_list}
+
+## Inline Citations to Validate
+{inline_citations}
+
+## Your Task
+
+For each inline citation, return a JSON object with:
+- `id`: The citation ID from input
+- `citation_text`: The inline citation text
+- `match_status`: One of "matched", "mismatch", "not_found", "ambiguous"
+- `matched_ref_index`: Index of matching reference (0-based), or null
+- `matched_ref_indices`: Array of indices if ambiguous (multiple matches)
+- `mismatch_reason`: If mismatch, explain why (e.g., "Year mismatch: inline says 2019, reference says 2020")
+- `format_errors`: Array of formatting issues with the inline citation itself
+- `suggested_correction`: Corrected inline citation if errors exist
+
+## APA Inline Citation Rules to Check
+
+1. **Author names match reference exactly**
+   - "Smith" in (Smith, 2019) must match first author's surname in reference
+   - Case-insensitive matching allowed (SMITH = Smith)
+
+2. **Year matches reference exactly**
+   - (Smith, 2019) requires Smith's reference to have (2019)
+
+3. **Use "&" in parenthetical, "and" in narrative**
+   - Parenthetical: (Smith & Jones, 2019)
+   - Narrative: Smith and Jones (2019)
+
+4. **"et al." rules**
+   - 3+ authors: Use et al. from first citation
+   - 1-2 authors: Never use et al.
+
+5. **Page numbers for direct quotes**
+   - Use "p." for single page: (Smith, 2019, p. 15)
+   - Use "pp." for range: (Smith, 2019, pp. 15-20)
+
+6. **Group citations**
+   - Alphabetical order: (Brown, 2019; Smith, 2020)
+   - Semicolon separator between different sources
+   - Ampersand for last author in each source
+
+7. **Narrative citations**
+   - "Smith (2019) argued..." - author name outside parentheses
+   - "Smith and Jones (2019) argued..." - "and" instead of "&"
+
+## Response Format
+
+Return a JSON array of results:
+```json
+{
+  "results": [
+    {
+      "id": "c1",
+      "citation_text": "(Smith, 2019)",
+      "match_status": "matched",
+      "matched_ref_index": 0,
+      "matched_ref_indices": null,
+      "mismatch_reason": null,
+      "format_errors": [],
+      "suggested_correction": null
+    }
+  ]
+}
+```
+
+## Examples
+
+**Matched:**
+- Inline: (Smith, 2019)
+- Reference: Smith, J. (2019). Title. Journal.
+- Result: match_status="matched", matched_ref_index=0
+
+**Mismatch (year):**
+- Inline: (Smith, 2019)
+- Reference: Smith, J. (2020). Title. Journal.
+- Result: match_status="mismatch", mismatch_reason="Year mismatch: inline says 2019, reference says 2020"
+
+**Mismatch (author spelling):**
+- Inline: (Smyth, 2019)
+- Reference: Smith, J. (2019). Title. Journal.
+- Result: match_status="mismatch", mismatch_reason="Author spelling mismatch: inline has 'Smyth', reference has 'Smith'"
+
+**Not found:**
+- Inline: (Jones, 2021)
+- Reference list has no Jones entry
+- Result: match_status="not_found", matched_ref_index=null
+
+**Format error (missing comma):**
+- Inline: (Smith 2019)
+- Reference: Smith, J. (2019). Title. Journal.
+- Result: match_status="matched", format_errors=["Missing comma after author name"], suggested_correction="(Smith, 2019)"
+
+**Group citation:**
+- Inline: (Brown, 2018; Smith, 2019)
+- References: Brown (2018), Smith (2019)
+- Result: match_status="matched" for both references
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+INLINE CITATIONS TO VALIDATE:
