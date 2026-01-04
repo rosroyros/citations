@@ -97,7 +97,7 @@ def format_message(job: Dict[str, Any]) -> str:
     provider = provider_map.get(provider_raw, provider_raw or 'Unknown')
     
     # Style
-    style_map = {'apa7': 'APA 7', 'mla9': 'MLA 9'}
+    style_map = {'apa7': 'APA 7', 'mla9': 'MLA 9', 'chicago17': 'Chicago 17'}
     style_raw = job.get('style')
     style = style_map.get(style_raw, style_raw.upper() if style_raw else 'Unknown')
     

@@ -16,10 +16,15 @@ SUPPORTED_STYLES: Dict[str, Dict[str, str]] = {
         "label": "MLA 9th Edition",
         "prompt_file": "validator_prompt_mla9_v1.1.txt",
         "success_message": "No MLA 9 formatting errors detected"
+    },
+    "chicago17": {
+        "label": "Chicago 17th (Notes-Bib)",
+        "prompt_file": "validator_prompt_chicago17_v1.2.txt",
+        "success_message": "No Chicago 17 formatting errors detected"
     }
 }
 
-StyleType = Literal["apa7", "mla9"]
+StyleType = Literal["apa7", "mla9", "chicago17"]
 DEFAULT_STYLE: StyleType = "apa7"
 
 

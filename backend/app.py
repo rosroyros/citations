@@ -42,6 +42,9 @@ load_dotenv()
 # MLA feature flag - controls visibility of MLA9 in /api/styles
 MLA_ENABLED = os.getenv('MLA_ENABLED', 'false').lower() == 'true'
 
+# Chicago feature flag - controls visibility of Chicago17 in /api/styles
+CHICAGO_ENABLED = os.getenv('CHICAGO_ENABLED', 'false').lower() == 'true'
+
 # Initialize logger
 logger = setup_logger("citation_validator")
 
@@ -754,6 +757,9 @@ async def get_available_styles():
 
     if MLA_ENABLED:
         styles["mla9"] = SUPPORTED_STYLES["mla9"]["label"]
+
+    if CHICAGO_ENABLED:
+        styles["chicago17"] = SUPPORTED_STYLES["chicago17"]["label"]
 
     return {
         "styles": styles,
