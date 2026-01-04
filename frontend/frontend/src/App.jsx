@@ -111,8 +111,9 @@ function AppContent() {
   // Initialize style from localStorage or default to 'apa7'
   const [selectedStyle, setSelectedStyle] = useState(() => {
     const savedStyle = localStorage.getItem('citation_checker_style')
-    // Only use saved style if it's a valid option
-    return savedStyle === 'mla9' ? 'mla9' : 'apa7'
+    // Validate against all known styles (generic, supports adding Chicago/MLA/etc)
+    const validStyles = ['apa7', 'mla9', 'chicago17']
+    return validStyles.includes(savedStyle) ? savedStyle : 'apa7'
   })
   const editorFocusedRef = useRef(false)
   const abandonmentTimerRef = useRef(null)
@@ -1028,7 +1029,7 @@ function AppContent() {
               <div className="faq-item">
                 <h4 className="faq-question">What citation styles does this tool support?</h4>
                 <p className="faq-answer">
-                  We support APA 7th Edition and MLA 9th Edition citation styles. These are the most current versions used by academic institutions worldwide.
+                  We support APA 7th Edition, MLA 9th Edition, and Chicago 17th Edition (Notes-Bibliography system). These are the most current versions used by academic institutions worldwide.
                 </p>
               </div>
               <div className="faq-item">
