@@ -123,6 +123,10 @@ class DatabaseManager:
         if 'provider' in existing_columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_provider ON validations(provider)")
 
+        # Create style index if column exists
+        if 'style' in existing_columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_validations_style ON validations(style)")
+
         # Check for new columns and add if missing (schema evolution)
         new_columns = {
             'is_test_job': 'BOOLEAN DEFAULT FALSE',

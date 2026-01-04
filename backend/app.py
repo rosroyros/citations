@@ -1278,7 +1278,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
 
     # Create initial validation tracking record
     citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])
-    create_validation_record(job_id, gating_user_type, citation_count, 'pending', paid_user_id, free_user_id, is_test_job)
+    create_validation_record(job_id, gating_user_type, citation_count, 'pending', paid_user_id, free_user_id, is_test_job, request.style)
 
     # Start background processing
     background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)

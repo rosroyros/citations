@@ -283,7 +283,8 @@ def create_validation_record(
     status: str = 'pending',
     paid_user_id: Optional[str] = None,
     free_user_id: Optional[str] = None,
-    is_test_job: bool = False
+    is_test_job: bool = False,
+    style: Optional[str] = None
 ) -> bool:
     """
     Create a new validation tracking record.
@@ -296,6 +297,7 @@ def create_validation_record(
         paid_user_id: Paid user UUID if applicable
         free_user_id: Free user UUID if applicable
         is_test_job: Whether this is a test job
+        style: Citation style (apa7, mla9, chicago17)
 
     Returns:
         bool: True if record created successfully, False otherwise
@@ -318,6 +320,7 @@ def create_validation_record(
             has_status = 'status' in columns
             has_validation_status = 'validation_status' in columns
             has_is_test_job = 'is_test_job' in columns
+            has_style = 'style' in columns
 
             # Build the INSERT statement based on available columns
             insert_columns = ['job_id', 'user_type', 'citation_count']
@@ -346,6 +349,11 @@ def create_validation_record(
             if has_is_test_job:
                 insert_columns.append('is_test_job')
                 insert_values.append(is_test_job)
+
+            # Add style if available
+            if has_style and style is not None:
+                insert_columns.append('style')
+                insert_values.append(style)
 
             # Add created_at
             insert_columns.append('created_at')
