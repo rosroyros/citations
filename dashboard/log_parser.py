@@ -634,10 +634,78 @@ def extract_test_job_indicator(log_line: str) -> Optional[str]:
     # Pattern matches: TEST_JOB_DETECTED: job_id={job_id} indicator=[TEST_JOB_DETECTED]
     pattern = r'TEST_JOB_DETECTED: job_id=([a-f0-9-]+)'
     match = re.search(pattern, log_line)
-    
+
     if match:
         return match.group(1)
-        
+
+    return None
+
+
+def extract_validation_type(log_line: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract validation type from log line.
+
+    Args:
+        log_line: Raw log line
+
+    Returns:
+        Tuple of (job_id, validation_type) or None if no match
+        validation_type is "ref_only" or "full_doc"
+    """
+    # Pattern matches: VALIDATION_TYPE: job_id=abc-123 type=full_doc
+    # Use [\w-]+ to match UUIDs and simpler job IDs
+    pattern = r'VALIDATION_TYPE: job_id=([\w-]+) type=(ref_only|full_doc)'
+    match = re.search(pattern, log_line)
+    if match:
+        return match.group(1), match.group(2)
+    return None
+
+
+def extract_inline_validation_stats(log_line: str) -> Optional[Tuple[str, int, int]]:
+    """
+    Extract inline validation statistics from log line.
+
+    Args:
+        log_line: Raw log line
+
+    Returns:
+        Tuple of (job_id, inline_citation_count, orphan_count) or None
+    """
+    # Pattern matches: Job abc-123: Inline validation complete: 42 citations, 2 orphans
+    # Use [\w-]+ to match UUIDs and simpler job IDs
+    pattern = r'Job ([\w-]+): Inline validation complete: (\d+) citations, (\d+) orphans'
+    match = re.search(pattern, log_line)
+    if match:
+        return match.group(1), int(match.group(2)), int(match.group(3))
+    return None
+
+
+def extract_validation_complete_inline(log_line: str) -> Optional[Dict[str, Any]]:
+    """
+    Extract validation completion with inline stats from log line.
+
+    This parses the format from log_validation_complete() in citation_logger.py:
+    Job {job_id}: Completed in {duration}s. Type={validation_type}, Refs={citation_count}, Inline={inline_citation_count}, Orphans={orphan_count}
+
+    Args:
+        log_line: Raw log line
+
+    Returns:
+        Dict with job_id, validation_type, citation_count, inline_citation_count, orphan_count, duration if found, None otherwise
+    """
+    # Pattern matches: Job abc-123: Completed in 4.2s. Type=full_doc, Refs=18, Inline=42, Orphans=2
+    # Use [\w-]+ to match UUIDs and simpler job IDs
+    pattern = r'Job ([\w-]+): Completed in ([\d.]+)s\. Type=(ref_only|full_doc), Refs=(\d+), Inline=(\d+), Orphans=(\d+)'
+    match = re.search(pattern, log_line)
+    if match:
+        return {
+            "job_id": match.group(1),
+            "duration": float(match.group(2)),
+            "validation_type": match.group(3),
+            "citation_count": int(match.group(4)),
+            "inline_citation_count": int(match.group(5)),
+            "orphan_count": int(match.group(6))
+        }
     return None
 
 
@@ -826,6 +894,40 @@ def parse_job_events(log_lines: List[str]) -> Dict[str, Dict[str, Any]]:
                 new_state = event_to_state.get(event)
                 if new_state:
                     add_upgrade_state(jobs[job_id], new_state)
+            continue
+
+        # Check for validation type
+        validation_type_result = extract_validation_type(line)
+        if validation_type_result:
+            job_id, val_type = validation_type_result
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+            jobs[job_id]["validation_type"] = val_type
+            continue
+
+        # Check for inline validation stats
+        inline_stats_result = extract_inline_validation_stats(line)
+        if inline_stats_result:
+            job_id, inline_count, orphan_count = inline_stats_result
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+            jobs[job_id]["inline_citation_count"] = inline_count
+            jobs[job_id]["orphan_count"] = orphan_count
+            continue
+
+        # Check for validation complete with inline stats (combined format)
+        validation_complete_result = extract_validation_complete_inline(line)
+        if validation_complete_result:
+            job_id = validation_complete_result["job_id"]
+            if job_id not in jobs:
+                jobs[job_id] = {"job_id": job_id}
+            jobs[job_id]["validation_type"] = validation_complete_result["validation_type"]
+            jobs[job_id]["citation_count"] = validation_complete_result["citation_count"]
+            jobs[job_id]["inline_citation_count"] = validation_complete_result["inline_citation_count"]
+            jobs[job_id]["orphan_count"] = validation_complete_result["orphan_count"]
+            # Also update duration if not set
+            if jobs[job_id].get("duration_seconds") is None:
+                jobs[job_id]["duration_seconds"] = validation_complete_result["duration"]
             continue
 
         # Check for validation request with user IDs
@@ -1081,6 +1183,11 @@ def _finalize_job_data(jobs: Dict[str, Dict[str, Any]]) -> List[Dict[str, Any]]:
         job.setdefault("amount_cents", None)
         job.setdefault("currency", None)
         job.setdefault("order_id", None)
+
+        # Add defaults for inline validation fields
+        job.setdefault("validation_type", "ref_only")  # Default to ref_only for backward compatibility
+        job.setdefault("inline_citation_count", 0)
+        job.setdefault("orphan_count", 0)
 
         # Convert datetime objects to proper ISO format strings
         if "created_at" in job and isinstance(job["created_at"], datetime):

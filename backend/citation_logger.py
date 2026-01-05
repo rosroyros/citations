@@ -11,6 +11,32 @@ from database import get_validations_db_path
 logger = setup_logger("citation_logger")
 
 
+def log_validation_complete(
+    job_id: str,
+    citation_count: int,
+    duration: float,
+    validation_type: str = "ref_only",
+    inline_citation_count: int = 0,
+    orphan_count: int = 0
+) -> None:
+    """
+    Log validation completion with inline stats.
+
+    Args:
+        job_id: Unique job identifier
+        citation_count: Number of reference entries
+        duration: Processing time in seconds
+        validation_type: "ref_only" or "full_doc"
+        inline_citation_count: Number of inline citations found
+        orphan_count: Number of orphan citations
+    """
+    logger.info(
+        f"Job {job_id}: Completed in {duration}s. "
+        f"Type={validation_type}, Refs={citation_count}, "
+        f"Inline={inline_citation_count}, Orphans={orphan_count}"
+    )
+
+
 def log_citations_to_dashboard(job_id: str, citations: List[str]) -> bool:
     """
     Log citations to dashboard in structured format for parsing.
