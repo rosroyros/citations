@@ -23,13 +23,19 @@ export function useInlineCitations(results = [], inlineResults, orphans) {
       }
     }
 
+    // Pre-group inline citations by ref index for O(1) lookup
+    const inlineByRef = inlineResults.reduce((acc, inline) => {
+      const idx = inline.matched_ref_index
+      if (!acc[idx]) acc[idx] = []
+      acc[idx].push(inline)
+      return acc
+    }, {})
+
     // Merge inline citations into their parent refs
     // Each ref gets an inline_citations array with matching citations
-    const organized = results.map((ref, index) => ({
+    const organized = (results || []).map((ref, index) => ({
       ...ref,
-      inline_citations: inlineResults.filter(
-        inline => inline.matched_ref_index === index
-      )
+      inline_citations: inlineByRef[index] || []
     }))
 
     // Calculate statistics
