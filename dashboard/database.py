@@ -416,7 +416,9 @@ class DatabaseManager:
         free_user_id: Optional[str] = None,
         is_test_job: Optional[bool] = None,
         order_by: str = "created_at",
-        order_dir: str = "DESC"
+        order_dir: str = "DESC",
+        validation_type: Optional[str] = None,
+        has_inline: Optional[bool] = None
     ) -> List[Dict[str, Any]]:
         """
         Get validations with filtering and pagination
@@ -435,6 +437,8 @@ class DatabaseManager:
             is_test_job: Filter by is_test_job flag
             order_by: Column to order by
             order_dir: ASC or DESC
+            validation_type: Filter by validation_type (ref_only, full_doc)
+            has_inline: If true, only return full_doc with inline_citation_count > 0
 
         Returns:
             List of validation records
@@ -491,6 +495,18 @@ class DatabaseManager:
             query += " AND is_test_job = ?"
             params.append(is_test_job)
 
+        # Add validation_type filtering if column exists
+        if 'validation_type' in columns and validation_type is not None:
+            query += " AND validation_type = ?"
+            params.append(validation_type)
+
+        # Add has_inline filtering if columns exist
+        if 'validation_type' in columns and 'inline_citation_count' in columns and has_inline is not None:
+            if has_inline:
+                query += " AND validation_type = 'full_doc' AND inline_citation_count > 0"
+            else:
+                query += " AND (validation_type = 'ref_only' OR inline_citation_count = 0)"
+
         # Add ordering
         query += f" ORDER BY {order_by} {order_dir}"
 
@@ -521,7 +537,9 @@ class DatabaseManager:
         to_date: Optional[str] = None,
         paid_user_id: Optional[str] = None,
         free_user_id: Optional[str] = None,
-        is_test_job: Optional[bool] = None
+        is_test_job: Optional[bool] = None,
+        validation_type: Optional[str] = None,
+        has_inline: Optional[bool] = None
     ) -> int:
         """
         Get count of validations matching filters
@@ -584,6 +602,18 @@ class DatabaseManager:
         if 'is_test_job' in columns and is_test_job is not None:
             query += " AND is_test_job = ?"
             params.append(is_test_job)
+
+        # Add validation_type filtering if column exists
+        if 'validation_type' in columns and validation_type is not None:
+            query += " AND validation_type = ?"
+            params.append(validation_type)
+
+        # Add has_inline filtering if columns exist
+        if 'validation_type' in columns and 'inline_citation_count' in columns and has_inline is not None:
+            if has_inline:
+                query += " AND validation_type = 'full_doc' AND inline_citation_count > 0"
+            else:
+                query += " AND (validation_type = 'ref_only' OR inline_citation_count = 0)"
 
         cursor.execute(query, params)
         result = cursor.fetchone()
@@ -1000,6 +1030,80 @@ class DatabaseManager:
         rows = cursor.fetchall()
 
         return {row[0]: row[1] for row in rows}
+
+    def get_inline_stats(
+        self,
+        from_date: Optional[str] = None,
+        to_date: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Get aggregate statistics for inline validation
+
+        Args:
+            from_date: Filter start date
+            to_date: Filter end date
+
+        Returns:
+            Dictionary with inline validation metrics
+        """
+        cursor = self.conn.cursor()
+        cursor.execute("PRAGMA table_info(validations)")
+        columns = [col[1] for col in cursor.fetchall()]
+
+        # Check if required columns exist
+        if not all(col in columns for col in ['validation_type', 'inline_citation_count', 'orphan_count']):
+            # Return empty stats if columns don't exist yet
+            return {
+                "total_validations": 0,
+                "full_doc_count": 0,
+                "full_doc_percentage": 0.0,
+                "total_inline_citations": 0,
+                "total_orphans": 0,
+                "avg_inline_per_doc": 0.0,
+                "orphan_rate": 0.0
+            }
+
+        query = """
+            SELECT
+                COUNT(*) as total_validations,
+                SUM(CASE WHEN validation_type = 'full_doc' THEN 1 ELSE 0 END) as full_doc_count,
+                SUM(COALESCE(inline_citation_count, 0)) as total_inline_citations,
+                SUM(COALESCE(orphan_count, 0)) as total_orphans,
+                AVG(CASE WHEN validation_type = 'full_doc' THEN COALESCE(inline_citation_count, 0) ELSE NULL END) as avg_inline_per_doc
+            FROM validations
+            WHERE 1=1
+        """
+        params = []
+
+        if from_date:
+            query += " AND created_at >= ?"
+            params.append(from_date)
+
+        if to_date:
+            query += " AND created_at <= ?"
+            params.append(to_date)
+
+        cursor.execute(query, params)
+        result = cursor.fetchone()
+
+        total_validations = result[0] or 0
+        full_doc_count = result[1] or 0
+        total_inline_citations = result[2] or 0
+        total_orphans = result[3] or 0
+        avg_inline_per_doc = result[4] or 0.0
+
+        full_doc_percentage = (full_doc_count / total_validations * 100) if total_validations > 0 else 0.0
+        orphan_rate = (total_orphans / total_inline_citations * 100) if total_inline_citations > 0 else 0.0
+
+        return {
+            "total_validations": total_validations,
+            "full_doc_count": full_doc_count,
+            "full_doc_percentage": round(full_doc_percentage, 1),
+            "total_inline_citations": total_inline_citations,
+            "total_orphans": total_orphans,
+            "avg_inline_per_doc": round(avg_inline_per_doc, 1),
+            "orphan_rate": round(orphan_rate, 1)
+        }
 
     def delete_old_records(self, days: int = 90) -> int:
         """

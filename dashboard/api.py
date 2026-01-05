@@ -223,6 +223,9 @@ class ValidationResponse(BaseModel):
     corrections_copied: Optional[int] = Field(None, description="Count of correction copy events")
     valid_citations_count: Optional[int] = Field(None, description="Number of valid citations")
     invalid_citations_count: Optional[int] = Field(None, description="Number of invalid citations")
+    validation_type: Optional[str] = Field(None, description="Type of validation: ref_only or full_doc")
+    inline_citation_count: Optional[int] = Field(None, description="Number of inline citations found")
+    orphan_count: Optional[int] = Field(None, description="Number of orphan inline citations")
 
 
 class StatsResponse(BaseModel):
@@ -286,6 +289,17 @@ class ValidationsListResponse(BaseModel):
     total: int
     limit: int
     offset: int
+
+
+class InlineStatsResponse(BaseModel):
+    """Inline validation statistics response model"""
+    total_validations: int
+    full_doc_count: int
+    full_doc_percentage: float
+    total_inline_citations: int
+    total_orphans: int
+    avg_inline_per_doc: float
+    orphan_rate: float
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -482,6 +496,8 @@ async def get_validations(
     to_date: Optional[str] = Query(None, description="Filter by created_at <= date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
     order_by: str = Query("created_at", description="Column to sort by"),
     order_dir: str = Query("DESC", pattern="^(ASC|DESC)$", description="Sort direction"),
+    validation_type: Optional[str] = Query(None, description="Filter by validation type (ref_only, full_doc)"),
+    has_inline: Optional[bool] = Query(None, description="Filter for validations with inline citations"),
     database: DatabaseManager = Depends(get_db)
 ):
     """
@@ -502,6 +518,8 @@ async def get_validations(
     - to_date: Include only validations created before this date (ISO 8601)
     - order_by: Column to sort by (created_at, duration_seconds, etc.)
     - order_dir: Sort direction (ASC/DESC)
+    - validation_type: Filter by validation type (ref_only, full_doc)
+    - has_inline: If true, only return full_doc validations with inline citations
     """
     # Input validation
     validate_pagination_params(limit, offset)
@@ -526,7 +544,9 @@ async def get_validations(
             from_date=from_date,
             to_date=to_date,
             order_by=order_by,
-            order_dir=order_dir
+            order_dir=order_dir,
+            validation_type=validation_type,
+            has_inline=has_inline
         )
 
         # Get total count for pagination
@@ -538,7 +558,9 @@ async def get_validations(
             free_user_id=free_user_id,
             is_test_job=is_test_job,
             from_date=from_date,
-            to_date=to_date
+            to_date=to_date,
+            validation_type=validation_type,
+            has_inline=has_inline
         )
 
         # Convert to response models
@@ -731,6 +753,37 @@ async def get_stats(
         return StatsResponse(**stats)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get statistics: {str(e)}")
+
+
+@app.get("/api/stats/inline", response_model=InlineStatsResponse)
+async def get_inline_stats(
+    from_date: Optional[str] = Query(None, description="Start date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    to_date: Optional[str] = Query(None, description="End date (ISO format: YYYY-MM-DDTHH:MM:SSZ)"),
+    database: DatabaseManager = Depends(get_db)
+):
+    """
+    Get inline citation validation statistics
+
+    Provides aggregate statistics for inline validation, including:
+    - Total validations and full_doc count
+    - Total inline citations and orphans
+    - Average inline citations per document
+    - Orphan rate percentage
+
+    Query Parameters:
+    - from_date: Filter validations created after this date
+    - to_date: Filter validations created before this date
+    """
+    # Input validation
+    validate_date_format(from_date, "from_date")
+    validate_date_format(to_date, "to_date")
+    validate_date_range(from_date, to_date)
+
+    try:
+        stats = database.get_inline_stats(from_date=from_date, to_date=to_date)
+        return InlineStatsResponse(**stats)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get inline statistics: {str(e)}")
 
 
 @app.get("/api/errors", response_model=List[ValidationError])
