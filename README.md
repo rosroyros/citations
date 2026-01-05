@@ -1,11 +1,12 @@
 # Citation Validator - AI Engineering Context
 
 ## Identity
-APA 7th Edition and MLA 9th Edition citation validator using Gemini 3 Flash (with OpenAI fallback) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
+APA 7th Edition, MLA 9th Edition, and Chicago 17th Edition citation validator using Gemini 3 Flash (with OpenAI fallback) with Async Polling architecture and Static Site Generation (PSEO) for SEO.
 
 ## Supported Citation Styles
 - **APA 7th Edition** - Default, fully supported
 - **MLA 9th Edition** - Enabled via `MLA_ENABLED=true` environment variable
+- **Chicago 17th Edition** (Notes-Bibliography) - Enabled via `CHICAGO_ENABLED=true` environment variable
 
 Important: connect to the server via `ssh deploy@178.156.161.140`
 
@@ -116,6 +117,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
    - **System Prompts**: 
      - APA 7: `backend/prompts/validator_prompt_v3_no_hallucination.txt`
      - MLA 9: `backend/prompts/validator_prompt_mla9_v1.1.txt`
+     - Chicago 17: `backend/prompts/validator_prompt_chicago17_v1.2.txt`
      - Uses `[MISSING: ...]` placeholders for unavailable data instead of hallucinating
      - Ignores leading numbered bullets (1., 2., etc.) in user input
    - Consistency tests ensure deterministic output.
@@ -173,7 +175,7 @@ Tracks conversion (Locked->Checkout) via log parsing + event endpoints.
   - **SSH**: `ssh deploy@178.156.161.140`
   - username: deploy
 - **Public URL**: `https://citationformatchecker.com`
-- **Env Vars**: `OPENAI_API_KEY`, `GEMINI_API_KEY`, `CITATION_LOGGING_ENABLED`, `MOCK_LLM`, `BASE_URL`, `MLA_ENABLED`.
+- **Env Vars**: `OPENAI_API_KEY`, `GEMINI_API_KEY`, `CITATION_LOGGING_ENABLED`, `MOCK_LLM`, `BASE_URL`, `MLA_ENABLED`, `CHICAGO_ENABLED`.
 - **Dashboard**: `http://100.98.211.49:4646` (Internal IP/VPN only).
   - **Note**: Public access (`/dashboard` on main domain) is blocked by Nginx.
 
