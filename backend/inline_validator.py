@@ -12,7 +12,6 @@ Key functions:
 """
 import json
 import re
-import asyncio
 from typing import List, Dict, Any
 from logger import setup_logger
 from styles import StyleType, DEFAULT_STYLE
