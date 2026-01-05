@@ -1,16 +1,17 @@
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, Response, BackgroundTasks, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, model_validator, field_validator
 from dotenv import load_dotenv
 from html.parser import HTMLParser
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Union
 import os
 import uuid
 import json
 import base64
 import time
 import random
+import asyncio
 from datetime import datetime
 from polar_sdk import Polar
 from polar_sdk.webhooks import validate_event, WebhookVerificationError
@@ -35,6 +36,10 @@ from dashboard.analytics import parse_upgrade_events
 
 # Import styles module for multi-style support
 from styles import SUPPORTED_STYLES, DEFAULT_STYLE, is_valid_style
+
+# Import parsing and inline validation modules
+from parsing import convert_docx_to_html, split_document, scan_inline_citations
+from inline_validator import validate_inline_citations
 
 # Load environment variables
 load_dotenv()
@@ -1166,6 +1171,313 @@ async def process_validation_job(job_id: str, citations: str, style: str):
         update_validation_tracking(job_id, status='failed', error_message=str(e))
 
 
+async def process_validation_job_with_inline(job_id: str, html_content: str, citations_text: str, style: str):
+    """
+    Background task to process validation with inline citation support.
+
+    This function extends the original process_validation_job to:
+    1. Split document into body and reference sections
+    2. Scan for inline citations in body text
+    3. Run ref-list and inline validation in parallel
+    4. Aggregate results with hierarchical structure (refs + nested inline)
+
+    Args:
+        job_id: Validation job ID
+        html_content: Full HTML content (from DOCX or paste)
+        citations_text: Plain text version for ref-list validation
+        style: Citation style (apa7, mla9, chicago17)
+    """
+    try:
+        # Update status
+        jobs[job_id]["status"] = "processing"
+        logger.info(f"Job {job_id}: Starting validation with inline support")
+
+        # Check credits BEFORE starting job (fail fast)
+        token = jobs[job_id]["token"]
+        free_used = jobs[job_id]["free_used"]
+        paid_user_id = jobs[job_id].get("paid_user_id")
+        free_user_id = jobs[job_id].get("free_user_id")
+
+        # Determine user type for gating decisions
+        user_type = 'paid' if token else 'free'
+        logger.debug(f"Job {job_id}: User type determined as {user_type}")
+
+        # Update validation tracking record status
+        update_validation_tracking(job_id, status='processing')
+
+        # Split document into body and reference sections
+        body_html, refs_html, has_header = split_document(html_content)
+
+        # Determine validation type
+        if has_header and body_html:
+            validation_type = "full_doc"
+            inline_citations = scan_inline_citations(body_html, style)
+            logger.info(f"Job {job_id}: VALIDATION_TYPE={validation_type}, {len(inline_citations)} inline citations found")
+        else:
+            validation_type = "ref_only"
+            inline_citations = []
+            logger.info(f"Job {job_id}: VALIDATION_TYPE={validation_type} (no inline citations)")
+
+        # Log validation type
+        logger.info(f"VALIDATION_TYPE: job_id={job_id} type={validation_type}")
+
+        # Note: We don't check access here anymore - it's checked after validation
+        # This allows pass users to start validation jobs
+        if token:
+            pass  # Access is checked after validation
+        else:
+            # Free tier - check limit
+            if free_used >= FREE_LIMIT:
+                # Return partial results with all citations locked (user can see upgrade prompt)
+                logger.info(f"Job {job_id}: Free tier limit reached - returning empty partial results")
+
+                # Split raw citations for counting and logging (no LLM call needed)
+                raw_citations = [c.strip() for c in citations_text.split('\n\n') if c.strip()]
+                citation_count = len(raw_citations)
+                logger.debug(f"Job {job_id}: Citation count from raw input: {citation_count}")
+
+                # Log citations for dashboard (even for over-limit users)
+                if raw_citations and CITATION_LOGGING_ENABLED:
+                    log_citations_to_dashboard(job_id, raw_citations)
+
+                # Log GATING_DECISION for dashboard parser to detect gated state
+                logger.info(f"GATING_DECISION: job_id={job_id} user_type=free results_gated=True reason='Free tier limit exceeded'")
+
+                jobs[job_id]["status"] = "completed"
+                jobs[job_id]["results"] = ValidationResponse(
+                    results=[],  # Empty array - all locked
+                    partial=True,
+                    citations_checked=0,
+                    citations_remaining=citation_count,
+                    free_used=FREE_LIMIT,
+                    free_used_total=FREE_LIMIT,
+                    limit_type="free_limit",
+                    job_id=job_id
+                ).model_dump()
+                jobs[job_id]["results_gated"] = True
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count} remaining")
+                return
+
+        # Get provider based on stored model preference with fallback logic
+        model_preference = jobs[job_id].get("model_preference", "model_c")
+
+        if model_preference == 'model_a':
+            provider = openai_provider
+            internal_model_id = 'model_a'
+            fallback_occurred = False
+        elif gemini_provider is not None:
+            provider = gemini_provider
+            internal_model_id = 'model_c'
+            fallback_occurred = False
+        else:
+            logger.warning(f"Job {job_id}: Gemini provider not available, falling back to OpenAI")
+            provider = openai_provider
+            internal_model_id = 'model_a'
+            fallback_occurred = True
+
+        # Store provider in job for dashboard tracking
+        jobs[job_id]["provider"] = internal_model_id
+
+        # Run ref-list validation (always needed)
+        ref_task = validate_with_provider_fallback(
+            provider=provider,
+            internal_model_id=internal_model_id,
+            job_id=job_id,
+            citations=citations_text,
+            style=style,
+            initial_fallback=fallback_occurred
+        )
+
+        # Run inline validation in parallel if inline citations found
+        inline_results = None
+        if inline_citations:
+            try:
+                # Prepare reference list for inline validation
+                ref_validation_results = await ref_task
+                ref_entries = [
+                    {"index": i, "text": r.get("original", "")}
+                    for i, r in enumerate(ref_validation_results["results"])
+                ]
+
+                # Run inline validation
+                inline_task = validate_inline_citations(
+                    inline_citations=inline_citations,
+                    reference_list=ref_entries,
+                    style=style,
+                    provider=provider
+                )
+                inline_results = await inline_task
+
+                # Log inline stats
+                orphan_count = len(inline_results.get("orphans", []))
+                total_inline = inline_results.get("total_found", 0)
+                logger.info(f"Job {job_id}: Inline validation complete: {total_inline} citations, {orphan_count} orphans")
+
+            except Exception as e:
+                logger.error(f"Job {job_id}: Inline validation failed: {e}")
+                # Re-run ref validation to get results
+                ref_validation_results = await validate_with_provider_fallback(
+                    provider=provider,
+                    internal_model_id=internal_model_id,
+                    job_id=job_id,
+                    citations=citations_text,
+                    style=style,
+                    initial_fallback=fallback_occurred
+                )
+                inline_results = {"error": str(e)}
+        else:
+            # Only ref-list validation
+            ref_validation_results = await ref_task
+
+        # Process ref-list results
+        results = ref_validation_results["results"]
+        citation_count = len(results)
+        logger.info(f"Job {job_id}: Found {citation_count} reference entry result(s)")
+
+        # Calculate valid/invalid counts
+        valid_count = sum(1 for r in results if not r.get("errors"))
+        invalid_count = citation_count - valid_count
+
+        # Log validation summary for dashboard parser
+        logger.info(f"Validation summary: {valid_count} valid, {invalid_count} invalid")
+
+        jobs[job_id]["citation_count"] = citation_count
+        update_validation_tracking(job_id, status='completed')
+
+        # Log citations to dashboard (extract original citations from results)
+        original_citations = [result.get('original', '') for result in results if result.get('original')]
+        if original_citations and CITATION_LOGGING_ENABLED:
+            log_citations_to_dashboard(job_id, original_citations)
+
+        # Build response with inline results
+        response_data = {
+            "results": results,
+            "validation_type": validation_type,
+        }
+
+        # Add inline results if available
+        if inline_results and "error" not in inline_results:
+            # Nest inline citations under their matched references
+            results_by_ref = inline_results.get("results_by_ref", {})
+            orphans = inline_results.get("orphans", [])
+
+            # Add inline_citations to each result
+            for idx, result in enumerate(results):
+                result["inline_citations"] = results_by_ref.get(idx, [])
+
+            response_data["orphan_citations"] = orphans
+            response_data["stats"] = {
+                "ref_count": citation_count,
+                "inline_count": inline_results.get("total_found", 0),
+                "orphan_count": len(orphans),
+            }
+        elif inline_results and "error" in inline_results:
+            # Inline validation failed - include warning
+            response_data["inline_error"] = "Inline citation check failed. Reference formatting results shown."
+            response_data["stats"] = {
+                "ref_count": citation_count,
+                "inline_count": 0,
+                "orphan_count": 0,
+            }
+
+        # Handle credit/free tier logic
+        if not token:
+            # Free tier
+            affordable = max(0, FREE_LIMIT - free_used)
+
+            if affordable >= citation_count:
+                # Return all results
+                response_data.update({
+                    "free_used_total": free_used + citation_count,
+                    "limit_type": "none"
+                })
+                gating_reason = "Free tier under limit"
+            else:
+                # Partial results
+                response_data.update({
+                    "partial": True,
+                    "citations_checked": affordable,
+                    "citations_remaining": citation_count - affordable,
+                    "free_used_total": FREE_LIMIT,
+                    "limit_type": "free_limit"
+                })
+                gating_reason = "Free tier over limit"
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count - affordable} remaining")
+        else:
+            # Paid tier - use check_user_access function
+            access_check = check_user_access(token, citation_count)
+
+            if not access_check['has_access']:
+                # User denied access - handle differently based on access type
+                logger.warning(f"Job {job_id}: Access denied for token {token[:8]}: {access_check['error_message']}")
+
+                if access_check['access_type'] == 'credits':
+                    # Credits user with insufficient balance - return partial results
+                    user_credits = access_check['user_status'].balance
+
+                    # Determine how many we can process
+                    affordable = user_credits
+                    remaining = citation_count - affordable
+
+                    # Deduct what credits they have (if any)
+                    if affordable > 0:
+                        deduct_credits(token, affordable)
+
+                    # Build partial results response
+                    response_data.update({
+                        "results": results[:affordable] if affordable > 0 else [],
+                        "partial": True,
+                        "citations_checked": affordable,
+                        "citations_remaining": remaining,
+                        "credits_remaining": 0,
+                        "user_status": access_check['user_status'],
+                        "limit_type": "credits_exhausted"
+                    })
+
+                    # Build and store gated response
+                    gated_response = build_gated_response(response_data, user_type, job_id, "Credits exhausted")
+                    jobs[job_id]["results"] = gated_response.model_dump()
+                    jobs[job_id]["status"] = "completed"
+                    jobs[job_id]["results_gated"] = True
+                    logger.info(f"Job {job_id}: Credits exhausted ({user_credits}/{citation_count}) - returning partial results with {remaining} locked")
+                    return
+                else:
+                    # Pass user daily limit exceeded - return error
+                    jobs[job_id]["status"] = "failed"
+                    jobs[job_id]["error"] = access_check['error_message']
+                    update_validation_tracking(job_id, status='failed', error_message=access_check['error_message'])
+                    return
+
+            # User has access - build response based on access type
+            if access_check['access_type'] == 'pass':
+                # Pass user - unlimited validations up to daily limit
+                response_data["limit_type"] = "none"
+                gating_reason = "Pass user within daily limit"
+            else:
+                # Credit user - credits already deducted by check_user_access
+                response_data["credits_remaining"] = access_check['user_status'].balance
+                response_data["limit_type"] = "none"
+                gating_reason = "Paid user sufficient credits"
+
+            # Add user_status to response_data for all user types
+            response_data["user_status"] = access_check['user_status']
+
+        # Apply gating logic and store results
+        gated_response = build_gated_response(response_data, user_type, job_id, gating_reason)
+        jobs[job_id]["results"] = gated_response.model_dump()
+        jobs[job_id]["status"] = "completed"
+        jobs[job_id]["results_gated"] = gated_response.results_gated
+        logger.info(f"Job {job_id}: Completed successfully with gating={gated_response.results_gated}")
+
+    except Exception as e:
+        logger.error(f"Job {job_id}: Failed with error: {str(e)}", exc_info=True)
+        jobs[job_id]["status"] = "failed"
+        jobs[job_id]["error"] = str(e)
+
+        # Update validation tracking
+        update_validation_tracking(job_id, status='failed', error_message=str(e))
+
+
 async def cleanup_old_jobs():
     """Delete jobs older than 30 minutes."""
     import asyncio
@@ -1186,13 +1498,81 @@ async def cleanup_old_jobs():
 
 
 @app.post("/api/validate/async")
-async def validate_citations_async(http_request: Request, request: ValidationRequest, background_tasks: BackgroundTasks):
+async def validate_citations_async(
+    http_request: Request,
+    background_tasks: BackgroundTasks,
+    request: Optional[ValidationRequest] = None
+):
     """
     Create async validation job.
+
+    Accepts either:
+    - JSON body with ValidationRequest (backward compatible)
+    - Multipart/form-data with file upload or citations
 
     Returns immediately with job_id.
     Background worker processes validation.
     """
+    # Check if request is multipart/form-data (file upload)
+    content_type = http_request.headers.get("content-type", "")
+    is_multipart = "multipart/form-data" in content_type
+
+    html_content = None
+    style = DEFAULT_STYLE
+    is_file_upload = False
+
+    if is_multipart:
+        # Handle multipart/form-data (file upload or form paste)
+        form = await http_request.form()
+        file = form.get("file")
+        citations = form.get("citations")
+        style_param = form.get("style", DEFAULT_STYLE)
+
+        # Validate style parameter
+        if not is_valid_style(style_param):
+            styles_list = list(SUPPORTED_STYLES.keys())
+            raise HTTPException(
+                status_code=400,
+                detail=f"Unsupported style: '{style_param}'. Supported styles: {styles_list}"
+            )
+        style = style_param
+
+        if file and hasattr(file, 'filename'):
+            # File upload path
+            if not file.filename.endswith('.docx'):
+                raise HTTPException(status_code=400, detail="Only .docx files supported")
+
+            try:
+                content = await file.read()
+                html_content = convert_docx_to_html(content)
+                is_file_upload = True
+                logger.info(f"Converted DOCX file to HTML: {len(html_content)} chars")
+            except ValueError as e:
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Could not parse file: {e}. Try pasting your text instead."
+                )
+        elif citations:
+            # Paste path (form data)
+            html_content = citations
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail="Provide either file or citations parameter"
+            )
+    else:
+        # Handle JSON body (backward compatible)
+        if not request:
+            raise HTTPException(status_code=400, detail="Invalid request format")
+
+        html_content = request.citations
+        style = request.style
+
+    # Validate input
+    if not html_content or not html_content.strip():
+        logger.warning("Empty citations submitted to async endpoint")
+        raise HTTPException(status_code=400, detail="Citations cannot be empty")
+
     # Extract token/free_used from headers
     token = http_request.headers.get('X-User-Token')
     free_used_header = http_request.headers.get('X-Free-Used', '')
@@ -1202,16 +1582,11 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
     except (ValueError, UnicodeDecodeError, base64.binascii.Error):
         free_used = 0
 
-    # Validate input
-    if not request.citations or not request.citations.strip():
-        logger.warning("Empty citations submitted to async endpoint")
-        raise HTTPException(status_code=400, detail="Citations cannot be empty")
-
     # Detect test jobs
     is_test_job = False
-    if len(request.citations) > 0:
+    if len(html_content) > 0:
         # Check for "testtesttest" anywhere in the citations (case-insensitive)
-        if "testtesttest" in request.citations.lower():
+        if "testtesttest" in html_content.lower():
             is_test_job = True
 
     # Determine user type for gating decisions
@@ -1233,7 +1608,7 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         f"user_type={user_type}, "
         f"paid_user_id={paid_user_id or 'N/A'}, "
         f"free_user_id={free_user_id or 'N/A'}, "
-        f"style={request.style}"
+        f"style={style}"
     )
 
     # Store model preference for async processing
@@ -1267,21 +1642,22 @@ async def validate_citations_async(http_request: Request, request: ValidationReq
         "paid_user_id": paid_user_id,
         "free_user_id": free_user_id,
         "model_preference": stored_model_preference,
-        "experiment_variant": experiment_variant
+        "experiment_variant": experiment_variant,
+        "is_file_upload": is_file_upload
     }
 
     # Convert HTML to text with formatting markers
-    citations_text = html_to_text_with_formatting(request.citations)
-    
+    citations_text = html_to_text_with_formatting(html_content)
+
     # DEBUG LOGGING
     logger.info(f"Job {job_id}: Parsed citations text length: {len(citations_text)}")
 
     # Create initial validation tracking record
     citation_count = len([c.strip() for c in citations_text.split('\n\n') if c.strip()])
-    create_validation_record(job_id, gating_user_type, citation_count, 'pending', paid_user_id, free_user_id, is_test_job, request.style)
+    create_validation_record(job_id, gating_user_type, citation_count, 'pending', paid_user_id, free_user_id, is_test_job, style)
 
-    # Start background processing
-    background_tasks.add_task(process_validation_job, job_id, citations_text, request.style)
+    # Start background processing with HTML content for inline validation
+    background_tasks.add_task(process_validation_job_with_inline, job_id, html_content, citations_text, style)
 
     return {"job_id": job_id, "status": "pending", "experiment_variant": experiment_variant}
 
