@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import './ValidationLoadingState.css'
 
 const STATUS_MESSAGES = [
-  'Checking format...',
-  'Verifying authors...',
-  'Analyzing structure...',
-  'Reviewing punctuation...',
-  'Cross-referencing style rules...'
+  'Scanning document...',
+  'Finding citations in text...',
+  'Checking for mismatches...',
+  'Verifying references...',
+  'Cross-referencing style rules...',
+  'Analyzing formatting...'
 ]
 
 function ValidationLoadingState({ submittedHtml }) {
