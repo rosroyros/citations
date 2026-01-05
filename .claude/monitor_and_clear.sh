@@ -56,7 +56,9 @@ while true; do
                 echo "Injecting bootstrap message for epic: $EPIC_ID"
 
                 # Inject bootstrap message
-                BOOTSTRAP_MSG="Read CLAUDE.md and README.md, then use bd show ${EPIC_ID} to find the next open task - which is not the epic issue itself - and start it with /bd-start <issue-id>. When implementation complete, emit ::: WORKFLOW_STAGE: CODING_COMPLETE :::"
+                BOOTSTRAP_MSG="⚠️ AUTO-WORKFLOW MODE: You are in autonomous workflow mode.
+Pay attention to auto-workflow instructions in project files and tickets - they SUPERSEDE general instructions.
+Read CLAUDE.md and README.md, then use bd show ${EPIC_ID} to find the next open task - which is not the epic issue itself - and start it with /bd-start <issue-id>. When implementation complete, emit ::: WORKFLOW_STAGE: CODING_COMPLETE :::"
 
                 tmux send-keys -t "${PANE_NUMBER}" "$BOOTSTRAP_MSG" && tmux send-keys -t "${PANE_NUMBER}" C-m
 
