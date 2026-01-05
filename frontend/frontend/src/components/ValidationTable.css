@@ -539,3 +539,24 @@
 .clickable {
   cursor: pointer;
 }
+
+/* Nested inline citations styling */
+.validation-table td .inline-citation-list {
+  margin-top: 16px;
+  margin-left: 0;
+}
+
+/* Adjust row styling when inline data present */
+.validation-table tr.expanded td {
+  padding-bottom: 16px;
+}
+
+/* Ensure proper spacing when collapsed */
+.validation-table tr:not(.expanded) .inline-citation-list {
+  display: none;
+}
+
+/* Stats styling for inline count */
+.table-stats .stat-item strong {
+  font-weight: 600;
+}

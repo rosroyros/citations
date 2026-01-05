@@ -139,7 +139,10 @@ class DatabaseManager:
             'valid_citations_count': 'INTEGER',
             'invalid_citations_count': 'INTEGER',
             'corrections_copied': 'INTEGER DEFAULT 0',
-            'style': 'TEXT'
+            'style': 'TEXT',
+            'validation_type': "TEXT DEFAULT 'ref_only'",
+            'inline_citation_count': 'INTEGER DEFAULT 0',
+            'orphan_count': 'INTEGER DEFAULT 0'
         }
 
 
@@ -160,6 +163,10 @@ class DatabaseManager:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_status ON validations(status)")
         if 'validation_status' in columns:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_validation_status ON validations(validation_status)")
+
+        # Create validation_type index if column exists (added after schema evolution)
+        if 'validation_type' in columns:
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_validation_type ON validations(validation_type)")
 
   
         self.conn.commit()
@@ -260,7 +267,8 @@ class DatabaseManager:
                 'results_gated', 'results_revealed_at', 'gated_outcome', 'upgrade_state',
                 'provider', 'is_test_job',
                 'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
-                'interaction_type', 'corrections_copied', 'style'
+                'interaction_type', 'corrections_copied', 'style',
+                'validation_type', 'inline_citation_count', 'orphan_count'
             ]
             
             for field in simple_fields:
@@ -326,6 +334,13 @@ class DatabaseManager:
                 if col in columns:
                     optional_columns.append(col)
 
+            # Add inline validation columns if they exist
+            inline_cols = ['interaction_type', 'corrections_copied', 'style',
+                          'validation_type', 'inline_citation_count', 'orphan_count']
+            for col in inline_cols:
+                if col in columns:
+                    optional_columns.append(col)
+
             # Build final column list and values
             insert_columns = base_columns + status_columns
             for col in optional_columns:
@@ -351,7 +366,8 @@ class DatabaseManager:
                             'results_gated', 'results_revealed_at', 'gated_outcome',
                             'paid_user_id', 'free_user_id', 'upgrade_state', 'provider', 'is_test_job',
                             'experiment_variant', 'product_id', 'amount_cents', 'currency', 'order_id',
-                            'interaction_type']:
+                            'interaction_type', 'corrections_copied', 'style',
+                            'validation_type', 'inline_citation_count', 'orphan_count']:
                     values.append(validation_data.get(col))
     
             # Build the INSERT statement dynamically

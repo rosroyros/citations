@@ -107,3 +107,53 @@ export const trackResultsRevealedSafe = (jobId, timeToReveal, userType) => {
     return false;
   }
 };
+
+/**
+ * Track inline citation validation completion.
+ *
+ * Called when a full_doc validation completes successfully.
+ *
+ * @param {string} jobId - Job identifier
+ * @param {number} inlineCitationCount - Number of inline citations found
+ * @param {number} orphanCount - Number of orphan citations
+ * @param {string} validationType - "full_doc" or "ref_only"
+ */
+export const trackInlineValidation = (jobId, inlineCitationCount, orphanCount, validationType) => {
+  trackEvent('inline_validation_completed', {
+    job_id: jobId,
+    inline_citation_count: inlineCitationCount,
+    orphan_count: orphanCount,
+    validation_type: validationType,
+    has_orphans: orphanCount > 0
+  });
+};
+
+/**
+ * Track document upload.
+ *
+ * Called when user uploads a DOCX file.
+ *
+ * @param {string} fileName - Name of uploaded file
+ * @param {number} fileSize - Size in bytes
+ * @param {boolean} success - Whether upload succeeded
+ */
+export const trackDocumentUpload = (fileName, fileSize, success) => {
+  trackEvent('document_upload', {
+    file_name: fileName,
+    file_size_kb: Math.round(fileSize / 1024),
+    success: success
+  });
+};
+
+/**
+ * Track orphan citation click.
+ *
+ * Called when user clicks on an orphan citation for more info.
+ *
+ * @param {string} citationText - The orphan citation text
+ */
+export const trackOrphanClick = (citationText) => {
+  trackEvent('orphan_citation_click', {
+    citation_text: citationText
+  });
+};

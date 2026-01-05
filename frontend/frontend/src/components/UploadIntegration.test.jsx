@@ -18,28 +18,6 @@ vi.mock('../utils/analytics', () => ({
   trackEvent: vi.fn()
 }))
 
-// Mock the file processing hook
-vi.mock('../hooks/useFileProcessing', () => ({
-  useFileProcessing: () => {
-    let processedFileCallback = null
-
-    return {
-      processFile: vi.fn((file) => {
-        // Simulate immediate processing for tests
-        processedFileCallback = file
-      }),
-      isProcessing: false,
-      progress: 100,
-      get processedFile() {
-        return processedFileCallback
-      },
-      reset: vi.fn(() => {
-        processedFileCallback = null
-      })
-    }
-  }
-}))
-
 // Mock editor to simplify testing
 vi.mock('@tiptap/react', () => ({
   useEditor: () => ({
@@ -71,15 +49,8 @@ describe('Upload Component Integration', () => {
     renderAppWithProvider()
 
     // Should render UploadArea with its actual text
-    expect(screen.getByText(/Drop your document here/i)).toBeInTheDocument()
-    expect(screen.getByText(/or click to browse/i)).toBeInTheDocument()
-  })
-
-  test('renders ComingSoonModal component (initially hidden)', () => {
-    renderAppWithProvider()
-
-    // Modal should not be in DOM when closed (it renders null)
-    expect(screen.queryByText(/File Upload Coming Soon/i)).not.toBeInTheDocument()
+    expect(screen.getByText(/Drag and drop/i)).toBeInTheDocument()
+    expect(screen.getByText(/browse files/i)).toBeInTheDocument()
   })
 
   test('layouts components responsively - desktop side-by-side', () => {
@@ -90,7 +61,7 @@ describe('Upload Component Integration', () => {
 
     // Check that both editor and upload area are present
     expect(screen.getByTestId('editor')).toBeInTheDocument()
-    expect(screen.getByText(/Drop your document here/i)).toBeInTheDocument()
+    expect(screen.getByText(/Drag and drop/i)).toBeInTheDocument()
 
     // In desktop layout, they should be in same container (input section)
     const inputSection = document.querySelector('form')?.closest('section')
@@ -104,7 +75,7 @@ describe('Upload Component Integration', () => {
     // Should have file input with correct attributes
     const fileInput = document.querySelector('input[type="file"]')
     expect(fileInput).toBeInTheDocument()
-    expect(fileInput).toHaveAttribute('accept', '.pdf,.docx,.txt,.rtf')
+    expect(fileInput).toHaveAttribute('accept', '.docx')
 
     // Should have upload area with proper accessibility
     const uploadArea = screen.getByTestId('upload-area')

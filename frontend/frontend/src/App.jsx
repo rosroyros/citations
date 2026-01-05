@@ -12,7 +12,6 @@ import ValidationLoadingState from './components/ValidationLoadingState'
 import GatedResults from './components/GatedResults'
 import Footer from './components/Footer'
 import { UploadArea } from './components/UploadArea'
-import { ComingSoonModal } from './components/ComingSoonModal'
 import { StyleSelector } from './components/StyleSelector'
 import { getToken, getFreeUsage, ensureFreeUserId } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
@@ -105,8 +104,7 @@ function AppContent() {
     resultsRevealedAt: null,
     isGated: false
   })
-  // Upload state
-  const [showComingSoonModal, setShowComingSoonModal] = useState(false)
+  // File selection state
   const [selectedFile, setSelectedFile] = useState(null)
   // Initialize style from localStorage or default to 'apa7'
   const [selectedStyle, setSelectedStyle] = useState(() => {
@@ -519,20 +517,6 @@ function AppContent() {
 
     setError(errorMessage)
     setLoading(false)
-  }
-
-  // Handle coming soon modal close
-  const handleComingSoonClose = ({ dismissMethod, duration }) => {
-    setShowComingSoonModal(false)
-    setSelectedFile(null)
-
-    // Track analytics for modal close
-    trackEvent('upload_modal_closed', {
-      dismiss_method: dismissMethod,
-      duration: duration,
-      file_type: selectedFile?.type,
-      file_size: selectedFile?.size
-    })
   }
 
   const editor = useEditor({
@@ -1113,11 +1097,6 @@ function AppContent() {
           } : null}
           resetTimestamp={results?.user_status?.reset_time}
           dailyRemaining={results?.user_status?.daily_limit ? results.user_status.daily_limit - results.user_status.daily_used : 0}
-        />
-        <ComingSoonModal
-          isOpen={showComingSoonModal}
-          file={selectedFile}
-          onClose={handleComingSoonClose}
         />
       </div>
     </>

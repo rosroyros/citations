@@ -1,0 +1,86 @@
+.inline-citation-list {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border-left: 3px solid #007bff;
+}
+
+.inline-header {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+.inline-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.inline-item {
+  padding: 6px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.inline-item code {
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+.status-icon {
+  font-size: 1rem;
+}
+
+.status-icon.matched { color: #28a745; }
+.status-icon.mismatch { color: #ffc107; }
+.status-icon.ambiguous { color: #6c757d; }
+
+.mismatch-details,
+.ambiguous-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.mismatch-reason,
+.ambiguous-note {
+  color: #856404;
+  font-size: 0.9rem;
+}
+
+.correction {
+  color: #155724;
+  font-size: 0.9rem;
+  margin-left: auto;
+}
+
+.correction code {
+  background: #d4edda;
+}
+
+/* Status-based row backgrounds */
+.inline-item.status-matched {
+  background: transparent;
+}
+
+.inline-item.status-mismatch {
+  background: #fff3cd;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.inline-item.status-ambiguous {
+  background: #e9ecef;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 4px 0;
+}

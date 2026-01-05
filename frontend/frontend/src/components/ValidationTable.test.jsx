@@ -124,10 +124,10 @@ describe('ValidationTable', () => {
         />
       );
 
-      // Should show "citations" label
+      // Should show "references" label
       const stats = container.querySelector('.table-stats');
       expect(stats.textContent).toContain('2');
-      expect(stats.textContent).toContain('citations');
+      expect(stats.textContent).toContain('references');
 
       // Should show perfect and error counts
       expect(stats.textContent).toContain('perfect');
@@ -147,10 +147,10 @@ describe('ValidationTable', () => {
         />
       );
 
-      // Should show "citations" label (not "submitted")
+      // Should show "references" label (not "submitted")
       const stats = container.querySelector('.table-stats');
       expect(stats.textContent).toContain('2');
-      expect(stats.textContent).toContain('citations');
+      expect(stats.textContent).toContain('references');
       expect(stats.textContent).not.toContain('submitted');
 
       // Should show remaining count with red styling

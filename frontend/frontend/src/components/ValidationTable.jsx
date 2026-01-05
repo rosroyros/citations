@@ -1,8 +1,19 @@
 import { useState } from 'react'
 import './ValidationTable.css'
 import CorrectedCitationCard from './CorrectedCitationCard'
+import OrphanWarningBox from './OrphanWarningBox'
+import InlineCitationList from './InlineCitationList'
+import { useInlineCitations } from '../hooks/useInlineCitations'
 
-function ValidationTable({ results, isPartial = false, totalSubmitted = null, citationsRemaining = 0, jobId = null }) {
+function ValidationTable({
+  results,
+  inlineResults = null,
+  orphanCitations = [],
+  isPartial = false,
+  totalSubmitted = null,
+  citationsRemaining = 0,
+  jobId = null
+}) {
   const [expandedRows, setExpandedRows] = useState(() => {
     // Initialize with error rows expanded
     const initial = {}
@@ -18,6 +29,13 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
       [citationNumber]: !prev[citationNumber]
     }))
   }
+
+  // Organize inline data using hook
+  const { organized, orphans, hasInline, stats } = useInlineCitations(
+    results,
+    inlineResults,
+    orphanCitations
+  )
 
   const perfectCount = results.filter(r => (r.errors?.length || 0) === 0).length
   const errorCount = results.filter(r => (r.errors?.length || 0) > 0).length
@@ -40,6 +58,9 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
 
   return (
     <div className="validation-table-container" data-testid="results">
+      {/* Orphan warning at top */}
+      <OrphanWarningBox orphans={orphans} />
+
       <div className="table-header">
         <h2>
           Validation Results {isPartial && (
@@ -57,8 +78,16 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
         </h2>
         <div className="table-stats">
           <span className="stat-item">
-            <strong>{citationCount}</strong> citations
+            <strong>{citationCount}</strong> references
           </span>
+          {hasInline && stats && (
+            <>
+              <span className="stat-separator">•</span>
+              <span className="stat-item">
+                <strong>{stats.totalInline}</strong> inline citations
+              </span>
+            </>
+          )}
           <span className="stat-separator">•</span>
           <span className="stat-item">
             <span className="stat-badge success">{perfectCount}</span>
@@ -91,9 +120,10 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
           </tr>
         </thead>
         <tbody>
-          {results.map((result) => {
+          {organized.map((result) => {
             const isExpanded = expandedRows[result.citation_number]
             const hasErrors = (result.errors?.length || 0) > 0
+            const hasInlineCitations = hasInline && result.inline_citations && result.inline_citations.length > 0
 
             return (
               <tr
@@ -145,6 +175,14 @@ function ValidationTable({ results, isPartial = false, totalSubmitted = null, ci
                         </ul>
                       </div>
                     </>
+                  )}
+
+                  {/* NEW: Inline citations nested under this ref */}
+                  {hasInlineCitations && isExpanded && (
+                    <InlineCitationList
+                      citations={result.inline_citations}
+                      refIndex={result.citation_number}
+                    />
                   )}
                 </td>
                 <td>
