@@ -54,8 +54,8 @@ export const UploadArea = ({ selectedStyle, onUploadStart, onUploadComplete, onU
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ detail: 'Upload failed' }));
-        throw new Error(errorData.detail || 'Upload failed');
+        const error = await response.json();
+        throw new Error(error.detail || 'Upload failed');
       }
 
       const data = await response.json();
