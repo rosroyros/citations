@@ -106,6 +106,32 @@ label:focus {
   cursor: default;
 }
 
+/* Uploading state styles */
+.uploading {
+  border-color: var(--color-brand);
+  background-color: var(--color-brand-light);
+  cursor: wait;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.spinningIcon {
+  animation: spin 2s linear infinite;
+  font-size: 2rem;
+  display: block !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.uploadHint {
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+  margin-top: var(--space-sm);
+}
+
 .completed {
   border-color: #10b981;
   background-color: #f0fdf4;

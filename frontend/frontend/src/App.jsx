@@ -484,18 +484,41 @@ function AppContent() {
     }, 400)
   }
 
-  // Handle file selection from UploadArea
-  const handleFileSelected = (file) => {
-    // Track upload file selection
-    trackEvent('upload_file_selected', {
-      file_type: file.type,
-      file_size: file.size,
-      file_name: file.name
+  // Handle file selection from UploadArea - now starts validation directly
+  const handleUploadStart = () => {
+    // Track upload start
+    trackEvent('upload_started', {
+      interface_source: 'main_page',
+      style: selectedStyle
     })
 
-    // Show coming soon modal
-    setSelectedFile(file)
-    setShowComingSoonModal(true)
+    // Set loading state
+    setLoading(true)
+  }
+
+  const handleUploadComplete = (data) => {
+    // Start polling for results using the job_id
+    const jobId = data.job_id
+
+    // Track successful upload
+    trackEvent('upload_complete', {
+      job_id: jobId,
+      interface_source: 'main_page'
+    })
+
+    // Start polling for results
+    pollForResults(jobId)
+  }
+
+  const handleUploadError = (errorMessage) => {
+    // Track upload error
+    trackEvent('upload_error', {
+      error_message: errorMessage,
+      interface_source: 'main_page'
+    })
+
+    setError(errorMessage)
+    setLoading(false)
   }
 
   // Handle upload area click
@@ -887,7 +910,12 @@ function AppContent() {
 
               <div className="upload-column">
                 <label>Or upload a document</label>
-                <UploadArea onFileSelected={handleFileSelected} onUploadAreaClick={handleUploadAreaClick} />
+                <UploadArea
+                  selectedStyle={selectedStyle}
+                  onUploadStart={handleUploadStart}
+                  onUploadComplete={handleUploadComplete}
+                  onUploadError={handleUploadError}
+                />
                 <p className="input-helper">
                   We'll automatically find & validate citations.
                 </p>

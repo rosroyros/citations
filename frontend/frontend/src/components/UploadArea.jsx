@@ -1,21 +1,30 @@
 import React, { useState, useCallback } from 'react';
 import styles from './UploadArea.module.css';
-import { VALID_FILE_TYPES, MAX_FILE_SIZE, ACCEPTED_FILE_EXTENSIONS } from '../constants/fileValidation.js';
-import { useFileProcessing } from '../hooks/useFileProcessing.js';
+import { MAX_FILE_SIZE } from '../constants/fileValidation.js';
 
-export const UploadArea = ({ onFileSelected }) => {
+// DOCX MIME type
+const DOCX_MIME_TYPE = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+
+export const UploadArea = ({ selectedStyle, onUploadStart, onUploadComplete, onUploadError }) => {
   const [dragState, setDragState] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState('');
-  const { processFile, isProcessing, progress, processedFile, reset } = useFileProcessing();
 
   const validateFile = (file) => {
-    if (!VALID_FILE_TYPES.includes(file.type)) {
-      setError('Please select a valid file type (PDF, DOCX, TXT, or RTF)');
+    // Check file extension
+    if (!file.name.toLowerCase().endsWith('.docx')) {
+      setError('Only .docx files are supported. Please upload a Word document.');
+      return false;
+    }
+
+    // Check MIME type
+    if (file.type !== DOCX_MIME_TYPE) {
+      setError('Invalid file format. Please upload a .docx Word document.');
       return false;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      setError('File size must be less than 10MB');
+      setError('File too large. Maximum size is 10MB.');
       return false;
     }
 
@@ -23,12 +32,47 @@ export const UploadArea = ({ onFileSelected }) => {
     return true;
   };
 
-  const handleFileSelect = useCallback((file) => {
-    if (validateFile(file)) {
-      // Use the file processing hook
-      processFile(file);
+  const handleFileSelect = useCallback(async (file) => {
+    if (!validateFile(file)) {
+      return;
     }
-  }, [processFile]);
+
+    setIsUploading(true);
+    setError('');
+    onUploadStart?.();
+
+    try {
+      // Create multipart form data
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('style', selectedStyle || 'apa7');
+
+      // Send to backend
+      const response = await fetch('/api/validate/async', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Upload failed' }));
+        throw new Error(errorData.detail || 'Upload failed');
+      }
+
+      const data = await response.json();
+      onUploadComplete?.(data);
+    } catch (err) {
+      // Provide helpful error message
+      const errorMessage = err.message || 'Upload failed. Please try again.';
+      if (errorMessage.includes('parse') || errorMessage.includes('read') || errorMessage.includes('Could not parse')) {
+        setError('Could not read file. Try pasting your text instead.');
+      } else {
+        setError(errorMessage);
+      }
+      onUploadError?.(errorMessage);
+    } finally {
+      setIsUploading(false);
+    }
+  }, [selectedStyle, onUploadStart, onUploadComplete, onUploadError]);
 
   const handleDragEnter = useCallback((e) => {
     e.preventDefault();
@@ -60,58 +104,19 @@ export const UploadArea = ({ onFileSelected }) => {
     }
   }, [handleFileSelect]);
 
-  // Call onFileSelected when processing completes (only once)
-  const hasCalledOnFileSelected = React.useRef(false);
-
-  React.useEffect(() => {
-    if (processedFile && onFileSelected && !hasCalledOnFileSelected.current) {
-      hasCalledOnFileSelected.current = true;
-      onFileSelected(processedFile);
-    }
-  }, [processedFile, onFileSelected]);
-
-  // Show processing state
-  if (isProcessing) {
+  // Show uploading state
+  if (isUploading) {
     return (
       <div
-        data-testid="processing-indicator"
-        className={`${styles.uploadArea} ${styles.processing}`}
+        data-testid="uploading-indicator"
+        className={`${styles.uploadArea} ${styles.uploading}`}
         role="progressbar"
-        aria-valuenow={progress}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={`Processing file: ${Math.round(progress)}% complete`}
+        aria-label="Uploading document"
       >
         <div className={styles.content}>
-          <div className={styles.icon}>⏳</div>
-          <h3>Processing your document...</h3>
-          <div className={styles.progressBar}>
-            <div
-              className={styles.progressFill}
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-          <p>{Math.round(progress)}% complete</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Show completed state - but indicate processing is unavailable
-  if (processedFile) {
-    return (
-      <div
-        data-testid="processing-complete"
-        className={`${styles.uploadArea} ${styles.unavailable}`}
-      >
-        <div className={styles.content}>
-          <p className={styles.fileName}>{processedFile.name}</p>
-          <p className={styles.fileInfo}>
-            {processedFile.type} • {(processedFile.size / 1024 / 1024).toFixed(2)} MB
-          </p>
-          <p className={styles.unavailableMessage}>
-            Document processing is temporarily unavailable
-          </p>
+          <div className={`${styles.icon} ${styles.spinningIcon}`}>⏳</div>
+          <h3>Uploading your document...</h3>
+          <p className={styles.uploadHint}>This may take a moment</p>
         </div>
       </div>
     );
@@ -120,7 +125,7 @@ export const UploadArea = ({ onFileSelected }) => {
   return (
     <div
       data-testid="upload-area"
-      className={`${styles.uploadArea} ${dragState ? styles.dragOver : ''}`}
+      className={`${styles.uploadArea} ${dragState ? styles.dragOver : ''} ${isUploading ? styles.uploading : ''}`}
       onDragEnter={handleDragEnter}
       onDragOver={(e) => e.preventDefault()}
       onDragLeave={handleDragLeave}
@@ -142,12 +147,13 @@ export const UploadArea = ({ onFileSelected }) => {
         <p className={styles.orText}>or <label htmlFor="file-input" role="button" tabIndex={-1}>browse files</label></p>
         <input
           type="file"
-          accept={ACCEPTED_FILE_EXTENSIONS}
+          accept=".docx"
           onChange={handleFileInputChange}
           style={{ display: 'none' }}
           id="file-input"
+          disabled={isUploading}
         />
-        <p className={styles.fileTypes}>PDF, DOCX, TXT, or RTF files accepted</p>
+        <p className={styles.fileTypes}>.docx files accepted</p>
         {error && <div id="error-message" className={styles.error}>{error}</div>}
       </div>
     </div>
