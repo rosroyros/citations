@@ -152,22 +152,37 @@ def parse_llm_response(response_text: str) -> Optional[Dict]:
     if not response_text:
         return None
 
-    # Try to extract JSON from response
-    json_match = re.search(r'\{[^{}]*"results"[^{}]*\[[^\]]*\][^{}]*\}', response_text, re.DOTALL)
-    if not json_match:
-        # Fallback: look for any JSON object
-        json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
+    # Try to extract JSON from response - find the outermost braces
+    # by counting brace depth
+    start_idx = response_text.find('{')
+    if start_idx == -1:
+        return None
 
-    if json_match:
-        try:
-            parsed = json.loads(json_match.group(0))
-            # If we have a "results" key with array, get first result
-            if "results" in parsed and isinstance(parsed["results"], list) and len(parsed["results"]) > 0:
-                return parsed["results"][0]
-            # Otherwise return the parsed object directly
-            return parsed
-        except json.JSONDecodeError:
-            pass
+    brace_count = 0
+    end_idx = start_idx
+    for i, char in enumerate(response_text[start_idx:], start_idx):
+        if char == '{':
+            brace_count += 1
+        elif char == '}':
+            brace_count -= 1
+            if brace_count == 0:
+                end_idx = i + 1
+                break
+
+    if brace_count != 0:
+        return None
+
+    json_str = response_text[start_idx:end_idx]
+
+    try:
+        parsed = json.loads(json_str)
+        # If we have a "results" key with array, get first result
+        if "results" in parsed and isinstance(parsed["results"], list) and len(parsed["results"]) > 0:
+            return parsed["results"][0]
+        # Otherwise return the parsed object directly
+        return parsed
+    except json.JSONDecodeError:
+        pass
 
     return None
 
