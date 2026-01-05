@@ -11,12 +11,12 @@ import { useMemo } from 'react'
  * @param {Array} orphans - Orphan citations from API
  * @returns {Object} Organized data for display
  */
-export function useInlineCitations(results, inlineResults, orphans) {
+export function useInlineCitations(results = [], inlineResults, orphans) {
   return useMemo(() => {
     // If no inline results, return original refs without inline data
     if (!inlineResults || inlineResults.length === 0) {
       return {
-        organized: results,
+        organized: results || [],
         orphans: [],
         hasInline: false,
         stats: null
