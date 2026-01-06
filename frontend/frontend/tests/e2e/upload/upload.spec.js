@@ -1,4 +1,10 @@
 import { test, expect } from '@playwright/test';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 /**
  * Upload Feature E2E Tests
@@ -57,9 +63,62 @@ test.describe('Upload Feature E2E Tests', () => {
     // DOCX Upload (GHF3 - real validation, no modal)
     // ============================================
     test.describe('DOCX Upload', () => {
-        test.skip('Valid DOCX triggers validation flow', async ({ page }) => {
-            // This test requires a real DOCX file - skipped until backend is running with MOCK_LLM
-            // See e2e-inline-flow.spec.cjs for paste-based validation tests
+        test('Valid DOCX triggers validation flow', async ({ page }) => {
+            // Mock the upload endpoint
+            await page.route('/api/validate/async', async route => {
+                const request = route.request();
+                // Verify it's a multipart request (file upload)
+                const contentType = await request.headerValue('content-type');
+                expect(contentType).toContain('multipart/form-data');
+
+                await route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        job_id: 'mock-upload-job',
+                        status: 'pending'
+                    })
+                });
+            });
+
+            // Mock the polling result
+            await page.route(/\/api\/jobs\/mock-upload-job/, async route => {
+                await route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({
+                        status: 'completed',
+                        results: {
+                            job_id: 'mock-upload-job',
+                            status: 'completed',
+                            validation_type: 'full_doc',
+                            results: [
+                                {
+                                    citation_number: 1,
+                                    original: 'Smith, J. (2023). Sample Title. Publisher.',
+                                    status: 'valid',
+                                    errors: []
+                                }
+                            ],
+                            inline_citations: [],
+                            orphan_citations: []
+                        }
+                    })
+                });
+            });
+
+            const fileInput = page.locator('input[type="file"]');
+
+            // We need a path to a real file. Using one of the fixtures.
+            const testDocPath = path.join(__dirname, '../../fixtures/test_doc_valid.docx');
+
+            await fileInput.setInputFiles(testDocPath);
+
+            // Wait for results section to appear
+            await expect(page.locator('.validation-results-section')).toBeVisible({ timeout: 10000 });
+
+            // Verify content from mock
+            await expect(page.getByText('Sample Title')).toBeVisible();
         });
     });
 

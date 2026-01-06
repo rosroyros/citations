@@ -113,12 +113,64 @@ const MOCK_GATED_RESPONSE = {
   }
 }
 
+// 4. Complex Response (Mismatches and Ambiguous)
+const MOCK_COMPLEX_RESPONSE = {
+  status: 'completed',
+  results: {
+    job_id: MOCK_JOB_ID,
+    status: 'completed',
+    validation_type: 'full_doc',
+    citations_checked: 1,
+    citations_remaining: 0,
+    user_status: { type: 'paid', plan: 'unlimited' },
+    results: [
+      {
+        id: 'ref-1',
+        citation_number: 1,
+        citation_text: 'Smith, J. (2019). Title of article. Journal of Academic Studies, 1(2), 10-20.',
+        status: 'valid',
+        errors: [],
+        citation_number: 1
+      }
+    ],
+    inline_citations: [
+      {
+        id: 'ic-1',
+        citation_text: '(Smith, 2019)',
+        match_probability: 0.99,
+        matched_ref_index: 0,
+        match_status: 'matched'
+      },
+      {
+        id: 'ic-2',
+        citation_text: '(Smith, 2020)',
+        match_probability: 0.6,
+        matched_ref_index: 0,
+        match_status: 'mismatch',
+        mismatch_reason: 'Year mismatch',
+        suggested_correction: '(Smith, 2019)'
+      },
+      {
+        id: 'ic-3',
+        citation_text: '(Smith, 2019a)',
+        match_probability: 0.5,
+        matched_ref_index: 0,
+        match_status: 'ambiguous',
+        suggested_correction: 'Check reference'
+      }
+    ],
+    orphan_citations: []
+  }
+}
+
 test.describe('Inline Citation Validation Flow', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.context().clearCookies()
     await page.addInitScript(() => {
       localStorage.clear()
+      // Force 'Credits + Button' variant (1.1) to ensure consistent UI for tests
+      localStorage.setItem('experiment_v1', '1.1')
       // Simulate Paid User by default to bypass Gated Results overlay
       localStorage.setItem('citation_checker_token', 'mock-paid-token')
       window.gtag = function () { } // Mock gtag
@@ -197,6 +249,37 @@ test.describe('Inline Citation Validation Flow', () => {
       await expect(warningBox).toBeVisible()
       await expect(warningBox).toContainText('Citation Missing from References')
       await expect(warningBox).toContainText('(Doe, 2021)')
+    })
+
+    test('complex inline statuses (mismatch, ambiguous) display correctly', async ({ page }) => {
+      // OVERRIDE: Use Complex Response Mock
+      await setupNetworkMocks(page, MOCK_COMPLEX_RESPONSE)
+
+      const fileInput = page.locator('input[type="file"]')
+      // Using valid doc as input, mock response determines output
+      const testDocPath = path.join(__dirname, '../../fixtures/test_doc_valid.docx')
+
+      await fileInput.setInputFiles(testDocPath)
+
+      // Wait for results
+      await expect(page.locator('.validation-results-section')).toBeVisible({ timeout: 10000 })
+
+      // Expand to see inline citations
+      const expandButton = page.getByLabel('Expand').first()
+      await expandButton.click()
+
+      // Verify Mismatch
+      const mismatchItem = page.locator('.inline-item.status-mismatch')
+      await expect(mismatchItem).toBeVisible()
+      await expect(mismatchItem).toContainText('(Smith, 2020)')
+      await expect(mismatchItem).toContainText('Year mismatch')
+      await expect(mismatchItem).toContainText('Should be: (Smith, 2019)')
+
+      // Verify Ambiguous
+      const ambiguousItem = page.locator('.inline-item.status-ambiguous')
+      await expect(ambiguousItem).toBeVisible()
+      await expect(ambiguousItem).toContainText('(Smith, 2019a)')
+      await expect(ambiguousItem).toContainText('Matches multiple references')
     })
   })
 
