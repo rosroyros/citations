@@ -514,7 +514,7 @@ function AppContent() {
     })
 
     // Start polling for results
-    pollForResults(jobId)
+    pollForResults(jobId, getToken())
   }
 
   const handleUploadError = (errorMessage) => {
@@ -963,7 +963,9 @@ function AppContent() {
               {/* Always render the validation table */}
               <ValidationTable
                 results={results.results}
+                inlineResults={results.inline_citations}
                 jobId={results.job_id}
+                orphanCitations={results.orphan_citations}
                 style={{
                   filter: isGated && !resultsRevealed && GATED_RESULTS_ENABLED ? 'blur(8px)' : 'none',
                   transition: 'filter 0.3s ease-out',

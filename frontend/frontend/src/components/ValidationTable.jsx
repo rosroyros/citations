@@ -128,7 +128,7 @@ function ValidationTable({
             return (
               <tr
                 key={result.citation_number}
-                className={`${isExpanded ? 'expanded' : ''} ${hasErrors ? 'has-errors' : ''}`}
+                className={`result-row ${isExpanded ? 'expanded' : ''} ${hasErrors ? 'has-errors' : ''}`}
               >
                 <td>
                   <span className="citation-num">{result.citation_number}</span>
