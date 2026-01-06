@@ -11,6 +11,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:full": "playwright test tests/e2e/core/e2e-full-flow.spec.cjs --project=production",
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {

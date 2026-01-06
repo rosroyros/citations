@@ -1,6 +1,9 @@
 const { test, expect } = require('@playwright/test');
 
 test('E2E Full Flow: Submit unique citation and verify completion', async ({ page }) => {
+  // Increase timeout for real LLM processing (can take 30s+)
+  test.setTimeout(120000);
+
   // 1. Get Test ID from env
   const testId = process.env.TEST_ID || `test-${Date.now()}`;
   // We use a unique pattern that the backend verifier can easily search for
@@ -25,8 +28,8 @@ test('E2E Full Flow: Submit unique citation and verify completion', async ({ pag
 
   // Setup response listener BEFORE clicking submit to capture Job ID
   // We listen for either sync or async endpoint
-  const responsePromise = page.waitForResponse(response => 
-    (response.url().includes('/api/validate') || response.url().includes('/api/validate/async')) 
+  const responsePromise = page.waitForResponse(response =>
+    (response.url().includes('/api/validate') || response.url().includes('/api/validate/async'))
     && response.status() === 200
   );
 
@@ -36,7 +39,7 @@ test('E2E Full Flow: Submit unique citation and verify completion', async ({ pag
   const json = await response.json();
   // Extract Job ID from response (supports both sync and async patterns)
   const jobId = json.job_id;
-  
+
   if (jobId) {
       console.log(`CAPTURED_JOB_ID:${jobId}`);
   } else {
@@ -47,12 +50,23 @@ test('E2E Full Flow: Submit unique citation and verify completion', async ({ pag
   // The processing might take 10-20s, so we increase the timeout
   // We wait for the results section to appear
   const resultsSection = page.locator('.validation-results-section');
-  await expect(resultsSection).toBeVisible({ timeout: 60000 });
+  await expect(resultsSection).toBeVisible({ timeout: 90000 });
+
+  // Handle Gated Results (if enabled)
+  // Check for the "View Results" button which appears in the GatedResults overlay
+  // We use a short timeout because if it's there, it should be there immediately after results appear
+  const viewResultsBtn = page.getByRole('button', { name: /View Results/ });
+  if (await viewResultsBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+    console.log('Gated results detected, clicking "View Results"...');
+    await viewResultsBtn.click();
+    // Wait for the button to disappear or the overlay to fade
+    await expect(viewResultsBtn).toBeHidden();
+  }
 
   // 6. Verify Result Content
   // Check if the unique text is present in the results table (original citation column)
   // We check for the testId specifically
   await expect(resultsSection).toContainText(testId);
-  
+
   console.log(`E2E_SUCCESS_TEST_ID:${testId}`);
 });
