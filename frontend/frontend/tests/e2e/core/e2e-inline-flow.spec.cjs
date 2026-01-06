@@ -6,18 +6,11 @@ const path = require('path')
  * E2E Tests for Inline Citation Validation Flow
  *
  * This file tests the complete inline citation validation feature:
- * - Paste-based full document validation (DOCX upload tests skipped - see note below)
+ * - DOCX upload with inline citation validation
+ * - Paste-based full document validation
  * - Orphan detection and warning
  * - Hierarchical results display (inline citations nested under refs)
  * - Free tier gating for large documents
- *
- * NOTE: DOCX upload tests are currently skipped due to backend validation issue:
- * The /api/validate/async endpoint has a FastAPI parameter ordering issue that causes
- * RequestValidationError when receiving multipart/form-data. The endpoint expects
- * `request: Optional[ValidationRequest] = None` which causes FastAPI to try parsing
- * form data as JSON first. This should be fixed by reordering parameters in backend/app.py.
- *
- * Once backend is fixed, uncomment the DOCX upload tests.
  *
  * Test fixtures (from P5.3):
  * - test_doc_valid.docx - Valid doc with matching citations
@@ -37,9 +30,9 @@ test.describe('Inline Citation Validation Flow', () => {
   })
 
   // ============================================
-  // DOCX Upload Tests (SKIPPED - see note above)
+  // DOCX Upload Tests
   // ============================================
-  test.describe.skip('DOCX Upload', () => {
+  test.describe('DOCX Upload', () => {
     test('upload valid DOCX shows inline citations', async ({ page }) => {
       const fileInput = page.locator('input[type="file"]')
       const testDocPath = path.join(__dirname, '../../fixtures/test_doc_valid.docx')

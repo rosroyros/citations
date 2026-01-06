@@ -1,20 +1,16 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Consolidated Upload Feature E2E Tests
- * 
- * This file combines tests from:
- * - upload-comprehensive.spec.js (base)
- * - upload-area.spec.js (merged)
- * - upload-integration.spec.js (merged)
- * 
+ * Upload Feature E2E Tests
+ *
+ * Updated for GHF3 inline citation validation feature.
+ * Now tests DOCX-only upload flow with real validation (no ComingSoonModal).
+ *
  * Test organization:
  * - Upload Area UI: Basic rendering and layout
- * - File Selection: Click-to-upload functionality
+ * - DOCX Upload: Valid DOCX file upload and validation
  * - Drag and Drop: Visual feedback and state management
- * - Validation: File type and size validation
- * - Coming Soon Modal: Modal display and dismiss methods
- * - Processing State: Animation timing and progress
+ * - Validation Errors: File type and size validation
  * - Accessibility: Keyboard navigation and ARIA
  * - Responsive Layout: Mobile and desktop layouts
  */
@@ -47,10 +43,10 @@ test.describe('Upload Feature E2E Tests', () => {
             await expect(uploadArea.locator('text=Drag and drop')).toBeVisible();
             await expect(uploadArea.locator('text=or browse files')).toBeVisible();
 
-            // Check file input exists with correct accept types
+            // Check file input exists with DOCX-only accept type (GHF3 change)
             const fileInput = page.locator('input[type="file"]');
             await expect(fileInput).toHaveCount(1);
-            await expect(fileInput).toHaveAttribute('accept', '.pdf,.docx,.txt,.rtf');
+            await expect(fileInput).toHaveAttribute('accept', '.docx');
 
             // Check editor is also present (side-by-side layout)
             await expect(page.locator('[data-testid="editor"]')).toBeVisible();
@@ -58,47 +54,12 @@ test.describe('Upload Feature E2E Tests', () => {
     });
 
     // ============================================
-    // File Selection
+    // DOCX Upload (GHF3 - real validation, no modal)
     // ============================================
-    test.describe('File Selection', () => {
-        test('File selection via click works correctly', async ({ page }) => {
-            const uploadArea = page.locator('[data-testid="upload-area"]');
-            await expect(uploadArea).toBeVisible();
-
-            const fileInput = page.locator('input[type="file"]');
-
-            // Create a mock PDF file content for testing
-            const fileContent = Buffer.from('%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n');
-
-            // Upload the file
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: fileContent
-            });
-
-            // File upload should trigger processing, then modal
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-        });
-
-        test('Upload handles file selection without crashing', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test file')
-            });
-
-            // Wait for processing to complete
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-
-            // This test verifies the system handles file selection without crashing
-            await expect(page.locator('text=We apologize, but document upload is temporarily unavailable')).toBeVisible();
-
-            // After dismissing modal, the upload area shows processed state
-            await page.locator('button:has-text("Okay")').click();
-            await expect(page.locator('[data-testid="processing-complete"]')).toBeVisible();
+    test.describe('DOCX Upload', () => {
+        test.skip('Valid DOCX triggers validation flow', async ({ page }) => {
+            // This test requires a real DOCX file - skipped until backend is running with MOCK_LLM
+            // See e2e-inline-flow.spec.cjs for paste-based validation tests
         });
     });
 
@@ -166,240 +127,37 @@ test.describe('Upload Feature E2E Tests', () => {
     });
 
     // ============================================
-    // Validation
+    // Validation Errors
     // ============================================
-    test.describe('Validation', () => {
-        test('File validation error displays for invalid file type', async ({ page }) => {
+    test.describe('Validation Errors', () => {
+        test('Non-DOCX file shows error message', async ({ page }) => {
             const fileInput = page.locator('input[type="file"]');
 
+            // Try to upload a non-DOCX file
             await fileInput.setInputFiles({
-                name: 'image.jpg',
-                mimeType: 'image/jpeg',
-                buffer: Buffer.from('Fake image')
+                name: 'document.pdf',
+                mimeType: 'application/pdf',
+                buffer: Buffer.from('Fake PDF content')
             });
 
-            // Error message should appear
-            await expect(page.locator('text=Please select a valid file type')).toBeVisible();
-
-            // Modal should NOT appear
-            await expect(page.locator('[data-testid="modal-backdrop"]')).not.toBeVisible();
+            // Error message should appear (matches UploadArea.jsx validation)
+            await expect(page.getByText(/Only .docx files are supported/i)).toBeVisible();
         });
 
-        test('File validation error displays for oversized file', async ({ page }) => {
+        test('Oversized file shows error message', async ({ page }) => {
             const fileInput = page.locator('input[type="file"]');
 
             // Create large file buffer (>10MB)
             const largeBuffer = Buffer.alloc(11 * 1024 * 1024, 'x');
 
             await fileInput.setInputFiles({
-                name: 'large.pdf',
-                mimeType: 'application/pdf',
+                name: 'large.docx',
+                mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                 buffer: largeBuffer
             });
 
             // Error message should appear
-            await expect(page.locator('text=File size must be less than 10MB')).toBeVisible();
-
-            // Modal should NOT appear
-            await expect(page.locator('[data-testid="modal-backdrop"]')).not.toBeVisible();
-        });
-    });
-
-    // ============================================
-    // Coming Soon Modal
-    // ============================================
-    test.describe('Coming Soon Modal', () => {
-        test('File upload triggers ComingSoonModal', async ({ page }) => {
-            const fileContent = Buffer.from('Test file content for upload');
-
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test-document.pdf',
-                mimeType: 'application/pdf',
-                buffer: fileContent
-            });
-
-            // Wait for the modal to appear
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-            await expect(page.locator('text=We apologize, but document upload is temporarily unavailable')).toBeVisible();
-
-            // Check that button is present
-            await expect(page.locator('button:has-text("Okay")')).toBeVisible();
-        });
-
-        test('Modal can be dismissed by clicking Okay button', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-            await page.locator('button:has-text("Okay")').click();
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).not.toBeVisible();
-        });
-
-        test('Modal can be dismissed by clicking backdrop', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            const backdrop = page.locator('[data-testid="modal-backdrop"]');
-            await expect(backdrop).toBeVisible();
-
-            // Click backdrop (not the modal content)
-            await backdrop.click({ position: { x: 10, y: 10 } });
-
-            await expect(backdrop).not.toBeVisible();
-        });
-
-        test('Modal can be dismissed by pressing Escape key', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-            await page.keyboard.press('Escape');
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).not.toBeVisible();
-        });
-
-        test('Modal backdrop click does not close if clicking modal content', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-
-            // Click on modal content (not backdrop)
-            const modalContent = page.locator('.modal-content');
-            await modalContent.click();
-
-            // Modal should still be visible
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-        });
-
-        test('Modal dismissal returns to main interface with processed state', async ({ page }) => {
-            const fileContent = Buffer.from('Test file content for upload');
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test-document.pdf',
-                mimeType: 'application/pdf',
-                buffer: fileContent
-            });
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-
-            const closeButton = page.locator('button:has-text("Okay")').first();
-            await closeButton.click();
-
-            // Modal should be hidden
-            await expect(page.locator('[data-testid="modal-backdrop"]')).not.toBeVisible();
-
-            // Should return to main interface with processed state
-            await expect(page.locator('[data-testid="processing-complete"]')).toBeVisible();
-            await expect(page.locator('text=Document processing is temporarily unavailable')).toBeVisible();
-            await expect(page.locator('[data-testid="editor"]')).toBeVisible();
-        });
-    });
-
-    // ============================================
-    // Processing State
-    // ============================================
-    test.describe('Processing State', () => {
-        test('Processing animation displays for 1.5 seconds before modal', async ({ page }) => {
-            const fileContent = Buffer.from('Test PDF content');
-            const startTime = Date.now();
-
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: fileContent
-            });
-
-            // Processing indicator should appear immediately
-            await expect(page.locator('[data-testid="processing-indicator"]')).toBeVisible({ timeout: 500 });
-            await expect(page.locator('text=Processing your document')).toBeVisible();
-
-            // Wait for modal to appear
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-
-            const processingDuration = Date.now() - startTime;
-
-            // Processing should take approximately 1500ms (allow 300ms variance)
-            expect(processingDuration).toBeGreaterThanOrEqual(1300);
-            expect(processingDuration).toBeLessThan(2100);
-        });
-
-        test('Processing progress bar animates from 0 to 100%', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            const processingIndicator = page.locator('[data-testid="processing-indicator"]');
-            await expect(processingIndicator).toBeVisible({ timeout: 500 });
-
-            const progressFill = processingIndicator.locator('[class*="progressFill"]');
-
-            // Use poll to check progress advances during animation (before modal appears)
-            let maxProgress = 0;
-            await expect.poll(async () => {
-                const isVisible = await progressFill.isVisible().catch(() => false);
-                if (isVisible) {
-                    const width = await progressFill.evaluate((el) => {
-                        return parseInt(el.style.width) || 0;
-                    }).catch(() => 0);
-                    maxProgress = Math.max(maxProgress, width);
-                }
-                return maxProgress;
-            }, { timeout: 2000 }).toBeGreaterThan(50);
-        });
-
-
-        test('Processing state shows percentage complete', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            await expect(page.locator('[data-testid="processing-indicator"]')).toBeVisible({ timeout: 500 });
-
-            // Should show percentage text
-            await expect(page.locator('text=% complete')).toBeVisible();
-        });
-
-        test('Editor receives focus after modal is dismissed', async ({ page }) => {
-            const fileInput = page.locator('input[type="file"]');
-            await fileInput.setInputFiles({
-                name: 'test.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test content')
-            });
-
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
-            await page.locator('button:has-text("Okay")').click();
-
-            const editor = page.locator('[data-testid="editor"] .ProseMirror, [contenteditable="true"]').first();
-            await expect(editor).toBeFocused({ timeout: 2000 });
+            await expect(page.getByText(/File too large|Maximum size is 10MB/i)).toBeVisible();
         });
     });
 
@@ -420,7 +178,7 @@ test.describe('Upload Feature E2E Tests', () => {
             await expect(uploadArea).toBeFocused();
         });
 
-        test('Enter key on upload area triggers file selection', async ({ page }) => {
+        test('Enter key on upload area triggers file chooser', async ({ page }) => {
             const uploadArea = page.locator('[data-testid="upload-area"]');
             await uploadArea.focus();
             await expect(uploadArea).toBeFocused();
@@ -429,14 +187,9 @@ test.describe('Upload Feature E2E Tests', () => {
             const fileChooserPromise = page.waitForEvent('filechooser');
             await uploadArea.press('Enter');
             const fileChooser = await fileChooserPromise;
-            await fileChooser.setFiles({
-                name: 'test-document.pdf',
-                mimeType: 'application/pdf',
-                buffer: Buffer.from('Test file content')
-            });
 
-            // Modal should appear
-            await expect(page.locator('[data-testid="modal-backdrop"]')).toBeVisible();
+            // File chooser should be triggered
+            expect(fileChooser).toBeTruthy();
         });
     });
 

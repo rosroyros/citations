@@ -1500,8 +1500,7 @@ async def cleanup_old_jobs():
 @app.post("/api/validate/async")
 async def validate_citations_async(
     http_request: Request,
-    background_tasks: BackgroundTasks,
-    request: Optional[ValidationRequest] = None
+    background_tasks: BackgroundTasks
 ):
     """
     Create async validation job.
@@ -1562,11 +1561,14 @@ async def validate_citations_async(
             )
     else:
         # Handle JSON body (backward compatible)
-        if not request:
+        try:
+            body = await http_request.json()
+            html_content = body.get("citations")
+            style = body.get("style", DEFAULT_STYLE)
+            if not html_content:
+                raise HTTPException(status_code=400, detail="Citations field required")
+        except Exception:
             raise HTTPException(status_code=400, detail="Invalid request format")
-
-        html_content = request.citations
-        style = request.style
 
     # Validate input
     if not html_content or not html_content.strip():
