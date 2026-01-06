@@ -71,18 +71,20 @@ def verify_data(job_id, db_path, api_url=None):
         cursor = conn.cursor()
 
         # Query for the citation by Job ID
-        query = "SELECT job_id, status, created_at, citation_count FROM validations WHERE job_id = ?"
+        query = "SELECT job_id, status, created_at, citation_count, inline_citation_count, orphan_count FROM validations WHERE job_id = ?"
         cursor.execute(query, (job_id,))
-        
+
         row = cursor.fetchone()
-        
+
         if row:
-            job_id_db, status, created_at, count = row
+            job_id_db, status, created_at, count, inline_count, orphan_count = row
             print(f"SUCCESS: Found record for Job ID {job_id}")
             print(f"  Status: {status}")
             print(f"  Time:   {created_at}")
             print(f"  Count:  {count}")
-            
+            print(f"  Inline: {inline_count}")
+            print(f"  Orphan: {orphan_count}")
+
             if status == 'completed':
                 db_verified = True
             else:

@@ -15,7 +15,7 @@ import { UploadArea } from './components/UploadArea'
 import { StyleSelector } from './components/StyleSelector'
 import { getToken, getFreeUsage, ensureFreeUserId } from './utils/creditStorage'
 import { CreditProvider, useCredits } from './contexts/CreditContext'
-import { trackEvent, trackResultsRevealedSafe } from './utils/analytics'
+import { trackEvent, trackResultsRevealedSafe, trackInlineValidation } from './utils/analytics'
 import { useAnalyticsTracking } from './hooks/useAnalyticsTracking'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfService from './pages/TermsOfService'
@@ -389,6 +389,15 @@ function AppContent() {
               user_type: userType,
               interface_source: 'main_page'
             })
+
+            // Track inline validation metrics
+            const inlineCount = data.results.reduce((sum, result) => sum + (result.inline_citations?.length || 0), 0)
+            const orphanCount = data.orphan_citations?.length || 0
+            const validationType = data.validation_type || (data.results.some(r => r.inline_citations?.length > 0) ? 'full_doc' : 'ref_only')
+
+            if (inlineCount > 0 || orphanCount > 0) {
+              trackInlineValidation(data.job_id, inlineCount, orphanCount, validationType)
+            }
           }
 
           // Refresh credits for paid users

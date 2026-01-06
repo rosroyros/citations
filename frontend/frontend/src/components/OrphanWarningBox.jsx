@@ -1,4 +1,5 @@
 import './OrphanWarningBox.css'
+import { trackOrphanClick } from '../utils/analytics'
 
 function OrphanWarningBox({ orphans }) {
   if (!orphans || orphans.length === 0) return null
@@ -11,7 +12,11 @@ function OrphanWarningBox({ orphans }) {
       </div>
       <ul className="orphan-list">
         {orphans.map(orphan => (
-          <li key={orphan.id}>
+          <li
+            key={orphan.id}
+            onClick={() => trackOrphanClick(orphan.citation_text)}
+            style={{ cursor: 'pointer' }}
+          >
             <code>{orphan.citation_text}</code>
             <span className="orphan-count">cited {orphan.citation_count}×</span>
           </li>

@@ -50,6 +50,20 @@ fi
 
 # Extract Job ID
 JOB_ID=$(grep "CAPTURED_JOB_ID:" "$OUTPUT_FILE" | cut -d':' -f2 | tr -d '\r')
+
+# 1b. Run Inline Flow Test (Locally against Prod)
+echo -e "\n${GREEN}[1b/4] Running Inline Flow Test (Local -> Prod)...${NC}"
+# We run this to verify inline functionality, but we use the JOB_ID from the full flow for data verification
+# (unless we want to verify both)
+npm run test:e2e -- tests/e2e/core/e2e-inline-flow.spec.cjs --project=production
+INLINE_EXIT_CODE=$?
+
+if [ $INLINE_EXIT_CODE -ne 0 ]; then
+    echo -e "${RED}Inline flow test failed!${NC}"
+    # We continue for now to verify the first job, but mark failure
+    exit 1
+fi
+
 rm "$OUTPUT_FILE"
 
 if [ -z "$JOB_ID" ]; then
