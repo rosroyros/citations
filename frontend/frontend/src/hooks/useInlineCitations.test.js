@@ -46,12 +46,42 @@ describe('useInlineCitations', () => {
      const refs = [{ citation_number: 1 }]
      const inline = [{ id: 'c1', matched_ref_index: 0, match_status: 'matched' }]
      const orphans = [{ id: 'o1' }, { id: 'o2' }]
-     
-     const { result } = renderHook(() => 
+
+     const { result } = renderHook(() =>
        useInlineCitations(refs, inline, orphans)
      )
-     
+
      expect(result.current.stats.orphaned).toBe(2)
      expect(result.current.orphans).toHaveLength(2)
+  })
+
+  it('detects inline citations already nested in results from backend', () => {
+    // Backend nests inline_citations inside each result
+    const refsWithNested = [
+      {
+        citation_number: 1,
+        inline_citations: [
+          { id: 'c1', match_status: 'matched' },
+          { id: 'c2', match_status: 'mismatch' }
+        ]
+      },
+      {
+        citation_number: 2,
+        inline_citations: []
+      }
+    ]
+    const orphans = [{ id: 'o1' }]
+
+    // No separate inlineResults passed (null)
+    const { result } = renderHook(() =>
+      useInlineCitations(refsWithNested, null, orphans)
+    )
+
+    expect(result.current.hasInline).toBe(true)
+    expect(result.current.stats.totalInline).toBe(2)
+    expect(result.current.stats.matched).toBe(1)
+    expect(result.current.stats.mismatched).toBe(1)
+    expect(result.current.stats.orphaned).toBe(1)
+    expect(result.current.organized).toEqual(refsWithNested)
   })
 })

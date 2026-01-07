@@ -13,13 +13,36 @@ import { useMemo } from 'react'
  */
 export function useInlineCitations(results = [], inlineResults, orphans) {
   return useMemo(() => {
-    // If no inline results, return original refs without inline data
-    if (!inlineResults || inlineResults.length === 0) {
+    // Check if results already have inline_citations nested from backend
+    const resultsHaveNestedInline = (results || []).some(
+      r => r.inline_citations && r.inline_citations.length > 0
+    )
+
+    // If no inline results AND no nested inline data, return original refs
+    if ((!inlineResults || inlineResults.length === 0) && !resultsHaveNestedInline) {
       return {
         organized: results || [],
-        orphans: [],
+        orphans: orphans || [],
         hasInline: false,
         stats: null
+      }
+    }
+
+    // If results already have nested inline_citations from backend, use them directly
+    if (resultsHaveNestedInline && (!inlineResults || inlineResults.length === 0)) {
+      const allInline = (results || []).flatMap(r => r.inline_citations || [])
+      const stats = {
+        totalInline: allInline.length,
+        matched: allInline.filter(i => i.match_status === 'matched').length,
+        mismatched: allInline.filter(i => i.match_status === 'mismatch').length,
+        ambiguous: allInline.filter(i => i.match_status === 'ambiguous').length,
+        orphaned: (orphans || []).length
+      }
+      return {
+        organized: results || [],
+        orphans: orphans || [],
+        hasInline: true,
+        stats
       }
     }
 
