@@ -18,7 +18,9 @@ function OrphanWarningBox({ orphans }) {
             style={{ cursor: 'pointer' }}
           >
             <code>{orphan.citation_text}</code>
-            <span className="orphan-count">cited {orphan.citation_count}×</span>
+            {orphan.citation_count && (
+              <span className="orphan-count">cited {orphan.citation_count}×</span>
+            )}
           </li>
         ))}
       </ul>

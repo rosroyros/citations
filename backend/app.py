@@ -1213,6 +1213,12 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
         # Split document into body and reference sections
         body_html, refs_html, has_header = split_document(html_content)
 
+        # Use refs section for validation if header was found, otherwise use full text
+        if has_header and refs_html:
+            refs_text = html_to_text_with_formatting(refs_html)
+        else:
+            refs_text = citations_text  # Fall back to full text for paste-only flow
+
         # Determine validation type
         if has_header and body_html:
             validation_type = "full_doc"
@@ -1288,7 +1294,7 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
             provider=provider,
             internal_model_id=internal_model_id,
             job_id=job_id,
-            citations=citations_text,
+            citations=refs_text,
             style=style,
             initial_fallback=fallback_occurred
         )

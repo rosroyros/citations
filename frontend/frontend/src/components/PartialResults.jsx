@@ -14,7 +14,7 @@ import { PricingTablePasses } from './PricingTablePasses';
 import { PromoPill } from './PromoPill';
 import { PROMO_CONFIG } from '../config/promoConfig';
 
-export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal, userStatus }) {
+export function PartialResults({ results, partial, citations_checked, citations_remaining, onUpgrade, job_id, results_gated, onReveal, userStatus, inlineResults, orphanCitations }) {
   const [isRevealed, setIsRevealed] = useState(false);
   const [error, setError] = useState(null);
   const [inlineCheckoutSuccess, setInlineCheckoutSuccess] = useState(false);
@@ -278,6 +278,8 @@ export function PartialResults({ results, partial, citations_checked, citations_
     <div className="partial-results-container" data-testid="partial-results">
       <ValidationTable
         results={results}
+        inlineResults={inlineResults}
+        orphanCitations={orphanCitations}
         jobId={job_id}
         isPartial={true}
         totalSubmitted={citations_checked + citations_remaining}

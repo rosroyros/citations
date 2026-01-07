@@ -70,3 +70,75 @@ class MockProvider(CitationValidator):
         return {
             "results": results
         }
+
+    def generate_completion(self, prompt: str) -> str:
+        """
+        Generate a mock completion for inline citation validation.
+
+        Returns JSON that matches inline citations to references.
+
+        Args:
+            prompt: The LLM prompt for inline validation
+
+        Returns:
+            JSON string with mock inline validation results
+        """
+        import json
+        import re
+
+        # Extract citation IDs and text from prompt (format: "c1: (Smith, 2019)")
+        citation_pattern = r'(c\d+):\s*(.+?)(?=\nc\d+:|$)'
+        citation_matches = re.findall(citation_pattern, prompt, re.DOTALL)
+
+        if not citation_matches:
+            # Fallback: try JSON pattern
+            json_pattern = r'"id":\s*"(c\d+)"'
+            citation_ids = re.findall(json_pattern, prompt)
+            citation_matches = [(cid, f"(Mock Citation {i})") for i, cid in enumerate(citation_ids)]
+
+        if not citation_matches:
+            # Last fallback
+            citation_matches = [(f"c{i}", f"(Mock {i})") for i in range(1, 6)]
+
+        results = []
+        for i, (cid, text) in enumerate(citation_matches):
+            text = text.strip()
+            # Alternate between matched and orphaned for testing
+            if i % 4 == 0:
+                # Orphan (no match)
+                results.append({
+                    "id": cid,
+                    "citation_text": text,
+                    "match_status": "orphan",
+                    "matched_ref_index": None,
+                    "notes": "No matching reference found"
+                })
+            elif i % 4 == 1:
+                # Matched
+                results.append({
+                    "id": cid,
+                    "citation_text": text,
+                    "match_status": "matched",
+                    "matched_ref_index": (i % 5) + 1,
+                    "notes": None
+                })
+            elif i % 4 == 2:
+                # Mismatch (wrong format)
+                results.append({
+                    "id": cid,
+                    "citation_text": text,
+                    "match_status": "mismatch",
+                    "matched_ref_index": (i % 5) + 1,
+                    "notes": "Year format incorrect"
+                })
+            else:
+                # Ambiguous
+                results.append({
+                    "id": cid,
+                    "citation_text": text,
+                    "match_status": "ambiguous",
+                    "matched_ref_index": (i % 5) + 1,
+                    "notes": "Multiple possible matches"
+                })
+
+        return json.dumps({"results": results})

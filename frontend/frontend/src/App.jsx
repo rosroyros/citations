@@ -331,14 +331,10 @@ function AppContent() {
 
           // Handle successful completion
           const data = jobData.results
-          console.log('Job completed with data:', data)
 
           // Update user status if available
           if (data.user_status) {
-            console.log('Setting user status:', data.user_status)
             setJobUserStatus(data.user_status)
-          } else {
-            console.log('No user_status found in data:', Object.keys(data))
           }
 
           // Sync localStorage with backend's authoritative count
@@ -954,6 +950,8 @@ function AppContent() {
               results_gated={isGated}
               onReveal={handleRevealResults}
               userStatus={userStatus}
+              inlineResults={results.inline_citations}
+              orphanCitations={results.orphan_citations}
             />
           </div>
         )}
