@@ -585,6 +585,11 @@ class ValidationResponse(BaseModel):
     user_status: Optional[UserStatus] = None  # NEW - user access status
     limit_type: Optional[str] = None  # NEW - reason for partial/gated results
     experiment_variant: Optional[str] = None  # NEW - A/B test variant
+    # Inline citation validation fields
+    validation_type: Optional[str] = None  # "full_doc" or "ref_only"
+    orphan_citations: Optional[list] = None  # Citations without matching refs
+    stats: Optional[dict] = None  # Inline validation statistics
+    inline_error: Optional[str] = None  # Error message if inline validation failed
 
 
 def build_gated_response(
