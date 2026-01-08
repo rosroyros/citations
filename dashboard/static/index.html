@@ -1274,6 +1274,15 @@
                     <option value="">All</option>
                     <option value="free">Free</option>
                     <option value="paid">Paid</option>
+                    <option value="anonymous">Anonymous</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Validation Type</label>
+                <select id="validationType" onchange="loadData()">
+                    <option value="">All</option>
+                    <option value="full_doc">📄 Full Document</option>
+                    <option value="ref_only">📋 Reference Only</option>
                 </select>
             </div>
             <div class="filter-group">
@@ -1389,6 +1398,8 @@
                         <th onclick="sortTable('created_at')">Time</th>
                         <th onclick="sortTable('duration_seconds')">Duration</th>
                         <th onclick="sortTable('citation_count')">Citations</th>
+                        <th onclick="sortTable('validation_type')" title="Validation Type">Type</th>
+                        <th onclick="sortTable('inline_citation_count')" title="Inline Citations">Inline</th>
                         <th onclick="sortTable('valid_citations_count')" title="Valid Citations"
                             style="color: var(--color-success);">✓</th>
                         <th onclick="sortTable('invalid_citations_count')" title="Invalid Citations"
@@ -1413,7 +1424,7 @@
                 </thead>
                 <tbody id="validationsTable">
                     <tr>
-                        <td colspan="17" class="loading">Loading data...</td>
+                        <td colspan="19" class="loading">Loading data...</td>
                     </tr>
                 </tbody>
             </table>
@@ -1619,6 +1630,7 @@
             const dateRange = document.getElementById('dateRange').value;
             const status = document.getElementById('status').value;
             const userType = document.getElementById('userType').value;
+            const validationType = document.getElementById('validationType').value;
             const search = document.getElementById('search').value;
             const userIdSearch = document.getElementById('userIdSearch').value;
             const excludeTests = document.getElementById('excludeTests').checked;
@@ -1628,7 +1640,7 @@
 
             try {
                 // Show loading
-                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="10" class="loading">Loading data...</td></tr>';
+                document.getElementById('validationsTable').innerHTML = '<tr><td colspan="19" class="loading">Loading data...</td></tr>';
 
                 // Fetch stats
                 const statsResponse = await fetch(`/api/stats?from_date=${from_date}`);
@@ -1647,6 +1659,11 @@
 
                 // Fetch validations
                 let apiUrl = `/api/validations?limit=${pageSize}&offset=${(currentPage - 1) * pageSize}&status=${status}&user_type=${userType}&search=${search}&from_date=${from_date}&order_by=${sortBy}&order_dir=${sortDir}`;
+
+                // Add validation_type filter if selected
+                if (validationType) {
+                    apiUrl += `&validation_type=${validationType}`;
+                }
 
                 // Add user ID search if provided
                 if (userIdSearch.trim()) {
@@ -1836,6 +1853,8 @@
                         <td>${createdTime}</td>
                         <td class="${durationClass}">${duration}</td>
                         <td>${citations}</td>
+                        <td>${validation.validation_type === 'full_doc' ? '📄' : '📋'}</td>
+                        <td>${validation.validation_type === 'full_doc' ? (validation.inline_citation_count || 0) + (validation.orphan_count > 0 ? ' <span style="color:var(--color-warning);" title="' + validation.orphan_count + ' orphans">⚠️</span>' : '') : '-'}</td>
                         <td style="color: var(--color-success);">${validation.valid_citations_count || '-'}</td>
                         <td style="color: var(--color-error);">${validation.invalid_citations_count || '-'}</td>
                         <td>${tokens}</td>
@@ -2010,6 +2029,20 @@
                             <span class="detail-label">Citations:</span>
                             <span class="detail-value">${validation.citation_count || 0}</span>
                         </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Validation Type:</span>
+                            <span class="detail-value">${validation.validation_type === 'full_doc' ? '📄 Full Document' : '📋 Reference Only'}</span>
+                        </div>
+                        ${validation.validation_type === 'full_doc' ? `
+                        <div class="detail-row">
+                            <span class="detail-label">Inline Citations:</span>
+                            <span class="detail-value">${validation.inline_citation_count || 0}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Orphan Citations:</span>
+                            <span class="detail-value" style="${validation.orphan_count > 0 ? 'color: var(--color-warning);' : ''}">${validation.orphan_count || 0}</span>
+                        </div>
+                        ` : ''}
 
                         ${citationsHtml}                        ${validation.citations ? `
                         <div class="detail-row">
