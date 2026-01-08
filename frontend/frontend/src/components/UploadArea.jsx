@@ -54,8 +54,15 @@ export const UploadArea = ({ selectedStyle, onUploadStart, onUploadComplete, onU
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.detail || 'Upload failed');
+        // Check content-type before calling .json() to avoid "string did not match" errors
+        const contentType = response.headers.get('content-type');
+        if (contentType?.includes('application/json')) {
+          const error = await response.json();
+          throw new Error(error.detail || 'Upload failed');
+        } else {
+          const text = await response.text();
+          throw new Error(`Server error (${response.status}): ${text || 'Upload failed'}`);
+        }
       }
 
       const data = await response.json();

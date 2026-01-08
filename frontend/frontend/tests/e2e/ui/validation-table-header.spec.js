@@ -120,7 +120,7 @@ test.describe('ValidationTable Header Display - Desktop', () => {
 
     // Verify count display for full results
     const statsText = await page.locator('.table-stats').textContent();
-    expect(statsText).toContain('5 citations');
+    expect(statsText).toContain('5 references');
     expect(statsText).toMatch(/\d+.*perfect/);
     expect(statsText).toMatch(/\d+.*need fixes/);
 
@@ -207,7 +207,7 @@ test.describe('ValidationTable Header Display - Mobile', () => {
     await expect(header).toBeVisible();
 
     const statsText = await page.locator('.table-stats').textContent();
-    expect(statsText).toContain('5 citations');
+    expect(statsText).toContain('5 references');
   });
 
   test('Mobile - Partial results header displays with proper wrapping', async ({ page }) => {
@@ -237,7 +237,7 @@ test.describe('ValidationTable Header Display - Mobile', () => {
 
     // Verify stats are visible on mobile (may wrap)
     const statsText = await page.locator('.table-stats').textContent();
-    expect(statsText).toContain('citations');
+    expect(statsText).toContain('references');
   });
 
   test('Mobile - Upgrade banner is properly sized and accessible', async ({ page }) => {
