@@ -91,64 +91,75 @@ class TestSplitDocument:
 
     @pytest.mark.parametrize("header", REF_HEADER_KEYWORDS)
     def test_finds_all_header_variations_h2(self, header):
-        """Should detect all reference header variations in h2 tags."""
+        """Should detect all reference header variations in h2 tags.
+        
+        Note: Header text is EXCLUDED from refs_html to prevent
+        'References' from being parsed as the first citation.
+        """
         html = f"<p>Body text here.</p><h2>{header}</h2><p>Ref 1.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
         assert "Body text" in body
-        assert header in refs
+        assert header not in refs  # Header excluded from refs
+        assert "Ref 1" in refs  # Only actual refs content
 
     def test_h1_header(self):
-        """Should find header in h1 tag."""
+        """Should find header in h1 tag and exclude it from refs."""
         html = "<p>Body.</p><h1>References</h1><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
         assert "Body" in body
-        assert "References" in refs
+        assert "References" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_h3_header(self):
-        """Should find header in h3 tag."""
+        """Should find header in h3 tag and exclude it from refs."""
         html = "<p>Body.</p><h3>References</h3><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
         assert "Body" in body
-        assert "References" in refs
+        assert "References" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_strong_header(self):
-        """Should find header in strong tag."""
+        """Should find header in strong tag and exclude it from refs."""
         html = "<p>Body.</p><p><strong>References</strong></p><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
         assert "Body" in body
-        assert "References" in refs
+        assert "References" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_case_insensitive_header(self):
-        """Should find headers regardless of case."""
+        """Should find headers regardless of case and exclude from refs."""
         html = "<p>Body.</p><h2>REFERENCES</h2><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
-        assert "REFERENCES" in refs
+        assert "REFERENCES" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_mixed_case_header(self):
-        """Should find headers with mixed case."""
+        """Should find headers with mixed case and exclude from refs."""
         html = "<p>Body.</p><h2>Reference List</h2><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
-        assert "Reference List" in refs
+        assert "Reference List" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_extra_whitespace_in_header(self):
-        """Should find headers with extra whitespace."""
+        """Should find headers with extra whitespace and exclude from refs."""
         html = "<p>Body.</p><h2>  References  </h2><p>Ref.</p>"
         body, refs, found = split_document(html)
 
         assert found is True
-        assert "References" in refs
+        assert "References" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_no_header_returns_full_as_refs(self):
         """No header should treat entire content as refs."""
@@ -160,7 +171,7 @@ class TestSplitDocument:
         assert refs == html
 
     def test_uses_last_header(self):
-        """Multiple headers should use last one."""
+        """Multiple headers should use last one, header excluded from refs."""
         html = (
             "<h2>References</h2>"
             "<p>Mid content.</p>"
@@ -171,9 +182,10 @@ class TestSplitDocument:
 
         assert found is True
         assert "Mid content" in body
-        assert "Works Cited" in refs
+        assert "Works Cited" not in refs  # Header excluded
+        assert "End content" in refs
         # First reference header should be in body
-        assert "References" not in refs
+        assert "References" in body
 
     def test_content_around_header_preserved(self):
         """Content before and after header should be preserved."""
@@ -193,12 +205,13 @@ class TestSplitDocument:
         assert "Jones, A." in refs
 
     def test_complex_header_with_attributes(self):
-        """Should find headers with HTML attributes."""
+        """Should find headers with HTML attributes and exclude from refs."""
         html = '<p>Body.</p><h2 class="ref-header" id="refs">References</h2><p>Ref.</p>'
         body, refs, found = split_document(html)
 
         assert found is True
-        assert "References" in refs
+        assert "References" not in refs  # Header excluded
+        assert "Ref" in refs
 
     def test_empty_document(self):
         """Should handle empty document."""
@@ -209,13 +222,13 @@ class TestSplitDocument:
         assert refs == ""
 
     def test_only_header_no_content(self):
-        """Should handle document with only header."""
+        """Should handle document with only header - refs empty after header excluded."""
         html = "<h2>References</h2>"
         body, refs, found = split_document(html)
 
         assert found is True
         assert body == ""
-        assert "References" in refs
+        assert refs == ""  # Only header was present, now excluded
 
 
 class TestScanInlineCitations:

@@ -312,10 +312,16 @@ def _organize_by_reference(results: List[Dict], reference_list: List[Dict]) -> D
     """
     # Initialize empty dict for all reference indices
     by_ref = {ref.get("index", i): [] for i, ref in enumerate(reference_list)}
+    
+    # DEBUG: Log the keys
+    logger.debug(f"DEBUG _organize_by_reference: by_ref keys = {sorted(by_ref.keys())}")
 
     for result in results:
         matched_index = result.get("matched_ref_index")
         matched_indices = result.get("matched_ref_indices")
+        
+        # DEBUG: Log what LLM returned
+        logger.debug(f"DEBUG result id={result.get('id')}: matched_ref_index={matched_index}, matched_ref_indices={matched_indices}")
 
         if matched_indices:
             # Ambiguous case - add to ALL matched refs
@@ -328,6 +334,9 @@ def _organize_by_reference(results: List[Dict], reference_list: List[Dict]) -> D
                     logger.warning(f"Ambiguous result references unknown index {idx}")
         elif matched_index is not None and matched_index in by_ref:
             by_ref[matched_index].append(result)
+        elif matched_index is not None:
+            # DEBUG: Log when index not found
+            logger.warning(f"DEBUG matched_ref_index={matched_index} not in by_ref keys {sorted(by_ref.keys())}")
         # Orphans are handled separately in _extract_orphans
 
     return by_ref

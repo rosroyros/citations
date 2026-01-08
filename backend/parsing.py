@@ -103,13 +103,15 @@ def split_document(html: str) -> Tuple[str, str, bool]:
     if matches:
         # Use the LAST match (references at end of document)
         last_match = matches[-1]
-        split_position = last_match.start()
+        # Use end() to exclude the header tag from refs_html
+        # This prevents "References" from being parsed as first citation
+        split_position = last_match.end()
         found_header = True
 
     # Split the document
     if found_header:
-        body_html = html[:split_position].strip()
-        refs_html = html[split_position:].strip()
+        body_html = html[:last_match.start()].strip()  # Body ends before header
+        refs_html = html[split_position:].strip()  # Refs start after header
     else:
         # No header found - treat entire content as reference list
         # This maintains backward compatibility with paste-only flow

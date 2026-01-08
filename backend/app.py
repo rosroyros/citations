@@ -540,6 +540,7 @@ class CitationResult(BaseModel):
     source_type: str
     errors: list[CitationError]
     corrected_citation: Optional[str] = None  # NEW: Full corrected citation with HTML formatting
+    inline_citations: Optional[list] = None  # Inline citations matched to this reference
 
     @model_validator(mode='after')
     def check_correction_validity(self) -> 'CitationResult':
@@ -1372,9 +1373,17 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
             results_by_ref = inline_results.get("results_by_ref", {})
             orphans = inline_results.get("orphans", [])
 
+            # DEBUG: Log results_by_ref structure
+            logger.debug(f"Job {job_id}: DEBUG results_by_ref keys: {list(results_by_ref.keys())}")
+            logger.debug(f"Job {job_id}: DEBUG results_by_ref content: {sum(len(v) for v in results_by_ref.values())} total matched")
+            
             # Add inline_citations to each result
             for idx, result in enumerate(results):
-                result["inline_citations"] = results_by_ref.get(idx, [])
+                matched_inline = results_by_ref.get(idx, [])
+                result["inline_citations"] = matched_inline
+                # DEBUG: Log per-reference nesting
+                if matched_inline:
+                    logger.debug(f"Job {job_id}: DEBUG ref[{idx}] gets {len(matched_inline)} inline citations")
 
             response_data["orphan_citations"] = orphans
             response_data["stats"] = {
@@ -1382,6 +1391,7 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
                 "inline_count": inline_results.get("total_found", 0),
                 "orphan_count": len(orphans),
             }
+            logger.info(f"Job {job_id}: Inline nesting complete - {len(orphans)} orphans, stats={response_data['stats']}")
         elif inline_results and "error" in inline_results:
             # Inline validation failed - include warning
             response_data["inline_error"] = "Inline citation check failed. Reference formatting results shown."
@@ -1404,7 +1414,7 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
                 })
                 gating_reason = "Free tier under limit"
             else:
-                # Partial results
+                # Partial results - truncate to affordable count
                 response_data.update({
                     "partial": True,
                     "citations_checked": affordable,
@@ -1412,8 +1422,10 @@ async def process_validation_job_with_inline(job_id: str, html_content: str, cit
                     "free_used_total": FREE_LIMIT,
                     "limit_type": "free_limit"
                 })
+                # Truncate results to only show what user can access
+                response_data["results"] = response_data["results"][:affordable]
                 gating_reason = "Free tier over limit"
-                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning locked partial results with {citation_count - affordable} remaining")
+                logger.info(f"Job {job_id}: Completed - free tier limit reached, returning {affordable} results with {citation_count - affordable} remaining")
         else:
             # Paid tier - use check_user_access function
             access_check = check_user_access(token, citation_count)

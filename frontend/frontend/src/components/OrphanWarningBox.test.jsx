@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import OrphanWarningBox from './OrphanWarningBox'
 
 describe('OrphanWarningBox', () => {
@@ -61,4 +61,69 @@ describe('OrphanWarningBox', () => {
 
     expect(container.firstChild).toHaveAttribute('data-testid', 'orphan-warning')
   })
+
+  describe('Collapsible behavior', () => {
+    test('shows all orphans when 3 or fewer', () => {
+      const orphans = [
+        { id: 'c1', citation_text: '(One, 2021)' },
+        { id: 'c2', citation_text: '(Two, 2021)' },
+        { id: 'c3', citation_text: '(Three, 2021)' }
+      ]
+      render(<OrphanWarningBox orphans={orphans} />)
+
+      expect(screen.getByText('(One, 2021)')).toBeInTheDocument()
+      expect(screen.getByText('(Two, 2021)')).toBeInTheDocument()
+      expect(screen.getByText('(Three, 2021)')).toBeInTheDocument()
+      expect(screen.queryByRole('button')).not.toBeInTheDocument()
+    })
+
+    test('collapses list and shows toggle button when more than 3 orphans', () => {
+      const orphans = [
+        { id: 'c1', citation_text: '(One, 2021)' },
+        { id: 'c2', citation_text: '(Two, 2021)' },
+        { id: 'c3', citation_text: '(Three, 2021)' },
+        { id: 'c4', citation_text: '(Four, 2021)' },
+        { id: 'c5', citation_text: '(Five, 2021)' }
+      ]
+      render(<OrphanWarningBox orphans={orphans} />)
+
+      // First 3 should be visible
+      expect(screen.getByText('(One, 2021)')).toBeInTheDocument()
+      expect(screen.getByText('(Two, 2021)')).toBeInTheDocument()
+      expect(screen.getByText('(Three, 2021)')).toBeInTheDocument()
+
+      // Last 2 should be hidden
+      expect(screen.queryByText('(Four, 2021)')).not.toBeInTheDocument()
+      expect(screen.queryByText('(Five, 2021)')).not.toBeInTheDocument()
+
+      // Toggle button should show hidden count
+      expect(screen.getByRole('button', { name: 'Show 2 more...' })).toBeInTheDocument()
+    })
+
+    test('expands and collapses when toggle button clicked', () => {
+      const orphans = [
+        { id: 'c1', citation_text: '(One, 2021)' },
+        { id: 'c2', citation_text: '(Two, 2021)' },
+        { id: 'c3', citation_text: '(Three, 2021)' },
+        { id: 'c4', citation_text: '(Four, 2021)' }
+      ]
+      render(<OrphanWarningBox orphans={orphans} />)
+
+      // Initially collapsed
+      expect(screen.queryByText('(Four, 2021)')).not.toBeInTheDocument()
+
+      // Click to expand
+      const toggleBtn = screen.getByRole('button', { name: 'Show 1 more...' })
+      fireEvent.click(toggleBtn)
+
+      // Now all should be visible
+      expect(screen.getByText('(Four, 2021)')).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: 'Show less' })).toBeInTheDocument()
+
+      // Click to collapse again
+      fireEvent.click(screen.getByRole('button', { name: 'Show less' }))
+      expect(screen.queryByText('(Four, 2021)')).not.toBeInTheDocument()
+    })
+  })
 })
+

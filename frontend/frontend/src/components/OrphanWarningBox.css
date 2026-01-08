@@ -42,3 +42,21 @@
   color: #856404;
   font-size: 0.85rem;
 }
+
+.orphan-toggle-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid #d4a106;
+  border-radius: 4px;
+  color: #856404;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.orphan-toggle-btn:hover {
+  background: #ffc107;
+  color: #5c4d00;
+}
