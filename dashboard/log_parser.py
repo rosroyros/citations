@@ -74,12 +74,16 @@ def extract_creation(log_line: str) -> Optional[tuple]:
         tuple of (job_id, timestamp, user_type) if found, None otherwise
     """
     # Pattern matches: Creating async job abc-123 for free user
-    creation_pattern = r'Creating async job ([a-f0-9-]+) for (free|paid) user'
+    # Also matches 'anonymous' which is treated as 'free'
+    creation_pattern = r'Creating async job ([a-f0-9-]+) for (free|paid|anonymous) user'
     match = re.search(creation_pattern, log_line)
 
     if match:
         job_id = match.group(1)
         user_type = match.group(2)
+        # Map 'anonymous' to 'free' for consistency
+        if user_type == 'anonymous':
+            user_type = 'free'
 
         # Extract timestamp from the beginning of the line
         timestamp = extract_timestamp(log_line)
