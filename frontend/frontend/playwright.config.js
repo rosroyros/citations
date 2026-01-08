@@ -85,7 +85,7 @@ export default defineConfig({
     // Run explicitly with: npx playwright test --project=production
     {
       name: 'production',
-      testMatch: ['**/e2e-full-flow.spec.cjs', '**/e2e-upload-flow.spec.cjs'],
+      testMatch: ['**/e2e-full-flow.spec.cjs', '**/e2e-upload-flow.spec.cjs', '**/e2e-inline-flow.spec.cjs'],
       use: { ...devices['Desktop Chrome'] },
     },
 
@@ -99,6 +99,7 @@ export default defineConfig({
         '**/pricing_variants.spec.cjs',      // Handled by database-tests
         '**/e2e-full-flow.spec.cjs',         // Production-only (run via deploy script)
         '**/e2e-upload-flow.spec.cjs',       // Production-only (run via deploy script)
+        '**/e2e-inline-flow.spec.cjs',       // Production-only (run via deploy script)
       ],
       use: { ...devices['Desktop Chrome'] },
     },
@@ -113,6 +114,7 @@ export default defineConfig({
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
         '**/e2e-upload-flow.spec.cjs',
+        '**/e2e-inline-flow.spec.cjs',
       ],
       use: { ...devices['Desktop Firefox'] },
     },
@@ -126,6 +128,7 @@ export default defineConfig({
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
         '**/e2e-upload-flow.spec.cjs',
+        '**/e2e-inline-flow.spec.cjs',
       ],
       use: { ...devices['Desktop Safari'] },
     },
@@ -140,6 +143,7 @@ export default defineConfig({
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
         '**/e2e-upload-flow.spec.cjs',
+        '**/e2e-inline-flow.spec.cjs',
       ],
       use: {
         ...devices['Pixel 5'],
@@ -161,6 +165,7 @@ export default defineConfig({
         '**/pricing_variants.spec.cjs',
         '**/e2e-full-flow.spec.cjs',
         '**/e2e-upload-flow.spec.cjs',
+        '**/e2e-inline-flow.spec.cjs',
       ],
       use: {
         ...devices['iPhone 12'],
