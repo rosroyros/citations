@@ -144,6 +144,15 @@ class TestLogParser(unittest.TestCase):
         self.assertEqual(job_id, "12345678-1234-1234-1234-123456789abc")
         self.assertEqual(count, 100)
 
+    def test_extract_citation_count_with_job_reference_entry_format(self):
+        """Test extracting citation count with new 'reference entry result' format (since Jan 2026)."""
+        log_line = "2026-01-10 14:58:32 - citation_validator - INFO - app.py:1347 - Job 5173d71a-0c61-4537-ad28-23d1bb28fd65: Found 12 reference entry result(s)"
+        result = extract_citation_count_with_job(log_line)
+        self.assertIsNotNone(result)
+        job_id, count = result
+        self.assertEqual(job_id, "5173d71a-0c61-4537-ad28-23d1bb28fd65")
+        self.assertEqual(count, 12)
+
     def test_extract_citation_count_with_job_invalid_line(self):
         """Test extracting citation count with job from invalid line returns None."""
         log_line = "Found 5 citation results"  # No job ID prefix

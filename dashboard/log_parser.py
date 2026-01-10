@@ -199,7 +199,8 @@ def extract_citation_count_with_job(log_line: str) -> Optional[Tuple[str, int]]:
         Tuple of (job_id, citation_count) if found, None otherwise
     """
     # Pattern matches: Job abc-123-def: Found 5 citation result(s)
-    pattern = r'Job ([a-f0-9-]+): Found (\d+) citation result'
+    # Also matches: Job abc-123-def: Found 5 reference entry result(s) (new format since Jan 2026)
+    pattern = r'Job ([a-f0-9-]+): Found (\d+) (?:citation|reference entry) result'
     match = re.search(pattern, log_line)
 
     if match:
